@@ -8,11 +8,75 @@ generator client {
   previewFeatures = ["extendedWhereUnique"]
 }
 
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  expires      DateTime
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+
+  groups  Group[]  @relation(fields: [groupId], references: [id])
+  groupId String[] @db.ObjectId
+
+  accounts Account[]
+  sessions Session[]
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Group {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  users   User[]   @relation(fields: [userIds], references: [id])
+  userIds String[] @db.ObjectId
+
+  wallets Wallet[]
+}
+
 model Wallet {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  chatId     String
-  name       String
-  currency   String
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  currency String
+
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Restrict)
+  groupId String @db.ObjectId
+
   operations Operation[]
 }
 
@@ -22,6 +86,7 @@ model Operation {
   date        DateTime @default(now())
   amount      Int      @db.Long
   category    String
-  wallet      Wallet   @relation(fields: [walletId], references: [id])
-  walletId    String   @db.ObjectId
+
+  wallet   Wallet @relation(fields: [walletId], references: [id], onDelete: Restrict)
+  walletId String @db.ObjectId
 }

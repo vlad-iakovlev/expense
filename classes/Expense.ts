@@ -2,15 +2,9 @@ import { PrismaClient } from '@prisma/client'
 import { INITIAL_BALANCE } from '../constants'
 
 export class Expense {
-  ctx = {
-    chat: { id: '' },
-  }
+  private groupId = ''
 
   constructor(private prisma: PrismaClient) {}
-
-  private get chatId() {
-    return String(this.ctx.chat?.id)
-  }
 
   async createWallet(data: {
     name: string
@@ -19,7 +13,7 @@ export class Expense {
   }) {
     return await this.prisma.wallet.create({
       data: {
-        chatId: this.chatId,
+        groupId: this.groupId,
         name: data.name,
         currency: data.currency,
         operations: {
@@ -39,7 +33,7 @@ export class Expense {
     return await this.prisma.wallet.update({
       where: {
         id,
-        chatId: this.chatId,
+        groupId: this.groupId,
       },
       data: {
         name: data.name,
@@ -52,7 +46,7 @@ export class Expense {
     return await this.prisma.wallet.findFirst({
       where: {
         id,
-        chatId: this.chatId,
+        groupId: this.groupId,
       },
     })
   }
@@ -60,7 +54,7 @@ export class Expense {
   async getWallets() {
     return await this.prisma.wallet.findMany({
       where: {
-        chatId: this.chatId,
+        groupId: this.groupId,
       },
     })
   }
@@ -93,7 +87,7 @@ export class Expense {
     return await this.prisma.operation.update({
       where: {
         wallet: {
-          chatId: this.chatId,
+          groupId: this.groupId,
         },
         id,
       },
@@ -110,7 +104,7 @@ export class Expense {
     await this.prisma.operation.delete({
       where: {
         wallet: {
-          chatId: this.chatId,
+          groupId: this.groupId,
         },
         id,
       },
@@ -121,7 +115,7 @@ export class Expense {
     return await this.prisma.operation.findFirst({
       where: {
         wallet: {
-          chatId: this.chatId,
+          groupId: this.groupId,
         },
         id,
       },
@@ -132,7 +126,7 @@ export class Expense {
     return await this.prisma.operation.findFirst({
       where: {
         wallet: {
-          chatId: this.chatId,
+          groupId: this.groupId,
         },
         id,
       },
@@ -147,7 +141,7 @@ export class Expense {
       where: {
         wallet: {
           id: params.walletId,
-          chatId: this.chatId,
+          groupId: this.groupId,
         },
       },
       orderBy: {
@@ -184,7 +178,7 @@ export class Expense {
     await this.prisma.operation.updateMany({
       where: {
         wallet: {
-          chatId: this.chatId,
+          groupId: this.groupId,
         },
         category: from,
       },
@@ -198,7 +192,7 @@ export class Expense {
     const items = await this.prisma.operation.groupBy({
       where: {
         wallet: {
-          chatId: this.chatId,
+          groupId: this.groupId,
         },
         category: {
           not: INITIAL_BALANCE,

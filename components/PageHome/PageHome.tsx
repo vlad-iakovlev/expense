@@ -1,15 +1,24 @@
 import { useSession } from 'next-auth/react'
-import { FC } from 'react'
+import { useRouter } from 'next/router'
+import { FC, useCallback } from 'react'
+import { Button, ButtonSize } from '../ui-kit/Button'
 import { Container } from '../ui-kit/Container'
 
 export const PageHome: FC = () => {
+  const router = useRouter()
   const session = useSession()
 
+  const handleGoToDashboard = useCallback(() => {
+    router.push('/dashboard')
+  }, [router])
+
   return (
-    <Container className="py-6">
-      {session.status === 'loading' && <div>Loading</div>}
-      {session.status === 'authenticated' && <div>Authenticated</div>}
-      {session.status === 'unauthenticated' && <div>Unauthenticated</div>}
+    <Container className="flex justify-center py-6">
+      {session.status === 'authenticated' && (
+        <Button size={ButtonSize.LARGE} onClick={handleGoToDashboard}>
+          Go to Dashboard
+        </Button>
+      )}
     </Container>
   )
 }
