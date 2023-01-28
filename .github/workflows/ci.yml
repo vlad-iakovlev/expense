@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency: ci
+
+jobs:
+  checks:
+    strategy:
+      matrix:
+        check:
+          - lint
+          - compile
+          - prettier:ci
+    name: ${{ matrix.check }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm ci
+      - name: Run ${{ matrix.check }}
+        run: npm run ${{ matrix.check }}
+
+  deploy:
+    needs: checks
+    if: github.repository == 'vlad-yakovlev/expense' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Digital Ocean droplet via SSH action
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script_stop: true
+          script: |
+            cd Projects/raxee-expense-bot
+            git pull
+            docker compose up -d --build

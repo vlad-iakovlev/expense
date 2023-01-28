@@ -1,0 +1,27 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["extendedWhereUnique"]
+}
+
+model Wallet {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  chatId     String
+  name       String
+  currency   String
+  operations Operation[]
+}
+
+model Operation {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  description String
+  date        DateTime @default(now())
+  amount      Int      @db.Long
+  category    String
+  wallet      Wallet   @relation(fields: [walletId], references: [id])
+  walletId    String   @db.ObjectId
+}
