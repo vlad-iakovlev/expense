@@ -1,25 +1,38 @@
 import { Menu, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { FC, Fragment, useCallback } from 'react'
+import { FC, Fragment, useCallback, useState } from 'react'
 import { Avatar } from '../ui-kit/Avatar'
 import { Button } from '../ui-kit/Button'
 
 export const HeaderUser: FC = () => {
   const session = useSession()
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleSignIn = useCallback(() => {
-    signIn('google')
+  const handleSignIn = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      await signIn('google')
+    } finally {
+      setIsLoading(false)
+    }
   }, [])
 
-  const handleSignOut = useCallback(() => {
-    signOut()
+  const handleSignOut = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      await signOut()
+    } finally {
+      setIsLoading(false)
+    }
   }, [])
 
   return (
     <div>
       {session.status === 'unauthenticated' && (
-        <Button onClick={handleSignIn}>Sign In</Button>
+        <Button disabled={isLoading} onClick={handleSignIn}>
+          Sign In
+        </Button>
       )}
       {session.status === 'authenticated' && (
         <Menu as="div" className="relative">

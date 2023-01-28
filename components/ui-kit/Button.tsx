@@ -12,6 +12,7 @@ export enum ButtonTheme {
 
 export interface ButtonProps {
   children?: ReactNode
+  disabled?: boolean
   href?: string
   size?: ButtonSize
   theme?: ButtonTheme
@@ -20,6 +21,7 @@ export interface ButtonProps {
 
 export const Button: FC<ButtonProps> = ({
   children,
+  disabled,
   size = ButtonSize.MEDIUM,
   theme = ButtonTheme.PRIMARY,
   onClick,
@@ -32,6 +34,7 @@ export const Button: FC<ButtonProps> = ({
         'px-6 py-3 font-medium': size === ButtonSize.LARGE,
         'bg-green-700 text-white hover:bg-green-800 focus:outline-none focus-visible:ring-4 focus-visible:ring-green-500':
           theme === ButtonTheme.PRIMARY,
+        'pointer-events-none': disabled,
       })}
       onClick={onClick}
     >
