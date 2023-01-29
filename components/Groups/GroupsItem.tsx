@@ -3,12 +3,12 @@ import { FC, useMemo } from 'react'
 import { ClientGroup } from '../../models/group'
 import { AvatarGroup } from '../ui-kit/AvatarGroup'
 
-interface GroupsItemProps {
+interface Props {
   group?: ClientGroup
   onClick?: () => void
 }
 
-export const GroupsItem: FC<GroupsItemProps> = ({ group, onClick }) => {
+export const GroupsItem: FC<Props> = ({ group, onClick }) => {
   const avatarGroup = useMemo(() => {
     if (group?.users) {
       const avatars = group.users.map((user) => ({

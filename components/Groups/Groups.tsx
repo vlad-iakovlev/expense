@@ -5,11 +5,11 @@ import { ClientGroup } from '../../models/group'
 import { request } from '../../utils/request'
 import { GroupsItem } from './GroupsItem'
 
-interface GroupsProps {
+interface Props {
   groups: ClientGroup[]
 }
 
-export const Groups: FC<GroupsProps> = ({ groups }) => {
+export const Groups: FC<Props> = ({ groups }) => {
   const router = useRouter()
 
   const handleGroupClick = useCallback(
@@ -29,7 +29,7 @@ export const Groups: FC<GroupsProps> = ({ groups }) => {
   }, [router])
 
   return (
-    <div>
+    <>
       <h1 className="text-xl font-medium mb-6">Groups</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -43,6 +43,6 @@ export const Groups: FC<GroupsProps> = ({ groups }) => {
 
         <GroupsItem onClick={handleCreateGroup} />
       </div>
-    </div>
+    </>
   )
 }

@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { GetGroupResponse } from '../../api/group'
+import { Group as GroupComponent } from '../../components/Group'
 
 const DashboardId: NextPage = () => {
   const router = useRouter()
@@ -21,7 +22,7 @@ const DashboardId: NextPage = () => {
         <title>{`Expense – Group ${group.name}`}</title>
       </Head>
 
-      <h1 className="text-xl font-medium mb-6">{group.name}</h1>
+      <GroupComponent group={group} />
     </>
   )
 }

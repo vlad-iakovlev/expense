@@ -51,11 +51,11 @@ export const createGroup: NextApiHandler<CreateGroupResponse> = async (
   req,
   res
 ) => {
-  const data = createGroupBodySchema.parse(req.body)
+  const body = createGroupBodySchema.parse(req.body)
 
   const group = await req.prisma.group.create({
     data: {
-      name: data.name,
+      name: body.name,
       userIds: req.session.user.id,
     },
     select: groupSelect,
@@ -73,14 +73,14 @@ const getGroupQuerySchema = z.object({
 })
 
 export const getGroup: NextApiHandler<GetGroupResponse> = async (req, res) => {
-  const data = getGroupQuerySchema.parse(req.query)
+  const query = getGroupQuerySchema.parse(req.query)
 
   const group = await req.prisma.group.findFirst({
     where: {
       userIds: {
         has: req.session.user.id,
       },
-      id: data.id,
+      id: query.id,
     },
     select: groupSelect,
   })
@@ -90,4 +90,43 @@ export const getGroup: NextApiHandler<GetGroupResponse> = async (req, res) => {
   } else {
     res.status(200).json({ group })
   }
+}
+
+export interface UpdateGroupBody {
+  name: string
+}
+
+export interface UpdateGroupResponse {
+  group: ClientGroup
+}
+
+const updateGroupQuerySchema = z.object({
+  id: z.string().refine(isValidObjectId),
+})
+
+const updateGroupBodySchema = z.object({
+  name: z.string().min(1),
+})
+
+export const updateGroup: NextApiHandler<UpdateGroupResponse> = async (
+  req,
+  res
+) => {
+  const query = updateGroupQuerySchema.parse(req.query)
+  const body = updateGroupBodySchema.parse(req.body)
+
+  const group = await req.prisma.group.update({
+    where: {
+      id: query.id,
+      userIds: {
+        has: req.session.user.id,
+      },
+    },
+    data: {
+      name: body.name,
+    },
+    select: groupSelect,
+  })
+
+  res.status(200).json({ group })
 }
