@@ -8,8 +8,8 @@ export const PageHome: FC = () => {
   const router = useRouter()
   const session = useSession()
 
-  const handleGoToDashboard = useCallback(() => {
-    router.push('/dashboard')
+  const handleGoToDashboard = useCallback(async () => {
+    await router.push('/dashboard')
   }, [router])
 
   return (

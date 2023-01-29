@@ -2,6 +2,9 @@ import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { useMemo } from 'react'
+import { SWRConfig } from 'swr'
+import { PublicConfiguration } from 'swr/_internal'
 import { Header } from '../components/Header'
 import '../styles/globals.css'
 
@@ -9,6 +12,12 @@ function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session | null }>) {
+  const swrOptions = useMemo<Partial<PublicConfiguration>>(() => {
+    return {
+      fetcher: (url) => fetch(url).then((r) => r.json()),
+    }
+  }, [])
+
   return (
     <>
       <Head>
@@ -19,8 +28,10 @@ function App({
       </Head>
 
       <SessionProvider session={session}>
-        <Header />
-        <Component {...pageProps} />
+        <SWRConfig value={swrOptions}>
+          <Header />
+          <Component {...pageProps} />
+        </SWRConfig>
       </SessionProvider>
     </>
   )

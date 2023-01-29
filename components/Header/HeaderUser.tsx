@@ -39,8 +39,8 @@ export const HeaderUser: FC = () => {
           <div>
             <Menu.Button className="block rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-green-500">
               <Avatar
-                src={session.data.user?.image || ''}
-                name={session.data.user?.name || ''}
+                src={session.data.user?.image}
+                name={session.data.user?.name}
               />
             </Menu.Button>
           </div>

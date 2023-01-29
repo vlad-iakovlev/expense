@@ -12,7 +12,7 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+      minWidth: ({ theme }) => ({ ...theme('spacing') }),
     },
   },
-  plugins: [],
 }

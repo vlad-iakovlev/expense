@@ -1,17 +1,22 @@
+import clsx from 'clsx'
 import { FC } from 'react'
 
 export interface AvatarProps {
-  name: string
-  src: string
+  className?: string
+  border?: boolean
+  name: string | null | undefined
+  src: string | null | undefined
 }
 
-export const Avatar: FC<AvatarProps> = ({ name, src }) => {
+export const Avatar: FC<AvatarProps> = ({ className, border, name, src }) => {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      className="block w-10 h-10 rounded-full"
-      src={src}
-      alt={name}
+      className={clsx(className, 'block w-10 h-10 rounded-full', {
+        'border-4 border-white': border,
+      })}
+      src={src || ''}
+      alt={name || ''}
       referrerPolicy="no-referrer"
     />
   )
