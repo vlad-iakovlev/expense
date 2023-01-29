@@ -9,7 +9,7 @@ interface Props {
 export const GroupUsers: FC<Props> = ({ group }) => {
   return (
     <div className="flex flex-col gap-4 px-6 py-6 bg-white rounded-md shadow hover:shadow-lg transition-shadow focus:outline-none focus-visible:ring-4 focus-visible:ring-green-500">
-      <h2>Users</h2>
+      <h2 className="font-medium">Users</h2>
 
       {group.users.map((user) => (
         <div className="flex items-center" key={user.id}>

@@ -31,7 +31,7 @@ export const GroupsItem: FC<Props> = ({ group, onClick }) => {
       className="flex items-center justify-between gap-4 px-6 py-6 bg-white rounded-md shadow hover:shadow-lg transition-shadow focus:outline-none focus-visible:ring-4 focus-visible:ring-green-500"
       onClick={onClick}
     >
-      <h2 className="truncate">{group?.name || 'Create Group'}</h2>
+      <h2 className="font-medium truncate">{group?.name || 'Create Group'}</h2>
       {avatarGroup}
     </button>
   )
