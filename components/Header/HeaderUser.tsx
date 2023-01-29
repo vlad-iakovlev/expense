@@ -55,10 +55,7 @@ export const HeaderUser: FC = () => {
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right">
-              <Card
-                className="absolute right-0 z-10 mt-2 w-72 origin-top-right"
-                active
-              >
+              <Card active>
                 <Card.Button disabled>
                   <div className="truncate">{session.data.user?.name}</div>
                   <div className="text-zinc-600 truncate">
