@@ -30,7 +30,7 @@ export const Groups: FC<Props> = ({ groups }) => {
 
   return (
     <>
-      <h1 className="text-xl font-medium mb-6">Groups</h1>
+      <h1 className="text-lg font-medium mb-6">Groups</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {groups.map((group) => (

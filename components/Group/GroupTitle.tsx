@@ -71,7 +71,7 @@ export const GroupTitle: FC<Props> = ({ className, group }) => {
   }, [closeEditor, name])
 
   return (
-    <div className={clsx(className, 'text-xl font-medium')}>
+    <div className={clsx(className, 'text-lg font-medium')}>
       {isEditing ? (
         <input
           autoFocus
@@ -83,7 +83,7 @@ export const GroupTitle: FC<Props> = ({ className, group }) => {
           onChange={handleInputChange}
         />
       ) : (
-        <h1 className="mb-6" onClick={openEditor}>
+        <h1 className="truncate" onClick={openEditor}>
           {group.name}
         </h1>
       )}
