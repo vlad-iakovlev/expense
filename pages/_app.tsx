@@ -6,6 +6,7 @@ import { useMemo } from 'react'
 import { SWRConfig } from 'swr'
 import { PublicConfiguration } from 'swr/_internal'
 import { Header } from '../components/Header'
+import { Container } from '../components/ui-kit/Container'
 import '../styles/globals.css'
 
 function App({
@@ -30,7 +31,9 @@ function App({
       <SessionProvider session={session}>
         <SWRConfig value={swrOptions}>
           <Header />
-          <Component {...pageProps} />
+          <Container className="py-6">
+            <Component {...pageProps} />
+          </Container>
         </SWRConfig>
       </SessionProvider>
     </>
