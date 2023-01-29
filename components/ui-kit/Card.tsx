@@ -2,27 +2,12 @@ import clsx from 'clsx'
 import { FC, MouseEvent, ReactNode } from 'react'
 
 export interface CardProps {
-  active?: boolean
-  className?: string
   children?: ReactNode
-  onClick?: (event: MouseEvent) => void
 }
 
-export const Card = ({ active, className, children, onClick }: CardProps) => {
+export const Card = ({ children }: CardProps) => {
   return (
-    <div
-      className={clsx(
-        className,
-        'py-2 bg-white rounded-md ring-1 ring-black ring-opacity-5 transition-shadow',
-        {
-          shadow: !active,
-          'shadow-lg': active,
-          'hover:shadow-lg cursor-pointer': onClick,
-        }
-      )}
-      role={onClick ? 'button' : undefined}
-      onClick={onClick}
-    >
+    <div className="py-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 transition-shadow">
       {children}
     </div>
   )
@@ -43,7 +28,6 @@ const Title: FC<CardTitleProps> = ({ children }) => {
 Card.Title = Title
 
 export interface CardButtonProps {
-  className?: string
   disabled?: boolean
   start?: ReactNode
   end?: ReactNode
@@ -52,7 +36,6 @@ export interface CardButtonProps {
 }
 
 const Button: FC<CardButtonProps> = ({
-  className,
   disabled,
   start,
   end,
@@ -62,7 +45,6 @@ const Button: FC<CardButtonProps> = ({
   return (
     <button
       className={clsx(
-        className,
         'flex w-full items-center min-h-12 px-6 py-2 gap-4 text-left bg-white hover:bg-zinc-100 transition-colors',
         { 'pointer-events-none': disabled }
       )}
