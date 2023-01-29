@@ -1,13 +1,5 @@
 import clsx from 'clsx'
-import { FC, useMemo } from 'react'
-
-export interface AvatarProps {
-  className?: string
-  border?: boolean
-  color?: string
-  name?: string | null
-  src?: string | null
-}
+import { FC, ReactNode, useMemo } from 'react'
 
 export const avatarColors = [
   'red',
@@ -29,6 +21,15 @@ export const avatarColors = [
   'rose',
 ] as const
 
+export interface AvatarProps {
+  className?: string
+  children?: ReactNode
+  border?: boolean
+  color?: string
+  name?: string | null
+  src?: string | null
+}
+
 const getSlugByName = (name: string | null | undefined) => {
   return name?.slice(0, 1) || ''
 }
@@ -41,6 +42,7 @@ const getColorByName = (name: string | null | undefined) => {
 
 export const Avatar: FC<AvatarProps> = ({
   className,
+  children,
   border,
   color,
   name,
@@ -62,14 +64,16 @@ export const Avatar: FC<AvatarProps> = ({
       <div
         className={clsx(
           className,
-          'flex items-center justify-center w-full h-full pt-px font-medium text-white',
+          'flex items-center justify-center w-full h-full text-white',
           `bg-${color || getColorByName(name)}-700`
         )}
       >
-        {getSlugByName(name)}
+        {children || (
+          <div className="pt-px font-medium">getSlugByName(name)</div>
+        )}
       </div>
     )
-  }, [className, color, name, src])
+  }, [children, className, color, name, src])
 
   return (
     <div

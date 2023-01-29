@@ -3,9 +3,9 @@ import Error from 'next/error'
 import Head from 'next/head'
 import useSWR from 'swr'
 import { GetGroupsResponse } from '../../api/group'
-import { Groups } from '../../components/Groups'
+import { Dashboard } from '../../components/Dashboard'
 
-const Dashboard: NextPage = () => {
+const DashboardPage: NextPage = () => {
   const { data, isLoading } = useSWR<GetGroupsResponse>('/api/group')
   const groups = data?.groups
 
@@ -18,9 +18,9 @@ const Dashboard: NextPage = () => {
         <title>Expense – Dashboard</title>
       </Head>
 
-      <Groups groups={groups} />
+      <Dashboard groups={groups} />
     </>
   )
 }
 
-export default Dashboard
+export default DashboardPage

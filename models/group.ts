@@ -1,5 +1,6 @@
-import { Group, User } from '@prisma/client'
+import { Group } from '@prisma/client'
+import { ClientUser } from './user'
 
 export type ClientGroup = Pick<Group, 'id' | 'name'> & {
-  users: Pick<User, 'id' | 'image' | 'name'>[]
+  users: ClientUser[]
 }

@@ -1,14 +1,5 @@
 import clsx from 'clsx'
-import { FC, ReactNode } from 'react'
-
-export enum ButtonSize {
-  MEDIUM,
-  LARGE,
-}
-
-export enum ButtonTheme {
-  PRIMARY,
-}
+import { FC, MouseEvent, ReactNode } from 'react'
 
 export interface ButtonProps {
   children?: ReactNode
@@ -17,9 +8,10 @@ export interface ButtonProps {
   iconStart?: ReactNode
   href?: string
   rounded?: boolean
-  size?: ButtonSize
-  theme?: ButtonTheme
-  onClick?: () => void
+  size?: 'md' | 'lg'
+  theme?: 'primary'
+  type?: 'button' | 'submit' | 'reset'
+  onClick?: (event: MouseEvent) => void
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -28,8 +20,9 @@ export const Button: FC<ButtonProps> = ({
   iconEnd,
   iconStart,
   rounded,
-  size = ButtonSize.MEDIUM,
-  theme = ButtonTheme.PRIMARY,
+  size = 'md',
+  theme = 'primary',
+  type = 'button',
   onClick,
 }) => {
   return (
@@ -37,19 +30,20 @@ export const Button: FC<ButtonProps> = ({
       className={clsx('inline-flex items-center justify-center', {
         'rounded-md': !rounded,
         'rounded-full': rounded,
-        'min-w-10 h-10 px-2 text-sm font-medium': size === ButtonSize.MEDIUM,
-        'min-w-12 h-12 px-3 font-medium': size === ButtonSize.LARGE,
-        'bg-green-700 text-white hover:bg-green-800 focus:outline-none focus-visible:ring-4 focus-visible:ring-green-500 transition-colors':
-          theme === ButtonTheme.PRIMARY,
+        'min-w-10 h-10 px-2 text-sm font-medium': size === 'md',
+        'min-w-12 h-12 px-3 font-medium': size === 'lg',
+        'bg-green-700 text-white hover:bg-green-800 transition-colors':
+          theme === 'primary',
         'pointer-events-none': disabled,
       })}
+      type={type}
       onClick={onClick}
     >
       {iconStart ? (
         <div
           className={clsx('flex-none', {
-            'w-4 h-4': size === ButtonSize.MEDIUM,
-            'w-6 h-6': size === ButtonSize.LARGE,
+            'w-4 h-4': size === 'md',
+            'w-6 h-6': size === 'lg',
           })}
         >
           {iconStart}
@@ -58,9 +52,9 @@ export const Button: FC<ButtonProps> = ({
 
       {children ? (
         <div
-          className={clsx({
-            'px-2': size === ButtonSize.MEDIUM,
-            'px-3': size === ButtonSize.LARGE,
+          className={clsx('truncate', {
+            'px-2': size === 'md',
+            'px-3': size === 'lg',
           })}
         >
           {children}
@@ -70,8 +64,8 @@ export const Button: FC<ButtonProps> = ({
       {iconEnd ? (
         <div
           className={clsx('flex-none', {
-            'w-4 h-4': size === ButtonSize.MEDIUM,
-            'w-6 h-6': size === ButtonSize.LARGE,
+            'w-4 h-4': size === 'md',
+            'w-6 h-6': size === 'lg',
           })}
         >
           {iconEnd}

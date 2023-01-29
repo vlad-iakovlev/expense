@@ -69,7 +69,7 @@ export interface GetGroupResponse {
 }
 
 const getGroupQuerySchema = z.object({
-  id: z.string().refine(isValidObjectId),
+  groupId: z.string().refine(isValidObjectId),
 })
 
 export const getGroup: NextApiHandler<GetGroupResponse> = async (req, res) => {
@@ -80,7 +80,7 @@ export const getGroup: NextApiHandler<GetGroupResponse> = async (req, res) => {
       userIds: {
         has: req.session.user.id,
       },
-      id: query.id,
+      id: query.groupId,
     },
     select: groupSelect,
   })
@@ -101,7 +101,7 @@ export interface UpdateGroupResponse {
 }
 
 const updateGroupQuerySchema = z.object({
-  id: z.string().refine(isValidObjectId),
+  groupId: z.string().refine(isValidObjectId),
 })
 
 const updateGroupBodySchema = z.object({
@@ -117,7 +117,7 @@ export const updateGroup: NextApiHandler<UpdateGroupResponse> = async (
 
   const group = await req.prisma.group.update({
     where: {
-      id: query.id,
+      id: query.groupId,
       userIds: {
         has: req.session.user.id,
       },

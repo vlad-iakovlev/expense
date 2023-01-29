@@ -69,10 +69,22 @@ model Group {
   wallets Wallet[]
 }
 
+model Currency {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  symbol String
+
+  wallet Wallet[]
+}
+
 model Wallet {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  currency String
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  icon  String
+  color String
+
+  currency   Currency @relation(fields: [currencyId], references: [id], onDelete: Restrict)
+  currencyId String   @db.ObjectId
 
   group   Group  @relation(fields: [groupId], references: [id], onDelete: Restrict)
   groupId String @db.ObjectId
@@ -83,7 +95,7 @@ model Wallet {
 model Operation {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   description String
-  date        DateTime @default(now())
+  date        DateTime
   amount      Int      @db.Long
   category    String
 

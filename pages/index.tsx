@@ -3,9 +3,9 @@ import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
-import { Button, ButtonSize } from '../components/ui-kit/Button'
+import { Button } from '../components/ui-kit/Button'
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   const router = useRouter()
   const session = useSession()
 
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
 
       {session.status === 'authenticated' && (
         <div className="flex justify-center">
-          <Button size={ButtonSize.LARGE} onClick={handleGoToDashboard}>
+          <Button size="lg" onClick={handleGoToDashboard}>
             Go to Dashboard
           </Button>
         </div>
@@ -30,4 +30,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default HomePage
