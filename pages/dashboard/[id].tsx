@@ -1,4 +1,5 @@
 import { NextPage } from 'next'
+import Error from 'next/error'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
@@ -7,13 +8,13 @@ import { Container } from '../../components/ui-kit/Container'
 
 const DashboardId: NextPage = () => {
   const router = useRouter()
-  const { data } = useSWR<GetGroupResponse>(`/api/group/${router.query.id}`)
+  const { data, isLoading } = useSWR<GetGroupResponse>(
+    `/api/group/${router.query.id}`
+  )
   const group = data?.group
 
-  if (!group) {
-    // TODO redirect
-    return null
-  }
+  if (isLoading) return null
+  if (!group) return <Error statusCode={404} />
 
   return (
     <>
