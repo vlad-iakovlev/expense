@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { GetGroupResponse } from '../../api/group'
-import { PageDashboardId } from '../../components/PageDashboardId'
+import { Container } from '../../components/ui-kit/Container'
 
 const DashboardId: NextPage = () => {
   const router = useRouter()
@@ -21,7 +21,9 @@ const DashboardId: NextPage = () => {
         <title>{`Expense – Group ${group.name || ''}`}</title>
       </Head>
 
-      {group ? <PageDashboardId group={group} /> : null}
+      <Container className="py-6">
+        <h1 className="text-xl font-medium mb-6">{group.name}</h1>
+      </Container>
     </>
   )
 }

@@ -2,7 +2,8 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import useSWR from 'swr'
 import { GetGroupsResponse } from '../../api/group'
-import { PageDashboard } from '../../components/PageDashboard'
+import { Groups } from '../../components/Groups'
+import { Container } from '../../components/ui-kit/Container'
 
 const Dashboard: NextPage = () => {
   const { data } = useSWR<GetGroupsResponse>('/api/group')
@@ -19,7 +20,9 @@ const Dashboard: NextPage = () => {
         <title>Expense – Dashboard</title>
       </Head>
 
-      <PageDashboard groups={groups} />
+      <Container className="py-6">
+        <Groups groups={groups} />
+      </Container>
     </>
   )
 }
