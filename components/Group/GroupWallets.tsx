@@ -16,7 +16,7 @@ export const GroupWallets: FC<Props> = ({ wallets }) => {
       {wallets.map((wallet) => (
         <Card.Button
           key={wallet.id}
-          start={<Avatar color={wallet.color} name={wallet.icon} />}
+          start={<Avatar color={wallet.color} name={wallet.emoji} />}
         >
           {wallet.name}
         </Card.Button>

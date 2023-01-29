@@ -4,7 +4,7 @@ import { ClientWallet } from '../models/wallet'
 const walletSelect = {
   id: true,
   name: true,
-  icon: true,
+  emoji: true,
   color: true,
   currency: {
     select: {
