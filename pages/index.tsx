@@ -20,9 +20,11 @@ const Home: NextPage = () => {
       </Head>
 
       {session.status === 'authenticated' && (
-        <Button size={ButtonSize.LARGE} onClick={handleGoToDashboard}>
-          Go to Dashboard
-        </Button>
+        <div className="flex justify-center">
+          <Button size={ButtonSize.LARGE} onClick={handleGoToDashboard}>
+            Go to Dashboard
+          </Button>
+        </div>
       )}
     </>
   )
