@@ -1,19 +1,12 @@
 import { NextApiHandler } from 'next'
-import { ClientWallet } from '../models/wallet'
+import { z } from 'zod'
+import { ClientWallet } from '../../models/wallet'
+import { isValidObjectId } from '../../utils/isValidObjectId'
+import { walletSelect } from './constants'
 
-const walletSelect = {
-  id: true,
-  name: true,
-  emoji: true,
-  color: true,
-  currency: {
-    select: {
-      id: true,
-      name: true,
-      symbol: true,
-    },
-  },
-}
+const querySchema = z.object({
+  groupId: z.string().refine(isValidObjectId),
+})
 
 export interface GetWalletsResponse {
   wallets: ClientWallet[]
@@ -23,9 +16,12 @@ export const getWallets: NextApiHandler<GetWalletsResponse> = async (
   req,
   res
 ) => {
+  const query = querySchema.parse(req.query)
+
   const wallets = await req.prisma.wallet.findMany({
     where: {
       group: {
+        id: query.groupId,
         userIds: {
           has: req.session.user.id,
         },
