@@ -1,9 +1,8 @@
 import { PlusIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import { FC, useCallback } from 'react'
-import { CreateGroupBody, CreateGroupResponse } from '../../api/group'
-import { ClientGroup } from '../../models/group'
-import { request } from '../../utils/request'
+import { createGroup } from '../../api/client/groups'
+import { ClientGroup } from '../../api/types/groups'
 import { Avatar } from '../ui-kit/Avatar'
 import { AvatarGroup } from '../ui-kit/AvatarGroup'
 import { Card } from '../ui-kit/Card'
@@ -15,21 +14,17 @@ interface Props {
 export const DashboardGroups: FC<Props> = ({ groups }) => {
   const router = useRouter()
 
-  const handleGroupClick = useCallback(
-    async (id: string) => {
-      await router.push(`/dashboard/${id}`)
+  const goToGroup = useCallback(
+    async (groupId: string) => {
+      await router.push(`/dashboard/groups/${groupId}`)
     },
     [router]
   )
 
   const handleCreateGroup = useCallback(async () => {
-    const { group } = await request.post<CreateGroupBody, CreateGroupResponse>(
-      '/api/group',
-      { name: 'Untitled Group' }
-    )
-
-    await router.push(`/dashboard/${group.id}`)
-  }, [router])
+    const { group } = await createGroup({ name: 'Untitled Group' })
+    await goToGroup(group.id)
+  }, [goToGroup])
 
   return (
     <Card>
@@ -49,7 +44,7 @@ export const DashboardGroups: FC<Props> = ({ groups }) => {
               size="sm"
             />
           }
-          onClick={() => handleGroupClick(group.id)}
+          onClick={() => goToGroup(group.id)}
         >
           {group.name}
         </Card.Button>

@@ -1,10 +1,8 @@
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 import { ChangeEvent, FC, KeyboardEvent, useCallback, useState } from 'react'
 import { useSWRConfig } from 'swr'
-import { UpdateGroupBody, UpdateGroupResponse } from '../../api/group'
-import { ClientGroup } from '../../models/group'
-import { request } from '../../utils/request'
+import { updateGroup } from '../../api/client/groups'
+import { ClientGroup } from '../../api/types/groups'
 
 interface Props {
   className?: string
@@ -12,7 +10,6 @@ interface Props {
 }
 
 export const GroupTitle: FC<Props> = ({ className, group }) => {
-  const router = useRouter()
   const { mutate } = useSWRConfig()
   const [name, setName] = useState(group.name)
   const [isEditing, setIsEditing] = useState(false)
@@ -32,17 +29,14 @@ export const GroupTitle: FC<Props> = ({ className, group }) => {
 
       try {
         setIsSaving(true)
-        await request.put<UpdateGroupBody, UpdateGroupResponse>(
-          `/api/group/${router.query.id}`,
-          { name: newName }
-        )
-        await mutate(`/api/group/${router.query.id}`)
+        await updateGroup(group.id, { name: newName })
+        await mutate(`group-${group.id}`)
         setIsEditing(false)
       } finally {
         setIsSaving(false)
       }
     },
-    [group.name, mutate, router.query.id]
+    [group.id, group.name, mutate]
   )
 
   const handleInputKeyDown = useCallback(

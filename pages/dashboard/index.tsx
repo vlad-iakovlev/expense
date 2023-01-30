@@ -1,16 +1,24 @@
 import { NextPage } from 'next'
 import Error from 'next/error'
 import Head from 'next/head'
+import { useCallback } from 'react'
 import useSWR from 'swr'
-import { GetGroupsResponse } from '../../api/group'
+import { getGroups } from '../../api/client/groups'
 import { Dashboard } from '../../components/Dashboard'
 
 const DashboardPage: NextPage = () => {
-  const { data, isLoading } = useSWR<GetGroupsResponse>('/api/groups')
-  const groups = data?.groups
+  const { data: { groups } = {}, isLoading } = useSWR(
+    'groups',
+    useCallback(() => getGroups(), [])
+  )
 
-  if (isLoading) return null
-  if (!groups) return <Error statusCode={404} />
+  if (isLoading) {
+    return null
+  }
+
+  if (!groups) {
+    return <Error statusCode={404} />
+  }
 
   return (
     <>

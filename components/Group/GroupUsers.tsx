@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ClientGroup } from '../../models/group'
+import { ClientGroup } from '../../api/types/groups'
 import { Avatar } from '../ui-kit/Avatar'
 import { Card } from '../ui-kit/Card'
 

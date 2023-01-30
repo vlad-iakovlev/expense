@@ -1,5 +1,5 @@
 import { use } from 'next-api-middleware'
-import { getCurrencies } from '../../api/currency'
+import { getCurrencies } from '../../api/server/currencies'
 import { errorMiddleware } from '../../middleware/error'
 import { prismaMiddleware } from '../../middleware/prisma'
 import { restHandler } from '../../middleware/rest'

@@ -1,12 +1,11 @@
 import { PlusIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import { FC, useCallback } from 'react'
-import { GetCurrenciesResponse } from '../../api/currency'
-import { CreateWalletBody, CreateWalletResponse } from '../../api/wallet'
-import { ClientGroup } from '../../models/group'
-import { ClientWallet } from '../../models/wallet'
+import { getCurrencies } from '../../api/client/currencies'
+import { createWallet } from '../../api/client/wallets'
+import { ClientGroup } from '../../api/types/groups'
+import { ClientWallet } from '../../api/types/wallets'
 import { formatAmount } from '../../utils/formatAmount'
-import { request } from '../../utils/request'
 import { Card } from '../ui-kit/Card'
 
 interface Props {
@@ -17,22 +16,17 @@ interface Props {
 export const GroupWallets: FC<Props> = ({ group, wallets }) => {
   const router = useRouter()
 
-  const handleWalletClick = useCallback(
+  const goToWallet = useCallback(
     async (walletId: string) => {
-      await router.push(`/dashboard/${group.id}/${walletId}`)
+      await router.push(`/dashboard/groups/${group.id}/wallets/${walletId}`)
     },
     [group.id, router]
   )
 
   const handleCreateWallet = useCallback(async () => {
-    const { currencies } = await request.get<GetCurrenciesResponse>(
-      '/api/currencies'
-    )
+    const { currencies } = await getCurrencies()
 
-    const { wallet } = await request.post<
-      CreateWalletBody,
-      CreateWalletResponse
-    >(`/api/group/${group.id}/wallet`, {
+    const { wallet } = await createWallet(group.id, {
       name: 'Untitled Wallet',
       currencyId: currencies[0].id,
     })
@@ -52,7 +46,7 @@ export const GroupWallets: FC<Props> = ({ group, wallets }) => {
               {formatAmount(wallet.balance, wallet.currency)}
             </div>
           }
-          onClick={() => handleWalletClick(wallet.id)}
+          onClick={() => goToWallet(wallet.id)}
         >
           {wallet.name}
         </Card.Button>

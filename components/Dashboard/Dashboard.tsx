@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ClientGroup } from '../../models/group'
+import { ClientGroup } from '../../api/types/groups'
 import { DashboardGroups } from './DashboardGroups'
 
 interface Props {
