@@ -55,11 +55,7 @@ export const DashboardGroups: FC<Props> = ({ groups }) => {
       ))}
 
       <Card.Button
-        end={
-          <Avatar border color="green">
-            <PlusIcon className="w-4 h-4" />
-          </Avatar>
-        }
+        end={<Avatar color="green" slug={<PlusIcon className="w-4 h-4" />} />}
         onClick={handleCreateGroup}
       >
         Create Group

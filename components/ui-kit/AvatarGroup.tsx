@@ -25,15 +25,13 @@ export const AvatarGroup: FC<AvatarGroupProps> = ({
       {visibleAvatars.map((props, index) => (
         <Avatar
           {...props}
-          border
           key={props.src}
           className={clsx(props.className, { '-ml-6': index > 0 })}
         />
       ))}
+
       {extraCount > 0 && (
-        <div className="flex items-center justify-center min-w-10 h-10 -ml-6 rounded-full bg-green-700 text-xs font-medium text-white border-4 border-white">
-          +{extraCount}
-        </div>
+        <Avatar className="-ml-6" color="green" slug={`+${extraCount}`} />
       )}
     </div>
   )

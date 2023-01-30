@@ -23,11 +23,7 @@ export const GroupWallets: FC<Props> = ({ wallets }) => {
       ))}
 
       <Card.Button
-        start={
-          <Avatar color="green">
-            <PlusIcon className="w-6 h-6" />
-          </Avatar>
-        }
+        start={<Avatar color="green" slug={<PlusIcon className="w-6 h-6" />} />}
       >
         Create Wallet
       </Card.Button>

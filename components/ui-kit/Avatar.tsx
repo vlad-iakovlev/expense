@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC, ReactNode, useMemo } from 'react'
+import { FC, ReactNode } from 'react'
 
 export const avatarColors = [
   'red',
@@ -23,10 +23,9 @@ export const avatarColors = [
 
 export interface AvatarProps {
   className?: string
-  children?: ReactNode
-  border?: boolean
   color?: string
   name?: string | null
+  slug?: ReactNode
   src?: string | null
 }
 
@@ -42,46 +41,30 @@ const getColorByName = (name: string | null | undefined) => {
 
 export const Avatar: FC<AvatarProps> = ({
   className,
-  children,
-  border,
   color,
   name,
+  slug,
   src,
 }) => {
-  const image = useMemo(() => {
-    if (src) {
-      return (
+  return (
+    <div className={clsx(className, 'w-10 h-10 rounded-full overflow-hidden')}>
+      {src ? (
         <img
           className="w-full h-full"
           src={src}
           alt={name || ''}
           referrerPolicy="no-referrer"
         />
-      )
-    }
-
-    return (
-      <div
-        className={clsx(
-          className,
-          'flex items-center justify-center w-full h-full text-white',
-          `bg-${color || getColorByName(name)}-700`
-        )}
-      >
-        {children || (
-          <div className="pt-px font-medium">getSlugByName(name)</div>
-        )}
-      </div>
-    )
-  }, [children, className, color, name, src])
-
-  return (
-    <div
-      className={clsx(className, 'w-10 h-10 rounded-full overflow-hidden', {
-        'border-4 border-white': border,
-      })}
-    >
-      {image}
+      ) : (
+        <div
+          className={clsx(
+            'flex items-center justify-center w-full h-full font-medium text-white',
+            `bg-${color || getColorByName(name)}-700`
+          )}
+        >
+          {slug || getSlugByName(name)}
+        </div>
+      )}
     </div>
   )
 }
