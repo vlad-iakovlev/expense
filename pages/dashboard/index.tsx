@@ -6,7 +6,7 @@ import { GetGroupsResponse } from '../../api/group'
 import { Dashboard } from '../../components/Dashboard'
 
 const DashboardPage: NextPage = () => {
-  const { data, isLoading } = useSWR<GetGroupsResponse>('/api/group')
+  const { data, isLoading } = useSWR<GetGroupsResponse>('/api/groups')
   const groups = data?.groups
 
   if (isLoading) return null

@@ -25,7 +25,7 @@ export const Group: FC<Props> = ({ group, wallets }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start gap-6">
         <GroupUsers group={group} />
-        <GroupWallets wallets={wallets} />
+        <GroupWallets group={group} wallets={wallets} />
       </div>
     </>
   )

@@ -24,7 +24,7 @@ const GroupPage: NextPage<Props> = ({ groupId }) => {
   const { data: groupData, isLoading: isGroupLoading } =
     useSWR<GetGroupResponse>(`/api/group/${groupId}`)
   const { data: walletsData, isLoading: isWalletsLoading } =
-    useSWR<GetWalletsResponse>(`/api/group/${groupId}/wallet`)
+    useSWR<GetWalletsResponse>(`/api/group/${groupId}/wallets`)
   const group = groupData?.group
   const wallets = walletsData?.wallets
 

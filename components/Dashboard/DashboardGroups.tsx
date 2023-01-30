@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import { FC, useCallback } from 'react'
-import { CreateGroupResponse } from '../../api/group'
+import { CreateGroupBody, CreateGroupResponse } from '../../api/group'
 import { ClientGroup } from '../../models/group'
 import { request } from '../../utils/request'
 import { Avatar } from '../ui-kit/Avatar'
@@ -23,9 +23,9 @@ export const DashboardGroups: FC<Props> = ({ groups }) => {
   )
 
   const handleCreateGroup = useCallback(async () => {
-    const { group } = await request.post<{ name: string }, CreateGroupResponse>(
-      `/api/group`,
-      { name: 'Untitled group' }
+    const { group } = await request.post<CreateGroupBody, CreateGroupResponse>(
+      '/api/group',
+      { name: 'Untitled Group' }
     )
 
     await router.push(`/dashboard/${group.id}`)
