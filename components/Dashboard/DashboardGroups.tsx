@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { FC, useCallback } from 'react'
 import { createGroup } from '../../api/client/groups'
 import { ClientGroup } from '../../api/types/groups'
+import { ROUTES } from '../../constants/routes'
 import { Avatar } from '../ui-kit/Avatar'
 import { AvatarGroup } from '../ui-kit/AvatarGroup'
 import { Card } from '../ui-kit/Card'
@@ -16,7 +17,7 @@ export const DashboardGroups: FC<Props> = ({ groups }) => {
 
   const goToGroup = useCallback(
     async (groupId: string) => {
-      await router.push(`/dashboard/groups/${groupId}`)
+      await router.push(ROUTES.GROUP(groupId))
     },
     [router]
   )

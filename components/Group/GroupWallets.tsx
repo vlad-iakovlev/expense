@@ -5,6 +5,7 @@ import { getCurrencies } from '../../api/client/currencies'
 import { createWallet } from '../../api/client/wallets'
 import { ClientGroup } from '../../api/types/groups'
 import { ClientWallet } from '../../api/types/wallets'
+import { ROUTES } from '../../constants/routes'
 import { formatAmount } from '../../utils/formatAmount'
 import { Card } from '../ui-kit/Card'
 
@@ -18,7 +19,7 @@ export const GroupWallets: FC<Props> = ({ group, wallets }) => {
 
   const goToWallet = useCallback(
     async (walletId: string) => {
-      await router.push(`/dashboard/groups/${group.id}/wallets/${walletId}`)
+      await router.push(ROUTES.WALLET(group.id, walletId))
     },
     [group.id, router]
   )
@@ -31,8 +32,8 @@ export const GroupWallets: FC<Props> = ({ group, wallets }) => {
       currencyId: currencies[0].id,
     })
 
-    await router.push(`/dashboard/${group.id}/${wallet.id}`)
-  }, [group.id, router])
+    await goToWallet(wallet.id)
+  }, [goToWallet, group.id])
 
   return (
     <Card>

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { FC } from 'react'
 import { ClientGroup } from '../../api/types/groups'
 import { ClientWallet } from '../../api/types/wallets'
+import { ROUTES } from '../../constants/routes'
 import { GroupTitle } from './GroupTitle'
 import { GroupUsers } from './GroupUsers'
 import { GroupWallets } from './GroupWallets'
@@ -16,7 +17,10 @@ export const Group: FC<Props> = ({ group, wallets }) => {
   return (
     <>
       <div className="flex items-center gap-2 mb-6">
-        <Link className="flex-none text-lg text-cyan-900" href="/dashboard">
+        <Link
+          className="flex-none text-lg text-cyan-900"
+          href={ROUTES.DASHBOARD}
+        >
           Dashboard
         </Link>
         <ChevronRightIcon className="w-4 h-4" />
