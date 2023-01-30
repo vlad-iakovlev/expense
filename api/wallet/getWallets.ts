@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { ClientWallet } from '../../models/wallet'
 import { isValidObjectId } from '../../utils/isValidObjectId'
 import { walletSelect } from './constants'
+import { populateWalletBalance } from './utils'
 
 const querySchema = z.object({
   groupId: z.string().refine(isValidObjectId),
@@ -18,7 +19,7 @@ export const getWallets: NextApiHandler<GetWalletsResponse> = async (
 ) => {
   const query = querySchema.parse(req.query)
 
-  const wallets = await req.prisma.wallet.findMany({
+  const walletsWithoutBalance = await req.prisma.wallet.findMany({
     where: {
       group: {
         id: query.groupId,
@@ -29,6 +30,10 @@ export const getWallets: NextApiHandler<GetWalletsResponse> = async (
     },
     select: walletSelect,
   })
+
+  const wallets = await Promise.all(
+    walletsWithoutBalance.map((wallet) => populateWalletBalance(req, wallet))
+  )
 
   res.status(200).json({ wallets })
 }

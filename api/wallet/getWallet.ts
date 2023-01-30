@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { ClientWallet } from '../../models/wallet'
 import { isValidObjectId } from '../../utils/isValidObjectId'
 import { walletSelect } from './constants'
+import { populateWalletBalance } from './utils'
 
 const querySchema = z.object({
   groupId: z.string().refine(isValidObjectId),
@@ -19,7 +20,7 @@ export const getWallet: NextApiHandler<GetWalletResponse> = async (
 ) => {
   const query = querySchema.parse(req.query)
 
-  const wallet = await req.prisma.wallet.findFirstOrThrow({
+  const walletWithoutBalance = await req.prisma.wallet.findFirstOrThrow({
     where: {
       id: query.walletId,
       group: {
@@ -31,6 +32,8 @@ export const getWallet: NextApiHandler<GetWalletResponse> = async (
     },
     select: walletSelect,
   })
+
+  const wallet = await populateWalletBalance(req, walletWithoutBalance)
 
   res.status(200).json({ wallet })
 }
