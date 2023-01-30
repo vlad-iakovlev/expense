@@ -6,7 +6,6 @@ export interface ButtonProps {
   disabled?: boolean
   iconEnd?: ReactNode
   iconStart?: ReactNode
-  href?: string
   rounded?: boolean
   size?: 'md' | 'lg'
   theme?: 'primary'
