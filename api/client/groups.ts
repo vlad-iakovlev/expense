@@ -8,24 +8,26 @@ import {
   UpdateGroupResponse,
 } from '../types/groups'
 
+const BASE_ROUTE = '/api/groups'
+
 export const getGroups = async () => {
-  return await request.get<GetGroupsResponse>('/api/groups')
+  return await request.get<GetGroupsResponse>(BASE_ROUTE)
 }
 
 export const getGroup = async (groupId: string) => {
-  return await request.get<GetGroupResponse>(`/api/groups/${groupId}`)
+  return await request.get<GetGroupResponse>(`${BASE_ROUTE}/${groupId}`)
 }
 
 export const createGroup = async (data: CreateGroupBody) => {
   return await request.post<CreateGroupBody, CreateGroupResponse>(
-    '/api/groups',
+    BASE_ROUTE,
     data
   )
 }
 
 export const updateGroup = async (groupId: string, data: UpdateGroupBody) => {
   return await request.put<UpdateGroupBody, UpdateGroupResponse>(
-    `/api/groups/${groupId}`,
+    `${BASE_ROUTE}/${groupId}`,
     data
   )
 }

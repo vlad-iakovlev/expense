@@ -8,19 +8,21 @@ import {
   UpdateWalletResponse,
 } from '../types/wallets'
 
+const BASE_ROUTE = (groupId: string) => `/api/groups/${groupId}/wallets`
+
 export const getWallets = async (groupId: string) => {
-  return await request.get<GetWalletsResponse>(`/api/groups/${groupId}/wallets`)
+  return await request.get<GetWalletsResponse>(BASE_ROUTE(groupId))
 }
 
 export const getWallet = async (groupId: string, walletId: string) => {
   return await request.get<GetWalletResponse>(
-    `/api/groups/${groupId}/wallets/${walletId}`
+    `${BASE_ROUTE(groupId)}/${walletId}`
   )
 }
 
 export const createWallet = async (groupId: string, data: CreateWalletBody) => {
   return await request.post<CreateWalletBody, CreateWalletResponse>(
-    `/api/groups/${groupId}/wallets`,
+    BASE_ROUTE(groupId),
     data
   )
 }
@@ -31,7 +33,7 @@ export const updateWallet = async (
   data: UpdateWalletBody
 ) => {
   return await request.put<UpdateWalletBody, UpdateWalletResponse>(
-    `/api/groups/${groupId}/wallets/${walletId}`,
+    `${BASE_ROUTE(groupId)}/${walletId}`,
     data
   )
 }
