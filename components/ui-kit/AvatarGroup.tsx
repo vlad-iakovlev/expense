@@ -6,12 +6,14 @@ export interface AvatarGroupProps {
   className?: string
   avatars: AvatarProps[]
   max?: number
+  size?: 'sm' | 'md'
 }
 
 export const AvatarGroup: FC<AvatarGroupProps> = ({
   className,
   avatars,
   max,
+  size = 'md',
 }) => {
   const visibleCount = max && avatars.length > max ? max - 1 : avatars.length
   const extraCount = avatars.length - visibleCount
@@ -26,12 +28,24 @@ export const AvatarGroup: FC<AvatarGroupProps> = ({
         <Avatar
           {...props}
           key={props.src}
-          className={clsx(props.className, { '-ml-6': index > 0 })}
+          size={size}
+          className={clsx(props.className, {
+            '-ml-5': index > 0 && size === 'sm',
+            '-ml-6': index > 0 && size === 'md',
+          })}
         />
       ))}
 
       {extraCount > 0 && (
-        <Avatar className="-ml-6" color="green" slug={`+${extraCount}`} />
+        <Avatar
+          className={clsx({
+            '-ml-5': size === 'sm',
+            '-ml-6': size === 'md',
+          })}
+          color="green"
+          slug={`+${extraCount}`}
+          size={size}
+        />
       )}
     </div>
   )

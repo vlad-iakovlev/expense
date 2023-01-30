@@ -27,6 +27,7 @@ export interface AvatarProps {
   name?: string | null
   slug?: ReactNode
   src?: string | null
+  size?: 'sm' | 'md'
 }
 
 const getSlugByName = (name: string | null | undefined) => {
@@ -45,9 +46,15 @@ export const Avatar: FC<AvatarProps> = ({
   name,
   slug,
   src,
+  size = 'md',
 }) => {
   return (
-    <div className={clsx(className, 'w-10 h-10 rounded-full overflow-hidden')}>
+    <div
+      className={clsx(className, 'rounded-full overflow-hidden', {
+        'w-8 h-8': size === 'sm',
+        'w-10 h-10': size === 'md',
+      })}
+    >
       {src ? (
         <img
           className="w-full h-full"
@@ -59,7 +66,8 @@ export const Avatar: FC<AvatarProps> = ({
         <div
           className={clsx(
             'flex items-center justify-center w-full h-full font-medium text-white',
-            `bg-${color || getColorByName(name)}-700`
+            `bg-${color || getColorByName(name)}-700`,
+            { 'text-sm': size === 'sm' }
           )}
         >
           {slug || getSlugByName(name)}

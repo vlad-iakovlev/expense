@@ -10,8 +10,6 @@ const querySchema = z.object({
 
 const bodySchema = z.object({
   name: z.string().min(1),
-  emoji: z.string().min(1),
-  color: z.string().min(1),
   currencyId: z.string().refine(isValidObjectId),
 })
 
@@ -31,8 +29,6 @@ export const createWallet: NextApiHandler<CreateWalletResponse> = async (
   const wallet = await req.prisma.wallet.create({
     data: {
       name: body.name,
-      emoji: body.emoji,
-      color: body.color,
       group: {
         connect: {
           id: query.groupId,

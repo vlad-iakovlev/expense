@@ -16,7 +16,7 @@ export const GroupUsers: FC<Props> = ({ group }) => {
         <Card.Button
           key={user.id}
           disabled
-          start={<Avatar src={user.image} name={user.name} />}
+          start={<Avatar src={user.image} name={user.name} size="sm" />}
         >
           {user.name}
         </Card.Button>

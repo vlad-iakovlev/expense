@@ -1,7 +1,6 @@
 import { PlusIcon } from '@heroicons/react/24/solid'
 import { FC } from 'react'
 import { ClientWallet } from '../../models/wallet'
-import { Avatar } from '../ui-kit/Avatar'
 import { Card } from '../ui-kit/Card'
 
 interface Props {
@@ -14,17 +13,10 @@ export const GroupWallets: FC<Props> = ({ wallets }) => {
       <Card.Title>Wallets</Card.Title>
 
       {wallets.map((wallet) => (
-        <Card.Button
-          key={wallet.id}
-          start={<Avatar color={wallet.color} name={wallet.emoji} />}
-        >
-          {wallet.name}
-        </Card.Button>
+        <Card.Button key={wallet.id}>{wallet.name}</Card.Button>
       ))}
 
-      <Card.Button
-        start={<Avatar color="green" slug={<PlusIcon className="w-6 h-6" />} />}
-      >
+      <Card.Button end={<PlusIcon className="w-5 h-5" />}>
         Create Wallet
       </Card.Button>
     </Card>

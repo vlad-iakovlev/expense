@@ -45,7 +45,7 @@ const Button: FC<CardButtonProps> = ({
   return (
     <button
       className={clsx(
-        'flex w-full items-center min-h-12 px-6 py-2 gap-4 text-left bg-white hover:bg-zinc-100 transition-colors',
+        'flex w-full items-center min-h-12 px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 transition-colors',
         { 'pointer-events-none': disabled }
       )}
       type="button"

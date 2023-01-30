@@ -78,10 +78,8 @@ model Currency {
 }
 
 model Wallet {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name  String
-  emoji String
-  color String
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
 
   currency   Currency @relation(fields: [currencyId], references: [id], onDelete: Restrict)
   currencyId String   @db.ObjectId

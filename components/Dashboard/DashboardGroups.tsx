@@ -46,6 +46,7 @@ export const DashboardGroups: FC<Props> = ({ groups }) => {
                 src: user.image,
               }))}
               max={3}
+              size="sm"
             />
           }
           onClick={() => handleGroupClick(group.id)}
@@ -55,7 +56,13 @@ export const DashboardGroups: FC<Props> = ({ groups }) => {
       ))}
 
       <Card.Button
-        end={<Avatar color="green" slug={<PlusIcon className="w-4 h-4" />} />}
+        end={
+          <Avatar
+            color="green"
+            slug={<PlusIcon className="w-4 h-4" />}
+            size="sm"
+          />
+        }
         onClick={handleCreateGroup}
       >
         Create Group

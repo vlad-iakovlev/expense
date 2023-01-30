@@ -11,8 +11,6 @@ const querySchema = z.object({
 
 const bodySchema = z.object({
   name: z.string().min(1).optional(),
-  emoji: z.string().min(1).optional(),
-  color: z.string().min(1).optional(),
   currencyId: z.string().refine(isValidObjectId).optional(),
 })
 
@@ -41,8 +39,6 @@ export const updateWallet: NextApiHandler<UpdateWalletResponse> = async (
     },
     data: {
       name: body.name,
-      emoji: body.name,
-      color: body.color,
       currency: {
         connect: {
           id: body.currencyId,
