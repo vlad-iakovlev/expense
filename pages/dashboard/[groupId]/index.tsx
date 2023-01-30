@@ -4,10 +4,10 @@ import Head from 'next/head'
 import useSWR from 'swr'
 import { GetGroupResponse } from '../../../api/group'
 import { GetWalletsResponse } from '../../../api/wallet'
-import { Group as GroupComponent } from '../../../components/Group'
+import { Group } from '../../../components/Group'
 
 interface Props {
-  id: string
+  groupId: string
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
@@ -15,16 +15,16 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 ) => {
   return {
     props: {
-      id: String(context.query.id),
+      groupId: String(context.query.groupId),
     },
   }
 }
 
-const DashboardIdPage: NextPage<Props> = ({ id }) => {
+const GroupPage: NextPage<Props> = ({ groupId }) => {
   const { data: groupData, isLoading: isGroupLoading } =
-    useSWR<GetGroupResponse>(`/api/group/${id}`)
+    useSWR<GetGroupResponse>(`/api/group/${groupId}`)
   const { data: walletsData, isLoading: isWalletsLoading } =
-    useSWR<GetWalletsResponse>(`/api/group/${id}/wallet`)
+    useSWR<GetWalletsResponse>(`/api/group/${groupId}/wallet`)
   const group = groupData?.group
   const wallets = walletsData?.wallets
 
@@ -37,9 +37,9 @@ const DashboardIdPage: NextPage<Props> = ({ id }) => {
         <title>{`Expense – ${group.name}`}</title>
       </Head>
 
-      <GroupComponent group={group} wallets={wallets} />
+      <Group group={group} wallets={wallets} />
     </>
   )
 }
 
-export default DashboardIdPage
+export default GroupPage
