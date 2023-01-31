@@ -9,8 +9,8 @@ import {
 import { ClientCurrency } from './currencies'
 
 export type ClientWallet = Pick<Wallet, 'id' | 'name'> & {
-  group: Pick<Group, 'id' | 'name'>
   currency: ClientCurrency
+  group: Pick<Group, 'id' | 'name'>
   balance: number
 }
 

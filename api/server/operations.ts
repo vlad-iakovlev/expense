@@ -51,6 +51,11 @@ export const getOperations: NextApiHandler<GetOperationsResponse> = async (
         },
       },
     },
+    orderBy: {
+      date: 'desc',
+    },
+    skip: query.skip,
+    take: query.take,
     select,
   })
 

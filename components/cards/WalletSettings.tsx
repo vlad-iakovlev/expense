@@ -2,18 +2,16 @@ import { Menu, Transition } from '@headlessui/react'
 import { FC, Fragment, useCallback, useState } from 'react'
 import { useSWRConfig } from 'swr'
 import { updateWallet } from '../../api/client/wallets'
-import { ClientCurrency } from '../../api/types/currencies'
-import { ClientWallet } from '../../api/types/wallets'
 import { SWR_KEYS } from '../../constants/swr'
+import { useCurrenciesContext } from '../contexts/Currencies'
+import { useWalletContext } from '../contexts/Wallet'
 import { Card } from '../ui-kit/Card'
 
-interface Props {
-  currencies: ClientCurrency[]
-  wallet: ClientWallet
-}
-
-export const WalletSettings: FC<Props> = ({ currencies, wallet }) => {
+export const WalletSettingsCard: FC = () => {
   const { mutate } = useSWRConfig()
+  const { currencies } = useCurrenciesContext()
+  const { query, wallet } = useWalletContext()
+
   const [isSaving, setIsSaving] = useState(false)
 
   const handleUpdateCurrency = useCallback(
@@ -22,16 +20,18 @@ export const WalletSettings: FC<Props> = ({ currencies, wallet }) => {
 
       try {
         setIsSaving(true)
+
         await updateWallet({
           walletId: wallet.id,
           currencyId,
         })
-        await mutate(SWR_KEYS.WALLET(wallet.id))
+
+        await mutate(SWR_KEYS.WALLET(query))
       } finally {
         setIsSaving(false)
       }
     },
-    [mutate, wallet.currency.id, wallet.id]
+    [mutate, query, wallet.currency.id, wallet.id]
   )
 
   return (

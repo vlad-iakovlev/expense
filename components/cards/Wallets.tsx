@@ -3,17 +3,14 @@ import { useRouter } from 'next/router'
 import { FC, useCallback } from 'react'
 import { getCurrencies } from '../../api/client/currencies'
 import { createWallet } from '../../api/client/wallets'
-import { ClientWallet } from '../../api/types/wallets'
 import { ROUTES } from '../../constants/routes'
 import { formatAmount } from '../../utils/formatAmount'
+import { useWalletsContext } from '../contexts/Wallets'
 import { Card } from '../ui-kit/Card'
 
-interface Props {
-  groupId?: string
-  wallets: ClientWallet[]
-}
+export const WalletsCard: FC = () => {
+  const { query, wallets } = useWalletsContext()
 
-export const Wallets: FC<Props> = ({ groupId, wallets }) => {
   const router = useRouter()
 
   const goToWallet = useCallback(
@@ -24,18 +21,22 @@ export const Wallets: FC<Props> = ({ groupId, wallets }) => {
   )
 
   const handleCreateWallet = useCallback(async () => {
-    if (!groupId) return
+    if (!query.groupId) return
 
     const { currencies } = await getCurrencies()
 
     const { wallet } = await createWallet({
-      groupId,
+      groupId: query.groupId,
       name: 'Untitled Wallet',
       currencyId: currencies[0].id,
     })
 
     await goToWallet(wallet.id)
-  }, [goToWallet, groupId])
+  }, [goToWallet, query.groupId])
+
+  if (!query.groupId && !wallets.length) {
+    return null
+  }
 
   return (
     <Card>
@@ -57,7 +58,7 @@ export const Wallets: FC<Props> = ({ groupId, wallets }) => {
         </Card.Button>
       ))}
 
-      {groupId ? (
+      {query.groupId ? (
         <Card.Button
           end={<PlusIcon className="w-5 h-5" />}
           onClick={handleCreateWallet}

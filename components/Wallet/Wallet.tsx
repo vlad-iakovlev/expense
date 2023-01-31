@@ -1,20 +1,17 @@
+import Head from 'next/head'
 import { FC, useCallback } from 'react'
 import { useSWRConfig } from 'swr'
 import { updateWallet } from '../../api/client/wallets'
-import { ClientCurrency } from '../../api/types/currencies'
-import { ClientWallet } from '../../api/types/wallets'
 import { ROUTES } from '../../constants/routes'
 import { SWR_KEYS } from '../../constants/swr'
-import { WalletSettings } from '../cards/WalletSettings'
+import { OperationsCard } from '../cards/Operations'
+import { WalletSettingsCard } from '../cards/WalletSettings'
+import { useWalletContext } from '../contexts/Wallet'
 import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
 
-interface Props {
-  currencies: ClientCurrency[]
-  wallet: ClientWallet
-}
-
-export const Wallet: FC<Props> = ({ currencies, wallet }) => {
+export const Wallet: FC = () => {
   const { mutate } = useSWRConfig()
+  const { query, wallet } = useWalletContext()
 
   const handleNameChange = useCallback(
     async (name: string) => {
@@ -22,13 +19,18 @@ export const Wallet: FC<Props> = ({ currencies, wallet }) => {
         walletId: wallet.id,
         name,
       })
-      await mutate(SWR_KEYS.WALLET(wallet.id))
+
+      await mutate(SWR_KEYS.WALLET(query))
     },
-    [mutate, wallet.id]
+    [mutate, query, wallet.id]
   )
 
   return (
     <>
+      <Head>
+        <title>{`Expense – ${wallet.group.name} - ${wallet.name}`}</title>
+      </Head>
+
       <Breadcrumbs>
         <Breadcrumbs.Link href={ROUTES.DASHBOARD} title="Dashboard" />
         <Breadcrumbs.Link
@@ -42,7 +44,8 @@ export const Wallet: FC<Props> = ({ currencies, wallet }) => {
       </Breadcrumbs>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start gap-6">
-        <WalletSettings currencies={currencies} wallet={wallet} />
+        <OperationsCard />
+        <WalletSettingsCard />
       </div>
     </>
   )

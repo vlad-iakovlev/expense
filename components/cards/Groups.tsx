@@ -2,17 +2,15 @@ import { PlusIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import { FC, useCallback } from 'react'
 import { createGroup } from '../../api/client/groups'
-import { ClientGroup } from '../../api/types/groups'
 import { ROUTES } from '../../constants/routes'
+import { useGroupsContext } from '../contexts/Groups'
 import { Avatar } from '../ui-kit/Avatar'
 import { AvatarGroup } from '../ui-kit/AvatarGroup'
 import { Card } from '../ui-kit/Card'
 
-interface Props {
-  groups: ClientGroup[]
-}
+export const GroupsCard: FC = () => {
+  const { groups } = useGroupsContext()
 
-export const Groups: FC<Props> = ({ groups }) => {
   const router = useRouter()
 
   const goToGroup = useCallback(

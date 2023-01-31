@@ -56,7 +56,8 @@
       "prettier"
     ],
     "rules": {
-      "@next/next/no-img-element": "off"
+      "@next/next/no-img-element": "off",
+      "@typescript-eslint/no-empty-function": "off"
     }
   },
   "prettier": {

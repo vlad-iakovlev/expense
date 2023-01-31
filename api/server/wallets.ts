@@ -16,17 +16,17 @@ import { populateWalletBalance } from '../../utils/populateWalletBalance'
 export const select = {
   id: true,
   name: true,
-  group: {
-    select: {
-      id: true,
-      name: true,
-    },
-  },
   currency: {
     select: {
       id: true,
       name: true,
       symbol: true,
+    },
+  },
+  group: {
+    select: {
+      id: true,
+      name: true,
     },
   },
 }
@@ -88,17 +88,17 @@ export const createWallet: NextApiHandler<CreateWalletResponse> = async (
   const walletWithoutBalance = await req.prisma.wallet.create({
     data: {
       name: body.name,
+      currency: {
+        connect: {
+          id: body.currencyId,
+        },
+      },
       group: {
         connect: {
           id: body.groupId,
           userIds: {
             has: req.session.user.id,
           },
-        },
-      },
-      currency: {
-        connect: {
-          id: body.currencyId,
         },
       },
     },
