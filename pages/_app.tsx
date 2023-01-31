@@ -1,10 +1,12 @@
+import 'inter-ui/inter.css'
+import '../styles/globals.css'
+
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Header } from '../components/Header'
 import { Container } from '../components/ui-kit/Container'
-import '../styles/globals.css'
 
 function App({
   Component,

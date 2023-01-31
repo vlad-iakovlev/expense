@@ -19,6 +19,7 @@
     "@prisma/client": "^4.9.0",
     "@svgr/webpack": "^6.5.1",
     "clsx": "^1.2.1",
+    "inter-ui": "^3.19.3",
     "next": "^13.1.6",
     "next-api-middleware": "^2.0.1",
     "next-auth": "^4.19.0",

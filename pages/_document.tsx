@@ -23,8 +23,6 @@ export const MyDocument: FC<DocumentProps> = () => {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
-
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
 
       <body className="bg-zinc-300">
