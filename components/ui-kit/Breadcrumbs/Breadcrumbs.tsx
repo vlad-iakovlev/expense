@@ -10,7 +10,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { ForwardRef, MayBePromise } from '../../types/utility'
+import { ForwardRef, MayBePromise } from '../../../types/utility'
 
 export interface BreadcrumbsProps {
   children: ReactNode

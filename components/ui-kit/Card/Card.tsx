@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { forwardRef, MouseEvent, ReactNode } from 'react'
-import { ForwardRef } from '../../types/utility'
+import { ForwardRef } from '../../../types/utility'
 
 export interface CardProps {
   className?: string
