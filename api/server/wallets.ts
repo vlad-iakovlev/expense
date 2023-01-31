@@ -133,11 +133,7 @@ export const updateWallet: NextApiHandler<UpdateWalletResponse> = async (
     },
     data: {
       name: body.name,
-      currency: {
-        connect: {
-          id: body.currencyId,
-        },
-      },
+      currencyId: body.currencyId,
     },
     select,
   })

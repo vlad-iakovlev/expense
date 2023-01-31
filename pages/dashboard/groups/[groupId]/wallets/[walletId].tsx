@@ -4,6 +4,8 @@ import Head from 'next/head'
 import { useCallback } from 'react'
 import useSWR from 'swr'
 import { getWallet } from '../../../../../api/client/wallets'
+import { Wallet } from '../../../../../components/Wallet'
+import { SWR_KEYS } from '../../../../../constants/swr'
 
 interface Props {
   groupId: string
@@ -23,7 +25,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 
 const WalletPage: NextPage<Props> = ({ groupId, walletId }) => {
   const { data: { wallet } = {}, isLoading: isWalletLoading } = useSWR(
-    `groups-${groupId}/wallet-${walletId}`,
+    SWR_KEYS.WALLET(groupId, walletId),
     useCallback(() => getWallet(groupId, walletId), [groupId, walletId])
   )
 
@@ -40,6 +42,8 @@ const WalletPage: NextPage<Props> = ({ groupId, walletId }) => {
       <Head>
         <title>{`Expense – ${wallet.group.name} - ${wallet.name}`}</title>
       </Head>
+
+      <Wallet wallet={wallet} />
     </>
   )
 }

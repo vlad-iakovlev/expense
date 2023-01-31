@@ -17,7 +17,7 @@ export interface CardTitleProps {
   children?: ReactNode
 }
 
-const Title: FC<CardTitleProps> = ({ children }) => {
+const CardTitle: FC<CardTitleProps> = ({ children }) => {
   return (
     <h2 className="flex items-center min-h-12 px-6 py-2 text-lg font-medium truncate">
       {children}
@@ -25,7 +25,7 @@ const Title: FC<CardTitleProps> = ({ children }) => {
   )
 }
 
-Card.Title = Title
+Card.Title = CardTitle
 
 export interface CardButtonProps {
   disabled?: boolean
@@ -35,7 +35,7 @@ export interface CardButtonProps {
   onClick?: (event: MouseEvent) => void
 }
 
-const Button: FC<CardButtonProps> = ({
+const CardButton: FC<CardButtonProps> = ({
   disabled,
   start,
   end,
@@ -58,10 +58,10 @@ const Button: FC<CardButtonProps> = ({
   )
 }
 
-Card.Button = Button
+Card.Button = CardButton
 
-const Divider: FC = () => {
+const CardDivider: FC = () => {
   return <div className="my-2 border-t border-zinc-100" />
 }
 
-Card.Divider = Divider
+Card.Divider = CardDivider
