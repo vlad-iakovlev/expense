@@ -24,9 +24,9 @@ export const avatarColors = [
 export interface AvatarProps {
   className?: string
   color?: string
-  name?: string | null
+  name?: string
   slug?: ReactNode
-  src?: string | null
+  src?: string
   size?: 'sm' | 'md'
 }
 

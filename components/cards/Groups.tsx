@@ -29,7 +29,9 @@ export const Groups: FC<Props> = ({ groups }) => {
 
   return (
     <Card>
-      <Card.Title>Groups</Card.Title>
+      <Card.Title title="Groups" />
+
+      <Card.Divider />
 
       {groups.map((group) => (
         <Card.Button
@@ -38,8 +40,8 @@ export const Groups: FC<Props> = ({ groups }) => {
             <AvatarGroup
               className="flex-none"
               avatars={group.users.map((user) => ({
-                name: user.name,
-                src: user.image,
+                name: user.name || '',
+                src: user.image || '',
               }))}
               max={3}
               size="sm"

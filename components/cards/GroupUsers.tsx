@@ -10,13 +10,17 @@ interface Props {
 export const GroupUsers: FC<Props> = ({ group }) => {
   return (
     <Card>
-      <Card.Title>Users</Card.Title>
+      <Card.Title title="Users" />
+
+      <Card.Divider />
 
       {group.users.map((user) => (
         <Card.Button
           key={user.id}
           disabled
-          start={<Avatar src={user.image} name={user.name} size="sm" />}
+          start={
+            <Avatar src={user.image || ''} name={user.name || ''} size="sm" />
+          }
         >
           {user.name}
         </Card.Button>

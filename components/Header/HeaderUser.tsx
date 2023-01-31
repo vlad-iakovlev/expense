@@ -39,8 +39,8 @@ export const HeaderUser: FC = () => {
           <div>
             <Menu.Button className="block rounded-full">
               <Avatar
-                src={session.data.user?.image}
-                name={session.data.user?.name}
+                src={session.data.user?.image || ''}
+                name={session.data.user?.name || ''}
               />
             </Menu.Button>
           </div>
@@ -56,12 +56,10 @@ export const HeaderUser: FC = () => {
           >
             <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right focus:outline-none">
               <Card>
-                <Card.Button disabled>
-                  <div className="truncate">{session.data.user?.name}</div>
-                  <div className="text-zinc-600 truncate">
-                    {session.data.user?.email}
-                  </div>
-                </Card.Button>
+                <Card.Title
+                  title={session.data.user?.name || ''}
+                  subtitle={session.data.user?.email || ''}
+                />
 
                 <Card.Divider />
 

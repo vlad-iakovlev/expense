@@ -38,7 +38,9 @@ export const Wallets: FC<Props> = ({ groupId, wallets }) => {
 
   return (
     <Card>
-      <Card.Title>Wallets</Card.Title>
+      <Card.Title title="Wallets" />
+
+      <Card.Divider />
 
       {wallets.map((wallet) => (
         <Card.Button

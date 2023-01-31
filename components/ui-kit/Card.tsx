@@ -14,14 +14,20 @@ export const Card = ({ children }: CardProps) => {
 }
 
 export interface CardTitleProps {
-  children?: ReactNode
+  title: string
+  subtitle?: string
 }
 
-const CardTitle: FC<CardTitleProps> = ({ children }) => {
+const CardTitle: FC<CardTitleProps> = ({ title, subtitle }) => {
   return (
-    <h2 className="flex items-center min-h-12 px-6 py-2 text-lg font-medium truncate">
-      {children}
-    </h2>
+    <div className="flex flex-col justify-center min-h-12 px-4 sm:px-6 py-2 gap-1">
+      <h2 className="flex-none text-lg font-medium leading-6 truncate">
+        {title}
+      </h2>
+      {subtitle && (
+        <p className="flex-none text-sm text-zinc-600 truncate">{subtitle}</p>
+      )}
+    </div>
   )
 }
 
@@ -45,7 +51,7 @@ const CardButton: FC<CardButtonProps> = ({
   return (
     <button
       className={clsx(
-        'flex w-full items-center min-h-12 px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 transition-colors',
+        'flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 transition-colors',
         { 'pointer-events-none': disabled }
       )}
       type="button"
@@ -61,7 +67,7 @@ const CardButton: FC<CardButtonProps> = ({
 Card.Button = CardButton
 
 const CardDivider: FC = () => {
-  return <div className="my-2 border-t border-zinc-100" />
+  return <div className="my-2 border-t border-zinc-200" />
 }
 
 Card.Divider = CardDivider
