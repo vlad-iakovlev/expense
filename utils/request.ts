@@ -1,8 +1,7 @@
 export const request = {
   get: async <Response>(url: string): Promise<Response> => {
     const response = await fetch(url)
-    console.log(response)
-    return response.json()
+    return await response.json()
   },
 
   post: async <Body, Response>(url: string, body: Body): Promise<Response> => {
@@ -13,7 +12,7 @@ export const request = {
       },
       body: JSON.stringify(body),
     })
-    return response.json()
+    return await response.json()
   },
 
   put: async <Body, Response>(url: string, body: Body): Promise<Response> => {
@@ -24,6 +23,6 @@ export const request = {
       },
       body: JSON.stringify(body),
     })
-    return response.json()
+    return await response.json()
   },
 }

@@ -2,7 +2,7 @@ import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 import {
   ChangeEvent,
-  FC,
+  forwardRef,
   Fragment,
   KeyboardEvent,
   ReactNode,
@@ -10,14 +10,35 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { ForwardRef, MayBePromise } from '../../types/utility'
 
 export interface BreadcrumbsProps {
   children: ReactNode
 }
 
-export const Breadcrumbs = ({ children }: BreadcrumbsProps) => {
+export interface BreadcrumbsLinkProps {
+  href: string
+  title: string
+}
+
+export interface BreadcrumbsTitleProps {
+  title: string
+}
+
+export interface BreadcrumbsEditableTitleProps {
+  title: string
+  onChange: (title: string) => MayBePromise<void>
+}
+
+type BreadcrumbsType = ForwardRef<HTMLDivElement, BreadcrumbsProps> & {
+  Link: ForwardRef<HTMLAnchorElement, BreadcrumbsLinkProps>
+  Title: ForwardRef<HTMLHeadingElement, BreadcrumbsTitleProps>
+  EditableTitle: ForwardRef<HTMLDivElement, BreadcrumbsEditableTitleProps>
+}
+
+export const Breadcrumbs = forwardRef(function Breadcrumbs({ children }, ref) {
   return (
-    <div className="flex items-center gap-2 mb-6">
+    <div ref={ref} className="flex items-center gap-2 mb-6">
       {Array.isArray(children)
         ? children.map((node, index) => (
             <Fragment key={index}>
@@ -28,45 +49,32 @@ export const Breadcrumbs = ({ children }: BreadcrumbsProps) => {
         : children}
     </div>
   )
-}
+}) as BreadcrumbsType
 
-export interface BreadcrumbsLinkProps {
-  href: string
-  title: string
-}
-
-const BreadcrumbsLink: FC<BreadcrumbsLinkProps> = ({ href, title }) => {
+Breadcrumbs.Link = forwardRef(function BreadcrumbsLink({ href, title }, ref) {
   return (
     <Link
+      ref={ref}
       className="min-w-0 text-lg font-medium text-cyan-900 truncate"
       href={href}
     >
       {title}
     </Link>
   )
-}
+})
 
-Breadcrumbs.Link = BreadcrumbsLink
+Breadcrumbs.Title = forwardRef(function BreadcrumbsTitle({ title }, ref) {
+  return (
+    <h1 ref={ref} className="min-w-0 text-lg font-medium truncate">
+      {title}
+    </h1>
+  )
+})
 
-export interface BreadcrumbsTitleProps {
-  title: string
-}
-
-const BreadcrumbsTitle: FC<BreadcrumbsTitleProps> = ({ title }) => {
-  return <h1 className="min-w-0 text-lg font-medium truncate">{title}</h1>
-}
-
-Breadcrumbs.Title = BreadcrumbsTitle
-
-export interface BreadcrumbsEditableTitleProps {
-  title: string
-  onChange: (title: string) => Promise<void> | void
-}
-
-const BreadcrumbsEditableTitle: FC<BreadcrumbsEditableTitleProps> = ({
-  title,
-  onChange,
-}) => {
+Breadcrumbs.EditableTitle = forwardRef(function BreadcrumbsEditableTitle(
+  { title, onChange },
+  ref
+) {
   const [titleValue, setTitleValue] = useState(title)
   const [isEditing, setIsEditing] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -126,7 +134,7 @@ const BreadcrumbsEditableTitle: FC<BreadcrumbsEditableTitleProps> = ({
   }, [title])
 
   return (
-    <div className="flex-auto min-w-0 flex text-lg font-medium">
+    <div ref={ref} className="flex-auto min-w-0 flex text-lg font-medium">
       {isEditing ? (
         <input
           autoFocus
@@ -144,6 +152,4 @@ const BreadcrumbsEditableTitle: FC<BreadcrumbsEditableTitleProps> = ({
       )}
     </div>
   )
-}
-
-Breadcrumbs.EditableTitle = BreadcrumbsEditableTitle
+})

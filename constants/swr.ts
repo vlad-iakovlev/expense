@@ -4,4 +4,5 @@ export const SWR_KEYS = {
   WALLETS: 'wallets',
   GROUP_WALLETS: (groupId: string) => `group-${groupId}/wallets`,
   WALLET: (walletId: string) => `wallet-${walletId}`,
+  CURRENCIES: 'currencies',
 }

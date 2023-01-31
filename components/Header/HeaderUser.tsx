@@ -34,16 +34,15 @@ export const HeaderUser: FC = () => {
           Sign In
         </Button>
       )}
+
       {session.status === 'authenticated' && (
         <Menu as="div" className="relative">
-          <div>
-            <Menu.Button className="block rounded-full">
-              <Avatar
-                src={session.data.user?.image || ''}
-                name={session.data.user?.name || ''}
-              />
-            </Menu.Button>
-          </div>
+          <Menu.Button className="block rounded-full">
+            <Avatar
+              src={session.data.user?.image || ''}
+              name={session.data.user?.name || ''}
+            />
+          </Menu.Button>
 
           <Transition
             as={Fragment}
@@ -54,19 +53,24 @@ export const HeaderUser: FC = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right focus:outline-none">
-              <Card>
-                <Card.Title
-                  title={session.data.user?.name || ''}
-                  subtitle={session.data.user?.email || ''}
-                />
+            <Menu.Items
+              as={Card}
+              className="absolute right-0 z-10 mt-2 w-72 origin-top-right focus:outline-none"
+            >
+              <Card.Title
+                title={session.data.user?.name || ''}
+                subtitle={session.data.user?.email || ''}
+              />
 
-                <Card.Divider />
+              <Card.Divider />
 
-                <Card.Button disabled={isLoading} onClick={handleSignOut}>
-                  Sign Out
-                </Card.Button>
-              </Card>
+              <Menu.Item
+                as={Card.Button}
+                disabled={isLoading}
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </Menu.Item>
             </Menu.Items>
           </Transition>
         </Menu>
