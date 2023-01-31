@@ -37,7 +37,10 @@ export interface BreadcrumbsLinkProps {
 
 const BreadcrumbsLink: FC<BreadcrumbsLinkProps> = ({ href, title }) => {
   return (
-    <Link className="min-w-0 text-lg text-cyan-900 truncate" href={href}>
+    <Link
+      className="min-w-0 text-lg font-medium text-cyan-900 truncate"
+      href={href}
+    >
       {title}
     </Link>
   )
