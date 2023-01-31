@@ -1,7 +1,7 @@
 import queryString from 'query-string'
 
 export const request = {
-  buildUrl: <Query extends Record<string, unknown>>(
+  withQuery: <Query extends Record<string, unknown>>(
     base: string,
     queryParams: Query
   ) => {

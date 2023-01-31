@@ -14,13 +14,13 @@ const BASE_ROUTE = '/api/wallets'
 
 export const getWallets = async (groupId?: string) => {
   return await request.get<GetWalletsResponse>(
-    request.buildUrl<GetWalletsQuery>(`${BASE_ROUTE}/list`, { groupId })
+    request.withQuery<GetWalletsQuery>(`${BASE_ROUTE}/list`, { groupId })
   )
 }
 
 export const getWallet = async (walletId: string) => {
   return await request.get<GetWalletResponse>(
-    request.buildUrl<GetWalletQuery>(BASE_ROUTE, { walletId })
+    request.withQuery<GetWalletQuery>(BASE_ROUTE, { walletId })
   )
 }
 

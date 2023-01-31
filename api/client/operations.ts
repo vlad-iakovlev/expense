@@ -14,13 +14,15 @@ const BASE_ROUTE = '/api/operations'
 
 export const getOperations = async (walletId?: string) => {
   return await request.get<GetOperationsResponse>(
-    request.buildUrl<GetOperationsQuery>(`${BASE_ROUTE}/list`, { walletId })
+    request.withQuery<GetOperationsQuery>(`${BASE_ROUTE}/list`, {
+      walletId,
+    })
   )
 }
 
 export const getOperation = async (operationId: string) => {
   return await request.get<GetOperationResponse>(
-    request.buildUrl<GetOperationQuery>(BASE_ROUTE, { operationId })
+    request.withQuery<GetOperationQuery>(BASE_ROUTE, { operationId })
   )
 }
 
