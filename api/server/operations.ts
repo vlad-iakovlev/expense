@@ -44,6 +44,7 @@ export const getOperations: NextApiHandler<GetOperationsResponse> = async (
       wallet: {
         id: query.walletId,
         group: {
+          id: query.groupId,
           userIds: {
             has: req.session.user.id,
           },
