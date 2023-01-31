@@ -28,7 +28,7 @@ export const WalletsCard: FC = () => {
     const { wallet } = await createWallet({
       groupId: query.groupId,
       name: 'Untitled Wallet',
-      currencyId: currencies[0].id,
+      currencyId: currencies.find((c) => c.name === 'USD')?.id || '',
     })
 
     await goToWallet(wallet.id)

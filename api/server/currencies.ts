@@ -12,6 +12,9 @@ export const getCurrencies: NextApiHandler<GetCurrenciesResponse> = async (
   res
 ) => {
   const currencies = await req.prisma.currency.findMany({
+    orderBy: {
+      name: 'asc',
+    },
     select,
   })
 
