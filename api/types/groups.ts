@@ -2,6 +2,7 @@ import { Group, User } from '@prisma/client'
 import { z } from 'zod'
 import {
   createGroupBodySchema,
+  getGroupQuerySchema,
   updateGroupBodySchema,
 } from '../server/schemas/group'
 
@@ -12,6 +13,8 @@ export type ClientGroup = Pick<Group, 'id' | 'name'> & {
 export interface GetGroupsResponse {
   groups: ClientGroup[]
 }
+
+export type GetGroupQuery = z.infer<typeof getGroupQuerySchema>
 
 export interface GetGroupResponse {
   group: ClientGroup

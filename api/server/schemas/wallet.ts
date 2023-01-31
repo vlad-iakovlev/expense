@@ -6,25 +6,17 @@ export const getWalletsQuerySchema = z.object({
 })
 
 export const getWalletQuerySchema = z.object({
-  groupId: z.string().refine(isValidObjectId),
   walletId: z.string().refine(isValidObjectId),
 })
 
-export const createWalletQuerySchema = z.object({
-  groupId: z.string().refine(isValidObjectId),
-})
-
 export const createWalletBodySchema = z.object({
+  groupId: z.string().refine(isValidObjectId),
   name: z.string().min(1),
   currencyId: z.string().refine(isValidObjectId),
 })
 
-export const updateWalletQuerySchema = z.object({
-  groupId: z.string().refine(isValidObjectId),
-  walletId: z.string().refine(isValidObjectId),
-})
-
 export const updateWalletBodySchema = z.object({
+  walletId: z.string().refine(isValidObjectId),
   name: z.string().min(1).optional(),
   currencyId: z.string().refine(isValidObjectId).optional(),
 })

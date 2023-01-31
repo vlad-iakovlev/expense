@@ -18,10 +18,13 @@ export const Wallet: FC<Props> = ({ currencies, wallet }) => {
 
   const handleNameChange = useCallback(
     async (name: string) => {
-      await updateWallet(wallet.group.id, wallet.id, { name })
+      await updateWallet({
+        walletId: wallet.id,
+        name,
+      })
       await mutate(SWR_KEYS.WALLET(wallet.id))
     },
-    [mutate, wallet.group.id, wallet.id]
+    [mutate, wallet.id]
   )
 
   return (

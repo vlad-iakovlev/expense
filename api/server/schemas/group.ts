@@ -9,10 +9,7 @@ export const createGroupBodySchema = z.object({
   name: z.string().min(1),
 })
 
-export const updateGroupQuerySchema = z.object({
-  groupId: z.string().refine(isValidObjectId),
-})
-
 export const updateGroupBodySchema = z.object({
+  groupId: z.string().refine(isValidObjectId),
   name: z.string().min(1),
 })

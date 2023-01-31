@@ -17,8 +17,8 @@ export const Wallets: FC<Props> = ({ groupId, wallets }) => {
   const router = useRouter()
 
   const goToWallet = useCallback(
-    async (wallet: ClientWallet) => {
-      await router.push(ROUTES.WALLET(wallet.group.id, wallet.id))
+    async (walletId: string) => {
+      await router.push(ROUTES.WALLET(walletId))
     },
     [router]
   )
@@ -28,12 +28,13 @@ export const Wallets: FC<Props> = ({ groupId, wallets }) => {
 
     const { currencies } = await getCurrencies()
 
-    const { wallet } = await createWallet(groupId, {
+    const { wallet } = await createWallet({
+      groupId,
       name: 'Untitled Wallet',
       currencyId: currencies[0].id,
     })
 
-    await goToWallet(wallet)
+    await goToWallet(wallet.id)
   }, [goToWallet, groupId])
 
   return (
@@ -50,7 +51,7 @@ export const Wallets: FC<Props> = ({ groupId, wallets }) => {
               {formatAmount(wallet.balance, wallet.currency)}
             </div>
           }
-          onClick={() => goToWallet(wallet)}
+          onClick={() => goToWallet(wallet.id)}
         >
           {wallet.name}
         </Card.Button>

@@ -22,13 +22,16 @@ export const WalletSettings: FC<Props> = ({ currencies, wallet }) => {
 
       try {
         setIsSaving(true)
-        await updateWallet(wallet.group.id, wallet.id, { currencyId })
+        await updateWallet({
+          walletId: wallet.id,
+          currencyId,
+        })
         await mutate(SWR_KEYS.WALLET(wallet.id))
       } finally {
         setIsSaving(false)
       }
     },
-    [mutate, wallet.currency.id, wallet.group.id, wallet.id]
+    [mutate, wallet.currency.id, wallet.id]
   )
 
   return (

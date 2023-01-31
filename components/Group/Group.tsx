@@ -19,7 +19,10 @@ export const Group: FC<Props> = ({ group, wallets }) => {
 
   const handleNameChange = useCallback(
     async (name: string) => {
-      await updateGroup(group.id, { name })
+      await updateGroup({
+        groupId: group.id,
+        name,
+      })
       await mutate(SWR_KEYS.GROUP(group.id))
     },
     [group.id, mutate]

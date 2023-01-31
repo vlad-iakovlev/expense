@@ -16,15 +16,18 @@ export const Groups: FC<Props> = ({ groups }) => {
   const router = useRouter()
 
   const goToGroup = useCallback(
-    async (group: ClientGroup) => {
-      await router.push(ROUTES.GROUP(group.id))
+    async (groupId: string) => {
+      await router.push(ROUTES.GROUP(groupId))
     },
     [router]
   )
 
   const handleCreateGroup = useCallback(async () => {
-    const { group } = await createGroup({ name: 'Untitled Group' })
-    await goToGroup(group)
+    const { group } = await createGroup({
+      name: 'Untitled Group',
+    })
+
+    await goToGroup(group.id)
   }, [goToGroup])
 
   return (
@@ -47,7 +50,7 @@ export const Groups: FC<Props> = ({ groups }) => {
               size="sm"
             />
           }
-          onClick={() => goToGroup(group)}
+          onClick={() => goToGroup(group.id)}
         >
           {group.name}
         </Card.Button>

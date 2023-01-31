@@ -2,6 +2,7 @@ import { request } from '../../utils/request'
 import {
   CreateGroupBody,
   CreateGroupResponse,
+  GetGroupQuery,
   GetGroupResponse,
   GetGroupsResponse,
   UpdateGroupBody,
@@ -11,11 +12,13 @@ import {
 const BASE_ROUTE = '/api/groups'
 
 export const getGroups = async () => {
-  return await request.get<GetGroupsResponse>(BASE_ROUTE)
+  return await request.get<GetGroupsResponse>(`${BASE_ROUTE}/list`)
 }
 
 export const getGroup = async (groupId: string) => {
-  return await request.get<GetGroupResponse>(`${BASE_ROUTE}/${groupId}`)
+  return await request.get<GetGroupResponse>(
+    request.buildUrl<GetGroupQuery>(BASE_ROUTE, { groupId })
+  )
 }
 
 export const createGroup = async (data: CreateGroupBody) => {
@@ -25,9 +28,9 @@ export const createGroup = async (data: CreateGroupBody) => {
   )
 }
 
-export const updateGroup = async (groupId: string, data: UpdateGroupBody) => {
+export const updateGroup = async (data: UpdateGroupBody) => {
   return await request.put<UpdateGroupBody, UpdateGroupResponse>(
-    `${BASE_ROUTE}/${groupId}`,
+    BASE_ROUTE,
     data
   )
 }

@@ -1,4 +1,15 @@
+import queryString from 'query-string'
+
 export const request = {
+  buildUrl: <Query extends Record<string, unknown>>(
+    base: string,
+    queryParams: Query
+  ) => {
+    const query = queryString.stringify(queryParams)
+    if (query) return `${base}?${query}`
+    return base
+  },
+
   get: async <Response>(url: string): Promise<Response> => {
     const response = await fetch(url)
     return await response.json()

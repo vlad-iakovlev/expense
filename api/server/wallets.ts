@@ -7,11 +7,9 @@ import {
 } from '../types/wallets'
 import {
   createWalletBodySchema,
-  createWalletQuerySchema,
   getWalletQuerySchema,
   getWalletsQuerySchema,
   updateWalletBodySchema,
-  updateWalletQuerySchema,
 } from './schemas/wallet'
 import { populateWalletBalance } from '../../utils/populateWalletBalance'
 
@@ -68,7 +66,6 @@ export const getWallet: NextApiHandler<GetWalletResponse> = async (
     where: {
       id: query.walletId,
       group: {
-        id: query.groupId,
         userIds: {
           has: req.session.user.id,
         },
@@ -86,7 +83,6 @@ export const createWallet: NextApiHandler<CreateWalletResponse> = async (
   req,
   res
 ) => {
-  const query = createWalletQuerySchema.parse(req.query)
   const body = createWalletBodySchema.parse(req.body)
 
   const walletWithoutBalance = await req.prisma.wallet.create({
@@ -94,7 +90,7 @@ export const createWallet: NextApiHandler<CreateWalletResponse> = async (
       name: body.name,
       group: {
         connect: {
-          id: query.groupId,
+          id: body.groupId,
           userIds: {
             has: req.session.user.id,
           },
@@ -118,14 +114,12 @@ export const updateWallet: NextApiHandler<UpdateWalletResponse> = async (
   req,
   res
 ) => {
-  const query = updateWalletQuerySchema.parse(req.query)
   const body = updateWalletBodySchema.parse(req.body)
 
   const walletWithoutBalance = await req.prisma.wallet.update({
     where: {
-      id: query.walletId,
+      id: body.walletId,
       group: {
-        id: query.groupId,
         userIds: {
           has: req.session.user.id,
         },

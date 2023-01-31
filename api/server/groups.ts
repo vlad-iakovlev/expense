@@ -9,7 +9,6 @@ import {
   createGroupBodySchema,
   getGroupQuerySchema,
   updateGroupBodySchema,
-  updateGroupQuerySchema,
 } from './schemas/group'
 
 export const select = {
@@ -77,12 +76,11 @@ export const updateGroup: NextApiHandler<UpdateGroupResponse> = async (
   req,
   res
 ) => {
-  const query = updateGroupQuerySchema.parse(req.query)
   const body = updateGroupBodySchema.parse(req.body)
 
   const group = await req.prisma.group.update({
     where: {
-      id: query.groupId,
+      id: body.groupId,
       userIds: {
         has: req.session.user.id,
       },

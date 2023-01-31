@@ -3,10 +3,10 @@ import Error from 'next/error'
 import Head from 'next/head'
 import { useCallback } from 'react'
 import useSWR from 'swr'
-import { getGroup } from '../../../../api/client/groups'
-import { getWallets } from '../../../../api/client/wallets'
-import { Group } from '../../../../components/Group'
-import { SWR_KEYS } from '../../../../constants/swr'
+import { getGroup } from '../../../api/client/groups'
+import { getWallets } from '../../../api/client/wallets'
+import { Group } from '../../../components/Group'
+import { SWR_KEYS } from '../../../constants/swr'
 
 interface Props {
   groupId: string

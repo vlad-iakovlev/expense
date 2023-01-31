@@ -3,13 +3,12 @@ import Error from 'next/error'
 import Head from 'next/head'
 import { useCallback } from 'react'
 import useSWR from 'swr'
-import { getCurrencies } from '../../../../../api/client/currencies'
-import { getWallet } from '../../../../../api/client/wallets'
-import { Wallet } from '../../../../../components/Wallet'
-import { SWR_KEYS } from '../../../../../constants/swr'
+import { getCurrencies } from '../../../api/client/currencies'
+import { getWallet } from '../../../api/client/wallets'
+import { Wallet } from '../../../components/Wallet'
+import { SWR_KEYS } from '../../../constants/swr'
 
 interface Props {
-  groupId: string
   walletId: string
 }
 
@@ -18,13 +17,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 ) => {
   return {
     props: {
-      groupId: String(context.query.groupId),
       walletId: String(context.query.walletId),
     },
   }
 }
 
-const WalletPage: NextPage<Props> = ({ groupId, walletId }) => {
+const WalletPage: NextPage<Props> = ({ walletId }) => {
   const { data: { currencies } = {}, isLoading: isCurrenciesLoading } = useSWR(
     SWR_KEYS.CURRENCIES,
     useCallback(() => getCurrencies(), [])
@@ -32,7 +30,7 @@ const WalletPage: NextPage<Props> = ({ groupId, walletId }) => {
 
   const { data: { wallet } = {}, isLoading: isWalletLoading } = useSWR(
     SWR_KEYS.WALLET(walletId),
-    useCallback(() => getWallet(groupId, walletId), [groupId, walletId])
+    useCallback(() => getWallet(walletId), [walletId])
   )
 
   if (isCurrenciesLoading || isWalletLoading) {
