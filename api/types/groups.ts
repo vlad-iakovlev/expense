@@ -4,7 +4,7 @@ import {
   createGroupBodySchema,
   getGroupQuerySchema,
   updateGroupBodySchema,
-} from '../server/schemas/group'
+} from '../server/schemas/groups'
 
 export type ClientGroup = Pick<Group, 'id' | 'name'> & {
   users: Pick<User, 'id' | 'image' | 'name'>[]

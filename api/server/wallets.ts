@@ -10,7 +10,7 @@ import {
   getWalletQuerySchema,
   getWalletsQuerySchema,
   updateWalletBodySchema,
-} from './schemas/wallet'
+} from './schemas/wallets'
 import { populateWalletBalance } from '../../utils/populateWalletBalance'
 
 export const select = {
@@ -128,6 +128,7 @@ export const updateWallet: NextApiHandler<UpdateWalletResponse> = async (
     data: {
       name: body.name,
       currencyId: body.currencyId,
+      groupId: body.groupId,
     },
     select,
   })

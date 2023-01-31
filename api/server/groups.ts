@@ -9,7 +9,7 @@ import {
   createGroupBodySchema,
   getGroupQuerySchema,
   updateGroupBodySchema,
-} from './schemas/group'
+} from './schemas/groups'
 
 export const select = {
   id: true,

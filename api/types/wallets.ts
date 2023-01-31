@@ -5,7 +5,7 @@ import {
   getWalletQuerySchema,
   getWalletsQuerySchema,
   updateWalletBodySchema,
-} from '../server/schemas/wallet'
+} from '../server/schemas/wallets'
 import { ClientCurrency } from './currencies'
 
 export type ClientWallet = Pick<Wallet, 'id' | 'name'> & {
