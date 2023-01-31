@@ -1,12 +1,12 @@
 import { PlusIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import { FC, useCallback } from 'react'
-import { getCurrencies } from '../../api/client/currencies'
-import { createWallet } from '../../api/client/wallets'
-import { ROUTES } from '../../constants/routes'
-import { formatAmount } from '../../utils/formatAmount'
-import { useWalletsContext } from '../contexts/Wallets'
-import { Card } from '../ui-kit/Card'
+import { getCurrencies } from '../../../api/client/currencies'
+import { createWallet } from '../../../api/client/wallets'
+import { ROUTES } from '../../../constants/routes'
+import { formatAmount } from '../../../utils/formatAmount'
+import { useWalletsContext } from '../../contexts/Wallets'
+import { Card } from '../../ui-kit/Card'
 
 export const WalletsCard: FC = () => {
   const { query, wallets } = useWalletsContext()

@@ -1,11 +1,11 @@
 import { Menu, Transition } from '@headlessui/react'
 import { FC, Fragment, useCallback, useState } from 'react'
 import { useSWRConfig } from 'swr'
-import { updateWallet } from '../../api/client/wallets'
-import { SWR_KEYS } from '../../constants/swr'
-import { useCurrenciesContext } from '../contexts/Currencies'
-import { useWalletContext } from '../contexts/Wallet'
-import { Card } from '../ui-kit/Card'
+import { updateWallet } from '../../../api/client/wallets'
+import { SWR_KEYS } from '../../../constants/swr'
+import { useCurrenciesContext } from '../../contexts/Currencies'
+import { useWalletContext } from '../../contexts/Wallet'
+import { Card } from '../../ui-kit/Card'
 
 export const WalletSettingsCard: FC = () => {
   const { mutate } = useSWRConfig()

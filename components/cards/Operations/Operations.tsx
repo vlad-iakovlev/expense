@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/24/solid'
 import { FC, useCallback, useState } from 'react'
-import { useOperationsContext } from '../contexts/Operations'
-import { Card } from '../ui-kit/Card'
+import { useOperationsContext } from '../../contexts/Operations'
+import { Card } from '../../ui-kit/Card'
 
 export const OperationsCard: FC = () => {
   const { query, operations } = useOperationsContext()
