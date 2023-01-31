@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 
 const WalletPage: NextPage<Props> = ({ groupId, walletId }) => {
   const { data: { wallet } = {}, isLoading: isWalletLoading } = useSWR(
-    SWR_KEYS.WALLET(groupId, walletId),
+    SWR_KEYS.WALLET(walletId),
     useCallback(() => getWallet(groupId, walletId), [groupId, walletId])
   )
 

@@ -8,9 +8,10 @@ import {
   UpdateWalletResponse,
 } from '../types/wallets'
 
-const BASE_ROUTE = (groupId: string) => `/api/groups/${groupId}/wallets`
+const BASE_ROUTE = (groupId?: string) =>
+  groupId ? `/api/groups/${groupId}/wallets` : '/api/wallets'
 
-export const getWallets = async (groupId: string) => {
+export const getWallets = async (groupId?: string) => {
   return await request.get<GetWalletsResponse>(BASE_ROUTE(groupId))
 }
 

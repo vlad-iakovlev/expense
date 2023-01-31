@@ -6,8 +6,8 @@ import { ClientWallet } from '../../api/types/wallets'
 import { ROUTES } from '../../constants/routes'
 import { SWR_KEYS } from '../../constants/swr'
 import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
-import { GroupUsers } from './GroupUsers'
-import { GroupWallets } from './GroupWallets'
+import { GroupUsers } from '../cards/GroupUsers'
+import { Wallets } from '../cards/Wallets'
 
 interface Props {
   group: ClientGroup
@@ -37,7 +37,7 @@ export const Group: FC<Props> = ({ group, wallets }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start gap-6">
         <GroupUsers group={group} />
-        <GroupWallets group={group} wallets={wallets} />
+        <Wallets groupId={group.id} wallets={wallets} />
       </div>
     </>
   )

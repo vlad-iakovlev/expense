@@ -12,19 +12,19 @@ interface Props {
   groups: ClientGroup[]
 }
 
-export const DashboardGroups: FC<Props> = ({ groups }) => {
+export const Groups: FC<Props> = ({ groups }) => {
   const router = useRouter()
 
   const goToGroup = useCallback(
-    async (groupId: string) => {
-      await router.push(ROUTES.GROUP(groupId))
+    async (group: ClientGroup) => {
+      await router.push(ROUTES.GROUP(group.id))
     },
     [router]
   )
 
   const handleCreateGroup = useCallback(async () => {
     const { group } = await createGroup({ name: 'Untitled Group' })
-    await goToGroup(group.id)
+    await goToGroup(group)
   }, [goToGroup])
 
   return (
@@ -45,7 +45,7 @@ export const DashboardGroups: FC<Props> = ({ groups }) => {
               size="sm"
             />
           }
-          onClick={() => goToGroup(group.id)}
+          onClick={() => goToGroup(group)}
         >
           {group.name}
         </Card.Button>

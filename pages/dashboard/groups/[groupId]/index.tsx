@@ -29,7 +29,7 @@ const GroupPage: NextPage<Props> = ({ groupId }) => {
   )
 
   const { data: { wallets } = {}, isLoading: isWalletsLoading } = useSWR(
-    SWR_KEYS.WALLETS(groupId),
+    SWR_KEYS.GROUP_WALLETS(groupId),
     useCallback(() => getWallets(groupId), [groupId])
   )
 

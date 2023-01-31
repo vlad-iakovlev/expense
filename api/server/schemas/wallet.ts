@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { isValidObjectId } from '../../../utils/isValidObjectId'
 
 export const getWalletsQuerySchema = z.object({
-  groupId: z.string().refine(isValidObjectId),
+  groupId: z.string().refine(isValidObjectId).optional(),
 })
 
 export const getWalletQuerySchema = z.object({

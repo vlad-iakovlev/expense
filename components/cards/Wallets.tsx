@@ -3,37 +3,38 @@ import { useRouter } from 'next/router'
 import { FC, useCallback } from 'react'
 import { getCurrencies } from '../../api/client/currencies'
 import { createWallet } from '../../api/client/wallets'
-import { ClientGroup } from '../../api/types/groups'
 import { ClientWallet } from '../../api/types/wallets'
 import { ROUTES } from '../../constants/routes'
 import { formatAmount } from '../../utils/formatAmount'
 import { Card } from '../ui-kit/Card'
 
 interface Props {
-  group: ClientGroup
+  groupId?: string
   wallets: ClientWallet[]
 }
 
-export const GroupWallets: FC<Props> = ({ group, wallets }) => {
+export const Wallets: FC<Props> = ({ groupId, wallets }) => {
   const router = useRouter()
 
   const goToWallet = useCallback(
-    async (walletId: string) => {
-      await router.push(ROUTES.WALLET(group.id, walletId))
+    async (wallet: ClientWallet) => {
+      await router.push(ROUTES.WALLET(wallet.group.id, wallet.id))
     },
-    [group.id, router]
+    [router]
   )
 
   const handleCreateWallet = useCallback(async () => {
+    if (!groupId) return
+
     const { currencies } = await getCurrencies()
 
-    const { wallet } = await createWallet(group.id, {
+    const { wallet } = await createWallet(groupId, {
       name: 'Untitled Wallet',
       currencyId: currencies[0].id,
     })
 
-    await goToWallet(wallet.id)
-  }, [goToWallet, group.id])
+    await goToWallet(wallet)
+  }, [goToWallet, groupId])
 
   return (
     <Card>
@@ -47,18 +48,20 @@ export const GroupWallets: FC<Props> = ({ group, wallets }) => {
               {formatAmount(wallet.balance, wallet.currency)}
             </div>
           }
-          onClick={() => goToWallet(wallet.id)}
+          onClick={() => goToWallet(wallet)}
         >
           {wallet.name}
         </Card.Button>
       ))}
 
-      <Card.Button
-        end={<PlusIcon className="w-5 h-5" />}
-        onClick={handleCreateWallet}
-      >
-        Create Wallet
-      </Card.Button>
+      {groupId ? (
+        <Card.Button
+          end={<PlusIcon className="w-5 h-5" />}
+          onClick={handleCreateWallet}
+        >
+          Create Wallet
+        </Card.Button>
+      ) : null}
     </Card>
   )
 }
