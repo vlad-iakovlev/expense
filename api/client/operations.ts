@@ -12,17 +12,15 @@ import {
 
 const BASE_ROUTE = '/api/operations'
 
-export const getOperations = async (walletId?: string) => {
+export const getOperations = async (query: GetOperationsQuery = {}) => {
   return await request.get<GetOperationsResponse>(
-    request.withQuery<GetOperationsQuery>(`${BASE_ROUTE}/list`, {
-      walletId,
-    })
+    request.withQuery<GetOperationsQuery>(`${BASE_ROUTE}/list`, query)
   )
 }
 
-export const getOperation = async (operationId: string) => {
+export const getOperation = async (query: GetOperationQuery) => {
   return await request.get<GetOperationResponse>(
-    request.withQuery<GetOperationQuery>(BASE_ROUTE, { operationId })
+    request.withQuery<GetOperationQuery>(BASE_ROUTE, query)
   )
 }
 

@@ -25,12 +25,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 const GroupPage: NextPage<Props> = ({ groupId }) => {
   const { data: { group } = {}, isLoading: isGroupLoading } = useSWR(
     SWR_KEYS.GROUP(groupId),
-    useCallback(() => getGroup(groupId), [groupId])
+    useCallback(() => getGroup({ groupId }), [groupId])
   )
 
   const { data: { wallets } = {}, isLoading: isWalletsLoading } = useSWR(
     SWR_KEYS.GROUP_WALLETS(groupId),
-    useCallback(() => getWallets(groupId), [groupId])
+    useCallback(() => getWallets({ groupId }), [groupId])
   )
 
   if (isGroupLoading || isWalletsLoading) {

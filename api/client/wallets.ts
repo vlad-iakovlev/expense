@@ -12,15 +12,15 @@ import {
 
 const BASE_ROUTE = '/api/wallets'
 
-export const getWallets = async (groupId?: string) => {
+export const getWallets = async (query: GetWalletsQuery = {}) => {
   return await request.get<GetWalletsResponse>(
-    request.withQuery<GetWalletsQuery>(`${BASE_ROUTE}/list`, { groupId })
+    request.withQuery<GetWalletsQuery>(`${BASE_ROUTE}/list`, query)
   )
 }
 
-export const getWallet = async (walletId: string) => {
+export const getWallet = async (query: GetWalletQuery) => {
   return await request.get<GetWalletResponse>(
-    request.withQuery<GetWalletQuery>(BASE_ROUTE, { walletId })
+    request.withQuery<GetWalletQuery>(BASE_ROUTE, query)
   )
 }
 

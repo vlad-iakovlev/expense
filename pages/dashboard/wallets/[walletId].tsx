@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { useCallback } from 'react'
 import useSWR from 'swr'
 import { getCurrencies } from '../../../api/client/currencies'
+import { getOperations } from '../../../api/client/operations'
 import { getWallet } from '../../../api/client/wallets'
 import { Wallet } from '../../../components/Wallet'
 import { SWR_KEYS } from '../../../constants/swr'
@@ -30,14 +31,19 @@ const WalletPage: NextPage<Props> = ({ walletId }) => {
 
   const { data: { wallet } = {}, isLoading: isWalletLoading } = useSWR(
     SWR_KEYS.WALLET(walletId),
-    useCallback(() => getWallet(walletId), [walletId])
+    useCallback(() => getWallet({ walletId }), [walletId])
   )
 
-  if (isCurrenciesLoading || isWalletLoading) {
+  const { data: { operations } = {}, isLoading: isOperationsLoading } = useSWR(
+    SWR_KEYS.WALLET_OPERATIONS(walletId),
+    useCallback(() => getOperations({ walletId }), [walletId])
+  )
+
+  if (isCurrenciesLoading || isWalletLoading || isOperationsLoading) {
     return null
   }
 
-  if (!currencies || !wallet) {
+  if (!currencies || !wallet || !operations) {
     return <Error statusCode={404} />
   }
 
