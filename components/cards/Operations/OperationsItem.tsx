@@ -5,13 +5,23 @@ import { ClientOperation } from '../../../api/types/operations'
 import { formatAmount } from '../../../utils/formatAmount'
 
 interface Props {
+  className?: string
   operation: ClientOperation
   walletType: 'column' | 'button'
 }
 
-export const OperationsItem: FC<Props> = ({ operation, walletType }) => {
+export const OperationsItem: FC<Props> = ({
+  className,
+  operation,
+  walletType,
+}) => {
   return (
-    <div className="flex items-center min-h-12 px-4 sm:px-6 py-2 gap-4">
+    <div
+      className={clsx(
+        className,
+        'flex items-center min-h-12 px-4 sm:px-6 py-2 gap-4'
+      )}
+    >
       <div
         className={clsx('flex-auto min-w-0 sm:grid sm:gap-4', {
           'sm:grid-cols-5': walletType === 'column',

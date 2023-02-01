@@ -1,4 +1,5 @@
 import { PlusIcon } from '@heroicons/react/24/solid'
+import clsx from 'clsx'
 import { FC, useCallback } from 'react'
 import { mutate } from 'swr'
 import { createOperation } from '../../../api/client/operations'
@@ -43,9 +44,12 @@ export const OperationsCard: FC = () => {
         </Card.Button>
       ) : null}
 
-      {operations.map((operation) => (
+      {query.walletId && operations.length ? <Card.Divider /> : null}
+
+      {operations.map((operation, index) => (
         <OperationsItem
           key={operation.id}
+          className={clsx({ 'bg-zinc-100': index % 2 === 0 })}
           operation={operation}
           walletType={query.walletId ? 'button' : 'column'}
         />
