@@ -1,45 +1,33 @@
-import clsx from 'clsx'
 import { format } from 'date-fns'
 import { FC } from 'react'
 import { ClientOperation } from '../../../api/types/operations'
 import { formatAmount } from '../../../utils/formatAmount'
+import { Card } from '../../ui-kit/Card'
 
 interface Props {
-  className?: string
   operation: ClientOperation
-  walletType: 'column' | 'button'
+  walletId?: string
 }
 
-export const OperationsItem: FC<Props> = ({
-  className,
-  operation,
-  walletType,
-}) => {
+export const OperationsItem: FC<Props> = ({ operation, walletId }) => {
   return (
-    <div
-      className={clsx(
-        className,
-        'flex items-center min-h-12 px-4 sm:px-6 py-2 gap-4'
-      )}
-    >
-      <div
-        className={clsx('flex-auto min-w-0 sm:grid sm:gap-4', {
-          'sm:grid-cols-5': walletType === 'column',
-          'sm:grid-cols-4': walletType === 'button',
-        })}
-      >
-        <div className="truncate">
-          {format(new Date(operation.date), 'dd.MM HH:mm')}
+    <Card.Button>
+      <div className="flex items-center gap-3">
+        <div className="flex-auto truncate">
+          {operation.category} – {operation.description}
         </div>
-        <div className="truncate">{operation.category}</div>
-        <div className="truncate">{operation.description}</div>
-        <div className="truncate">
+        <div className="font-medium truncate">
           {formatAmount(operation.amount, operation.wallet.currency)}
         </div>
-        {walletType === 'column' && (
-          <div className="truncate">{operation.wallet.name}</div>
+      </div>
+      <div className="flex items-center gap-3 text-sm text-zinc-600">
+        <div className="flex-auto win-w-0 truncate">
+          {format(new Date(operation.date), "dd.MM 'at' HH:mm")}
+        </div>
+        {!walletId && (
+          <div className="min-w-0 truncate">{operation.wallet.name}</div>
         )}
       </div>
-    </div>
+    </Card.Button>
   )
 }
