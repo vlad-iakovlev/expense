@@ -6,6 +6,7 @@ import { createWallet } from '../../../api/client/wallets'
 import { ROUTES } from '../../../constants/routes'
 import { formatAmount } from '../../../utils/formatAmount'
 import { useWalletsContext } from '../../contexts/Wallets'
+import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 
 export const WalletsCard: FC = () => {
@@ -40,9 +41,21 @@ export const WalletsCard: FC = () => {
 
   return (
     <Card>
-      <Card.Title title="Wallets" />
+      <Card.Title
+        title="Wallets"
+        action={
+          query.groupId ? (
+            <Button
+              rounded
+              size="sm"
+              iconStart={<PlusIcon />}
+              onClick={handleCreateWallet}
+            />
+          ) : undefined
+        }
+      />
 
-      <Card.Divider />
+      {wallets.length ? <Card.Divider /> : null}
 
       {wallets.map((wallet) => (
         <Card.Button
@@ -57,15 +70,6 @@ export const WalletsCard: FC = () => {
           {wallet.name}
         </Card.Button>
       ))}
-
-      {query.groupId ? (
-        <Card.Button
-          end={<PlusIcon className="w-5 h-5" />}
-          onClick={handleCreateWallet}
-        >
-          Create Wallet
-        </Card.Button>
-      ) : null}
     </Card>
   )
 }

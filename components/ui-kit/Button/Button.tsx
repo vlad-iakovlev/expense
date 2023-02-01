@@ -7,7 +7,7 @@ export interface ButtonProps {
   iconEnd?: ReactNode
   iconStart?: ReactNode
   rounded?: boolean
-  size?: 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg'
   theme?: 'primary'
   type?: 'button' | 'submit' | 'reset'
   onClick?: (event: MouseEvent) => void
@@ -29,6 +29,7 @@ export const Button: FC<ButtonProps> = ({
       className={clsx('inline-flex items-center justify-center', {
         'rounded-md': !rounded,
         'rounded-full': rounded,
+        'min-w-8 h-8 px-2 text-sm font-medium': size === 'sm',
         'min-w-10 h-10 px-2 text-sm font-medium': size === 'md',
         'min-w-12 h-12 px-3 font-medium': size === 'lg',
         'bg-green-700 text-white hover:bg-green-800 transition-colors':
@@ -41,7 +42,7 @@ export const Button: FC<ButtonProps> = ({
       {iconStart ? (
         <div
           className={clsx('flex-none', {
-            'w-4 h-4': size === 'md',
+            'w-4 h-4': size === 'sm' || size === 'md',
             'w-6 h-6': size === 'lg',
           })}
         >
@@ -52,7 +53,7 @@ export const Button: FC<ButtonProps> = ({
       {children ? (
         <div
           className={clsx('truncate', {
-            'px-2': size === 'md',
+            'px-2': size === 'sm' || size === 'md',
             'px-3': size === 'lg',
           })}
         >
@@ -63,7 +64,7 @@ export const Button: FC<ButtonProps> = ({
       {iconEnd ? (
         <div
           className={clsx('flex-none', {
-            'w-4 h-4': size === 'md',
+            'w-4 h-4': size === 'sm' || size === 'md',
             'w-6 h-6': size === 'lg',
           })}
         >

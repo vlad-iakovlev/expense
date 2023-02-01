@@ -10,6 +10,7 @@ export interface CardProps {
 export interface CardTitleProps {
   title: string
   subtitle?: string
+  action?: ReactNode
 }
 
 export interface CardButtonProps {
@@ -40,18 +41,21 @@ export const Card = forwardRef(function Card({ className, children }, ref) {
   )
 }) as CardType
 
-Card.Title = forwardRef(function CardTitle({ title, subtitle }, ref) {
+Card.Title = forwardRef(function CardTitle({ title, subtitle, action }, ref) {
   return (
     <div
       ref={ref}
-      className="flex flex-col justify-center min-h-12 px-4 sm:px-6 py-2 gap-1"
+      className="flex items-center min-h-12 px-4 sm:px-6 py-2 gap-3"
     >
-      <h2 className="flex-none text-lg font-medium leading-6 truncate">
-        {title}
-      </h2>
-      {subtitle && (
-        <p className="flex-none text-sm text-zinc-600 truncate">{subtitle}</p>
-      )}
+      <div className="flex-auto min-w-0 flex flex-col justify-center gap-1">
+        <h2 className="flex-none text-lg font-medium leading-6 truncate">
+          {title}
+        </h2>
+        {subtitle && (
+          <p className="flex-none text-sm text-zinc-600 truncate">{subtitle}</p>
+        )}
+      </div>
+      {action ? <div className="flex-none">{action}</div> : null}
     </div>
   )
 })

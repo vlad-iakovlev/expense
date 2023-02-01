@@ -4,8 +4,8 @@ import { FC, useCallback } from 'react'
 import { createGroup } from '../../../api/client/groups'
 import { ROUTES } from '../../../constants/routes'
 import { useGroupsContext } from '../../contexts/Groups'
-import { Avatar } from '../../ui-kit/Avatar'
 import { AvatarGroup } from '../../ui-kit/AvatarGroup'
+import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 
 export const GroupsCard: FC = () => {
@@ -30,9 +30,19 @@ export const GroupsCard: FC = () => {
 
   return (
     <Card>
-      <Card.Title title="Groups" />
+      <Card.Title
+        title="Groups"
+        action={
+          <Button
+            rounded
+            size="sm"
+            iconStart={<PlusIcon />}
+            onClick={handleCreateGroup}
+          />
+        }
+      />
 
-      <Card.Divider />
+      {groups.length ? <Card.Divider /> : null}
 
       {groups.map((group) => (
         <Card.Button
@@ -53,19 +63,6 @@ export const GroupsCard: FC = () => {
           {group.name}
         </Card.Button>
       ))}
-
-      <Card.Button
-        end={
-          <Avatar
-            color="green"
-            slug={<PlusIcon className="w-4 h-4" />}
-            size="sm"
-          />
-        }
-        onClick={handleCreateGroup}
-      >
-        Create Group
-      </Card.Button>
     </Card>
   )
 }

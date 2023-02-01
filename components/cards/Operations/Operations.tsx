@@ -5,6 +5,7 @@ import { mutate } from 'swr'
 import { createOperation } from '../../../api/client/operations'
 import { SWR_KEYS } from '../../../constants/swr'
 import { useOperationsContext } from '../../contexts/Operations'
+import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 import { OperationsItem } from './OperationsItem'
 
@@ -31,20 +32,21 @@ export const OperationsCard: FC = () => {
 
   return (
     <Card className="md:col-span-2">
-      <Card.Title title="Operations" />
+      <Card.Title
+        title="Operations"
+        action={
+          query.walletId ? (
+            <Button
+              rounded
+              size="sm"
+              iconStart={<PlusIcon />}
+              onClick={handleCreateOperation}
+            />
+          ) : undefined
+        }
+      />
 
-      <Card.Divider />
-
-      {query.walletId ? (
-        <Card.Button
-          end={<PlusIcon className="w-5 h-5" />}
-          onClick={handleCreateOperation}
-        >
-          Create Operation
-        </Card.Button>
-      ) : null}
-
-      {query.walletId && operations.length ? <Card.Divider /> : null}
+      {operations.length ? <Card.Divider /> : null}
 
       {operations.map((operation, index) => (
         <OperationsItem
