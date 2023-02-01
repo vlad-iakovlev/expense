@@ -22,7 +22,7 @@ interface ProviderProps {
   children: ReactNode
 }
 
-const GroupContext = createContext<ContextValue | undefined>(undefined)
+export const GroupContext = createContext<ContextValue | undefined>(undefined)
 
 export const GroupProvider: FC<ProviderProps> = ({ groupId, children }) => {
   const query = useMemo<GetGroupQuery>(() => ({ groupId }), [groupId])

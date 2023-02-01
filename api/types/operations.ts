@@ -1,4 +1,4 @@
-import { Operation, Wallet } from '@prisma/client'
+import { Group, Operation, Wallet } from '@prisma/client'
 import { z } from 'zod'
 import {
   createOperationBodySchema,
@@ -14,6 +14,7 @@ export type ClientOperation = Pick<
 > & {
   wallet: Pick<Wallet, 'id' | 'name'> & {
     currency: ClientCurrency
+    group: Pick<Group, 'id' | 'name'>
   }
 }
 

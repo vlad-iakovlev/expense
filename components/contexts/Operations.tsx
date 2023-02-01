@@ -24,7 +24,9 @@ interface ProviderProps {
   children: ReactNode
 }
 
-const OperationsContext = createContext<ContextValue | undefined>(undefined)
+export const OperationsContext = createContext<ContextValue | undefined>(
+  undefined
+)
 
 export const OperationsProvider: FC<ProviderProps> = ({
   groupId,

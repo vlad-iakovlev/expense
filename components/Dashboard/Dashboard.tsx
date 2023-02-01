@@ -9,7 +9,7 @@ export const Dashboard: FC = () => {
   return (
     <>
       <Head>
-        <title>Expense – Dashboard</title>
+        <title>{'Expense > Dashboard'}</title>
       </Head>
 
       <Breadcrumbs>

@@ -29,6 +29,12 @@ export const select = {
           symbol: true,
         },
       },
+      group: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   },
 }

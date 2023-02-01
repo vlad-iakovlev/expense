@@ -28,7 +28,7 @@ export const Wallet: FC = () => {
   return (
     <>
       <Head>
-        <title>{`Expense – ${wallet.group.name} - ${wallet.name} ${wallet.currency.name}`}</title>
+        <title>{`Expense > ${wallet.name} ${wallet.currency.name}`}</title>
       </Head>
 
       <Breadcrumbs>

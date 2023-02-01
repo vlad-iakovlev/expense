@@ -28,7 +28,7 @@ export const Group: FC = () => {
   return (
     <>
       <Head>
-        <title>{`Expense – ${group.name}`}</title>
+        <title>{`Expense > ${group.name}`}</title>
       </Head>
 
       <Breadcrumbs>

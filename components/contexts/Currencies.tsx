@@ -20,7 +20,9 @@ interface ProviderProps {
   children: ReactNode
 }
 
-const CurrenciesContext = createContext<ContextValue | undefined>(undefined)
+export const CurrenciesContext = createContext<ContextValue | undefined>(
+  undefined
+)
 
 export const CurrenciesProvider: FC<ProviderProps> = ({ children }) => {
   const { data, isLoading } = useSWR(

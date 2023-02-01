@@ -20,7 +20,7 @@ interface ProviderProps {
   children: ReactNode
 }
 
-const GroupsContext = createContext<ContextValue | undefined>(undefined)
+export const GroupsContext = createContext<ContextValue | undefined>(undefined)
 
 export const GroupsProvider: FC<ProviderProps> = ({ children }) => {
   const { data, isLoading } = useSWR(

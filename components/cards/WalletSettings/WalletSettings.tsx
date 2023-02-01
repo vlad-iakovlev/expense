@@ -4,12 +4,14 @@ import { useSWRConfig } from 'swr'
 import { updateWallet } from '../../../api/client/wallets'
 import { SWR_KEYS } from '../../../constants/swr'
 import { useCurrenciesContext } from '../../contexts/Currencies'
+import { useOperationsContext } from '../../contexts/Operations'
 import { useWalletContext } from '../../contexts/Wallet'
 import { Card } from '../../ui-kit/Card'
 
 export const WalletSettingsCard: FC = () => {
   const { mutate } = useSWRConfig()
   const { currencies } = useCurrenciesContext()
+  const { query: operationsQuery } = useOperationsContext()
   const { query, wallet } = useWalletContext()
 
   const [isSaving, setIsSaving] = useState(false)
@@ -26,12 +28,13 @@ export const WalletSettingsCard: FC = () => {
           currencyId,
         })
 
+        await mutate(SWR_KEYS.OPERATIONS(operationsQuery))
         await mutate(SWR_KEYS.WALLET(query))
       } finally {
         setIsSaving(false)
       }
     },
-    [mutate, query, wallet.currency.id, wallet.id]
+    [mutate, operationsQuery, query, wallet.currency.id, wallet.id]
   )
 
   return (

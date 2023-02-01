@@ -12,7 +12,7 @@ import {
 
 const BASE_ROUTE = '/api/wallets'
 
-export const getWallets = async (query: GetWalletsQuery = {}) => {
+export const getWallets = async (query: GetWalletsQuery) => {
   return await request.get<GetWalletsResponse>(
     request.withQuery<GetWalletsQuery>(`${BASE_ROUTE}/list`, query)
   )

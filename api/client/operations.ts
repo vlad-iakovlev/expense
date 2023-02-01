@@ -12,28 +12,46 @@ import {
 
 const BASE_ROUTE = '/api/operations'
 
-export const getOperations = async (query: GetOperationsQuery = {}) => {
-  return await request.get<GetOperationsResponse>(
+export const getOperations = async (query: GetOperationsQuery) => {
+  const response = await request.get<GetOperationsResponse>(
     request.withQuery<GetOperationsQuery>(`${BASE_ROUTE}/list`, query)
   )
+
+  response.operations.forEach((operation) => {
+    operation.date = new Date(operation.date)
+  })
+
+  return response
 }
 
 export const getOperation = async (query: GetOperationQuery) => {
-  return await request.get<GetOperationResponse>(
+  const response = await request.get<GetOperationResponse>(
     request.withQuery<GetOperationQuery>(BASE_ROUTE, query)
   )
+
+  response.operation.date = new Date(response.operation.date)
+
+  return response
 }
 
 export const createOperation = async (data: CreateOperationBody) => {
-  return await request.post<CreateOperationBody, CreateOperationResponse>(
-    BASE_ROUTE,
-    data
-  )
+  const response = await request.post<
+    CreateOperationBody,
+    CreateOperationResponse
+  >(BASE_ROUTE, data)
+
+  response.operation.date = new Date(response.operation.date)
+
+  return response
 }
 
 export const updateOperation = async (data: UpdateOperationBody) => {
-  return await request.put<UpdateOperationBody, UpdateOperationResponse>(
-    BASE_ROUTE,
-    data
-  )
+  const response = await request.put<
+    UpdateOperationBody,
+    UpdateOperationResponse
+  >(BASE_ROUTE, data)
+
+  response.operation.date = new Date(response.operation.date)
+
+  return response
 }

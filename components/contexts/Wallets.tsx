@@ -22,7 +22,7 @@ interface Props {
   children?: ReactNode
 }
 
-const WalletsContext = createContext<ContextValue | undefined>(undefined)
+export const WalletsContext = createContext<ContextValue | undefined>(undefined)
 
 export const WalletsProvider: FC<Props> = ({ groupId, children }) => {
   const query = useMemo<GetWalletsQuery>(() => ({ groupId }), [groupId])
