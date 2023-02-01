@@ -22,7 +22,7 @@ export const GroupsCard: FC = () => {
 
   const handleCreateGroup = useCallback(async () => {
     const { group } = await createGroup({
-      name: 'Untitled Group',
+      name: 'Untitled',
     })
 
     await goToGroup(group.id)

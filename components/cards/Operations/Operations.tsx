@@ -1,16 +1,28 @@
 import { PlusIcon } from '@heroicons/react/24/solid'
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback } from 'react'
+import { mutate } from 'swr'
+import { createOperation } from '../../../api/client/operations'
+import { SWR_KEYS } from '../../../constants/swr'
 import { useOperationsContext } from '../../contexts/Operations'
 import { Card } from '../../ui-kit/Card'
+import { OperationsItem } from './OperationsItem'
 
 export const OperationsCard: FC = () => {
   const { query, operations } = useOperationsContext()
 
-  const [isCreatingOperation, setIsCreatingOperation] = useState(false)
-
   const handleCreateOperation = useCallback(async () => {
-    setIsCreatingOperation(true)
-  }, [])
+    if (!query.walletId) return
+
+    await createOperation({
+      description: 'Untitled',
+      date: new Date().toISOString(),
+      amount: 0,
+      category: 'No category',
+      walletId: query.walletId,
+    })
+
+    await mutate(SWR_KEYS.OPERATIONS(query))
+  }, [query])
 
   if (!query.walletId && !operations.length) {
     return null
@@ -22,11 +34,7 @@ export const OperationsCard: FC = () => {
 
       <Card.Divider />
 
-      {operations.map((operation) => (
-        <div key={operation.id} />
-      ))}
-
-      {query.walletId && !isCreatingOperation ? (
+      {query.walletId ? (
         <Card.Button
           end={<PlusIcon className="w-5 h-5" />}
           onClick={handleCreateOperation}
@@ -34,6 +42,14 @@ export const OperationsCard: FC = () => {
           Create Operation
         </Card.Button>
       ) : null}
+
+      {operations.map((operation) => (
+        <OperationsItem
+          key={operation.id}
+          operation={operation}
+          walletType={query.walletId ? 'button' : 'column'}
+        />
+      ))}
     </Card>
   )
 }
