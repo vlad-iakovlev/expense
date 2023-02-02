@@ -25,7 +25,7 @@ export const OperationsCard: FC = () => {
     if (!query.walletId) return
 
     const { operation } = await createOperation({
-      description: 'Untitled',
+      name: 'Untitled',
       date: new Date().toISOString(),
       amount: 0,
       category: 'No category',
@@ -64,7 +64,7 @@ export const OperationsCard: FC = () => {
         >
           <div className="flex items-center gap-3">
             <div className="flex-auto truncate">
-              {operation.category} – {operation.description}
+              {operation.category} – {operation.name}
             </div>
             <div className="flex-none font-medium">
               {formatAmount(operation.amount, operation.wallet.currency)}

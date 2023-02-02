@@ -13,7 +13,7 @@ export const getOperationQuerySchema = z.object({
 })
 
 export const createOperationBodySchema = z.object({
-  description: z.string().min(1),
+  name: z.string().min(1),
   date: z.string().datetime(),
   amount: z.number(),
   category: z.string().min(1),
@@ -22,7 +22,7 @@ export const createOperationBodySchema = z.object({
 
 export const updateOperationBodySchema = z.object({
   operationId: z.string().refine(isValidObjectId),
-  description: z.string().min(1).optional(),
+  name: z.string().min(1).optional(),
   date: z.string().datetime().optional(),
   amount: z.number().optional(),
   category: z.string().min(1).optional(),

@@ -91,11 +91,11 @@ model Wallet {
 }
 
 model Operation {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  description String
-  date        DateTime
-  amount      Int      @db.Long
-  category    String
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  date     DateTime
+  amount   Int      @db.Long
+  category String
 
   wallet   Wallet @relation(fields: [walletId], references: [id], onDelete: Restrict)
   walletId String @db.ObjectId

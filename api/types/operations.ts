@@ -10,7 +10,7 @@ import { ClientCurrency } from './currencies'
 
 export type ClientOperation = Pick<
   Operation,
-  'id' | 'description' | 'date' | 'amount' | 'category'
+  'id' | 'name' | 'date' | 'amount' | 'category'
 > & {
   wallet: Pick<Wallet, 'id' | 'name'> & {
     currency: ClientCurrency

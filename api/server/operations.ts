@@ -14,7 +14,7 @@ import {
 
 export const select = {
   id: true,
-  description: true,
+  name: true,
   date: true,
   amount: true,
   category: true,
@@ -99,7 +99,7 @@ export const createOperation: NextApiHandler<CreateOperationResponse> = async (
 
   const operation = await req.prisma.operation.create({
     data: {
-      description: body.description,
+      name: body.name,
       date: body.date,
       amount: body.amount,
       category: body.category,
@@ -138,7 +138,7 @@ export const updateOperation: NextApiHandler<UpdateOperationResponse> = async (
       },
     },
     data: {
-      description: body.description,
+      name: body.name,
       date: body.date,
       amount: body.amount,
       category: body.category,

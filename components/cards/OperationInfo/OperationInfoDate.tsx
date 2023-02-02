@@ -8,6 +8,7 @@ export const OperationInfoDate: FC = () => {
 
   return (
     <Card.Button
+      disabled
       end={<div className="font-medium">{formatDate(operation.date)}</div>}
     >
       Date

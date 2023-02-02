@@ -10,10 +10,10 @@ export const OperationInfoDescription: FC = () => {
   const { query, operation } = useOperationContext()
 
   const handleChange = useCallback(
-    async (description: string) => {
+    async (name: string) => {
       await updateOperation({
         operationId: operation.id,
-        description,
+        name,
       })
 
       await mutate(SWR_KEYS.OPERATION(query))
@@ -22,10 +22,6 @@ export const OperationInfoDescription: FC = () => {
   )
 
   return (
-    <Card.Input
-      name="Description"
-      value={operation.description}
-      onChange={handleChange}
-    />
+    <Card.Input name="Name" value={operation.name} onChange={handleChange} />
   )
 }

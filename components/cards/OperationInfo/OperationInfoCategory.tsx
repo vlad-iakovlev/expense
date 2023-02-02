@@ -6,7 +6,10 @@ export const OperationInfoCategory: FC = () => {
   const { operation } = useOperationContext()
 
   return (
-    <Card.Button end={<div className="font-medium">{operation.category}</div>}>
+    <Card.Button
+      disabled
+      end={<div className="font-medium">{operation.category}</div>}
+    >
       Category
     </Card.Button>
   )

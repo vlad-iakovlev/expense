@@ -7,7 +7,7 @@ import { useOperationsContext } from '../../contexts/Operations'
 import { useWalletContext } from '../../contexts/Wallet'
 import { Card, CardSelectOption } from '../../ui-kit/Card'
 
-export const WalletSettingsCurrency: FC = () => {
+export const WalletInfoCurrency: FC = () => {
   const { mutate } = useSWRConfig()
   const { currencies } = useCurrenciesContext()
   const { query: operationsQuery } = useOperationsContext()

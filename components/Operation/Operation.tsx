@@ -11,7 +11,7 @@ export const Operation: FC = () => {
   return (
     <>
       <Head>
-        <title>{`Expense > ${operation.category} – ${operation.description}`}</title>
+        <title>{`Expense > ${operation.category} – ${operation.name}`}</title>
       </Head>
 
       <Breadcrumbs>
@@ -25,7 +25,7 @@ export const Operation: FC = () => {
           title={`${operation.wallet.name} ${operation.wallet.currency.name}`}
         />
         <Breadcrumbs.Title
-          title={`${operation.category} – ${operation.description}`}
+          title={`${operation.category} – ${operation.name}`}
         />
       </Breadcrumbs>
 
