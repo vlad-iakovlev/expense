@@ -117,7 +117,7 @@ Breadcrumbs.EditableTitle = forwardRef(function BreadcrumbsEditableTitle(
   return (
     <h1
       ref={ref}
-      className="flex-auto min-w-0 text-lg font-medium truncate focus:outline-none focus:text-clip"
+      className="flex-auto min-w-0 text-lg font-medium truncate focus:text-clip focus:outline-none"
       contentEditable={!isSaving}
       suppressContentEditableWarning
       onKeyDown={handleKeyDown}

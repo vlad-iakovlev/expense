@@ -66,16 +66,18 @@ export const OperationsCard: FC = () => {
             <div className="flex-auto truncate">
               {operation.category} – {operation.description}
             </div>
-            <div className="font-medium truncate">
+            <div className="flex-none font-medium">
               {formatAmount(operation.amount, operation.wallet.currency)}
             </div>
           </div>
           <div className="flex items-center gap-3 text-sm text-zinc-600">
-            <div className="flex-auto win-w-0 truncate">
+            <div className="flex-none win-w-0">
               {formatDate(operation.date)}
             </div>
             {!query.walletId && (
-              <div className="min-w-0 truncate">{operation.wallet.name}</div>
+              <div className="flex-auto min-w-0 text-right truncate">
+                {operation.wallet.name}
+              </div>
             )}
           </div>
         </Card.Button>

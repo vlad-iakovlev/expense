@@ -1,8 +1,10 @@
 import { Menu, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import {
+  FocusEvent,
   forwardRef,
   Fragment,
+  KeyboardEvent,
   MouseEvent,
   ReactNode,
   useCallback,
@@ -50,6 +52,7 @@ export interface CardSelectProps {
 type CardType = ForwardRef<HTMLDivElement, CardProps> & {
   Title: ForwardRef<HTMLDivElement, CardTitleProps>
   Button: ForwardRef<HTMLButtonElement, CardButtonProps>
+  Input: ForwardRef<HTMLDivElement, CardInputProps>
   Select: ForwardRef<HTMLDivElement, CardSelectProps>
   Divider: ForwardRef<HTMLDivElement>
 }
@@ -105,6 +108,66 @@ Card.Button = forwardRef(function CardButton(
       <div className="flex-auto truncate">{children}</div>
       {end ? <div className="flex-none">{end}</div> : null}
     </button>
+  )
+})
+
+Card.Input = forwardRef(function CardInput({ name, value, onChange }, ref) {
+  const [isSaving, setIsSaving] = useState(false)
+
+  const handleKeyDown = useCallback(
+    async (event: KeyboardEvent<HTMLHeadingElement>) => {
+      switch (event.key) {
+        case 'Enter':
+          event.preventDefault()
+          event.currentTarget.blur()
+          break
+        case 'Escape':
+          event.preventDefault()
+          event.currentTarget.textContent = value
+          event.currentTarget.blur()
+          break
+      }
+    },
+    [value]
+  )
+
+  const handleBlur = useCallback(
+    async (event: FocusEvent<HTMLHeadingElement>) => {
+      event.currentTarget.scrollLeft = 0
+
+      const newValue = event.currentTarget.textContent?.trim()
+
+      if (!newValue || newValue === value) {
+        event.currentTarget.textContent = value
+        return
+      }
+
+      try {
+        setIsSaving(true)
+        await onChange(newValue)
+      } finally {
+        setIsSaving(false)
+      }
+    },
+    [onChange, value]
+  )
+
+  return (
+    <div
+      ref={ref}
+      className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 transition-colors"
+    >
+      <div className="flex-none">{name}</div>
+      <div
+        className="flex-auto text-right font-medium truncate focus:text-clip focus:outline-none"
+        contentEditable={!isSaving}
+        suppressContentEditableWarning
+        onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
+      >
+        {value}
+      </div>
+    </div>
   )
 })
 
