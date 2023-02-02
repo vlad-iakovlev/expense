@@ -22,7 +22,7 @@ export const Operation: FC = () => {
         />
         <Breadcrumbs.Link
           href={ROUTES.WALLET(operation.wallet.id)}
-          title={operation.wallet.name}
+          title={`${operation.wallet.name} ${operation.wallet.currency.name}`}
         />
         <Breadcrumbs.Title
           title={`${operation.category} – ${operation.description}`}
