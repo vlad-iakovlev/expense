@@ -29,6 +29,12 @@ export interface CardButtonProps {
   onClick?: (event: MouseEvent) => void
 }
 
+export interface CardInputProps {
+  name: string
+  value: string
+  onChange: (value: string) => MayBePromise<void>
+}
+
 export interface CardSelectOption {
   id: string
   name: string
@@ -140,20 +146,19 @@ Card.Select = forwardRef(function CardSelect(
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items
-          as={Card}
-          className="absolute right-0 max-w-full -mt-2 z-10 origin-top-right focus:outline-none"
-        >
-          {options.map((option) => (
-            <Menu.Item
-              as={Card.Button}
-              key={option.id}
-              disabled={isSaving}
-              onClick={() => handleChange(option)}
-            >
-              {option.name}
-            </Menu.Item>
-          ))}
+        <Menu.Items className="absolute right-0 max-w-full -mt-2 z-10 origin-top-right focus:outline-none">
+          <Card>
+            {options.map((option) => (
+              <Menu.Item
+                as={Card.Button}
+                key={option.id}
+                disabled={isSaving}
+                onClick={() => handleChange(option)}
+              >
+                {option.name}
+              </Menu.Item>
+            ))}
+          </Card>
         </Menu.Items>
       </Transition>
     </Menu>

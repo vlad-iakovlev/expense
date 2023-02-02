@@ -53,24 +53,23 @@ export const HeaderUser: FC = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items
-              as={Card}
-              className="absolute right-0 z-10 mt-2 w-72 origin-top-right focus:outline-none"
-            >
-              <Card.Title
-                title={session.data.user?.name || ''}
-                subtitle={session.data.user?.email || ''}
-              />
+            <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right focus:outline-none">
+              <Card>
+                <Card.Title
+                  title={session.data.user?.name || ''}
+                  subtitle={session.data.user?.email || ''}
+                />
 
-              <Card.Divider />
+                <Card.Divider />
 
-              <Menu.Item
-                as={Card.Button}
-                disabled={isLoading}
-                onClick={handleSignOut}
-              >
-                Sign Out
-              </Menu.Item>
+                <Menu.Item
+                  as={Card.Button}
+                  disabled={isLoading}
+                  onClick={handleSignOut}
+                >
+                  Sign Out
+                </Menu.Item>
+              </Card>
             </Menu.Items>
           </Transition>
         </Menu>
