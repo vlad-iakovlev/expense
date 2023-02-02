@@ -1,13 +1,12 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 import {
-  ChangeEvent,
+  FocusEvent,
   forwardRef,
   Fragment,
   KeyboardEvent,
   ReactNode,
   useCallback,
-  useEffect,
   useState,
 } from 'react'
 import { ForwardRef, MayBePromise } from '../../../types/utility'
@@ -33,7 +32,7 @@ export interface BreadcrumbsEditableTitleProps {
 type BreadcrumbsType = ForwardRef<HTMLDivElement, BreadcrumbsProps> & {
   Link: ForwardRef<HTMLAnchorElement, BreadcrumbsLinkProps>
   Title: ForwardRef<HTMLHeadingElement, BreadcrumbsTitleProps>
-  EditableTitle: ForwardRef<HTMLDivElement, BreadcrumbsEditableTitleProps>
+  EditableTitle: ForwardRef<HTMLHeadingElement, BreadcrumbsEditableTitleProps>
 }
 
 export const Breadcrumbs = forwardRef(function Breadcrumbs({ children }, ref) {
@@ -75,28 +74,39 @@ Breadcrumbs.EditableTitle = forwardRef(function BreadcrumbsEditableTitle(
   { title, onChange },
   ref
 ) {
-  const [titleValue, setTitleValue] = useState(title)
-  const [isEditing, setIsEditing] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
 
-  const openEditor = useCallback(() => {
-    setIsEditing(true)
-  }, [])
+  const handleKeyDown = useCallback(
+    async (event: KeyboardEvent<HTMLHeadingElement>) => {
+      switch (event.key) {
+        case 'Enter':
+          event.preventDefault()
+          event.currentTarget.blur()
+          break
+        case 'Escape':
+          event.preventDefault()
+          event.currentTarget.textContent = title
+          event.currentTarget.blur()
+          break
+      }
+    },
+    [title]
+  )
 
-  const closeEditor = useCallback(
-    async (newTitle?: string) => {
-      newTitle = newTitle?.trim()
+  const handleBlur = useCallback(
+    async (event: FocusEvent<HTMLHeadingElement>) => {
+      event.currentTarget.scrollLeft = 0
+
+      const newTitle = event.currentTarget.textContent?.trim()
 
       if (!newTitle || newTitle === title) {
-        setTitleValue(title)
-        setIsEditing(false)
+        event.currentTarget.textContent = title
         return
       }
 
       try {
         setIsSaving(true)
         await onChange(newTitle)
-        setIsEditing(false)
       } finally {
         setIsSaving(false)
       }
@@ -104,52 +114,16 @@ Breadcrumbs.EditableTitle = forwardRef(function BreadcrumbsEditableTitle(
     [onChange, title]
   )
 
-  const handleInputKeyDown = useCallback(
-    async (event: KeyboardEvent) => {
-      switch (event.key) {
-        case 'Enter':
-          await closeEditor(titleValue)
-          break
-        case 'Escape':
-          await closeEditor()
-          break
-      }
-    },
-    [closeEditor, titleValue]
-  )
-
-  const handleInputChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setTitleValue(event.currentTarget.value)
-    },
-    []
-  )
-
-  const handleInputBlur = useCallback(() => {
-    closeEditor(titleValue)
-  }, [closeEditor, titleValue])
-
-  useEffect(() => {
-    setTitleValue(title)
-  }, [title])
-
   return (
-    <div ref={ref} className="flex-auto min-w-0 flex text-lg font-medium">
-      {isEditing ? (
-        <input
-          autoFocus
-          className="flex-auto min-w-0 bg-transparent focus:outline-none"
-          disabled={isSaving}
-          value={titleValue}
-          onKeyDown={handleInputKeyDown}
-          onBlur={handleInputBlur}
-          onChange={handleInputChange}
-        />
-      ) : (
-        <h1 className="min-w-0 truncate" onClick={openEditor}>
-          {title}
-        </h1>
-      )}
-    </div>
+    <h1
+      ref={ref}
+      className="flex-auto min-w-0 text-lg font-medium truncate focus:outline-none focus:text-clip"
+      contentEditable={!isSaving}
+      suppressContentEditableWarning
+      onKeyDown={handleKeyDown}
+      onBlur={handleBlur}
+    >
+      {title}
+    </h1>
   )
 })
