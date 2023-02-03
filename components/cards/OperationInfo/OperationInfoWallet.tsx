@@ -21,9 +21,9 @@ export const OperationInfoWallet: FC = () => {
   const value = useMemo(
     () => ({
       id: operation.wallet.id,
-      name: operation.wallet.name,
+      name: `${operation.wallet.name} ${operation.wallet.currency.name}`,
     }),
-    [operation.wallet.id, operation.wallet.name]
+    [operation.wallet.currency.name, operation.wallet.id, operation.wallet.name]
   )
 
   const handleChange = useCallback(

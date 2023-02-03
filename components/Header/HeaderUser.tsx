@@ -1,13 +1,25 @@
-import { Menu, Transition } from '@headlessui/react'
+import { Transition } from '@headlessui/react'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { FC, Fragment, useCallback, useState } from 'react'
+import { FC, Fragment, useCallback, useEffect, useState } from 'react'
 import { Avatar } from '../ui-kit/Avatar'
 import { Button } from '../ui-kit/Button'
 import { Card } from '../ui-kit/Card'
 
 export const HeaderUser: FC = () => {
   const session = useSession()
+
+  const [isShowing, setIsShowing] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+  const show = useCallback(() => setIsShowing(true), [])
+  const hide = useCallback(() => setIsShowing(false), [])
+
+  useEffect(() => {
+    if (isShowing) {
+      setTimeout(() => document.addEventListener('click', hide), 0)
+      return () => document.removeEventListener('click', hide)
+    }
+  }, [hide, isShowing])
 
   const handleSignIn = useCallback(async () => {
     try {
@@ -36,15 +48,16 @@ export const HeaderUser: FC = () => {
       )}
 
       {session.status === 'authenticated' && (
-        <Menu as="div" className="relative">
-          <Menu.Button className="block rounded-full">
+        <div className="relative">
+          <button className="block rounded-full" onClick={show}>
             <Avatar
               src={session.data.user?.image || ''}
               name={session.data.user?.name || ''}
             />
-          </Menu.Button>
+          </button>
 
           <Transition
+            show={isShowing}
             as={Fragment}
             enter="transition ease-out duration-100"
             enterFrom="transform opacity-0 scale-95"
@@ -53,26 +66,20 @@ export const HeaderUser: FC = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right focus:outline-none">
-              <Card>
-                <Card.Title
-                  title={session.data.user?.name || ''}
-                  subtitle={session.data.user?.email || ''}
-                />
+            <Card className="absolute right-0 z-10 mt-2 w-72 origin-top-right focus:outline-none">
+              <Card.Title
+                title={session.data.user?.name || ''}
+                subtitle={session.data.user?.email || ''}
+              />
 
-                <Card.Divider />
+              <Card.Divider />
 
-                <Menu.Item
-                  as={Card.Button}
-                  disabled={isLoading}
-                  onClick={handleSignOut}
-                >
-                  Sign Out
-                </Menu.Item>
-              </Card>
-            </Menu.Items>
+              <Card.Button disabled={isLoading} onClick={handleSignOut}>
+                Sign Out
+              </Card.Button>
+            </Card>
           </Transition>
-        </Menu>
+        </div>
       )}
     </div>
   )

@@ -1,4 +1,4 @@
-import { Menu, Transition } from '@headlessui/react'
+import { Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import {
   FocusEvent,
@@ -8,6 +8,7 @@ import {
   MouseEvent,
   ReactNode,
   useCallback,
+  useEffect,
   useState,
 } from 'react'
 import { ForwardRef, MayBePromise } from '../../../types/utility'
@@ -175,7 +176,18 @@ Card.Select = forwardRef(function CardSelect(
   { name, options, value, onChange },
   ref
 ) {
+  const [isShowing, setIsShowing] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+
+  const show = useCallback(() => setIsShowing(true), [])
+  const hide = useCallback(() => setIsShowing(false), [])
+
+  useEffect(() => {
+    if (isShowing) {
+      setTimeout(() => document.addEventListener('click', hide), 0)
+      return () => document.removeEventListener('click', hide)
+    }
+  }, [hide, isShowing])
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
@@ -192,15 +204,19 @@ Card.Select = forwardRef(function CardSelect(
   )
 
   return (
-    <Menu ref={ref} as="div" className="relative">
-      <Menu.Button className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 transition-colors">
+    <div ref={ref} className="relative">
+      <button
+        className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 transition-colors"
+        onClick={show}
+      >
         <div className="flex-none">{name}</div>
         <div className="flex-auto text-right font-medium truncate">
           {value.name}
         </div>
-      </Menu.Button>
+      </button>
 
       <Transition
+        show={isShowing}
         as={Fragment}
         enter="transition ease-out duration-100"
         enterFrom="transform opacity-0 scale-95"
@@ -209,22 +225,19 @@ Card.Select = forwardRef(function CardSelect(
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 max-w-full -mt-2 z-10 origin-top-right focus:outline-none">
-          <Card>
-            {options.map((option) => (
-              <Menu.Item
-                as={Card.Button}
-                key={option.id}
-                disabled={isSaving}
-                onClick={() => handleChange(option)}
-              >
-                {option.name}
-              </Menu.Item>
-            ))}
-          </Card>
-        </Menu.Items>
+        <Card className="absolute right-0 max-w-full -mt-2 z-10 origin-top-right focus:outline-none">
+          {options.map((option) => (
+            <Card.Button
+              key={option.id}
+              disabled={isSaving}
+              onClick={() => handleChange(option)}
+            >
+              {option.name}
+            </Card.Button>
+          ))}
+        </Card>
       </Transition>
-    </Menu>
+    </div>
   )
 })
 
