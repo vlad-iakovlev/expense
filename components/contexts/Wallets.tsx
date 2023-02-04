@@ -13,8 +13,9 @@ import { SWR_KEYS } from '../../constants/swr'
 import { Fallback } from '../ui-kit/Fallback'
 
 interface ContextValue {
-  query: GetWalletsQuery
+  walletsQuery: GetWalletsQuery
   wallets: ClientWallet[]
+  mutateWallets: () => Promise<unknown>
 }
 
 interface Props {
@@ -27,7 +28,7 @@ export const WalletsContext = createContext<ContextValue | undefined>(undefined)
 export const WalletsProvider: FC<Props> = ({ groupId, children }) => {
   const query = useMemo<GetWalletsQuery>(() => ({ groupId }), [groupId])
 
-  const { data, isLoading } = useSWR(
+  const { data, isLoading, mutate } = useSWR(
     SWR_KEYS.WALLETS(query),
     useCallback(() => getWallets(query), [query])
   )
@@ -35,10 +36,11 @@ export const WalletsProvider: FC<Props> = ({ groupId, children }) => {
   const value = useMemo<ContextValue | undefined>(
     () =>
       data && {
-        query,
+        walletsQuery: query,
         wallets: data.wallets,
+        mutateWallets: mutate,
       },
-    [data, query]
+    [data, mutate, query]
   )
 
   return (

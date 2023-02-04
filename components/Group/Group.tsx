@@ -1,9 +1,7 @@
 import Head from 'next/head'
 import { FC, useCallback } from 'react'
-import { useSWRConfig } from 'swr'
 import { updateGroup } from '../../api/client/groups'
 import { ROUTES } from '../../constants/routes'
-import { SWR_KEYS } from '../../constants/swr'
 import { GroupUsersCard } from '../cards/GroupUsers'
 import { OperationsCard } from '../cards/Operations'
 import { WalletsCard } from '../cards/Wallets'
@@ -11,8 +9,7 @@ import { useGroupContext } from '../contexts/Group'
 import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
 
 export const Group: FC = () => {
-  const { mutate } = useSWRConfig()
-  const { query, group } = useGroupContext()
+  const { group, mutateGroup } = useGroupContext()
 
   const handleNameChange = useCallback(
     async (name: string) => {
@@ -20,9 +17,9 @@ export const Group: FC = () => {
         groupId: group.id,
         name,
       })
-      await mutate(SWR_KEYS.GROUP(query))
+      await mutateGroup()
     },
-    [group.id, mutate, query]
+    [group.id, mutateGroup]
   )
 
   return (

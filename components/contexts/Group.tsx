@@ -13,8 +13,9 @@ import { SWR_KEYS } from '../../constants/swr'
 import { Fallback } from '../ui-kit/Fallback'
 
 interface ContextValue {
-  query: GetGroupQuery
+  groupQuery: GetGroupQuery
   group: ClientGroup
+  mutateGroup: () => Promise<unknown>
 }
 
 interface ProviderProps {
@@ -27,7 +28,7 @@ export const GroupContext = createContext<ContextValue | undefined>(undefined)
 export const GroupProvider: FC<ProviderProps> = ({ groupId, children }) => {
   const query = useMemo<GetGroupQuery>(() => ({ groupId }), [groupId])
 
-  const { data, isLoading } = useSWR(
+  const { data, isLoading, mutate } = useSWR(
     SWR_KEYS.GROUP(query),
     useCallback(() => getGroup(query), [query])
   )
@@ -35,10 +36,11 @@ export const GroupProvider: FC<ProviderProps> = ({ groupId, children }) => {
   const value = useMemo<ContextValue | undefined>(
     () =>
       data && {
-        query,
+        groupQuery: query,
         group: data.group,
+        mutateGroup: mutate,
       },
-    [data, query]
+    [data, mutate, query]
   )
 
   return (

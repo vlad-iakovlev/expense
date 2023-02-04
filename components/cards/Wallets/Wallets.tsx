@@ -10,7 +10,7 @@ import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 
 export const WalletsCard: FC = () => {
-  const { query, wallets } = useWalletsContext()
+  const { walletsQuery, wallets } = useWalletsContext()
 
   const router = useRouter()
 
@@ -22,20 +22,20 @@ export const WalletsCard: FC = () => {
   )
 
   const handleCreateWallet = useCallback(async () => {
-    if (!query.groupId) return
+    if (!walletsQuery.groupId) return
 
     const { currencies } = await getCurrencies()
 
     const { wallet } = await createWallet({
-      groupId: query.groupId,
+      groupId: walletsQuery.groupId,
       name: 'Untitled',
       currencyId: currencies.find((c) => c.name === 'USD')?.id || '',
     })
 
     await goToWallet(wallet.id)
-  }, [goToWallet, query.groupId])
+  }, [goToWallet, walletsQuery.groupId])
 
-  if (!query.groupId && !wallets.length) {
+  if (!walletsQuery.groupId && !wallets.length) {
     return null
   }
 
@@ -44,7 +44,7 @@ export const WalletsCard: FC = () => {
       <Card.Title
         title="Wallets"
         action={
-          query.groupId ? (
+          walletsQuery.groupId ? (
             <Button
               rounded
               size="sm"

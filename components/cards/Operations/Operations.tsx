@@ -10,7 +10,7 @@ import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 
 export const OperationsCard: FC = () => {
-  const { query, operations } = useOperationsContext()
+  const { operationsQuery, operations } = useOperationsContext()
 
   const router = useRouter()
 
@@ -22,20 +22,20 @@ export const OperationsCard: FC = () => {
   )
 
   const handleCreateOperation = useCallback(async () => {
-    if (!query.walletId) return
+    if (!operationsQuery.walletId) return
 
     const { operation } = await createOperation({
       name: 'Untitled',
       date: new Date().toISOString(),
       amount: 0,
       category: 'No category',
-      walletId: query.walletId,
+      walletId: operationsQuery.walletId,
     })
 
     await goToOperation(operation.id)
-  }, [goToOperation, query.walletId])
+  }, [goToOperation, operationsQuery.walletId])
 
-  if (!query.walletId && !operations.length) {
+  if (!operationsQuery.walletId && !operations.length) {
     return null
   }
 
@@ -44,7 +44,7 @@ export const OperationsCard: FC = () => {
       <Card.Title
         title="Operations"
         action={
-          query.walletId ? (
+          operationsQuery.walletId ? (
             <Button
               rounded
               size="sm"
@@ -74,7 +74,7 @@ export const OperationsCard: FC = () => {
             <div className="flex-none win-w-0">
               {formatDate(operation.date)}
             </div>
-            {!query.walletId && (
+            {!operationsQuery.walletId && (
               <div className="flex-auto min-w-0 text-right truncate">
                 {operation.wallet.name}
               </div>

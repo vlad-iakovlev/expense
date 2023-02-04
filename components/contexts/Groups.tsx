@@ -14,6 +14,7 @@ import { Fallback } from '../ui-kit/Fallback'
 
 interface ContextValue {
   groups: ClientGroup[]
+  mutateGroups: () => Promise<unknown>
 }
 
 interface ProviderProps {
@@ -23,7 +24,7 @@ interface ProviderProps {
 export const GroupsContext = createContext<ContextValue | undefined>(undefined)
 
 export const GroupsProvider: FC<ProviderProps> = ({ children }) => {
-  const { data, isLoading } = useSWR(
+  const { data, isLoading, mutate } = useSWR(
     SWR_KEYS.GROUPS(),
     useCallback(() => getGroups(), [])
   )
@@ -32,8 +33,9 @@ export const GroupsProvider: FC<ProviderProps> = ({ children }) => {
     () =>
       data && {
         groups: data.groups,
+        mutateGroups: mutate,
       },
-    [data]
+    [data, mutate]
   )
 
   return (

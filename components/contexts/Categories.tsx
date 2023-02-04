@@ -13,8 +13,9 @@ import { SWR_KEYS } from '../../constants/swr'
 import { Fallback } from '../ui-kit/Fallback'
 
 interface ContextValue {
-  query: GetCategoriesQuery
+  categoriesQuery: GetCategoriesQuery
   categories: string[]
+  mutateCategories: () => Promise<unknown>
 }
 
 interface ProviderProps {
@@ -37,7 +38,7 @@ export const CategoriesProvider: FC<ProviderProps> = ({
     [groupId]
   )
 
-  const { data, isLoading } = useSWR(
+  const { data, isLoading, mutate } = useSWR(
     SWR_KEYS.CATEGORIES(query),
     useCallback(() => getCategories(query), [query])
   )
@@ -45,10 +46,11 @@ export const CategoriesProvider: FC<ProviderProps> = ({
   const value = useMemo<ContextValue | undefined>(
     () =>
       data && {
-        query,
+        categoriesQuery: query,
         categories: data.categories,
+        mutateCategories: mutate,
       },
-    [data, query]
+    [data, mutate, query]
   )
 
   return (

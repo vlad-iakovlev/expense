@@ -1,17 +1,14 @@
 import { FC, useCallback, useMemo } from 'react'
-import { useSWRConfig } from 'swr'
 import { updateWallet } from '../../../api/client/wallets'
-import { SWR_KEYS } from '../../../constants/swr'
 import { useCurrenciesContext } from '../../contexts/Currencies'
 import { useOperationsContext } from '../../contexts/Operations'
 import { useWalletContext } from '../../contexts/Wallet'
 import { Card, CardSelectOption } from '../../ui-kit/Card'
 
 export const WalletInfoCurrency: FC = () => {
-  const { mutate } = useSWRConfig()
   const { currencies } = useCurrenciesContext()
-  const { query: operationsQuery } = useOperationsContext()
-  const { query, wallet } = useWalletContext()
+  const { mutateOperations } = useOperationsContext()
+  const { wallet, mutateWallet } = useWalletContext()
 
   const options = useMemo(() => {
     return currencies.map((currency) => ({
@@ -35,10 +32,10 @@ export const WalletInfoCurrency: FC = () => {
         currencyId: option.id,
       })
 
-      await mutate(SWR_KEYS.OPERATIONS(operationsQuery))
-      await mutate(SWR_KEYS.WALLET(query))
+      await mutateOperations()
+      await mutateWallet()
     },
-    [mutate, operationsQuery, query, wallet.id]
+    [wallet.id, mutateOperations, mutateWallet]
   )
 
   return (

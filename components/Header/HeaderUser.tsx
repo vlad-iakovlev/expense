@@ -58,7 +58,7 @@ export const HeaderUser: FC = () => {
 
           <Transition
             show={isShowing}
-            className="absolute right-0 z-10 mt-2 w-72 origin-top-right"
+            className="absolute z-10 top-0 right-0 w-72 mt-12 origin-top-right"
             enter="transition ease-out duration-100"
             enterFrom="transform opacity-0 scale-95"
             enterTo="transform opacity-100 scale-100"

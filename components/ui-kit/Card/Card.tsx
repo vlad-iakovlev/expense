@@ -33,6 +33,7 @@ export interface CardButtonProps {
 
 export interface CardInputProps {
   name: string
+  suggestions?: string[]
   value: string
   onChange: (value: string) => MayBePromise<void>
 }
@@ -111,8 +112,24 @@ Card.Button = forwardRef(function CardButton(
   )
 })
 
-Card.Input = forwardRef(function CardInput({ name, value, onChange }, ref) {
+Card.Input = forwardRef(function CardInput(
+  { name, suggestions, value, onChange },
+  ref
+) {
+  const [isFocused, setIsFocused] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+
+  const updateValue = useCallback(
+    async (newValue: string) => {
+      try {
+        setIsSaving(true)
+        await onChange(newValue)
+      } finally {
+        setIsSaving(false)
+      }
+    },
+    [onChange]
+  )
 
   const handleKeyDown = useCallback(
     async (event: KeyboardEvent<HTMLHeadingElement>) => {
@@ -121,6 +138,7 @@ Card.Input = forwardRef(function CardInput({ name, value, onChange }, ref) {
           event.preventDefault()
           event.currentTarget.blur()
           break
+
         case 'Escape':
           event.preventDefault()
           event.currentTarget.textContent = value
@@ -131,8 +149,14 @@ Card.Input = forwardRef(function CardInput({ name, value, onChange }, ref) {
     [value]
   )
 
+  const handleFocus = useCallback(async () => {
+    setIsFocused(true)
+  }, [])
+
   const handleBlur = useCallback(
     async (event: FocusEvent<HTMLHeadingElement>) => {
+      setIsFocused(false)
+
       event.currentTarget.scrollLeft = 0
 
       const newValue = event.currentTarget.textContent?.trim()
@@ -142,20 +166,15 @@ Card.Input = forwardRef(function CardInput({ name, value, onChange }, ref) {
         return
       }
 
-      try {
-        setIsSaving(true)
-        await onChange(newValue)
-      } finally {
-        setIsSaving(false)
-      }
+      await updateValue(newValue)
     },
-    [onChange, value]
+    [updateValue, value]
   )
 
   return (
     <div
       ref={ref}
-      className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 transition-colors"
+      className="relative flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 transition-colors"
     >
       <div className="flex-none">{name}</div>
       <div
@@ -163,10 +182,34 @@ Card.Input = forwardRef(function CardInput({ name, value, onChange }, ref) {
         contentEditable={!isSaving}
         suppressContentEditableWarning
         onKeyDown={handleKeyDown}
+        onFocus={handleFocus}
         onBlur={handleBlur}
       >
         {value}
       </div>
+
+      <Transition
+        show={isFocused && !!suggestions?.length}
+        className="absolute z-10 top-0 right-0 max-w-full mt-10 origin-top-right"
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        <Card>
+          {suggestions?.map((suggestion) => (
+            <Card.Button
+              key={suggestion}
+              disabled={isSaving}
+              onClick={() => updateValue(suggestion)}
+            >
+              {suggestion}
+            </Card.Button>
+          ))}
+        </Card>
+      </Transition>
     </div>
   )
 })
@@ -216,7 +259,7 @@ Card.Select = forwardRef(function CardSelect(
 
       <Transition
         show={isShowing}
-        className="absolute right-0 max-w-full -mt-2 z-10 origin-top-right"
+        className="absolute z-10 top-0 right-0 max-w-full mt-10 origin-top-right"
         enter="transition ease-out duration-100"
         enterFrom="transform opacity-0 scale-95"
         enterTo="transform opacity-100 scale-100"

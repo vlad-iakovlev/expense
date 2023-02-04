@@ -1,17 +1,14 @@
 import Head from 'next/head'
 import { FC, useCallback } from 'react'
-import { useSWRConfig } from 'swr'
 import { updateWallet } from '../../api/client/wallets'
 import { ROUTES } from '../../constants/routes'
-import { SWR_KEYS } from '../../constants/swr'
 import { OperationsCard } from '../cards/Operations'
 import { WalletInfoCard } from '../cards/WalletInfo'
 import { useWalletContext } from '../contexts/Wallet'
 import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
 
 export const Wallet: FC = () => {
-  const { mutate } = useSWRConfig()
-  const { query, wallet } = useWalletContext()
+  const { wallet, mutateWallet } = useWalletContext()
 
   const handleNameChange = useCallback(
     async (name: string) => {
@@ -20,9 +17,9 @@ export const Wallet: FC = () => {
         name,
       })
 
-      await mutate(SWR_KEYS.WALLET(query))
+      await mutateWallet()
     },
-    [mutate, query, wallet.id]
+    [mutateWallet, wallet.id]
   )
 
   return (

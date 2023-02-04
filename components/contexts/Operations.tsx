@@ -14,8 +14,9 @@ import { SWR_KEYS } from '../../constants/swr'
 import { Fallback } from '../ui-kit/Fallback'
 
 interface ContextValue {
-  query: GetOperationsQuery
+  operationsQuery: GetOperationsQuery
   operations: ClientOperation[]
+  mutateOperations: () => Promise<unknown>
 }
 
 interface ProviderProps {
@@ -41,7 +42,7 @@ export const OperationsProvider: FC<ProviderProps> = ({
     [groupId, walletId, skip, take]
   )
 
-  const { data, isLoading } = useSWR(
+  const { data, isLoading, mutate } = useSWR(
     SWR_KEYS.OPERATIONS(query),
     useCallback(() => getOperations(query), [query])
   )
@@ -49,10 +50,11 @@ export const OperationsProvider: FC<ProviderProps> = ({
   const value = useMemo<ContextValue | undefined>(
     () =>
       data && {
-        query,
+        operationsQuery: query,
         operations: data.operations,
+        mutateOperations: mutate,
       },
-    [data, query]
+    [data, mutate, query]
   )
 
   return (

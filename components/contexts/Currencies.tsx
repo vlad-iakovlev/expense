@@ -14,6 +14,7 @@ import { Fallback } from '../ui-kit/Fallback'
 
 interface ContextValue {
   currencies: ClientCurrency[]
+  mutateCurrencies: () => Promise<unknown>
 }
 
 interface ProviderProps {
@@ -25,7 +26,7 @@ export const CurrenciesContext = createContext<ContextValue | undefined>(
 )
 
 export const CurrenciesProvider: FC<ProviderProps> = ({ children }) => {
-  const { data, isLoading } = useSWR(
+  const { data, isLoading, mutate } = useSWR(
     SWR_KEYS.CURRENCIES(),
     useCallback(() => getCurrencies(), [])
   )
@@ -34,8 +35,9 @@ export const CurrenciesProvider: FC<ProviderProps> = ({ children }) => {
     () =>
       data && {
         currencies: data.currencies,
+        mutateCurrencies: mutate,
       },
-    [data]
+    [data, mutate]
   )
 
   return (

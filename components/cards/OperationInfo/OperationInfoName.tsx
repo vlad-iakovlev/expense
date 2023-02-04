@@ -1,13 +1,10 @@
 import { FC, useCallback } from 'react'
-import { useSWRConfig } from 'swr'
 import { updateOperation } from '../../../api/client/operations'
-import { SWR_KEYS } from '../../../constants/swr'
 import { useOperationContext } from '../../contexts/Operation'
 import { Card } from '../../ui-kit/Card'
 
-export const OperationInfoDescription: FC = () => {
-  const { mutate } = useSWRConfig()
-  const { query, operation } = useOperationContext()
+export const OperationInfoName: FC = () => {
+  const { operation, mutateOperation } = useOperationContext()
 
   const handleChange = useCallback(
     async (name: string) => {
@@ -16,9 +13,9 @@ export const OperationInfoDescription: FC = () => {
         name,
       })
 
-      await mutate(SWR_KEYS.OPERATION(query))
+      await mutateOperation()
     },
-    [mutate, operation.id, query]
+    [mutateOperation, operation.id]
   )
 
   return (

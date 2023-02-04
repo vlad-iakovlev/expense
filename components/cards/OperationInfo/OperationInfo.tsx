@@ -3,7 +3,7 @@ import { Card } from '../../ui-kit/Card'
 import { OperationInfoAmount } from './OperationInfoAmount'
 import { OperationInfoCategory } from './OperationInfoCategory'
 import { OperationInfoDate } from './OperationInfoDate'
-import { OperationInfoDescription } from './OperationInfoDescription'
+import { OperationInfoName } from './OperationInfoName'
 import { OperationInfoWallet } from './OperationInfoWallet'
 
 export const OperationInfoCard: FC = () => (
@@ -13,7 +13,7 @@ export const OperationInfoCard: FC = () => (
     <OperationInfoDate />
     <OperationInfoWallet />
     <OperationInfoCategory />
-    <OperationInfoDescription />
+    <OperationInfoName />
     <OperationInfoAmount />
   </Card>
 )
