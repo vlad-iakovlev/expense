@@ -1,6 +1,6 @@
 import { Transition } from '@headlessui/react'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { FC, Fragment, useCallback, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import { Avatar } from '../ui-kit/Avatar'
 import { Button } from '../ui-kit/Button'
 import { Card } from '../ui-kit/Card'
@@ -58,7 +58,7 @@ export const HeaderUser: FC = () => {
 
           <Transition
             show={isShowing}
-            as={Fragment}
+            className="absolute right-0 z-10 mt-2 w-72 origin-top-right"
             enter="transition ease-out duration-100"
             enterFrom="transform opacity-0 scale-95"
             enterTo="transform opacity-100 scale-100"
@@ -66,7 +66,7 @@ export const HeaderUser: FC = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Card className="absolute right-0 z-10 mt-2 w-72 origin-top-right focus:outline-none">
+            <Card>
               <Card.Title
                 title={session.data.user?.name || ''}
                 subtitle={session.data.user?.email || ''}

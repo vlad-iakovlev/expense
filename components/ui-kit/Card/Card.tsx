@@ -3,7 +3,6 @@ import clsx from 'clsx'
 import {
   FocusEvent,
   forwardRef,
-  Fragment,
   KeyboardEvent,
   MouseEvent,
   ReactNode,
@@ -217,7 +216,7 @@ Card.Select = forwardRef(function CardSelect(
 
       <Transition
         show={isShowing}
-        as={Fragment}
+        className="absolute right-0 max-w-full -mt-2 z-10 origin-top-right"
         enter="transition ease-out duration-100"
         enterFrom="transform opacity-0 scale-95"
         enterTo="transform opacity-100 scale-100"
@@ -225,7 +224,7 @@ Card.Select = forwardRef(function CardSelect(
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Card className="absolute right-0 max-w-full -mt-2 z-10 origin-top-right focus:outline-none">
+        <Card>
           {options.map((option) => (
             <Card.Button
               key={option.id}
