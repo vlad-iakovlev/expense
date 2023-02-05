@@ -7,16 +7,16 @@ import { CardPopup } from './CardPopup'
 import { CardSelect } from './CardSelect'
 import { CardTitle } from './CardTitle'
 
+export interface CardProps {
+  className?: string
+  children?: ReactNode
+}
+
 export type { CardButtonProps } from './CardButton'
 export type { CardInputProps } from './CardInput'
 export type { CardPopupProps } from './CardPopup'
 export type { CardSelectOption, CardSelectProps } from './CardSelect'
 export type { CardTitleProps } from './CardTitle'
-
-export interface CardProps {
-  className?: string
-  children?: ReactNode
-}
 
 export const Card = ({ className, children }: CardProps) => {
   return (
