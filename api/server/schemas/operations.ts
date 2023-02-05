@@ -5,7 +5,7 @@ export const getOperationsQuerySchema = z.object({
   groupId: z.string().refine(isValidObjectId).optional(),
   walletId: z.string().refine(isValidObjectId).optional(),
   skip: z.coerce.number().nonnegative().optional(),
-  take: z.coerce.number().positive().max(21).default(21).optional(),
+  take: z.coerce.number().positive().max(50).default(50).optional(),
 })
 
 export const getOperationQuerySchema = z.object({

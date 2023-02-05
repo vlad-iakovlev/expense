@@ -35,7 +35,7 @@ export const OperationsProvider: FC<ProviderProps> = ({
   children,
 }) => {
   const [skip] = useState(0)
-  const [take] = useState(21)
+  const [take] = useState(50)
 
   const query = useMemo<GetOperationsQuery>(
     () => ({ groupId, walletId, skip, take }),
