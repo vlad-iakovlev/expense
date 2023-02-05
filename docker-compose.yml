@@ -9,4 +9,6 @@ services:
       - vlad-yakovlev-dev
     environment:
       MONGO_URL: mongodb://mongo:27017/expense
+      VIRTUAL_HOST: expense.vlad-yakovlev.dev
+      LETSENCRYPT_HOST: expense.vlad-yakovlev.dev
     restart: always
