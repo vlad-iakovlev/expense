@@ -85,7 +85,7 @@ export const CardPopup: FC<CardPopupProps> = ({
   }, [isOpen, onClose])
 
   return createPortal(
-    <div className="absolute z-20" style={portalStyle}>
+    <div className="absolute z-10" style={portalStyle}>
       <Transition
         show={isOpen}
         className={clsx(className, 'absolute', {

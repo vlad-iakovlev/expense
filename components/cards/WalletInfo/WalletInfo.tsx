@@ -1,28 +1,40 @@
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
-import { FC, useCallback } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { deleteWallet } from '../../../api/client/wallets'
 import { ROUTES } from '../../../constants/routes'
 import { useOperationsContext } from '../../contexts/Operations'
 import { useWalletContext } from '../../contexts/Wallet'
 import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
+import { ConfirmDialog } from '../../ui-kit/ConfirmDialog'
 import { WalletInfoBalance } from './WalletInfoBalance'
 import { WalletInfoCurrency } from './WalletInfoCurrency'
 
 export const WalletInfoCard: FC = () => {
+  const router = useRouter()
   const { wallet } = useWalletContext()
   const { operations } = useOperationsContext()
 
-  const router = useRouter()
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
 
-  const handleDelete = useCallback(async () => {
+  const handleDelete = useCallback(() => {
+    setIsDeleteConfirmOpen(true)
+  }, [])
+
+  const handleDeleteConfirm = useCallback(async () => {
+    setIsDeleteConfirmOpen(false)
+
     await deleteWallet({
       walletId: wallet.id,
     })
 
     await router.push(ROUTES.GROUP(wallet.group.id))
   }, [router, wallet.group.id, wallet.id])
+
+  const handleDeleteCancel = useCallback(() => {
+    setIsDeleteConfirmOpen(false)
+  }, [])
 
   return (
     <Card>
@@ -43,6 +55,15 @@ export const WalletInfoCard: FC = () => {
       <Card.Divider />
       <WalletInfoBalance />
       <WalletInfoCurrency />
+
+      <ConfirmDialog
+        isOpen={isDeleteConfirmOpen}
+        title="Delete wallet"
+        description="Are you sure you want to delete wallet? This action cannot be undone."
+        action="Delete"
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+      />
     </Card>
   )
 }

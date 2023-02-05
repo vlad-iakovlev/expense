@@ -10,9 +10,8 @@ import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 
 export const WalletsCard: FC = () => {
-  const { walletsQuery, wallets } = useWalletsContext()
-
   const router = useRouter()
+  const { walletsQuery, wallets } = useWalletsContext()
 
   const goToWallet = useCallback(
     async (walletId: string) => {

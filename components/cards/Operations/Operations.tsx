@@ -10,9 +10,8 @@ import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 
 export const OperationsCard: FC = () => {
-  const { operationsQuery, operations } = useOperationsContext()
-
   const router = useRouter()
+  const { operationsQuery, operations } = useOperationsContext()
 
   const goToOperation = useCallback(
     async (operationId: string) => {

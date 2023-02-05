@@ -9,9 +9,8 @@ import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 
 export const GroupsCard: FC = () => {
-  const { groups } = useGroupsContext()
-
   const router = useRouter()
+  const { groups } = useGroupsContext()
 
   const goToGroup = useCallback(
     async (groupId: string) => {

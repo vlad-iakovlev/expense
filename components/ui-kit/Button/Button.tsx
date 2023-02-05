@@ -8,7 +8,7 @@ export interface ButtonProps {
   iconStart?: ReactNode
   rounded?: boolean
   size?: 'sm' | 'md' | 'lg'
-  theme?: 'primary' | 'error'
+  theme?: 'primary' | 'secondary' | 'error'
   type?: 'button' | 'submit' | 'reset'
   onClick?: (event: MouseEvent) => void
 }
@@ -26,7 +26,7 @@ export const Button: FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={clsx('inline-flex items-center justify-center', {
+      className={clsx('inline-flex items-center justify-center shadow-sm', {
         'rounded-md': !rounded,
         'rounded-full': rounded,
         'min-w-8 h-8 px-2 text-sm font-medium': size === 'sm',
@@ -34,6 +34,8 @@ export const Button: FC<ButtonProps> = ({
         'min-w-12 h-12 px-3 font-medium': size === 'lg',
         'bg-green-700 text-white hover:bg-green-800 transition-colors':
           theme === 'primary',
+        'bg-white border border-zinc-300 hover:bg-zinc-50':
+          theme === 'secondary',
         'bg-red-700 text-white hover:bg-red-800 transition-colors':
           theme === 'error',
         'pointer-events-none': disabled,
