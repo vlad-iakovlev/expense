@@ -1,3 +1,3 @@
-# Vladislav Yakovlev website
+# Expense counter
 
-https://vlad-yakovlev.dev
+https://expense.vlad-yakovlev.dev
