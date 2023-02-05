@@ -25,7 +25,7 @@ export const Breadcrumbs = ({ title, parents }: BreadcrumbsProps) => {
           >
             {parent.title}
           </Link>
-          <ChevronRightIcon className="max-md:hidden flex-none w-4 h-4" />
+          <ChevronRightIcon className="max-md:hidden flex-none w-5 h-5" />
         </Fragment>
       ))}
 
@@ -34,7 +34,7 @@ export const Breadcrumbs = ({ title, parents }: BreadcrumbsProps) => {
           className="flex md:hidden items-center gap-2 min-w-0 text-lg font-medium text-cyan-900 truncate"
           href={lastParent.href}
         >
-          <ArrowUturnLeftIcon className="flex-none w-4 h-4" />
+          <ArrowUturnLeftIcon className="flex-none w-5 h-5" />
           {lastParent.title}
         </Link>
       ) : null}

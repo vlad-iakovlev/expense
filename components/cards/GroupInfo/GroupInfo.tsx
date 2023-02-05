@@ -1,4 +1,4 @@
-import { XMarkIcon } from '@heroicons/react/24/solid'
+import { XMarkIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/router'
 import { FC, useCallback, useState } from 'react'
 import { deleteGroup } from '../../../api/client/groups'

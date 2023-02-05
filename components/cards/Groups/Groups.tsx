@@ -1,4 +1,4 @@
-import { PlusIcon } from '@heroicons/react/24/solid'
+import { PlusIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/router'
 import { FC, useCallback } from 'react'
 import { createGroup } from '../../../api/client/groups'
