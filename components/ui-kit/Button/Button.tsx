@@ -44,7 +44,8 @@ export const Button: FC<ButtonProps> = ({
       {iconStart ? (
         <div
           className={clsx('flex-none', {
-            'w-4 h-4': size === 'sm' || size === 'md',
+            'w-4 h-4': size === 'sm',
+            'w-5 h-5': size === 'md',
             'w-6 h-6': size === 'lg',
           })}
         >
@@ -66,7 +67,8 @@ export const Button: FC<ButtonProps> = ({
       {iconEnd ? (
         <div
           className={clsx('flex-none', {
-            'w-4 h-4': size === 'sm' || size === 'md',
+            'w-4 h-4': size === 'sm',
+            'w-5 h-5': size === 'md',
             'w-6 h-6': size === 'lg',
           })}
         >
