@@ -1,27 +1,45 @@
-import { ChevronRightIcon } from '@heroicons/react/24/solid'
-import { Fragment, ReactNode } from 'react'
-import { BreadcrumbsLink } from './BreadcrumbsLink'
-import { BreadcrumbsTitle } from './BreadcrumbsTitle'
+import { ArrowUturnLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
+import Link from 'next/link'
+import { Fragment, useMemo } from 'react'
 
-export interface BreadcrumbsProps {
-  children: ReactNode
+export interface BreadCrumbsParent {
+  href: string
+  title: string
 }
 
-export type { BreadcrumbsLinkProps } from './BreadcrumbsLink'
-export type { BreadcrumbsTitleProps } from './BreadcrumbsTitle'
+export interface BreadcrumbsProps {
+  title: string
+  parents?: BreadCrumbsParent[]
+}
 
-export const Breadcrumbs = ({ children }: BreadcrumbsProps) => (
-  <div className="flex items-center gap-2 mb-6">
-    {Array.isArray(children)
-      ? children.map((node, index) => (
-          <Fragment key={index}>
-            {index > 0 && <ChevronRightIcon className="flex-none w-4 h-4" />}
-            {node}
-          </Fragment>
-        ))
-      : children}
-  </div>
-)
+export const Breadcrumbs = ({ title, parents }: BreadcrumbsProps) => {
+  const lastParent = useMemo(() => parents?.[parents.length - 1], [parents])
 
-Breadcrumbs.Link = BreadcrumbsLink
-Breadcrumbs.Title = BreadcrumbsTitle
+  return (
+    <div className="flex max-md:flex-col md:items-center gap-2 mb-6">
+      {parents?.map((parent) => (
+        <Fragment key={parent.href}>
+          <Link
+            className="max-md:hidden min-w-0 text-lg font-medium text-cyan-900 truncate"
+            href={parent.href}
+          >
+            {parent.title}
+          </Link>
+          <ChevronRightIcon className="max-md:hidden flex-none w-4 h-4" />
+        </Fragment>
+      ))}
+
+      {lastParent ? (
+        <Link
+          className="flex md:hidden items-center gap-2 min-w-0 text-lg font-medium text-cyan-900 truncate"
+          href={lastParent.href}
+        >
+          <ArrowUturnLeftIcon className="flex-none w-4 h-4" />
+          {lastParent.title}
+        </Link>
+      ) : null}
+
+      <h1 className="min-w-0 text-lg font-medium truncate">{title}</h1>
+    </div>
+  )
+}
