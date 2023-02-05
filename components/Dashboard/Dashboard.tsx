@@ -16,7 +16,7 @@ export const Dashboard: FC = () => {
         <Breadcrumbs.Title title="Dashboard" />
       </Breadcrumbs>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start gap-6">
+      <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-x-6 [&>*]:break-inside-avoid [&>*]:mb-6">
         <GroupsCard />
         <WalletsCard />
         <OperationsCard />
