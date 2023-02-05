@@ -1,6 +1,7 @@
 import { use } from 'next-api-middleware'
 import {
   createWallet,
+  deleteWallet,
   getWallet,
   updateWallet,
 } from '../../../api/server/wallets'
@@ -14,5 +15,6 @@ export default use([errorMiddleware, sessionMiddleware, prismaMiddleware])(
     get: getWallet,
     post: createWallet,
     put: updateWallet,
+    delete: deleteWallet,
   })
 )

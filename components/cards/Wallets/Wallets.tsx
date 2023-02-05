@@ -21,7 +21,7 @@ export const WalletsCard: FC = () => {
     [router]
   )
 
-  const handleCreateWallet = useCallback(async () => {
+  const handleCreate = useCallback(async () => {
     if (!walletsQuery.groupId) return
 
     const { currencies } = await getCurrencies()
@@ -49,7 +49,7 @@ export const WalletsCard: FC = () => {
               rounded
               size="sm"
               iconStart={<PlusIcon />}
-              onClick={handleCreateWallet}
+              onClick={handleCreate}
             />
           ) : undefined
         }

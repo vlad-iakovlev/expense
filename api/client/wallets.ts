@@ -2,6 +2,8 @@ import { request } from '../../utils/request'
 import {
   CreateWalletBody,
   CreateWalletResponse,
+  DeleteWalletQuery,
+  DeleteWalletResponse,
   GetWalletQuery,
   GetWalletResponse,
   GetWalletsQuery,
@@ -35,5 +37,11 @@ export const updateWallet = async (data: UpdateWalletBody) => {
   return await request.put<UpdateWalletBody, UpdateWalletResponse>(
     BASE_ROUTE,
     data
+  )
+}
+
+export const deleteWallet = async (query: DeleteWalletQuery) => {
+  await request.delete<DeleteWalletResponse>(
+    request.withQuery(BASE_ROUTE, query)
   )
 }

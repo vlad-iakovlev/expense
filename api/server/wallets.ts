@@ -1,12 +1,14 @@
 import { NextApiHandler } from 'next'
 import {
   CreateWalletResponse,
+  DeleteWalletResponse,
   GetWalletResponse,
   GetWalletsResponse,
   UpdateWalletResponse,
 } from '../types/wallets'
 import {
   createWalletBodySchema,
+  deleteWalletQuerySchema,
   getWalletQuerySchema,
   getWalletsQuerySchema,
   updateWalletBodySchema,
@@ -136,4 +138,24 @@ export const updateWallet: NextApiHandler<UpdateWalletResponse> = async (
   const wallet = await populateWalletBalance(req, walletWithoutBalance)
 
   res.status(200).json({ wallet })
+}
+
+export const deleteWallet: NextApiHandler<DeleteWalletResponse> = async (
+  req,
+  res
+) => {
+  const query = deleteWalletQuerySchema.parse(req.query)
+
+  await req.prisma.wallet.delete({
+    where: {
+      id: query.walletId,
+      group: {
+        userIds: {
+          has: req.session.user.id,
+        },
+      },
+    },
+  })
+
+  res.status(200).json({ ok: true })
 }

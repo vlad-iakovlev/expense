@@ -21,3 +21,7 @@ export const updateWalletBodySchema = z.object({
   currencyId: z.string().refine(isValidObjectId).optional(),
   groupId: z.string().refine(isValidObjectId).optional(),
 })
+
+export const deleteWalletQuerySchema = z.object({
+  walletId: z.string().refine(isValidObjectId),
+})

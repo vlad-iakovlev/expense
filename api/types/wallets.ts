@@ -2,6 +2,7 @@ import { Group, Wallet } from '@prisma/client'
 import { z } from 'zod'
 import {
   createWalletBodySchema,
+  deleteWalletQuerySchema,
   getWalletQuerySchema,
   getWalletsQuerySchema,
   updateWalletBodySchema,
@@ -36,4 +37,10 @@ export type UpdateWalletBody = z.infer<typeof updateWalletBodySchema>
 
 export interface UpdateWalletResponse {
   wallet: ClientWallet
+}
+
+export type DeleteWalletQuery = z.infer<typeof deleteWalletQuerySchema>
+
+export interface DeleteWalletResponse {
+  ok: true
 }

@@ -20,7 +20,7 @@ export const GroupsCard: FC = () => {
     [router]
   )
 
-  const handleCreateGroup = useCallback(async () => {
+  const handleCreate = useCallback(async () => {
     const { group } = await createGroup({
       name: 'Untitled',
     })
@@ -37,7 +37,7 @@ export const GroupsCard: FC = () => {
             rounded
             size="sm"
             iconStart={<PlusIcon />}
-            onClick={handleCreateGroup}
+            onClick={handleCreate}
           />
         }
       />

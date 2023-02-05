@@ -18,7 +18,7 @@ export const OperationInfoCard: FC = () => {
 
   const router = useRouter()
 
-  const handleDeleteOperation = useCallback(async () => {
+  const handleDelete = useCallback(async () => {
     await deleteOperation({
       operationId: operation.id,
     })
@@ -36,7 +36,7 @@ export const OperationInfoCard: FC = () => {
             size="sm"
             theme="error"
             iconStart={<XMarkIcon />}
-            onClick={handleDeleteOperation}
+            onClick={handleDelete}
           />
         }
       />

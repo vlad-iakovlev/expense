@@ -21,7 +21,7 @@ export const OperationsCard: FC = () => {
     [router]
   )
 
-  const handleCreateOperation = useCallback(async () => {
+  const handleCreate = useCallback(async () => {
     if (!operationsQuery.walletId) return
 
     const { operation } = await createOperation({
@@ -49,7 +49,7 @@ export const OperationsCard: FC = () => {
               rounded
               size="sm"
               iconStart={<PlusIcon />}
-              onClick={handleCreateOperation}
+              onClick={handleCreate}
             />
           ) : undefined
         }
