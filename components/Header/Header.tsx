@@ -5,7 +5,7 @@ import { HeaderUser } from './HeaderUser'
 
 export const Header: FC = () => {
   return (
-    <header className="sticky top-0 z-30 bg-green-600">
+    <header className="sticky top-0 z-10 bg-green-600">
       <Container className="flex items-center justify-between h-[72px]">
         <HeaderLogo />
         <HeaderUser />
