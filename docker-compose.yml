@@ -5,26 +5,8 @@ networks:
 services:
   expense:
     build: .
-    depends_on:
-      - expense-mongo
     networks:
       - vlad-yakovlev-dev
     environment:
-      MONGO_URL: mongodb://expense-mongo:27017/main
-    restart: always
-
-  expense-mongo:
-    image: mongo:5.0
-    networks:
-      - vlad-yakovlev-dev
-    ports:
-      - 127.0.0.1:27017:27017
-    volumes:
-      - $PWD/db:/data/db
-    healthcheck:
-      test: |
-        test $$(mongo --quiet --eval "rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: 'expense-mongo' }] }).ok || rs.status().ok") -eq 1
-      interval: 10s
-      start_period: 30s
-    command: '--bind_ip_all --replSet rs0'
+      MONGO_URL: mongodb://mongo:27017/expense
     restart: always
