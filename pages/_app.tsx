@@ -7,6 +7,7 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Header } from '../components/Header'
 import { Container } from '../components/ui-kit/Container'
+import { SWRConfig } from 'swr'
 
 function App({
   Component,
@@ -22,10 +23,16 @@ function App({
       </Head>
 
       <SessionProvider session={session}>
-        <Header />
-        <Container className="py-6">
-          <Component {...pageProps} />
-        </Container>
+        <SWRConfig
+          value={{
+            dedupingInterval: 0,
+          }}
+        >
+          <Header />
+          <Container className="py-6">
+            <Component {...pageProps} />
+          </Container>
+        </SWRConfig>
       </SessionProvider>
     </>
   )

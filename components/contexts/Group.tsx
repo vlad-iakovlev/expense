@@ -28,7 +28,7 @@ export const GroupContext = createContext<ContextValue | undefined>(undefined)
 export const GroupProvider: FC<ProviderProps> = ({ groupId, children }) => {
   const query = useMemo<GetGroupQuery>(() => ({ groupId }), [groupId])
 
-  const { data, isLoading, mutate } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     SWR_KEYS.GROUP(query),
     useCallback(() => getGroup(query), [query])
   )
@@ -44,7 +44,7 @@ export const GroupProvider: FC<ProviderProps> = ({ groupId, children }) => {
   )
 
   return (
-    <Fallback isLoading={isLoading} data={value}>
+    <Fallback isLoading={isLoading} data={value} error={error}>
       <GroupContext.Provider value={value}>{children}</GroupContext.Provider>
     </Fallback>
   )

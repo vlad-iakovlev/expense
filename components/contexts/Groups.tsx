@@ -24,7 +24,7 @@ interface ProviderProps {
 export const GroupsContext = createContext<ContextValue | undefined>(undefined)
 
 export const GroupsProvider: FC<ProviderProps> = ({ children }) => {
-  const { data, isLoading, mutate } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     SWR_KEYS.GROUPS(),
     useCallback(() => getGroups(), [])
   )
@@ -39,7 +39,7 @@ export const GroupsProvider: FC<ProviderProps> = ({ children }) => {
   )
 
   return (
-    <Fallback isLoading={isLoading} data={value}>
+    <Fallback isLoading={isLoading} data={value} error={error}>
       <GroupsContext.Provider value={value}>{children}</GroupsContext.Provider>
     </Fallback>
   )

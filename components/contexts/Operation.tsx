@@ -36,7 +36,7 @@ export const OperationProvider: FC<ProviderProps> = ({
     [operationId]
   )
 
-  const { data, isLoading, mutate } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     SWR_KEYS.OPERATION(query),
     useCallback(() => getOperation(query), [query])
   )
@@ -52,7 +52,7 @@ export const OperationProvider: FC<ProviderProps> = ({
   )
 
   return (
-    <Fallback isLoading={isLoading} data={value}>
+    <Fallback isLoading={isLoading} data={value} error={error}>
       <OperationContext.Provider value={value}>
         {children}
       </OperationContext.Provider>

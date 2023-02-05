@@ -28,7 +28,7 @@ export const WalletsContext = createContext<ContextValue | undefined>(undefined)
 export const WalletsProvider: FC<Props> = ({ groupId, children }) => {
   const query = useMemo<GetWalletsQuery>(() => ({ groupId }), [groupId])
 
-  const { data, isLoading, mutate } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     SWR_KEYS.WALLETS(query),
     useCallback(() => getWallets(query), [query])
   )
@@ -44,7 +44,7 @@ export const WalletsProvider: FC<Props> = ({ groupId, children }) => {
   )
 
   return (
-    <Fallback isLoading={isLoading} data={value}>
+    <Fallback isLoading={isLoading} data={value} error={error}>
       <WalletsContext.Provider value={value}>
         {children}
       </WalletsContext.Provider>

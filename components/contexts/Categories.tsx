@@ -38,7 +38,7 @@ export const CategoriesProvider: FC<ProviderProps> = ({
     [groupId]
   )
 
-  const { data, isLoading, mutate } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     SWR_KEYS.CATEGORIES(query),
     useCallback(() => getCategories(query), [query])
   )
@@ -54,7 +54,7 @@ export const CategoriesProvider: FC<ProviderProps> = ({
   )
 
   return (
-    <Fallback isLoading={isLoading} data={value}>
+    <Fallback isLoading={isLoading} data={value} error={error}>
       <CategoriesContext.Provider value={value}>
         {children}
       </CategoriesContext.Provider>

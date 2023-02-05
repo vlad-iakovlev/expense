@@ -26,7 +26,7 @@ export const CurrenciesContext = createContext<ContextValue | undefined>(
 )
 
 export const CurrenciesProvider: FC<ProviderProps> = ({ children }) => {
-  const { data, isLoading, mutate } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     SWR_KEYS.CURRENCIES(),
     useCallback(() => getCurrencies(), [])
   )
@@ -41,7 +41,7 @@ export const CurrenciesProvider: FC<ProviderProps> = ({ children }) => {
   )
 
   return (
-    <Fallback isLoading={isLoading} data={value}>
+    <Fallback isLoading={isLoading} data={value} error={error}>
       <CurrenciesContext.Provider value={value}>
         {children}
       </CurrenciesContext.Provider>
