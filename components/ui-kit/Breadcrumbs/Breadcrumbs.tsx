@@ -1,15 +1,8 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
-import {
-  FocusEvent,
-  forwardRef,
-  Fragment,
-  KeyboardEvent,
-  ReactNode,
-  useCallback,
-  useState,
-} from 'react'
+import { forwardRef, Fragment, ReactNode } from 'react'
 import { ForwardRef, MayBePromise } from '../../../types/utility'
+import { CEInput } from '../CEInput'
 
 export interface BreadcrumbsProps {
   children: ReactNode
@@ -32,7 +25,7 @@ export interface BreadcrumbsEditableTitleProps {
 type BreadcrumbsType = ForwardRef<HTMLDivElement, BreadcrumbsProps> & {
   Link: ForwardRef<HTMLAnchorElement, BreadcrumbsLinkProps>
   Title: ForwardRef<HTMLHeadingElement, BreadcrumbsTitleProps>
-  EditableTitle: ForwardRef<HTMLHeadingElement, BreadcrumbsEditableTitleProps>
+  EditableTitle: ForwardRef<HTMLDivElement, BreadcrumbsEditableTitleProps>
 }
 
 export const Breadcrumbs = forwardRef(function Breadcrumbs({ children }, ref) {
@@ -74,56 +67,12 @@ Breadcrumbs.EditableTitle = forwardRef(function BreadcrumbsEditableTitle(
   { title, onChange },
   ref
 ) {
-  const [isSaving, setIsSaving] = useState(false)
-
-  const handleKeyDown = useCallback(
-    async (event: KeyboardEvent<HTMLHeadingElement>) => {
-      switch (event.key) {
-        case 'Enter':
-          event.preventDefault()
-          event.currentTarget.blur()
-          break
-        case 'Escape':
-          event.preventDefault()
-          event.currentTarget.textContent = title
-          event.currentTarget.blur()
-          break
-      }
-    },
-    [title]
-  )
-
-  const handleBlur = useCallback(
-    async (event: FocusEvent<HTMLHeadingElement>) => {
-      event.currentTarget.scrollLeft = 0
-
-      const newTitle = event.currentTarget.textContent?.trim()
-
-      if (!newTitle || newTitle === title) {
-        event.currentTarget.textContent = title
-        return
-      }
-
-      try {
-        setIsSaving(true)
-        await onChange(newTitle)
-      } finally {
-        setIsSaving(false)
-      }
-    },
-    [onChange, title]
-  )
-
   return (
-    <h1
+    <CEInput
       ref={ref}
       className="flex-auto min-w-0 text-lg font-medium truncate focus:text-clip focus:outline-none"
-      contentEditable={!isSaving}
-      suppressContentEditableWarning
-      onKeyDown={handleKeyDown}
-      onBlur={handleBlur}
-    >
-      {title}
-    </h1>
+      value={title}
+      onChange={onChange}
+    />
   )
 })

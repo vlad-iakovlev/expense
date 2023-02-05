@@ -3,9 +3,9 @@ import { useRouter } from 'next/router'
 import { FC, useCallback } from 'react'
 import { createOperation } from '../../../api/client/operations'
 import { ROUTES } from '../../../constants/routes'
-import { formatAmount } from '../../../utils/formatAmount'
 import { formatDate } from '../../../utils/formatDate'
 import { useOperationsContext } from '../../contexts/Operations'
+import { Amount } from '../../ui-kit/Amount'
 import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 
@@ -66,9 +66,11 @@ export const OperationsCard: FC = () => {
             <div className="flex-auto truncate">
               {operation.category} – {operation.name}
             </div>
-            <div className="flex-none font-medium">
-              {formatAmount(operation.amount, operation.wallet.currency)}
-            </div>
+            <Amount
+              className="flex-none font-medium"
+              amount={operation.amount}
+              currency={operation.wallet.currency}
+            />
           </div>
           <div className="flex items-center gap-3 text-sm text-zinc-600">
             <div className="flex-none win-w-0">

@@ -1,0 +1,91 @@
+import {
+  FocusEvent,
+  forwardRef,
+  KeyboardEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
+import { useForwardedRef } from '../../../hooks/useForwardedRef'
+import { MayBePromise } from '../../../types/utility'
+
+export interface CEInputProps {
+  className?: string
+  value: string
+  onChange: (value: string) => MayBePromise<string | void>
+  onFocus?: (event: FocusEvent<HTMLDivElement>) => void
+  onBlur?: (event: FocusEvent<HTMLDivElement>) => void
+}
+
+export const CEInput = forwardRef<HTMLDivElement, CEInputProps>(
+  function CEInput(
+    { className, value, onChange, onFocus, onBlur },
+    forwardedRef
+  ) {
+    const ref = useForwardedRef(forwardedRef, null)
+    const [isSaving, setIsSaving] = useState(false)
+
+    const handleChange = useCallback(async () => {
+      try {
+        setIsSaving(true)
+
+        const inputValue = ref.current?.textContent?.trim()
+        const newValue =
+          !inputValue || inputValue === value
+            ? value
+            : await onChange(inputValue)
+
+        if (ref.current && newValue) {
+          ref.current.textContent = newValue
+        }
+      } finally {
+        setIsSaving(false)
+      }
+    }, [onChange, ref, value])
+
+    const handleKeyDown = useCallback(
+      async (event: KeyboardEvent<HTMLHeadingElement>) => {
+        switch (event.key) {
+          case 'Enter':
+            event.preventDefault()
+            event.currentTarget.blur()
+            break
+
+          case 'Escape':
+            event.preventDefault()
+            event.currentTarget.textContent = value
+            event.currentTarget.blur()
+            break
+        }
+      },
+      [value]
+    )
+
+    const handleBlur = useCallback(
+      async (event: FocusEvent<HTMLDivElement>) => {
+        onBlur?.(event)
+        event.currentTarget.scrollLeft = 0
+        await handleChange()
+      },
+      [onBlur, handleChange]
+    )
+
+    useEffect(() => {
+      if (ref.current) {
+        ref.current.textContent = value
+      }
+    }, [ref, value])
+
+    return (
+      <div
+        ref={ref}
+        className={className}
+        contentEditable={!isSaving}
+        suppressContentEditableWarning
+        onKeyDown={handleKeyDown}
+        onFocus={onFocus}
+        onBlur={handleBlur}
+      />
+    )
+  }
+)

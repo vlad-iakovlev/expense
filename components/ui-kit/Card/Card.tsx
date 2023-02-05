@@ -1,9 +1,7 @@
 import { Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import {
-  FocusEvent,
   forwardRef,
-  KeyboardEvent,
   MouseEvent,
   ReactNode,
   useCallback,
@@ -11,6 +9,7 @@ import {
   useState,
 } from 'react'
 import { ForwardRef, MayBePromise } from '../../../types/utility'
+import { CEInput } from '../CEInput'
 
 export interface CardProps {
   className?: string
@@ -32,10 +31,11 @@ export interface CardButtonProps {
 }
 
 export interface CardInputProps {
+  className?: string
   name: string
   suggestions?: string[]
   value: string
-  onChange: (value: string) => MayBePromise<void>
+  onChange: (value: string) => MayBePromise<void | string>
 }
 
 export interface CardSelectOption {
@@ -113,63 +113,12 @@ Card.Button = forwardRef(function CardButton(
 })
 
 Card.Input = forwardRef(function CardInput(
-  { name, suggestions, value, onChange },
+  { className, name, suggestions, value, onChange },
   ref
 ) {
   const [isFocused, setIsFocused] = useState(false)
-  const [isSaving, setIsSaving] = useState(false)
-
-  const updateValue = useCallback(
-    async (newValue: string) => {
-      try {
-        setIsSaving(true)
-        await onChange(newValue)
-      } finally {
-        setIsSaving(false)
-      }
-    },
-    [onChange]
-  )
-
-  const handleKeyDown = useCallback(
-    async (event: KeyboardEvent<HTMLHeadingElement>) => {
-      switch (event.key) {
-        case 'Enter':
-          event.preventDefault()
-          event.currentTarget.blur()
-          break
-
-        case 'Escape':
-          event.preventDefault()
-          event.currentTarget.textContent = value
-          event.currentTarget.blur()
-          break
-      }
-    },
-    [value]
-  )
-
-  const handleFocus = useCallback(async () => {
-    setIsFocused(true)
-  }, [])
-
-  const handleBlur = useCallback(
-    async (event: FocusEvent<HTMLHeadingElement>) => {
-      setIsFocused(false)
-
-      event.currentTarget.scrollLeft = 0
-
-      const newValue = event.currentTarget.textContent?.trim()
-
-      if (!newValue || newValue === value) {
-        event.currentTarget.textContent = value
-        return
-      }
-
-      await updateValue(newValue)
-    },
-    [updateValue, value]
-  )
+  const handleFocus = useCallback(() => setIsFocused(true), [])
+  const handleBlur = useCallback(() => setIsFocused(false), [])
 
   return (
     <div
@@ -177,16 +126,16 @@ Card.Input = forwardRef(function CardInput(
       className="relative flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 transition-colors"
     >
       <div className="flex-none">{name}</div>
-      <div
-        className="flex-auto text-right font-medium truncate focus:text-clip focus:outline-none"
-        contentEditable={!isSaving}
-        suppressContentEditableWarning
-        onKeyDown={handleKeyDown}
+      <CEInput
+        className={clsx(
+          className,
+          'flex-auto text-right font-medium truncate focus:text-clip focus:outline-none'
+        )}
+        value={value}
+        onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-      >
-        {value}
-      </div>
+      />
 
       <Transition
         show={isFocused && !!suggestions?.length}
@@ -200,11 +149,7 @@ Card.Input = forwardRef(function CardInput(
       >
         <Card>
           {suggestions?.map((suggestion) => (
-            <Card.Button
-              key={suggestion}
-              disabled={isSaving}
-              onClick={() => updateValue(suggestion)}
-            >
+            <Card.Button key={suggestion} onClick={() => onChange(suggestion)}>
               {suggestion}
             </Card.Button>
           ))}

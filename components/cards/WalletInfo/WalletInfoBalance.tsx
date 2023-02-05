@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { formatAmount } from '../../../utils/formatAmount'
 import { useWalletContext } from '../../contexts/Wallet'
+import { Amount } from '../../ui-kit/Amount'
 import { Card } from '../../ui-kit/Card'
 
 export const WalletInfoBalance: FC = () => {
@@ -10,9 +10,11 @@ export const WalletInfoBalance: FC = () => {
     <Card.Button
       disabled
       end={
-        <div className="font-medium">
-          {formatAmount(wallet.balance, wallet.currency)}
-        </div>
+        <Amount
+          className="font-medium"
+          amount={wallet.balance}
+          currency={wallet.currency}
+        />
       }
     >
       Balance

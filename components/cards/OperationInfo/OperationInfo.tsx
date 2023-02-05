@@ -4,6 +4,7 @@ import { OperationInfoAmount } from './OperationInfoAmount'
 import { OperationInfoCategory } from './OperationInfoCategory'
 import { OperationInfoDate } from './OperationInfoDate'
 import { OperationInfoName } from './OperationInfoName'
+import { OperationInfoType } from './OperationInfoType'
 import { OperationInfoWallet } from './OperationInfoWallet'
 
 export const OperationInfoCard: FC = () => (
@@ -14,6 +15,7 @@ export const OperationInfoCard: FC = () => (
     <OperationInfoWallet />
     <OperationInfoCategory />
     <OperationInfoName />
+    <OperationInfoType />
     <OperationInfoAmount />
   </Card>
 )

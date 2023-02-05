@@ -4,8 +4,8 @@ import { FC, useCallback } from 'react'
 import { getCurrencies } from '../../../api/client/currencies'
 import { createWallet } from '../../../api/client/wallets'
 import { ROUTES } from '../../../constants/routes'
-import { formatAmount } from '../../../utils/formatAmount'
 import { useWalletsContext } from '../../contexts/Wallets'
+import { Amount } from '../../ui-kit/Amount'
 import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 
@@ -61,9 +61,11 @@ export const WalletsCard: FC = () => {
         <Card.Button
           key={wallet.id}
           end={
-            <div className="font-medium">
-              {formatAmount(wallet.balance, wallet.currency)}
-            </div>
+            <Amount
+              className="font-medium"
+              amount={wallet.balance}
+              currency={wallet.currency}
+            />
           }
           onClick={() => goToWallet(wallet.id)}
         >
