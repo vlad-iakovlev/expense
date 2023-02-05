@@ -1,6 +1,5 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import { Fragment, ReactNode } from 'react'
-import { BreadcrumbsEditableTitle } from './BreadcrumbsEditableTitle'
 import { BreadcrumbsLink } from './BreadcrumbsLink'
 import { BreadcrumbsTitle } from './BreadcrumbsTitle'
 
@@ -8,7 +7,6 @@ export interface BreadcrumbsProps {
   children: ReactNode
 }
 
-export type { BreadcrumbsEditableTitleProps } from './BreadcrumbsEditableTitle'
 export type { BreadcrumbsLinkProps } from './BreadcrumbsLink'
 export type { BreadcrumbsTitleProps } from './BreadcrumbsTitle'
 
@@ -25,6 +23,5 @@ export const Breadcrumbs = ({ children }: BreadcrumbsProps) => (
   </div>
 )
 
-Breadcrumbs.EditableTitle = BreadcrumbsEditableTitle
 Breadcrumbs.Link = BreadcrumbsLink
 Breadcrumbs.Title = BreadcrumbsTitle

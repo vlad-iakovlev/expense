@@ -13,3 +13,7 @@ export const updateGroupBodySchema = z.object({
   groupId: z.string().refine(isValidObjectId),
   name: z.string().min(1),
 })
+
+export const deleteGroupQuerySchema = z.object({
+  groupId: z.string().refine(isValidObjectId),
+})

@@ -1,5 +1,10 @@
 import { use } from 'next-api-middleware'
-import { createGroup, getGroup, updateGroup } from '../../../api/server/groups'
+import {
+  createGroup,
+  deleteGroup,
+  getGroup,
+  updateGroup,
+} from '../../../api/server/groups'
 import { errorMiddleware } from '../../../middleware/error'
 import { prismaMiddleware } from '../../../middleware/prisma'
 import { restHandler } from '../../../middleware/rest'
@@ -10,5 +15,6 @@ export default use([errorMiddleware, sessionMiddleware, prismaMiddleware])(
     get: getGroup,
     post: createGroup,
     put: updateGroup,
+    delete: deleteGroup,
   })
 )

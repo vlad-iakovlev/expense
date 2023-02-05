@@ -1,12 +1,14 @@
 import { NextApiHandler } from 'next'
 import {
   CreateGroupResponse,
+  DeleteGroupResponse,
   GetGroupResponse,
   GetGroupsResponse,
   UpdateGroupResponse,
 } from '../types/groups'
 import {
   createGroupBodySchema,
+  deleteGroupQuerySchema,
   getGroupQuerySchema,
   updateGroupBodySchema,
 } from './schemas/groups'
@@ -92,4 +94,22 @@ export const updateGroup: NextApiHandler<UpdateGroupResponse> = async (
   })
 
   res.status(200).json({ group })
+}
+
+export const deleteGroup: NextApiHandler<DeleteGroupResponse> = async (
+  req,
+  res
+) => {
+  const query = deleteGroupQuerySchema.parse(req.query)
+
+  await req.prisma.group.delete({
+    where: {
+      id: query.groupId,
+      userIds: {
+        has: req.session.user.id,
+      },
+    },
+  })
+
+  res.status(200).json({ ok: true })
 }

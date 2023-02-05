@@ -2,6 +2,7 @@ import { Group, User } from '@prisma/client'
 import { z } from 'zod'
 import {
   createGroupBodySchema,
+  deleteGroupQuerySchema,
   getGroupQuerySchema,
   updateGroupBodySchema,
 } from '../server/schemas/groups'
@@ -30,4 +31,10 @@ export type UpdateGroupBody = z.infer<typeof updateGroupBodySchema>
 
 export interface UpdateGroupResponse {
   group: ClientGroup
+}
+
+export type DeleteGroupQuery = z.infer<typeof deleteGroupQuerySchema>
+
+export interface DeleteGroupResponse {
+  ok: true
 }

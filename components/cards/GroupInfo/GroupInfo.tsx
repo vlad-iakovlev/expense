@@ -1,21 +1,19 @@
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import { FC, useCallback, useState } from 'react'
-import { deleteWallet } from '../../../api/client/wallets'
+import { deleteGroup } from '../../../api/client/groups'
 import { ROUTES } from '../../../constants/routes'
-import { useOperationsContext } from '../../contexts/Operations'
-import { useWalletContext } from '../../contexts/Wallet'
+import { useGroupContext } from '../../contexts/Group'
+import { useWalletsContext } from '../../contexts/Wallets'
 import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 import { ConfirmDialog } from '../../ui-kit/ConfirmDialog'
-import { WalletInfoBalance } from './WalletInfoBalance'
-import { WalletInfoCurrency } from './WalletInfoCurrency'
-import { WalletInfoName } from './WalletInfoName'
+import { GroupInfoName } from './GroupInfoName'
 
-export const WalletInfoCard: FC = () => {
+export const GroupInfoCard: FC = () => {
   const router = useRouter()
-  const { wallet } = useWalletContext()
-  const { operations } = useOperationsContext()
+  const { group } = useGroupContext()
+  const { wallets } = useWalletsContext()
 
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
 
@@ -26,12 +24,12 @@ export const WalletInfoCard: FC = () => {
   const handleDeleteConfirm = useCallback(async () => {
     setIsDeleteConfirmOpen(false)
 
-    await deleteWallet({
-      walletId: wallet.id,
+    await deleteGroup({
+      groupId: group.id,
     })
 
-    await router.push(ROUTES.GROUP(wallet.group.id))
-  }, [router, wallet.group.id, wallet.id])
+    await router.push(ROUTES.DASHBOARD)
+  }, [group.id, router])
 
   const handleDeleteCancel = useCallback(() => {
     setIsDeleteConfirmOpen(false)
@@ -42,7 +40,7 @@ export const WalletInfoCard: FC = () => {
       <Card.Title
         title="Info"
         action={
-          operations.length === 0 ? (
+          wallets.length === 0 ? (
             <Button
               rounded
               size="sm"
@@ -54,14 +52,12 @@ export const WalletInfoCard: FC = () => {
         }
       />
       <Card.Divider />
-      <WalletInfoName />
-      <WalletInfoCurrency />
-      <WalletInfoBalance />
+      <GroupInfoName />
 
       <ConfirmDialog
         isOpen={isDeleteConfirmOpen}
-        title="Delete wallet"
-        description="Are you sure you want to delete wallet? This action cannot be undone."
+        title="Delete group"
+        description="Are you sure you want to delete group? This action cannot be undone."
         action="Delete"
         onConfirm={handleDeleteConfirm}
         onCancel={handleDeleteCancel}
