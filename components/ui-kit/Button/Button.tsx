@@ -8,7 +8,7 @@ export interface ButtonProps {
   iconStart?: ReactNode
   rounded?: boolean
   size?: 'sm' | 'md' | 'lg'
-  theme?: 'primary'
+  theme?: 'primary' | 'error'
   type?: 'button' | 'submit' | 'reset'
   onClick?: (event: MouseEvent) => void
 }
@@ -34,6 +34,8 @@ export const Button: FC<ButtonProps> = ({
         'min-w-12 h-12 px-3 font-medium': size === 'lg',
         'bg-green-700 text-white hover:bg-green-800 transition-colors':
           theme === 'primary',
+        'bg-red-700 text-white hover:bg-red-800 transition-colors':
+          theme === 'error',
         'pointer-events-none': disabled,
       })}
       type={type}

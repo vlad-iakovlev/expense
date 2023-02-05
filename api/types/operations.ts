@@ -2,6 +2,7 @@ import { Group, Operation, Wallet } from '@prisma/client'
 import { z } from 'zod'
 import {
   createOperationBodySchema,
+  deleteOperationQuerySchema,
   getOperationQuerySchema,
   getOperationsQuerySchema,
   updateOperationBodySchema,
@@ -40,4 +41,10 @@ export type UpdateOperationBody = z.infer<typeof updateOperationBodySchema>
 
 export interface UpdateOperationResponse {
   operation: ClientOperation
+}
+
+export type DeleteOperationQuery = z.infer<typeof deleteOperationQuerySchema>
+
+export interface DeleteOperationResponse {
+  ok: true
 }

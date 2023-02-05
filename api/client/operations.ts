@@ -2,6 +2,8 @@ import { request } from '../../utils/request'
 import {
   CreateOperationBody,
   CreateOperationResponse,
+  DeleteOperationQuery,
+  DeleteOperationResponse,
   GetOperationQuery,
   GetOperationResponse,
   GetOperationsQuery,
@@ -14,7 +16,7 @@ const BASE_ROUTE = '/api/operations'
 
 export const getOperations = async (query: GetOperationsQuery) => {
   const response = await request.get<GetOperationsResponse>(
-    request.withQuery<GetOperationsQuery>(`${BASE_ROUTE}/list`, query)
+    request.withQuery(`${BASE_ROUTE}/list`, query)
   )
 
   response.operations.forEach((operation) => {
@@ -26,7 +28,7 @@ export const getOperations = async (query: GetOperationsQuery) => {
 
 export const getOperation = async (query: GetOperationQuery) => {
   const response = await request.get<GetOperationResponse>(
-    request.withQuery<GetOperationQuery>(BASE_ROUTE, query)
+    request.withQuery(BASE_ROUTE, query)
   )
 
   response.operation.date = new Date(response.operation.date)
@@ -54,4 +56,10 @@ export const updateOperation = async (data: UpdateOperationBody) => {
   response.operation.date = new Date(response.operation.date)
 
   return response
+}
+
+export const deleteOperation = async (query: DeleteOperationQuery) => {
+  await request.delete<DeleteOperationResponse>(
+    request.withQuery(BASE_ROUTE, query)
+  )
 }

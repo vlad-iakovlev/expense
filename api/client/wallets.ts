@@ -14,13 +14,13 @@ const BASE_ROUTE = '/api/wallets'
 
 export const getWallets = async (query: GetWalletsQuery) => {
   return await request.get<GetWalletsResponse>(
-    request.withQuery<GetWalletsQuery>(`${BASE_ROUTE}/list`, query)
+    request.withQuery(`${BASE_ROUTE}/list`, query)
   )
 }
 
 export const getWallet = async (query: GetWalletQuery) => {
   return await request.get<GetWalletResponse>(
-    request.withQuery<GetWalletQuery>(BASE_ROUTE, query)
+    request.withQuery(BASE_ROUTE, query)
   )
 }
 

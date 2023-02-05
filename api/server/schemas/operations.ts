@@ -28,3 +28,7 @@ export const updateOperationBodySchema = z.object({
   category: z.string().min(1).optional(),
   walletId: z.string().refine(isValidObjectId).optional(),
 })
+
+export const deleteOperationQuerySchema = z.object({
+  operationId: z.string().refine(isValidObjectId),
+})

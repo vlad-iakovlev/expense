@@ -17,7 +17,7 @@ export const getGroups = async () => {
 
 export const getGroup = async (query: GetGroupQuery) => {
   return await request.get<GetGroupResponse>(
-    request.withQuery<GetGroupQuery>(BASE_ROUTE, query)
+    request.withQuery(BASE_ROUTE, query)
   )
 }
 

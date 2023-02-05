@@ -1,6 +1,7 @@
 import { use } from 'next-api-middleware'
 import {
   createOperation,
+  deleteOperation,
   getOperation,
   updateOperation,
 } from '../../../api/server/operations'
@@ -14,5 +15,6 @@ export default use([errorMiddleware, sessionMiddleware, prismaMiddleware])(
     get: getOperation,
     post: createOperation,
     put: updateOperation,
+    delete: deleteOperation,
   })
 )

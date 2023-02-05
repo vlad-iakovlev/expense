@@ -1,12 +1,14 @@
 import { NextApiHandler } from 'next'
 import {
   CreateOperationResponse,
+  DeleteOperationResponse,
   GetOperationResponse,
   GetOperationsResponse,
   UpdateOperationResponse,
 } from '../types/operations'
 import {
   createOperationBodySchema,
+  deleteOperationQuerySchema,
   getOperationQuerySchema,
   getOperationsQuerySchema,
   updateOperationBodySchema,
@@ -148,4 +150,26 @@ export const updateOperation: NextApiHandler<UpdateOperationResponse> = async (
   })
 
   res.status(200).json({ operation })
+}
+
+export const deleteOperation: NextApiHandler<DeleteOperationResponse> = async (
+  req,
+  res
+) => {
+  const query = deleteOperationQuerySchema.parse(req.query)
+
+  await req.prisma.operation.delete({
+    where: {
+      id: query.operationId,
+      wallet: {
+        group: {
+          userIds: {
+            has: req.session.user.id,
+          },
+        },
+      },
+    },
+  })
+
+  res.status(200).json({ ok: true })
 }

@@ -36,4 +36,11 @@ export const request = {
     })
     return await response.json()
   },
+
+  delete: async <Response>(url: string): Promise<Response> => {
+    const response = await fetch(url, {
+      method: 'delete',
+    })
+    return await response.json()
+  },
 }
