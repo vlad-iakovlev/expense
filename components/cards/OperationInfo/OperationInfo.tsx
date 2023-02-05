@@ -45,8 +45,8 @@ export const OperationInfoCard: FC = () => {
       <OperationInfoWallet />
       <OperationInfoCategory />
       <OperationInfoName />
-      <OperationInfoType />
       <OperationInfoAmount />
+      <OperationInfoType />
     </Card>
   )
 }

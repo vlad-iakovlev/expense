@@ -32,7 +32,7 @@ export const OperationInfoType: FC = () => {
     [mutateOperation, operation.amount, operation.id]
   )
 
-  return (
+  return operation.amount === 0 ? null : (
     <Card.Select
       name="Type"
       options={options}
