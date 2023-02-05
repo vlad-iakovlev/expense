@@ -16,7 +16,7 @@ services:
   expense-mongo:
     image: mongo:5.0
     networks:
-      - expense
+      - vlad-yakovlev-dev
     ports:
       - 127.0.0.1:27017:27017
     volumes:
