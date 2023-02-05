@@ -10,5 +10,6 @@ services:
     environment:
       MONGO_URL: mongodb://mongo:27017/expense
       VIRTUAL_HOST: expense.vlad-yakovlev.dev
+      VIRTUAL_PORT: 3000
       LETSENCRYPT_HOST: expense.vlad-yakovlev.dev
     restart: always
