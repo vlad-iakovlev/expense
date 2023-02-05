@@ -48,6 +48,6 @@ jobs:
           key: ${{ secrets.KEY }}
           script_stop: true
           script: |
-            cd Projects/raxee-expense-bot
+            cd Projects/expense
             git pull
             docker compose up -d --build
