@@ -10,24 +10,28 @@ export const getCategories: NextApiHandler<GetCategoriesResponse> = async (
 
   const items = await req.prisma.operation.groupBy({
     where: {
-      OR: {
-        incomeWallet: {
-          group: {
-            id: query.groupId,
-            userIds: {
-              has: req.session.user.id,
+      OR: [
+        {
+          incomeWallet: {
+            group: {
+              id: query.groupId,
+              userIds: {
+                has: req.session.user.id,
+              },
             },
           },
         },
-        expenseWallet: {
-          group: {
-            id: query.groupId,
-            userIds: {
-              has: req.session.user.id,
+        {
+          expenseWallet: {
+            group: {
+              id: query.groupId,
+              userIds: {
+                has: req.session.user.id,
+              },
             },
           },
         },
-      },
+      ],
     },
     by: ['category'],
     orderBy: {
