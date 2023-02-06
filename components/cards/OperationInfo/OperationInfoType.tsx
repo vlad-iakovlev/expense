@@ -22,12 +22,15 @@ export const OperationInfoType: FC = () => {
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
+      const amount = operation.expenseAmount || operation.incomeAmount
       const wallet = operation.expenseWallet || operation.incomeWallet
 
       switch (option.id) {
         case 'income':
           await updateOperation({
             operationId: operation.id,
+            incomeAmount: amount,
+            expenseAmount: 0,
             incomeWalletId: wallet?.id || null,
             expenseWalletId: null,
           })
@@ -36,6 +39,8 @@ export const OperationInfoType: FC = () => {
         case 'expense':
           await updateOperation({
             operationId: operation.id,
+            incomeAmount: 0,
+            expenseAmount: amount,
             incomeWalletId: null,
             expenseWalletId: wallet?.id || null,
           })
@@ -44,6 +49,8 @@ export const OperationInfoType: FC = () => {
         case 'transfer':
           await updateOperation({
             operationId: operation.id,
+            incomeAmount: amount,
+            expenseAmount: amount,
             incomeWalletId: wallet?.id || null,
             expenseWalletId: wallet?.id || null,
           })
@@ -54,8 +61,10 @@ export const OperationInfoType: FC = () => {
     },
     [
       mutateOperation,
+      operation.expenseAmount,
       operation.expenseWallet,
       operation.id,
+      operation.incomeAmount,
       operation.incomeWallet,
     ]
   )
