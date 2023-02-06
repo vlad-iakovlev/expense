@@ -39,7 +39,7 @@ export const OperationInfoIncomeWallet: FC = () => {
 
   return (
     <Card.Select
-      name={operation.expenseWallet ? 'Income Wallet' : 'Wallet'}
+      name={operation.expenseWallet ? 'To Wallet' : 'Wallet'}
       options={options}
       value={value}
       onChange={handleChange}

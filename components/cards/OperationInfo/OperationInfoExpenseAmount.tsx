@@ -42,7 +42,7 @@ export const OperationInfoExpenseAmount: FC = () => {
   return (
     <Card.Input
       className="text-red-700"
-      name={operation.incomeWallet ? 'Expense Amount' : 'Amount'}
+      name="Amount"
       value={formatAmount(
         operation.expenseAmount,
         operation.expenseWallet.currency
