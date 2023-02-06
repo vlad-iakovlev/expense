@@ -4,7 +4,7 @@ import { useOperationContext } from '../../contexts/Operation'
 import { useWalletsContext } from '../../contexts/Wallets'
 import { Card, CardSelectOption } from '../../ui-kit/Card'
 
-export const OperationInfoWallet: FC = () => {
+export const OperationInfoIncomeWallet: FC = () => {
   const { operation, mutateOperation } = useOperationContext()
   const { wallets } = useWalletsContext()
 
@@ -17,17 +17,17 @@ export const OperationInfoWallet: FC = () => {
 
   const value = useMemo(
     () => ({
-      id: operation.wallet.id,
-      name: `${operation.wallet.name} ${operation.wallet.currency.name}`,
+      id: operation.incomeWallet?.id || '',
+      name: `${operation.incomeWallet?.name} ${operation.incomeWallet?.currency.name}`,
     }),
-    [operation.wallet.currency.name, operation.wallet.id, operation.wallet.name]
+    [operation.incomeWallet]
   )
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
       await updateOperation({
         operationId: operation.id,
-        walletId: option.id,
+        incomeWalletId: option.id,
       })
 
       await mutateOperation()
@@ -35,9 +35,11 @@ export const OperationInfoWallet: FC = () => {
     [mutateOperation, operation.id]
   )
 
+  if (!operation.incomeWallet) return null
+
   return (
     <Card.Select
-      name="Wallet"
+      name={operation.expenseWallet ? 'Income Wallet' : 'Wallet'}
       options={options}
       value={value}
       onChange={handleChange}

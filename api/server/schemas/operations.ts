@@ -14,19 +14,23 @@ export const getOperationQuerySchema = z.object({
 
 export const createOperationBodySchema = z.object({
   name: z.string().min(1),
-  date: z.string().datetime(),
-  amount: z.number(),
   category: z.string().min(1),
-  walletId: z.string().refine(isValidObjectId),
+  date: z.string().datetime(),
+  incomeAmount: z.number(),
+  expenseAmount: z.number(),
+  incomeWalletId: z.string().refine(isValidObjectId).or(z.null()),
+  expenseWalletId: z.string().refine(isValidObjectId).or(z.null()),
 })
 
 export const updateOperationBodySchema = z.object({
   operationId: z.string().refine(isValidObjectId),
   name: z.string().min(1).optional(),
-  date: z.string().datetime().optional(),
-  amount: z.number().optional(),
   category: z.string().min(1).optional(),
-  walletId: z.string().refine(isValidObjectId).optional(),
+  date: z.string().datetime().optional(),
+  incomeAmount: z.number().optional(),
+  expenseAmount: z.number().optional(),
+  incomeWalletId: z.string().refine(isValidObjectId).or(z.null()).optional(),
+  expenseWalletId: z.string().refine(isValidObjectId).or(z.null()).optional(),
 })
 
 export const deleteOperationQuerySchema = z.object({

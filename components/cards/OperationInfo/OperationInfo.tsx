@@ -7,12 +7,14 @@ import { useOperationContext } from '../../contexts/Operation'
 import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 import { ConfirmDialog } from '../../ui-kit/ConfirmDialog'
-import { OperationInfoAmount } from './OperationInfoAmount'
 import { OperationInfoCategory } from './OperationInfoCategory'
 import { OperationInfoDate } from './OperationInfoDate'
+import { OperationInfoExpenseAmount } from './OperationInfoExpenseAmount'
+import { OperationInfoExpenseWallet } from './OperationInfoExpenseWallet'
+import { OperationInfoIncomeAmount } from './OperationInfoIncomeAmount'
+import { OperationInfoIncomeWallet } from './OperationInfoIncomeWallet'
 import { OperationInfoName } from './OperationInfoName'
 import { OperationInfoType } from './OperationInfoType'
-import { OperationInfoWallet } from './OperationInfoWallet'
 
 export const OperationInfoCard: FC = () => {
   const router = useRouter()
@@ -30,8 +32,14 @@ export const OperationInfoCard: FC = () => {
       operationId: operation.id,
     })
 
-    await router.push(ROUTES.WALLET(operation.wallet.id))
-  }, [operation.id, operation.wallet.id, router])
+    const wallet = operation.expenseWallet || operation.incomeWallet
+
+    if (wallet) {
+      await router.push(ROUTES.WALLET(wallet.id))
+    } else {
+      await router.push(ROUTES.DASHBOARD)
+    }
+  }, [operation.expenseWallet, operation.id, operation.incomeWallet, router])
 
   const handleDeleteCancel = useCallback(() => {
     setIsDeleteConfirmOpen(false)
@@ -53,11 +61,13 @@ export const OperationInfoCard: FC = () => {
       />
       <Card.Divider />
       <OperationInfoDate />
-      <OperationInfoWallet />
       <OperationInfoCategory />
       <OperationInfoName />
-      <OperationInfoAmount />
       <OperationInfoType />
+      <OperationInfoExpenseWallet />
+      <OperationInfoExpenseAmount />
+      <OperationInfoIncomeWallet />
+      <OperationInfoIncomeAmount />
 
       <ConfirmDialog
         isOpen={isDeleteConfirmOpen}

@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next'
 import { GetCurrenciesResponse } from '../types/currencies'
 
-export const select = {
+const select = {
   id: true,
   name: true,
   symbol: true,

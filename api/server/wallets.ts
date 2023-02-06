@@ -15,7 +15,7 @@ import {
 } from './schemas/wallets'
 import { populateWalletBalance } from '../../utils/populateWalletBalance'
 
-export const select = {
+const select = {
   id: true,
   name: true,
   currency: {

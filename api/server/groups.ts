@@ -13,7 +13,7 @@ import {
   updateGroupBodySchema,
 } from './schemas/groups'
 
-export const select = {
+const select = {
   id: true,
   name: true,
   users: {

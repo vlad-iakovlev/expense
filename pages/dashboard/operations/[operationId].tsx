@@ -25,11 +25,16 @@ const OperationPage: NextPage<Props> = ({ operationId }) => (
   <CategoriesProvider>
     <OperationProvider operationId={operationId}>
       <OperationContext.Consumer>
-        {(value) => (
-          <WalletsProvider groupId={value?.operation.wallet.group.id}>
-            <Operation />
-          </WalletsProvider>
-        )}
+        {(value) => {
+          const wallet =
+            value?.operation.expenseWallet || value?.operation.incomeWallet
+
+          return (
+            <WalletsProvider groupId={wallet?.group.id}>
+              <Operation />
+            </WalletsProvider>
+          )
+        }}
       </OperationContext.Consumer>
     </OperationProvider>
   </CategoriesProvider>

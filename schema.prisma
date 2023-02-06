@@ -87,16 +87,21 @@ model Wallet {
   group   Group  @relation(fields: [groupId], references: [id], onDelete: Restrict)
   groupId String @db.ObjectId
 
-  operations Operation[]
+  incomeOperations  Operation[] @relation("WalletOperationIncome")
+  expenseOperations Operation[] @relation("WalletOperationExpense")
 }
 
 model Operation {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  date     DateTime
-  amount   Int      @db.Long
-  category String
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  category      String
+  date          DateTime
+  incomeAmount  Int      @db.Long
+  expenseAmount Int      @db.Long
 
-  wallet   Wallet @relation(fields: [walletId], references: [id], onDelete: Restrict)
-  walletId String @db.ObjectId
+  incomeWallet   Wallet? @relation(name: "WalletOperationIncome", fields: [incomeWalletId], references: [id], onDelete: Restrict)
+  incomeWalletId String? @db.ObjectId
+
+  expenseWallet   Wallet? @relation(name: "WalletOperationExpense", fields: [expenseWalletId], references: [id], onDelete: Restrict)
+  expenseWalletId String? @db.ObjectId
 }

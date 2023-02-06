@@ -11,12 +11,20 @@ import { ClientCurrency } from './currencies'
 
 export type ClientOperation = Pick<
   Operation,
-  'id' | 'name' | 'date' | 'amount' | 'category'
+  'id' | 'name' | 'category' | 'date' | 'incomeAmount' | 'expenseAmount'
 > & {
-  wallet: Pick<Wallet, 'id' | 'name'> & {
-    currency: ClientCurrency
-    group: Pick<Group, 'id' | 'name'>
-  }
+  incomeWallet:
+    | (Pick<Wallet, 'id' | 'name'> & {
+        currency: ClientCurrency
+        group: Pick<Group, 'id' | 'name'>
+      })
+    | null
+  expenseWallet:
+    | (Pick<Wallet, 'id' | 'name'> & {
+        currency: ClientCurrency
+        group: Pick<Group, 'id' | 'name'>
+      })
+    | null
 }
 
 export type GetOperationsQuery = z.infer<typeof getOperationsQuerySchema>

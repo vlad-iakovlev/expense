@@ -7,14 +7,20 @@ export interface AmountProps {
   className?: string
   amount: number
   currency: ClientCurrency
+  type?: 'income' | 'expense'
 }
 
-export const Amount: FC<AmountProps> = ({ className, amount, currency }) => {
+export const Amount: FC<AmountProps> = ({
+  className,
+  amount,
+  currency,
+  type = amount >= 0 ? 'income' : 'expense',
+}) => {
   return (
     <div
       className={clsx(className, {
-        'text-green-700': amount >= 0,
-        'text-red-700': amount < 0,
+        'text-green-700': type === 'income',
+        'text-red-700': type === 'expense',
       })}
     >
       {formatAmount(amount, currency)}

@@ -9,27 +9,32 @@ export const Operation: FC = () => {
   const { operation } = useOperationContext()
 
   const parents = useMemo(() => {
+    const wallet = operation.expenseWallet || operation.incomeWallet
+
+    if (!wallet) {
+      return [
+        {
+          href: ROUTES.DASHBOARD,
+          title: 'Dashboard',
+        },
+      ]
+    }
+
     return [
       {
         href: ROUTES.DASHBOARD,
         title: 'Dashboard',
       },
       {
-        href: ROUTES.GROUP(operation.wallet.group.id),
-        title: operation.wallet.group.name,
+        href: ROUTES.GROUP(wallet.group.id),
+        title: wallet.group.name,
       },
       {
-        href: ROUTES.WALLET(operation.wallet.id),
-        title: `${operation.wallet.name} ${operation.wallet.currency.name}`,
+        href: ROUTES.WALLET(wallet.id),
+        title: `${wallet.name} ${wallet.currency.name}`,
       },
     ]
-  }, [
-    operation.wallet.currency.name,
-    operation.wallet.group.id,
-    operation.wallet.group.name,
-    operation.wallet.id,
-    operation.wallet.name,
-  ])
+  }, [operation.expenseWallet, operation.incomeWallet])
 
   return (
     <>

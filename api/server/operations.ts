@@ -14,30 +14,36 @@ import {
   updateOperationBodySchema,
 } from './schemas/operations'
 
-export const select = {
+const walletSelect = {
   id: true,
   name: true,
-  date: true,
-  amount: true,
-  category: true,
-  wallet: {
+  currency: {
     select: {
       id: true,
       name: true,
-      currency: {
-        select: {
-          id: true,
-          name: true,
-          symbol: true,
-        },
-      },
-      group: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
+      symbol: true,
     },
+  },
+  group: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+}
+
+const select = {
+  id: true,
+  name: true,
+  category: true,
+  date: true,
+  incomeAmount: true,
+  expenseAmount: true,
+  incomeWallet: {
+    select: walletSelect,
+  },
+  expenseWallet: {
+    select: walletSelect,
   },
 }
 
@@ -49,15 +55,30 @@ export const getOperations: NextApiHandler<GetOperationsResponse> = async (
 
   const operations = await req.prisma.operation.findMany({
     where: {
-      wallet: {
-        id: query.walletId,
-        group: {
-          id: query.groupId,
-          userIds: {
-            has: req.session.user.id,
+      OR: [
+        {
+          incomeWallet: {
+            id: query.walletId,
+            group: {
+              id: query.groupId,
+              userIds: {
+                has: req.session.user.id,
+              },
+            },
           },
         },
-      },
+        {
+          expenseWallet: {
+            id: query.walletId,
+            group: {
+              id: query.groupId,
+              userIds: {
+                has: req.session.user.id,
+              },
+            },
+          },
+        },
+      ],
     },
     orderBy: {
       date: 'desc',
@@ -79,13 +100,26 @@ export const getOperation: NextApiHandler<GetOperationResponse> = async (
   const operation = await req.prisma.operation.findFirstOrThrow({
     where: {
       id: query.operationId,
-      wallet: {
-        group: {
-          userIds: {
-            has: req.session.user.id,
+      OR: [
+        {
+          incomeWallet: {
+            group: {
+              userIds: {
+                has: req.session.user.id,
+              },
+            },
           },
         },
-      },
+        {
+          expenseWallet: {
+            group: {
+              userIds: {
+                has: req.session.user.id,
+              },
+            },
+          },
+        },
+      ],
     },
     select,
   })
@@ -102,19 +136,34 @@ export const createOperation: NextApiHandler<CreateOperationResponse> = async (
   const operation = await req.prisma.operation.create({
     data: {
       name: body.name,
-      date: body.date,
-      amount: body.amount,
       category: body.category,
-      wallet: {
-        connect: {
-          id: body.walletId,
-          group: {
-            userIds: {
-              has: req.session.user.id,
+      date: body.date,
+      incomeAmount: body.incomeAmount,
+      expenseAmount: body.incomeAmount,
+      ...(body.incomeWalletId && {
+        incomeWallet: {
+          connect: {
+            id: body.incomeWalletId,
+            group: {
+              userIds: {
+                has: req.session.user.id,
+              },
             },
           },
         },
-      },
+      }),
+      ...(body.expenseWalletId && {
+        expenseWallet: {
+          connect: {
+            id: body.expenseWalletId,
+            group: {
+              userIds: {
+                has: req.session.user.id,
+              },
+            },
+          },
+        },
+      }),
     },
     select,
   })
@@ -131,20 +180,35 @@ export const updateOperation: NextApiHandler<UpdateOperationResponse> = async (
   const operation = await req.prisma.operation.update({
     where: {
       id: body.operationId,
-      wallet: {
-        group: {
-          userIds: {
-            has: req.session.user.id,
+      OR: [
+        {
+          incomeWallet: {
+            group: {
+              userIds: {
+                has: req.session.user.id,
+              },
+            },
           },
         },
-      },
+        {
+          expenseWallet: {
+            group: {
+              userIds: {
+                has: req.session.user.id,
+              },
+            },
+          },
+        },
+      ],
     },
     data: {
       name: body.name,
-      date: body.date,
-      amount: body.amount,
       category: body.category,
-      walletId: body.walletId,
+      date: body.date,
+      incomeAmount: body.incomeAmount,
+      expenseAmount: body.expenseAmount,
+      incomeWalletId: body.incomeWalletId,
+      expenseWalletId: body.expenseWalletId,
     },
     select,
   })
@@ -161,13 +225,26 @@ export const deleteOperation: NextApiHandler<DeleteOperationResponse> = async (
   await req.prisma.operation.delete({
     where: {
       id: query.operationId,
-      wallet: {
-        group: {
-          userIds: {
-            has: req.session.user.id,
+      OR: [
+        {
+          incomeWallet: {
+            group: {
+              userIds: {
+                has: req.session.user.id,
+              },
+            },
           },
         },
-      },
+        {
+          expenseWallet: {
+            group: {
+              userIds: {
+                has: req.session.user.id,
+              },
+            },
+          },
+        },
+      ],
     },
   })
 
