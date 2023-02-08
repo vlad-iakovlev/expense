@@ -53,6 +53,17 @@ export const CEInput: FC<CEInputProps> = ({
     [value]
   )
 
+  const handleFocus = useCallback(
+    (event: FocusEvent<HTMLDivElement>) => {
+      onFocus?.(event)
+      const range = document.createRange()
+      range.selectNodeContents(event.currentTarget)
+      window.getSelection()?.removeAllRanges()
+      window.getSelection()?.addRange(range)
+    },
+    [onFocus]
+  )
+
   const handleBlur = useCallback(
     async (event: FocusEvent<HTMLDivElement>) => {
       onBlur?.(event)
@@ -75,7 +86,7 @@ export const CEInput: FC<CEInputProps> = ({
       contentEditable
       suppressContentEditableWarning
       onKeyDown={handleKeyDown}
-      onFocus={onFocus}
+      onFocus={handleFocus}
       onBlur={handleBlur}
     />
   )
