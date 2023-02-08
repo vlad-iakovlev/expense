@@ -35,8 +35,10 @@ const OperationPage: NextPage<Props> = ({ operationId }) => (
                 operationContext?.data?.operation.expenseWallet ||
                 operationContext?.data?.operation.incomeWallet
 
+              if (!wallet) return null
+
               return (
-                <WalletsProvider groupId={wallet?.group.id}>
+                <WalletsProvider groupId={wallet.group.id}>
                   <CheckSwrContexts renderContent={() => <Operation />} />
                 </WalletsProvider>
               )
