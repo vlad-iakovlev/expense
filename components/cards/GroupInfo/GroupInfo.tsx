@@ -4,6 +4,7 @@ import { FC, useCallback, useState } from 'react'
 import { deleteGroup } from '../../../api/client/groups'
 import { ROUTES } from '../../../constants/routes'
 import { useGroupContext } from '../../contexts/Group'
+import { useLoadingContext } from '../../contexts/Loading'
 import { useWalletsContext } from '../../contexts/Wallets'
 import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
@@ -12,6 +13,7 @@ import { GroupInfoName } from './GroupInfoName'
 
 export const GroupInfoCard: FC = () => {
   const router = useRouter()
+  const { setLoading } = useLoadingContext()
   const { group } = useGroupContext()
   const { wallets } = useWalletsContext()
 
@@ -22,14 +24,19 @@ export const GroupInfoCard: FC = () => {
   }, [])
 
   const handleDeleteConfirm = useCallback(async () => {
-    setIsDeleteConfirmOpen(false)
+    try {
+      setLoading(true)
+      setIsDeleteConfirmOpen(false)
 
-    await deleteGroup({
-      groupId: group.id,
-    })
+      await deleteGroup({
+        groupId: group.id,
+      })
 
-    await router.push(ROUTES.DASHBOARD)
-  }, [group.id, router])
+      await router.push(ROUTES.DASHBOARD)
+    } finally {
+      setLoading(false)
+    }
+  }, [group.id, router, setLoading])
 
   const handleDeleteCancel = useCallback(() => {
     setIsDeleteConfirmOpen(false)

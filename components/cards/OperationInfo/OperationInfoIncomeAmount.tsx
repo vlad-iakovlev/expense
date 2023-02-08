@@ -2,38 +2,50 @@ import { FC, useCallback } from 'react'
 import { updateOperation } from '../../../api/client/operations'
 import { formatAmount } from '../../../utils/formatAmount'
 import { parseAmount } from '../../../utils/parseAmount'
+import { useLoadingContext } from '../../contexts/Loading'
 import { useOperationContext } from '../../contexts/Operation'
 import { Card } from '../../ui-kit/Card'
 
 export const OperationInfoIncomeAmount: FC = () => {
+  const { setLoading } = useLoadingContext()
   const { operation, mutateOperation } = useOperationContext()
 
   const handleChange = useCallback(
     async (amountString: string) => {
       if (!operation.incomeWallet) return
 
-      const amount = parseAmount(amountString, operation.incomeWallet.currency)
-      if (isNaN(amount)) {
-        return formatAmount(
-          operation.incomeAmount,
+      try {
+        setLoading(true)
+
+        const amount = parseAmount(
+          amountString,
           operation.incomeWallet.currency
         )
+        if (isNaN(amount)) {
+          return formatAmount(
+            operation.incomeAmount,
+            operation.incomeWallet.currency
+          )
+        }
+
+        await updateOperation({
+          operationId: operation.id,
+          incomeAmount: amount,
+        })
+
+        await mutateOperation()
+
+        return formatAmount(amount, operation.incomeWallet.currency)
+      } finally {
+        setLoading(false)
       }
-
-      await updateOperation({
-        operationId: operation.id,
-        incomeAmount: amount,
-      })
-
-      await mutateOperation()
-
-      return formatAmount(amount, operation.incomeWallet.currency)
     },
     [
       mutateOperation,
       operation.id,
       operation.incomeAmount,
       operation.incomeWallet,
+      setLoading,
     ]
   )
 

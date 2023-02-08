@@ -5,7 +5,6 @@ import {
   useCallback,
   useEffect,
   useRef,
-  useState,
 } from 'react'
 import { MayBePromise } from '../../../types/utility'
 
@@ -25,21 +24,14 @@ export const CEInput: FC<CEInputProps> = ({
   onBlur,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
-  const [isSaving, setIsSaving] = useState(false)
 
   const handleChange = useCallback(async () => {
-    try {
-      setIsSaving(true)
+    const inputValue = ref.current?.textContent?.trim()
+    const newValue =
+      !inputValue || inputValue === value ? value : await onChange(inputValue)
 
-      const inputValue = ref.current?.textContent?.trim()
-      const newValue =
-        !inputValue || inputValue === value ? value : await onChange(inputValue)
-
-      if (ref.current && newValue) {
-        ref.current.textContent = newValue
-      }
-    } finally {
-      setIsSaving(false)
+    if (ref.current && newValue) {
+      ref.current.textContent = newValue
     }
   }, [onChange, ref, value])
 
@@ -80,7 +72,7 @@ export const CEInput: FC<CEInputProps> = ({
     <div
       ref={ref}
       className={className}
-      contentEditable={!isSaving}
+      contentEditable
       suppressContentEditableWarning
       onKeyDown={handleKeyDown}
       onFocus={onFocus}

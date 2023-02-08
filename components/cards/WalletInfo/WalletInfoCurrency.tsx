@@ -1,11 +1,13 @@
 import { FC, useCallback, useMemo } from 'react'
 import { updateWallet } from '../../../api/client/wallets'
 import { useCurrenciesContext } from '../../contexts/Currencies'
+import { useLoadingContext } from '../../contexts/Loading'
 import { useOperationsContext } from '../../contexts/Operations'
 import { useWalletContext } from '../../contexts/Wallet'
 import { Card, CardSelectOption } from '../../ui-kit/Card'
 
 export const WalletInfoCurrency: FC = () => {
+  const { setLoading } = useLoadingContext()
   const { currencies } = useCurrenciesContext()
   const { mutateOperations } = useOperationsContext()
   const { wallet, mutateWallet } = useWalletContext()
@@ -27,15 +29,21 @@ export const WalletInfoCurrency: FC = () => {
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
-      await updateWallet({
-        walletId: wallet.id,
-        currencyId: option.id,
-      })
+      try {
+        setLoading(true)
 
-      await mutateOperations()
-      await mutateWallet()
+        await updateWallet({
+          walletId: wallet.id,
+          currencyId: option.id,
+        })
+
+        await mutateOperations()
+        await mutateWallet()
+      } finally {
+        setLoading(false)
+      }
     },
-    [wallet.id, mutateOperations, mutateWallet]
+    [setLoading, wallet.id, mutateOperations, mutateWallet]
   )
 
   return (

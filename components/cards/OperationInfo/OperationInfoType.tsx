@@ -1,5 +1,6 @@
 import { FC, useCallback, useMemo } from 'react'
 import { updateOperation } from '../../../api/client/operations'
+import { useLoadingContext } from '../../contexts/Loading'
 import { useOperationContext } from '../../contexts/Operation'
 import { Card, CardSelectOption } from '../../ui-kit/Card'
 
@@ -11,6 +12,7 @@ const unknown = { id: 'unknown', name: 'Unknown' }
 const options: CardSelectOption[] = [income, expense, transfer]
 
 export const OperationInfoType: FC = () => {
+  const { setLoading } = useLoadingContext()
   const { operation, mutateOperation } = useOperationContext()
 
   const value = useMemo(() => {
@@ -22,42 +24,48 @@ export const OperationInfoType: FC = () => {
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
-      const amount = operation.expenseAmount || operation.incomeAmount
-      const wallet = operation.expenseWallet || operation.incomeWallet
+      try {
+        setLoading(true)
 
-      switch (option.id) {
-        case 'income':
-          await updateOperation({
-            operationId: operation.id,
-            incomeAmount: amount,
-            expenseAmount: 0,
-            incomeWalletId: wallet?.id || null,
-            expenseWalletId: null,
-          })
-          break
+        const amount = operation.expenseAmount || operation.incomeAmount
+        const wallet = operation.expenseWallet || operation.incomeWallet
 
-        case 'expense':
-          await updateOperation({
-            operationId: operation.id,
-            incomeAmount: 0,
-            expenseAmount: amount,
-            incomeWalletId: null,
-            expenseWalletId: wallet?.id || null,
-          })
-          break
+        switch (option.id) {
+          case 'income':
+            await updateOperation({
+              operationId: operation.id,
+              incomeAmount: amount,
+              expenseAmount: 0,
+              incomeWalletId: wallet?.id || null,
+              expenseWalletId: null,
+            })
+            break
 
-        case 'transfer':
-          await updateOperation({
-            operationId: operation.id,
-            incomeAmount: amount,
-            expenseAmount: amount,
-            incomeWalletId: wallet?.id || null,
-            expenseWalletId: wallet?.id || null,
-          })
-          break
+          case 'expense':
+            await updateOperation({
+              operationId: operation.id,
+              incomeAmount: 0,
+              expenseAmount: amount,
+              incomeWalletId: null,
+              expenseWalletId: wallet?.id || null,
+            })
+            break
+
+          case 'transfer':
+            await updateOperation({
+              operationId: operation.id,
+              incomeAmount: amount,
+              expenseAmount: amount,
+              incomeWalletId: wallet?.id || null,
+              expenseWalletId: wallet?.id || null,
+            })
+            break
+        }
+
+        await mutateOperation()
+      } finally {
+        setLoading(false)
       }
-
-      await mutateOperation()
     },
     [
       mutateOperation,
@@ -66,6 +74,7 @@ export const OperationInfoType: FC = () => {
       operation.id,
       operation.incomeAmount,
       operation.incomeWallet,
+      setLoading,
     ]
   )
 

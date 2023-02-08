@@ -24,18 +24,11 @@ export const CardSelect: FC<CardSelectProps> = ({
   const [isOpen, setIsOpen] = useState(false)
   const show = useCallback(() => setIsOpen(true), [])
   const hide = useCallback(() => setIsOpen(false), [])
-  const [isSaving, setIsSaving] = useState(false)
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
       if (option.id === value.id) return
-
-      try {
-        setIsSaving(true)
-        await onChange(option)
-      } finally {
-        setIsSaving(false)
-      }
+      await onChange(option)
     },
     [onChange, value.id]
   )
@@ -61,11 +54,7 @@ export const CardSelect: FC<CardSelectProps> = ({
         onClose={hide}
       >
         {options.map((option) => (
-          <Card.Button
-            key={option.id}
-            disabled={isSaving}
-            onClick={() => handleChange(option)}
-          >
+          <Card.Button key={option.id} onClick={() => handleChange(option)}>
             {option.name}
           </Card.Button>
         ))}

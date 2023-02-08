@@ -1,10 +1,12 @@
 import { FC, useCallback, useMemo } from 'react'
 import { updateOperation } from '../../../api/client/operations'
+import { useLoadingContext } from '../../contexts/Loading'
 import { useOperationContext } from '../../contexts/Operation'
 import { useWalletsContext } from '../../contexts/Wallets'
 import { Card, CardSelectOption } from '../../ui-kit/Card'
 
 export const OperationInfoExpenseWallet: FC = () => {
+  const { setLoading } = useLoadingContext()
   const { operation, mutateOperation } = useOperationContext()
   const { wallets } = useWalletsContext()
 
@@ -25,14 +27,20 @@ export const OperationInfoExpenseWallet: FC = () => {
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
-      await updateOperation({
-        operationId: operation.id,
-        expenseWalletId: option.id,
-      })
+      try {
+        setLoading(true)
 
-      await mutateOperation()
+        await updateOperation({
+          operationId: operation.id,
+          expenseWalletId: option.id,
+        })
+
+        await mutateOperation()
+      } finally {
+        setLoading(false)
+      }
     },
-    [mutateOperation, operation.id]
+    [mutateOperation, operation.id, setLoading]
   )
 
   if (!operation.expenseWallet) return null

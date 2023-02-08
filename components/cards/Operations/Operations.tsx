@@ -5,6 +5,7 @@ import { createOperation } from '../../../api/client/operations'
 import { ClientOperation } from '../../../api/types/operations'
 import { ROUTES } from '../../../constants/routes'
 import { formatDate } from '../../../utils/formatDate'
+import { useLoadingContext } from '../../contexts/Loading'
 import { useOperationsContext } from '../../contexts/Operations'
 import { Amount } from '../../ui-kit/Amount'
 import { Button } from '../../ui-kit/Button'
@@ -12,6 +13,7 @@ import { Card } from '../../ui-kit/Card'
 
 export const OperationsCard: FC = () => {
   const router = useRouter()
+  const { setLoading } = useLoadingContext()
   const { operations, operationsQuery } = useOperationsContext()
 
   const goToOperation = useCallback(
@@ -24,18 +26,24 @@ export const OperationsCard: FC = () => {
   const handleCreate = useCallback(async () => {
     if (!operationsQuery.walletId) return
 
-    const { operation } = await createOperation({
-      name: 'Untitled',
-      category: 'No category',
-      date: new Date().toISOString(),
-      incomeAmount: 0,
-      expenseAmount: 0,
-      incomeWalletId: operationsQuery.walletId,
-      expenseWalletId: null,
-    })
+    try {
+      setLoading(true)
 
-    await goToOperation(operation.id)
-  }, [goToOperation, operationsQuery.walletId])
+      const { operation } = await createOperation({
+        name: 'Untitled',
+        category: 'No category',
+        date: new Date().toISOString(),
+        incomeAmount: 0,
+        expenseAmount: 0,
+        incomeWalletId: operationsQuery.walletId,
+        expenseWalletId: null,
+      })
+
+      await goToOperation(operation.id)
+    } finally {
+      setLoading(false)
+    }
+  }, [goToOperation, operationsQuery.walletId, setLoading])
 
   const getOperation = useCallback(
     (operation: ClientOperation) => {

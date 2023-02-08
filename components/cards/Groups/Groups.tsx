@@ -4,12 +4,14 @@ import { FC, useCallback } from 'react'
 import { createGroup } from '../../../api/client/groups'
 import { ROUTES } from '../../../constants/routes'
 import { useGroupsContext } from '../../contexts/Groups'
+import { useLoadingContext } from '../../contexts/Loading'
 import { AvatarGroup } from '../../ui-kit/AvatarGroup'
 import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 
 export const GroupsCard: FC = () => {
   const router = useRouter()
+  const { setLoading } = useLoadingContext()
   const { groups } = useGroupsContext()
 
   const goToGroup = useCallback(
@@ -20,12 +22,18 @@ export const GroupsCard: FC = () => {
   )
 
   const handleCreate = useCallback(async () => {
-    const { group } = await createGroup({
-      name: 'Untitled',
-    })
+    try {
+      setLoading(true)
 
-    await goToGroup(group.id)
-  }, [goToGroup])
+      const { group } = await createGroup({
+        name: 'Untitled',
+      })
+
+      await goToGroup(group.id)
+    } finally {
+      setLoading(false)
+    }
+  }, [goToGroup, setLoading])
 
   return (
     <Card>

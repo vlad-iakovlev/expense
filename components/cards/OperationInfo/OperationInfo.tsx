@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { FC, useCallback, useState } from 'react'
 import { deleteOperation } from '../../../api/client/operations'
 import { ROUTES } from '../../../constants/routes'
+import { useLoadingContext } from '../../contexts/Loading'
 import { useOperationContext } from '../../contexts/Operation'
 import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
@@ -18,6 +19,7 @@ import { OperationInfoType } from './OperationInfoType'
 
 export const OperationInfoCard: FC = () => {
   const router = useRouter()
+  const { setLoading } = useLoadingContext()
   const { operation } = useOperationContext()
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
 
@@ -26,20 +28,31 @@ export const OperationInfoCard: FC = () => {
   }, [])
 
   const handleDeleteConfirm = useCallback(async () => {
-    setIsDeleteConfirmOpen(false)
+    try {
+      setLoading(true)
+      setIsDeleteConfirmOpen(false)
 
-    await deleteOperation({
-      operationId: operation.id,
-    })
+      await deleteOperation({
+        operationId: operation.id,
+      })
 
-    const wallet = operation.expenseWallet || operation.incomeWallet
+      const wallet = operation.expenseWallet || operation.incomeWallet
 
-    if (wallet) {
-      await router.push(ROUTES.WALLET(wallet.id))
-    } else {
-      await router.push(ROUTES.DASHBOARD)
+      if (wallet) {
+        await router.push(ROUTES.WALLET(wallet.id))
+      } else {
+        await router.push(ROUTES.DASHBOARD)
+      }
+    } finally {
+      setLoading(false)
     }
-  }, [operation.expenseWallet, operation.id, operation.incomeWallet, router])
+  }, [
+    operation.expenseWallet,
+    operation.id,
+    operation.incomeWallet,
+    router,
+    setLoading,
+  ])
 
   const handleDeleteCancel = useCallback(() => {
     setIsDeleteConfirmOpen(false)
