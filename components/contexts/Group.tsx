@@ -1,22 +1,10 @@
-import {
-  createContext,
-  FC,
-  ReactNode,
-  useCallback,
-  useContext,
-  useMemo,
-} from 'react'
-import useSWR from 'swr'
+import { createContext, FC, ReactNode, useMemo } from 'react'
 import { getGroup } from '../../api/client/groups'
-import { ClientGroup, GetGroupQuery } from '../../api/types/groups'
-import { SWR_KEYS } from '../../constants/swr'
-import { Fallback } from '../ui-kit/Fallback'
+import { GetGroupQuery, GetGroupResponse } from '../../api/types/groups'
+import { useSwrContext } from '../../hooks/useSwrContext'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
-interface ContextValue {
-  groupQuery: GetGroupQuery
-  group: ClientGroup
-  mutateGroup: () => Promise<unknown>
-}
+type ContextValue = SwrValue<GetGroupResponse, GetGroupQuery>
 
 interface ProviderProps {
   groupId: string
@@ -24,36 +12,24 @@ interface ProviderProps {
 }
 
 export const GroupContext = createContext<ContextValue | undefined>(undefined)
+GroupContext.displayName = 'GroupContext'
 
 export const GroupProvider: FC<ProviderProps> = ({ groupId, children }) => {
-  const query = useMemo<GetGroupQuery>(() => ({ groupId }), [groupId])
-
-  const { data, error, isLoading, mutate } = useSWR(
-    SWR_KEYS.GROUP(query),
-    useCallback(() => getGroup(query), [query])
+  const value = useSwrValue(
+    'group',
+    getGroup,
+    useMemo(() => ({ groupId }), [groupId])
   )
 
-  const value = useMemo<ContextValue | undefined>(
-    () =>
-      data && {
-        groupQuery: query,
-        group: data.group,
-        mutateGroup: mutate,
-      },
-    [data, mutate, query]
-  )
-
-  return (
-    <Fallback isLoading={isLoading} data={value} error={error}>
-      <GroupContext.Provider value={value}>{children}</GroupContext.Provider>
-    </Fallback>
-  )
+  return <GroupContext.Provider value={value}>{children}</GroupContext.Provider>
 }
 
 export const useGroupContext = () => {
-  const context = useContext(GroupContext)
-  if (!context) {
-    throw new Error('useGroupContext must be within GroupProvider')
+  const context = useSwrContext(GroupContext)
+
+  return {
+    group: context.data.group,
+    groupQuery: context.query,
+    mutateGroup: context.mutate,
   }
-  return context
 }

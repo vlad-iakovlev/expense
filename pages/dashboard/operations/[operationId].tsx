@@ -6,6 +6,9 @@ import {
 } from '../../../components/contexts/Operation'
 import { WalletsProvider } from '../../../components/contexts/Wallets'
 import { Operation } from '../../../components/Operation'
+import { CheckSwrContexts } from '../../../components/CheckSwrContexts'
+import { LoadingProvider } from '../../../components/contexts/Loading'
+import { ErrorProvider } from '../../../components/contexts/Error'
 
 interface Props {
   operationId: string
@@ -22,22 +25,27 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 }
 
 const OperationPage: NextPage<Props> = ({ operationId }) => (
-  <CategoriesProvider>
-    <OperationProvider operationId={operationId}>
-      <OperationContext.Consumer>
-        {(value) => {
-          const wallet =
-            value?.operation.expenseWallet || value?.operation.incomeWallet
+  <LoadingProvider>
+    <ErrorProvider>
+      <CategoriesProvider>
+        <OperationProvider operationId={operationId}>
+          <OperationContext.Consumer>
+            {(operationContext) => {
+              const wallet =
+                operationContext?.data?.operation.expenseWallet ||
+                operationContext?.data?.operation.incomeWallet
 
-          return (
-            <WalletsProvider groupId={wallet?.group.id}>
-              <Operation />
-            </WalletsProvider>
-          )
-        }}
-      </OperationContext.Consumer>
-    </OperationProvider>
-  </CategoriesProvider>
+              return (
+                <WalletsProvider groupId={wallet?.group.id}>
+                  <CheckSwrContexts renderContent={() => <Operation />} />
+                </WalletsProvider>
+              )
+            }}
+          </OperationContext.Consumer>
+        </OperationProvider>
+      </CategoriesProvider>
+    </ErrorProvider>
+  </LoadingProvider>
 )
 
 export default OperationPage

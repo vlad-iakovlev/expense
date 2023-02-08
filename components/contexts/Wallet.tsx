@@ -1,22 +1,10 @@
-import {
-  createContext,
-  FC,
-  ReactNode,
-  useCallback,
-  useContext,
-  useMemo,
-} from 'react'
-import useSWR from 'swr'
+import { createContext, FC, ReactNode, useMemo } from 'react'
 import { getWallet } from '../../api/client/wallets'
-import { ClientWallet, GetWalletQuery } from '../../api/types/wallets'
-import { SWR_KEYS } from '../../constants/swr'
-import { Fallback } from '../ui-kit/Fallback'
+import { GetWalletQuery, GetWalletResponse } from '../../api/types/wallets'
+import { useSwrContext } from '../../hooks/useSwrContext'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
-interface ContextValue {
-  walletQuery: GetWalletQuery
-  wallet: ClientWallet
-  mutateWallet: () => Promise<unknown>
-}
+type ContextValue = SwrValue<GetWalletResponse, GetWalletQuery>
 
 interface ProviderProps {
   walletId: string
@@ -24,36 +12,26 @@ interface ProviderProps {
 }
 
 export const WalletContext = createContext<ContextValue | undefined>(undefined)
+WalletContext.displayName = 'WalletContext'
 
 export const WalletProvider: FC<ProviderProps> = ({ walletId, children }) => {
-  const query = useMemo<GetWalletQuery>(() => ({ walletId }), [walletId])
-
-  const { data, error, isLoading, mutate } = useSWR(
-    SWR_KEYS.WALLET(query),
-    useCallback(() => getWallet(query), [query])
-  )
-
-  const value = useMemo<ContextValue | undefined>(
-    () =>
-      data && {
-        walletQuery: query,
-        wallet: data.wallet,
-        mutateWallet: mutate,
-      },
-    [data, mutate, query]
+  const value = useSwrValue(
+    'wallet',
+    getWallet,
+    useMemo(() => ({ walletId }), [walletId])
   )
 
   return (
-    <Fallback isLoading={isLoading} data={value} error={error}>
-      <WalletContext.Provider value={value}>{children}</WalletContext.Provider>
-    </Fallback>
+    <WalletContext.Provider value={value}>{children}</WalletContext.Provider>
   )
 }
 
 export const useWalletContext = () => {
-  const context = useContext(WalletContext)
-  if (!context) {
-    throw new Error('useWalletContext must be within WalletProvider')
+  const context = useSwrContext(WalletContext)
+
+  return {
+    wallet: context.data.wallet,
+    walletQuery: context.query,
+    mutateWallet: context.mutate,
   }
-  return context
 }

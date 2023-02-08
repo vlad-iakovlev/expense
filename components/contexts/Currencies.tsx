@@ -1,21 +1,10 @@
-import {
-  createContext,
-  FC,
-  ReactNode,
-  useCallback,
-  useContext,
-  useMemo,
-} from 'react'
-import useSWR from 'swr'
+import { createContext, FC, ReactNode } from 'react'
 import { getCurrencies } from '../../api/client/currencies'
-import { ClientCurrency } from '../../api/types/currencies'
-import { SWR_KEYS } from '../../constants/swr'
-import { Fallback } from '../ui-kit/Fallback'
+import { GetCurrenciesResponse } from '../../api/types/currencies'
+import { useSwrContext } from '../../hooks/useSwrContext'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
-interface ContextValue {
-  currencies: ClientCurrency[]
-  mutateCurrencies: () => Promise<unknown>
-}
+type ContextValue = SwrValue<GetCurrenciesResponse, undefined>
 
 interface ProviderProps {
   children: ReactNode
@@ -24,35 +13,23 @@ interface ProviderProps {
 export const CurrenciesContext = createContext<ContextValue | undefined>(
   undefined
 )
+CurrenciesContext.displayName = 'CurrenciesContext'
 
 export const CurrenciesProvider: FC<ProviderProps> = ({ children }) => {
-  const { data, error, isLoading, mutate } = useSWR(
-    SWR_KEYS.CURRENCIES(),
-    useCallback(() => getCurrencies(), [])
-  )
-
-  const value = useMemo<ContextValue | undefined>(
-    () =>
-      data && {
-        currencies: data.currencies,
-        mutateCurrencies: mutate,
-      },
-    [data, mutate]
-  )
+  const value = useSwrValue('currencies', getCurrencies, undefined)
 
   return (
-    <Fallback isLoading={isLoading} data={value} error={error}>
-      <CurrenciesContext.Provider value={value}>
-        {children}
-      </CurrenciesContext.Provider>
-    </Fallback>
+    <CurrenciesContext.Provider value={value}>
+      {children}
+    </CurrenciesContext.Provider>
   )
 }
 
 export const useCurrenciesContext = () => {
-  const context = useContext(CurrenciesContext)
-  if (!context) {
-    throw new Error('useCurrenciesContext must be within CurrenciesProvider')
+  const context = useSwrContext(CurrenciesContext)
+
+  return {
+    currencies: context.data.currencies,
+    mutateCurrencies: context.mutate,
   }
-  return context
 }

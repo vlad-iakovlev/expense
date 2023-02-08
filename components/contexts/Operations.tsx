@@ -1,23 +1,13 @@
-import {
-  createContext,
-  FC,
-  ReactNode,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react'
-import useSWR from 'swr'
+import { createContext, FC, ReactNode, useMemo } from 'react'
 import { getOperations } from '../../api/client/operations'
-import { ClientOperation, GetOperationsQuery } from '../../api/types/operations'
-import { SWR_KEYS } from '../../constants/swr'
-import { Fallback } from '../ui-kit/Fallback'
+import {
+  GetOperationsQuery,
+  GetOperationsResponse,
+} from '../../api/types/operations'
+import { useSwrContext } from '../../hooks/useSwrContext'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
-interface ContextValue {
-  operationsQuery: GetOperationsQuery
-  operations: ClientOperation[]
-  mutateOperations: () => Promise<unknown>
-}
+type ContextValue = SwrValue<GetOperationsResponse, GetOperationsQuery>
 
 interface ProviderProps {
   groupId?: string
@@ -28,48 +18,32 @@ interface ProviderProps {
 export const OperationsContext = createContext<ContextValue | undefined>(
   undefined
 )
+OperationsContext.displayName = 'OperationsContext'
 
 export const OperationsProvider: FC<ProviderProps> = ({
   groupId,
   walletId,
   children,
 }) => {
-  const [skip] = useState(0)
-  const [take] = useState(50)
-
-  const query = useMemo<GetOperationsQuery>(
-    () => ({ groupId, walletId, skip, take }),
-    [groupId, walletId, skip, take]
-  )
-
-  const { data, error, isLoading, mutate } = useSWR(
-    SWR_KEYS.OPERATIONS(query),
-    useCallback(() => getOperations(query), [query])
-  )
-
-  const value = useMemo<ContextValue | undefined>(
-    () =>
-      data && {
-        operationsQuery: query,
-        operations: data.operations,
-        mutateOperations: mutate,
-      },
-    [data, mutate, query]
+  const value = useSwrValue(
+    'operations',
+    getOperations,
+    useMemo(() => ({ groupId, walletId }), [groupId, walletId])
   )
 
   return (
-    <Fallback isLoading={isLoading} data={value} error={error}>
-      <OperationsContext.Provider value={value}>
-        {children}
-      </OperationsContext.Provider>
-    </Fallback>
+    <OperationsContext.Provider value={value}>
+      {children}
+    </OperationsContext.Provider>
   )
 }
 
 export const useOperationsContext = () => {
-  const context = useContext(OperationsContext)
-  if (!context) {
-    throw new Error('useOperationsContext must be within OperationsProvider')
+  const context = useSwrContext(OperationsContext)
+
+  return {
+    operations: context.data.operations,
+    operationsQuery: context.query,
+    mutateOperations: context.mutate,
   }
-  return context
 }

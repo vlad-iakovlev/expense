@@ -11,7 +11,7 @@ import { Card } from '../../ui-kit/Card'
 
 export const WalletsCard: FC = () => {
   const router = useRouter()
-  const { walletsQuery, wallets } = useWalletsContext()
+  const { wallets, walletsQuery } = useWalletsContext()
 
   const goToWallet = useCallback(
     async (walletId: string) => {

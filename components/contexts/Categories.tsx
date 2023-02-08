@@ -1,22 +1,13 @@
-import {
-  createContext,
-  FC,
-  ReactNode,
-  useCallback,
-  useContext,
-  useMemo,
-} from 'react'
-import useSWR from 'swr'
+import { createContext, FC, ReactNode, useMemo } from 'react'
 import { getCategories } from '../../api/client/categories'
-import { GetCategoriesQuery } from '../../api/types/categories'
-import { SWR_KEYS } from '../../constants/swr'
-import { Fallback } from '../ui-kit/Fallback'
+import {
+  GetCategoriesQuery,
+  GetCategoriesResponse,
+} from '../../api/types/categories'
+import { useSwrContext } from '../../hooks/useSwrContext'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
-interface ContextValue {
-  categoriesQuery: GetCategoriesQuery
-  categories: string[]
-  mutateCategories: () => Promise<unknown>
-}
+type ContextValue = SwrValue<GetCategoriesResponse, GetCategoriesQuery>
 
 interface ProviderProps {
   groupId?: string
@@ -26,46 +17,31 @@ interface ProviderProps {
 export const CategoriesContext = createContext<ContextValue | undefined>(
   undefined
 )
+CategoriesContext.displayName = 'CategoriesContext'
 
 export const CategoriesProvider: FC<ProviderProps> = ({
   groupId,
   children,
 }) => {
-  const query = useMemo<GetCategoriesQuery>(
-    () => ({
-      groupId,
-    }),
-    [groupId]
-  )
-
-  const { data, error, isLoading, mutate } = useSWR(
-    SWR_KEYS.CATEGORIES(query),
-    useCallback(() => getCategories(query), [query])
-  )
-
-  const value = useMemo<ContextValue | undefined>(
-    () =>
-      data && {
-        categoriesQuery: query,
-        categories: data.categories,
-        mutateCategories: mutate,
-      },
-    [data, mutate, query]
+  const value = useSwrValue(
+    'categories',
+    getCategories,
+    useMemo(() => ({ groupId }), [groupId])
   )
 
   return (
-    <Fallback isLoading={isLoading} data={value} error={error}>
-      <CategoriesContext.Provider value={value}>
-        {children}
-      </CategoriesContext.Provider>
-    </Fallback>
+    <CategoriesContext.Provider value={value}>
+      {children}
+    </CategoriesContext.Provider>
   )
 }
 
 export const useCategoriesContext = () => {
-  const context = useContext(CategoriesContext)
-  if (!context) {
-    throw new Error('useCategoriesContext must be within CategoriesProvider')
+  const context = useSwrContext(CategoriesContext)
+
+  return {
+    categories: context.data.categories,
+    categoriesQuery: context.query,
+    mutateCategories: context.mutate,
   }
-  return context
 }

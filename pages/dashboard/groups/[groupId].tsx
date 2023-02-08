@@ -3,6 +3,9 @@ import { GroupProvider } from '../../../components/contexts/Group'
 import { OperationsProvider } from '../../../components/contexts/Operations'
 import { WalletsProvider } from '../../../components/contexts/Wallets'
 import { Group } from '../../../components/Group'
+import { CheckSwrContexts } from '../../../components/CheckSwrContexts'
+import { LoadingProvider } from '../../../components/contexts/Loading'
+import { ErrorProvider } from '../../../components/contexts/Error'
 
 interface Props {
   groupId: string
@@ -19,13 +22,17 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 }
 
 const GroupPage: NextPage<Props> = ({ groupId }) => (
-  <GroupProvider groupId={groupId}>
-    <OperationsProvider groupId={groupId}>
-      <WalletsProvider groupId={groupId}>
-        <Group />
-      </WalletsProvider>
-    </OperationsProvider>
-  </GroupProvider>
+  <LoadingProvider>
+    <ErrorProvider>
+      <GroupProvider groupId={groupId}>
+        <OperationsProvider groupId={groupId}>
+          <WalletsProvider groupId={groupId}>
+            <CheckSwrContexts renderContent={() => <Group />} />
+          </WalletsProvider>
+        </OperationsProvider>
+      </GroupProvider>
+    </ErrorProvider>
+  </LoadingProvider>
 )
 
 export default GroupPage

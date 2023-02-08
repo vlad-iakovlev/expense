@@ -12,7 +12,7 @@ import { Card } from '../../ui-kit/Card'
 
 export const OperationsCard: FC = () => {
   const router = useRouter()
-  const { operationsQuery, operations } = useOperationsContext()
+  const { operations, operationsQuery } = useOperationsContext()
 
   const goToOperation = useCallback(
     async (operationId: string) => {
