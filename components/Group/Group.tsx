@@ -7,6 +7,7 @@ import { OperationsCard } from '../cards/Operations'
 import { WalletsCard } from '../cards/Wallets'
 import { useGroupContext } from '../contexts/Group'
 import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
+import { Columns } from '../ui-kit/Columns'
 
 export const Group: FC = () => {
   const { group } = useGroupContext()
@@ -28,12 +29,12 @@ export const Group: FC = () => {
 
       <Breadcrumbs title={group.name} parents={parents} />
 
-      <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-x-6 [&>*]:mb-6">
+      <Columns>
         <GroupInfoCard />
         <GroupUsersCard />
         <WalletsCard />
         <OperationsCard />
-      </div>
+      </Columns>
     </>
   )
 }

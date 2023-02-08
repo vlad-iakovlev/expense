@@ -4,6 +4,7 @@ import { ROUTES } from '../../constants/routes'
 import { OperationInfoCard } from '../cards/OperationInfo'
 import { useOperationContext } from '../contexts/Operation'
 import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
+import { Columns } from '../ui-kit/Columns'
 
 export const Operation: FC = () => {
   const { operation } = useOperationContext()
@@ -47,9 +48,9 @@ export const Operation: FC = () => {
         parents={parents}
       />
 
-      <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-x-6 [&>*]:mb-6">
+      <Columns>
         <OperationInfoCard />
-      </div>
+      </Columns>
     </>
   )
 }

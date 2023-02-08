@@ -16,7 +16,7 @@ export const Breadcrumbs = ({ title, parents }: BreadcrumbsProps) => {
   const lastParent = useMemo(() => parents?.[parents.length - 1], [parents])
 
   return (
-    <div className="flex max-md:flex-col md:items-center gap-2 mb-6">
+    <div className="flex max-md:flex-col md:items-center gap-4 md:gap-2 mb-6">
       {parents?.map((parent) => (
         <Fragment key={parent.href}>
           <Link

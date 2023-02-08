@@ -5,6 +5,7 @@ import { OperationsCard } from '../cards/Operations'
 import { WalletInfoCard } from '../cards/WalletInfo'
 import { useWalletContext } from '../contexts/Wallet'
 import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
+import { Columns } from '../ui-kit/Columns'
 
 export const Wallet: FC = () => {
   const { wallet } = useWalletContext()
@@ -33,10 +34,10 @@ export const Wallet: FC = () => {
         parents={parents}
       />
 
-      <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-x-6 [&>*]:mb-6">
+      <Columns>
         <WalletInfoCard />
         <OperationsCard />
-      </div>
+      </Columns>
     </>
   )
 }

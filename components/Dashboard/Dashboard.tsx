@@ -4,6 +4,7 @@ import { GroupsCard } from '../cards/Groups'
 import { OperationsCard } from '../cards/Operations'
 import { WalletsCard } from '../cards/Wallets'
 import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
+import { Columns } from '../ui-kit/Columns'
 
 export const Dashboard: FC = () => {
   return (
@@ -14,11 +15,11 @@ export const Dashboard: FC = () => {
 
       <Breadcrumbs title="Dashboard" />
 
-      <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-x-6 [&>*]:mb-6">
+      <Columns>
         <GroupsCard />
         <WalletsCard />
         <OperationsCard />
-      </div>
+      </Columns>
     </>
   )
 }
