@@ -21,12 +21,7 @@ export const OperationInfoIncomeAmount: FC = () => {
           amountString,
           operation.incomeWallet.currency
         )
-        if (isNaN(amount)) {
-          return formatAmount(
-            operation.incomeAmount,
-            operation.incomeWallet.currency
-          )
-        }
+        if (isNaN(amount)) return
 
         await updateOperation({
           operationId: operation.id,
@@ -34,19 +29,11 @@ export const OperationInfoIncomeAmount: FC = () => {
         })
 
         await mutateOperation()
-
-        return formatAmount(amount, operation.incomeWallet.currency)
       } finally {
         setLoading(false)
       }
     },
-    [
-      mutateOperation,
-      operation.id,
-      operation.incomeAmount,
-      operation.incomeWallet,
-      setLoading,
-    ]
+    [mutateOperation, operation.id, operation.incomeWallet, setLoading]
   )
 
   if (!operation.incomeWallet) return null
