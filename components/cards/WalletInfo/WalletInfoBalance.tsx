@@ -7,8 +7,7 @@ export const WalletInfoBalance: FC = () => {
   const { wallet } = useWalletContext()
 
   return (
-    <Card.Button
-      disabled
+    <Card.Text
       end={
         <Amount
           className="font-medium"
@@ -18,6 +17,6 @@ export const WalletInfoBalance: FC = () => {
       }
     >
       Balance
-    </Card.Button>
+    </Card.Text>
   )
 }

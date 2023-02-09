@@ -13,15 +13,14 @@ export const GroupUsersCard: FC = () => {
       <Card.Divider />
 
       {group.users.map((user) => (
-        <Card.Button
+        <Card.Text
           key={user.id}
-          disabled
           start={
             <Avatar src={user.image || ''} name={user.name || ''} size="sm" />
           }
         >
           {user.name}
-        </Card.Button>
+        </Card.Text>
       ))}
     </Card>
   )

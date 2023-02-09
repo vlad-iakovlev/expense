@@ -7,11 +7,10 @@ export const OperationInfoDate: FC = () => {
   const { operation } = useOperationContext()
 
   return (
-    <Card.Button
-      disabled
+    <Card.Text
       end={<div className="font-medium">{formatDate(operation.date)}</div>}
     >
       Date
-    </Card.Button>
+    </Card.Text>
   )
 }
