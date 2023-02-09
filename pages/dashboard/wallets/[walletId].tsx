@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from 'next'
 import { CurrenciesProvider } from '../../../components/contexts/Currencies'
 import { OperationsProvider } from '../../../components/contexts/Operations'
 import { WalletProvider } from '../../../components/contexts/Wallet'
-import { Wallet } from '../../../components/Wallet'
+import { Wallet, WalletSkeleton } from '../../../components/Wallet'
 import { CheckSwrContexts } from '../../../components/CheckSwrContexts'
 import { LoadingProvider } from '../../../components/contexts/Loading'
 import { ErrorProvider } from '../../../components/contexts/Error'
@@ -27,7 +27,10 @@ const WalletPage: NextPage<Props> = ({ walletId }) => (
       <CurrenciesProvider>
         <OperationsProvider walletId={walletId}>
           <WalletProvider walletId={walletId}>
-            <CheckSwrContexts renderContent={() => <Wallet />} />
+            <CheckSwrContexts
+              renderLoading={() => <WalletSkeleton />}
+              renderContent={() => <Wallet />}
+            />
           </WalletProvider>
         </OperationsProvider>
       </CurrenciesProvider>

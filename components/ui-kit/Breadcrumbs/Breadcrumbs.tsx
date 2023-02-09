@@ -1,6 +1,6 @@
 import { ArrowUturnLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
-import { Fragment, useMemo } from 'react'
+import { FC, Fragment, useMemo } from 'react'
 
 export interface BreadCrumbsParent {
   href: string
@@ -12,7 +12,7 @@ export interface BreadcrumbsProps {
   parents?: BreadCrumbsParent[]
 }
 
-export const Breadcrumbs = ({ title, parents }: BreadcrumbsProps) => {
+export const Breadcrumbs: FC<BreadcrumbsProps> = ({ title, parents }) => {
   const lastParent = useMemo(() => parents?.[parents.length - 1], [parents])
 
   return (

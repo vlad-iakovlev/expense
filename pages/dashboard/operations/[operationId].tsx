@@ -5,7 +5,7 @@ import {
   OperationProvider,
 } from '../../../components/contexts/Operation'
 import { WalletsProvider } from '../../../components/contexts/Wallets'
-import { Operation } from '../../../components/Operation'
+import { Operation, OperationSkeleton } from '../../../components/Operation'
 import { CheckSwrContexts } from '../../../components/CheckSwrContexts'
 import { LoadingProvider } from '../../../components/contexts/Loading'
 import { ErrorProvider } from '../../../components/contexts/Error'
@@ -35,11 +35,14 @@ const OperationPage: NextPage<Props> = ({ operationId }) => (
                 operationContext?.data?.operation.expenseWallet ||
                 operationContext?.data?.operation.incomeWallet
 
-              if (!wallet) return null
+              if (!wallet) return <OperationSkeleton />
 
               return (
                 <WalletsProvider groupId={wallet.group.id}>
-                  <CheckSwrContexts renderContent={() => <Operation />} />
+                  <CheckSwrContexts
+                    renderLoading={() => <OperationSkeleton />}
+                    renderContent={() => <Operation />}
+                  />
                 </WalletsProvider>
               )
             }}

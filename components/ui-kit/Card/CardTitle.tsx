@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react'
 
 export interface CardTitleProps {
-  title: string
-  subtitle?: string
+  title: ReactNode
+  subtitle?: ReactNode
   action?: ReactNode
 }
 

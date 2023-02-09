@@ -5,6 +5,7 @@ import { CardDivider } from './CardDivider'
 import { CardInput } from './CardInput'
 import { CardPopup } from './CardPopup'
 import { CardSelect } from './CardSelect'
+import { CardSkeleton } from './CardSkeleton'
 import { CardText } from './CardText'
 import { CardTitle } from './CardTitle'
 
@@ -17,6 +18,7 @@ export type { CardButtonProps } from './CardButton'
 export type { CardInputProps } from './CardInput'
 export type { CardPopupProps } from './CardPopup'
 export type { CardSelectOption, CardSelectProps } from './CardSelect'
+export type { CardSkeletonProps } from './CardSkeleton'
 export type { CardTextProps } from './CardText'
 export type { CardTitleProps } from './CardTitle'
 
@@ -38,5 +40,6 @@ Card.Divider = CardDivider
 Card.Input = CardInput
 Card.Popup = CardPopup
 Card.Select = CardSelect
+Card.Skeleton = CardSkeleton
 Card.Text = CardText
 Card.Title = CardTitle

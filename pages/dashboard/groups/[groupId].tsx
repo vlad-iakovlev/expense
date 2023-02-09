@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from 'next'
 import { GroupProvider } from '../../../components/contexts/Group'
 import { OperationsProvider } from '../../../components/contexts/Operations'
 import { WalletsProvider } from '../../../components/contexts/Wallets'
-import { Group } from '../../../components/Group'
+import { Group, GroupSkeleton } from '../../../components/Group'
 import { CheckSwrContexts } from '../../../components/CheckSwrContexts'
 import { LoadingProvider } from '../../../components/contexts/Loading'
 import { ErrorProvider } from '../../../components/contexts/Error'
@@ -27,7 +27,10 @@ const GroupPage: NextPage<Props> = ({ groupId }) => (
       <GroupProvider groupId={groupId}>
         <OperationsProvider groupId={groupId}>
           <WalletsProvider groupId={groupId}>
-            <CheckSwrContexts renderContent={() => <Group />} />
+            <CheckSwrContexts
+              renderLoading={() => <GroupSkeleton />}
+              renderContent={() => <Group />}
+            />
           </WalletsProvider>
         </OperationsProvider>
       </GroupProvider>
