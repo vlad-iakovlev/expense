@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef, useState } from 'react'
+import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { Card } from './Card'
 
 export interface CardSelectOption {
@@ -26,11 +26,19 @@ export const CardSelect: FC<CardSelectProps> = ({
 
   const handleChange = useCallback(
     (option: CardSelectOption) => {
-      if (option.id === value.id) return
+      if (option.id === value.id) {
+        setIsOpen(false)
+        return
+      }
+
       onChange(option)
     },
     [onChange, value.id]
   )
+
+  useEffect(() => {
+    setIsOpen(false)
+  }, [value.id])
 
   return (
     <>

@@ -27,6 +27,7 @@ export const CardInput: FC<CardInputProps> = ({
   onChange,
 }) => {
   const rootRef = useRef<HTMLDivElement>(null)
+  const popupRef = useRef<HTMLDivElement>(null)
   const [inputValue, setInputValue] = useState(value)
   const [isEditing, setIsEditing] = useState(false)
 
@@ -60,7 +61,10 @@ export const CardInput: FC<CardInputProps> = ({
 
   const handleBlur = useCallback(
     (event: FocusEvent<HTMLInputElement>) => {
-      const inputValue = event.currentTarget.value
+      if (popupRef.current?.contains(event.relatedTarget)) {
+        event.preventDefault()
+        return
+      }
 
       if (!inputValue || inputValue === value) {
         setInputValue(value)
@@ -70,7 +74,20 @@ export const CardInput: FC<CardInputProps> = ({
 
       onChange(inputValue)
     },
-    [value, onChange]
+    [inputValue, value, onChange]
+  )
+
+  const handleSelect = useCallback(
+    (suggestion: string) => {
+      if (suggestion === value) {
+        setInputValue(value)
+        setIsEditing(false)
+        return
+      }
+
+      onChange(suggestion)
+    },
+    [onChange, value]
   )
 
   useEffect(() => {
@@ -107,13 +124,17 @@ export const CardInput: FC<CardInputProps> = ({
 
       {suggestions?.length ? (
         <Card.Popup
+          ref={popupRef}
           className="-mt-2"
           isOpen={isEditing}
           anchorRef={rootRef}
           position="below-right"
         >
           {suggestions.map((suggestion) => (
-            <Card.Button key={suggestion} onClick={() => onChange(suggestion)}>
+            <Card.Button
+              key={suggestion}
+              onClick={() => handleSelect(suggestion)}
+            >
               {suggestion}
             </Card.Button>
           ))}

@@ -9,9 +9,15 @@ export const HeaderUser: FC = () => {
 
   const profileButtonRef = useRef<HTMLButtonElement>(null)
   const [isOpen, setIsOpen] = useState(false)
-  const show = useCallback(() => setIsOpen(true), [])
-  const hide = useCallback(() => setIsOpen(false), [])
   const [isLoading, setIsLoading] = useState(false)
+
+  const handleProfileClick = useCallback(() => {
+    setIsOpen(true)
+  }, [])
+
+  const handlePopupClose = useCallback(() => {
+    setIsOpen(false)
+  }, [])
 
   const handleSignIn = useCallback(async () => {
     try {
@@ -24,6 +30,7 @@ export const HeaderUser: FC = () => {
 
   const handleSignOut = useCallback(async () => {
     try {
+      setIsOpen(false)
       setIsLoading(true)
       await signOut()
     } finally {
@@ -44,7 +51,7 @@ export const HeaderUser: FC = () => {
           <button
             ref={profileButtonRef}
             className="block rounded-full"
-            onClick={show}
+            onClick={handleProfileClick}
           >
             <Avatar
               src={session.data.user?.image || ''}
@@ -58,7 +65,7 @@ export const HeaderUser: FC = () => {
             isOpen={isOpen}
             anchorRef={profileButtonRef}
             position="below-right"
-            onClose={hide}
+            onClose={handlePopupClose}
           >
             <Card.Title
               title={session.data.user?.name || ''}
