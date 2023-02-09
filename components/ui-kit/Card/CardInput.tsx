@@ -28,12 +28,13 @@ export const CardInput: FC<CardInputProps> = ({
 }) => {
   const rootRef = useRef<HTMLDivElement>(null)
   const popupRef = useRef<HTMLDivElement>(null)
-  const [inputValue, setInputValue] = useState(value)
+  const [inputValue, setInputValue] = useState('')
   const [isEditing, setIsEditing] = useState(false)
 
   const handleTextClick = useCallback(() => {
+    setInputValue(value)
     setIsEditing(true)
-  }, [])
+  }, [value])
 
   const handleKeyDown = useCallback(
     async (event: KeyboardEvent<HTMLInputElement>) => {
@@ -43,12 +44,11 @@ export const CardInput: FC<CardInputProps> = ({
           break
 
         case 'Escape':
-          setInputValue(value)
           setIsEditing(false)
           break
       }
     },
-    [value]
+    []
   )
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +67,6 @@ export const CardInput: FC<CardInputProps> = ({
       }
 
       if (!inputValue || inputValue === value) {
-        setInputValue(value)
         setIsEditing(false)
         return
       }
@@ -80,7 +79,6 @@ export const CardInput: FC<CardInputProps> = ({
   const handleSelect = useCallback(
     (suggestion: string) => {
       if (suggestion === value) {
-        setInputValue(value)
         setIsEditing(false)
         return
       }
@@ -91,7 +89,6 @@ export const CardInput: FC<CardInputProps> = ({
   )
 
   useEffect(() => {
-    setInputValue(value)
     setIsEditing(false)
   }, [value])
 

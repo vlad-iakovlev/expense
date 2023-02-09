@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { ReactNode } from 'react'
 import { CardButton } from './CardButton'
+import { CardDateTime } from './CardDateTime'
 import { CardDivider } from './CardDivider'
 import { CardInput } from './CardInput'
 import { CardPopup } from './CardPopup'
@@ -15,6 +16,7 @@ export interface CardProps {
 }
 
 export type { CardButtonProps } from './CardButton'
+export type { CardDateTimeProps } from './CardDateTime'
 export type { CardInputProps } from './CardInput'
 export type { CardPopupProps } from './CardPopup'
 export type { CardSelectOption, CardSelectProps } from './CardSelect'
@@ -36,6 +38,7 @@ export const Card = ({ className, children }: CardProps) => {
 }
 
 Card.Button = CardButton
+Card.DateTime = CardDateTime
 Card.Divider = CardDivider
 Card.Input = CardInput
 Card.Popup = CardPopup

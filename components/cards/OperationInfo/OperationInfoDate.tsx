@@ -1,16 +1,32 @@
-import { FC } from 'react'
-import { formatDate } from '../../../utils/formatDate'
+import { FC, useCallback } from 'react'
+import { updateOperation } from '../../../api/client/operations'
+import { useLoadingContext } from '../../contexts/Loading'
 import { useOperationContext } from '../../contexts/Operation'
 import { Card } from '../../ui-kit/Card'
 
 export const OperationInfoDate: FC = () => {
-  const { operation } = useOperationContext()
+  const { setLoading } = useLoadingContext()
+  const { operation, mutateOperation } = useOperationContext()
+
+  const handleChange = useCallback(
+    async (date: Date) => {
+      try {
+        setLoading(true)
+
+        await updateOperation({
+          operationId: operation.id,
+          date: date.toISOString(),
+        })
+
+        await mutateOperation()
+      } finally {
+        setLoading(false)
+      }
+    },
+    [mutateOperation, operation.id, setLoading]
+  )
 
   return (
-    <Card.Text
-      end={<div className="font-medium">{formatDate(operation.date)}</div>}
-    >
-      Date
-    </Card.Text>
+    <Card.DateTime name="Date" value={operation.date} onChange={handleChange} />
   )
 }
