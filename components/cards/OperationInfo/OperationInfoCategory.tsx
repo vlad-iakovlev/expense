@@ -20,8 +20,7 @@ export const OperationInfoCategory: FC = () => {
           category,
         })
 
-        await mutateCategories()
-        await mutateOperation()
+        await Promise.all([mutateCategories(), mutateOperation()])
       } finally {
         setLoading(false)
       }

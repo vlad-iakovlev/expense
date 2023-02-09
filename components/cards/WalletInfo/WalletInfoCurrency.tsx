@@ -37,8 +37,7 @@ export const WalletInfoCurrency: FC = () => {
           currencyId: option.id,
         })
 
-        await mutateOperations()
-        await mutateWallet()
+        await Promise.all([mutateOperations(), mutateWallet()])
       } finally {
         setLoading(false)
       }
