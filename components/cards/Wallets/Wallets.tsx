@@ -42,9 +42,7 @@ export const WalletsCard: FC = () => {
     }
   }, [goToWallet, setLoading, walletsQuery.groupId])
 
-  if (!walletsQuery.groupId && !wallets.length) {
-    return null
-  }
+  if (!walletsQuery.groupId && !wallets.length) return null
 
   return (
     <Card>
