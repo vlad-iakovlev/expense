@@ -32,7 +32,7 @@ export const OperationsContext = createContext<ContextValue | undefined>(
 )
 OperationsContext.displayName = 'OperationsContext'
 
-const PER_PAGE = 5
+const PER_PAGE = 10
 
 export const OperationsProvider: FC<ProviderProps> = ({
   groupId,
