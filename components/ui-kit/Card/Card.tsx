@@ -4,6 +4,7 @@ import { CardButton } from './CardButton'
 import { CardDateTime } from './CardDateTime'
 import { CardDivider } from './CardDivider'
 import { CardInput } from './CardInput'
+import { CardPagination } from './CardPagination'
 import { CardPopup } from './CardPopup'
 import { CardSelect } from './CardSelect'
 import { CardSkeleton } from './CardSkeleton'
@@ -18,6 +19,7 @@ export interface CardProps {
 export type { CardButtonProps } from './CardButton'
 export type { CardDateTimeProps } from './CardDateTime'
 export type { CardInputProps } from './CardInput'
+export type { CardPaginationProps } from './CardPagination'
 export type { CardPopupProps } from './CardPopup'
 export type { CardSelectOption, CardSelectProps } from './CardSelect'
 export type { CardSkeletonProps } from './CardSkeleton'
@@ -41,6 +43,7 @@ Card.Button = CardButton
 Card.DateTime = CardDateTime
 Card.Divider = CardDivider
 Card.Input = CardInput
+Card.Pagination = CardPagination
 Card.Popup = CardPopup
 Card.Select = CardSelect
 Card.Skeleton = CardSkeleton

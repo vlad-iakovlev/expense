@@ -14,7 +14,14 @@ import { OperationTransfer } from './OperationTransfer'
 export const OperationsCard: FC = () => {
   const router = useRouter()
   const { setLoading } = useLoadingContext()
-  const { operations, operationsQuery } = useOperationsContext()
+  const {
+    operations,
+    operationsQuery,
+    hasPrevOperations,
+    hasNextOperations,
+    getPrevOperations,
+    getNextOperations,
+  } = useOperationsContext()
 
   const handleCreate = useCallback(async () => {
     if (!operationsQuery.walletId) return
@@ -71,6 +78,19 @@ export const OperationsCard: FC = () => {
           ) : null}
         </Fragment>
       ))}
+
+      {hasPrevOperations || hasNextOperations ? (
+        <>
+          <Card.Divider />
+
+          <Card.Pagination
+            hasPrev={hasPrevOperations}
+            hasNext={hasNextOperations}
+            onPrevClick={getPrevOperations}
+            onNextClick={getNextOperations}
+          />
+        </>
+      ) : null}
     </Card>
   )
 }

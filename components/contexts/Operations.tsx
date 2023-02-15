@@ -1,13 +1,25 @@
-import { createContext, FC, ReactNode, useMemo } from 'react'
-import { getOperations } from '../../api/client/operations'
 import {
-  GetOperationsQuery,
-  GetOperationsResponse,
-} from '../../api/types/operations'
+  createContext,
+  Dispatch,
+  FC,
+  ReactNode,
+  SetStateAction,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react'
+import { getOperations } from '../../api/client/operations'
+import { ClientOperation, GetOperationsQuery } from '../../api/types/operations'
 import { useSwrContext } from '../../hooks/useSwrContext'
 import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
-type ContextValue = SwrValue<GetOperationsResponse, GetOperationsQuery>
+interface GetOperationsClientResponse {
+  operations: ClientOperation[]
+  skip: number
+  setSkip: Dispatch<SetStateAction<number>>
+}
+
+type ContextValue = SwrValue<GetOperationsClientResponse, GetOperationsQuery>
 
 interface ProviderProps {
   groupId?: string
@@ -20,15 +32,30 @@ export const OperationsContext = createContext<ContextValue | undefined>(
 )
 OperationsContext.displayName = 'OperationsContext'
 
+const PER_PAGE = 5
+
 export const OperationsProvider: FC<ProviderProps> = ({
   groupId,
   walletId,
   children,
 }) => {
+  const [skip, setSkip] = useState(0)
+
   const value = useSwrValue(
     'operations',
-    getOperations,
-    useMemo(() => ({ groupId, walletId }), [groupId, walletId])
+    useCallback(async (query: GetOperationsQuery) => {
+      const { operations } = await getOperations(query)
+
+      return {
+        operations,
+        skip: query.skip || 0,
+        setSkip,
+      }
+    }, []),
+    useMemo(
+      () => ({ groupId, walletId, skip, take: PER_PAGE + 1 }),
+      [groupId, skip, walletId]
+    )
   )
 
   return (
@@ -41,9 +68,21 @@ export const OperationsProvider: FC<ProviderProps> = ({
 export const useOperationsContext = () => {
   const context = useSwrContext(OperationsContext)
 
+  const getPrevOperations = useCallback(() => {
+    context.data.setSkip((skip) => skip - PER_PAGE)
+  }, [context.data])
+
+  const getNextOperations = useCallback(() => {
+    context.data.setSkip((skip) => skip + PER_PAGE)
+  }, [context.data])
+
   return {
-    operations: context.data.operations,
+    operations: context.data.operations.slice(0, PER_PAGE),
     operationsQuery: context.query,
     mutateOperations: context.mutate,
+    hasPrevOperations: context.data.skip > 0,
+    hasNextOperations: context.data.operations.length > PER_PAGE,
+    getPrevOperations,
+    getNextOperations,
   }
 }

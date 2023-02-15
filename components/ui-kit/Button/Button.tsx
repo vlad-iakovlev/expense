@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { FC, MouseEvent, ReactNode } from 'react'
 
 export interface ButtonProps {
+  className?: string
   children?: ReactNode
   disabled?: boolean
   iconEnd?: ReactNode
@@ -14,6 +15,7 @@ export interface ButtonProps {
 }
 
 export const Button: FC<ButtonProps> = ({
+  className,
   children,
   disabled,
   iconEnd,
@@ -26,20 +28,24 @@ export const Button: FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={clsx('inline-flex items-center justify-center shadow-sm', {
-        'rounded-md': !rounded,
-        'rounded-full': rounded,
-        'min-w-8 h-8 px-2 text-sm font-medium': size === 'sm',
-        'min-w-10 h-10 px-2 text-sm font-medium': size === 'md',
-        'min-w-12 h-12 px-3 font-medium': size === 'lg',
-        'bg-green-700 text-white hover:bg-green-800 transition-colors':
-          theme === 'primary',
-        'bg-white border border-zinc-300 hover:bg-zinc-50':
-          theme === 'secondary',
-        'bg-red-700 text-white hover:bg-red-800 transition-colors':
-          theme === 'error',
-        'pointer-events-none': disabled,
-      })}
+      className={clsx(
+        className,
+        'inline-flex items-center justify-center shadow-sm',
+        {
+          'rounded-md': !rounded,
+          'rounded-full': rounded,
+          'min-w-8 h-8 px-2 text-sm font-medium': size === 'sm',
+          'min-w-10 h-10 px-2 text-sm font-medium': size === 'md',
+          'min-w-12 h-12 px-3 font-medium': size === 'lg',
+          'bg-green-700 text-white hover:bg-green-800 transition-colors':
+            theme === 'primary',
+          'bg-white outline outline-1 -outline-offset-1 outline-zinc-300 hover:bg-zinc-50':
+            theme === 'secondary',
+          'bg-red-700 text-white hover:bg-red-800 transition-colors':
+            theme === 'error',
+          'pointer-events-none': disabled,
+        }
+      )}
       type={type}
       onClick={onClick}
     >
