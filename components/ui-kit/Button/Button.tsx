@@ -30,18 +30,18 @@ export const Button: FC<ButtonProps> = ({
     <button
       className={clsx(
         className,
-        'inline-flex items-center justify-center shadow-sm',
+        'relative inline-flex items-center justify-center before:absolute before:inset-0 before:border shadow-sm transition-colors',
         {
-          'rounded-md': !rounded,
-          'rounded-full': rounded,
+          'rounded-md before:rounded-md': !rounded,
+          'rounded-full before:rounded-full': rounded,
           'min-w-8 h-8 px-2 text-sm font-medium': size === 'sm',
           'min-w-10 h-10 px-2 text-sm font-medium': size === 'md',
           'min-w-12 h-12 px-3 font-medium': size === 'lg',
-          'bg-green-700 text-white hover:bg-green-800 transition-colors':
+          'bg-green-700 text-white before:border-transparent hover:bg-green-800':
             theme === 'primary',
-          'bg-white outline outline-1 -outline-offset-1 outline-zinc-300 hover:bg-zinc-50':
+          'bg-white text-black before:border-zinc-300 hover:bg-zinc-50':
             theme === 'secondary',
-          'bg-red-700 text-white hover:bg-red-800 transition-colors':
+          'bg-red-700 text-white before:border-transparent hover:bg-red-800':
             theme === 'error',
           'pointer-events-none': disabled,
         }
