@@ -6,20 +6,23 @@ import { Dashboard, DashboardSkeleton } from '../../components/Dashboard'
 import { CheckSwrContexts } from '../../components/CheckSwrContexts'
 import { LoadingProvider } from '../../components/contexts/Loading'
 import { ErrorProvider } from '../../components/contexts/Error'
+import { CategoriesProvider } from '../../components/contexts/Categories'
 
 const DashboardPage: NextPage = () => (
   <LoadingProvider>
     <ErrorProvider>
-      <GroupsProvider>
-        <OperationsProvider>
-          <WalletsProvider>
-            <CheckSwrContexts
-              renderLoading={() => <DashboardSkeleton />}
-              renderContent={() => <Dashboard />}
-            />
-          </WalletsProvider>
-        </OperationsProvider>
-      </GroupsProvider>
+      <CategoriesProvider>
+        <GroupsProvider>
+          <OperationsProvider>
+            <WalletsProvider>
+              <CheckSwrContexts
+                renderLoading={() => <DashboardSkeleton />}
+                renderContent={() => <Dashboard />}
+              />
+            </WalletsProvider>
+          </OperationsProvider>
+        </GroupsProvider>
+      </CategoriesProvider>
     </ErrorProvider>
   </LoadingProvider>
 )

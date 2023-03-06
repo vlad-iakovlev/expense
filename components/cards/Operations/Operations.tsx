@@ -7,9 +7,10 @@ import { useLoadingContext } from '../../contexts/Loading'
 import { useOperationsContext } from '../../contexts/Operations'
 import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
-import { OperationExpense } from './OperationExpense'
-import { OperationIncome } from './OperationIncome'
-import { OperationTransfer } from './OperationTransfer'
+import { OperationsCategory } from './OperationsCategory'
+import { OperationsExpenseItem } from './OperationsExpenseItem'
+import { OperationsIncomeItem } from './OperationsIncomeItem'
+import { OperationsTransferItem } from './OperationsTransferItem'
 
 export const OperationsCard: FC = () => {
   const router = useRouter()
@@ -63,18 +64,22 @@ export const OperationsCard: FC = () => {
         }
       />
 
+      <Card.Divider />
+
+      <OperationsCategory />
+
       {operations.length ? <Card.Divider /> : null}
 
       {operations.map((operation) => (
         <Fragment key={operation.id}>
           {operation.incomeWallet && operation.expenseWallet ? (
-            <OperationTransfer operation={operation} />
+            <OperationsTransferItem operation={operation} />
           ) : null}
           {operation.incomeWallet && !operation.expenseWallet ? (
-            <OperationIncome operation={operation} />
+            <OperationsIncomeItem operation={operation} />
           ) : null}
           {!operation.incomeWallet && operation.expenseWallet ? (
-            <OperationExpense operation={operation} />
+            <OperationsExpenseItem operation={operation} />
           ) : null}
         </Fragment>
       ))}

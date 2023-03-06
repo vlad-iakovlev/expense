@@ -6,6 +6,7 @@ import { Wallet, WalletSkeleton } from '../../../components/Wallet'
 import { CheckSwrContexts } from '../../../components/CheckSwrContexts'
 import { LoadingProvider } from '../../../components/contexts/Loading'
 import { ErrorProvider } from '../../../components/contexts/Error'
+import { CategoriesProvider } from '../../../components/contexts/Categories'
 
 interface Props {
   walletId: string
@@ -24,16 +25,18 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 const WalletPage: NextPage<Props> = ({ walletId }) => (
   <LoadingProvider>
     <ErrorProvider>
-      <CurrenciesProvider>
-        <OperationsProvider walletId={walletId}>
-          <WalletProvider walletId={walletId}>
-            <CheckSwrContexts
-              renderLoading={() => <WalletSkeleton />}
-              renderContent={() => <Wallet />}
-            />
-          </WalletProvider>
-        </OperationsProvider>
-      </CurrenciesProvider>
+      <CategoriesProvider>
+        <CurrenciesProvider>
+          <OperationsProvider walletId={walletId}>
+            <WalletProvider walletId={walletId}>
+              <CheckSwrContexts
+                renderLoading={() => <WalletSkeleton />}
+                renderContent={() => <Wallet />}
+              />
+            </WalletProvider>
+          </OperationsProvider>
+        </CurrenciesProvider>
+      </CategoriesProvider>
     </ErrorProvider>
   </LoadingProvider>
 )

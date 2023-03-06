@@ -4,6 +4,7 @@ import { isValidObjectId } from '../../../utils/isValidObjectId'
 export const getOperationsQuerySchema = z.object({
   groupId: z.string().refine(isValidObjectId).optional(),
   walletId: z.string().refine(isValidObjectId).optional(),
+  category: z.string().optional(),
   skip: z.coerce.number().nonnegative().optional(),
   take: z.coerce.number().positive().max(11).default(11).optional(),
 })

@@ -79,6 +79,7 @@ export const getOperations: NextApiHandler<GetOperationsResponse> = async (
           },
         },
       ],
+      category: query.category,
     },
     orderBy: {
       date: 'desc',

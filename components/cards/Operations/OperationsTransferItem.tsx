@@ -13,7 +13,7 @@ interface Props {
   operation: ClientOperation
 }
 
-export const OperationTransfer: FC<Props> = ({ operation }) => {
+export const OperationsTransferItem: FC<Props> = ({ operation }) => {
   const router = useRouter()
   const { operationsQuery } = useOperationsContext()
 

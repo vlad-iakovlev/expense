@@ -11,7 +11,7 @@ interface Props {
   operation: ClientOperation
 }
 
-export const OperationIncome: FC<Props> = ({ operation }) => {
+export const OperationsIncomeItem: FC<Props> = ({ operation }) => {
   const router = useRouter()
   const { operationsQuery } = useOperationsContext()
 

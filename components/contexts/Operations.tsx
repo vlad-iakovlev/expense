@@ -15,6 +15,8 @@ import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
 interface GetOperationsClientResponse {
   operations: ClientOperation[]
+  category: string
+  setCategory: Dispatch<SetStateAction<string>>
   skip: number
   setSkip: Dispatch<SetStateAction<number>>
 }
@@ -39,6 +41,7 @@ export const OperationsProvider: FC<ProviderProps> = ({
   walletId,
   children,
 }) => {
+  const [category, setCategory] = useState('')
   const [skip, setSkip] = useState(0)
 
   const value = useSwrValue(
@@ -48,13 +51,21 @@ export const OperationsProvider: FC<ProviderProps> = ({
 
       return {
         operations,
+        category: query.category || '',
+        setCategory,
         skip: query.skip || 0,
         setSkip,
       }
     }, []),
     useMemo(
-      () => ({ groupId, walletId, skip, take: PER_PAGE + 1 }),
-      [groupId, skip, walletId]
+      () => ({
+        groupId,
+        walletId,
+        category: category || undefined,
+        skip,
+        take: PER_PAGE + 1,
+      }),
+      [category, groupId, skip, walletId]
     )
   )
 
@@ -68,6 +79,14 @@ export const OperationsProvider: FC<ProviderProps> = ({
 export const useOperationsContext = () => {
   const context = useSwrContext(OperationsContext)
 
+  const setCategory = useCallback(
+    (category: string) => {
+      context.data.setCategory(category)
+      context.data.setSkip(0)
+    },
+    [context.data]
+  )
+
   const getPrevOperations = useCallback(() => {
     context.data.setSkip((skip) => skip - PER_PAGE)
   }, [context.data])
@@ -80,6 +99,8 @@ export const useOperationsContext = () => {
     operations: context.data.operations.slice(0, PER_PAGE),
     operationsQuery: context.query,
     mutateOperations: context.mutate,
+    category: context.data.category,
+    setCategory,
     hasPrevOperations: context.data.skip > 0,
     hasNextOperations: context.data.operations.length > PER_PAGE,
     getPrevOperations,
