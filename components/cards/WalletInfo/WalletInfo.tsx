@@ -10,6 +10,7 @@ import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 import { ConfirmDialog } from '../../ui-kit/ConfirmDialog'
 import { WalletInfoBalance } from './WalletInfoBalance'
+import { WalletInfoBalanceInDefaultCurrency } from './WalletInfoBalanceInDefaultCurrency'
 import { WalletInfoCurrency } from './WalletInfoCurrency'
 import { WalletInfoName } from './WalletInfoName'
 
@@ -64,6 +65,7 @@ export const WalletInfoCard: FC = () => {
       <WalletInfoName />
       <WalletInfoCurrency />
       <WalletInfoBalance />
+      <WalletInfoBalanceInDefaultCurrency />
 
       <ConfirmDialog
         isOpen={isDeleteConfirmOpen}

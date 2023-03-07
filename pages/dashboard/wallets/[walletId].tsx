@@ -25,8 +25,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 const WalletPage: NextPage<Props> = ({ walletId }) => (
   <LoadingProvider>
     <ErrorProvider>
-      <CategoriesProvider>
-        <CurrenciesProvider>
+      <CurrenciesProvider>
+        <CategoriesProvider>
           <OperationsProvider walletId={walletId}>
             <WalletProvider walletId={walletId}>
               <CheckSwrContexts
@@ -35,8 +35,8 @@ const WalletPage: NextPage<Props> = ({ walletId }) => (
               />
             </WalletProvider>
           </OperationsProvider>
-        </CurrenciesProvider>
-      </CategoriesProvider>
+        </CategoriesProvider>
+      </CurrenciesProvider>
     </ErrorProvider>
   </LoadingProvider>
 )

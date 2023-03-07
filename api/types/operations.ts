@@ -1,4 +1,4 @@
-import { Group, Operation, Wallet } from '@prisma/client'
+import { Operation } from '@prisma/client'
 import { z } from 'zod'
 import {
   createOperationBodySchema,
@@ -7,24 +7,14 @@ import {
   getOperationsQuerySchema,
   updateOperationBodySchema,
 } from '../server/schemas/operations'
-import { ClientCurrency } from './currencies'
+import { ClientWallet } from './wallets'
 
 export type ClientOperation = Pick<
   Operation,
   'id' | 'name' | 'category' | 'date' | 'incomeAmount' | 'expenseAmount'
 > & {
-  incomeWallet:
-    | (Pick<Wallet, 'id' | 'name'> & {
-        currency: ClientCurrency
-        group: Pick<Group, 'id' | 'name'>
-      })
-    | null
-  expenseWallet:
-    | (Pick<Wallet, 'id' | 'name'> & {
-        currency: ClientCurrency
-        group: Pick<Group, 'id' | 'name'>
-      })
-    | null
+  incomeWallet: Omit<ClientWallet, 'balance'> | null
+  expenseWallet: Omit<ClientWallet, 'balance'> | null
 }
 
 export type GetOperationsQuery = z.infer<typeof getOperationsQuerySchema>

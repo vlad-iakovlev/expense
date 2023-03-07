@@ -14,24 +14,7 @@ import {
   updateWalletBodySchema,
 } from './schemas/wallets'
 import { populateWalletBalance } from '../../utils/populateWalletBalance'
-
-const select = {
-  id: true,
-  name: true,
-  currency: {
-    select: {
-      id: true,
-      name: true,
-      symbol: true,
-    },
-  },
-  group: {
-    select: {
-      id: true,
-      name: true,
-    },
-  },
-}
+import { walletSelector } from './selectors'
 
 export const getWallets: NextApiHandler<GetWalletsResponse> = async (
   req,
@@ -48,7 +31,7 @@ export const getWallets: NextApiHandler<GetWalletsResponse> = async (
         },
       },
     },
-    select,
+    select: walletSelector,
   })
 
   const wallets = await Promise.all(
@@ -73,7 +56,7 @@ export const getWallet: NextApiHandler<GetWalletResponse> = async (
         },
       },
     },
-    select,
+    select: walletSelector,
   })
 
   const wallet = await populateWalletBalance(req, walletWithoutBalance)
@@ -104,7 +87,7 @@ export const createWallet: NextApiHandler<CreateWalletResponse> = async (
         },
       },
     },
-    select,
+    select: walletSelector,
   })
 
   const wallet = await populateWalletBalance(req, walletWithoutBalance)
@@ -132,7 +115,7 @@ export const updateWallet: NextApiHandler<UpdateWalletResponse> = async (
       currencyId: body.currencyId,
       groupId: body.groupId,
     },
-    select,
+    select: walletSelector,
   })
 
   const wallet = await populateWalletBalance(req, walletWithoutBalance)

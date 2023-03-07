@@ -1,4 +1,4 @@
-import { Group, Wallet } from '@prisma/client'
+import { Wallet } from '@prisma/client'
 import { z } from 'zod'
 import {
   createWalletBodySchema,
@@ -8,10 +8,11 @@ import {
   updateWalletBodySchema,
 } from '../server/schemas/wallets'
 import { ClientCurrency } from './currencies'
+import { ClientGroup } from './groups'
 
 export type ClientWallet = Pick<Wallet, 'id' | 'name'> & {
   currency: ClientCurrency
-  group: Pick<Group, 'id' | 'name'>
+  group: ClientGroup
   balance: number
 }
 

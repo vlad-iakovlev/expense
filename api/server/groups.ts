@@ -12,25 +12,7 @@ import {
   getGroupQuerySchema,
   updateGroupBodySchema,
 } from './schemas/groups'
-
-const select = {
-  id: true,
-  name: true,
-  defaultCurrency: {
-    select: {
-      id: true,
-      name: true,
-      symbol: true,
-    },
-  },
-  users: {
-    select: {
-      id: true,
-      image: true,
-      name: true,
-    },
-  },
-}
+import { groupSelector } from './selectors'
 
 export const getGroups: NextApiHandler<GetGroupsResponse> = async (
   req,
@@ -42,7 +24,7 @@ export const getGroups: NextApiHandler<GetGroupsResponse> = async (
         has: req.session.user.id,
       },
     },
-    select,
+    select: groupSelector,
   })
 
   res.status(200).json({ groups })
@@ -58,7 +40,7 @@ export const getGroup: NextApiHandler<GetGroupResponse> = async (req, res) => {
         has: req.session.user.id,
       },
     },
-    select,
+    select: groupSelector,
   })
 
   res.status(200).json({ group })
@@ -76,7 +58,7 @@ export const createGroup: NextApiHandler<CreateGroupResponse> = async (
       defaultCurrencyId: body.defaultCurrencyId,
       userIds: req.session.user.id,
     },
-    select,
+    select: groupSelector,
   })
 
   res.status(200).json({ group })
@@ -99,7 +81,7 @@ export const updateGroup: NextApiHandler<UpdateGroupResponse> = async (
       name: body.name,
       defaultCurrencyId: body.defaultCurrencyId,
     },
-    select: select,
+    select: groupSelector,
   })
 
   res.status(200).json({ group })

@@ -1,4 +1,4 @@
-import { Group, User } from '@prisma/client'
+import { Group } from '@prisma/client'
 import { z } from 'zod'
 import {
   createGroupBodySchema,
@@ -7,10 +7,11 @@ import {
   updateGroupBodySchema,
 } from '../server/schemas/groups'
 import { ClientCurrency } from './currencies'
+import { ClientUser } from './users'
 
 export type ClientGroup = Pick<Group, 'id' | 'name'> & {
   defaultCurrency: ClientCurrency
-  users: Pick<User, 'id' | 'image' | 'name'>[]
+  users: ClientUser[]
 }
 
 export interface GetGroupsResponse {

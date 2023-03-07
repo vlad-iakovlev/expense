@@ -63,6 +63,7 @@ model Currency {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   name   String
   symbol String
+  rate   Float
 
   wallets Wallet[]
   groups  Group[]

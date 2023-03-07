@@ -7,6 +7,7 @@ export interface AmountProps {
   className?: string
   amount: number
   currency: ClientCurrency
+  displayCurrency?: ClientCurrency
   type?: 'income' | 'expense'
 }
 
@@ -14,6 +15,7 @@ export const Amount: FC<AmountProps> = ({
   className,
   amount,
   currency,
+  displayCurrency,
   type = amount >= 0 ? 'income' : 'expense',
 }) => {
   return (
@@ -23,7 +25,7 @@ export const Amount: FC<AmountProps> = ({
         'text-red-700': type === 'expense',
       })}
     >
-      {formatAmount(amount, currency)}
+      {formatAmount(amount, currency, displayCurrency)}
     </div>
   )
 }

@@ -13,39 +13,7 @@ import {
   getOperationsQuerySchema,
   updateOperationBodySchema,
 } from './schemas/operations'
-
-const walletSelect = {
-  id: true,
-  name: true,
-  currency: {
-    select: {
-      id: true,
-      name: true,
-      symbol: true,
-    },
-  },
-  group: {
-    select: {
-      id: true,
-      name: true,
-    },
-  },
-}
-
-const select = {
-  id: true,
-  name: true,
-  category: true,
-  date: true,
-  incomeAmount: true,
-  expenseAmount: true,
-  incomeWallet: {
-    select: walletSelect,
-  },
-  expenseWallet: {
-    select: walletSelect,
-  },
-}
+import { operationSelector } from './selectors'
 
 export const getOperations: NextApiHandler<GetOperationsResponse> = async (
   req,
@@ -86,7 +54,7 @@ export const getOperations: NextApiHandler<GetOperationsResponse> = async (
     },
     skip: query.skip,
     take: query.take,
-    select,
+    select: operationSelector,
   })
 
   res.status(200).json({ operations })
@@ -122,7 +90,7 @@ export const getOperation: NextApiHandler<GetOperationResponse> = async (
         },
       ],
     },
-    select,
+    select: operationSelector,
   })
 
   res.status(200).json({ operation })
@@ -166,7 +134,7 @@ export const createOperation: NextApiHandler<CreateOperationResponse> = async (
         },
       }),
     },
-    select,
+    select: operationSelector,
   })
 
   res.status(200).json({ operation })
@@ -211,7 +179,7 @@ export const updateOperation: NextApiHandler<UpdateOperationResponse> = async (
       incomeWalletId: body.incomeWalletId,
       expenseWalletId: body.expenseWalletId,
     },
-    select,
+    select: operationSelector,
   })
 
   res.status(200).json({ operation })

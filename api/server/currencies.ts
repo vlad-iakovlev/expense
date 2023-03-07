@@ -1,11 +1,6 @@
 import { NextApiHandler } from 'next'
 import { GetCurrenciesResponse } from '../types/currencies'
-
-const select = {
-  id: true,
-  name: true,
-  symbol: true,
-}
+import { currencySelector } from './selectors'
 
 export const getCurrencies: NextApiHandler<GetCurrenciesResponse> = async (
   req,
@@ -15,7 +10,7 @@ export const getCurrencies: NextApiHandler<GetCurrenciesResponse> = async (
     orderBy: {
       name: 'asc',
     },
-    select,
+    select: currencySelector,
   })
 
   res.status(200).json({ currencies })

@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { CheckSwrContexts } from '../../../components/CheckSwrContexts'
 import { CategoriesProvider } from '../../../components/contexts/Categories'
+import { CurrenciesProvider } from '../../../components/contexts/Currencies'
 import { ErrorProvider } from '../../../components/contexts/Error'
 import { LoadingProvider } from '../../../components/contexts/Loading'
 import {
@@ -27,28 +28,30 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 const OperationPage: NextPage<Props> = ({ operationId }) => (
   <LoadingProvider>
     <ErrorProvider>
-      <CategoriesProvider>
-        <OperationProvider operationId={operationId}>
-          <OperationContext.Consumer>
-            {(operationContext) => {
-              const wallet =
-                operationContext?.data?.operation.expenseWallet ||
-                operationContext?.data?.operation.incomeWallet
+      <CurrenciesProvider>
+        <CategoriesProvider>
+          <OperationProvider operationId={operationId}>
+            <OperationContext.Consumer>
+              {(operationContext) => {
+                const wallet =
+                  operationContext?.data?.operation.expenseWallet ||
+                  operationContext?.data?.operation.incomeWallet
 
-              if (!wallet) return <OperationSkeleton />
+                if (!wallet) return <OperationSkeleton />
 
-              return (
-                <WalletsProvider groupId={wallet.group.id}>
-                  <CheckSwrContexts
-                    renderLoading={() => <OperationSkeleton />}
-                    renderContent={() => <Operation />}
-                  />
-                </WalletsProvider>
-              )
-            }}
-          </OperationContext.Consumer>
-        </OperationProvider>
-      </CategoriesProvider>
+                return (
+                  <WalletsProvider groupId={wallet.group.id}>
+                    <CheckSwrContexts
+                      renderLoading={() => <OperationSkeleton />}
+                      renderContent={() => <Operation />}
+                    />
+                  </WalletsProvider>
+                )
+              }}
+            </OperationContext.Consumer>
+          </OperationProvider>
+        </CategoriesProvider>
+      </CurrenciesProvider>
     </ErrorProvider>
   </LoadingProvider>
 )
