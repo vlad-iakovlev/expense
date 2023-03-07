@@ -15,7 +15,7 @@ export const GroupSkeleton: FC = () => {
         <BreadcrumbSkeleton withParent />
 
         <Columns>
-          <Card.Skeleton elementsCount={1} />
+          <Card.Skeleton elementsCount={2} />
           <Card.Skeleton elementsCount={3} />
           <Card.Skeleton elementsCount={6} />
           <Card.Skeleton elementsCount={6} />

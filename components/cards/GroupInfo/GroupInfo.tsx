@@ -9,6 +9,7 @@ import { useWalletsContext } from '../../contexts/Wallets'
 import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 import { ConfirmDialog } from '../../ui-kit/ConfirmDialog'
+import { GroupInfoDefaultCurrency } from './GroupInfoDefaultCurrency'
 import { GroupInfoName } from './GroupInfoName'
 
 export const GroupInfoCard: FC = () => {
@@ -58,8 +59,12 @@ export const GroupInfoCard: FC = () => {
           ) : undefined
         }
       />
+
       <Card.Divider />
+
       <GroupInfoName />
+
+      <GroupInfoDefaultCurrency />
 
       <ConfirmDialog
         isOpen={isDeleteConfirmOpen}

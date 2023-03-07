@@ -19,7 +19,9 @@ export const OperationsExpenseItem: FC<Props> = ({ operation }) => {
     await router.push(ROUTES.OPERATION(operation.id))
   }, [operation.id, router])
 
-  if (!operation.expenseWallet) return null
+  if (!operation.expenseWallet) {
+    return null
+  }
 
   return (
     <Card.Button onClick={handleClick}>

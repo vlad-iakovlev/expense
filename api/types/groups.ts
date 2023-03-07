@@ -6,8 +6,10 @@ import {
   getGroupQuerySchema,
   updateGroupBodySchema,
 } from '../server/schemas/groups'
+import { ClientCurrency } from './currencies'
 
 export type ClientGroup = Pick<Group, 'id' | 'name'> & {
+  defaultCurrency: ClientCurrency
   users: Pick<User, 'id' | 'image' | 'name'>[]
 }
 

@@ -1,20 +1,13 @@
-import { PlusIcon } from '@heroicons/react/20/solid'
-import { useRouter } from 'next/router'
-import { FC, Fragment, useCallback } from 'react'
-import { createOperation } from '../../../api/client/operations'
-import { ROUTES } from '../../../constants/routes'
-import { useLoadingContext } from '../../contexts/Loading'
+import { FC, Fragment } from 'react'
 import { useOperationsContext } from '../../contexts/Operations'
-import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
 import { OperationsCategory } from './OperationsCategory'
+import { OperationsCreate } from './OperationsCreate'
 import { OperationsExpenseItem } from './OperationsExpenseItem'
 import { OperationsIncomeItem } from './OperationsIncomeItem'
 import { OperationsTransferItem } from './OperationsTransferItem'
 
 export const OperationsCard: FC = () => {
-  const router = useRouter()
-  const { setLoading } = useLoadingContext()
   const {
     operations,
     operationsQuery,
@@ -24,44 +17,19 @@ export const OperationsCard: FC = () => {
     getNextOperations,
   } = useOperationsContext()
 
-  const handleCreate = useCallback(async () => {
-    if (!operationsQuery.walletId) return
-
-    try {
-      setLoading(true)
-
-      const { operation } = await createOperation({
-        name: 'Untitled',
-        category: 'No category',
-        date: new Date().toISOString(),
-        incomeAmount: 0,
-        expenseAmount: 0,
-        incomeWalletId: operationsQuery.walletId,
-        expenseWalletId: null,
-      })
-
-      await router.push(ROUTES.OPERATION(operation.id))
-    } finally {
-      setLoading(false)
-    }
-  }, [operationsQuery.walletId, router, setLoading])
-
-  if (!operationsQuery.walletId && !operations.length) return null
+  if (
+    !operationsQuery.walletId &&
+    !operationsQuery.category &&
+    !operations.length
+  ) {
+    return null
+  }
 
   return (
     <Card>
       <Card.Title
         title="Operations"
-        action={
-          operationsQuery.walletId ? (
-            <Button
-              rounded
-              size="sm"
-              iconStart={<PlusIcon />}
-              onClick={handleCreate}
-            />
-          ) : undefined
-        }
+        action={operationsQuery.walletId && <OperationsCreate />}
       />
 
       <Card.Divider />

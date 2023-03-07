@@ -36,7 +36,9 @@ export const OperationInfoIncomeAmount: FC = () => {
     [mutateOperation, operation.id, operation.incomeWallet, setLoading]
   )
 
-  if (!operation.incomeWallet) return null
+  if (!operation.incomeWallet) {
+    return null
+  }
 
   return (
     <Card.Input

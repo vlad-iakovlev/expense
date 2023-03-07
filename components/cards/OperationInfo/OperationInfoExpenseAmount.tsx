@@ -36,7 +36,9 @@ export const OperationInfoExpenseAmount: FC = () => {
     [mutateOperation, operation.expenseWallet, operation.id, setLoading]
   )
 
-  if (!operation.expenseWallet) return null
+  if (!operation.expenseWallet) {
+    return null
+  }
 
   return (
     <Card.Input

@@ -1,18 +1,13 @@
-import { PlusIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/router'
 import { FC, useCallback } from 'react'
-import { getCurrencies } from '../../../api/client/currencies'
-import { createWallet } from '../../../api/client/wallets'
 import { ROUTES } from '../../../constants/routes'
-import { useLoadingContext } from '../../contexts/Loading'
 import { useWalletsContext } from '../../contexts/Wallets'
 import { Amount } from '../../ui-kit/Amount'
-import { Button } from '../../ui-kit/Button'
 import { Card } from '../../ui-kit/Card'
+import { WalletsCreate } from './WalletsCreate'
 
 export const WalletsCard: FC = () => {
   const router = useRouter()
-  const { setLoading } = useLoadingContext()
   const { wallets, walletsQuery } = useWalletsContext()
 
   const goToWallet = useCallback(
@@ -22,42 +17,15 @@ export const WalletsCard: FC = () => {
     [router]
   )
 
-  const handleCreate = useCallback(async () => {
-    if (!walletsQuery.groupId) return
-
-    try {
-      setLoading(true)
-
-      const { currencies } = await getCurrencies()
-
-      const { wallet } = await createWallet({
-        groupId: walletsQuery.groupId,
-        name: 'Untitled',
-        currencyId: currencies.find((c) => c.name === 'USD')?.id || '',
-      })
-
-      await goToWallet(wallet.id)
-    } finally {
-      setLoading(false)
-    }
-  }, [goToWallet, setLoading, walletsQuery.groupId])
-
-  if (!walletsQuery.groupId && !wallets.length) return null
+  if (!walletsQuery.groupId && !wallets.length) {
+    return null
+  }
 
   return (
     <Card>
       <Card.Title
         title="Wallets"
-        action={
-          walletsQuery.groupId ? (
-            <Button
-              rounded
-              size="sm"
-              iconStart={<PlusIcon />}
-              onClick={handleCreate}
-            />
-          ) : undefined
-        }
+        action={walletsQuery.groupId && <WalletsCreate />}
       />
 
       {wallets.length ? <Card.Divider /> : null}

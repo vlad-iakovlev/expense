@@ -16,6 +16,13 @@ import {
 const select = {
   id: true,
   name: true,
+  defaultCurrency: {
+    select: {
+      id: true,
+      name: true,
+      symbol: true,
+    },
+  },
   users: {
     select: {
       id: true,
@@ -66,6 +73,7 @@ export const createGroup: NextApiHandler<CreateGroupResponse> = async (
   const group = await req.prisma.group.create({
     data: {
       name: body.name,
+      defaultCurrencyId: body.defaultCurrencyId,
       userIds: req.session.user.id,
     },
     select,
@@ -89,6 +97,7 @@ export const updateGroup: NextApiHandler<UpdateGroupResponse> = async (
     },
     data: {
       name: body.name,
+      defaultCurrencyId: body.defaultCurrencyId,
     },
     select: select,
   })

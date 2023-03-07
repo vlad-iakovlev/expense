@@ -7,11 +7,13 @@ export const getGroupQuerySchema = z.object({
 
 export const createGroupBodySchema = z.object({
   name: z.string().min(1),
+  defaultCurrencyId: z.string().refine(isValidObjectId),
 })
 
 export const updateGroupBodySchema = z.object({
   groupId: z.string().refine(isValidObjectId),
-  name: z.string().min(1),
+  name: z.string().min(1).optional(),
+  defaultCurrencyId: z.string().refine(isValidObjectId).optional(),
 })
 
 export const deleteGroupQuerySchema = z.object({

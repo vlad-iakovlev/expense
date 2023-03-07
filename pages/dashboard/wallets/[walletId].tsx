@@ -1,12 +1,12 @@
 import { GetServerSideProps, NextPage } from 'next'
+import { CheckSwrContexts } from '../../../components/CheckSwrContexts'
+import { CategoriesProvider } from '../../../components/contexts/Categories'
 import { CurrenciesProvider } from '../../../components/contexts/Currencies'
+import { ErrorProvider } from '../../../components/contexts/Error'
+import { LoadingProvider } from '../../../components/contexts/Loading'
 import { OperationsProvider } from '../../../components/contexts/Operations'
 import { WalletProvider } from '../../../components/contexts/Wallet'
 import { Wallet, WalletSkeleton } from '../../../components/Wallet'
-import { CheckSwrContexts } from '../../../components/CheckSwrContexts'
-import { LoadingProvider } from '../../../components/contexts/Loading'
-import { ErrorProvider } from '../../../components/contexts/Error'
-import { CategoriesProvider } from '../../../components/contexts/Categories'
 
 interface Props {
   walletId: string

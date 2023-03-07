@@ -21,7 +21,9 @@ export const OperationsTransferItem: FC<Props> = ({ operation }) => {
     await router.push(ROUTES.OPERATION(operation.id))
   }, [operation.id, router])
 
-  if (!operation.incomeWallet || !operation.expenseWallet) return null
+  if (!operation.incomeWallet || !operation.expenseWallet) {
+    return null
+  }
 
   return (
     <Card.Button onClick={handleClick}>

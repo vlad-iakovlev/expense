@@ -59,22 +59,26 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Group {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-
-  users   User[]   @relation(fields: [userIds], references: [id])
-  userIds String[] @db.ObjectId
-
-  wallets Wallet[]
-}
-
 model Currency {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   name   String
   symbol String
 
-  wallet Wallet[]
+  wallets Wallet[]
+  groups  Group[]
+}
+
+model Group {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  defaultCurrency   Currency @relation(fields: [defaultCurrencyId], references: [id], onDelete: Restrict)
+  defaultCurrencyId String   @db.ObjectId
+
+  users   User[]   @relation(fields: [userIds], references: [id])
+  userIds String[] @db.ObjectId
+
+  wallets Wallet[]
 }
 
 model Wallet {

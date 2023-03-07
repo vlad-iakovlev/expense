@@ -1,28 +1,31 @@
 import { NextPage } from 'next'
+import { CheckSwrContexts } from '../../components/CheckSwrContexts'
+import { CategoriesProvider } from '../../components/contexts/Categories'
+import { CurrenciesProvider } from '../../components/contexts/Currencies'
+import { ErrorProvider } from '../../components/contexts/Error'
 import { GroupsProvider } from '../../components/contexts/Groups'
+import { LoadingProvider } from '../../components/contexts/Loading'
 import { OperationsProvider } from '../../components/contexts/Operations'
 import { WalletsProvider } from '../../components/contexts/Wallets'
 import { Dashboard, DashboardSkeleton } from '../../components/Dashboard'
-import { CheckSwrContexts } from '../../components/CheckSwrContexts'
-import { LoadingProvider } from '../../components/contexts/Loading'
-import { ErrorProvider } from '../../components/contexts/Error'
-import { CategoriesProvider } from '../../components/contexts/Categories'
 
 const DashboardPage: NextPage = () => (
   <LoadingProvider>
     <ErrorProvider>
-      <CategoriesProvider>
-        <GroupsProvider>
-          <OperationsProvider>
-            <WalletsProvider>
-              <CheckSwrContexts
-                renderLoading={() => <DashboardSkeleton />}
-                renderContent={() => <Dashboard />}
-              />
-            </WalletsProvider>
-          </OperationsProvider>
-        </GroupsProvider>
-      </CategoriesProvider>
+      <CurrenciesProvider>
+        <CategoriesProvider>
+          <GroupsProvider>
+            <OperationsProvider>
+              <WalletsProvider>
+                <CheckSwrContexts
+                  renderLoading={() => <DashboardSkeleton />}
+                  renderContent={() => <Dashboard />}
+                />
+              </WalletsProvider>
+            </OperationsProvider>
+          </GroupsProvider>
+        </CategoriesProvider>
+      </CurrenciesProvider>
     </ErrorProvider>
   </LoadingProvider>
 )
