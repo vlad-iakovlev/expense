@@ -31,12 +31,12 @@ export const StatisticsCard: FC = () => {
       <Card.Divider />
 
       <div className="px-4 sm:px-6 py-2">
-        <ResponsiveContainer className="aspect-[2/1]">
+        <ResponsiveContainer className="aspect-[1/2]">
           <PieChart>
             <Pie
               data={statisticsByCategory.items}
-              cx="25%"
-              cy="50%"
+              cx="50%"
+              cy="24.5%"
               innerRadius="60%"
               outerRadius="90%"
               paddingAngle={5}
@@ -47,8 +47,8 @@ export const StatisticsCard: FC = () => {
               ))}
             </Pie>
             <text
-              x="26%"
-              y="50%"
+              x="50%"
+              y="25%"
               alignmentBaseline="middle"
               textAnchor="middle"
             >
@@ -56,8 +56,8 @@ export const StatisticsCard: FC = () => {
             </text>
             <Pie
               data={statisticsByCategory.items}
-              cx="75%"
-              cy="50%"
+              cx="50%"
+              cy="75.5%"
               innerRadius="60%"
               outerRadius="90%"
               paddingAngle={5}
@@ -68,8 +68,8 @@ export const StatisticsCard: FC = () => {
               ))}
             </Pie>
             <text
-              x="74%"
-              y="50%"
+              x="50%"
+              y="75%"
               alignmentBaseline="middle"
               textAnchor="middle"
             >
