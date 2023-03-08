@@ -5,7 +5,6 @@ RUN apt-get update && apt-get -y install cron
 WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
-
 RUN npm ci
 COPY . .
 RUN npm run generate-models
