@@ -27,7 +27,7 @@ const GroupPage: NextPage<Props> = ({ groupId }) => (
   <LoadingProvider>
     <ErrorProvider>
       <CurrenciesProvider>
-        <CategoriesProvider>
+        <CategoriesProvider groupId={groupId}>
           <GroupProvider groupId={groupId}>
             <OperationsProvider groupId={groupId}>
               <WalletsProvider groupId={groupId}>

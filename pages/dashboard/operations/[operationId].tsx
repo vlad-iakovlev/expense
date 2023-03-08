@@ -29,28 +29,30 @@ const OperationPage: NextPage<Props> = ({ operationId }) => (
   <LoadingProvider>
     <ErrorProvider>
       <CurrenciesProvider>
-        <CategoriesProvider>
-          <OperationProvider operationId={operationId}>
-            <OperationContext.Consumer>
-              {(operationContext) => {
-                const wallet =
-                  operationContext?.data?.operation.expenseWallet ||
-                  operationContext?.data?.operation.incomeWallet
+        <OperationProvider operationId={operationId}>
+          <OperationContext.Consumer>
+            {(operationContext) => {
+              const wallet =
+                operationContext?.data?.operation.expenseWallet ||
+                operationContext?.data?.operation.incomeWallet
 
-                if (!wallet) return <OperationSkeleton />
+              if (!wallet) {
+                return <OperationSkeleton />
+              }
 
-                return (
+              return (
+                <CategoriesProvider groupId={wallet.group.id}>
                   <WalletsProvider groupId={wallet.group.id}>
                     <CheckSwrContexts
                       renderLoading={() => <OperationSkeleton />}
                       renderContent={() => <Operation />}
                     />
                   </WalletsProvider>
-                )
-              }}
-            </OperationContext.Consumer>
-          </OperationProvider>
-        </CategoriesProvider>
+                </CategoriesProvider>
+              )
+            }}
+          </OperationContext.Consumer>
+        </OperationProvider>
       </CurrenciesProvider>
     </ErrorProvider>
   </LoadingProvider>

@@ -11,6 +11,7 @@ type ContextValue = SwrValue<GetCategoriesResponse, GetCategoriesQuery>
 
 interface ProviderProps {
   groupId?: string
+  walletId?: string
   children: ReactNode
 }
 
@@ -21,12 +22,13 @@ CategoriesContext.displayName = 'CategoriesContext'
 
 export const CategoriesProvider: FC<ProviderProps> = ({
   groupId,
+  walletId,
   children,
 }) => {
   const value = useSwrValue(
     'categories',
     getCategories,
-    useMemo(() => ({ groupId }), [groupId])
+    useMemo(() => ({ groupId, walletId }), [groupId, walletId])
   )
 
   return (

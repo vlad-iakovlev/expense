@@ -13,6 +13,7 @@ export const getCategories: NextApiHandler<GetCategoriesResponse> = async (
       OR: [
         {
           incomeWallet: {
+            id: query.walletId,
             group: {
               id: query.groupId,
               userIds: {
@@ -23,6 +24,7 @@ export const getCategories: NextApiHandler<GetCategoriesResponse> = async (
         },
         {
           expenseWallet: {
+            id: query.walletId,
             group: {
               id: query.groupId,
               userIds: {

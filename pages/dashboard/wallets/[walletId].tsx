@@ -26,7 +26,7 @@ const WalletPage: NextPage<Props> = ({ walletId }) => (
   <LoadingProvider>
     <ErrorProvider>
       <CurrenciesProvider>
-        <CategoriesProvider>
+        <CategoriesProvider walletId={walletId}>
           <OperationsProvider walletId={walletId}>
             <WalletProvider walletId={walletId}>
               <CheckSwrContexts
