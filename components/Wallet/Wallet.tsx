@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { FC, useMemo } from 'react'
 import { ROUTES } from '../../constants/routes'
 import { OperationsCard } from '../cards/Operations'
+import { StatisticsByCategoryCard } from '../cards/StatisticsByCategory'
 import { WalletInfoCard } from '../cards/WalletInfo'
 import { useWalletContext } from '../contexts/Wallet'
 import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
@@ -37,6 +38,7 @@ export const Wallet: FC = () => {
       <Columns>
         <WalletInfoCard />
         <OperationsCard />
+        <StatisticsByCategoryCard />
       </Columns>
     </>
   )

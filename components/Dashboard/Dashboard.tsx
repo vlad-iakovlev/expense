@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { FC } from 'react'
 import { GroupsCard } from '../cards/Groups'
 import { OperationsCard } from '../cards/Operations'
+import { StatisticsByCategoryCard } from '../cards/StatisticsByCategory'
 import { WalletsCard } from '../cards/Wallets'
 import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
 import { Columns } from '../ui-kit/Columns'
@@ -19,6 +20,7 @@ export const Dashboard: FC = () => {
         <GroupsCard />
         <WalletsCard />
         <OperationsCard />
+        <StatisticsByCategoryCard />
       </Columns>
     </>
   )

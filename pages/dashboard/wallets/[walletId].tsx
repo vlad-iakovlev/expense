@@ -5,6 +5,7 @@ import { CurrenciesProvider } from '../../../components/contexts/Currencies'
 import { ErrorProvider } from '../../../components/contexts/Error'
 import { LoadingProvider } from '../../../components/contexts/Loading'
 import { OperationsProvider } from '../../../components/contexts/Operations'
+import { StatisticsByCategoryProvider } from '../../../components/contexts/StatisticsByCategory'
 import { WalletProvider } from '../../../components/contexts/Wallet'
 import { Wallet, WalletSkeleton } from '../../../components/Wallet'
 
@@ -29,10 +30,12 @@ const WalletPage: NextPage<Props> = ({ walletId }) => (
         <CategoriesProvider walletId={walletId}>
           <OperationsProvider walletId={walletId}>
             <WalletProvider walletId={walletId}>
-              <CheckSwrContexts
-                renderLoading={() => <WalletSkeleton />}
-                renderContent={() => <Wallet />}
-              />
+              <StatisticsByCategoryProvider walletId={walletId}>
+                <CheckSwrContexts
+                  renderLoading={() => <WalletSkeleton />}
+                  renderContent={() => <Wallet />}
+                />
+              </StatisticsByCategoryProvider>
             </WalletProvider>
           </OperationsProvider>
         </CategoriesProvider>

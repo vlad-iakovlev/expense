@@ -6,6 +6,7 @@ import { ErrorProvider } from '../../components/contexts/Error'
 import { GroupsProvider } from '../../components/contexts/Groups'
 import { LoadingProvider } from '../../components/contexts/Loading'
 import { OperationsProvider } from '../../components/contexts/Operations'
+import { StatisticsByCategoryProvider } from '../../components/contexts/StatisticsByCategory'
 import { WalletsProvider } from '../../components/contexts/Wallets'
 import { Dashboard, DashboardSkeleton } from '../../components/Dashboard'
 
@@ -17,10 +18,12 @@ const DashboardPage: NextPage = () => (
           <GroupsProvider>
             <OperationsProvider>
               <WalletsProvider>
-                <CheckSwrContexts
-                  renderLoading={() => <DashboardSkeleton />}
-                  renderContent={() => <Dashboard />}
-                />
+                <StatisticsByCategoryProvider>
+                  <CheckSwrContexts
+                    renderLoading={() => <DashboardSkeleton />}
+                    renderContent={() => <Dashboard />}
+                  />
+                </StatisticsByCategoryProvider>
               </WalletsProvider>
             </OperationsProvider>
           </GroupsProvider>

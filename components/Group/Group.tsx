@@ -4,6 +4,7 @@ import { ROUTES } from '../../constants/routes'
 import { GroupInfoCard } from '../cards/GroupInfo'
 import { GroupUsersCard } from '../cards/GroupUsers'
 import { OperationsCard } from '../cards/Operations'
+import { StatisticsByCategoryCard } from '../cards/StatisticsByCategory'
 import { WalletsCard } from '../cards/Wallets'
 import { useGroupContext } from '../contexts/Group'
 import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
@@ -34,6 +35,7 @@ export const Group: FC = () => {
         <GroupUsersCard />
         <WalletsCard />
         <OperationsCard />
+        <StatisticsByCategoryCard />
       </Columns>
     </>
   )

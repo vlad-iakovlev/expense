@@ -6,6 +6,7 @@ import { ErrorProvider } from '../../../components/contexts/Error'
 import { GroupProvider } from '../../../components/contexts/Group'
 import { LoadingProvider } from '../../../components/contexts/Loading'
 import { OperationsProvider } from '../../../components/contexts/Operations'
+import { StatisticsByCategoryProvider } from '../../../components/contexts/StatisticsByCategory'
 import { WalletsProvider } from '../../../components/contexts/Wallets'
 import { Group, GroupSkeleton } from '../../../components/Group'
 
@@ -31,10 +32,12 @@ const GroupPage: NextPage<Props> = ({ groupId }) => (
           <GroupProvider groupId={groupId}>
             <OperationsProvider groupId={groupId}>
               <WalletsProvider groupId={groupId}>
-                <CheckSwrContexts
-                  renderLoading={() => <GroupSkeleton />}
-                  renderContent={() => <Group />}
-                />
+                <StatisticsByCategoryProvider groupId={groupId}>
+                  <CheckSwrContexts
+                    renderLoading={() => <GroupSkeleton />}
+                    renderContent={() => <Group />}
+                  />
+                </StatisticsByCategoryProvider>
               </WalletsProvider>
             </OperationsProvider>
           </GroupProvider>
