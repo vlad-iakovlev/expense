@@ -1,5 +1,7 @@
 FROM node:16
 
+RUN apt-get update && apt-get -y install cron
+
 WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
