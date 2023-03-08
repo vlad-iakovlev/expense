@@ -30,5 +30,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# db
-/db
+# crontab
+/crontab
