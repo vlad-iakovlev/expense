@@ -11,4 +11,6 @@ RUN npm run generate-models
 RUN npm run build
 RUN npm prune --production
 
+RUN crontab ./crontab
+
 CMD [ "/usr/bin/supervisord" ]

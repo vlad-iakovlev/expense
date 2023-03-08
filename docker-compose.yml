@@ -12,6 +12,4 @@ services:
       VIRTUAL_HOST: expense.vlad-yakovlev.dev
       VIRTUAL_PORT: 3000
       LETSENCRYPT_HOST: expense.vlad-yakovlev.dev
-    volumes:
-      - $PWD/crontab:/etc/crontab
     restart: always
