@@ -1,4 +1,4 @@
-import { request } from '../../utils/request'
+import { request } from '../../utils/client/request'
 import { GetCurrenciesResponse } from '../types/currencies'
 
 const BASE_ROUTE = '/api/currencies'

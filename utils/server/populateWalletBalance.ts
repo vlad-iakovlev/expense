@@ -1,5 +1,5 @@
 import { NextApiRequest } from 'next'
-import { ClientWallet } from '../api/types/wallets'
+import { ClientWallet } from '../../api/types/wallets'
 
 export const populateWalletBalance = async (
   req: NextApiRequest,

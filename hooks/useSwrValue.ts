@@ -3,7 +3,7 @@ import useSWR from 'swr'
 import { useErrorEffect } from '../components/contexts/Error'
 import { useLoadingEffect } from '../components/contexts/Loading'
 import { MayBePromise } from '../types/utility'
-import { request } from '../utils/request'
+import { request } from '../utils/client/request'
 
 export interface SwrValueError<Query> {
   hasError: true

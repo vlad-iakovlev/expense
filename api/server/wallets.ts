@@ -13,7 +13,7 @@ import {
   getWalletsQuerySchema,
   updateWalletBodySchema,
 } from './schemas/wallets'
-import { populateWalletBalance } from '../../utils/populateWalletBalance'
+import { populateWalletBalance } from '../../utils/server/populateWalletBalance'
 import { walletSelector } from './selectors'
 
 export const getWallets: NextApiHandler<GetWalletsResponse> = async (

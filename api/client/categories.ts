@@ -1,4 +1,4 @@
-import { request } from '../../utils/request'
+import { request } from '../../utils/client/request'
 import { GetCategoriesQuery, GetCategoriesResponse } from '../types/categories'
 
 const BASE_ROUTE = '/api/categories'
