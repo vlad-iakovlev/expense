@@ -10,6 +10,6 @@ RUN npm run generate-models
 RUN npm run build
 RUN npm prune --production
 
-RUN crontab -l | { cat; echo "0 12 * * * npm run update-rates"; } | crontab -
+RUN crontab -l | { cat; echo "0 */6 * * * npm run update-rates"; } | crontab -
 
 CMD [ "npm", "start" ]
