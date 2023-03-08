@@ -26,6 +26,8 @@ function App({
         <SWRConfig
           value={{
             dedupingInterval: 0,
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false,
           }}
         >
           <Header />
