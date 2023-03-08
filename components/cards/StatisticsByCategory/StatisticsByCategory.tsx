@@ -33,7 +33,7 @@ export const StatisticsByCategoryCard: FC = () => {
 
       <div className="px-4 sm:px-6 py-2">
         <ResponsiveContainer className="aspect-square" width="100%">
-          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={statistics}>
+          <RadarChart cx="50%" cy="50%" outerRadius="50%" data={statistics}>
             <PolarGrid />
             <PolarAngleAxis dataKey="category" />
             <PolarRadiusAxis />
