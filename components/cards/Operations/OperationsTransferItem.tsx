@@ -15,7 +15,7 @@ interface Props {
 
 export const OperationsTransferItem: FC<Props> = ({ operation }) => {
   const router = useRouter()
-  const { operationsQuery } = useOperationsContext()
+  const { operationsPayload } = useOperationsContext()
 
   const handleClick = useCallback(async () => {
     await router.push(ROUTES.OPERATION(operation.id))
@@ -45,9 +45,9 @@ export const OperationsTransferItem: FC<Props> = ({ operation }) => {
           <div
             className={clsx('text-sm truncate', {
               'font-medium':
-                operationsQuery.walletId === operation.expenseWallet.id,
+                operationsPayload.walletId === operation.expenseWallet.id,
               'text-zinc-600':
-                operationsQuery.walletId !== operation.expenseWallet.id,
+                operationsPayload.walletId !== operation.expenseWallet.id,
             })}
           >
             {operation.expenseWallet.name}
@@ -67,9 +67,9 @@ export const OperationsTransferItem: FC<Props> = ({ operation }) => {
           <div
             className={clsx('text-sm truncate', {
               'font-medium':
-                operationsQuery.walletId === operation.incomeWallet.id,
+                operationsPayload.walletId === operation.incomeWallet.id,
               'text-zinc-600':
-                operationsQuery.walletId !== operation.incomeWallet.id,
+                operationsPayload.walletId !== operation.incomeWallet.id,
             })}
           >
             {operation.incomeWallet.name}

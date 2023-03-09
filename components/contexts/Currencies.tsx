@@ -16,7 +16,7 @@ export const CurrenciesContext = createContext<ContextValue | undefined>(
 CurrenciesContext.displayName = 'CurrenciesContext'
 
 export const CurrenciesProvider: FC<ProviderProps> = ({ children }) => {
-  const value = useSwrValue('currencies', getCurrencies, undefined)
+  const value = useSwrValue('currencies', getCurrencies, undefined, undefined)
 
   return (
     <CurrenciesContext.Provider value={value}>
@@ -29,7 +29,7 @@ export const useCurrenciesContext = () => {
   const context = useSwrContext(CurrenciesContext)
 
   return {
-    currencies: context.data.currencies,
+    currenciesResponse: context.response,
     mutateCurrencies: context.mutate,
   }
 }

@@ -8,7 +8,7 @@ import { LoadingProvider } from '../../../components/contexts/Loading'
 import { OperationsProvider } from '../../../components/contexts/Operations'
 import { StatisticsByCategoryProvider } from '../../../components/contexts/StatisticsByCategory'
 import { WalletsProvider } from '../../../components/contexts/Wallets'
-import { Group, GroupSkeleton } from '../../../components/Group'
+import { Group } from '../../../components/Group'
 
 interface Props {
   groupId: string
@@ -33,10 +33,7 @@ const GroupPage: NextPage<Props> = ({ groupId }) => (
             <OperationsProvider groupId={groupId}>
               <WalletsProvider groupId={groupId}>
                 <StatisticsByCategoryProvider groupId={groupId}>
-                  <CheckSwrContexts
-                    renderLoading={() => <GroupSkeleton />}
-                    renderContent={() => <Group />}
-                  />
+                  <CheckSwrContexts renderContent={() => <Group />} />
                 </StatisticsByCategoryProvider>
               </WalletsProvider>
             </OperationsProvider>

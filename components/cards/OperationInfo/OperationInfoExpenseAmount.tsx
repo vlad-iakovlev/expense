@@ -8,23 +8,23 @@ import { Card } from '../../ui-kit/Card'
 
 export const OperationInfoExpenseAmount: FC = () => {
   const { setLoading } = useLoadingContext()
-  const { operation, mutateOperation } = useOperationContext()
+  const { operationResponse, mutateOperation } = useOperationContext()
 
   const handleChange = useCallback(
     async (amountString: string) => {
-      if (!operation.expenseWallet) return
+      if (!operationResponse?.operation.expenseWallet) return
 
       try {
         setLoading(true)
 
         const amount = parseAmount(
           amountString,
-          operation.expenseWallet.currency
+          operationResponse.operation.expenseWallet.currency
         )
         if (isNaN(amount)) return
 
         await updateOperation({
-          operationId: operation.id,
+          operationId: operationResponse.operation.id,
           expenseAmount: amount,
         })
 
@@ -33,10 +33,14 @@ export const OperationInfoExpenseAmount: FC = () => {
         setLoading(false)
       }
     },
-    [mutateOperation, operation.expenseWallet, operation.id, setLoading]
+    [mutateOperation, operationResponse, setLoading]
   )
 
-  if (!operation.expenseWallet) {
+  if (!operationResponse) {
+    return <Card.Skeleton />
+  }
+
+  if (!operationResponse.operation.expenseWallet) {
     return null
   }
 
@@ -45,8 +49,8 @@ export const OperationInfoExpenseAmount: FC = () => {
       className="text-red-700"
       name="Amount"
       value={formatAmount(
-        operation.expenseAmount,
-        operation.expenseWallet.currency
+        operationResponse.operation.expenseAmount,
+        operationResponse.operation.expenseWallet.currency
       )}
       onChange={handleChange}
     />

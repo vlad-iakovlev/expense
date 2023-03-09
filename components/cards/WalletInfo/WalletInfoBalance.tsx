@@ -4,15 +4,19 @@ import { Amount } from '../../ui-kit/Amount'
 import { Card } from '../../ui-kit/Card'
 
 export const WalletInfoBalance: FC = () => {
-  const { wallet } = useWalletContext()
+  const { walletResponse } = useWalletContext()
+
+  if (!walletResponse) {
+    return <Card.Skeleton />
+  }
 
   return (
     <Card.Text
       end={
         <Amount
           className="font-medium"
-          amount={wallet.balance}
-          currency={wallet.currency}
+          amount={walletResponse.wallet.balance}
+          currency={walletResponse.wallet.currency}
         />
       }
     >

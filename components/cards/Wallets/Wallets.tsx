@@ -8,7 +8,7 @@ import { WalletsCreate } from './WalletsCreate'
 
 export const WalletsCard: FC = () => {
   const router = useRouter()
-  const { wallets, walletsQuery } = useWalletsContext()
+  const { walletsResponse, walletsPayload } = useWalletsContext()
 
   const goToWallet = useCallback(
     async (walletId: string) => {
@@ -17,7 +17,7 @@ export const WalletsCard: FC = () => {
     [router]
   )
 
-  if (!walletsQuery.groupId && !wallets.length) {
+  if (!walletsPayload.groupId && walletsResponse?.wallets.length === 0) {
     return null
   }
 
@@ -25,12 +25,11 @@ export const WalletsCard: FC = () => {
     <Card>
       <Card.Title
         title="Wallets"
-        action={walletsQuery.groupId && <WalletsCreate />}
+        action={walletsPayload.groupId && <WalletsCreate />}
       />
+      {walletsResponse?.wallets.length !== 0 && <Card.Divider />}
 
-      {wallets.length ? <Card.Divider /> : null}
-
-      {wallets.map((wallet) => (
+      {walletsResponse?.wallets.map((wallet) => (
         <Card.Button
           key={wallet.id}
           end={
@@ -45,6 +44,17 @@ export const WalletsCard: FC = () => {
           {wallet.name}
         </Card.Button>
       ))}
+
+      {!walletsResponse && (
+        <>
+          <Card.Skeleton />
+          <Card.Skeleton />
+          <Card.Skeleton />
+          <Card.Skeleton />
+          <Card.Skeleton />
+          <Card.Skeleton />
+        </>
+      )}
     </Card>
   )
 }

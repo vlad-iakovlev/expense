@@ -7,31 +7,35 @@ import { Card, CardSelectOption } from '../../ui-kit/Card'
 
 export const OperationInfoIncomeWallet: FC = () => {
   const { setLoading } = useLoadingContext()
-  const { operation, mutateOperation } = useOperationContext()
-  const { wallets } = useWalletsContext()
+  const { operationResponse, mutateOperation } = useOperationContext()
+  const { walletsResponse } = useWalletsContext()
 
   const options = useMemo(() => {
-    return wallets.map((wallet) => ({
-      id: wallet.id,
-      name: `${wallet.name} ${wallet.currency.name}`,
-    }))
-  }, [wallets])
+    return (
+      walletsResponse?.wallets.map((wallet) => ({
+        id: wallet.id,
+        name: `${wallet.name} ${wallet.currency.name}`,
+      })) || []
+    )
+  }, [walletsResponse])
 
   const value = useMemo(
     () => ({
-      id: operation.incomeWallet?.id || '',
-      name: `${operation.incomeWallet?.name} ${operation.incomeWallet?.currency.name}`,
+      id: operationResponse?.operation.incomeWallet?.id || '',
+      name: `${operationResponse?.operation.incomeWallet?.name} ${operationResponse?.operation.incomeWallet?.currency.name}`,
     }),
-    [operation.incomeWallet]
+    [operationResponse?.operation.incomeWallet]
   )
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
+      if (!operationResponse) return
+
       try {
         setLoading(true)
 
         await updateOperation({
-          operationId: operation.id,
+          operationId: operationResponse.operation.id,
           incomeWalletId: option.id,
         })
 
@@ -40,16 +44,16 @@ export const OperationInfoIncomeWallet: FC = () => {
         setLoading(false)
       }
     },
-    [mutateOperation, operation.id, setLoading]
+    [mutateOperation, operationResponse, setLoading]
   )
 
-  if (!operation.incomeWallet) {
+  if (!operationResponse?.operation.incomeWallet) {
     return null
   }
 
   return (
     <Card.Select
-      name={operation.expenseWallet ? 'To Wallet' : 'Wallet'}
+      name={operationResponse.operation.expenseWallet ? 'To Wallet' : 'Wallet'}
       options={options}
       value={value}
       onChange={handleChange}

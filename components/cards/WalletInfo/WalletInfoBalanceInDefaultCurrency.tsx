@@ -4,9 +4,13 @@ import { Amount } from '../../ui-kit/Amount'
 import { Card } from '../../ui-kit/Card'
 
 export const WalletInfoBalanceInDefaultCurrency: FC = () => {
-  const { wallet } = useWalletContext()
+  const { walletResponse } = useWalletContext()
 
-  if (wallet.currency.id === wallet.group.defaultCurrency.id) {
+  if (
+    !walletResponse ||
+    walletResponse.wallet.currency.id ===
+      walletResponse.wallet.group.defaultCurrency.id
+  ) {
     return null
   }
 
@@ -15,13 +19,13 @@ export const WalletInfoBalanceInDefaultCurrency: FC = () => {
       end={
         <Amount
           className="font-medium"
-          amount={wallet.balance}
-          currency={wallet.currency}
-          displayCurrency={wallet.group.defaultCurrency}
+          amount={walletResponse.wallet.balance}
+          currency={walletResponse.wallet.currency}
+          displayCurrency={walletResponse.wallet.group.defaultCurrency}
         />
       }
     >
-      Balance in {wallet.group.defaultCurrency.name}
+      Balance in {walletResponse.wallet.group.defaultCurrency.name}
     </Card.Text>
   )
 }

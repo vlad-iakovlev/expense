@@ -6,15 +6,17 @@ import { Card } from '../../ui-kit/Card'
 
 export const WalletInfoName: FC = () => {
   const { setLoading } = useLoadingContext()
-  const { wallet, mutateWallet } = useWalletContext()
+  const { walletResponse, mutateWallet } = useWalletContext()
 
   const handleChange = useCallback(
     async (name: string) => {
+      if (!walletResponse) return
+
       try {
         setLoading(true)
 
         await updateWallet({
-          walletId: wallet.id,
+          walletId: walletResponse.wallet.id,
           name,
         })
 
@@ -23,8 +25,18 @@ export const WalletInfoName: FC = () => {
         setLoading(false)
       }
     },
-    [setLoading, wallet.id, mutateWallet]
+    [mutateWallet, setLoading, walletResponse]
   )
 
-  return <Card.Input name="Name" value={wallet.name} onChange={handleChange} />
+  if (!walletResponse) {
+    return <Card.Skeleton />
+  }
+
+  return (
+    <Card.Input
+      name="Name"
+      value={walletResponse.wallet.name}
+      onChange={handleChange}
+    />
+  )
 }

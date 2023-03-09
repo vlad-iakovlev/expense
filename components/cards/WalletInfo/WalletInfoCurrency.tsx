@@ -8,32 +8,36 @@ import { Card, CardSelectOption } from '../../ui-kit/Card'
 
 export const WalletInfoCurrency: FC = () => {
   const { setLoading } = useLoadingContext()
-  const { currencies } = useCurrenciesContext()
+  const { currenciesResponse } = useCurrenciesContext()
   const { mutateOperations } = useOperationsContext()
-  const { wallet, mutateWallet } = useWalletContext()
+  const { walletResponse, mutateWallet } = useWalletContext()
 
   const options = useMemo(() => {
-    return currencies.map((currency) => ({
-      id: currency.id,
-      name: currency.name,
-    }))
-  }, [currencies])
+    return (
+      currenciesResponse?.currencies.map((currency) => ({
+        id: currency.id,
+        name: currency.name,
+      })) || []
+    )
+  }, [currenciesResponse])
 
   const value = useMemo(
     () => ({
-      id: wallet.currency.id,
-      name: wallet.currency.name,
+      id: walletResponse?.wallet.currency.id || '',
+      name: walletResponse?.wallet.currency.name || '',
     }),
-    [wallet.currency.id, wallet.currency.name]
+    [walletResponse?.wallet.currency.id, walletResponse?.wallet.currency.name]
   )
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
+      if (!walletResponse) return
+
       try {
         setLoading(true)
 
         await updateWallet({
-          walletId: wallet.id,
+          walletId: walletResponse.wallet.id,
           currencyId: option.id,
         })
 
@@ -42,8 +46,12 @@ export const WalletInfoCurrency: FC = () => {
         setLoading(false)
       }
     },
-    [setLoading, wallet.id, mutateOperations, mutateWallet]
+    [walletResponse, setLoading, mutateOperations, mutateWallet]
   )
+
+  if (!walletResponse) {
+    return <Card.Skeleton />
+  }
 
   return (
     <Card.Select

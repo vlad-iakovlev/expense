@@ -1,80 +1,20 @@
-import { XMarkIcon } from '@heroicons/react/20/solid'
-import { useRouter } from 'next/router'
-import { FC, useCallback, useState } from 'react'
-import { deleteWallet } from '../../../api/client/wallets'
-import { ROUTES } from '../../../constants/routes'
-import { useLoadingContext } from '../../contexts/Loading'
-import { useOperationsContext } from '../../contexts/Operations'
-import { useWalletContext } from '../../contexts/Wallet'
-import { Button } from '../../ui-kit/Button'
+import { FC } from 'react'
 import { Card } from '../../ui-kit/Card'
-import { ConfirmDialog } from '../../ui-kit/ConfirmDialog'
 import { WalletInfoBalance } from './WalletInfoBalance'
 import { WalletInfoBalanceInDefaultCurrency } from './WalletInfoBalanceInDefaultCurrency'
 import { WalletInfoCurrency } from './WalletInfoCurrency'
+import { WalletInfoDelete } from './WalletInfoDelete'
 import { WalletInfoName } from './WalletInfoName'
 
 export const WalletInfoCard: FC = () => {
-  const router = useRouter()
-  const { setLoading } = useLoadingContext()
-  const { wallet } = useWalletContext()
-  const { operations } = useOperationsContext()
-
-  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
-
-  const handleDelete = useCallback(() => {
-    setIsDeleteConfirmOpen(true)
-  }, [])
-
-  const handleDeleteConfirm = useCallback(async () => {
-    try {
-      setLoading(true)
-      setIsDeleteConfirmOpen(false)
-
-      await deleteWallet({
-        walletId: wallet.id,
-      })
-
-      await router.push(ROUTES.GROUP(wallet.group.id))
-    } finally {
-      setLoading(false)
-    }
-  }, [router, setLoading, wallet.group.id, wallet.id])
-
-  const handleDeleteCancel = useCallback(() => {
-    setIsDeleteConfirmOpen(false)
-  }, [])
-
   return (
     <Card>
-      <Card.Title
-        title="Info"
-        action={
-          operations.length === 0 ? (
-            <Button
-              rounded
-              size="sm"
-              theme="error"
-              iconStart={<XMarkIcon />}
-              onClick={handleDelete}
-            />
-          ) : undefined
-        }
-      />
+      <Card.Title title="Info" action={<WalletInfoDelete />} />
       <Card.Divider />
       <WalletInfoName />
       <WalletInfoCurrency />
       <WalletInfoBalance />
       <WalletInfoBalanceInDefaultCurrency />
-
-      <ConfirmDialog
-        isOpen={isDeleteConfirmOpen}
-        title="Delete wallet"
-        description="Are you sure you want to delete wallet? This action cannot be undone."
-        action="Delete"
-        onConfirm={handleDeleteConfirm}
-        onCancel={handleDeleteCancel}
-      />
     </Card>
   )
 }

@@ -1,27 +1,34 @@
 import {
   createContext,
-  Dispatch,
   FC,
   ReactNode,
-  SetStateAction,
   useCallback,
   useMemo,
   useState,
 } from 'react'
 import { getOperations } from '../../api/client/operations'
-import { ClientOperation, GetOperationsQuery } from '../../api/types/operations'
+import {
+  GetOperationsQuery,
+  GetOperationsResponse,
+} from '../../api/types/operations'
 import { useSwrContext } from '../../hooks/useSwrContext'
 import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
-interface GetOperationsClientResponse {
-  operations: ClientOperation[]
-  category: string
-  setCategory: Dispatch<SetStateAction<string>>
-  skip: number
-  setSkip: Dispatch<SetStateAction<number>>
+interface OperationsResponse extends GetOperationsResponse {
+  hasPrevOperations: boolean
+  hasNextOperations: boolean
 }
 
-type ContextValue = SwrValue<GetOperationsClientResponse, GetOperationsQuery>
+interface OperationsPayload {
+  groupId?: string
+  walletId?: string
+  category: string
+  setCategory: (category: string) => void
+  getPrevOperations: () => void
+  getNextOperations: () => void
+}
+
+type ContextValue = SwrValue<OperationsResponse, OperationsPayload>
 
 interface ProviderProps {
   groupId?: string
@@ -44,6 +51,19 @@ export const OperationsProvider: FC<ProviderProps> = ({
   const [category, setCategory] = useState('')
   const [skip, setSkip] = useState(0)
 
+  const handleSetCategory = useCallback((category: string) => {
+    setCategory(category)
+    setSkip(0)
+  }, [])
+
+  const getPrevOperations = useCallback(() => {
+    setSkip((skip) => skip - PER_PAGE)
+  }, [])
+
+  const getNextOperations = useCallback(() => {
+    setSkip((skip) => skip + PER_PAGE)
+  }, [])
+
   const value = useSwrValue(
     'operations',
     useCallback(async (query: GetOperationsQuery) => {
@@ -51,10 +71,8 @@ export const OperationsProvider: FC<ProviderProps> = ({
 
       return {
         operations,
-        category: query.category || '',
-        setCategory,
-        skip: query.skip || 0,
-        setSkip,
+        hasPrevOperations: (query.skip || 0) > 0,
+        hasNextOperations: operations.length > PER_PAGE,
       }
     }, []),
     useMemo(
@@ -66,6 +84,24 @@ export const OperationsProvider: FC<ProviderProps> = ({
         take: PER_PAGE + 1,
       }),
       [category, groupId, skip, walletId]
+    ),
+    useMemo(
+      () => ({
+        groupId,
+        walletId,
+        category,
+        setCategory: handleSetCategory,
+        getPrevOperations,
+        getNextOperations,
+      }),
+      [
+        category,
+        getNextOperations,
+        getPrevOperations,
+        groupId,
+        handleSetCategory,
+        walletId,
+      ]
     )
   )
 
@@ -79,31 +115,9 @@ export const OperationsProvider: FC<ProviderProps> = ({
 export const useOperationsContext = () => {
   const context = useSwrContext(OperationsContext)
 
-  const setCategory = useCallback(
-    (category: string) => {
-      context.data.setCategory(category)
-      context.data.setSkip(0)
-    },
-    [context.data]
-  )
-
-  const getPrevOperations = useCallback(() => {
-    context.data.setSkip((skip) => skip - PER_PAGE)
-  }, [context.data])
-
-  const getNextOperations = useCallback(() => {
-    context.data.setSkip((skip) => skip + PER_PAGE)
-  }, [context.data])
-
   return {
-    operations: context.data.operations.slice(0, PER_PAGE),
-    operationsQuery: context.query,
+    operationsResponse: context.response,
+    operationsPayload: context.payload,
     mutateOperations: context.mutate,
-    category: context.data.category,
-    setCategory,
-    hasPrevOperations: context.data.skip > 0,
-    hasNextOperations: context.data.operations.length > PER_PAGE,
-    getPrevOperations,
-    getNextOperations,
   }
 }

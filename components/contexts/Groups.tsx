@@ -14,7 +14,7 @@ export const GroupsContext = createContext<ContextValue | undefined>(undefined)
 GroupsContext.displayName = 'GroupsContext'
 
 export const GroupsProvider: FC<ProviderProps> = ({ children }) => {
-  const value = useSwrValue('groups', getGroups, undefined)
+  const value = useSwrValue('groups', getGroups, undefined, undefined)
 
   return (
     <GroupsContext.Provider value={value}>{children}</GroupsContext.Provider>
@@ -25,7 +25,7 @@ export const useGroupsContext = () => {
   const context = useSwrContext(GroupsContext)
 
   return {
-    groups: context.data.groups,
+    groupsResponse: context.response,
     mutateGroups: context.mutate,
   }
 }

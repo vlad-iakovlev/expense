@@ -13,27 +13,48 @@ const options: CardSelectOption[] = [income, expense, transfer]
 
 export const OperationInfoType: FC = () => {
   const { setLoading } = useLoadingContext()
-  const { operation, mutateOperation } = useOperationContext()
+  const { operationResponse, mutateOperation } = useOperationContext()
 
   const value = useMemo(() => {
-    if (operation.incomeWallet && operation.expenseWallet) return transfer
-    if (operation.incomeWallet) return income
-    if (operation.expenseWallet) return expense
+    if (
+      operationResponse?.operation.incomeWallet &&
+      operationResponse?.operation.expenseWallet
+    ) {
+      return transfer
+    }
+
+    if (operationResponse?.operation.incomeWallet) {
+      return income
+    }
+
+    if (operationResponse?.operation.expenseWallet) {
+      return expense
+    }
+
     return unknown
-  }, [operation.expenseWallet, operation.incomeWallet])
+  }, [
+    operationResponse?.operation.expenseWallet,
+    operationResponse?.operation.incomeWallet,
+  ])
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
+      if (!operationResponse) return
+
       try {
         setLoading(true)
 
-        const amount = operation.expenseAmount || operation.incomeAmount
-        const wallet = operation.expenseWallet || operation.incomeWallet
+        const amount =
+          operationResponse.operation.expenseAmount ??
+          operationResponse.operation.incomeAmount
+        const wallet =
+          operationResponse.operation.expenseWallet ??
+          operationResponse.operation.incomeWallet
 
         switch (option.id) {
           case 'income':
             await updateOperation({
-              operationId: operation.id,
+              operationId: operationResponse.operation.id,
               incomeAmount: amount,
               expenseAmount: 0,
               incomeWalletId: wallet?.id || null,
@@ -43,7 +64,7 @@ export const OperationInfoType: FC = () => {
 
           case 'expense':
             await updateOperation({
-              operationId: operation.id,
+              operationId: operationResponse.operation.id,
               incomeAmount: 0,
               expenseAmount: amount,
               incomeWalletId: null,
@@ -53,7 +74,7 @@ export const OperationInfoType: FC = () => {
 
           case 'transfer':
             await updateOperation({
-              operationId: operation.id,
+              operationId: operationResponse.operation.id,
               incomeAmount: amount,
               expenseAmount: amount,
               incomeWalletId: wallet?.id || null,
@@ -67,16 +88,12 @@ export const OperationInfoType: FC = () => {
         setLoading(false)
       }
     },
-    [
-      mutateOperation,
-      operation.expenseAmount,
-      operation.expenseWallet,
-      operation.id,
-      operation.incomeAmount,
-      operation.incomeWallet,
-      setLoading,
-    ]
+    [mutateOperation, operationResponse, setLoading]
   )
+
+  if (!operationResponse) {
+    return <Card.Skeleton />
+  }
 
   return (
     <Card.Select

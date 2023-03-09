@@ -1,13 +1,10 @@
 import { createContext, FC, ReactNode, useMemo } from 'react'
 import { getOperation } from '../../api/client/operations'
-import {
-  GetOperationQuery,
-  GetOperationResponse,
-} from '../../api/types/operations'
+import { GetOperationResponse } from '../../api/types/operations'
 import { useSwrContext } from '../../hooks/useSwrContext'
 import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
-type ContextValue = SwrValue<GetOperationResponse, GetOperationQuery>
+type ContextValue = SwrValue<GetOperationResponse, undefined>
 
 interface ProviderProps {
   operationId: string
@@ -26,7 +23,8 @@ export const OperationProvider: FC<ProviderProps> = ({
   const value = useSwrValue(
     'operation',
     getOperation,
-    useMemo(() => ({ operationId }), [operationId])
+    useMemo(() => ({ operationId }), [operationId]),
+    undefined
   )
 
   return (
@@ -40,8 +38,7 @@ export const useOperationContext = () => {
   const context = useSwrContext(OperationContext)
 
   return {
-    operation: context.data.operation,
-    operationQuery: context.query,
+    operationResponse: context.response,
     mutateOperation: context.mutate,
   }
 }

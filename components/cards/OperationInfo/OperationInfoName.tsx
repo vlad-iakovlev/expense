@@ -6,15 +6,17 @@ import { Card } from '../../ui-kit/Card'
 
 export const OperationInfoName: FC = () => {
   const { setLoading } = useLoadingContext()
-  const { operation, mutateOperation } = useOperationContext()
+  const { operationResponse, mutateOperation } = useOperationContext()
 
   const handleChange = useCallback(
     async (name: string) => {
+      if (!operationResponse) return
+
       try {
         setLoading(true)
 
         await updateOperation({
-          operationId: operation.id,
+          operationId: operationResponse.operation.id,
           name,
         })
 
@@ -23,10 +25,18 @@ export const OperationInfoName: FC = () => {
         setLoading(false)
       }
     },
-    [mutateOperation, operation.id, setLoading]
+    [mutateOperation, operationResponse, setLoading]
   )
 
+  if (!operationResponse) {
+    return <Card.Skeleton />
+  }
+
   return (
-    <Card.Input name="Name" value={operation.name} onChange={handleChange} />
+    <Card.Input
+      name="Name"
+      value={operationResponse.operation.name}
+      onChange={handleChange}
+    />
   )
 }

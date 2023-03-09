@@ -1,5 +1,6 @@
+import { Transition } from '@headlessui/react'
 import Error from 'next/error'
-import { FC, ReactElement, useContext } from 'react'
+import { FC, Fragment, ReactElement, useContext } from 'react'
 import { CategoriesContext } from '../contexts/Categories'
 import { CurrenciesContext } from '../contexts/Currencies'
 import { useErrorContext } from '../contexts/Error'
@@ -11,16 +12,15 @@ import { OperationsContext } from '../contexts/Operations'
 import { StatisticsByCategoryContext } from '../contexts/StatisticsByCategory'
 import { WalletContext } from '../contexts/Wallet'
 import { WalletsContext } from '../contexts/Wallets'
+import { Portal } from '../ui-kit/Portal'
 
 interface Props {
   renderError?: () => ReactElement | null
-  renderLoading?: () => ReactElement | null
   renderContent: () => ReactElement | null
 }
 
 export const CheckSwrContexts: FC<Props> = ({
   renderError = () => <Error statusCode={404} />,
-  renderLoading = () => null,
   renderContent,
 }) => {
   const { isLoading } = useLoadingContext()
@@ -38,13 +38,28 @@ export const CheckSwrContexts: FC<Props> = ({
     useContext(WalletsContext),
   ]
 
-  if (isLoading || contexts.some((context) => context?.isLoading)) {
-    return <>{renderLoading()}</>
-  }
-
   if (hasError || contexts.some((context) => context?.hasError)) {
     return <>{renderError()}</>
   }
 
-  return <>{renderContent()}</>
+  return (
+    <>
+      {renderContent()}
+
+      <Portal>
+        <Transition
+          show={isLoading}
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 z-50 bg-zinc-500 bg-opacity-75 transition-opacity" />
+        </Transition>
+      </Portal>
+    </>
+  )
 }

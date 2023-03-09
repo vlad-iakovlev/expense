@@ -10,22 +10,25 @@ import { Button } from '../../ui-kit/Button'
 export const GroupsCreate = () => {
   const router = useRouter()
   const { setLoading } = useLoadingContext()
-  const { currencies } = useCurrenciesContext()
+  const { currenciesResponse } = useCurrenciesContext()
 
   const handleCreate = useCallback(async () => {
+    if (!currenciesResponse) return
+
     try {
       setLoading(true)
 
       const { group } = await createGroup({
         name: 'Untitled',
-        defaultCurrencyId: currencies.find((c) => c.name === 'USD')?.id || '',
+        defaultCurrencyId:
+          currenciesResponse.currencies.find((c) => c.name === 'USD')?.id || '',
       })
 
       await router.push(ROUTES.GROUP(group.id))
     } finally {
       setLoading(false)
     }
-  }, [currencies, router, setLoading])
+  }, [currenciesResponse, router, setLoading])
 
   return (
     <Button rounded size="sm" iconStart={<PlusIcon />} onClick={handleCreate} />

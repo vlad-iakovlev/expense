@@ -1,9 +1,9 @@
 import { Context, useContext } from 'react'
-import { SwrValue, SwrValueSuccess } from './useSwrValue'
+import { SwrValue } from './useSwrValue'
 
-export const useSwrContext = <Data, Query>(
-  SwrContext: Context<SwrValue<Data, Query> | undefined>
-): SwrValueSuccess<Data, Query> => {
+export const useSwrContext = <Response, Payload>(
+  SwrContext: Context<SwrValue<Response, Payload> | undefined>
+): SwrValue<Response, Payload> => {
   const context = useContext(SwrContext)
   const name = SwrContext.displayName?.replace('Context', '') || 'Swr'
 
@@ -11,8 +11,8 @@ export const useSwrContext = <Data, Query>(
     throw new Error(`use${name}Context must be within ${name}Provider`)
   }
 
-  if (context.hasError || context.isLoading) {
-    throw new Error(`use${name}Context must be used after data loaded`)
+  if (context.hasError) {
+    throw new Error(`use${name}Context must be used when there are no errors`)
   }
 
   return context

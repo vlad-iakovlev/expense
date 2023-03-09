@@ -7,31 +7,38 @@ import { Card, CardSelectOption } from '../../ui-kit/Card'
 
 export const GroupInfoDefaultCurrency: FC = () => {
   const { setLoading } = useLoadingContext()
-  const { currencies } = useCurrenciesContext()
-  const { group, mutateGroup } = useGroupContext()
+  const { currenciesResponse } = useCurrenciesContext()
+  const { groupResponse, mutateGroup } = useGroupContext()
 
   const options = useMemo(() => {
-    return currencies.map((currency) => ({
-      id: currency.id,
-      name: currency.name,
-    }))
-  }, [currencies])
+    return (
+      currenciesResponse?.currencies.map((currency) => ({
+        id: currency.id,
+        name: currency.name,
+      })) || []
+    )
+  }, [currenciesResponse])
 
   const value = useMemo(
     () => ({
-      id: group.defaultCurrency.id,
-      name: group.defaultCurrency.name,
+      id: groupResponse?.group.defaultCurrency.id || '',
+      name: groupResponse?.group.defaultCurrency.name || '',
     }),
-    [group.defaultCurrency.id, group.defaultCurrency.name]
+    [
+      groupResponse?.group.defaultCurrency.id,
+      groupResponse?.group.defaultCurrency.name,
+    ]
   )
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
+      if (!groupResponse) return
+
       try {
         setLoading(true)
 
         await updateGroup({
-          groupId: group.id,
+          groupId: groupResponse.group.id,
           defaultCurrencyId: option.id,
         })
 
@@ -40,8 +47,12 @@ export const GroupInfoDefaultCurrency: FC = () => {
         setLoading(false)
       }
     },
-    [setLoading, group.id, mutateGroup]
+    [groupResponse, setLoading, mutateGroup]
   )
+
+  if (!currenciesResponse || !groupResponse) {
+    return <Card.Skeleton />
+  }
 
   return (
     <Card.Select

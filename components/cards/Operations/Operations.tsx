@@ -8,19 +8,12 @@ import { OperationsIncomeItem } from './OperationsIncomeItem'
 import { OperationsTransferItem } from './OperationsTransferItem'
 
 export const OperationsCard: FC = () => {
-  const {
-    operations,
-    operationsQuery,
-    hasPrevOperations,
-    hasNextOperations,
-    getPrevOperations,
-    getNextOperations,
-  } = useOperationsContext()
+  const { operationsResponse, operationsPayload } = useOperationsContext()
 
   if (
-    !operationsQuery.walletId &&
-    !operationsQuery.category &&
-    !operations.length
+    !operationsPayload.walletId &&
+    !operationsPayload.category &&
+    operationsResponse?.operations.length === 0
   ) {
     return null
   }
@@ -29,16 +22,13 @@ export const OperationsCard: FC = () => {
     <Card>
       <Card.Title
         title="Operations"
-        action={operationsQuery.walletId && <OperationsCreate />}
+        action={operationsPayload.walletId && <OperationsCreate />}
       />
-
       <Card.Divider />
-
       <OperationsCategory />
+      {operationsResponse?.operations.length !== 0 && <Card.Divider />}
 
-      {operations.length ? <Card.Divider /> : null}
-
-      {operations.map((operation) => (
+      {operationsResponse?.operations.map((operation) => (
         <Fragment key={operation.id}>
           {operation.incomeWallet && operation.expenseWallet ? (
             <OperationsTransferItem operation={operation} />
@@ -52,15 +42,27 @@ export const OperationsCard: FC = () => {
         </Fragment>
       ))}
 
-      {hasPrevOperations || hasNextOperations ? (
+      {!operationsResponse && (
+        <>
+          <Card.Skeleton />
+          <Card.Skeleton />
+          <Card.Skeleton />
+          <Card.Skeleton />
+          <Card.Skeleton />
+          <Card.Skeleton />
+        </>
+      )}
+
+      {operationsResponse?.hasPrevOperations ||
+      operationsResponse?.hasNextOperations ? (
         <>
           <Card.Divider />
 
           <Card.Pagination
-            hasPrev={hasPrevOperations}
-            hasNext={hasNextOperations}
-            onPrevClick={getPrevOperations}
-            onNextClick={getNextOperations}
+            hasPrev={operationsResponse.hasPrevOperations}
+            hasNext={operationsResponse.hasNextOperations}
+            onPrevClick={operationsPayload.getPrevOperations}
+            onNextClick={operationsPayload.getNextOperations}
           />
         </>
       ) : null}

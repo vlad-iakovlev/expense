@@ -6,15 +6,17 @@ import { Card } from '../../ui-kit/Card'
 
 export const GroupInfoName: FC = () => {
   const { setLoading } = useLoadingContext()
-  const { group, mutateGroup } = useGroupContext()
+  const { groupResponse, mutateGroup } = useGroupContext()
 
   const handleChange = useCallback(
     async (name: string) => {
+      if (!groupResponse) return
+
       try {
         setLoading(true)
 
         await updateGroup({
-          groupId: group.id,
+          groupId: groupResponse.group.id,
           name,
         })
 
@@ -23,8 +25,18 @@ export const GroupInfoName: FC = () => {
         setLoading(false)
       }
     },
-    [group.id, mutateGroup, setLoading]
+    [groupResponse, mutateGroup, setLoading]
   )
 
-  return <Card.Input name="Name" value={group.name} onChange={handleChange} />
+  if (!groupResponse) {
+    return <Card.Skeleton />
+  }
+
+  return (
+    <Card.Input
+      name="Name"
+      value={groupResponse.group.name}
+      onChange={handleChange}
+    />
+  )
 }

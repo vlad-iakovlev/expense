@@ -8,7 +8,7 @@ import { GroupsCreate } from './GroupsCreate'
 
 export const GroupsCard: FC = () => {
   const router = useRouter()
-  const { groups } = useGroupsContext()
+  const { groupsResponse } = useGroupsContext()
 
   const goToGroup = useCallback(
     async (groupId: string) => {
@@ -20,10 +20,9 @@ export const GroupsCard: FC = () => {
   return (
     <Card>
       <Card.Title title="Groups" action={<GroupsCreate />} />
+      {groupsResponse?.groups.length !== 0 && <Card.Divider />}
 
-      {groups.length ? <Card.Divider /> : null}
-
-      {groups.map((group) => (
+      {groupsResponse?.groups.map((group) => (
         <Card.Button
           key={group.id}
           end={
@@ -42,6 +41,14 @@ export const GroupsCard: FC = () => {
           {group.name}
         </Card.Button>
       ))}
+
+      {!groupsResponse && (
+        <>
+          <Card.Skeleton />
+          <Card.Skeleton />
+          <Card.Skeleton />
+        </>
+      )}
     </Card>
   )
 }

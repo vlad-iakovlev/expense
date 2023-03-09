@@ -11,7 +11,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import { createPortal } from 'react-dom'
+import { Portal } from '../Portal'
 import { Card } from './Card'
 
 export interface CardPopupProps {
@@ -95,28 +95,29 @@ export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     useImperativeHandle(ref, () => rootRef.current!)
 
-    return createPortal(
-      <div ref={rootRef} className="absolute z-10" style={portalStyle}>
-        <Transition
-          show={isOpen}
-          className={clsx(className, 'absolute', {
-            'bottom-0 left-0 origin-top-left': position === 'above-left',
-            'bottom-0 right-0 origin-top-right': position === 'above-right',
-            'top-0 left-0 origin-top-left': position === 'below-left',
-            'top-0 right-0 origin-top-right': position === 'below-right',
-          })}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-          style={{ maxWidth: noMaxWidth ? undefined : anchorRect?.width }}
-        >
-          <Card>{children}</Card>
-        </Transition>
-      </div>,
-      document.body
+    return (
+      <Portal>
+        <div ref={rootRef} className="absolute z-10" style={portalStyle}>
+          <Transition
+            show={isOpen}
+            className={clsx(className, 'absolute', {
+              'bottom-0 left-0 origin-top-left': position === 'above-left',
+              'bottom-0 right-0 origin-top-right': position === 'above-right',
+              'top-0 left-0 origin-top-left': position === 'below-left',
+              'top-0 right-0 origin-top-right': position === 'below-right',
+            })}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+            style={{ maxWidth: noMaxWidth ? undefined : anchorRect?.width }}
+          >
+            <Card>{children}</Card>
+          </Transition>
+        </div>
+      </Portal>
     )
   }
 )

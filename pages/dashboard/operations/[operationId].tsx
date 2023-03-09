@@ -1,6 +1,9 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { CheckSwrContexts } from '../../../components/CheckSwrContexts'
-import { CategoriesProvider } from '../../../components/contexts/Categories'
+import {
+  CategoriesContext,
+  CategoriesProvider,
+} from '../../../components/contexts/Categories'
 import { CurrenciesProvider } from '../../../components/contexts/Currencies'
 import { ErrorProvider } from '../../../components/contexts/Error'
 import { LoadingProvider } from '../../../components/contexts/Loading'
@@ -8,8 +11,11 @@ import {
   OperationContext,
   OperationProvider,
 } from '../../../components/contexts/Operation'
-import { WalletsProvider } from '../../../components/contexts/Wallets'
-import { Operation, OperationSkeleton } from '../../../components/Operation'
+import {
+  WalletsContext,
+  WalletsProvider,
+} from '../../../components/contexts/Wallets'
+import { Operation } from '../../../components/Operation'
 
 interface Props {
   operationId: string
@@ -33,20 +39,35 @@ const OperationPage: NextPage<Props> = ({ operationId }) => (
           <OperationContext.Consumer>
             {(operationContext) => {
               const wallet =
-                operationContext?.data?.operation.expenseWallet ||
-                operationContext?.data?.operation.incomeWallet
+                operationContext?.response?.operation.expenseWallet ||
+                operationContext?.response?.operation.incomeWallet
 
               if (!wallet) {
-                return <OperationSkeleton />
+                return (
+                  <CategoriesContext.Provider
+                    value={{
+                      hasError: false,
+                      payload: undefined,
+                      mutate: async () => {},
+                    }}
+                  >
+                    <WalletsContext.Provider
+                      value={{
+                        hasError: false,
+                        payload: {},
+                        mutate: async () => {},
+                      }}
+                    >
+                      <CheckSwrContexts renderContent={() => <Operation />} />
+                    </WalletsContext.Provider>
+                  </CategoriesContext.Provider>
+                )
               }
 
               return (
                 <CategoriesProvider groupId={wallet.group.id}>
                   <WalletsProvider groupId={wallet.group.id}>
-                    <CheckSwrContexts
-                      renderLoading={() => <OperationSkeleton />}
-                      renderContent={() => <Operation />}
-                    />
+                    <CheckSwrContexts renderContent={() => <Operation />} />
                   </WalletsProvider>
                 </CategoriesProvider>
               )

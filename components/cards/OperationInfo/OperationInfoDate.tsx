@@ -3,18 +3,21 @@ import { updateOperation } from '../../../api/client/operations'
 import { useLoadingContext } from '../../contexts/Loading'
 import { useOperationContext } from '../../contexts/Operation'
 import { Card } from '../../ui-kit/Card'
+import { CardSkeleton } from '../../ui-kit/Card/CardSkeleton'
 
 export const OperationInfoDate: FC = () => {
   const { setLoading } = useLoadingContext()
-  const { operation, mutateOperation } = useOperationContext()
+  const { operationResponse, mutateOperation } = useOperationContext()
 
   const handleChange = useCallback(
     async (date: Date) => {
+      if (!operationResponse) return
+
       try {
         setLoading(true)
 
         await updateOperation({
-          operationId: operation.id,
+          operationId: operationResponse.operation.id,
           date: date.toISOString(),
         })
 
@@ -23,10 +26,18 @@ export const OperationInfoDate: FC = () => {
         setLoading(false)
       }
     },
-    [mutateOperation, operation.id, setLoading]
+    [mutateOperation, operationResponse, setLoading]
   )
 
+  if (!operationResponse) {
+    return <CardSkeleton />
+  }
+
   return (
-    <Card.DateTime name="Date" value={operation.date} onChange={handleChange} />
+    <Card.DateTime
+      name="Date"
+      value={operationResponse.operation.date}
+      onChange={handleChange}
+    />
   )
 }

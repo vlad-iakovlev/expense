@@ -8,10 +8,7 @@ import {
   useState,
 } from 'react'
 import { getStatisticsByCategory } from '../../api/client/statistics'
-import {
-  GetStatisticsByCategoryQuery,
-  GetStatisticsByCategoryResponse,
-} from '../../api/types/statistics'
+import { GetStatisticsByCategoryResponse } from '../../api/types/statistics'
 import { useSwrContext } from '../../hooks/useSwrContext'
 import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
@@ -22,8 +19,7 @@ export enum StatisticsByCategoryPeriod {
   ALL = 'ALL',
 }
 
-export interface GetStatisticsByCategoryClientResponse {
-  statisticsByCategory: GetStatisticsByCategoryResponse['statisticsByCategory']
+interface StatisticsByCategoryPayload {
   period: StatisticsByCategoryPeriod
   setPeriod: (period: StatisticsByCategoryPeriod) => void
   fromDate: Date
@@ -32,8 +28,8 @@ export interface GetStatisticsByCategoryClientResponse {
 }
 
 type ContextValue = SwrValue<
-  GetStatisticsByCategoryClientResponse,
-  GetStatisticsByCategoryQuery
+  GetStatisticsByCategoryResponse,
+  StatisticsByCategoryPayload
 >
 
 interface ProviderProps {
@@ -128,24 +124,20 @@ export const StatisticsByCategoryProvider: FC<ProviderProps> = ({
 
   const value = useSwrValue(
     'statistics-categories',
-    useCallback(
-      async (query: GetStatisticsByCategoryQuery) => {
-        const { statisticsByCategory } = await getStatisticsByCategory(query)
-
-        return {
-          statisticsByCategory,
-          period,
-          setPeriod: handleSetPeriod,
-          fromDate,
-          goPrev,
-          goNext,
-        }
-      },
-      [period, handleSetPeriod, fromDate, goPrev, goNext]
-    ),
+    getStatisticsByCategory,
     useMemo(
       () => ({ groupId, walletId, startDate, endDate }),
       [endDate, groupId, startDate, walletId]
+    ),
+    useMemo(
+      () => ({
+        period,
+        setPeriod: handleSetPeriod,
+        fromDate,
+        goPrev,
+        goNext,
+      }),
+      [fromDate, goNext, goPrev, handleSetPeriod, period]
     )
   )
 
@@ -160,13 +152,8 @@ export const useStatisticsByCategoryContext = () => {
   const context = useSwrContext(StatisticsByCategoryContext)
 
   return {
-    statisticsByCategory: context.data.statisticsByCategory,
-    statisticsByCategoryQuery: context.query,
+    statisticsByCategoryResponse: context.response,
+    statisticsByCategoryPayload: context.payload,
     mutateStatisticsByCategory: context.mutate,
-    period: context.data.period,
-    setPeriod: context.data.setPeriod,
-    fromDate: context.data.fromDate,
-    goPrev: context.data.goPrev,
-    goNext: context.data.goNext,
   }
 }

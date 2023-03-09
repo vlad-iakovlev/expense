@@ -26,18 +26,23 @@ const options = [
 ]
 
 export const StatisticsPeriod: FC = () => {
-  const { period, setPeriod, fromDate, goPrev, goNext } =
-    useStatisticsByCategoryContext()
+  const { statisticsByCategoryPayload } = useStatisticsByCategoryContext()
 
   const value = useMemo(() => {
-    return options.find((option) => period === option.id) || options[0]
-  }, [period])
+    return (
+      options.find(
+        (option) => statisticsByCategoryPayload.period === option.id
+      ) || options[0]
+    )
+  }, [statisticsByCategoryPayload.period])
 
   const handleChange = useCallback(
     (option: CardSelectOption) => {
-      setPeriod(option.id as StatisticsByCategoryPeriod)
+      statisticsByCategoryPayload.setPeriod(
+        option.id as StatisticsByCategoryPeriod
+      )
     },
-    [setPeriod]
+    [statisticsByCategoryPayload]
   )
 
   return (
@@ -49,20 +54,26 @@ export const StatisticsPeriod: FC = () => {
         onChange={handleChange}
       />
 
-      {period !== StatisticsByCategoryPeriod.ALL && (
+      {statisticsByCategoryPayload.period !==
+        StatisticsByCategoryPeriod.ALL && (
         <Card.Pagination
           hasPrev
           hasNext
-          onPrevClick={goPrev}
-          onNextClick={goNext}
+          onPrevClick={statisticsByCategoryPayload.goPrev}
+          onNextClick={statisticsByCategoryPayload.goNext}
         >
           <div className="font-medium text-center">
-            {period === StatisticsByCategoryPeriod.WEEK && formatWeek(fromDate)}
+            {statisticsByCategoryPayload.period ===
+              StatisticsByCategoryPeriod.WEEK &&
+              formatWeek(statisticsByCategoryPayload.fromDate)}
 
-            {period === StatisticsByCategoryPeriod.MONTH &&
-              formatMonth(fromDate)}
+            {statisticsByCategoryPayload.period ===
+              StatisticsByCategoryPeriod.MONTH &&
+              formatMonth(statisticsByCategoryPayload.fromDate)}
 
-            {period === StatisticsByCategoryPeriod.YEAR && formatYear(fromDate)}
+            {statisticsByCategoryPayload.period ===
+              StatisticsByCategoryPeriod.YEAR &&
+              formatYear(statisticsByCategoryPayload.fromDate)}
           </div>
         </Card.Pagination>
       )}

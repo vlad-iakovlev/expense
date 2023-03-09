@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { MayBePromise } from '../../../types/utility'
 import { Card } from './Card'
 
 export interface CardInputProps {
@@ -16,7 +17,7 @@ export interface CardInputProps {
   name: string
   suggestions?: string[]
   value: string
-  onChange: (value: string) => void
+  onChange: (value: string) => MayBePromise<void>
 }
 
 export const CardInput: FC<CardInputProps> = ({
@@ -60,7 +61,7 @@ export const CardInput: FC<CardInputProps> = ({
   }, [])
 
   const handleBlur = useCallback(
-    (event: FocusEvent<HTMLInputElement>) => {
+    async (event: FocusEvent<HTMLInputElement>) => {
       if (popupRef.current?.contains(event.relatedTarget)) {
         event.preventDefault()
         return
@@ -71,19 +72,21 @@ export const CardInput: FC<CardInputProps> = ({
         return
       }
 
-      onChange(inputValue)
+      await onChange(inputValue)
+      setIsEditing(false)
     },
     [inputValue, value, onChange]
   )
 
   const handleSelect = useCallback(
-    (suggestion: string) => {
+    async (suggestion: string) => {
       if (suggestion === value) {
         setIsEditing(false)
         return
       }
 
-      onChange(suggestion)
+      await onChange(suggestion)
+      setIsEditing(false)
     },
     [onChange, value]
   )

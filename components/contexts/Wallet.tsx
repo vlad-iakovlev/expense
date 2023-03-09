@@ -1,10 +1,10 @@
 import { createContext, FC, ReactNode, useMemo } from 'react'
 import { getWallet } from '../../api/client/wallets'
-import { GetWalletQuery, GetWalletResponse } from '../../api/types/wallets'
+import { GetWalletResponse } from '../../api/types/wallets'
 import { useSwrContext } from '../../hooks/useSwrContext'
 import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
-type ContextValue = SwrValue<GetWalletResponse, GetWalletQuery>
+type ContextValue = SwrValue<GetWalletResponse, undefined>
 
 interface ProviderProps {
   walletId: string
@@ -18,7 +18,8 @@ export const WalletProvider: FC<ProviderProps> = ({ walletId, children }) => {
   const value = useSwrValue(
     'wallet',
     getWallet,
-    useMemo(() => ({ walletId }), [walletId])
+    useMemo(() => ({ walletId }), [walletId]),
+    undefined
   )
 
   return (
@@ -30,8 +31,7 @@ export const useWalletContext = () => {
   const context = useSwrContext(WalletContext)
 
   return {
-    wallet: context.data.wallet,
-    walletQuery: context.query,
+    walletResponse: context.response,
     mutateWallet: context.mutate,
   }
 }

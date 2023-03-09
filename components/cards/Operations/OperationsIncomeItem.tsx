@@ -13,7 +13,7 @@ interface Props {
 
 export const OperationsIncomeItem: FC<Props> = ({ operation }) => {
   const router = useRouter()
-  const { operationsQuery } = useOperationsContext()
+  const { operationsPayload } = useOperationsContext()
 
   const handleClick = useCallback(async () => {
     await router.push(ROUTES.OPERATION(operation.id))
@@ -39,7 +39,7 @@ export const OperationsIncomeItem: FC<Props> = ({ operation }) => {
 
       <div className="flex items-center gap-3 text-sm text-zinc-600">
         <div className="flex-none">{formatDate(operation.date)}</div>
-        {!operationsQuery.walletId && (
+        {!operationsPayload.walletId && (
           <div className="flex-auto min-w-0 text-right truncate">
             {operation.incomeWallet.name}
           </div>

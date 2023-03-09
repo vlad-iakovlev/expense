@@ -7,31 +7,35 @@ import { Card, CardSelectOption } from '../../ui-kit/Card'
 
 export const OperationInfoExpenseWallet: FC = () => {
   const { setLoading } = useLoadingContext()
-  const { operation, mutateOperation } = useOperationContext()
-  const { wallets } = useWalletsContext()
+  const { operationResponse, mutateOperation } = useOperationContext()
+  const { walletsResponse } = useWalletsContext()
 
   const options = useMemo(() => {
-    return wallets.map((wallet) => ({
-      id: wallet.id,
-      name: `${wallet.name} ${wallet.currency.name}`,
-    }))
-  }, [wallets])
+    return (
+      walletsResponse?.wallets.map((wallet) => ({
+        id: wallet.id,
+        name: `${wallet.name} ${wallet.currency.name}`,
+      })) || []
+    )
+  }, [walletsResponse])
 
   const value = useMemo(
     () => ({
-      id: operation.expenseWallet?.id || '',
-      name: `${operation.expenseWallet?.name} ${operation.expenseWallet?.currency.name}`,
+      id: operationResponse?.operation.expenseWallet?.id || '',
+      name: `${operationResponse?.operation.expenseWallet?.name} ${operationResponse?.operation.expenseWallet?.currency.name}`,
     }),
-    [operation.expenseWallet]
+    [operationResponse?.operation.expenseWallet]
   )
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
+      if (!operationResponse) return
+
       try {
         setLoading(true)
 
         await updateOperation({
-          operationId: operation.id,
+          operationId: operationResponse.operation.id,
           expenseWalletId: option.id,
         })
 
@@ -40,16 +44,20 @@ export const OperationInfoExpenseWallet: FC = () => {
         setLoading(false)
       }
     },
-    [mutateOperation, operation.id, setLoading]
+    [mutateOperation, operationResponse, setLoading]
   )
 
-  if (!operation.expenseWallet) {
+  if (!operationResponse) {
+    return <Card.Skeleton />
+  }
+
+  if (!operationResponse.operation.expenseWallet) {
     return null
   }
 
   return (
     <Card.Select
-      name={operation.incomeWallet ? 'From Wallet' : 'Wallet'}
+      name={operationResponse.operation.incomeWallet ? 'From Wallet' : 'Wallet'}
       options={options}
       value={value}
       onChange={handleChange}

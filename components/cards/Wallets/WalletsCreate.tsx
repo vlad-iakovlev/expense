@@ -10,23 +10,29 @@ import { Button } from '../../ui-kit/Button'
 export const WalletsCreate = () => {
   const router = useRouter()
   const { setLoading } = useLoadingContext()
-  const { group } = useGroupContext()
+  const { groupResponse } = useGroupContext()
 
   const handleCreate = useCallback(async () => {
+    if (!groupResponse) return
+
     try {
       setLoading(true)
 
       const { wallet } = await createWallet({
-        groupId: group.id,
+        groupId: groupResponse.group.id,
         name: 'Untitled',
-        currencyId: group.defaultCurrency.id,
+        currencyId: groupResponse.group.defaultCurrency.id,
       })
 
       await router.push(ROUTES.WALLET(wallet.id))
     } finally {
       setLoading(false)
     }
-  }, [group.defaultCurrency.id, group.id, router, setLoading])
+  }, [groupResponse, router, setLoading])
+
+  if (!groupResponse) {
+    return null
+  }
 
   return (
     <Button rounded size="sm" iconStart={<PlusIcon />} onClick={handleCreate} />

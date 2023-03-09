@@ -22,7 +22,6 @@ export type { CardInputProps } from './CardInput'
 export type { CardPaginationProps } from './CardPagination'
 export type { CardPopupProps } from './CardPopup'
 export type { CardSelectOption, CardSelectProps } from './CardSelect'
-export type { CardSkeletonProps } from './CardSkeleton'
 export type { CardTextProps } from './CardText'
 export type { CardTitleProps } from './CardTitle'
 

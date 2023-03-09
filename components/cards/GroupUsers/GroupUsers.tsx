@@ -4,15 +4,14 @@ import { Avatar } from '../../ui-kit/Avatar'
 import { Card } from '../../ui-kit/Card'
 
 export const GroupUsersCard: FC = () => {
-  const { group } = useGroupContext()
+  const { groupResponse } = useGroupContext()
 
   return (
     <Card>
       <Card.Title title="Users" />
+      {groupResponse?.group.users.length !== 0 && <Card.Divider />}
 
-      <Card.Divider />
-
-      {group.users.map((user) => (
+      {groupResponse?.group.users.map((user) => (
         <Card.Text
           key={user.id}
           start={
@@ -22,6 +21,14 @@ export const GroupUsersCard: FC = () => {
           {user.name}
         </Card.Text>
       ))}
+
+      {!groupResponse && (
+        <>
+          <Card.Skeleton />
+          <Card.Skeleton />
+          <Card.Skeleton />
+        </>
+      )}
     </Card>
   )
 }

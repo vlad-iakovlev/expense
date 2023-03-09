@@ -4,8 +4,8 @@ import { useOperationsContext } from '../../contexts/Operations'
 import { Card, CardSelectOption } from '../../ui-kit/Card'
 
 export const OperationsCategory: FC = () => {
-  const { categories } = useCategoriesContext()
-  const { category, setCategory } = useOperationsContext()
+  const { categoriesResponse } = useCategoriesContext()
+  const { operationsPayload } = useOperationsContext()
 
   const options = useMemo<CardSelectOption[]>(() => {
     return [
@@ -13,22 +13,25 @@ export const OperationsCategory: FC = () => {
         id: '',
         name: 'Any',
       },
-      ...categories.map((category) => ({
+      ...(categoriesResponse?.categories.map((category) => ({
         id: category,
         name: category,
-      })),
+      })) || []),
     ]
-  }, [categories])
+  }, [categoriesResponse])
 
   const value = useMemo(() => {
-    return options.find((option) => category === option.id) || options[0]
-  }, [category, options])
+    return {
+      id: operationsPayload.category,
+      name: operationsPayload.category || 'Any',
+    }
+  }, [operationsPayload.category])
 
   const handleChange = useCallback(
     (option: CardSelectOption) => {
-      setCategory(option.id)
+      operationsPayload.setCategory(option.id)
     },
-    [setCategory]
+    [operationsPayload]
   )
 
   return (

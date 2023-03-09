@@ -1,10 +1,14 @@
 import { createContext, FC, ReactNode, useMemo } from 'react'
 import { getWallets } from '../../api/client/wallets'
-import { GetWalletsQuery, GetWalletsResponse } from '../../api/types/wallets'
+import { GetWalletsResponse } from '../../api/types/wallets'
 import { useSwrContext } from '../../hooks/useSwrContext'
 import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
-type ContextValue = SwrValue<GetWalletsResponse, GetWalletsQuery>
+interface WalletsPayload {
+  groupId?: string
+}
+
+type ContextValue = SwrValue<GetWalletsResponse, WalletsPayload>
 
 interface Props {
   groupId?: string
@@ -18,6 +22,7 @@ export const WalletsProvider: FC<Props> = ({ groupId, children }) => {
   const value = useSwrValue(
     'wallet',
     getWallets,
+    useMemo(() => ({ groupId }), [groupId]),
     useMemo(() => ({ groupId }), [groupId])
   )
 
@@ -30,8 +35,8 @@ export const useWalletsContext = () => {
   const context = useSwrContext(WalletsContext)
 
   return {
-    wallets: context.data.wallets,
-    walletsQuery: context.query,
+    walletsResponse: context.response,
+    walletsPayload: context.payload,
     mutateWallets: context.mutate,
   }
 }

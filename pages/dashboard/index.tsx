@@ -8,7 +8,7 @@ import { LoadingProvider } from '../../components/contexts/Loading'
 import { OperationsProvider } from '../../components/contexts/Operations'
 import { StatisticsByCategoryProvider } from '../../components/contexts/StatisticsByCategory'
 import { WalletsProvider } from '../../components/contexts/Wallets'
-import { Dashboard, DashboardSkeleton } from '../../components/Dashboard'
+import { Dashboard } from '../../components/Dashboard'
 
 const DashboardPage: NextPage = () => (
   <LoadingProvider>
@@ -19,10 +19,7 @@ const DashboardPage: NextPage = () => (
             <OperationsProvider>
               <WalletsProvider>
                 <StatisticsByCategoryProvider>
-                  <CheckSwrContexts
-                    renderLoading={() => <DashboardSkeleton />}
-                    renderContent={() => <Dashboard />}
-                  />
+                  <CheckSwrContexts renderContent={() => <Dashboard />} />
                 </StatisticsByCategoryProvider>
               </WalletsProvider>
             </OperationsProvider>

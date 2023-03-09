@@ -7,11 +7,11 @@ import { OperationsCard } from '../cards/Operations'
 import { StatisticsCard } from '../cards/Statistics'
 import { WalletsCard } from '../cards/Wallets'
 import { useGroupContext } from '../contexts/Group'
-import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
+import { Breadcrumbs, BreadcrumbSkeleton } from '../ui-kit/Breadcrumbs'
 import { Columns } from '../ui-kit/Columns'
 
 export const Group: FC = () => {
-  const { group } = useGroupContext()
+  const { groupResponse } = useGroupContext()
 
   const parents = useMemo(() => {
     return [
@@ -25,10 +25,18 @@ export const Group: FC = () => {
   return (
     <>
       <Head>
-        <title>{`Expense > ${group.name}`}</title>
+        <title>
+          {groupResponse
+            ? `Expense > ${groupResponse.group.name}`
+            : 'Loading...'}
+        </title>
       </Head>
 
-      <Breadcrumbs title={group.name} parents={parents} />
+      {groupResponse ? (
+        <Breadcrumbs title={groupResponse.group.name} parents={parents} />
+      ) : (
+        <BreadcrumbSkeleton withParent />
+      )}
 
       <Columns>
         <GroupInfoCard />

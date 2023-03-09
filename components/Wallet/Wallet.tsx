@@ -5,11 +5,11 @@ import { OperationsCard } from '../cards/Operations'
 import { StatisticsCard } from '../cards/Statistics'
 import { WalletInfoCard } from '../cards/WalletInfo'
 import { useWalletContext } from '../contexts/Wallet'
-import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
+import { Breadcrumbs, BreadcrumbSkeleton } from '../ui-kit/Breadcrumbs'
 import { Columns } from '../ui-kit/Columns'
 
 export const Wallet: FC = () => {
-  const { wallet } = useWalletContext()
+  const { walletResponse } = useWalletContext()
 
   const parents = useMemo(() => {
     return [
@@ -17,23 +17,35 @@ export const Wallet: FC = () => {
         href: ROUTES.DASHBOARD,
         title: 'Dashboard',
       },
-      {
-        href: ROUTES.GROUP(wallet.group.id),
-        title: wallet.group.name,
-      },
+      ...(walletResponse
+        ? [
+            {
+              href: ROUTES.GROUP(walletResponse.wallet.group.id),
+              title: walletResponse.wallet.group.name,
+            },
+          ]
+        : []),
     ]
-  }, [wallet.group.id, wallet.group.name])
+  }, [walletResponse])
 
   return (
     <>
       <Head>
-        <title>{`Expense > ${wallet.name} ${wallet.currency.name}`}</title>
+        <title>
+          {walletResponse
+            ? `Expense > ${walletResponse.wallet.name} ${walletResponse.wallet.currency.name}`
+            : 'Loading...'}
+        </title>
       </Head>
 
-      <Breadcrumbs
-        title={`${wallet.name} ${wallet.currency.name}`}
-        parents={parents}
-      />
+      {walletResponse ? (
+        <Breadcrumbs
+          title={`${walletResponse.wallet.name} ${walletResponse.wallet.currency.name}`}
+          parents={parents}
+        />
+      ) : (
+        <BreadcrumbSkeleton withParent />
+      )}
 
       <Columns>
         <WalletInfoCard />

@@ -10,49 +10,55 @@ import { StatisticsCharts } from './StatisticsCharts'
 import { StatisticsPeriod } from './StatisticsPeriod'
 
 export const StatisticsCard: FC = () => {
-  const { period, statisticsByCategory } = useStatisticsByCategoryContext()
+  const { statisticsByCategoryResponse, statisticsByCategoryPayload } =
+    useStatisticsByCategoryContext()
 
   const [enabledCategories, setEnabledCategories] = useState<
     Record<string, boolean>
   >({})
 
   const colors = useMemo(() => {
-    return statisticsByCategory.items.reduce<Record<string, string>>(
-      (acc, item, index) => {
+    return (
+      statisticsByCategoryResponse?.statisticsByCategory.items.reduce<
+        Record<string, string>
+      >((acc, item, index) => {
         acc[item.category] = interpolateTurbo(
-          index / (statisticsByCategory.items.length - 1)
+          index /
+            (statisticsByCategoryResponse.statisticsByCategory.items.length - 1)
         )
         return acc
-      },
-      {}
+      }, {}) || {}
     )
-  }, [statisticsByCategory.items])
+  }, [statisticsByCategoryResponse])
 
   const items = useMemo(() => {
-    return statisticsByCategory.items.map((item) => ({
-      ...item,
-      ...(!enabledCategories[item.category] && {
-        incomeAmount: 0,
-        expenseAmount: 0,
-      }),
-    }))
-  }, [enabledCategories, statisticsByCategory.items])
+    return (
+      statisticsByCategoryResponse?.statisticsByCategory.items.map((item) => ({
+        ...item,
+        ...(!enabledCategories[item.category] && {
+          incomeAmount: 0,
+          expenseAmount: 0,
+        }),
+      })) || []
+    )
+  }, [enabledCategories, statisticsByCategoryResponse])
 
   useEffect(() => {
+    if (!statisticsByCategoryResponse) return
+
     setEnabledCategories(
-      statisticsByCategory.items.reduce<Record<string, boolean>>(
-        (acc, item) => {
-          acc[item.category] = true
-          return acc
-        },
-        {}
-      )
+      statisticsByCategoryResponse.statisticsByCategory.items.reduce<
+        Record<string, boolean>
+      >((acc, item) => {
+        acc[item.category] = true
+        return acc
+      }, {})
     )
-  }, [statisticsByCategory.items])
+  }, [statisticsByCategoryResponse])
 
   if (
-    period === StatisticsByCategoryPeriod.ALL &&
-    !statisticsByCategory.items.length
+    statisticsByCategoryPayload.period === StatisticsByCategoryPeriod.ALL &&
+    !statisticsByCategoryResponse?.statisticsByCategory.items.length
   ) {
     return null
   }
@@ -60,24 +66,27 @@ export const StatisticsCard: FC = () => {
   return (
     <Card>
       <Card.Title title="Statistics" />
-
       <Card.Divider />
-
       <StatisticsPeriod />
+      <StatisticsCharts items={items} colors={colors} />
 
-      {statisticsByCategory.items.length ? (
-        <>
-          <StatisticsCharts items={items} colors={colors} />
-
-          <StatisticsCategories
-            currency={statisticsByCategory.currency}
-            items={statisticsByCategory.items}
-            colors={colors}
-            enabled={enabledCategories}
-            onChangeEnabled={setEnabledCategories}
-          />
-        </>
+      {statisticsByCategoryResponse?.statisticsByCategory.items.length ? (
+        <StatisticsCategories
+          currency={statisticsByCategoryResponse.statisticsByCategory.currency}
+          items={statisticsByCategoryResponse.statisticsByCategory.items}
+          colors={colors}
+          enabledCategories={enabledCategories}
+          setEnabledCategories={setEnabledCategories}
+        />
       ) : null}
+
+      {!statisticsByCategoryResponse && (
+        <>
+          <Card.Skeleton />
+          <Card.Skeleton />
+          <Card.Skeleton />
+        </>
+      )}
     </Card>
   )
 }

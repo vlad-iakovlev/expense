@@ -10,9 +10,11 @@ import { Button } from '../../ui-kit/Button'
 export const OperationsCreate = () => {
   const router = useRouter()
   const { setLoading } = useLoadingContext()
-  const { wallet } = useWalletContext()
+  const { walletResponse } = useWalletContext()
 
   const handleCreate = useCallback(async () => {
+    if (!walletResponse) return
+
     try {
       setLoading(true)
 
@@ -22,7 +24,7 @@ export const OperationsCreate = () => {
         date: new Date().toISOString(),
         incomeAmount: 0,
         expenseAmount: 0,
-        incomeWalletId: wallet.id,
+        incomeWalletId: walletResponse.wallet.id,
         expenseWalletId: null,
       })
 
@@ -30,7 +32,11 @@ export const OperationsCreate = () => {
     } finally {
       setLoading(false)
     }
-  }, [router, setLoading, wallet.id])
+  }, [router, setLoading, walletResponse])
+
+  if (!walletResponse) {
+    return null
+  }
 
   return (
     <Button rounded size="sm" iconStart={<PlusIcon />} onClick={handleCreate} />
