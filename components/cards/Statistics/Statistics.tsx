@@ -39,7 +39,6 @@ export const StatisticsCard: FC = () => {
               cy="24.5%"
               innerRadius="60%"
               outerRadius="90%"
-              paddingAngle={5}
               dataKey="incomeAmount"
             >
               {statisticsByCategory.items.map((item) => (
@@ -60,7 +59,6 @@ export const StatisticsCard: FC = () => {
               cy="75.5%"
               innerRadius="60%"
               outerRadius="90%"
-              paddingAngle={5}
               dataKey="expenseAmount"
             >
               {statisticsByCategory.items.map((item) => (
