@@ -30,43 +30,49 @@ export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
     ref
   ) {
     const rootRef = useRef<HTMLDivElement>(null)
+    const [scroll, setScroll] = useState<{ top: number; left: number }>()
     const [anchorRect, setAnchorRect] = useState<DOMRect>()
 
     const portalStyle = useMemo(() => {
+      if (!scroll || !anchorRect) {
+        return {
+          top: 0,
+          left: 0,
+        }
+      }
+
       switch (position) {
         case 'above-left':
           return {
-            top: anchorRect?.top,
-            left: anchorRect?.left,
+            top: anchorRect.top + scroll.top,
+            left: anchorRect.left + scroll.left,
           }
 
         case 'above-right':
           return {
-            top: anchorRect?.top,
-            left: anchorRect?.right,
+            top: anchorRect.top + scroll.top,
+            left: anchorRect.right + scroll.left,
           }
 
         case 'below-left':
           return {
-            top: anchorRect?.bottom,
-            left: anchorRect?.left,
+            top: anchorRect.bottom + scroll.top,
+            left: anchorRect.left + scroll.left,
           }
 
         case 'below-right':
           return {
-            top: anchorRect?.bottom,
-            left: anchorRect?.right,
+            top: anchorRect.bottom + scroll.top,
+            left: anchorRect.right + scroll.left,
           }
       }
-    }, [
-      anchorRect?.bottom,
-      anchorRect?.left,
-      anchorRect?.right,
-      anchorRect?.top,
-      position,
-    ])
+    }, [anchorRect, position, scroll])
 
     const updateRects = useCallback(() => {
+      setScroll({
+        top: document.documentElement.scrollTop,
+        left: document.documentElement.scrollLeft,
+      })
       setAnchorRect(anchorRef.current?.getBoundingClientRect())
     }, [anchorRef])
 
@@ -80,10 +86,12 @@ export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
     )
 
     useEffect(() => {
-      updateRects()
-      window.addEventListener('resize', updateRects, { passive: true })
-      return () => window.removeEventListener('resize', updateRects)
-    }, [updateRects])
+      if (isOpen) {
+        updateRects()
+        window.addEventListener('resize', updateRects, { passive: true })
+        return () => window.removeEventListener('resize', updateRects)
+      }
+    }, [isOpen, updateRects])
 
     useEffect(() => {
       if (isOpen) {
