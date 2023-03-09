@@ -13,6 +13,7 @@ export const StatisticsCharts: FC<Props> = ({ items, colors }) => {
       <ResponsiveContainer className="flex-1 aspect-square">
         <PieChart>
           <Pie
+            className="focus:outline-none"
             data={items}
             dataKey="incomeAmount"
             cx="50%"
@@ -35,6 +36,7 @@ export const StatisticsCharts: FC<Props> = ({ items, colors }) => {
       <ResponsiveContainer className="flex-1 aspect-square">
         <PieChart>
           <Pie
+            className="focus:outline-none"
             data={items}
             dataKey="expenseAmount"
             cx="50%"
