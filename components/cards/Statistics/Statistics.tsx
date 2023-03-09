@@ -17,7 +17,7 @@ export const StatisticsCard: FC = () => {
     return statisticsByCategory.items.reduce<Record<string, string>>(
       (acc, item, index) => {
         acc[item.category] = interpolateTurbo(
-          index / statisticsByCategory.items.length
+          index / (statisticsByCategory.items.length - 1)
         )
         return acc
       },
