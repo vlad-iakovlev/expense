@@ -6,6 +6,8 @@ interface GetCategoriesStatisticsParams {
   type: 'income' | 'expense'
   groupId?: string
   walletId?: string
+  startDate?: string | Date
+  endDate?: string | Date
   currency: ClientCurrency
   wallets: Omit<ClientWallet, 'balance'>[]
 }
@@ -24,6 +26,10 @@ export const getStatisticsByCategoryItems = async (
             has: req.session.user.id,
           },
         },
+      },
+      date: {
+        gte: params.startDate,
+        lt: params.endDate,
       },
     },
     by: ['category', `${params.type}WalletId`],

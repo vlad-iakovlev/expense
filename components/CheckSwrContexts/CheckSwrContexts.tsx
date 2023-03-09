@@ -8,6 +8,7 @@ import { GroupsContext } from '../contexts/Groups'
 import { useLoadingContext } from '../contexts/Loading'
 import { OperationContext } from '../contexts/Operation'
 import { OperationsContext } from '../contexts/Operations'
+import { StatisticsByCategoryContext } from '../contexts/StatisticsByCategory'
 import { WalletContext } from '../contexts/Wallet'
 import { WalletsContext } from '../contexts/Wallets'
 
@@ -32,6 +33,7 @@ export const CheckSwrContexts: FC<Props> = ({
     useContext(GroupsContext),
     useContext(OperationContext),
     useContext(OperationsContext),
+    useContext(StatisticsByCategoryContext),
     useContext(WalletContext),
     useContext(WalletsContext),
   ]

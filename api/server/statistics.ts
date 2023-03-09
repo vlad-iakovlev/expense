@@ -4,7 +4,10 @@ import { getGroupDefaultCurrency } from '../../utils/server/getGroupDefaultCurre
 import { getStatisticsByCategoryItems } from '../../utils/server/getStatisticsByCategoryItems'
 import { getWalletCurrency } from '../../utils/server/getWalletCurrency'
 import { ClientCurrency } from '../types/currencies'
-import { GetStatisticsByCategoryResponse } from '../types/statistics'
+import {
+  GetStatisticsByCategoryResponse,
+  StatisticsByCategoryItem,
+} from '../types/statistics'
 import { getStatisticsByCategoryQuerySchema } from './schemas/statistics'
 import { walletSelector } from './selectors'
 
@@ -38,6 +41,8 @@ export const getStatisticsByCategory: NextApiHandler<
     type: 'income',
     groupId: query.groupId,
     walletId: query.walletId,
+    startDate: query.startDate,
+    endDate: query.endDate,
     currency,
     wallets,
   })
@@ -46,14 +51,13 @@ export const getStatisticsByCategory: NextApiHandler<
     type: 'expense',
     groupId: query.groupId,
     walletId: query.walletId,
+    startDate: query.startDate,
+    endDate: query.endDate,
     currency,
     wallets,
   })
 
-  const itemsMap: Record<
-    string,
-    GetStatisticsByCategoryResponse['statisticsByCategory']['items'][number]
-  > = {}
+  const itemsMap: Record<string, StatisticsByCategoryItem> = {}
 
   incomes.forEach((item) => {
     itemsMap[item.category] ??= {
