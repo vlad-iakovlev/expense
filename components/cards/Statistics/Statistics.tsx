@@ -1,4 +1,4 @@
-import { interpolatePlasma } from 'd3-scale-chromatic'
+import { interpolateTurbo } from 'd3-scale-chromatic'
 import { FC, useEffect, useMemo, useState } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
 import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory'
@@ -16,7 +16,7 @@ export const StatisticsCard: FC = () => {
   const colors = useMemo(() => {
     return statisticsByCategory.items.reduce<Record<string, string>>(
       (acc, item, index) => {
-        acc[item.category] = interpolatePlasma(
+        acc[item.category] = interpolateTurbo(
           index / statisticsByCategory.items.length
         )
         return acc
