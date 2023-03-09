@@ -32,7 +32,7 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        <div className="fixed inset-0 bg-zinc-500 bg-opacity-75 transition-opacity" />
       </Transition.Child>
 
       <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -58,7 +58,7 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({
                 <p className="mt-2 text-sm text-zinc-600">{description}</p>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row-reverse px-4 sm:px-6 py-3 gap-3 bg-gray-50">
+            <div className="flex flex-col sm:flex-row-reverse px-4 sm:px-6 py-3 gap-3 bg-zinc-50">
               <Button theme="error" onClick={onConfirm}>
                 {action}
               </Button>

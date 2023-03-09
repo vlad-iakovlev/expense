@@ -51,6 +51,7 @@ export const HeaderUser: FC = () => {
           <button
             ref={profileButtonRef}
             className="block rounded-full"
+            type="button"
             onClick={handleProfileClick}
           >
             <Avatar
