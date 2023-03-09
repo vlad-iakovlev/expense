@@ -26,8 +26,7 @@ function App({
         <SWRConfig
           value={{
             dedupingInterval: 0,
-            revalidateOnFocus: false,
-            revalidateOnReconnect: false,
+            focusThrottleInterval: 60000,
           }}
         >
           <Header />
