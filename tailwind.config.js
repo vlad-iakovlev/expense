@@ -14,6 +14,9 @@ module.exports = {
       },
       minHeight: ({ theme }) => ({ ...theme('spacing') }),
       minWidth: ({ theme }) => ({ ...theme('spacing') }),
+      spacing: {
+        15: `${15 * 0.25}rem`,
+      },
     },
   },
   safelist: [

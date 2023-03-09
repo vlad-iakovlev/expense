@@ -44,12 +44,12 @@ export const OperationsCard: FC = () => {
 
       {!operationsResponse && (
         <>
-          <Card.Skeleton />
-          <Card.Skeleton />
-          <Card.Skeleton />
-          <Card.Skeleton />
-          <Card.Skeleton />
-          <Card.Skeleton />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
         </>
       )}
 

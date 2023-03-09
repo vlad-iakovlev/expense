@@ -58,7 +58,7 @@ export const StatisticsCard: FC = () => {
 
   if (
     statisticsByCategoryPayload.period === StatisticsByCategoryPeriod.ALL &&
-    !statisticsByCategoryResponse?.statisticsByCategory.items.length
+    statisticsByCategoryResponse?.statisticsByCategory.items.length === 0
   ) {
     return null
   }
@@ -82,9 +82,12 @@ export const StatisticsCard: FC = () => {
 
       {!statisticsByCategoryResponse && (
         <>
-          <Card.Skeleton />
-          <Card.Skeleton />
-          <Card.Skeleton />
+          <Card.Skeleton type="statistics" />
+          <Card.Skeleton type="statistics" />
+          <Card.Skeleton type="statistics" />
+          <Card.Skeleton type="statistics" />
+          <Card.Skeleton type="statistics" />
+          <Card.Skeleton type="statistics" />
         </>
       )}
     </Card>

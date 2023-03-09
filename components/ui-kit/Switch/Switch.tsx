@@ -14,7 +14,7 @@ export const Switch: FC<SwitchProps> = ({ value, onChange }) => {
   return (
     <button
       className={clsx(
-        'relative flex h-6 w-11 items-center rounded-full transition-colors',
+        'flex items-center w-11 h-6 rounded-full transition-colors',
         {
           'bg-green-700': value,
           'bg-zinc-300': !value,
@@ -25,7 +25,7 @@ export const Switch: FC<SwitchProps> = ({ value, onChange }) => {
     >
       <div
         className={clsx(
-          'h-4 w-4 transform rounded-full bg-white transition-transform',
+          'w-4 h-4 bg-white rounded-full transform transition-transform',
           {
             'translate-x-6': value,
             'translate-x-1': !value,
