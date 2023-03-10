@@ -13,10 +13,10 @@ import { useSwrContext } from '../../hooks/useSwrContext'
 import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
 export enum StatisticsByCategoryPeriod {
+  ALL = 'ALL',
   WEEK = 'WEEK',
   MONTH = 'MONTH',
   YEAR = 'YEAR',
-  ALL = 'ALL',
 }
 
 interface StatisticsByCategoryPayload {
@@ -49,9 +49,11 @@ export const StatisticsByCategoryProvider: FC<ProviderProps> = ({
   children,
 }) => {
   const [period, setPeriod] = useState<StatisticsByCategoryPeriod>(
-    StatisticsByCategoryPeriod.ALL
+    StatisticsByCategoryPeriod.WEEK
   )
-  const [fromDate, setFromDate] = useState<Date>(new Date())
+  const [fromDate, setFromDate] = useState<Date>(
+    fns.startOfWeek(new Date(), { weekStartsOn: 1 })
+  )
 
   const startDate = useMemo(() => {
     if (period !== StatisticsByCategoryPeriod.ALL) {
