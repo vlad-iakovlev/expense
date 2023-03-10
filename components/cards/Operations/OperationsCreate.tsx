@@ -24,8 +24,8 @@ export const OperationsCreate = () => {
         date: new Date().toISOString(),
         incomeAmount: 0,
         expenseAmount: 0,
-        incomeWalletId: walletResponse.wallet.id,
-        expenseWalletId: null,
+        incomeWalletId: null,
+        expenseWalletId: walletResponse.wallet.id,
       })
 
       await router.push(ROUTES.OPERATION(operation.id))
