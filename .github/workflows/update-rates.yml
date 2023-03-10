@@ -3,10 +3,11 @@ name: Update Rates
 on:
   schedule:
     - cron: '0 */6 * * *'
+  workflow_dispatch:
 
 jobs:
   update-rates:
-    if: github.repository == 'vlad-yakovlev/expense' && github.ref == 'refs/heads/main'
+    if: github.repository == 'vlad-yakovlev/expense'
     runs-on: ubuntu-latest
     steps:
       - name: Call update-rates script in Digital Ocean droplet via SSH action
