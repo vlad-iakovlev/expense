@@ -23,8 +23,7 @@ export const StatisticsCard: FC = () => {
         Record<string, string>
       >((acc, item, index) => {
         acc[item.category] = interpolateTurbo(
-          index /
-            (statisticsByCategoryResponse.statisticsByCategory.items.length - 1)
+          index / statisticsByCategoryResponse.statisticsByCategory.items.length
         )
         return acc
       }, {}) || {}
