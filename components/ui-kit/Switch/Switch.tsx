@@ -25,7 +25,7 @@ export const Switch: FC<SwitchProps> = ({ value, onChange }) => {
     >
       <div
         className={clsx(
-          'w-5 h-5 bg-white rounded-full transform transition-transform',
+          'w-5 h-5 bg-white rounded-full shadow-sm transform transition-transform',
           {
             'translate-x-4': value,
             'translate-x-0': !value,
