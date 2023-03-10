@@ -11,7 +11,7 @@ export const CardSkeleton: FC<CardSkeletonProps> = ({ type = 'default' }) => {
       <Card.Text
         start={
           type === 'statistics' && (
-            <div className="w-11 h-6 bg-zinc-900 rounded-full opacity-20" />
+            <div className="w-10 h-6 bg-zinc-900 rounded-full opacity-20" />
           )
         }
       >
