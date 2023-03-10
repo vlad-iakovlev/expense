@@ -1,5 +1,5 @@
 import { interpolateTurbo } from 'd3-scale-chromatic'
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, useCallback, useMemo, useState } from 'react'
 import {
   StatisticsByCategoryPeriod,
   useStatisticsByCategoryContext,
@@ -13,7 +13,7 @@ export const StatisticsCard: FC = () => {
   const { statisticsByCategoryResponse, statisticsByCategoryPayload } =
     useStatisticsByCategoryContext()
 
-  const [enabledCategories, setEnabledCategories] = useState<
+  const [disabledCategories, setDisabledCategories] = useState<
     Record<string, boolean>
   >({})
 
@@ -31,30 +31,36 @@ export const StatisticsCard: FC = () => {
     )
   }, [statisticsByCategoryResponse])
 
-  const items = useMemo(() => {
+  const chartItems = useMemo(() => {
     return (
       statisticsByCategoryResponse?.statisticsByCategory.items.map((item) => ({
         ...item,
-        ...(!enabledCategories[item.category] && {
+        ...(disabledCategories[item.category] && {
           incomeAmount: 0,
           expenseAmount: 0,
         }),
       })) || []
     )
-  }, [enabledCategories, statisticsByCategoryResponse])
+  }, [disabledCategories, statisticsByCategoryResponse])
 
-  useEffect(() => {
-    if (!statisticsByCategoryResponse) return
+  const isCategoryDisabled = useCallback(
+    (category: string) => {
+      return !!disabledCategories[category]
+    },
+    [disabledCategories]
+  )
 
-    setEnabledCategories(
-      statisticsByCategoryResponse.statisticsByCategory.items.reduce<
-        Record<string, boolean>
-      >((acc, item) => {
-        acc[item.category] = true
-        return acc
-      }, {})
-    )
-  }, [statisticsByCategoryResponse])
+  const setCategoryDisabled = useCallback(
+    (category: string, disabled: boolean) => {
+      setDisabledCategories((disabledCategories) => {
+        return {
+          ...disabledCategories,
+          [category]: disabled,
+        }
+      })
+    },
+    []
+  )
 
   if (
     statisticsByCategoryPayload.period === StatisticsByCategoryPeriod.ALL &&
@@ -68,15 +74,15 @@ export const StatisticsCard: FC = () => {
       <Card.Title title="Statistics" />
       <Card.Divider />
       <StatisticsPeriod />
-      <StatisticsCharts items={items} colors={colors} />
+      <StatisticsCharts items={chartItems} colors={colors} />
 
       {statisticsByCategoryResponse?.statisticsByCategory.items.length ? (
         <StatisticsCategories
           currency={statisticsByCategoryResponse.statisticsByCategory.currency}
           items={statisticsByCategoryResponse.statisticsByCategory.items}
           colors={colors}
-          enabledCategories={enabledCategories}
-          setEnabledCategories={setEnabledCategories}
+          isCategoryDisabled={isCategoryDisabled}
+          setCategoryDisabled={setCategoryDisabled}
         />
       ) : null}
 

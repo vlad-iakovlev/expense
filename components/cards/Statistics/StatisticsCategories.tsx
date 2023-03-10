@@ -9,16 +9,16 @@ interface Props {
   currency: ClientCurrency
   items: StatisticsByCategoryItem[]
   colors: Record<string, string>
-  enabledCategories: Record<string, boolean>
-  setEnabledCategories: (enabled: Record<string, boolean>) => void
+  isCategoryDisabled: (category: string) => boolean
+  setCategoryDisabled: (category: string, disabled: boolean) => void
 }
 
 export const StatisticsCategories: FC<Props> = ({
   currency,
   items,
   colors,
-  enabledCategories,
-  setEnabledCategories,
+  isCategoryDisabled,
+  setCategoryDisabled,
 }) => {
   return (
     <>
@@ -27,13 +27,8 @@ export const StatisticsCategories: FC<Props> = ({
           key={item.category}
           start={
             <Switch
-              value={enabledCategories[item.category]}
-              onChange={(value) => {
-                setEnabledCategories({
-                  ...enabledCategories,
-                  [item.category]: value,
-                })
-              }}
+              value={!isCategoryDisabled(item.category)}
+              onChange={(value) => setCategoryDisabled(item.category, !value)}
             />
           }
           end={
