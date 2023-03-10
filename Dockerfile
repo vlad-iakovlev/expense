@@ -11,6 +11,6 @@ RUN npm run generate-models
 RUN npm run build
 RUN npm prune --production
 
-RUN crontab ./crontab
+RUN echo "0 */6 * * * root npm run update-rates >/dev/stdout 2>/dev/stderr" >> /etc/crontab
 
 CMD [ "/usr/bin/supervisord" ]
