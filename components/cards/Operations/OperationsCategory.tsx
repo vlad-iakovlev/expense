@@ -34,6 +34,10 @@ export const OperationsCategory: FC = () => {
     [operationsPayload]
   )
 
+  if (!categoriesResponse) {
+    return <Card.Skeleton />
+  }
+
   return (
     <Card.Select
       name="Category"
