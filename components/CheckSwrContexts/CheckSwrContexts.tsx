@@ -49,16 +49,14 @@ export const CheckSwrContexts: FC<Props> = ({
       <Portal>
         <Transition
           show={isLoading}
-          as={Fragment}
-          enter="ease-out duration-300"
+          className="fixed inset-0 bg-zinc-500"
+          enter="transition ease-out duration-300"
           enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
+          enterTo="opacity-75"
+          leave="transition ease-in duration-200"
+          leaveFrom="opacity-75"
           leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 z-50 bg-zinc-500 bg-opacity-75 transition-opacity" />
-        </Transition>
+        />
       </Portal>
     </>
   )
