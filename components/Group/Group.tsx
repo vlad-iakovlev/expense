@@ -39,8 +39,10 @@ export const Group: FC = () => {
       )}
 
       <Columns>
-        <GroupInfoCard />
-        <GroupUsersCard />
+        <div className="flex flex-col gap-6">
+          <GroupInfoCard />
+          <GroupUsersCard />
+        </div>
         <WalletsCard />
         <OperationsCard />
         <StatisticsCard />

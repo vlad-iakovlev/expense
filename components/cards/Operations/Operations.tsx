@@ -42,17 +42,6 @@ export const OperationsCard: FC = () => {
         </Fragment>
       ))}
 
-      {!operationsResponse && (
-        <>
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-        </>
-      )}
-
       {operationsResponse?.hasPrevOperations ||
       operationsResponse?.hasNextOperations ? (
         <>
@@ -66,6 +55,23 @@ export const OperationsCard: FC = () => {
           />
         </>
       ) : null}
+
+      {!operationsResponse && (
+        <>
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Skeleton type="operation" />
+          <Card.Divider />
+          <Card.Skeleton />
+        </>
+      )}
     </Card>
   )
 }
