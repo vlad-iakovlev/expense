@@ -79,10 +79,16 @@ export const getStatisticsByCategory: NextApiHandler<
     itemsMap[item.category].expenseAmount += item.amount
   })
 
+  const items = Object.values(itemsMap).sort((item1, item2) => {
+    if (item1.category < item2.category) return -1
+    if (item1.category > item2.category) return 1
+    return 0
+  })
+
   res.status(200).json({
     statisticsByCategory: {
       currency,
-      items: Object.values(itemsMap),
+      items,
     },
   })
 }
