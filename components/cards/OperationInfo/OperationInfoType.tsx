@@ -45,10 +45,10 @@ export const OperationInfoType: FC = () => {
         setLoading(true)
 
         const amount =
-          operationResponse.operation.expenseAmount ??
+          operationResponse.operation.expenseAmount ||
           operationResponse.operation.incomeAmount
         const wallet =
-          operationResponse.operation.expenseWallet ??
+          operationResponse.operation.expenseWallet ||
           operationResponse.operation.incomeWallet
 
         switch (option.id) {
