@@ -36,9 +36,6 @@ export const getStatisticsByCategoryItems = async (
     _sum: {
       [`${params.type}Amount`]: true,
     },
-    orderBy: {
-      category: 'asc',
-    },
   })
 
   return rawItems.map((item) => {
