@@ -1,60 +1,93 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
+import { ClientCurrency } from '../../../api/types/currencies'
 import { StatisticsByCategoryItem } from '../../../api/types/statistics'
+import { Amount } from '../../ui-kit/Amount'
 
 interface Props {
+  currency?: ClientCurrency
   items: StatisticsByCategoryItem[]
   colors: Record<string, string>
 }
 
-export const StatisticsCharts: FC<Props> = ({ items, colors }) => {
-  return (
-    <div className="flex gap-3 px-4 sm:px-6 py-2">
-      <ResponsiveContainer className="flex-1 aspect-square">
-        <PieChart>
-          <Pie
-            className="focus:outline-none"
-            data={items}
-            dataKey="incomeAmount"
-            cx="50%"
-            cy="50%"
-            innerRadius="70%"
-            outerRadius="100%"
-            minAngle={2}
-            animationBegin={0}
-          >
-            {items.map((item) => (
-              <Cell key={item.category} fill={colors[item.category]} />
-            ))}
-          </Pie>
-          <text x="50%" y="50%" alignmentBaseline="middle" textAnchor="middle">
-            Incomes
-          </text>
-        </PieChart>
-      </ResponsiveContainer>
+export const StatisticsCharts: FC<Props> = ({ currency, items, colors }) => {
+  const totalIncome = useMemo(() => {
+    return items.reduce<number>((acc, item) => acc + item.incomeAmount, 0)
+  }, [items])
 
-      <ResponsiveContainer className="flex-1 aspect-square">
-        <PieChart>
-          <Pie
-            className="focus:outline-none"
-            data={items}
-            dataKey="expenseAmount"
-            cx="50%"
-            cy="50%"
-            innerRadius="70%"
-            outerRadius="100%"
-            minAngle={2}
-            animationBegin={0}
-          >
-            {items.map((item) => (
-              <Cell key={item.category} fill={colors[item.category]} />
-            ))}
-          </Pie>
-          <text x="50%" y="50%" alignmentBaseline="middle" textAnchor="middle">
-            Expenses
-          </text>
-        </PieChart>
-      </ResponsiveContainer>
+  const totalExpense = useMemo(() => {
+    return items.reduce<number>((acc, item) => acc + item.expenseAmount, 0)
+  }, [items])
+
+  return (
+    <div className="flex gap-3 px-4 sm:px-6 py-2 text-sm">
+      <div className="relative flex-1 flex flex-col items-center justify-center aspect-square">
+        <ResponsiveContainer className="absolute inset-0">
+          <PieChart>
+            <Pie
+              className="focus:outline-none"
+              data={items}
+              dataKey="incomeAmount"
+              cx="50%"
+              cy="50%"
+              innerRadius="70%"
+              outerRadius="100%"
+              minAngle={2}
+              animationBegin={0}
+            >
+              {items.map((item) => (
+                <Cell key={item.category} fill={colors[item.category]} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+
+        <div className="relative">Incomes</div>
+        {currency ? (
+          <Amount
+            className="relative font-medium"
+            amount={totalIncome}
+            currency={currency}
+            type="income"
+          />
+        ) : (
+          <div className="relative w-12 h-3 my-1 bg-zinc-900 rounded-full opacity-20 animate-pulse" />
+        )}
+      </div>
+
+      <div className="relative flex-1 flex flex-col items-center justify-center aspect-square">
+        <ResponsiveContainer className="absolute inset-0">
+          <PieChart>
+            <Pie
+              className="focus:outline-none"
+              data={items}
+              dataKey="expenseAmount"
+              cx="50%"
+              cy="50%"
+              innerRadius="70%"
+              outerRadius="100%"
+              minAngle={2}
+              animationBegin={0}
+            >
+              {items.map((item) => (
+                <Cell key={item.category} fill={colors[item.category]} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+
+        <div className="relative">Expenses</div>
+        {currency ? (
+          <Amount
+            className="relative font-medium"
+            amount={totalExpense}
+            currency={currency}
+            type="expense"
+          />
+        ) : (
+          <div className="relative w-12 h-3 my-1 bg-zinc-900 rounded-full opacity-20 animate-pulse" />
+        )}
+      </div>
     </div>
   )
 }

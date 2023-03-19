@@ -73,7 +73,12 @@ export const StatisticsCard: FC = () => {
       <Card.Title title="Statistics" />
       <Card.Divider />
       <StatisticsPeriod />
-      <StatisticsCharts items={chartItems} colors={colors} />
+
+      <StatisticsCharts
+        currency={statisticsByCategoryResponse?.statisticsByCategory.currency}
+        items={chartItems}
+        colors={colors}
+      />
 
       {statisticsByCategoryResponse?.statisticsByCategory.items.length ? (
         <StatisticsCategories
