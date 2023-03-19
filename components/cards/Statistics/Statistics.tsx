@@ -1,4 +1,3 @@
-import { interpolateTurbo } from 'd3-scale-chromatic'
 import { FC, useCallback, useMemo, useState } from 'react'
 import {
   StatisticsByCategoryPeriod,
@@ -16,19 +15,6 @@ export const StatisticsCard: FC = () => {
   const [disabledCategories, setDisabledCategories] = useState<
     Record<string, boolean>
   >({})
-
-  const colors = useMemo(() => {
-    return (
-      statisticsByCategoryResponse?.statisticsByCategory.items.reduce<
-        Record<string, string>
-      >((acc, item, index) => {
-        acc[item.category] = interpolateTurbo(
-          index / statisticsByCategoryResponse.statisticsByCategory.items.length
-        )
-        return acc
-      }, {}) || {}
-    )
-  }, [statisticsByCategoryResponse])
 
   const chartItems = useMemo(() => {
     return (
@@ -77,14 +63,12 @@ export const StatisticsCard: FC = () => {
       <StatisticsCharts
         currency={statisticsByCategoryResponse?.statisticsByCategory.currency}
         items={chartItems}
-        colors={colors}
       />
 
       {statisticsByCategoryResponse?.statisticsByCategory.items.length ? (
         <StatisticsCategories
           currency={statisticsByCategoryResponse.statisticsByCategory.currency}
           items={statisticsByCategoryResponse.statisticsByCategory.items}
-          colors={colors}
           isCategoryDisabled={isCategoryDisabled}
           setCategoryDisabled={setCategoryDisabled}
         />

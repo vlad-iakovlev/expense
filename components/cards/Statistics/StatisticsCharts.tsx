@@ -2,15 +2,15 @@ import { FC, useMemo } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
 import { ClientCurrency } from '../../../api/types/currencies'
 import { StatisticsByCategoryItem } from '../../../api/types/statistics'
+import { stringToColor } from '../../../utils/stringToColor'
 import { Amount } from '../../ui-kit/Amount'
 
 interface Props {
   currency?: ClientCurrency
   items: StatisticsByCategoryItem[]
-  colors: Record<string, string>
 }
 
-export const StatisticsCharts: FC<Props> = ({ currency, items, colors }) => {
+export const StatisticsCharts: FC<Props> = ({ currency, items }) => {
   const totalIncome = useMemo(() => {
     return items.reduce<number>((acc, item) => acc + item.incomeAmount, 0)
   }, [items])
@@ -36,7 +36,7 @@ export const StatisticsCharts: FC<Props> = ({ currency, items, colors }) => {
               animationBegin={0}
             >
               {items.map((item) => (
-                <Cell key={item.category} fill={colors[item.category]} />
+                <Cell key={item.category} fill={stringToColor(item.category)} />
               ))}
             </Pie>
           </PieChart>
@@ -70,7 +70,7 @@ export const StatisticsCharts: FC<Props> = ({ currency, items, colors }) => {
               animationBegin={0}
             >
               {items.map((item) => (
-                <Cell key={item.category} fill={colors[item.category]} />
+                <Cell key={item.category} fill={stringToColor(item.category)} />
               ))}
             </Pie>
           </PieChart>
