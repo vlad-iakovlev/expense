@@ -1,5 +1,4 @@
-import { useRouter } from 'next/router'
-import { FC, useCallback } from 'react'
+import { FC } from 'react'
 import { ROUTES } from '../../../constants/routes'
 import { useGroupsContext } from '../../contexts/Groups'
 import { AvatarGroup } from '../../ui-kit/AvatarGroup'
@@ -7,15 +6,7 @@ import { Card } from '../../ui-kit/Card'
 import { GroupsCreate } from './GroupsCreate'
 
 export const GroupsCard: FC = () => {
-  const router = useRouter()
   const { groupsResponse } = useGroupsContext()
-
-  const goToGroup = useCallback(
-    async (groupId: string) => {
-      await router.push(ROUTES.GROUP(groupId))
-    },
-    [router]
-  )
 
   return (
     <Card>
@@ -23,7 +14,7 @@ export const GroupsCard: FC = () => {
       {groupsResponse?.groups.length !== 0 && <Card.Divider />}
 
       {groupsResponse?.groups.map((group) => (
-        <Card.Button
+        <Card.Link
           key={group.id}
           end={
             <AvatarGroup
@@ -36,10 +27,10 @@ export const GroupsCard: FC = () => {
               size="sm"
             />
           }
-          onClick={() => goToGroup(group.id)}
+          href={ROUTES.GROUP(group.id)}
         >
           {group.name}
-        </Card.Button>
+        </Card.Link>
       ))}
 
       {!groupsResponse && (

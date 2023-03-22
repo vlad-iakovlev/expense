@@ -1,5 +1,4 @@
-import { useRouter } from 'next/router'
-import { FC, useCallback } from 'react'
+import { FC } from 'react'
 import { ClientOperation } from '../../../api/types/operations'
 import { ROUTES } from '../../../constants/routes'
 import { formatDate } from '../../../utils/formatDate'
@@ -12,19 +11,14 @@ interface Props {
 }
 
 export const OperationsIncomeItem: FC<Props> = ({ operation }) => {
-  const router = useRouter()
   const { operationsPayload } = useOperationsContext()
-
-  const handleClick = useCallback(async () => {
-    await router.push(ROUTES.OPERATION(operation.id))
-  }, [operation.id, router])
 
   if (!operation.incomeWallet) {
     return null
   }
 
   return (
-    <Card.Button onClick={handleClick}>
+    <Card.Link href={ROUTES.OPERATION(operation.id)}>
       <div className="flex items-center gap-3">
         <div className="flex-auto truncate">
           {operation.category} – {operation.name}
@@ -45,6 +39,6 @@ export const OperationsIncomeItem: FC<Props> = ({ operation }) => {
           </div>
         )}
       </div>
-    </Card.Button>
+    </Card.Link>
   )
 }

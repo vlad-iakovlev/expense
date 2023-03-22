@@ -1,7 +1,6 @@
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
-import { FC, useCallback } from 'react'
+import { FC } from 'react'
 import { ClientOperation } from '../../../api/types/operations'
 import { ROUTES } from '../../../constants/routes'
 import { formatDate } from '../../../utils/formatDate'
@@ -14,19 +13,14 @@ interface Props {
 }
 
 export const OperationsTransferItem: FC<Props> = ({ operation }) => {
-  const router = useRouter()
   const { operationsPayload } = useOperationsContext()
-
-  const handleClick = useCallback(async () => {
-    await router.push(ROUTES.OPERATION(operation.id))
-  }, [operation.id, router])
 
   if (!operation.incomeWallet || !operation.expenseWallet) {
     return null
   }
 
   return (
-    <Card.Button onClick={handleClick}>
+    <Card.Link href={ROUTES.OPERATION(operation.id)}>
       <div className="truncate">
         {operation.category} – {operation.name}
       </div>
@@ -76,6 +70,6 @@ export const OperationsTransferItem: FC<Props> = ({ operation }) => {
           </div>
         </div>
       </div>
-    </Card.Button>
+    </Card.Link>
   )
 }

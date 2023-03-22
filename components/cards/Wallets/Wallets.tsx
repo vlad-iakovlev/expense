@@ -1,5 +1,4 @@
-import { useRouter } from 'next/router'
-import { FC, useCallback } from 'react'
+import { FC } from 'react'
 import { ROUTES } from '../../../constants/routes'
 import { useWalletsContext } from '../../contexts/Wallets'
 import { Amount } from '../../ui-kit/Amount'
@@ -7,15 +6,7 @@ import { Card } from '../../ui-kit/Card'
 import { WalletsCreate } from './WalletsCreate'
 
 export const WalletsCard: FC = () => {
-  const router = useRouter()
   const { walletsResponse, walletsPayload } = useWalletsContext()
-
-  const goToWallet = useCallback(
-    async (walletId: string) => {
-      await router.push(ROUTES.WALLET(walletId))
-    },
-    [router]
-  )
 
   if (!walletsPayload.groupId && walletsResponse?.wallets.length === 0) {
     return null
@@ -30,7 +21,7 @@ export const WalletsCard: FC = () => {
       {walletsResponse?.wallets.length !== 0 && <Card.Divider />}
 
       {walletsResponse?.wallets.map((wallet) => (
-        <Card.Button
+        <Card.Link
           key={wallet.id}
           end={
             <Amount
@@ -39,10 +30,10 @@ export const WalletsCard: FC = () => {
               currency={wallet.currency}
             />
           }
-          onClick={() => goToWallet(wallet.id)}
+          href={ROUTES.WALLET(wallet.id)}
         >
           {wallet.name}
-        </Card.Button>
+        </Card.Link>
       ))}
 
       {!walletsResponse && (
