@@ -3,12 +3,14 @@ import { updateGroup } from '../../../api/client/groups'
 import { useCurrenciesContext } from '../../contexts/Currencies'
 import { useGroupContext } from '../../contexts/Group'
 import { useLoadingContext } from '../../contexts/Loading'
+import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory'
 import { Card, CardSelectOption } from '../../ui-kit/Card'
 
 export const GroupInfoDefaultCurrency: FC = () => {
   const { setLoading } = useLoadingContext()
   const { currenciesResponse } = useCurrenciesContext()
   const { groupResponse, mutateGroup } = useGroupContext()
+  const { mutateStatisticsByCategory } = useStatisticsByCategoryContext()
 
   const options = useMemo(() => {
     return (
@@ -42,12 +44,12 @@ export const GroupInfoDefaultCurrency: FC = () => {
           defaultCurrencyId: option.id,
         })
 
-        await mutateGroup()
+        await Promise.all([mutateGroup(), mutateStatisticsByCategory()])
       } finally {
         setLoading(false)
       }
     },
-    [groupResponse, setLoading, mutateGroup]
+    [groupResponse, setLoading, mutateGroup, mutateStatisticsByCategory]
   )
 
   if (!currenciesResponse || !groupResponse) {
