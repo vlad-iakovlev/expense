@@ -1,16 +1,12 @@
 import { FC, useCallback, useMemo, useState } from 'react'
-import {
-  StatisticsByCategoryPeriod,
-  useStatisticsByCategoryContext,
-} from '../../contexts/StatisticsByCategory'
+import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory'
 import { Card } from '../../ui-kit/Card'
 import { StatisticsCategories } from './StatisticsCategories'
 import { StatisticsCharts } from './StatisticsCharts'
 import { StatisticsPeriod } from './StatisticsPeriod'
 
 export const StatisticsCard: FC = () => {
-  const { statisticsByCategoryResponse, statisticsByCategoryPayload } =
-    useStatisticsByCategoryContext()
+  const { statisticsByCategoryResponse } = useStatisticsByCategoryContext()
 
   const [disabledCategories, setDisabledCategories] = useState<
     Record<string, boolean>
@@ -46,13 +42,6 @@ export const StatisticsCard: FC = () => {
     },
     []
   )
-
-  if (
-    statisticsByCategoryPayload.period === StatisticsByCategoryPeriod.ALL &&
-    statisticsByCategoryResponse?.statisticsByCategory.items.length === 0
-  ) {
-    return null
-  }
 
   return (
     <Card>
