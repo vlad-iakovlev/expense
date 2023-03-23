@@ -18,7 +18,7 @@ export const Dashboard: FC = () => {
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_auto_1fr] lg:grid-rows-[auto_1fr] xl:grid-rows-none">
         <GroupsCard />
-        <WalletsCard className="xl:row-span-full" />
+        <WalletsCard />
         <OperationsCard className="lg:row-span-full" />
         <StatisticsCard className="md:row-span-full" />
       </Columns>

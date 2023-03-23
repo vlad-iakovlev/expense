@@ -49,7 +49,7 @@ export const Wallet: FC = () => {
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] lg:grid-rows-none">
         <WalletInfoCard />
-        <OperationsCard className="lg:row-span-full" />
+        <OperationsCard />
         <StatisticsCard className="md:row-span-full" />
       </Columns>
     </>
