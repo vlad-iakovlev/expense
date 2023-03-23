@@ -5,9 +5,13 @@ import { GroupInfoDefaultCurrency } from './GroupInfoDefaultCurrency'
 import { GroupInfoDelete } from './GroupInfoDelete'
 import { GroupInfoName } from './GroupInfoName'
 
-export const GroupInfoCard: FC = () => {
+interface Props {
+  className?: string
+}
+
+export const GroupInfoCard: FC<Props> = ({ className }) => {
   return (
-    <Card>
+    <Card className={className}>
       <Card.Title title="Info" action={<GroupInfoDelete />} />
       <Card.Divider />
       <GroupInfoName />

@@ -3,11 +3,15 @@ import { useGroupContext } from '../../contexts/Group'
 import { Avatar } from '../../ui-kit/Avatar'
 import { Card } from '../../ui-kit/Card'
 
-export const GroupUsersCard: FC = () => {
+interface Props {
+  className?: string
+}
+
+export const GroupUsersCard: FC<Props> = ({ className }) => {
   const { groupResponse } = useGroupContext()
 
   return (
-    <Card>
+    <Card className={className}>
       <Card.Title title="Users" />
       {groupResponse?.group.users.length !== 0 && <Card.Divider />}
 

@@ -5,7 +5,11 @@ import { Amount } from '../../ui-kit/Amount'
 import { Card } from '../../ui-kit/Card'
 import { WalletsCreate } from './WalletsCreate'
 
-export const WalletsCard: FC = () => {
+interface Props {
+  className?: string
+}
+
+export const WalletsCard: FC<Props> = ({ className }) => {
   const { walletsResponse, walletsPayload } = useWalletsContext()
 
   if (!walletsPayload.groupId && walletsResponse?.wallets.length === 0) {
@@ -13,7 +17,7 @@ export const WalletsCard: FC = () => {
   }
 
   return (
-    <Card>
+    <Card className={className}>
       <Card.Title
         title="Wallets"
         action={walletsPayload.groupId && <WalletsCreate />}

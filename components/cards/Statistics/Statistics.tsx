@@ -5,7 +5,11 @@ import { StatisticsCategories } from './StatisticsCategories'
 import { StatisticsCharts } from './StatisticsCharts'
 import { StatisticsPeriod } from './StatisticsPeriod'
 
-export const StatisticsCard: FC = () => {
+interface Props {
+  className?: string
+}
+
+export const StatisticsCard: FC<Props> = ({ className }) => {
   const { statisticsByCategoryResponse } = useStatisticsByCategoryContext()
 
   const [disabledCategories, setDisabledCategories] = useState<
@@ -44,7 +48,7 @@ export const StatisticsCard: FC = () => {
   )
 
   return (
-    <Card>
+    <Card className={className}>
       <Card.Title title="Statistics" />
       <Card.Divider />
       <StatisticsPeriod />

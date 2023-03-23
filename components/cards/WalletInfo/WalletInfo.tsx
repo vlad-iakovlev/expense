@@ -6,9 +6,13 @@ import { WalletInfoCurrency } from './WalletInfoCurrency'
 import { WalletInfoDelete } from './WalletInfoDelete'
 import { WalletInfoName } from './WalletInfoName'
 
-export const WalletInfoCard: FC = () => {
+interface Props {
+  className?: string
+}
+
+export const WalletInfoCard: FC<Props> = ({ className }) => {
   return (
-    <Card>
+    <Card className={className}>
       <Card.Title title="Info" action={<WalletInfoDelete />} />
       <Card.Divider />
       <WalletInfoName />

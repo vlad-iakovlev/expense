@@ -10,9 +10,13 @@ import { OperationInfoIncomeWallet } from './OperationInfoIncomeWallet'
 import { OperationInfoName } from './OperationInfoName'
 import { OperationInfoType } from './OperationInfoType'
 
-export const OperationInfoCard: FC = () => {
+interface Props {
+  className?: string
+}
+
+export const OperationInfoCard: FC<Props> = ({ className }) => {
   return (
-    <Card>
+    <Card className={className}>
       <Card.Title title="Info" action={<OperationInfoDelete />} />
       <Card.Divider />
       <OperationInfoDate />

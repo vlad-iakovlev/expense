@@ -7,7 +7,11 @@ import { OperationsExpenseItem } from './OperationsExpenseItem'
 import { OperationsIncomeItem } from './OperationsIncomeItem'
 import { OperationsTransferItem } from './OperationsTransferItem'
 
-export const OperationsCard: FC = () => {
+interface Props {
+  className?: string
+}
+
+export const OperationsCard: FC<Props> = ({ className }) => {
   const { operationsResponse, operationsPayload } = useOperationsContext()
 
   if (
@@ -19,7 +23,7 @@ export const OperationsCard: FC = () => {
   }
 
   return (
-    <Card>
+    <Card className={className}>
       <Card.Title
         title="Operations"
         action={operationsPayload.walletId && <OperationsCreate />}

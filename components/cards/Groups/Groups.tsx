@@ -5,11 +5,15 @@ import { AvatarGroup } from '../../ui-kit/AvatarGroup'
 import { Card } from '../../ui-kit/Card'
 import { GroupsCreate } from './GroupsCreate'
 
-export const GroupsCard: FC = () => {
+interface Props {
+  className?: string
+}
+
+export const GroupsCard: FC<Props> = ({ className }) => {
   const { groupsResponse } = useGroupsContext()
 
   return (
-    <Card>
+    <Card className={className}>
       <Card.Title title="Groups" action={<GroupsCreate />} />
       {groupsResponse?.groups.length !== 0 && <Card.Divider />}
 
