@@ -47,10 +47,10 @@ export const Wallet: FC = () => {
         <BreadcrumbSkeleton withParent />
       )}
 
-      <Columns className="md:grid-rows-[auto_1fr] lg:grid-rows-none">
-        <WalletInfoCard className="row-start-1 col-start-1" />
-        <OperationsCard className="row-start-2 col-start-1 lg:row-span-full lg:col-start-2" />
-        <StatisticsCard className="row-start-3 col-start-1 md:row-span-full md:col-start-2 lg:col-start-3" />
+      <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] lg:grid-rows-none">
+        <WalletInfoCard />
+        <OperationsCard className="lg:row-span-full" />
+        <StatisticsCard className="md:row-span-full" />
       </Columns>
     </>
   )
