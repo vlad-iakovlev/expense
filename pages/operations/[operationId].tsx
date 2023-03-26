@@ -1,21 +1,21 @@
 import { GetServerSideProps, NextPage } from 'next'
-import { CheckSwrContexts } from '../../../components/CheckSwrContexts'
+import { CheckSwrContexts } from '../../components/CheckSwrContexts'
 import {
   CategoriesContext,
   CategoriesProvider,
-} from '../../../components/contexts/Categories'
-import { CurrenciesProvider } from '../../../components/contexts/Currencies'
-import { ErrorProvider } from '../../../components/contexts/Error'
-import { LoadingProvider } from '../../../components/contexts/Loading'
+} from '../../components/contexts/Categories'
+import { CurrenciesProvider } from '../../components/contexts/Currencies'
+import { ErrorProvider } from '../../components/contexts/Error'
+import { LoadingProvider } from '../../components/contexts/Loading'
 import {
   OperationContext,
   OperationProvider,
-} from '../../../components/contexts/Operation'
+} from '../../components/contexts/Operation'
 import {
   WalletsContext,
   WalletsProvider,
-} from '../../../components/contexts/Wallets'
-import { Operation } from '../../../components/Operation'
+} from '../../components/contexts/Wallets'
+import { Operation } from '../../components/Operation'
 
 interface Props {
   operationId: string

@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { FC } from 'react'
 import { GroupsCard } from '../cards/Groups'
 import { OperationsCard } from '../cards/Operations'
@@ -10,10 +9,6 @@ import { Columns } from '../ui-kit/Columns'
 export const Dashboard: FC = () => {
   return (
     <>
-      <Head>
-        <title>{'Expense > Dashboard'}</title>
-      </Head>
-
       <Breadcrumbs title="Dashboard" />
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_auto_1fr] lg:grid-rows-[auto_1fr] xl:grid-rows-none">

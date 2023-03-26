@@ -1,6 +1,6 @@
 export const ROUTES = {
-  DASHBOARD: '/dashboard',
-  GROUP: (groupId: string) => `/dashboard/groups/${groupId}`,
-  OPERATION: (operationId: string) => `/dashboard/operations/${operationId}`,
-  WALLET: (walletId: string) => `/dashboard/wallets/${walletId}`,
+  DASHBOARD: '/',
+  GROUP: (groupId: string) => `/groups/${groupId}`,
+  OPERATION: (operationId: string) => `/operations/${operationId}`,
+  WALLET: (walletId: string) => `/wallets/${walletId}`,
 }
