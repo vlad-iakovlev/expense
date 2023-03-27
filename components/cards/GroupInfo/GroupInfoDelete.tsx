@@ -44,7 +44,7 @@ export const GroupInfoDelete: FC = () => {
 
   return (
     <>
-      {groupResponse && walletsResponse && !!walletsResponse.wallets.length && (
+      {groupResponse && walletsResponse?.wallets.length === 0 && (
         <Button
           rounded
           size="sm"

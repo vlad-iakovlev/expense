@@ -12,9 +12,5 @@ export const Portal: FC<PortalProps> = ({ children }) => {
     setDomLoaded(true)
   }, [])
 
-  if (!domLoaded) {
-    return null
-  }
-
-  return createPortal(children, document.body)
+  return domLoaded ? createPortal(children, document.body) : null
 }

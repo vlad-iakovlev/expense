@@ -11,7 +11,10 @@ export const GroupUsersCard: FC<Props> = ({ className }) => {
   const { groupResponse } = useGroupContext()
 
   return (
-    <Card className={className} title="Users">
+    <Card className={className}>
+      <Card.Title title="Users" />
+      {groupResponse?.group.users.length !== 0 && <Card.Divider />}
+
       {groupResponse?.group.users.map((user) => (
         <Card.Text
           key={user.id}
