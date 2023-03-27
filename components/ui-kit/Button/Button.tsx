@@ -49,7 +49,7 @@ export const Button: FC<ButtonProps> = ({
       type={type}
       onClick={onClick}
     >
-      {iconStart ? (
+      {!!iconStart && (
         <div
           className={clsx('flex-none', {
             'w-4 h-4': size === 'sm',
@@ -59,9 +59,9 @@ export const Button: FC<ButtonProps> = ({
         >
           {iconStart}
         </div>
-      ) : null}
+      )}
 
-      {children ? (
+      {!!children && (
         <div
           className={clsx('truncate', {
             'px-2': size === 'sm' || size === 'md',
@@ -70,9 +70,9 @@ export const Button: FC<ButtonProps> = ({
         >
           {children}
         </div>
-      ) : null}
+      )}
 
-      {iconEnd ? (
+      {!!iconEnd && (
         <div
           className={clsx('flex-none', {
             'w-4 h-4': size === 'sm',
@@ -82,7 +82,7 @@ export const Button: FC<ButtonProps> = ({
         >
           {iconEnd}
         </div>
-      ) : null}
+      )}
     </button>
   )
 }

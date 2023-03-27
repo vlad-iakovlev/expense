@@ -123,7 +123,7 @@ export const CardInput: FC<CardInputProps> = ({
         </div>
       </div>
 
-      {suggestions?.length ? (
+      {!!suggestions?.length && (
         <Card.Popup
           ref={popupRef}
           className="-mt-2"
@@ -140,7 +140,7 @@ export const CardInput: FC<CardInputProps> = ({
             </Card.Button>
           ))}
         </Card.Popup>
-      ) : null}
+      )}
     </>
   )
 }

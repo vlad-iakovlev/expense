@@ -6,9 +6,7 @@ interface Props {
 }
 
 export const HomeInfo: FC<Props> = ({ className }) => (
-  <Card className={className}>
-    <Card.Title title="Info" />
-    <Card.Divider />
+  <Card className={className} title="Info">
     <Card.Text end={<div className="font-medium">Expense</div>}>Name</Card.Text>
     <Card.Text end={<div className="font-medium">Expense tracker</div>}>
       Description

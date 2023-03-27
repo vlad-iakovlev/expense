@@ -24,8 +24,8 @@ export const CardButton: FC<CardButtonProps> = ({
     type="button"
     onClick={onClick}
   >
-    {start ? <div className="flex-none">{start}</div> : null}
+    {!!start && <div className="flex-none">{start}</div>}
     <div className="flex-auto truncate">{children}</div>
-    {end ? <div className="flex-none">{end}</div> : null}
+    {!!end && <div className="flex-none">{end}</div>}
   </button>
 )

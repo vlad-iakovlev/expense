@@ -48,9 +48,7 @@ export const StatisticsCard: FC<Props> = ({ className }) => {
   )
 
   return (
-    <Card className={className}>
-      <Card.Title title="Statistics" />
-      <Card.Divider />
+    <Card className={className} title="Statistics">
       <StatisticsPeriod />
 
       <StatisticsCharts
@@ -58,14 +56,14 @@ export const StatisticsCard: FC<Props> = ({ className }) => {
         items={chartItems}
       />
 
-      {statisticsByCategoryResponse?.statisticsByCategory.items.length ? (
+      {!!statisticsByCategoryResponse?.statisticsByCategory.items.length && (
         <StatisticsCategories
           currency={statisticsByCategoryResponse.statisticsByCategory.currency}
           items={statisticsByCategoryResponse.statisticsByCategory.items}
           isCategoryDisabled={isCategoryDisabled}
           setCategoryDisabled={setCategoryDisabled}
         />
-      ) : null}
+      )}
 
       {!statisticsByCategoryResponse && (
         <>

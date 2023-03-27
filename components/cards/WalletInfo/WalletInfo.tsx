@@ -12,9 +12,7 @@ interface Props {
 
 export const WalletInfoCard: FC<Props> = ({ className }) => {
   return (
-    <Card className={className}>
-      <Card.Title title="Info" action={<WalletInfoDelete />} />
-      <Card.Divider />
+    <Card className={className} title="Info" action={<WalletInfoDelete />}>
       <WalletInfoName />
       <WalletInfoCurrency />
       <WalletInfoBalance />

@@ -30,11 +30,11 @@ export interface AvatarProps {
   size?: 'sm' | 'md'
 }
 
-const getSlugByName = (name: string | null | undefined) => {
+const getSlugByName = (name?: string) => {
   return name?.slice(0, 1) || ''
 }
 
-const getColorByName = (name: string | null | undefined) => {
+const getColorByName = (name?: string) => {
   const slug = getSlugByName(name)
 
   return avatarColors[(slug.charCodeAt(0) || 0) % avatarColors.length]

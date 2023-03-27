@@ -8,8 +8,8 @@ export interface CardTextProps {
 
 export const CardText: FC<CardTextProps> = ({ start, end, children }) => (
   <div className="flex items-center min-h-12 px-4 sm:px-6 py-2 gap-3">
-    {start ? <div className="flex-none">{start}</div> : null}
+    {!!start && <div className="flex-none">{start}</div>}
     <div className="flex-auto truncate">{children}</div>
-    {end ? <div className="flex-none">{end}</div> : null}
+    {!!end && <div className="flex-none">{end}</div>}
   </div>
 )

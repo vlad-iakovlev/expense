@@ -6,7 +6,11 @@ import { useOperationsContext } from '../../contexts/Operations'
 import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory'
 import { Card, CardSelectOption } from '../../ui-kit/Card'
 
-export const RenameCategoryCard: FC = () => {
+interface Props {
+  className?: string
+}
+
+export const RenameCategoryCard: FC<Props> = ({ className }) => {
   const { setLoading } = useLoadingContext()
   const { categoriesResponse, categoriesPayload, mutateCategories } =
     useCategoriesContext()
@@ -72,33 +76,26 @@ export const RenameCategoryCard: FC = () => {
     setCategory('')
   }, [categoriesResponse])
 
-  if (categoriesResponse?.categories.length === 0) {
-    return null
-  }
-
   return (
-    <Card>
-      <Card.Title title="Rename category" />
-      <Card.Divider />
-
-      {categoriesResponse ? (
+    <Card className={className} title="Rename category">
+      {!!categoriesResponse?.categories.length && (
         <Card.Select
           name="Category"
           options={categoriesOptions}
           value={categoryValue}
           onChange={handleSelectCategory}
         />
-      ) : (
-        <Card.Skeleton />
       )}
 
-      {category ? (
+      {!categoriesResponse && <Card.Skeleton />}
+
+      {!!category && (
         <Card.Input
           name="New name"
           value={category}
           onChange={handleNameChange}
         />
-      ) : null}
+      )}
     </Card>
   )
 }

@@ -16,6 +16,9 @@ import { Card } from './Card'
 
 export interface CardPopupProps {
   className?: string
+  title?: string
+  subtitle?: string
+  action?: ReactNode
   noMaxWidth?: boolean
   isOpen: boolean
   anchorRef: RefObject<HTMLElement>
@@ -26,7 +29,18 @@ export interface CardPopupProps {
 
 export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
   function CardPopup(
-    { className, noMaxWidth, isOpen, anchorRef, position, children, onClose },
+    {
+      className,
+      title,
+      subtitle,
+      action,
+      noMaxWidth,
+      isOpen,
+      anchorRef,
+      position,
+      children,
+      onClose,
+    },
     ref
   ) {
     const rootRef = useRef<HTMLDivElement>(null)
@@ -122,7 +136,9 @@ export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
             leaveTo="transform opacity-0 scale-95"
             style={{ maxWidth: noMaxWidth ? undefined : anchorRect?.width }}
           >
-            <Card>{children}</Card>
+            <Card title={title} subtitle={subtitle} action={action}>
+              {children}
+            </Card>
           </Transition>
         </div>
       </Portal>

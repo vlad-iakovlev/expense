@@ -13,10 +13,7 @@ export const GroupsCard: FC<Props> = ({ className }) => {
   const { groupsResponse } = useGroupsContext()
 
   return (
-    <Card className={className}>
-      <Card.Title title="Groups" action={<GroupsCreate />} />
-      {groupsResponse?.groups.length !== 0 && <Card.Divider />}
-
+    <Card className={className} title="Groups" action={<GroupsCreate />}>
       {groupsResponse?.groups.map((group) => (
         <Card.Link
           key={group.id}

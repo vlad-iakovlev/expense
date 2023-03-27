@@ -29,7 +29,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ title, parents }) => {
         </Fragment>
       ))}
 
-      {lastParent ? (
+      {lastParent && (
         <Link
           className="flex md:hidden items-center gap-2 min-w-0 text-lg font-medium text-cyan-900 truncate"
           href={lastParent.href}
@@ -37,7 +37,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ title, parents }) => {
           <ArrowUturnLeftIcon className="flex-none w-5 h-5" />
           {lastParent.title}
         </Link>
-      ) : null}
+      )}
 
       <h1 className="min-w-0 text-lg font-medium truncate">{title}</h1>
     </div>

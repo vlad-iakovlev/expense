@@ -12,18 +12,12 @@ interface Props {
 export const WalletsCard: FC<Props> = ({ className }) => {
   const { walletsResponse, walletsPayload } = useWalletsContext()
 
-  if (!walletsPayload.groupId && walletsResponse?.wallets.length === 0) {
-    return null
-  }
-
   return (
-    <Card className={className}>
-      <Card.Title
-        title="Wallets"
-        action={walletsPayload.groupId && <WalletsCreate />}
-      />
-      {walletsResponse?.wallets.length !== 0 && <Card.Divider />}
-
+    <Card
+      className={className}
+      title="Wallets"
+      action={walletsPayload.groupId && <WalletsCreate />}
+    >
       {walletsResponse?.wallets.map((wallet) => (
         <Card.Link
           key={wallet.id}

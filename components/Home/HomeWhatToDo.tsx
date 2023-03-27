@@ -23,9 +23,7 @@ export const HomeWhatToDo: FC<Props> = ({ className }) => {
   }, [])
 
   return (
-    <Card className={className}>
-      <Card.Title title="What to do?" />
-      <Card.Divider />
+    <Card className={className} title="What to do?">
       <Card.Button
         disabled={isLoading}
         start={<ArrowLeftOnRectangleIcon className="w-6 h-6" />}

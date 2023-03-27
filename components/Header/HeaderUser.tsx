@@ -62,19 +62,14 @@ export const HeaderUser: FC = () => {
 
           <Card.Popup
             className="mt-2 w-72"
+            title={session.data.user?.name || ''}
+            subtitle={session.data.user?.email || ''}
             noMaxWidth
             isOpen={isOpen}
             anchorRef={profileButtonRef}
             position="below-right"
             onClose={handlePopupClose}
           >
-            <Card.Title
-              title={session.data.user?.name || ''}
-              subtitle={session.data.user?.email || ''}
-            />
-
-            <Card.Divider />
-
             <Card.Button disabled={isLoading} onClick={handleSignOut}>
               Sign Out
             </Card.Button>

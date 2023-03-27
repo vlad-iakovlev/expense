@@ -44,15 +44,17 @@ export const WalletInfoDelete: FC = () => {
 
   return (
     <>
-      {walletResponse && operationsResponse?.operations.length === 0 ? (
-        <Button
-          rounded
-          size="sm"
-          theme="error"
-          iconStart={<XMarkIcon />}
-          onClick={handleDelete}
-        />
-      ) : undefined}
+      {walletResponse &&
+        operationsResponse &&
+        !!operationsResponse.operations.length && (
+          <Button
+            rounded
+            size="sm"
+            theme="error"
+            iconStart={<XMarkIcon />}
+            onClick={handleDelete}
+          />
+        )}
 
       <ConfirmDialog
         isOpen={isDeleteConfirmOpen}

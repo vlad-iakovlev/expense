@@ -14,9 +14,7 @@ interface Props {
 }
 
 export const HomeFeatures: FC<Props> = ({ className }) => (
-  <Card className={className}>
-    <Card.Title title="Features" />
-    <Card.Divider />
+  <Card className={className} title="Features">
     <Card.Text start={<WifiIcon className="w-6 h-6" />}>
       Fully online expense tracker
     </Card.Text>

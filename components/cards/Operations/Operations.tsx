@@ -14,43 +14,45 @@ interface Props {
 export const OperationsCard: FC<Props> = ({ className }) => {
   const { operationsResponse, operationsPayload } = useOperationsContext()
 
-  if (
-    !operationsPayload.walletId &&
-    !operationsPayload.category &&
-    operationsResponse?.operations.length === 0
-  ) {
-    return null
-  }
+  const hasCategoriesFilter =
+    !!operationsPayload.category ||
+    !operationsResponse ||
+    !!operationsResponse?.operations.length
+
+  const hasPagination =
+    !!operationsResponse?.hasPrevOperations ||
+    !!operationsResponse?.hasNextOperations
 
   return (
-    <Card className={className}>
-      <Card.Title
-        title="Operations"
-        action={operationsPayload.walletId && <OperationsCreate />}
-      />
-      <Card.Divider />
-      <OperationsCategory />
-      {operationsResponse?.operations.length !== 0 && <Card.Divider />}
+    <Card
+      className={className}
+      title="Operations"
+      action={operationsPayload.walletId && <OperationsCreate />}
+    >
+      {hasCategoriesFilter && <OperationsCategory />}
 
-      {operationsResponse?.operations.map((operation) => (
-        <Fragment key={operation.id}>
-          {operation.incomeWallet && operation.expenseWallet ? (
-            <OperationsTransferItem operation={operation} />
-          ) : null}
-          {operation.incomeWallet && !operation.expenseWallet ? (
-            <OperationsIncomeItem operation={operation} />
-          ) : null}
-          {!operation.incomeWallet && operation.expenseWallet ? (
-            <OperationsExpenseItem operation={operation} />
-          ) : null}
-        </Fragment>
-      ))}
-
-      {operationsResponse?.hasPrevOperations ||
-      operationsResponse?.hasNextOperations ? (
+      {!!operationsResponse?.operations.length && (
         <>
           <Card.Divider />
+          {operationsResponse.operations.map((operation) => (
+            <Fragment key={operation.id}>
+              {operation.incomeWallet && operation.expenseWallet && (
+                <OperationsTransferItem operation={operation} />
+              )}
+              {!!operation.incomeWallet && !operation.expenseWallet && (
+                <OperationsIncomeItem operation={operation} />
+              )}
+              {!operation.incomeWallet && operation.expenseWallet && (
+                <OperationsExpenseItem operation={operation} />
+              )}
+            </Fragment>
+          ))}
+        </>
+      )}
 
+      {hasPagination && (
+        <>
+          <Card.Divider />
           <Card.Pagination
             hasPrev={operationsResponse.hasPrevOperations}
             hasNext={operationsResponse.hasNextOperations}
@@ -58,10 +60,11 @@ export const OperationsCard: FC<Props> = ({ className }) => {
             onNextClick={operationsPayload.getNextOperations}
           />
         </>
-      ) : null}
+      )}
 
       {!operationsResponse && (
         <>
+          <Card.Divider />
           <Card.Skeleton type="operation" />
           <Card.Skeleton type="operation" />
           <Card.Skeleton type="operation" />

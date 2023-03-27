@@ -11,9 +11,7 @@ interface Props {
 
 export const GroupInfoCard: FC<Props> = ({ className }) => {
   return (
-    <Card className={className}>
-      <Card.Title title="Info" action={<GroupInfoDelete />} />
-      <Card.Divider />
+    <Card className={className} title="Info" action={<GroupInfoDelete />}>
       <GroupInfoName />
       <GroupInfoDefaultCurrency />
       <GroupInfoBalance />
