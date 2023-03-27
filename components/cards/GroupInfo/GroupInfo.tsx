@@ -4,6 +4,7 @@ import { GroupInfoBalance } from './GroupInfoBalance'
 import { GroupInfoDefaultCurrency } from './GroupInfoDefaultCurrency'
 import { GroupInfoDelete } from './GroupInfoDelete'
 import { GroupInfoName } from './GroupInfoName'
+import { GroupInfoRenameCategory } from './GroupInfoRenameCategory'
 
 interface Props {
   className?: string
@@ -17,6 +18,8 @@ export const GroupInfoCard: FC<Props> = ({ className }) => {
       <GroupInfoName />
       <GroupInfoDefaultCurrency />
       <GroupInfoBalance />
+      <Card.Divider />
+      <GroupInfoRenameCategory />
     </Card>
   )
 }

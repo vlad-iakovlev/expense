@@ -1,6 +1,12 @@
 import { NextApiHandler } from 'next'
-import { GetCategoriesResponse } from '../types/categories'
-import { getCategoriesQuerySchema } from './schemas/categories'
+import {
+  GetCategoriesResponse,
+  RenameCategoryResponse,
+} from '../types/categories'
+import {
+  getCategoriesQuerySchema,
+  renameCategoryBodySchema,
+} from './schemas/categories'
 
 export const getCategories: NextApiHandler<GetCategoriesResponse> = async (
   req,
@@ -44,4 +50,46 @@ export const getCategories: NextApiHandler<GetCategoriesResponse> = async (
   const categories = items.map((item) => item.category)
 
   res.status(200).json({ categories })
+}
+
+export const renameCategory: NextApiHandler<RenameCategoryResponse> = async (
+  req,
+  res
+) => {
+  const body = renameCategoryBodySchema.parse(req.body)
+
+  await req.prisma.operation.updateMany({
+    where: {
+      OR: [
+        {
+          incomeWallet: {
+            id: body.walletId,
+            group: {
+              id: body.groupId,
+              userIds: {
+                has: req.session.user.id,
+              },
+            },
+          },
+        },
+        {
+          expenseWallet: {
+            id: body.walletId,
+            group: {
+              id: body.groupId,
+              userIds: {
+                has: req.session.user.id,
+              },
+            },
+          },
+        },
+      ],
+      category: body.category,
+    },
+    data: {
+      category: body.name,
+    },
+  })
+
+  res.status(200).json({})
 }

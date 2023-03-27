@@ -32,10 +32,12 @@ export const CardInput: FC<CardInputProps> = ({
   const [inputValue, setInputValue] = useState('')
   const [isEditing, setIsEditing] = useState(false)
 
-  const handleTextClick = useCallback(() => {
-    setInputValue(value)
-    setIsEditing(true)
-  }, [value])
+  const handleClick = useCallback(() => {
+    if (!isEditing) {
+      setInputValue(value)
+      setIsEditing(true)
+    }
+  }, [isEditing, value])
 
   const handleKeyDown = useCallback(
     async (event: KeyboardEvent<HTMLInputElement>) => {
@@ -100,6 +102,7 @@ export const CardInput: FC<CardInputProps> = ({
       <div
         ref={rootRef}
         className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 transition-colors"
+        onClick={handleClick}
       >
         <div className="flex-none">{name}</div>
 
@@ -115,9 +118,7 @@ export const CardInput: FC<CardInputProps> = ({
               onBlur={handleBlur}
             />
           ) : (
-            <div className="text-right truncate" onClick={handleTextClick}>
-              {value}
-            </div>
+            <div className="text-right truncate">{value}</div>
           )}
         </div>
       </div>
