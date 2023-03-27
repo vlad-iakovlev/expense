@@ -70,7 +70,7 @@ export const OperationsProvider: FC<ProviderProps> = ({
       const { operations } = await getOperations(query)
 
       return {
-        operations,
+        operations: operations.slice(0, PER_PAGE),
         hasPrevOperations: (query.skip || 0) > 0,
         hasNextOperations: operations.length > PER_PAGE,
       }
