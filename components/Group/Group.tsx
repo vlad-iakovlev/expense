@@ -4,6 +4,7 @@ import { ROUTES } from '../../constants/routes'
 import { GroupInfoCard } from '../cards/GroupInfo'
 import { GroupUsersCard } from '../cards/GroupUsers'
 import { OperationsCard } from '../cards/Operations'
+import { RenameCategoryCard } from '../cards/RenameCategory'
 import { StatisticsCard } from '../cards/Statistics'
 import { WalletsCard } from '../cards/Wallets'
 import { useGroupContext } from '../contexts/Group'
@@ -38,9 +39,10 @@ export const Group: FC = () => {
         <BreadcrumbSkeleton withParent />
       )}
 
-      <Columns className="md:grid-flow-col md:grid-rows-[auto_auto_auto_1fr] lg:grid-rows-[auto_auto_1fr] xl:grid-rows-[auto_1fr]">
+      <Columns className="md:grid-flow-col md:grid-rows-[auto_auto_auto_auto_1fr] lg:grid-rows-[auto_auto_auto_1fr] xl:grid-rows-[auto_auto_1fr]">
         <GroupInfoCard />
         <GroupUsersCard />
+        <RenameCategoryCard />
         <WalletsCard className="xl:row-span-full" />
         <OperationsCard className="lg:row-span-full" />
         <StatisticsCard className="md:row-span-full" />

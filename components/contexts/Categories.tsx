@@ -4,7 +4,12 @@ import { GetCategoriesResponse } from '../../api/types/categories'
 import { useSwrContext } from '../../hooks/useSwrContext'
 import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
 
-type ContextValue = SwrValue<GetCategoriesResponse, undefined>
+interface CategoriesPayload {
+  groupId?: string
+  walletId?: string
+}
+
+type ContextValue = SwrValue<GetCategoriesResponse, CategoriesPayload>
 
 interface ProviderProps {
   groupId?: string
@@ -26,7 +31,7 @@ export const CategoriesProvider: FC<ProviderProps> = ({
     'categories',
     getCategories,
     useMemo(() => ({ groupId, walletId }), [groupId, walletId]),
-    undefined
+    useMemo(() => ({ groupId, walletId }), [groupId, walletId])
   )
 
   return (
@@ -41,6 +46,7 @@ export const useCategoriesContext = () => {
 
   return {
     categoriesResponse: context.response,
+    categoriesPayload: context.payload,
     mutateCategories: context.mutate,
   }
 }

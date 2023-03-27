@@ -47,7 +47,7 @@ const OperationPage: NextPage<Props> = ({ operationId }) => (
                   <CategoriesContext.Provider
                     value={{
                       hasError: false,
-                      payload: undefined,
+                      payload: {},
                       mutate: async () => {},
                     }}
                   >

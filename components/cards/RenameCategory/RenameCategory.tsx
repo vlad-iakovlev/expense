@@ -1,16 +1,15 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { renameCategory } from '../../../api/client/categories'
 import { useCategoriesContext } from '../../contexts/Categories'
-import { useGroupContext } from '../../contexts/Group'
 import { useLoadingContext } from '../../contexts/Loading'
 import { useOperationsContext } from '../../contexts/Operations'
 import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory'
 import { Card, CardSelectOption } from '../../ui-kit/Card'
 
-export const GroupInfoRenameCategory: FC = () => {
+export const RenameCategoryCard: FC = () => {
   const { setLoading } = useLoadingContext()
-  const { categoriesResponse, mutateCategories } = useCategoriesContext()
-  const { groupResponse } = useGroupContext()
+  const { categoriesResponse, categoriesPayload, mutateCategories } =
+    useCategoriesContext()
   const { mutateOperations } = useOperationsContext()
   const { mutateStatisticsByCategory } = useStatisticsByCategoryContext()
   const [category, setCategory] = useState('')
@@ -27,7 +26,7 @@ export const GroupInfoRenameCategory: FC = () => {
   const categoryValue = useMemo(
     () => ({
       id: category,
-      name: category,
+      name: category || 'Select',
     }),
     [category]
   )
@@ -38,15 +37,12 @@ export const GroupInfoRenameCategory: FC = () => {
 
   const handleNameChange = useCallback(
     async (name: string) => {
-      if (!groupResponse) {
-        return
-      }
-
       try {
         setLoading(true)
 
         await renameCategory({
-          groupId: groupResponse.group.id,
+          groupId: categoriesPayload.groupId,
+          walletId: categoriesPayload.walletId,
           category,
           name,
         })
@@ -63,8 +59,8 @@ export const GroupInfoRenameCategory: FC = () => {
       }
     },
     [
+      categoriesPayload,
       category,
-      groupResponse,
       mutateCategories,
       mutateOperations,
       mutateStatisticsByCategory,
@@ -76,11 +72,18 @@ export const GroupInfoRenameCategory: FC = () => {
     setCategory('')
   }, [categoriesResponse])
 
+  if (categoriesResponse?.categories.length === 0) {
+    return null
+  }
+
   return (
-    <>
-      {groupResponse && categoriesOptions.length ? (
+    <Card>
+      <Card.Title title="Rename category" />
+      <Card.Divider />
+
+      {categoriesResponse ? (
         <Card.Select
-          name="Rename category"
+          name="Category"
           options={categoriesOptions}
           value={categoryValue}
           onChange={handleSelectCategory}
@@ -96,6 +99,6 @@ export const GroupInfoRenameCategory: FC = () => {
           onChange={handleNameChange}
         />
       ) : null}
-    </>
+    </Card>
   )
 }
