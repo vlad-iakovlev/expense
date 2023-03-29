@@ -7,7 +7,14 @@ export const populateWalletBalance = async (
 ): Promise<ClientWallet> => {
   const incomes = await req.prisma.operation.aggregate({
     where: {
-      incomeWalletId: wallet.id,
+      incomeWallet: {
+        id: wallet.id,
+        group: {
+          userIds: {
+            has: req.session.user.id,
+          },
+        },
+      },
     },
     _sum: {
       incomeAmount: true,
@@ -16,7 +23,14 @@ export const populateWalletBalance = async (
 
   const expenses = await req.prisma.operation.aggregate({
     where: {
-      expenseWalletId: wallet.id,
+      expenseWallet: {
+        id: wallet.id,
+        group: {
+          userIds: {
+            has: req.session.user.id,
+          },
+        },
+      },
     },
     _sum: {
       expenseAmount: true,
