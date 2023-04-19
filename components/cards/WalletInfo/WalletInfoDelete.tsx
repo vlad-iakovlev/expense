@@ -1,13 +1,14 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import { useRouter } from 'next/router'
+import assert from 'assert'
+import { useRouter } from 'next/router.js'
 import { FC, useCallback, useState } from 'react'
-import { deleteWallet } from '../../../api/client/wallets'
-import { ROUTES } from '../../../constants/routes'
-import { useLoadingContext } from '../../contexts/Loading'
-import { useOperationsContext } from '../../contexts/Operations'
-import { useWalletContext } from '../../contexts/Wallet'
-import { Button } from '../../ui-kit/Button'
-import { ConfirmDialog } from '../../ui-kit/ConfirmDialog'
+import { deleteWallet } from '../../../api/client/wallets.ts'
+import { ROUTES } from '../../../constants/routes.ts'
+import { useLoadingContext } from '../../contexts/Loading.tsx'
+import { useOperationsContext } from '../../contexts/Operations.tsx'
+import { useWalletContext } from '../../contexts/Wallet.tsx'
+import { Button } from '../../ui-kit/Button/Button.tsx'
+import { ConfirmDialog } from '../../ui-kit/ConfirmDialog/ConfirmDialog.tsx'
 
 export const WalletInfoDelete: FC = () => {
   const router = useRouter()
@@ -21,21 +22,23 @@ export const WalletInfoDelete: FC = () => {
     setIsDeleteConfirmOpen(true)
   }, [])
 
-  const handleDeleteConfirm = useCallback(async () => {
-    if (!walletResponse) return
+  const handleDeleteConfirm = useCallback(() => {
+    void (async () => {
+      assert(walletResponse, 'walletResponse is empty')
 
-    try {
-      setLoading(true)
-      setIsDeleteConfirmOpen(false)
+      try {
+        setLoading(true)
+        setIsDeleteConfirmOpen(false)
 
-      await deleteWallet({
-        walletId: walletResponse.wallet.id,
-      })
+        await deleteWallet({
+          walletId: walletResponse.wallet.id,
+        })
 
-      await router.push(ROUTES.GROUP(walletResponse.wallet.group.id))
-    } finally {
-      setLoading(false)
-    }
+        await router.push(ROUTES.GROUP(walletResponse.wallet.group.id))
+      } finally {
+        setLoading(false)
+      }
+    })()
   }, [router, setLoading, walletResponse])
 
   const handleDeleteCancel = useCallback(() => {

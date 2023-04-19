@@ -12,7 +12,7 @@ export const request = {
 
   get: async <Response>(url: string): Promise<Response> => {
     const response = await fetch(url)
-    return await response.json()
+    return (await response.json()) as Promise<Response>
   },
 
   post: async <Body, Response>(url: string, body: Body): Promise<Response> => {
@@ -23,7 +23,7 @@ export const request = {
       },
       body: JSON.stringify(body),
     })
-    return await response.json()
+    return (await response.json()) as Promise<Response>
   },
 
   put: async <Body, Response>(url: string, body: Body): Promise<Response> => {
@@ -34,13 +34,13 @@ export const request = {
       },
       body: JSON.stringify(body),
     })
-    return await response.json()
+    return (await response.json()) as Promise<Response>
   },
 
   delete: async <Response>(url: string): Promise<Response> => {
     const response = await fetch(url, {
       method: 'delete',
     })
-    return await response.json()
+    return (await response.json()) as Promise<Response>
   },
 }

@@ -6,9 +6,9 @@ import {
   getWalletQuerySchema,
   getWalletsQuerySchema,
   updateWalletBodySchema,
-} from '../server/schemas/wallets'
-import { ClientCurrency } from './currencies'
-import { ClientGroup } from './groups'
+} from '../server/schemas/wallets.ts'
+import { ClientCurrency } from './currencies.ts'
+import { ClientGroup } from './groups.ts'
 
 export type ClientWallet = Pick<Wallet, 'id' | 'name'> & {
   currency: ClientCurrency

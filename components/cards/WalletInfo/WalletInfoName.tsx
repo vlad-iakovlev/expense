@@ -1,8 +1,8 @@
 import { FC, useCallback } from 'react'
-import { updateWallet } from '../../../api/client/wallets'
-import { useLoadingContext } from '../../contexts/Loading'
-import { useWalletContext } from '../../contexts/Wallet'
-import { Card } from '../../ui-kit/Card'
+import { updateWallet } from '../../../api/client/wallets.ts'
+import { useLoadingContext } from '../../contexts/Loading.tsx'
+import { useWalletContext } from '../../contexts/Wallet.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
 
 export const WalletInfoName: FC = () => {
   const { setLoading } = useLoadingContext()

@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { FC, ReactNode } from 'react'
 
 export interface ColumnsProps {

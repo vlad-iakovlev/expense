@@ -1,10 +1,10 @@
 import { FC, useCallback, useMemo } from 'react'
-import { updateGroup } from '../../../api/client/groups'
-import { useCurrenciesContext } from '../../contexts/Currencies'
-import { useGroupContext } from '../../contexts/Group'
-import { useLoadingContext } from '../../contexts/Loading'
-import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory'
-import { Card, CardSelectOption } from '../../ui-kit/Card'
+import { updateGroup } from '../../../api/client/groups.ts'
+import { useCurrenciesContext } from '../../contexts/Currencies.tsx'
+import { useGroupContext } from '../../contexts/Group.tsx'
+import { useLoadingContext } from '../../contexts/Loading.tsx'
+import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory.tsx'
+import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
 export const GroupInfoDefaultCurrency: FC = () => {
   const { setLoading } = useLoadingContext()
@@ -17,14 +17,14 @@ export const GroupInfoDefaultCurrency: FC = () => {
       currenciesResponse?.currencies.map((currency) => ({
         id: currency.id,
         name: currency.name,
-      })) || []
+      })) ?? []
     )
   }, [currenciesResponse])
 
   const value = useMemo(
     () => ({
-      id: groupResponse?.group.defaultCurrency.id || '',
-      name: groupResponse?.group.defaultCurrency.name || '',
+      id: groupResponse?.group.defaultCurrency.id ?? '',
+      name: groupResponse?.group.defaultCurrency.name ?? '',
     }),
     [
       groupResponse?.group.defaultCurrency.id,

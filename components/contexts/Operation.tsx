@@ -1,8 +1,8 @@
-import { createContext, FC, ReactNode, useMemo } from 'react'
-import { getOperation } from '../../api/client/operations'
-import { GetOperationResponse } from '../../api/types/operations'
-import { useSwrContext } from '../../hooks/useSwrContext'
-import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
+import { FC, ReactNode, createContext, useMemo } from 'react'
+import { getOperation } from '../../api/client/operations.ts'
+import { GetOperationResponse } from '../../api/types/operations.ts'
+import { useSwrContext } from '../../hooks/useSwrContext.ts'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue.ts'
 
 type ContextValue = SwrValue<GetOperationResponse, undefined>
 

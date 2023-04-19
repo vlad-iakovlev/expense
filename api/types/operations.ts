@@ -6,8 +6,8 @@ import {
   getOperationQuerySchema,
   getOperationsQuerySchema,
   updateOperationBodySchema,
-} from '../server/schemas/operations'
-import { ClientWallet } from './wallets'
+} from '../server/schemas/operations.ts'
+import { ClientWallet } from './wallets.ts'
 
 export type ClientOperation = Pick<
   Operation,

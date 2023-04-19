@@ -1,4 +1,4 @@
-import { request } from '../../utils/client/request'
+import { request } from '../../utils/client/request.ts'
 import {
   CreateWalletBody,
   CreateWalletResponse,
@@ -10,7 +10,7 @@ import {
   GetWalletsResponse,
   UpdateWalletBody,
   UpdateWalletResponse,
-} from '../types/wallets'
+} from '../types/wallets.ts'
 
 const BASE_ROUTE = '/api/wallets'
 

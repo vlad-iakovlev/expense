@@ -1,5 +1,5 @@
 import { NextApiRequest } from 'next'
-import { ClientWallet } from '../../api/types/wallets'
+import { ClientWallet } from '../../api/types/wallets.ts'
 
 export const populateWalletBalance = async (
   req: NextApiRequest,
@@ -40,6 +40,6 @@ export const populateWalletBalance = async (
   return {
     ...wallet,
     balance:
-      (incomes._sum.incomeAmount || 0) - (expenses._sum.expenseAmount || 0),
+      (incomes._sum.incomeAmount ?? 0) - (expenses._sum.expenseAmount ?? 0),
   }
 }

@@ -1,31 +1,31 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { ReactNode } from 'react'
-import { CardButton } from './CardButton'
-import { CardDateTime } from './CardDateTime'
-import { CardDivider } from './CardDivider'
-import { CardInput } from './CardInput'
-import { CardLink } from './CardLink'
-import { CardPagination } from './CardPagination'
-import { CardPopup } from './CardPopup'
-import { CardSelect } from './CardSelect'
-import { CardSkeleton } from './CardSkeleton'
-import { CardText } from './CardText'
-import { CardTitle } from './CardTitle'
+import { CardButton } from './CardButton.tsx'
+import { CardDateTime } from './CardDateTime.tsx'
+import { CardDivider } from './CardDivider.tsx'
+import { CardInput } from './CardInput.tsx'
+import { CardLink } from './CardLink.tsx'
+import { CardPagination } from './CardPagination.tsx'
+import { CardPopup } from './CardPopup.tsx'
+import { CardSelect } from './CardSelect.tsx'
+import { CardSkeleton } from './CardSkeleton.tsx'
+import { CardText } from './CardText.tsx'
+import { CardTitle } from './CardTitle.tsx'
 
 export interface CardProps {
   className?: string
   children?: ReactNode
 }
 
-export type { CardButtonProps } from './CardButton'
-export type { CardDateTimeProps } from './CardDateTime'
-export type { CardInputProps } from './CardInput'
-export type { CardLinkProps } from './CardLink'
-export type { CardPaginationProps } from './CardPagination'
-export type { CardPopupProps } from './CardPopup'
-export type { CardSelectOption, CardSelectProps } from './CardSelect'
-export type { CardTextProps } from './CardText'
-export type { CardTitleProps } from './CardTitle'
+export type * from './CardButton.tsx'
+export type * from './CardDateTime.tsx'
+export type * from './CardInput.tsx'
+export type * from './CardLink.tsx'
+export type * from './CardPagination.tsx'
+export type * from './CardPopup.tsx'
+export type * from './CardSelect.tsx'
+export type * from './CardText.tsx'
+export type * from './CardTitle.tsx'
 
 export const Card = ({ className, children }: CardProps) => {
   return (

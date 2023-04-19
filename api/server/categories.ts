@@ -2,11 +2,11 @@ import { NextApiHandler } from 'next'
 import {
   GetCategoriesResponse,
   RenameCategoryResponse,
-} from '../types/categories'
+} from '../types/categories.ts'
 import {
   getCategoriesQuerySchema,
   renameCategoryBodySchema,
-} from './schemas/categories'
+} from './schemas/categories.ts'
 
 export const getCategories: NextApiHandler<GetCategoriesResponse> = async (
   req,

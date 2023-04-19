@@ -1,8 +1,8 @@
-import { createContext, FC, ReactNode } from 'react'
-import { getGroups } from '../../api/client/groups'
-import { GetGroupsResponse } from '../../api/types/groups'
-import { useSwrContext } from '../../hooks/useSwrContext'
-import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
+import { FC, ReactNode, createContext } from 'react'
+import { getGroups } from '../../api/client/groups.ts'
+import { GetGroupsResponse } from '../../api/types/groups.ts'
+import { useSwrContext } from '../../hooks/useSwrContext.ts'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue.ts'
 
 type ContextValue = SwrValue<GetGroupsResponse, undefined>
 

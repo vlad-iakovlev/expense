@@ -1,17 +1,18 @@
-import Head from 'next/head'
 import { FC, useMemo } from 'react'
-import { ROUTES } from '../../constants/routes'
-import { OperationInfoCard } from '../cards/OperationInfo'
-import { useOperationContext } from '../contexts/Operation'
-import { Breadcrumbs, BreadcrumbSkeleton } from '../ui-kit/Breadcrumbs'
-import { Columns } from '../ui-kit/Columns'
+import { ROUTES } from '../../constants/routes.ts'
+import { OperationInfoCard } from '../cards/OperationInfo/OperationInfo.tsx'
+import { useOperationContext } from '../contexts/Operation.tsx'
+import { NextHead } from '../next/Head.ts'
+import { BreadcrumbSkeleton } from '../ui-kit/Breadcrumbs/BreadcrumbSkeleton.tsx'
+import { Breadcrumbs } from '../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
+import { Columns } from '../ui-kit/Columns/Columns.tsx'
 
 export const Operation: FC = () => {
   const { operationResponse } = useOperationContext()
 
   const parents = useMemo(() => {
     const wallet =
-      operationResponse?.operation.expenseWallet ||
+      operationResponse?.operation.expenseWallet ??
       operationResponse?.operation.incomeWallet
 
     return [
@@ -39,13 +40,13 @@ export const Operation: FC = () => {
 
   return (
     <>
-      <Head>
+      <NextHead>
         <title>
           {operationResponse
             ? `Expense > ${operationResponse.operation.category} – ${operationResponse.operation.name}`
             : 'Loading...'}
         </title>
-      </Head>
+      </NextHead>
 
       {operationResponse ? (
         <Breadcrumbs

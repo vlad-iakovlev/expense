@@ -1,8 +1,8 @@
 import { FC, useMemo } from 'react'
-import { useGroupContext } from '../../contexts/Group'
-import { useWalletsContext } from '../../contexts/Wallets'
-import { Amount } from '../../ui-kit/Amount'
-import { Card } from '../../ui-kit/Card'
+import { useGroupContext } from '../../contexts/Group.tsx'
+import { useWalletsContext } from '../../contexts/Wallets.tsx'
+import { Amount } from '../../ui-kit/Amount/Amount.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
 
 export const GroupInfoBalance: FC = () => {
   const { groupResponse } = useGroupContext()

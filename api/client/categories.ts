@@ -1,10 +1,10 @@
-import { request } from '../../utils/client/request'
+import { request } from '../../utils/client/request.ts'
 import {
   GetCategoriesQuery,
   GetCategoriesResponse,
   RenameCategoryBody,
   RenameCategoryResponse,
-} from '../types/categories'
+} from '../types/categories.ts'
 
 const BASE_ROUTE = '/api/categories'
 

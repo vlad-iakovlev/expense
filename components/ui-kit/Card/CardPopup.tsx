@@ -1,9 +1,9 @@
 import { Transition } from '@headlessui/react'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import {
-  forwardRef,
   ReactNode,
   RefObject,
+  forwardRef,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -11,8 +11,8 @@ import {
   useRef,
   useState,
 } from 'react'
-import { Portal } from '../Portal'
-import { Card } from './Card'
+import { Portal } from '../Portal/Portal.tsx'
+import { Card } from './Card.tsx'
 
 export interface CardPopupProps {
   className?: string

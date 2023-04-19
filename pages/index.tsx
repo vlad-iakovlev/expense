@@ -1,26 +1,26 @@
 import { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
-import Head from 'next/head'
-import { CheckSwrContexts } from '../components/CheckSwrContexts'
-import { CategoriesProvider } from '../components/contexts/Categories'
-import { CurrenciesProvider } from '../components/contexts/Currencies'
-import { ErrorProvider } from '../components/contexts/Error'
-import { GroupsProvider } from '../components/contexts/Groups'
-import { LoadingProvider } from '../components/contexts/Loading'
-import { OperationsProvider } from '../components/contexts/Operations'
-import { StatisticsByCategoryProvider } from '../components/contexts/StatisticsByCategory'
-import { WalletsProvider } from '../components/contexts/Wallets'
-import { Dashboard } from '../components/Dashboard'
-import { Home } from '../components/Home'
+import { CheckSwrContexts } from '../components/CheckSwrContexts/CheckSwrContexts.tsx'
+import { Dashboard } from '../components/Dashboard/Dashboard.tsx'
+import { Home } from '../components/Home/Home.tsx'
+import { CategoriesProvider } from '../components/contexts/Categories.tsx'
+import { CurrenciesProvider } from '../components/contexts/Currencies.tsx'
+import { ErrorProvider } from '../components/contexts/Error.tsx'
+import { GroupsProvider } from '../components/contexts/Groups.tsx'
+import { LoadingProvider } from '../components/contexts/Loading.tsx'
+import { OperationsProvider } from '../components/contexts/Operations.tsx'
+import { StatisticsByCategoryProvider } from '../components/contexts/StatisticsByCategory.tsx'
+import { WalletsProvider } from '../components/contexts/Wallets.tsx'
+import { NextHead } from '../components/next/Head.ts'
 
 const HomePage: NextPage = () => {
   const session = useSession()
 
   return (
     <>
-      <Head>
+      <NextHead>
         <title>Expense</title>
-      </Head>
+      </NextHead>
 
       {session.status === 'authenticated' && (
         <LoadingProvider>

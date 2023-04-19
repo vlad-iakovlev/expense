@@ -1,82 +1,83 @@
-import { GetServerSideProps, NextPage } from 'next'
-import { CheckSwrContexts } from '../../components/CheckSwrContexts'
+import assert from 'assert'
+import { NextPage } from 'next'
+import { useRouter } from 'next/router.js'
+import { useMemo } from 'react'
+import { CheckSwrContexts } from '../../components/CheckSwrContexts/CheckSwrContexts.tsx'
+import { Operation } from '../../components/Operation/Operation.tsx'
 import {
   CategoriesContext,
   CategoriesProvider,
-} from '../../components/contexts/Categories'
-import { CurrenciesProvider } from '../../components/contexts/Currencies'
-import { ErrorProvider } from '../../components/contexts/Error'
-import { LoadingProvider } from '../../components/contexts/Loading'
+} from '../../components/contexts/Categories.tsx'
+import { CurrenciesProvider } from '../../components/contexts/Currencies.tsx'
+import { ErrorProvider } from '../../components/contexts/Error.tsx'
+import { LoadingProvider } from '../../components/contexts/Loading.tsx'
 import {
   OperationContext,
   OperationProvider,
-} from '../../components/contexts/Operation'
+} from '../../components/contexts/Operation.tsx'
 import {
   WalletsContext,
   WalletsProvider,
-} from '../../components/contexts/Wallets'
-import { Operation } from '../../components/Operation'
+} from '../../components/contexts/Wallets.tsx'
 
-interface Props {
-  operationId: string
-}
+const OperationPage: NextPage = () => {
+  const router = useRouter()
 
-export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
-) => {
-  return {
-    props: {
-      operationId: String(context.query.operationId),
-    },
-  }
-}
+  const operationId = useMemo<string>(() => {
+    assert(
+      typeof router.query.operationId === 'string',
+      'operationId is not a string'
+    )
+    return router.query.operationId
+  }, [router.query.operationId])
 
-const OperationPage: NextPage<Props> = ({ operationId }) => (
-  <LoadingProvider>
-    <ErrorProvider>
-      <CurrenciesProvider>
-        <OperationProvider operationId={operationId}>
-          <OperationContext.Consumer>
-            {(operationContext) => {
-              const wallet =
-                operationContext?.response?.operation.expenseWallet ||
-                operationContext?.response?.operation.incomeWallet
+  return (
+    <LoadingProvider>
+      <ErrorProvider>
+        <CurrenciesProvider>
+          <OperationProvider operationId={operationId}>
+            <OperationContext.Consumer>
+              {(operationContext) => {
+                const wallet =
+                  operationContext?.response?.operation.expenseWallet ??
+                  operationContext?.response?.operation.incomeWallet
 
-              if (!wallet) {
-                return (
-                  <CategoriesContext.Provider
-                    value={{
-                      hasError: false,
-                      payload: {},
-                      mutate: async () => {},
-                    }}
-                  >
-                    <WalletsContext.Provider
+                if (!wallet) {
+                  return (
+                    <CategoriesContext.Provider
                       value={{
                         hasError: false,
                         payload: {},
                         mutate: async () => {},
                       }}
                     >
-                      <CheckSwrContexts renderContent={() => <Operation />} />
-                    </WalletsContext.Provider>
-                  </CategoriesContext.Provider>
-                )
-              }
+                      <WalletsContext.Provider
+                        value={{
+                          hasError: false,
+                          payload: {},
+                          mutate: async () => {},
+                        }}
+                      >
+                        <CheckSwrContexts renderContent={() => <Operation />} />
+                      </WalletsContext.Provider>
+                    </CategoriesContext.Provider>
+                  )
+                }
 
-              return (
-                <CategoriesProvider groupId={wallet.group.id}>
-                  <WalletsProvider groupId={wallet.group.id}>
-                    <CheckSwrContexts renderContent={() => <Operation />} />
-                  </WalletsProvider>
-                </CategoriesProvider>
-              )
-            }}
-          </OperationContext.Consumer>
-        </OperationProvider>
-      </CurrenciesProvider>
-    </ErrorProvider>
-  </LoadingProvider>
-)
+                return (
+                  <CategoriesProvider groupId={wallet.group.id}>
+                    <WalletsProvider groupId={wallet.group.id}>
+                      <CheckSwrContexts renderContent={() => <Operation />} />
+                    </WalletsProvider>
+                  </CategoriesProvider>
+                )
+              }}
+            </OperationContext.Consumer>
+          </OperationProvider>
+        </CurrenciesProvider>
+      </ErrorProvider>
+    </LoadingProvider>
+  )
+}
 
 export default OperationPage

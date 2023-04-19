@@ -1,20 +1,20 @@
 import { NextApiHandler } from 'next'
+import { populateWalletBalance } from '../../utils/server/populateWalletBalance.ts'
 import {
   CreateWalletResponse,
   DeleteWalletResponse,
   GetWalletResponse,
   GetWalletsResponse,
   UpdateWalletResponse,
-} from '../types/wallets'
+} from '../types/wallets.ts'
 import {
   createWalletBodySchema,
   deleteWalletQuerySchema,
   getWalletQuerySchema,
   getWalletsQuerySchema,
   updateWalletBodySchema,
-} from './schemas/wallets'
-import { populateWalletBalance } from '../../utils/server/populateWalletBalance'
-import { walletSelector } from './selectors'
+} from './schemas/wallets.ts'
+import { walletSelector } from './selectors/index.ts'
 
 export const getWallets: NextApiHandler<GetWalletsResponse> = async (
   req,

@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { GroupsCard } from '../cards/Groups'
-import { OperationsCard } from '../cards/Operations'
-import { StatisticsCard } from '../cards/Statistics'
-import { WalletsCard } from '../cards/Wallets'
-import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
-import { Columns } from '../ui-kit/Columns'
+import { GroupsCard } from '../cards/Groups/Groups.tsx'
+import { OperationsCard } from '../cards/Operations/Operations.tsx'
+import { StatisticsCard } from '../cards/Statistics/Statistics.tsx'
+import { WalletsCard } from '../cards/Wallets/Wallets.tsx'
+import { Breadcrumbs } from '../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
+import { Columns } from '../ui-kit/Columns/Columns.tsx'
 
 export const Dashboard: FC = () => {
   return (

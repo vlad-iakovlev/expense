@@ -1,9 +1,9 @@
 import { FC, useCallback } from 'react'
-import { updateOperation } from '../../../api/client/operations'
-import { useLoadingContext } from '../../contexts/Loading'
-import { useOperationContext } from '../../contexts/Operation'
-import { Card } from '../../ui-kit/Card'
-import { CardSkeleton } from '../../ui-kit/Card/CardSkeleton'
+import { updateOperation } from '../../../api/client/operations.ts'
+import { useLoadingContext } from '../../contexts/Loading.tsx'
+import { useOperationContext } from '../../contexts/Operation.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
+import { CardSkeleton } from '../../ui-kit/Card/CardSkeleton.tsx'
 
 export const OperationInfoDate: FC = () => {
   const { setLoading } = useLoadingContext()

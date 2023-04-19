@@ -1,10 +1,10 @@
 import { FC, useCallback } from 'react'
-import { updateOperation } from '../../../api/client/operations'
-import { formatAmount } from '../../../utils/formatAmount'
-import { parseAmount } from '../../../utils/parseAmount'
-import { useLoadingContext } from '../../contexts/Loading'
-import { useOperationContext } from '../../contexts/Operation'
-import { Card } from '../../ui-kit/Card'
+import { updateOperation } from '../../../api/client/operations.ts'
+import { formatAmount } from '../../../utils/formatAmount.ts'
+import { parseAmount } from '../../../utils/parseAmount.ts'
+import { useLoadingContext } from '../../contexts/Loading.tsx'
+import { useOperationContext } from '../../contexts/Operation.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
 
 export const OperationInfoIncomeAmount: FC = () => {
   const { setLoading } = useLoadingContext()

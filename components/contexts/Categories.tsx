@@ -1,8 +1,8 @@
-import { createContext, FC, ReactNode, useMemo } from 'react'
-import { getCategories } from '../../api/client/categories'
-import { GetCategoriesResponse } from '../../api/types/categories'
-import { useSwrContext } from '../../hooks/useSwrContext'
-import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
+import { FC, ReactNode, createContext, useMemo } from 'react'
+import { getCategories } from '../../api/client/categories.ts'
+import { GetCategoriesResponse } from '../../api/types/categories.ts'
+import { useSwrContext } from '../../hooks/useSwrContext.ts'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue.ts'
 
 interface CategoriesPayload {
   groupId?: string

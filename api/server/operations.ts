@@ -5,15 +5,15 @@ import {
   GetOperationResponse,
   GetOperationsResponse,
   UpdateOperationResponse,
-} from '../types/operations'
+} from '../types/operations.ts'
 import {
   createOperationBodySchema,
   deleteOperationQuerySchema,
   getOperationQuerySchema,
   getOperationsQuerySchema,
   updateOperationBodySchema,
-} from './schemas/operations'
-import { operationSelector } from './selectors'
+} from './schemas/operations.ts'
+import { operationSelector } from './selectors/index.ts'
 
 export const getOperations: NextApiHandler<GetOperationsResponse> = async (
   req,

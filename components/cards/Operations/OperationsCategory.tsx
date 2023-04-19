@@ -1,7 +1,7 @@
 import { FC, useCallback, useMemo } from 'react'
-import { useCategoriesContext } from '../../contexts/Categories'
-import { useOperationsContext } from '../../contexts/Operations'
-import { Card, CardSelectOption } from '../../ui-kit/Card'
+import { useCategoriesContext } from '../../contexts/Categories.tsx'
+import { useOperationsContext } from '../../contexts/Operations.tsx'
+import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
 export const OperationsCategory: FC = () => {
   const { categoriesResponse } = useCategoriesContext()
@@ -16,7 +16,7 @@ export const OperationsCategory: FC = () => {
       ...(categoriesResponse?.categories.map((category) => ({
         id: category,
         name: category,
-      })) || []),
+      })) ?? []),
     ]
   }, [categoriesResponse])
 

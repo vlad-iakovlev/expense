@@ -6,12 +6,13 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { formatDate, formatDateForInput } from '../../../utils/formatDate'
+import { MayBePromise } from '../../../types/utility.ts'
+import { formatDate, formatDateForInput } from '../../../utils/formatDate.ts'
 
 export interface CardDateTimeProps {
   name: string
   value: Date
-  onChange: (value: Date) => void
+  onChange: (value: Date) => MayBePromise<void>
 }
 
 export const CardDateTime: FC<CardDateTimeProps> = ({
@@ -28,7 +29,7 @@ export const CardDateTime: FC<CardDateTimeProps> = ({
   }, [value])
 
   const handleKeyDown = useCallback(
-    async (event: KeyboardEvent<HTMLInputElement>) => {
+    (event: KeyboardEvent<HTMLInputElement>) => {
       switch (event.key) {
         case 'Enter':
           event.currentTarget.blur()
@@ -47,12 +48,15 @@ export const CardDateTime: FC<CardDateTimeProps> = ({
   }, [])
 
   const handleBlur = useCallback(() => {
-    if (!inputValue || inputValue === formatDateForInput(value)) {
-      setIsEditing(false)
-      return
-    }
+    void (async () => {
+      if (!inputValue || inputValue === formatDateForInput(value)) {
+        setIsEditing(false)
+        return
+      }
 
-    onChange(new Date(inputValue))
+      await onChange(new Date(inputValue))
+      setIsEditing(false)
+    })()
   }, [inputValue, value, onChange])
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import { useWalletContext } from '../../contexts/Wallet'
-import { Amount } from '../../ui-kit/Amount'
-import { Card } from '../../ui-kit/Card'
+import { useWalletContext } from '../../contexts/Wallet.tsx'
+import { Amount } from '../../ui-kit/Amount/Amount.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
 
 export const WalletInfoBalanceInDefaultCurrency: FC = () => {
   const { walletResponse } = useWalletContext()

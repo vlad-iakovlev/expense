@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { getStatisticsByCategoryQuerySchema } from '../server/schemas/statistics'
-import { ClientCurrency } from './currencies'
+import { getStatisticsByCategoryQuerySchema } from '../server/schemas/statistics.ts'
+import { ClientCurrency } from './currencies.ts'
 
 export type GetStatisticsByCategoryQuery = z.infer<
   typeof getStatisticsByCategoryQuerySchema

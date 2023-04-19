@@ -2,7 +2,7 @@ import { z } from 'zod'
 import {
   getCategoriesQuerySchema,
   renameCategoryBodySchema,
-} from '../server/schemas/categories'
+} from '../server/schemas/categories.ts'
 
 export type GetCategoriesQuery = z.infer<typeof getCategoriesQuerySchema>
 

@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
-import { MayBePromise } from '../../../types/utility'
-import { Card } from './Card'
+import { MayBePromise } from '../../../types/utility.ts'
+import { Card } from './Card.tsx'
 
 export interface CardSelectOption {
   id: string
@@ -26,14 +26,16 @@ export const CardSelect: FC<CardSelectProps> = ({
   const hide = useCallback(() => setIsOpen(false), [])
 
   const handleChange = useCallback(
-    async (option: CardSelectOption) => {
-      if (option.id === value.id) {
-        setIsOpen(false)
-        return
-      }
+    (option: CardSelectOption) => {
+      void (async () => {
+        if (option.id === value.id) {
+          setIsOpen(false)
+          return
+        }
 
-      await onChange(option)
-      setIsOpen(false)
+        await onChange(option)
+        setIsOpen(false)
+      })()
     },
     [onChange, value.id]
   )

@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { ClientCurrency } from '../../../api/types/currencies'
-import { StatisticsByCategoryItem } from '../../../api/types/statistics'
-import { stringToColor } from '../../../utils/stringToColor'
-import { Amount } from '../../ui-kit/Amount'
-import { Card } from '../../ui-kit/Card'
-import { Switch } from '../../ui-kit/Switch'
+import { ClientCurrency } from '../../../api/types/currencies.ts'
+import { StatisticsByCategoryItem } from '../../../api/types/statistics.ts'
+import { stringToColor } from '../../../utils/stringToColor.ts'
+import { Amount } from '../../ui-kit/Amount/Amount.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
+import { Switch } from '../../ui-kit/Switch/Switch.tsx'
 
 interface Props {
   currency: ClientCurrency

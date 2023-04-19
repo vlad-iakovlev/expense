@@ -1,4 +1,4 @@
-import { request } from '../../utils/client/request'
+import { request } from '../../utils/client/request.ts'
 import {
   CreateGroupBody,
   CreateGroupResponse,
@@ -9,7 +9,7 @@ import {
   GetGroupsResponse,
   UpdateGroupBody,
   UpdateGroupResponse,
-} from '../types/groups'
+} from '../types/groups.ts'
 
 const BASE_ROUTE = '/api/groups'
 

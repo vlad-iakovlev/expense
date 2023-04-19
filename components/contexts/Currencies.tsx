@@ -1,8 +1,8 @@
-import { createContext, FC, ReactNode } from 'react'
-import { getCurrencies } from '../../api/client/currencies'
-import { GetCurrenciesResponse } from '../../api/types/currencies'
-import { useSwrContext } from '../../hooks/useSwrContext'
-import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
+import { FC, ReactNode, createContext } from 'react'
+import { getCurrencies } from '../../api/client/currencies.ts'
+import { GetCurrenciesResponse } from '../../api/types/currencies.ts'
+import { useSwrContext } from '../../hooks/useSwrContext.ts'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue.ts'
 
 type ContextValue = SwrValue<GetCurrenciesResponse, undefined>
 

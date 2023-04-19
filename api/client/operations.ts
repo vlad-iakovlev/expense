@@ -1,4 +1,4 @@
-import { request } from '../../utils/client/request'
+import { request } from '../../utils/client/request.ts'
 import {
   CreateOperationBody,
   CreateOperationResponse,
@@ -10,7 +10,7 @@ import {
   GetOperationsResponse,
   UpdateOperationBody,
   UpdateOperationResponse,
-} from '../types/operations'
+} from '../types/operations.ts'
 
 const BASE_ROUTE = '/api/operations'
 

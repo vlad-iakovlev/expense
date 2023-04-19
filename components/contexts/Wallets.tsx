@@ -1,8 +1,8 @@
-import { createContext, FC, ReactNode, useMemo } from 'react'
-import { getWallets } from '../../api/client/wallets'
-import { GetWalletsResponse } from '../../api/types/wallets'
-import { useSwrContext } from '../../hooks/useSwrContext'
-import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
+import { FC, ReactNode, createContext, useMemo } from 'react'
+import { getWallets } from '../../api/client/wallets.ts'
+import { GetWalletsResponse } from '../../api/types/wallets.ts'
+import { useSwrContext } from '../../hooks/useSwrContext.ts'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue.ts'
 
 interface WalletsPayload {
   groupId?: string

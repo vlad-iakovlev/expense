@@ -5,9 +5,9 @@ import {
   deleteGroupQuerySchema,
   getGroupQuerySchema,
   updateGroupBodySchema,
-} from '../server/schemas/groups'
-import { ClientCurrency } from './currencies'
-import { ClientUser } from './users'
+} from '../server/schemas/groups.ts'
+import { ClientCurrency } from './currencies.ts'
+import { ClientUser } from './users.ts'
 
 export type ClientGroup = Pick<Group, 'id' | 'name'> & {
   defaultCurrency: ClientCurrency

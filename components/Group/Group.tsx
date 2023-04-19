@@ -1,15 +1,16 @@
-import Head from 'next/head'
 import { FC, useMemo } from 'react'
-import { ROUTES } from '../../constants/routes'
-import { GroupInfoCard } from '../cards/GroupInfo'
-import { GroupUsersCard } from '../cards/GroupUsers'
-import { OperationsCard } from '../cards/Operations'
-import { RenameCategoryCard } from '../cards/RenameCategory'
-import { StatisticsCard } from '../cards/Statistics'
-import { WalletsCard } from '../cards/Wallets'
-import { useGroupContext } from '../contexts/Group'
-import { Breadcrumbs, BreadcrumbSkeleton } from '../ui-kit/Breadcrumbs'
-import { Columns } from '../ui-kit/Columns'
+import { ROUTES } from '../../constants/routes.ts'
+import { GroupInfoCard } from '../cards/GroupInfo/GroupInfo.tsx'
+import { GroupUsersCard } from '../cards/GroupUsers/GroupUsers.tsx'
+import { OperationsCard } from '../cards/Operations/Operations.tsx'
+import { RenameCategoryCard } from '../cards/RenameCategory/RenameCategory.tsx'
+import { StatisticsCard } from '../cards/Statistics/Statistics.tsx'
+import { WalletsCard } from '../cards/Wallets/Wallets.tsx'
+import { useGroupContext } from '../contexts/Group.tsx'
+import { NextHead } from '../next/Head.ts'
+import { BreadcrumbSkeleton } from '../ui-kit/Breadcrumbs/BreadcrumbSkeleton.tsx'
+import { Breadcrumbs } from '../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
+import { Columns } from '../ui-kit/Columns/Columns.tsx'
 
 export const Group: FC = () => {
   const { groupResponse } = useGroupContext()
@@ -25,13 +26,13 @@ export const Group: FC = () => {
 
   return (
     <>
-      <Head>
+      <NextHead>
         <title>
           {groupResponse
             ? `Expense > ${groupResponse.group.name}`
             : 'Loading...'}
         </title>
-      </Head>
+      </NextHead>
 
       {groupResponse ? (
         <Breadcrumbs title={groupResponse.group.name} parents={parents} />

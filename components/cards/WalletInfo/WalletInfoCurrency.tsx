@@ -1,10 +1,10 @@
 import { FC, useCallback, useMemo } from 'react'
-import { updateWallet } from '../../../api/client/wallets'
-import { useCurrenciesContext } from '../../contexts/Currencies'
-import { useLoadingContext } from '../../contexts/Loading'
-import { useOperationsContext } from '../../contexts/Operations'
-import { useWalletContext } from '../../contexts/Wallet'
-import { Card, CardSelectOption } from '../../ui-kit/Card'
+import { updateWallet } from '../../../api/client/wallets.ts'
+import { useCurrenciesContext } from '../../contexts/Currencies.tsx'
+import { useLoadingContext } from '../../contexts/Loading.tsx'
+import { useOperationsContext } from '../../contexts/Operations.tsx'
+import { useWalletContext } from '../../contexts/Wallet.tsx'
+import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
 export const WalletInfoCurrency: FC = () => {
   const { setLoading } = useLoadingContext()
@@ -17,14 +17,14 @@ export const WalletInfoCurrency: FC = () => {
       currenciesResponse?.currencies.map((currency) => ({
         id: currency.id,
         name: currency.name,
-      })) || []
+      })) ?? []
     )
   }, [currenciesResponse])
 
   const value = useMemo(
     () => ({
-      id: walletResponse?.wallet.currency.id || '',
-      name: walletResponse?.wallet.currency.name || '',
+      id: walletResponse?.wallet.currency.id ?? '',
+      name: walletResponse?.wallet.currency.name ?? '',
     }),
     [walletResponse?.wallet.currency.id, walletResponse?.wallet.currency.name]
   )

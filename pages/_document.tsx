@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript, DocumentProps } from 'next/document'
+import { DocumentProps, Head, Html, Main, NextScript } from 'next/document.js'
 import { FC } from 'react'
 
 export const MyDocument: FC<DocumentProps> = () => {

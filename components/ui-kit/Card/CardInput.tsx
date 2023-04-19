@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import {
   ChangeEvent,
   FC,
@@ -9,8 +9,8 @@ import {
   useRef,
   useState,
 } from 'react'
-import { MayBePromise } from '../../../types/utility'
-import { Card } from './Card'
+import { MayBePromise } from '../../../types/utility.ts'
+import { Card } from './Card.tsx'
 
 export interface CardInputProps {
   className?: string
@@ -40,7 +40,7 @@ export const CardInput: FC<CardInputProps> = ({
   }, [isEditing, value])
 
   const handleKeyDown = useCallback(
-    async (event: KeyboardEvent<HTMLInputElement>) => {
+    (event: KeyboardEvent<HTMLInputElement>) => {
       switch (event.key) {
         case 'Enter':
           event.currentTarget.blur()
@@ -63,32 +63,36 @@ export const CardInput: FC<CardInputProps> = ({
   }, [])
 
   const handleBlur = useCallback(
-    async (event: FocusEvent<HTMLInputElement>) => {
-      if (popupRef.current?.contains(event.relatedTarget)) {
-        event.preventDefault()
-        return
-      }
+    (event: FocusEvent<HTMLInputElement>) => {
+      void (async () => {
+        if (popupRef.current?.contains(event.relatedTarget)) {
+          event.preventDefault()
+          return
+        }
 
-      if (!inputValue || inputValue === value) {
+        if (!inputValue || inputValue === value) {
+          setIsEditing(false)
+          return
+        }
+
+        await onChange(inputValue)
         setIsEditing(false)
-        return
-      }
-
-      await onChange(inputValue)
-      setIsEditing(false)
+      })()
     },
     [inputValue, value, onChange]
   )
 
   const handleSelect = useCallback(
-    async (suggestion: string) => {
-      if (suggestion === value) {
-        setIsEditing(false)
-        return
-      }
+    (suggestion: string) => {
+      void (async () => {
+        if (suggestion === value) {
+          setIsEditing(false)
+          return
+        }
 
-      await onChange(suggestion)
-      setIsEditing(false)
+        await onChange(suggestion)
+        setIsEditing(false)
+      })()
     },
     [onChange, value]
   )

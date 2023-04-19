@@ -18,8 +18,8 @@ jobs:
     strategy:
       matrix:
         check:
-          - lint
           - compile
+          - lint:ci
           - prettier:ci
     name: ${{ matrix.check }}
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
     if: github.repository == 'vlad-yakovlev/expense' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Digital Ocean droplet via SSH action
+      - name: Deploy to Digital Ocean droplet
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}

@@ -1,12 +1,12 @@
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { FC } from 'react'
-import { ClientOperation } from '../../../api/types/operations'
-import { ROUTES } from '../../../constants/routes'
-import { formatDate } from '../../../utils/formatDate'
-import { useOperationsContext } from '../../contexts/Operations'
-import { Amount } from '../../ui-kit/Amount'
-import { Card } from '../../ui-kit/Card'
+import { ClientOperation } from '../../../api/types/operations.ts'
+import { ROUTES } from '../../../constants/routes.ts'
+import { formatDate } from '../../../utils/formatDate.ts'
+import { useOperationsContext } from '../../contexts/Operations.tsx'
+import { Amount } from '../../ui-kit/Amount/Amount.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   operation: ClientOperation

@@ -1,9 +1,9 @@
 import { FC } from 'react'
-import { Breadcrumbs } from '../ui-kit/Breadcrumbs'
-import { Columns } from '../ui-kit/Columns'
-import { HomeFeatures } from './HomeFeatures'
-import { HomeInfo } from './HomeInfo'
-import { HomeWhatToDo } from './HomeWhatToDo'
+import { Breadcrumbs } from '../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
+import { Columns } from '../ui-kit/Columns/Columns.tsx'
+import { HomeFeatures } from './HomeFeatures.tsx'
+import { HomeInfo } from './HomeInfo.tsx'
+import { HomeWhatToDo } from './HomeWhatToDo.tsx'
 
 export const Home: FC = () => (
   <>

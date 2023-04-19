@@ -1,8 +1,8 @@
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { FC, useCallback, useRef, useState } from 'react'
-import { Avatar } from '../ui-kit/Avatar'
-import { Button } from '../ui-kit/Button'
-import { Card } from '../ui-kit/Card'
+import { Avatar } from '../ui-kit/Avatar/Avatar.tsx'
+import { Button } from '../ui-kit/Button/Button.tsx'
+import { Card } from '../ui-kit/Card/Card.tsx'
 
 export const HeaderUser: FC = () => {
   const session = useSession()
@@ -19,23 +19,27 @@ export const HeaderUser: FC = () => {
     setIsOpen(false)
   }, [])
 
-  const handleSignIn = useCallback(async () => {
-    try {
-      setIsLoading(true)
-      await signIn('google')
-    } finally {
-      setIsLoading(false)
-    }
+  const handleSignIn = useCallback(() => {
+    void (async () => {
+      try {
+        setIsLoading(true)
+        await signIn('google')
+      } finally {
+        setIsLoading(false)
+      }
+    })()
   }, [])
 
-  const handleSignOut = useCallback(async () => {
-    try {
-      setIsOpen(false)
-      setIsLoading(true)
-      await signOut()
-    } finally {
-      setIsLoading(false)
-    }
+  const handleSignOut = useCallback(() => {
+    void (async () => {
+      try {
+        setIsOpen(false)
+        setIsLoading(true)
+        await signOut()
+      } finally {
+        setIsLoading(false)
+      }
+    })()
   }, [])
 
   return (
@@ -55,8 +59,8 @@ export const HeaderUser: FC = () => {
             onClick={handleProfileClick}
           >
             <Avatar
-              src={session.data.user?.image || ''}
-              name={session.data.user?.name || ''}
+              src={session.data.user.image ?? undefined}
+              name={session.data.user.name ?? undefined}
             />
           </button>
 
@@ -69,8 +73,8 @@ export const HeaderUser: FC = () => {
             onClose={handlePopupClose}
           >
             <Card.Title
-              title={session.data.user?.name || ''}
-              subtitle={session.data.user?.email || ''}
+              title={session.data.user.name ?? undefined}
+              subtitle={session.data.user.email ?? undefined}
             />
 
             <Card.Divider />

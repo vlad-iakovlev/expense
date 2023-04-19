@@ -1,18 +1,18 @@
 import { Transition } from '@headlessui/react'
-import Error from 'next/error'
-import { FC, Fragment, ReactElement, useContext } from 'react'
-import { CategoriesContext } from '../contexts/Categories'
-import { CurrenciesContext } from '../contexts/Currencies'
-import { useErrorContext } from '../contexts/Error'
-import { GroupContext } from '../contexts/Group'
-import { GroupsContext } from '../contexts/Groups'
-import { useLoadingContext } from '../contexts/Loading'
-import { OperationContext } from '../contexts/Operation'
-import { OperationsContext } from '../contexts/Operations'
-import { StatisticsByCategoryContext } from '../contexts/StatisticsByCategory'
-import { WalletContext } from '../contexts/Wallet'
-import { WalletsContext } from '../contexts/Wallets'
-import { Portal } from '../ui-kit/Portal'
+import { FC, ReactElement, useContext } from 'react'
+import { CategoriesContext } from '../contexts/Categories.tsx'
+import { CurrenciesContext } from '../contexts/Currencies.tsx'
+import { useErrorContext } from '../contexts/Error.tsx'
+import { GroupContext } from '../contexts/Group.tsx'
+import { GroupsContext } from '../contexts/Groups.tsx'
+import { useLoadingContext } from '../contexts/Loading.tsx'
+import { OperationContext } from '../contexts/Operation.tsx'
+import { OperationsContext } from '../contexts/Operations.tsx'
+import { StatisticsByCategoryContext } from '../contexts/StatisticsByCategory.tsx'
+import { WalletContext } from '../contexts/Wallet.tsx'
+import { WalletsContext } from '../contexts/Wallets.tsx'
+import { NextError } from '../next/Error.ts'
+import { Portal } from '../ui-kit/Portal/Portal.tsx'
 
 interface Props {
   renderError?: () => ReactElement | null
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export const CheckSwrContexts: FC<Props> = ({
-  renderError = () => <Error statusCode={404} />,
+  renderError = () => <NextError statusCode={404} />,
   renderContent,
 }) => {
   const { isLoading } = useLoadingContext()

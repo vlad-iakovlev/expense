@@ -1,9 +1,9 @@
 import { FC, useMemo } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
-import { ClientCurrency } from '../../../api/types/currencies'
-import { StatisticsByCategoryItem } from '../../../api/types/statistics'
-import { stringToColor } from '../../../utils/stringToColor'
-import { Amount } from '../../ui-kit/Amount'
+import { ClientCurrency } from '../../../api/types/currencies.ts'
+import { StatisticsByCategoryItem } from '../../../api/types/statistics.ts'
+import { stringToColor } from '../../../utils/stringToColor.ts'
+import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 
 interface Props {
   currency?: ClientCurrency

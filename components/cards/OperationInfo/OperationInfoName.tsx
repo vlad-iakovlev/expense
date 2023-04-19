@@ -1,8 +1,8 @@
 import { FC, useCallback } from 'react'
-import { updateOperation } from '../../../api/client/operations'
-import { useLoadingContext } from '../../contexts/Loading'
-import { useOperationContext } from '../../contexts/Operation'
-import { Card } from '../../ui-kit/Card'
+import { updateOperation } from '../../../api/client/operations.ts'
+import { useLoadingContext } from '../../contexts/Loading.tsx'
+import { useOperationContext } from '../../contexts/Operation.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
 
 export const OperationInfoName: FC = () => {
   const { setLoading } = useLoadingContext()

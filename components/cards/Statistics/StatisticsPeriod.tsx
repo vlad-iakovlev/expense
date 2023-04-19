@@ -1,10 +1,14 @@
 import { FC, useCallback, useMemo } from 'react'
-import { formatMonth, formatWeek, formatYear } from '../../../utils/formatDate'
+import {
+  formatMonth,
+  formatWeek,
+  formatYear,
+} from '../../../utils/formatDate.ts'
 import {
   StatisticsByCategoryPeriod,
   useStatisticsByCategoryContext,
-} from '../../contexts/StatisticsByCategory'
-import { Card, CardSelectOption } from '../../ui-kit/Card'
+} from '../../contexts/StatisticsByCategory.tsx'
+import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
 const options = [
   {
@@ -32,7 +36,7 @@ export const StatisticsPeriod: FC = () => {
     return (
       options.find(
         (option) => statisticsByCategoryPayload.period === option.id
-      ) || options[0]
+      ) ?? options[0]
     )
   }, [statisticsByCategoryPayload.period])
 

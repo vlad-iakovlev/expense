@@ -1,10 +1,10 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react'
-import { renameCategory } from '../../../api/client/categories'
-import { useCategoriesContext } from '../../contexts/Categories'
-import { useLoadingContext } from '../../contexts/Loading'
-import { useOperationsContext } from '../../contexts/Operations'
-import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory'
-import { Card, CardSelectOption } from '../../ui-kit/Card'
+import { renameCategory } from '../../../api/client/categories.ts'
+import { useCategoriesContext } from '../../contexts/Categories.tsx'
+import { useLoadingContext } from '../../contexts/Loading.tsx'
+import { useOperationsContext } from '../../contexts/Operations.tsx'
+import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory.tsx'
+import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   className?: string
@@ -23,7 +23,7 @@ export const RenameCategoryCard: FC<Props> = ({ className }) => {
       categoriesResponse?.categories.map((category) => ({
         id: category,
         name: category,
-      })) || []
+      })) ?? []
     )
   }, [categoriesResponse])
 

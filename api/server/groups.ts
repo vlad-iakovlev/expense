@@ -5,14 +5,14 @@ import {
   GetGroupResponse,
   GetGroupsResponse,
   UpdateGroupResponse,
-} from '../types/groups'
+} from '../types/groups.ts'
 import {
   createGroupBodySchema,
   deleteGroupQuerySchema,
   getGroupQuerySchema,
   updateGroupBodySchema,
-} from './schemas/groups'
-import { groupSelector } from './selectors'
+} from './schemas/groups.ts'
+import { groupSelector } from './selectors/index.ts'
 
 export const getGroups: NextApiHandler<GetGroupsResponse> = async (
   req,

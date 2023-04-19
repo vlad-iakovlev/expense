@@ -1,9 +1,9 @@
 import { FC, useCallback, useMemo, useState } from 'react'
-import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory'
-import { Card } from '../../ui-kit/Card'
-import { StatisticsCategories } from './StatisticsCategories'
-import { StatisticsCharts } from './StatisticsCharts'
-import { StatisticsPeriod } from './StatisticsPeriod'
+import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
+import { StatisticsCategories } from './StatisticsCategories.tsx'
+import { StatisticsCharts } from './StatisticsCharts.tsx'
+import { StatisticsPeriod } from './StatisticsPeriod.tsx'
 
 interface Props {
   className?: string
@@ -24,7 +24,7 @@ export const StatisticsCard: FC<Props> = ({ className }) => {
           incomeAmount: 0,
           expenseAmount: 0,
         }),
-      })) || []
+      })) ?? []
     )
   }, [disabledCategories, statisticsByCategoryResponse])
 

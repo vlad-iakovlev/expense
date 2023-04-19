@@ -1,16 +1,16 @@
 import * as fns from 'date-fns'
 import {
-  createContext,
   FC,
   ReactNode,
+  createContext,
   useCallback,
   useMemo,
   useState,
 } from 'react'
-import { getStatisticsByCategory } from '../../api/client/statistics'
-import { GetStatisticsByCategoryResponse } from '../../api/types/statistics'
-import { useSwrContext } from '../../hooks/useSwrContext'
-import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
+import { getStatisticsByCategory } from '../../api/client/statistics.ts'
+import { GetStatisticsByCategoryResponse } from '../../api/types/statistics.ts'
+import { useSwrContext } from '../../hooks/useSwrContext.ts'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue.ts'
 
 export enum StatisticsByCategoryPeriod {
   ALL = 'ALL',

@@ -1,6 +1,6 @@
 import { NextApiRequest } from 'next'
-import { ClientCurrency } from '../../api/types/currencies'
-import { ClientWallet } from '../../api/types/wallets'
+import { ClientCurrency } from '../../api/types/currencies.ts'
+import { ClientWallet } from '../../api/types/wallets.ts'
 
 interface GetCategoriesStatisticsParams {
   type: 'income' | 'expense'
@@ -34,7 +34,8 @@ export const getStatisticsByCategoryItems = async (
     },
     by: ['category', `${params.type}WalletId`],
     _sum: {
-      [`${params.type}Amount`]: true,
+      ...(params.type === 'income' && { incomeAmount: true }),
+      ...(params.type === 'expense' && { expenseAmount: true }),
     },
   })
 
@@ -45,14 +46,14 @@ export const getStatisticsByCategoryItems = async (
 
     if (!wallet) {
       throw new Error(
-        `Can't find wallet with id ${item[`${params.type}WalletId`]}`
+        `Can't find wallet with id ${item[`${params.type}WalletId`] ?? ''}`
       )
     }
 
     return {
       category: item.category,
       amount:
-        (item._sum[`${params.type}Amount`] || 0) *
+        (item._sum[`${params.type}Amount`] ?? 0) *
         (params.currency.rate / wallet.currency.rate),
     }
   }, [])

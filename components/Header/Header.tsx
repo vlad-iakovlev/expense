@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import { Container } from '../ui-kit/Container'
-import { HeaderLogo } from './HeaderLogo'
-import { HeaderUser } from './HeaderUser'
+import { Container } from '../ui-kit/Container/Container.tsx'
+import { HeaderLogo } from './HeaderLogo.tsx'
+import { HeaderUser } from './HeaderUser.tsx'
 
 export const Header: FC = () => {
   return (

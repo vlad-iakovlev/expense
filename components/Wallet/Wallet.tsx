@@ -1,12 +1,13 @@
-import Head from 'next/head'
 import { FC, useMemo } from 'react'
-import { ROUTES } from '../../constants/routes'
-import { OperationsCard } from '../cards/Operations'
-import { StatisticsCard } from '../cards/Statistics'
-import { WalletInfoCard } from '../cards/WalletInfo'
-import { useWalletContext } from '../contexts/Wallet'
-import { Breadcrumbs, BreadcrumbSkeleton } from '../ui-kit/Breadcrumbs'
-import { Columns } from '../ui-kit/Columns'
+import { ROUTES } from '../../constants/routes.ts'
+import { OperationsCard } from '../cards/Operations/Operations.tsx'
+import { StatisticsCard } from '../cards/Statistics/Statistics.tsx'
+import { WalletInfoCard } from '../cards/WalletInfo/WalletInfo.tsx'
+import { useWalletContext } from '../contexts/Wallet.tsx'
+import { NextHead } from '../next/Head.ts'
+import { BreadcrumbSkeleton } from '../ui-kit/Breadcrumbs/BreadcrumbSkeleton.tsx'
+import { Breadcrumbs } from '../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
+import { Columns } from '../ui-kit/Columns/Columns.tsx'
 
 export const Wallet: FC = () => {
   const { walletResponse } = useWalletContext()
@@ -30,13 +31,13 @@ export const Wallet: FC = () => {
 
   return (
     <>
-      <Head>
+      <NextHead>
         <title>
           {walletResponse
             ? `Expense > ${walletResponse.wallet.name} ${walletResponse.wallet.currency.name}`
             : 'Loading...'}
         </title>
-      </Head>
+      </NextHead>
 
       {walletResponse ? (
         <Breadcrumbs

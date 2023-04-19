@@ -1,7 +1,5 @@
-import * as dotenv from 'dotenv-flow'
-dotenv.config()
-
 import { PrismaClient } from '@prisma/client'
+import * as dotenv from 'dotenv-flow'
 import fetch from 'node-fetch'
 
 interface RatesResponse {
@@ -12,7 +10,7 @@ interface RatesResponse {
   timestamp: number
 }
 
-const fetchRates = async () => {
+const fetchRates = async (): Promise<RatesResponse> => {
   if (!process.env.EXCHANGE_RATES_API_KEY) {
     throw new Error(
       'You should provide EXCHANGE_RATES_API_KEY environment variable'
@@ -46,11 +44,15 @@ const updateRates = async () => {
   )
 }
 
-updateRates()
-  .then(() => {
+void (async () => {
+  try {
+    dotenv.config()
+
+    await updateRates()
+
     process.exit(0)
-  })
-  .catch((error) => {
+  } catch (error) {
     console.error(error)
     process.exit(1)
-  })
+  }
+})()

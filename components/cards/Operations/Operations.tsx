@@ -1,11 +1,11 @@
 import { FC, Fragment } from 'react'
-import { useOperationsContext } from '../../contexts/Operations'
-import { Card } from '../../ui-kit/Card'
-import { OperationsCategory } from './OperationsCategory'
-import { OperationsCreate } from './OperationsCreate'
-import { OperationsExpenseItem } from './OperationsExpenseItem'
-import { OperationsIncomeItem } from './OperationsIncomeItem'
-import { OperationsTransferItem } from './OperationsTransferItem'
+import { useOperationsContext } from '../../contexts/Operations.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
+import { OperationsCategory } from './OperationsCategory.tsx'
+import { OperationsCreate } from './OperationsCreate.tsx'
+import { OperationsExpenseItem } from './OperationsExpenseItem.tsx'
+import { OperationsIncomeItem } from './OperationsIncomeItem.tsx'
+import { OperationsTransferItem } from './OperationsTransferItem.tsx'
 
 interface Props {
   className?: string

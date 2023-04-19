@@ -1,18 +1,18 @@
 import {
-  createContext,
   FC,
   ReactNode,
+  createContext,
   useCallback,
   useMemo,
   useState,
 } from 'react'
-import { getOperations } from '../../api/client/operations'
+import { getOperations } from '../../api/client/operations.ts'
 import {
   GetOperationsQuery,
   GetOperationsResponse,
-} from '../../api/types/operations'
-import { useSwrContext } from '../../hooks/useSwrContext'
-import { SwrValue, useSwrValue } from '../../hooks/useSwrValue'
+} from '../../api/types/operations.ts'
+import { useSwrContext } from '../../hooks/useSwrContext.ts'
+import { SwrValue, useSwrValue } from '../../hooks/useSwrValue.ts'
 
 interface OperationsResponse extends GetOperationsResponse {
   hasPrevOperations: boolean
@@ -71,7 +71,7 @@ export const OperationsProvider: FC<ProviderProps> = ({
 
       return {
         operations: operations.slice(0, PER_PAGE),
-        hasPrevOperations: (query.skip || 0) > 0,
+        hasPrevOperations: (query.skip ?? 0) > 0,
         hasNextOperations: operations.length > PER_PAGE,
       }
     }, []),

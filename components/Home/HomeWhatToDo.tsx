@@ -4,7 +4,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { signIn } from 'next-auth/react'
 import { FC, useCallback, useState } from 'react'
-import { Card } from '../ui-kit/Card'
+import { Card } from '../ui-kit/Card/Card.tsx'
 
 interface Props {
   className?: string
@@ -13,13 +13,15 @@ interface Props {
 export const HomeWhatToDo: FC<Props> = ({ className }) => {
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSignIn = useCallback(async () => {
-    try {
-      setIsLoading(true)
-      await signIn('google')
-    } finally {
-      setIsLoading(false)
-    }
+  const handleSignIn = useCallback(() => {
+    void (async () => {
+      try {
+        setIsLoading(true)
+        await signIn('google')
+      } finally {
+        setIsLoading(false)
+      }
+    })()
   }, [])
 
   return (

@@ -1,8 +1,8 @@
-import { request } from '../../utils/client/request'
+import { request } from '../../utils/client/request.ts'
 import {
   GetStatisticsByCategoryQuery,
   GetStatisticsByCategoryResponse,
-} from '../types/statistics'
+} from '../types/statistics.ts'
 
 const BASE_ROUTE = '/api/statistics'
 

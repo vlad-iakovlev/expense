@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { isValidObjectId } from '../../../utils/isValidObjectId'
+import { isValidObjectId } from '../../../utils/isValidObjectId.ts'
 
 export const getOperationsQuerySchema = z.object({
   groupId: z.string().refine(isValidObjectId).optional(),

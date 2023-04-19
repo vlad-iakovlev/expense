@@ -1,8 +1,8 @@
 import { Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid'
 import { FC } from 'react'
-import { Button } from '../Button'
-import { Portal } from '../Portal'
+import { Button } from '../Button/Button.tsx'
+import { Portal } from '../Portal/Portal.tsx'
 
 interface ConfirmDialogProps {
   isOpen: boolean

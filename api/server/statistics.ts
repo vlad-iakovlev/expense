@@ -1,15 +1,15 @@
 import { NextApiHandler } from 'next'
-import { getDefaultCurrency } from '../../utils/server/getDefaultCurrency'
-import { getGroupDefaultCurrency } from '../../utils/server/getGroupDefaultCurrency'
-import { getStatisticsByCategoryItems } from '../../utils/server/getStatisticsByCategoryItems'
-import { getWalletCurrency } from '../../utils/server/getWalletCurrency'
-import { ClientCurrency } from '../types/currencies'
+import { getDefaultCurrency } from '../../utils/server/getDefaultCurrency.ts'
+import { getGroupDefaultCurrency } from '../../utils/server/getGroupDefaultCurrency.ts'
+import { getStatisticsByCategoryItems } from '../../utils/server/getStatisticsByCategoryItems.ts'
+import { getWalletCurrency } from '../../utils/server/getWalletCurrency.ts'
+import { ClientCurrency } from '../types/currencies.ts'
 import {
   GetStatisticsByCategoryResponse,
   StatisticsByCategoryItem,
-} from '../types/statistics'
-import { getStatisticsByCategoryQuerySchema } from './schemas/statistics'
-import { walletSelector } from './selectors'
+} from '../types/statistics.ts'
+import { getStatisticsByCategoryQuerySchema } from './schemas/statistics.ts'
+import { walletSelector } from './selectors/index.ts'
 
 export const getStatisticsByCategory: NextApiHandler<
   GetStatisticsByCategoryResponse
@@ -60,6 +60,7 @@ export const getStatisticsByCategory: NextApiHandler<
   const itemsMap: Record<string, StatisticsByCategoryItem> = {}
 
   incomes.forEach((item) => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     itemsMap[item.category] ??= {
       category: item.category,
       incomeAmount: 0,
@@ -70,6 +71,7 @@ export const getStatisticsByCategory: NextApiHandler<
   })
 
   expenses.forEach((item) => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     itemsMap[item.category] ??= {
       category: item.category,
       incomeAmount: 0,

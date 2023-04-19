@@ -1,5 +1,5 @@
 import { NextApiRequest } from 'next'
-import { currencySelector } from '../../api/server/selectors'
+import { currencySelector } from '../../api/server/selectors/index.ts'
 
 export const getGroupDefaultCurrency = async (
   req: NextApiRequest,

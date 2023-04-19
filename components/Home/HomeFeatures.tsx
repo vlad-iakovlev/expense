@@ -7,7 +7,7 @@ import {
   WifiIcon,
 } from '@heroicons/react/24/outline'
 import { FC } from 'react'
-import { Card } from '../ui-kit/Card'
+import { Card } from '../ui-kit/Card/Card.tsx'
 
 interface Props {
   className?: string

@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import { useGroupContext } from '../../contexts/Group'
-import { Avatar } from '../../ui-kit/Avatar'
-import { Card } from '../../ui-kit/Card'
+import { useGroupContext } from '../../contexts/Group.tsx'
+import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   className?: string
@@ -19,7 +19,11 @@ export const GroupUsersCard: FC<Props> = ({ className }) => {
         <Card.Text
           key={user.id}
           start={
-            <Avatar src={user.image || ''} name={user.name || ''} size="sm" />
+            <Avatar
+              src={user.image ?? undefined}
+              name={user.name ?? undefined}
+              size="sm"
+            />
           }
         >
           {user.name}

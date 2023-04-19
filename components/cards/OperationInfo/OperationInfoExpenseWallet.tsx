@@ -1,9 +1,9 @@
 import { FC, useCallback, useMemo } from 'react'
-import { updateOperation } from '../../../api/client/operations'
-import { useLoadingContext } from '../../contexts/Loading'
-import { useOperationContext } from '../../contexts/Operation'
-import { useWalletsContext } from '../../contexts/Wallets'
-import { Card, CardSelectOption } from '../../ui-kit/Card'
+import { updateOperation } from '../../../api/client/operations.ts'
+import { useLoadingContext } from '../../contexts/Loading.tsx'
+import { useOperationContext } from '../../contexts/Operation.tsx'
+import { useWalletsContext } from '../../contexts/Wallets.tsx'
+import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
 export const OperationInfoExpenseWallet: FC = () => {
   const { setLoading } = useLoadingContext()
@@ -15,17 +15,18 @@ export const OperationInfoExpenseWallet: FC = () => {
       walletsResponse?.wallets.map((wallet) => ({
         id: wallet.id,
         name: `${wallet.name} ${wallet.currency.name}`,
-      })) || []
+      })) ?? []
     )
   }, [walletsResponse])
 
-  const value = useMemo(
-    () => ({
-      id: operationResponse?.operation.expenseWallet?.id || '',
-      name: `${operationResponse?.operation.expenseWallet?.name} ${operationResponse?.operation.expenseWallet?.currency.name}`,
-    }),
-    [operationResponse?.operation.expenseWallet]
-  )
+  const value = useMemo(() => {
+    const wallet = operationResponse?.operation.expenseWallet
+
+    return {
+      id: wallet?.id ?? '',
+      name: `${wallet?.name ?? ''} ${wallet?.currency.name ?? ''}`,
+    }
+  }, [operationResponse?.operation.expenseWallet])
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {

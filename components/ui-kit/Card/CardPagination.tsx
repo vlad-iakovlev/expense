@@ -1,7 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { FC, ReactNode } from 'react'
-import { Button } from '../../ui-kit/Button'
+import { Button } from '../../ui-kit/Button/Button.tsx'
 
 export interface CardPaginationProps {
   children?: ReactNode

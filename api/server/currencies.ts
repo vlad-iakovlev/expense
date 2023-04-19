@@ -1,6 +1,6 @@
 import { NextApiHandler } from 'next'
-import { GetCurrenciesResponse } from '../types/currencies'
-import { currencySelector } from './selectors'
+import { GetCurrenciesResponse } from '../types/currencies.ts'
+import { currencySelector } from './selectors/index.ts'
 
 export const getCurrencies: NextApiHandler<GetCurrenciesResponse> = async (
   req,

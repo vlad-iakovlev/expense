@@ -1,9 +1,9 @@
 import { FC } from 'react'
-import { ROUTES } from '../../../constants/routes'
-import { useWalletsContext } from '../../contexts/Wallets'
-import { Amount } from '../../ui-kit/Amount'
-import { Card } from '../../ui-kit/Card'
-import { WalletsCreate } from './WalletsCreate'
+import { ROUTES } from '../../../constants/routes.ts'
+import { useWalletsContext } from '../../contexts/Wallets.tsx'
+import { Amount } from '../../ui-kit/Amount/Amount.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
+import { WalletsCreate } from './WalletsCreate.tsx'
 
 interface Props {
   className?: string

@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { FC, ReactNode } from 'react'
 
 export const avatarColors = [
@@ -30,11 +30,11 @@ export interface AvatarProps {
   size?: 'sm' | 'md'
 }
 
-const getSlugByName = (name?: string) => {
-  return name?.slice(0, 1) || ''
+const getSlugByName = (name: string) => {
+  return name.slice(0, 1)
 }
 
-const getColorByName = (name?: string) => {
+const getColorByName = (name: string) => {
   const slug = getSlugByName(name)
 
   return avatarColors[(slug.charCodeAt(0) || 0) % avatarColors.length]
@@ -42,9 +42,9 @@ const getColorByName = (name?: string) => {
 
 export const Avatar: FC<AvatarProps> = ({
   className,
-  color,
-  name,
-  slug,
+  name = 'Unknown',
+  color = getColorByName(name),
+  slug = getSlugByName(name),
   src,
   size = 'md',
 }) => {
@@ -59,18 +59,18 @@ export const Avatar: FC<AvatarProps> = ({
         <img
           className="w-full h-full"
           src={src}
-          alt={name || ''}
+          alt={name}
           referrerPolicy="no-referrer"
         />
       ) : (
         <div
           className={clsx(
             'flex items-center justify-center w-full h-full font-medium text-white',
-            `bg-${color || getColorByName(name)}-700`,
+            `bg-${color}-700`,
             { 'text-sm': size === 'sm' }
           )}
         >
-          {slug || getSlugByName(name)}
+          {slug}
         </div>
       )}
     </div>

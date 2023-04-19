@@ -1,6 +1,6 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { FC, useMemo } from 'react'
-import { Avatar, AvatarProps } from '../Avatar'
+import { Avatar, AvatarProps } from '../Avatar/Avatar.tsx'
 
 export interface AvatarGroupProps {
   className?: string
