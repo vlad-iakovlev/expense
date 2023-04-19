@@ -92,5 +92,5 @@ export const renameCategory: NextApiHandler<RenameCategoryResponse> = async (
     },
   })
 
-  res.status(200).json({})
+  res.status(200).json({ ok: true })
 }

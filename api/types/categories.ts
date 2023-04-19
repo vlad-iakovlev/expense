@@ -12,4 +12,6 @@ export interface GetCategoriesResponse {
 
 export type RenameCategoryBody = z.infer<typeof renameCategoryBodySchema>
 
-export type RenameCategoryResponse = Record<never, unknown>
+export interface RenameCategoryResponse {
+  ok: true
+}
