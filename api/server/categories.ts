@@ -1,4 +1,5 @@
 import { NextApiHandler } from 'next'
+import { prisma } from '../../utils/server/prisma.ts'
 import {
   GetCategoriesResponse,
   RenameCategoryResponse,
@@ -14,7 +15,7 @@ export const getCategories: NextApiHandler<GetCategoriesResponse> = async (
 ) => {
   const query = getCategoriesQuerySchema.parse(req.query)
 
-  const items = await req.prisma.operation.groupBy({
+  const items = await prisma.operation.groupBy({
     where: {
       OR: [
         {
@@ -58,7 +59,7 @@ export const renameCategory: NextApiHandler<RenameCategoryResponse> = async (
 ) => {
   const body = renameCategoryBodySchema.parse(req.body)
 
-  await req.prisma.operation.updateMany({
+  await prisma.operation.updateMany({
     where: {
       OR: [
         {

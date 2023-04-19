@@ -1,4 +1,5 @@
 import { NextApiHandler } from 'next'
+import { prisma } from '../../utils/server/prisma.ts'
 import {
   CreateOperationResponse,
   DeleteOperationResponse,
@@ -21,7 +22,7 @@ export const getOperations: NextApiHandler<GetOperationsResponse> = async (
 ) => {
   const query = getOperationsQuerySchema.parse(req.query)
 
-  const operations = await req.prisma.operation.findMany({
+  const operations = await prisma.operation.findMany({
     where: {
       OR: [
         {
@@ -66,7 +67,7 @@ export const getOperation: NextApiHandler<GetOperationResponse> = async (
 ) => {
   const query = getOperationQuerySchema.parse(req.query)
 
-  const operation = await req.prisma.operation.findFirstOrThrow({
+  const operation = await prisma.operation.findFirstOrThrow({
     where: {
       id: query.operationId,
       OR: [
@@ -102,7 +103,7 @@ export const createOperation: NextApiHandler<CreateOperationResponse> = async (
 ) => {
   const body = createOperationBodySchema.parse(req.body)
 
-  const operation = await req.prisma.operation.create({
+  const operation = await prisma.operation.create({
     data: {
       name: body.name,
       category: body.category,
@@ -146,7 +147,7 @@ export const updateOperation: NextApiHandler<UpdateOperationResponse> = async (
 ) => {
   const body = updateOperationBodySchema.parse(req.body)
 
-  const operation = await req.prisma.operation.update({
+  const operation = await prisma.operation.update({
     where: {
       id: body.operationId,
       OR: [
@@ -191,7 +192,7 @@ export const deleteOperation: NextApiHandler<DeleteOperationResponse> = async (
 ) => {
   const query = deleteOperationQuerySchema.parse(req.query)
 
-  await req.prisma.operation.delete({
+  await prisma.operation.delete({
     where: {
       id: query.operationId,
       OR: [

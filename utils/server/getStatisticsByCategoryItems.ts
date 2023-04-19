@@ -1,6 +1,7 @@
 import { NextApiRequest } from 'next'
 import { ClientCurrency } from '../../api/types/currencies.ts'
 import { ClientWallet } from '../../api/types/wallets.ts'
+import { prisma } from './prisma.ts'
 
 interface GetCategoriesStatisticsParams {
   type: 'income' | 'expense'
@@ -16,7 +17,7 @@ export const getStatisticsByCategoryItems = async (
   req: NextApiRequest,
   params: GetCategoriesStatisticsParams
 ) => {
-  const rawItems = await req.prisma.operation.groupBy({
+  const rawItems = await prisma.operation.groupBy({
     where: {
       [`${params.type}Wallet`]: {
         id: params.walletId,

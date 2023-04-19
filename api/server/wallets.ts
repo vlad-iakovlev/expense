@@ -1,5 +1,6 @@
 import { NextApiHandler } from 'next'
 import { populateWalletBalance } from '../../utils/server/populateWalletBalance.ts'
+import { prisma } from '../../utils/server/prisma.ts'
 import {
   CreateWalletResponse,
   DeleteWalletResponse,
@@ -22,7 +23,7 @@ export const getWallets: NextApiHandler<GetWalletsResponse> = async (
 ) => {
   const query = getWalletsQuerySchema.parse(req.query)
 
-  const walletsWithoutBalance = await req.prisma.wallet.findMany({
+  const walletsWithoutBalance = await prisma.wallet.findMany({
     where: {
       group: {
         id: query.groupId,
@@ -47,7 +48,7 @@ export const getWallet: NextApiHandler<GetWalletResponse> = async (
 ) => {
   const query = getWalletQuerySchema.parse(req.query)
 
-  const walletWithoutBalance = await req.prisma.wallet.findFirstOrThrow({
+  const walletWithoutBalance = await prisma.wallet.findFirstOrThrow({
     where: {
       id: query.walletId,
       group: {
@@ -70,7 +71,7 @@ export const createWallet: NextApiHandler<CreateWalletResponse> = async (
 ) => {
   const body = createWalletBodySchema.parse(req.body)
 
-  const walletWithoutBalance = await req.prisma.wallet.create({
+  const walletWithoutBalance = await prisma.wallet.create({
     data: {
       name: body.name,
       currency: {
@@ -101,7 +102,7 @@ export const updateWallet: NextApiHandler<UpdateWalletResponse> = async (
 ) => {
   const body = updateWalletBodySchema.parse(req.body)
 
-  const walletWithoutBalance = await req.prisma.wallet.update({
+  const walletWithoutBalance = await prisma.wallet.update({
     where: {
       id: body.walletId,
       group: {
@@ -129,7 +130,7 @@ export const deleteWallet: NextApiHandler<DeleteWalletResponse> = async (
 ) => {
   const query = deleteWalletQuerySchema.parse(req.query)
 
-  await req.prisma.wallet.delete({
+  await prisma.wallet.delete({
     where: {
       id: query.walletId,
       group: {

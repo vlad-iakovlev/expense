@@ -3,6 +3,7 @@ import { getDefaultCurrency } from '../../utils/server/getDefaultCurrency.ts'
 import { getGroupDefaultCurrency } from '../../utils/server/getGroupDefaultCurrency.ts'
 import { getStatisticsByCategoryItems } from '../../utils/server/getStatisticsByCategoryItems.ts'
 import { getWalletCurrency } from '../../utils/server/getWalletCurrency.ts'
+import { prisma } from '../../utils/server/prisma.ts'
 import { ClientCurrency } from '../types/currencies.ts'
 import {
   GetStatisticsByCategoryResponse,
@@ -25,7 +26,7 @@ export const getStatisticsByCategory: NextApiHandler<
     currency = await getDefaultCurrency(req)
   }
 
-  const wallets = await req.prisma.wallet.findMany({
+  const wallets = await prisma.wallet.findMany({
     where: {
       group: {
         id: query.groupId,

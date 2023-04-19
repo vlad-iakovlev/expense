@@ -1,11 +1,12 @@
 import { NextApiRequest } from 'next'
 import { ClientWallet } from '../../api/types/wallets.ts'
+import { prisma } from './prisma.ts'
 
 export const populateWalletBalance = async (
   req: NextApiRequest,
   wallet: Omit<ClientWallet, 'balance'>
 ): Promise<ClientWallet> => {
-  const incomes = await req.prisma.operation.aggregate({
+  const incomes = await prisma.operation.aggregate({
     where: {
       incomeWallet: {
         id: wallet.id,
@@ -21,7 +22,7 @@ export const populateWalletBalance = async (
     },
   })
 
-  const expenses = await req.prisma.operation.aggregate({
+  const expenses = await prisma.operation.aggregate({
     where: {
       expenseWallet: {
         id: wallet.id,
