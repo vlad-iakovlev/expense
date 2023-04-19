@@ -1,7 +1,5 @@
 import assert from 'assert'
-import { NextPage } from 'next'
-import { useRouter } from 'next/router.js'
-import { useMemo } from 'react'
+import { GetServerSideProps, NextPage } from 'next'
 import { CheckSwrContexts } from '../../components/CheckSwrContexts/CheckSwrContexts.tsx'
 import { Operation } from '../../components/Operation/Operation.tsx'
 import {
@@ -20,64 +18,64 @@ import {
   WalletsProvider,
 } from '../../components/contexts/Wallets.tsx'
 
-const OperationPage: NextPage = () => {
-  const router = useRouter()
+interface Props {
+  operationId: string
+}
 
-  const operationId = useMemo<string>(() => {
-    assert(
-      typeof router.query.operationId === 'string',
-      'operationId is not a string'
-    )
-    return router.query.operationId
-  }, [router.query.operationId])
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const operationId = context.query.operationId
+  assert(typeof operationId === 'string', 'operationId is not a string')
+  return Promise.resolve({ props: { operationId } })
+}
 
-  return (
-    <LoadingProvider>
-      <ErrorProvider>
-        <CurrenciesProvider>
-          <OperationProvider operationId={operationId}>
-            <OperationContext.Consumer>
-              {(operationContext) => {
-                const wallet =
-                  operationContext?.response?.operation.expenseWallet ??
-                  operationContext?.response?.operation.incomeWallet
+const OperationPage: NextPage<Props> = ({ operationId }) => (
+  <LoadingProvider>
+    <ErrorProvider>
+      <CurrenciesProvider>
+        <OperationProvider operationId={operationId}>
+          <OperationContext.Consumer>
+            {(operationContext) => {
+              const wallet =
+                operationContext?.response?.operation.expenseWallet ??
+                operationContext?.response?.operation.incomeWallet
 
-                if (!wallet) {
-                  return (
-                    <CategoriesContext.Provider
+              if (!wallet) {
+                return (
+                  <CategoriesContext.Provider
+                    value={{
+                      hasError: false,
+                      payload: {},
+                      mutate: async () => {},
+                    }}
+                  >
+                    <WalletsContext.Provider
                       value={{
                         hasError: false,
                         payload: {},
                         mutate: async () => {},
                       }}
                     >
-                      <WalletsContext.Provider
-                        value={{
-                          hasError: false,
-                          payload: {},
-                          mutate: async () => {},
-                        }}
-                      >
-                        <CheckSwrContexts renderContent={() => <Operation />} />
-                      </WalletsContext.Provider>
-                    </CategoriesContext.Provider>
-                  )
-                }
-
-                return (
-                  <CategoriesProvider groupId={wallet.group.id}>
-                    <WalletsProvider groupId={wallet.group.id}>
                       <CheckSwrContexts renderContent={() => <Operation />} />
-                    </WalletsProvider>
-                  </CategoriesProvider>
+                    </WalletsContext.Provider>
+                  </CategoriesContext.Provider>
                 )
-              }}
-            </OperationContext.Consumer>
-          </OperationProvider>
-        </CurrenciesProvider>
-      </ErrorProvider>
-    </LoadingProvider>
-  )
-}
+              }
+
+              return (
+                <CategoriesProvider groupId={wallet.group.id}>
+                  <WalletsProvider groupId={wallet.group.id}>
+                    <CheckSwrContexts renderContent={() => <Operation />} />
+                  </WalletsProvider>
+                </CategoriesProvider>
+              )
+            }}
+          </OperationContext.Consumer>
+        </OperationProvider>
+      </CurrenciesProvider>
+    </ErrorProvider>
+  </LoadingProvider>
+)
 
 export default OperationPage
