@@ -10,8 +10,8 @@
     "generate-models": "prisma generate",
     "update-rates": "ts-node --esm bin/update-rates.ts",
     "compile": "tsc",
-    "lint": "eslint .",
-    "lint:ci": "DEBUG=eslint:cli-engine eslint .",
+    "lint": "next lint",
+    "lint:ci": "DEBUG=eslint:cli-engine next lint",
     "prettier": "prettier --write '**/*.(js|ts|tsx|md|json)'",
     "prettier:ci": "prettier --check '**/*.(js|ts|tsx|md|json)'",
     "prepare": "husky install"
