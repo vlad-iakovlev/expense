@@ -1,3 +1,4 @@
+import assert from 'assert'
 import { FC, useCallback } from 'react'
 import { updateOperation } from '../../../api/client/operations.ts'
 import { useLoadingContext } from '../../contexts/Loading.tsx'
@@ -10,7 +11,7 @@ export const OperationInfoName: FC = () => {
 
   const handleChange = useCallback(
     async (name: string) => {
-      if (!operationResponse) return
+      assert(operationResponse, 'operationResponse is not defined')
 
       try {
         setLoading(true)

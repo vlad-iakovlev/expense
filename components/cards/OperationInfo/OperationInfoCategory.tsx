@@ -1,3 +1,4 @@
+import assert from 'assert'
 import { FC, useCallback } from 'react'
 import { updateOperation } from '../../../api/client/operations.ts'
 import { useCategoriesContext } from '../../contexts/Categories.tsx'
@@ -13,7 +14,7 @@ export const OperationInfoCategory: FC = () => {
 
   const handleChange = useCallback(
     async (category: string) => {
-      if (!operationResponse) return
+      assert(operationResponse, 'operationResponse is not defined')
 
       try {
         setLoading(true)

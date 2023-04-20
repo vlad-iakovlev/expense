@@ -24,10 +24,7 @@ export const OperationsCard: FC<Props> = ({ className }) => {
 
   return (
     <Card className={className}>
-      <Card.Title
-        title="Operations"
-        action={operationsPayload.walletId && <OperationsCreate />}
-      />
+      <Card.Title title="Operations" action={<OperationsCreate />} />
       <Card.Divider />
       <OperationsCategory />
       {operationsResponse?.operations.length !== 0 && <Card.Divider />}

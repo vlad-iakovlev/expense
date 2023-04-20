@@ -1,20 +1,21 @@
 import { PlusIcon } from '@heroicons/react/20/solid'
+import assert from 'assert'
 import { useRouter } from 'next/router.js'
-import { useCallback } from 'react'
+import { FC, useCallback } from 'react'
 import { createOperation } from '../../../api/client/operations.ts'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useWalletContext } from '../../contexts/Wallet.tsx'
+import { useOperationsContext } from '../../contexts/Operations.tsx'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 
-export const OperationsCreate = () => {
+export const OperationsCreate: FC = () => {
   const router = useRouter()
   const { setLoading } = useLoadingContext()
-  const { walletResponse } = useWalletContext()
+  const { operationsPayload } = useOperationsContext()
 
   const handleCreate = useCallback(() => {
     void (async () => {
-      if (!walletResponse) return
+      assert(operationsPayload.walletId, 'walletId is not defined')
 
       try {
         setLoading(true)
@@ -26,7 +27,7 @@ export const OperationsCreate = () => {
           incomeAmount: 0,
           expenseAmount: 0,
           incomeWalletId: null,
-          expenseWalletId: walletResponse.wallet.id,
+          expenseWalletId: operationsPayload.walletId,
         })
 
         await router.push(ROUTES.OPERATION(operation.id))
@@ -34,9 +35,9 @@ export const OperationsCreate = () => {
         setLoading(false)
       }
     })()
-  }, [router, setLoading, walletResponse])
+  }, [operationsPayload.walletId, router, setLoading])
 
-  if (!walletResponse) {
+  if (!operationsPayload.walletId) {
     return null
   }
 

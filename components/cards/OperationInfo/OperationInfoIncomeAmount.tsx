@@ -1,3 +1,4 @@
+import assert from 'assert'
 import { FC, useCallback } from 'react'
 import { updateOperation } from '../../../api/client/operations.ts'
 import { formatAmount } from '../../../utils/formatAmount.ts'
@@ -12,7 +13,10 @@ export const OperationInfoIncomeAmount: FC = () => {
 
   const handleChange = useCallback(
     async (amountString: string) => {
-      if (!operationResponse?.operation.incomeWallet) return
+      assert(
+        operationResponse?.operation.incomeWallet,
+        'incomeWallet is not defined'
+      )
 
       try {
         setLoading(true)

@@ -1,3 +1,4 @@
+import assert from 'assert'
 import { FC, useCallback, useMemo } from 'react'
 import { updateGroup } from '../../../api/client/groups.ts'
 import { useCurrenciesContext } from '../../contexts/Currencies.tsx'
@@ -34,7 +35,7 @@ export const GroupInfoDefaultCurrency: FC = () => {
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
-      if (!groupResponse) return
+      assert(groupResponse, 'groupResponse is not defined')
 
       try {
         setLoading(true)

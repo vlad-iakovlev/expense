@@ -1,3 +1,4 @@
+import assert from 'assert'
 import { FC, useCallback } from 'react'
 import { updateWallet } from '../../../api/client/wallets.ts'
 import { useLoadingContext } from '../../contexts/Loading.tsx'
@@ -10,7 +11,7 @@ export const WalletInfoName: FC = () => {
 
   const handleChange = useCallback(
     async (name: string) => {
-      if (!walletResponse) return
+      assert(walletResponse, 'walletResponse is not defined')
 
       try {
         setLoading(true)

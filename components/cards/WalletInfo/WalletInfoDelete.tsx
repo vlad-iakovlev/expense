@@ -24,7 +24,7 @@ export const WalletInfoDelete: FC = () => {
 
   const handleDeleteConfirm = useCallback(() => {
     void (async () => {
-      assert(walletResponse, 'walletResponse is empty')
+      assert(walletResponse, 'walletResponse is not defined')
 
       try {
         setLoading(true)
@@ -55,7 +55,7 @@ export const WalletInfoDelete: FC = () => {
           iconStart={<XMarkIcon />}
           onClick={handleDelete}
         />
-      ) : undefined}
+      ) : null}
 
       <ConfirmDialog
         isOpen={isDeleteConfirmOpen}

@@ -24,7 +24,7 @@ export const GroupInfoDelete: FC = () => {
 
   const handleDeleteConfirm = useCallback(() => {
     void (async () => {
-      assert(groupResponse, 'groupResponse is empty')
+      assert(groupResponse, 'groupResponse is not defined')
 
       try {
         setLoading(true)

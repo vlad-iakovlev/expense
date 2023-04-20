@@ -21,7 +21,7 @@ export const OperationInfoDelete: FC = () => {
 
   const handleDeleteConfirm = useCallback(() => {
     void (async () => {
-      assert(operationResponse, 'operationResponse is empty')
+      assert(operationResponse, 'operationResponse is not defined')
 
       try {
         setLoading(true)

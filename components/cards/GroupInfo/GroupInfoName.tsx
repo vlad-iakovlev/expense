@@ -1,3 +1,4 @@
+import assert from 'assert'
 import { FC, useCallback } from 'react'
 import { updateGroup } from '../../../api/client/groups.ts'
 import { useGroupContext } from '../../contexts/Group.tsx'
@@ -10,7 +11,7 @@ export const GroupInfoName: FC = () => {
 
   const handleChange = useCallback(
     async (name: string) => {
-      if (!groupResponse) return
+      assert(groupResponse, 'groupResponse is not defined')
 
       try {
         setLoading(true)

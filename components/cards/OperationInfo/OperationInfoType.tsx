@@ -1,3 +1,4 @@
+import assert from 'assert'
 import { FC, useCallback, useMemo } from 'react'
 import { updateOperation } from '../../../api/client/operations.ts'
 import { useLoadingContext } from '../../contexts/Loading.tsx'
@@ -39,7 +40,7 @@ export const OperationInfoType: FC = () => {
 
   const handleChange = useCallback(
     async (option: CardSelectOption) => {
-      if (!operationResponse) return
+      assert(operationResponse, 'operationResponse is not defined')
 
       try {
         setLoading(true)
