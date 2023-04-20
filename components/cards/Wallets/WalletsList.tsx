@@ -1,11 +1,4 @@
-import {
-  DndContext,
-  DragEndEvent,
-  PointerSensor,
-  closestCenter,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core'
+import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core'
 import {
   SortableContext,
   arrayMove,
@@ -21,7 +14,6 @@ import { Card } from '../../ui-kit/Card/Card.tsx'
 import { WalletsItem } from './WalletsItem.tsx'
 
 export const WalletsList: FC = () => {
-  const sensors = useSensors(useSensor(PointerSensor))
   const { setLoading } = useLoadingContext()
   const { walletsResponse, walletsPayload, mutateWallets } = useWalletsContext()
   const [wallets, setWallets] = useState<ClientWallet[]>([])
@@ -83,11 +75,7 @@ export const WalletsList: FC = () => {
     <>
       {wallets.length > 0 && <Card.Divider />}
 
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={wallets} strategy={verticalListSortingStrategy}>
           {wallets.map((wallet) => (
             <WalletsItem key={wallet.id} canDrag={canDrag} wallet={wallet} />
