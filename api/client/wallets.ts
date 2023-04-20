@@ -8,6 +8,8 @@ import {
   GetWalletResponse,
   GetWalletsQuery,
   GetWalletsResponse,
+  SetWalletsOrderBody,
+  SetWalletsOrderResponse,
   UpdateWalletBody,
   UpdateWalletResponse,
 } from '../types/wallets.ts'
@@ -43,5 +45,12 @@ export const updateWallet = async (data: UpdateWalletBody) => {
 export const deleteWallet = async (query: DeleteWalletQuery) => {
   return await request.delete<DeleteWalletResponse>(
     request.withQuery(BASE_ROUTE, query)
+  )
+}
+
+export const setWalletsOrder = async (data: SetWalletsOrderBody) => {
+  return await request.post<SetWalletsOrderBody, SetWalletsOrderResponse>(
+    `${BASE_ROUTE}/order`,
+    data
   )
 }

@@ -1,9 +1,8 @@
 import { FC } from 'react'
-import { ROUTES } from '../../../constants/routes.ts'
 import { useWalletsContext } from '../../contexts/Wallets.tsx'
-import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { WalletsCreate } from './WalletsCreate.tsx'
+import { WalletsList } from './WalletsList.tsx'
 
 interface Props {
   className?: string
@@ -22,34 +21,7 @@ export const WalletsCard: FC<Props> = ({ className }) => {
         title="Wallets"
         action={walletsPayload.groupId && <WalletsCreate />}
       />
-      {walletsResponse?.wallets.length !== 0 && <Card.Divider />}
-
-      {walletsResponse?.wallets.map((wallet) => (
-        <Card.Link
-          key={wallet.id}
-          end={
-            <Amount
-              className="font-medium"
-              amount={wallet.balance}
-              currency={wallet.currency}
-            />
-          }
-          href={ROUTES.WALLET(wallet.id)}
-        >
-          {wallet.name}
-        </Card.Link>
-      ))}
-
-      {!walletsResponse && (
-        <>
-          <Card.Skeleton />
-          <Card.Skeleton />
-          <Card.Skeleton />
-          <Card.Skeleton />
-          <Card.Skeleton />
-          <Card.Skeleton />
-        </>
-      )}
+      <WalletsList />
     </Card>
   )
 }

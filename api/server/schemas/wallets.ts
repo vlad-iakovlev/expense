@@ -25,3 +25,8 @@ export const updateWalletBodySchema = z.object({
 export const deleteWalletQuerySchema = z.object({
   walletId: z.string().refine(isValidObjectId),
 })
+
+export const setWalletsOrderBodySchema = z.object({
+  groupId: z.string().refine(isValidObjectId),
+  walletIds: z.array(z.string().refine(isValidObjectId)),
+})

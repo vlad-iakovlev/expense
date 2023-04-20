@@ -6,6 +6,7 @@ import {
   DeleteWalletResponse,
   GetWalletResponse,
   GetWalletsResponse,
+  SetWalletsOrderResponse,
   UpdateWalletResponse,
 } from '../types/wallets.ts'
 import {
@@ -13,6 +14,7 @@ import {
   deleteWalletQuerySchema,
   getWalletQuerySchema,
   getWalletsQuerySchema,
+  setWalletsOrderBodySchema,
   updateWalletBodySchema,
 } from './schemas/wallets.ts'
 import { walletSelector } from './selectors/index.ts'
@@ -32,6 +34,14 @@ export const getWallets: NextApiHandler<GetWalletsResponse> = async (
         },
       },
     },
+    orderBy: [
+      {
+        groupId: 'asc',
+      },
+      {
+        order: 'asc',
+      },
+    ],
     select: walletSelector,
   })
 
@@ -140,6 +150,34 @@ export const deleteWallet: NextApiHandler<DeleteWalletResponse> = async (
       },
     },
   })
+
+  res.status(200).json({ ok: true })
+}
+
+export const setWalletsOrder: NextApiHandler<SetWalletsOrderResponse> = async (
+  req,
+  res
+) => {
+  const body = setWalletsOrderBodySchema.parse(req.body)
+
+  await prisma.$transaction(
+    body.walletIds.map((walletId, index) =>
+      prisma.wallet.update({
+        where: {
+          id: walletId,
+          group: {
+            id: body.groupId,
+            userIds: {
+              has: req.session.user.id,
+            },
+          },
+        },
+        data: {
+          order: index,
+        },
+      })
+    )
+  )
 
   res.status(200).json({ ok: true })
 }

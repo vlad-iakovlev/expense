@@ -83,8 +83,9 @@ model Group {
 }
 
 model Wallet {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  order Int?   @db.Long
 
   currency   Currency @relation(fields: [currencyId], references: [id], onDelete: Restrict)
   currencyId String   @db.ObjectId

@@ -5,6 +5,7 @@ import {
   deleteWalletQuerySchema,
   getWalletQuerySchema,
   getWalletsQuerySchema,
+  setWalletsOrderBodySchema,
   updateWalletBodySchema,
 } from '../server/schemas/wallets.ts'
 import { ClientCurrency } from './currencies.ts'
@@ -43,5 +44,11 @@ export interface UpdateWalletResponse {
 export type DeleteWalletQuery = z.infer<typeof deleteWalletQuerySchema>
 
 export interface DeleteWalletResponse {
+  ok: true
+}
+
+export type SetWalletsOrderBody = z.infer<typeof setWalletsOrderBodySchema>
+
+export interface SetWalletsOrderResponse {
   ok: true
 }
