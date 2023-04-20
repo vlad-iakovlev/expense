@@ -37,29 +37,21 @@ export const getOperation = async (query: GetOperationQuery) => {
 }
 
 export const createOperation = async (data: CreateOperationBody) => {
-  const response = await request.post<
-    CreateOperationBody,
-    CreateOperationResponse
-  >(BASE_ROUTE, data)
-
-  response.operation.date = new Date(response.operation.date)
-
-  return response
+  return await request.post<CreateOperationBody, CreateOperationResponse>(
+    BASE_ROUTE,
+    data
+  )
 }
 
 export const updateOperation = async (data: UpdateOperationBody) => {
-  const response = await request.put<
-    UpdateOperationBody,
-    UpdateOperationResponse
-  >(BASE_ROUTE, data)
-
-  response.operation.date = new Date(response.operation.date)
-
-  return response
+  return await request.put<UpdateOperationBody, UpdateOperationResponse>(
+    BASE_ROUTE,
+    data
+  )
 }
 
 export const deleteOperation = async (query: DeleteOperationQuery) => {
-  await request.delete<DeleteOperationResponse>(
+  return await request.delete<DeleteOperationResponse>(
     request.withQuery(BASE_ROUTE, query)
   )
 }

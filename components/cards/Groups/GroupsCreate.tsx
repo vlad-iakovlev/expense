@@ -20,14 +20,14 @@ export const GroupsCreate: FC = () => {
       try {
         setLoading(true)
 
-        const { group } = await createGroup({
+        const { groupId } = await createGroup({
           name: 'Untitled',
           defaultCurrencyId:
             currenciesResponse.currencies.find((c) => c.name === 'USD')?.id ??
             '',
         })
 
-        await router.push(ROUTES.GROUP(group.id))
+        await router.push(ROUTES.GROUP(groupId))
       } finally {
         setLoading(false)
       }

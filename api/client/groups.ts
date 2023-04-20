@@ -38,7 +38,7 @@ export const updateGroup = async (data: UpdateGroupBody) => {
 }
 
 export const deleteGroup = async (query: DeleteGroupQuery) => {
-  await request.delete<DeleteGroupResponse>(
+  return await request.delete<DeleteGroupResponse>(
     request.withQuery(BASE_ROUTE, query)
   )
 }

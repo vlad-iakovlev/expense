@@ -135,10 +135,12 @@ export const createOperation: NextApiHandler<CreateOperationResponse> = async (
         },
       }),
     },
-    select: operationSelector,
+    select: {
+      id: true,
+    },
   })
 
-  res.status(200).json({ operation })
+  res.status(200).json({ operationId: operation.id })
 }
 
 export const updateOperation: NextApiHandler<UpdateOperationResponse> = async (
@@ -147,7 +149,7 @@ export const updateOperation: NextApiHandler<UpdateOperationResponse> = async (
 ) => {
   const body = updateOperationBodySchema.parse(req.body)
 
-  const operation = await prisma.operation.update({
+  await prisma.operation.update({
     where: {
       id: body.operationId,
       OR: [
@@ -180,10 +182,12 @@ export const updateOperation: NextApiHandler<UpdateOperationResponse> = async (
       incomeWalletId: body.incomeWalletId,
       expenseWalletId: body.expenseWalletId,
     },
-    select: operationSelector,
+    select: {
+      id: true,
+    },
   })
 
-  res.status(200).json({ operation })
+  res.status(200).json({ ok: true })
 }
 
 export const deleteOperation: NextApiHandler<DeleteOperationResponse> = async (

@@ -31,13 +31,13 @@ export interface GetWalletResponse {
 export type CreateWalletBody = z.infer<typeof createWalletBodySchema>
 
 export interface CreateWalletResponse {
-  wallet: ClientWallet
+  walletId: string
 }
 
 export type UpdateWalletBody = z.infer<typeof updateWalletBodySchema>
 
 export interface UpdateWalletResponse {
-  wallet: ClientWallet
+  ok: true
 }
 
 export type DeleteWalletQuery = z.infer<typeof deleteWalletQuerySchema>

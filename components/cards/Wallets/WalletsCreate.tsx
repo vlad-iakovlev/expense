@@ -15,18 +15,18 @@ export const WalletsCreate = () => {
 
   const handleCreate = useCallback(() => {
     void (async () => {
-      assert(groupResponse, 'groupResponse is empty')
+      assert(groupResponse, 'groupResponse is not defined')
 
       try {
         setLoading(true)
 
-        const { wallet } = await createWallet({
+        const { walletId } = await createWallet({
           groupId: groupResponse.group.id,
           name: 'Untitled',
           currencyId: groupResponse.group.defaultCurrency.id,
         })
 
-        await router.push(ROUTES.WALLET(wallet.id))
+        await router.push(ROUTES.WALLET(walletId))
       } finally {
         setLoading(false)
       }

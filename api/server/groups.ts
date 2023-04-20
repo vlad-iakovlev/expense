@@ -59,10 +59,12 @@ export const createGroup: NextApiHandler<CreateGroupResponse> = async (
       defaultCurrencyId: body.defaultCurrencyId,
       userIds: req.session.user.id,
     },
-    select: groupSelector,
+    select: {
+      id: true,
+    },
   })
 
-  res.status(200).json({ group })
+  res.status(200).json({ groupId: group.id })
 }
 
 export const updateGroup: NextApiHandler<UpdateGroupResponse> = async (
@@ -71,7 +73,7 @@ export const updateGroup: NextApiHandler<UpdateGroupResponse> = async (
 ) => {
   const body = updateGroupBodySchema.parse(req.body)
 
-  const group = await prisma.group.update({
+  await prisma.group.update({
     where: {
       id: body.groupId,
       userIds: {
@@ -82,10 +84,12 @@ export const updateGroup: NextApiHandler<UpdateGroupResponse> = async (
       name: body.name,
       defaultCurrencyId: body.defaultCurrencyId,
     },
-    select: groupSelector,
+    select: {
+      id: true,
+    },
   })
 
-  res.status(200).json({ group })
+  res.status(200).json({ ok: true })
 }
 
 export const deleteGroup: NextApiHandler<DeleteGroupResponse> = async (

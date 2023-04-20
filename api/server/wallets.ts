@@ -71,7 +71,7 @@ export const createWallet: NextApiHandler<CreateWalletResponse> = async (
 ) => {
   const body = createWalletBodySchema.parse(req.body)
 
-  const walletWithoutBalance = await prisma.wallet.create({
+  const wallet = await prisma.wallet.create({
     data: {
       name: body.name,
       currency: {
@@ -88,12 +88,12 @@ export const createWallet: NextApiHandler<CreateWalletResponse> = async (
         },
       },
     },
-    select: walletSelector,
+    select: {
+      id: true,
+    },
   })
 
-  const wallet = await populateWalletBalance(req, walletWithoutBalance)
-
-  res.status(200).json({ wallet })
+  res.status(200).json({ walletId: wallet.id })
 }
 
 export const updateWallet: NextApiHandler<UpdateWalletResponse> = async (
@@ -102,7 +102,7 @@ export const updateWallet: NextApiHandler<UpdateWalletResponse> = async (
 ) => {
   const body = updateWalletBodySchema.parse(req.body)
 
-  const walletWithoutBalance = await prisma.wallet.update({
+  await prisma.wallet.update({
     where: {
       id: body.walletId,
       group: {
@@ -116,12 +116,12 @@ export const updateWallet: NextApiHandler<UpdateWalletResponse> = async (
       currencyId: body.currencyId,
       groupId: body.groupId,
     },
-    select: walletSelector,
+    select: {
+      id: true,
+    },
   })
 
-  const wallet = await populateWalletBalance(req, walletWithoutBalance)
-
-  res.status(200).json({ wallet })
+  res.status(200).json({ ok: true })
 }
 
 export const deleteWallet: NextApiHandler<DeleteWalletResponse> = async (

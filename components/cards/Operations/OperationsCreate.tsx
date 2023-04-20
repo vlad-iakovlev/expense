@@ -20,7 +20,7 @@ export const OperationsCreate: FC = () => {
       try {
         setLoading(true)
 
-        const { operation } = await createOperation({
+        const { operationId } = await createOperation({
           name: 'Untitled',
           category: 'No category',
           date: new Date().toISOString(),
@@ -30,7 +30,7 @@ export const OperationsCreate: FC = () => {
           expenseWalletId: operationsPayload.walletId,
         })
 
-        await router.push(ROUTES.OPERATION(operation.id))
+        await router.push(ROUTES.OPERATION(operationId))
       } finally {
         setLoading(false)
       }

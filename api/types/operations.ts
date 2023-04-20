@@ -32,13 +32,13 @@ export interface GetOperationResponse {
 export type CreateOperationBody = z.infer<typeof createOperationBodySchema>
 
 export interface CreateOperationResponse {
-  operation: ClientOperation
+  operationId: string
 }
 
 export type UpdateOperationBody = z.infer<typeof updateOperationBodySchema>
 
 export interface UpdateOperationResponse {
-  operation: ClientOperation
+  ok: true
 }
 
 export type DeleteOperationQuery = z.infer<typeof deleteOperationQuerySchema>

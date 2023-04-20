@@ -41,7 +41,7 @@ export const updateWallet = async (data: UpdateWalletBody) => {
 }
 
 export const deleteWallet = async (query: DeleteWalletQuery) => {
-  await request.delete<DeleteWalletResponse>(
+  return await request.delete<DeleteWalletResponse>(
     request.withQuery(BASE_ROUTE, query)
   )
 }

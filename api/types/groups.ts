@@ -27,13 +27,13 @@ export interface GetGroupResponse {
 export type CreateGroupBody = z.infer<typeof createGroupBodySchema>
 
 export interface CreateGroupResponse {
-  group: ClientGroup
+  groupId: string
 }
 
 export type UpdateGroupBody = z.infer<typeof updateGroupBodySchema>
 
 export interface UpdateGroupResponse {
-  group: ClientGroup
+  ok: true
 }
 
 export type DeleteGroupQuery = z.infer<typeof deleteGroupQuerySchema>
