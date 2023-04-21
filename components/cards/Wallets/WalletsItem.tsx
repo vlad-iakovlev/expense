@@ -1,6 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { ArrowsUpDownIcon } from '@heroicons/react/20/solid'
+import { clsx } from 'clsx'
 import { useRouter } from 'next/router.js'
 import {
   CSSProperties,
@@ -53,7 +54,14 @@ export const WalletsItem: FC<Props> = ({ canDrag, wallet }) => {
   )
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <div
+      ref={setNodeRef}
+      className={clsx('transition-shadow', {
+        'shadow-none': !isDragging,
+        'shadow-lg': isDragging,
+      })}
+      style={style}
+    >
       <Card.Button
         key={wallet.id}
         active={isDragging}
