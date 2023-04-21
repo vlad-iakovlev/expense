@@ -3,7 +3,14 @@ import { CSS } from '@dnd-kit/utilities'
 import { ArrowsUpDownIcon } from '@heroicons/react/20/solid'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router.js'
-import { CSSProperties, FC, useCallback, useMemo } from 'react'
+import {
+  CSSProperties,
+  FC,
+  MouseEvent,
+  useCallback,
+  useMemo,
+  useRef,
+} from 'react'
 import { ClientWallet } from '../../../api/types/wallets.ts'
 import { ROUTES } from '../../../constants/routes.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
@@ -25,6 +32,8 @@ export const WalletsItem: FC<Props> = ({ canDrag, wallet }) => {
     transition,
   } = useSortable({ id: wallet.id })
 
+  const dragHandleRef = useRef<HTMLDivElement>(null)
+
   const style = useMemo<CSSProperties>(
     () => ({
       transform: CSS.Transform.toString(transform),
@@ -33,9 +42,14 @@ export const WalletsItem: FC<Props> = ({ canDrag, wallet }) => {
     [transform, transition]
   )
 
-  const handleClick = useCallback(() => {
-    void router.push(ROUTES.WALLET(wallet.id))
-  }, [router, wallet.id])
+  const handleClick = useCallback(
+    (event: MouseEvent) => {
+      if (!dragHandleRef.current?.contains(event.target as Node)) {
+        void router.push(ROUTES.WALLET(wallet.id))
+      }
+    },
+    [router, wallet.id]
+  )
 
   return (
     <div
@@ -52,6 +66,7 @@ export const WalletsItem: FC<Props> = ({ canDrag, wallet }) => {
         start={
           canDrag ? (
             <div
+              ref={dragHandleRef}
               className={clsx(
                 'flex items-center justify-center w-8 h-8 -mx-2 touch-manipulation',
                 {
