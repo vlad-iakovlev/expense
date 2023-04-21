@@ -27,12 +27,10 @@ export const WalletsItem: FC<Props> = ({ canDrag, wallet }) => {
 
   const style = useMemo<CSSProperties>(
     () => ({
-      position: 'relative',
-      zIndex: isDragging ? 1 : 0,
       transform: CSS.Transform.toString(transform),
       transition,
     }),
-    [isDragging, transform, transition]
+    [transform, transition]
   )
 
   const handleClick = useCallback(() => {
@@ -42,9 +40,9 @@ export const WalletsItem: FC<Props> = ({ canDrag, wallet }) => {
   return (
     <div
       ref={setNodeRef}
-      className={clsx('transition-shadow', {
+      className={clsx('relative transition-shadow', {
         'shadow-none': !isDragging,
-        'shadow-lg': isDragging,
+        'z-10 shadow-lg': isDragging,
       })}
       style={style}
     >
@@ -54,7 +52,13 @@ export const WalletsItem: FC<Props> = ({ canDrag, wallet }) => {
         start={
           canDrag ? (
             <div
-              className="flex items-center justify-center w-8 h-8 -mx-2 touch-manipulation"
+              className={clsx(
+                'flex items-center justify-center w-8 h-8 -mx-2 touch-manipulation',
+                {
+                  'cursor-grab': !isDragging,
+                  'cursor-grabbing': isDragging,
+                }
+              )}
               {...attributes}
               {...listeners}
             >
