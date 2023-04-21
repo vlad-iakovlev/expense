@@ -15,24 +15,38 @@ export const Operation: FC = () => {
       operationResponse?.operation.expenseWallet ??
       operationResponse?.operation.incomeWallet
 
+    if (!wallet) return undefined
+
     return [
       {
         href: ROUTES.DASHBOARD,
         title: 'Dashboard',
       },
-      ...(wallet
-        ? [
-            {
-              href: ROUTES.GROUP(wallet.group.id),
-              title: wallet.group.name,
-            },
-            {
-              href: ROUTES.WALLET(wallet.id),
-              title: `${wallet.name} ${wallet.currency.name}`,
-            },
-          ]
-        : []),
+      {
+        href: ROUTES.GROUP(wallet.group.id),
+        title: wallet.group.name,
+      },
+      {
+        href: ROUTES.WALLET(wallet.id),
+        title: `${wallet.name} ${wallet.currency.name}`,
+      },
     ]
+  }, [
+    operationResponse?.operation.expenseWallet,
+    operationResponse?.operation.incomeWallet,
+  ])
+
+  const mobileBack = useMemo(() => {
+    const wallet =
+      operationResponse?.operation.expenseWallet ??
+      operationResponse?.operation.incomeWallet
+
+    if (!wallet) return undefined
+
+    return {
+      href: ROUTES.GROUP(wallet.group.id),
+      title: wallet.group.name,
+    }
   }, [
     operationResponse?.operation.expenseWallet,
     operationResponse?.operation.incomeWallet,
@@ -52,6 +66,7 @@ export const Operation: FC = () => {
         <Breadcrumbs
           title={`${operationResponse.operation.category} – ${operationResponse.operation.name}`}
           parents={parents}
+          mobileBack={mobileBack}
         />
       ) : (
         <BreadcrumbSkeleton withParent />

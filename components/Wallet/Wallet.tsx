@@ -13,19 +13,17 @@ export const Wallet: FC = () => {
   const { walletResponse } = useWalletContext()
 
   const parents = useMemo(() => {
+    if (!walletResponse) return undefined
+
     return [
       {
         href: ROUTES.DASHBOARD,
         title: 'Dashboard',
       },
-      ...(walletResponse
-        ? [
-            {
-              href: ROUTES.GROUP(walletResponse.wallet.group.id),
-              title: walletResponse.wallet.group.name,
-            },
-          ]
-        : []),
+      {
+        href: ROUTES.GROUP(walletResponse.wallet.group.id),
+        title: walletResponse.wallet.group.name,
+      },
     ]
   }, [walletResponse])
 
