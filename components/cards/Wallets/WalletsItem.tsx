@@ -61,7 +61,7 @@ export const WalletsItem: FC<Props> = ({ canDrag, wallet }) => {
           canDrag ? (
             <div
               ref={dragHandleRef}
-              className="flex items-center justify-center w-8 h-8 -mx-2 touch-none"
+              className="flex items-center justify-center w-8 h-8 -mx-2 touch-manipulation"
               {...attributes}
               {...listeners}
             >
