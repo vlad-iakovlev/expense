@@ -6,11 +6,6 @@ export const MyDocument: FC<DocumentProps> = () => {
     <Html lang="en">
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
         <link rel="manifest" href="/manifest.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#16a34a" />
         <meta name="theme-color" content="#16a34a" />
