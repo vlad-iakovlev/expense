@@ -9,6 +9,7 @@
 # next.js
 /.next/
 /out/
+/next.config.js
 
 # production
 /build
@@ -32,3 +33,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# pwa
+/public/sw.js
+/public/sw.js.map
+/public/workbox-*.js
+/public/workbox-*.js.map
