@@ -9,6 +9,7 @@ export const MyDocument: FC<DocumentProps> = () => {
         <link rel="manifest" href="/manifest.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#16a34a" />
         <meta name="theme-color" content="#16a34a" />
+        <meta name="description" content="Expense Tracker" />
       </Head>
 
       <body className="bg-zinc-300">
