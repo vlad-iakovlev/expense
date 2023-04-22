@@ -9,7 +9,7 @@
 # next.js
 /.next/
 /out/
-/next.config.cjs
+/next.config.js
 
 # production
 /build
