@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 export const MyDocument: FC<DocumentProps> = () => {
   return (
-    <Html>
+    <Html lang="en">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <link
@@ -13,6 +13,7 @@ export const MyDocument: FC<DocumentProps> = () => {
         />
         <link rel="manifest" href="/manifest.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#16a34a" />
+        <meta name="theme-color" content="#16a34a" />
       </Head>
 
       <body className="bg-zinc-300">
