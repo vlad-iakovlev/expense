@@ -1,6 +1,6 @@
 import { PlusIcon } from '@heroicons/react/20/solid'
-import assert from 'assert'
 import { useRouter } from 'next/router.js'
+import assert from 'node:assert'
 import { FC, useCallback } from 'react'
 import { createGroup } from '../../../api/client/groups.ts'
 import { ROUTES } from '../../../constants/routes.ts'

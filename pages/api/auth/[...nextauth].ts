@@ -1,8 +1,8 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import assert from 'assert'
 import { defaultImport } from 'default-import'
 import defaultNextAuth, { AuthOptions } from 'next-auth'
 import defaultGoogleProvider from 'next-auth/providers/google'
+import assert from 'node:assert'
 import { prisma } from '../../../utils/server/prisma.ts'
 
 const NextAuth = defaultImport(defaultNextAuth)

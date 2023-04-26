@@ -12,7 +12,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import assert from 'assert'
+import assert from 'node:assert'
 import { FC, useCallback, useEffect, useState } from 'react'
 import { setWalletsOrder } from '../../../api/client/wallets.ts'
 import { ClientWallet } from '../../../api/types/wallets.ts'

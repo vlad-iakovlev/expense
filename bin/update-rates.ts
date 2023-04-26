@@ -1,6 +1,6 @@
-import assert from 'assert'
 import * as dotenv from 'dotenv-flow'
 import fetch from 'node-fetch'
+import assert from 'node:assert'
 import { prisma } from '../utils/server/prisma.ts'
 
 interface RatesResponse {

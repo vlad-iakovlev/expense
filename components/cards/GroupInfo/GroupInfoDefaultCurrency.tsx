@@ -1,4 +1,4 @@
-import assert from 'assert'
+import assert from 'node:assert'
 import { FC, useCallback, useMemo } from 'react'
 import { updateGroup } from '../../../api/client/groups.ts'
 import { useCurrenciesContext } from '../../contexts/Currencies.tsx'
