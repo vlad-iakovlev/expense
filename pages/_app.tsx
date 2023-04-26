@@ -2,6 +2,7 @@ import 'inter-ui/inter.css'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app.js'
+import { useEffect } from 'react'
 import { SWRConfig } from 'swr'
 import { Header } from '../components/Header/Header.tsx'
 import { NextHead } from '../components/next/Head.ts'
@@ -12,6 +13,17 @@ function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session | null }>) {
+  useEffect(() => {
+    void (async () => {
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations()
+        for (const registration of registrations) {
+          await registration.unregister()
+        }
+      }
+    })()
+  }, [])
+
   return (
     <>
       <NextHead>
