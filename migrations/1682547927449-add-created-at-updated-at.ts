@@ -1,40 +1,37 @@
-import assert from 'assert'
-import { MongoClient } from 'mongodb'
+import { Db } from 'mongodb'
 
-export const apply = async () => {
-  assert(process.env.DATABASE_URL, 'DATABASE_URL is not defined')
-  const client = new MongoClient(process.env.DATABASE_URL)
+const collectionNames = [
+  'Account',
+  'Session',
+  'User',
+  'VerificationToken',
+  'Currency',
+  'Group',
+  'Wallet',
+  'Operation',
+]
 
-  try {
-    await client.connect()
-    const db = client.db()
+export const apply = async (db: Db) => {
+  for (const collectionName of collectionNames) {
+    await db
+      .collection(collectionName)
+      .updateMany(
+        { createdAt: { $eq: null } },
+        { $set: { createdAt: new Date() } }
+      )
+    await db
+      .collection(collectionName)
+      .updateMany(
+        { updatedAt: { $eq: null } },
+        { $set: { updatedAt: new Date() } }
+      )
+  }
+}
 
-    const collectionNames = [
-      'Account',
-      'Session',
-      'User',
-      'VerificationToken',
-      'Currency',
-      'Group',
-      'Wallet',
-      'Operation',
-    ]
-
-    for (const collectionName of collectionNames) {
-      await db
-        .collection(collectionName)
-        .updateMany(
-          { createdAt: { $eq: null } },
-          { $set: { createdAt: new Date() } }
-        )
-      await db
-        .collection(collectionName)
-        .updateMany(
-          { updatedAt: { $eq: null } },
-          { $set: { updatedAt: new Date() } }
-        )
-    }
-  } finally {
-    await client.close()
+export const rollback = async (db: Db) => {
+  for (const collectionName of collectionNames) {
+    await db
+      .collection(collectionName)
+      .updateMany({}, { $unset: { createdAt: '', updatedAt: '' } })
   }
 }

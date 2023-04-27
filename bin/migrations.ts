@@ -1,22 +1,37 @@
 import assert from 'assert'
 import chalk from 'chalk'
 import * as fs from 'fs'
+import { Db, MongoClient } from 'mongodb'
 import * as path from 'path'
 import { parseArgs } from 'util'
-import { prisma } from '../utils/server/prisma.ts'
 
 const MIGRATIONS_PATH = path.join(process.cwd(), './migrations')
 
+const migrationTemplate = [
+  "import { Db } from 'mongodb'",
+  '',
+  'export const apply = async (db: Db) => {}',
+  '',
+  'export const rollback = async (db: Db) => {}',
+].join('\n')
+
 interface Migration {
-  apply?: () => Promise<void>
-  rollback?: () => Promise<void>
+  apply?: (db: Db) => Promise<void>
+  rollback?: (db: Db) => Promise<void>
 }
+
+interface AppliedMigration {
+  name: string
+}
+
+assert(process.env.DATABASE_URL, 'DATABASE_URL is not defined')
+const mongoClient = new MongoClient(process.env.DATABASE_URL)
 
 const createMigration = async (name: string) => {
   console.log(chalk.blue.bold(`[${name}]`), 'Creating migration')
   const fileName = path.join(MIGRATIONS_PATH, `${name}.ts`)
   await fs.promises.mkdir(path.dirname(fileName), { recursive: true })
-  await fs.promises.writeFile(fileName, 'export const apply = async () => {}')
+  await fs.promises.writeFile(fileName, migrationTemplate)
   console.log(chalk.green.bold(`[${name}]`), `Migration created at ${fileName}`)
 }
 
@@ -29,11 +44,12 @@ const getMigrations = async () => {
 }
 
 const getAppliedMigrations = async () => {
-  const appliedMigrations = await prisma.migration.findMany({
-    orderBy: {
-      name: 'asc',
-    },
-  })
+  const appliedMigrations = await mongoClient
+    .db()
+    .collection<AppliedMigration>('Migration')
+    .find()
+    .sort({ name: 1 })
+    .toArray()
 
   return appliedMigrations.map((migration) => migration.name)
 }
@@ -45,8 +61,11 @@ const applyMigration = async (name: string) => {
 
   assert(apply, "Migration is missing 'apply' method")
 
-  await apply()
-  await prisma.migration.create({ data: { name } })
+  await apply(mongoClient.db())
+  await mongoClient
+    .db()
+    .collection<AppliedMigration>('Migration')
+    .insertOne({ name })
 }
 
 const applyAll = async () => {
@@ -93,6 +112,8 @@ const applyAll = async () => {
 
 void (async () => {
   try {
+    await mongoClient.connect()
+
     const args = parseArgs({
       options: {
         create: {
@@ -116,5 +137,7 @@ void (async () => {
   } catch (error) {
     console.error(error)
     process.exit(1)
+  } finally {
+    await mongoClient.close()
   }
 })()
