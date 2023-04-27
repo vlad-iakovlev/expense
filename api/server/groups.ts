@@ -25,6 +25,9 @@ export const getGroups: NextApiHandler<GetGroupsResponse> = async (
         has: req.session.user.id,
       },
     },
+    orderBy: {
+      name: 'asc',
+    },
     select: groupSelector,
   })
 

@@ -36,7 +36,9 @@ export const getWallets: NextApiHandler<GetWalletsResponse> = async (
     },
     orderBy: [
       {
-        groupId: 'asc',
+        group: {
+          name: 'asc',
+        },
       },
       {
         order: 'asc',

@@ -29,7 +29,11 @@ const getMigrations = async () => {
 }
 
 const getAppliedMigrations = async () => {
-  const appliedMigrations = await prisma.migration.findMany()
+  const appliedMigrations = await prisma.migration.findMany({
+    orderBy: {
+      name: 'asc',
+    },
+  })
 
   return appliedMigrations.map((migration) => migration.name)
 }
