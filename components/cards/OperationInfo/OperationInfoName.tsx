@@ -1,4 +1,4 @@
-import assert from 'node:assert'
+import assert from 'assert'
 import { FC, useCallback } from 'react'
 import { updateOperation } from '../../../api/client/operations.ts'
 import { useLoadingContext } from '../../contexts/Loading.tsx'

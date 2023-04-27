@@ -1,5 +1,5 @@
+import assert from 'assert'
 import { GetServerSideProps, NextPage } from 'next'
-import assert from 'node:assert'
 import { CheckSwrContexts } from '../../components/CheckSwrContexts/CheckSwrContexts.tsx'
 import { Wallet } from '../../components/Wallet/Wallet.tsx'
 import { CategoriesProvider } from '../../components/contexts/Categories.tsx'
