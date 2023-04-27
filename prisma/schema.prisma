@@ -8,8 +8,13 @@ generator client {
   previewFeatures = ["extendedWhereUnique"]
 }
 
+model Migration {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+}
+
 model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
   type              String
   provider          String
   providerAccountId String
@@ -20,6 +25,8 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @db.ObjectId
@@ -31,6 +38,8 @@ model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
   expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @db.ObjectId
@@ -42,6 +51,8 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   groups  Group[]  @relation(fields: [groupId], references: [id])
   groupId String[] @db.ObjectId
@@ -55,23 +66,29 @@ model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@unique([identifier, token])
 }
 
 model Currency {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  name   String
-  symbol String
-  rate   Float
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  symbol    String
+  rate      Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   wallets Wallet[]
   groups  Group[]
 }
 
 model Group {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   defaultCurrency   Currency @relation(fields: [defaultCurrencyId], references: [id], onDelete: Restrict)
   defaultCurrencyId String   @db.ObjectId
@@ -83,9 +100,11 @@ model Group {
 }
 
 model Wallet {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name  String
-  order Int?   @db.Long
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  order     Int?     @db.Long
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   currency   Currency @relation(fields: [currencyId], references: [id], onDelete: Restrict)
   currencyId String   @db.ObjectId
@@ -104,6 +123,8 @@ model Operation {
   date          DateTime
   incomeAmount  Int      @db.Long
   expenseAmount Int      @db.Long
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   incomeWallet   Wallet? @relation(name: "WalletOperationIncome", fields: [incomeWalletId], references: [id], onDelete: Restrict)
   incomeWalletId String? @db.ObjectId
