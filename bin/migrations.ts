@@ -45,18 +45,18 @@ const applyMigration = async (name: string) => {
   await prisma.migration.create({ data: { name } })
 }
 
-const migrateAll = async () => {
-  console.log(chalk.blue.bold('[migrations:migrate-all]'), 'Migrating started')
+const applyAll = async () => {
+  console.log(chalk.blue.bold('[migrations:apply-all]'), 'Migrating started')
 
   const migrations = await getMigrations()
   console.log(
-    chalk.blue.bold('[migrations:migrate-all]'),
+    chalk.blue.bold('[migrations:apply-all]'),
     `Found ${migrations.length} migrations`
   )
 
   const appliedMigrations = await getAppliedMigrations()
   console.log(
-    chalk.blue.bold('[migrations:migrate-all]'),
+    chalk.blue.bold('[migrations:apply-all]'),
     `Found ${appliedMigrations.length} applied migrations`
   )
 
@@ -84,10 +84,7 @@ const migrateAll = async () => {
     console.log(chalk.green.bold(`[${name}]`), 'Migration applied successfully')
   }
 
-  console.log(
-    chalk.green.bold('[migrations:migrate-all]'),
-    'Migrating finished'
-  )
+  console.log(chalk.green.bold('[migrations:apply-all]'), 'Migrating finished')
 }
 
 void (async () => {
@@ -97,7 +94,7 @@ void (async () => {
         create: {
           type: 'string',
         },
-        migrateAll: {
+        applyAll: {
           type: 'boolean',
         },
       },
@@ -107,8 +104,8 @@ void (async () => {
       await createMigration(`${Date.now()}-${args.values.create}`)
     }
 
-    if (args.values.migrateAll) {
-      await migrateAll()
+    if (args.values.applyAll) {
+      await applyAll()
     }
 
     process.exit(0)

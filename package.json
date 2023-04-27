@@ -10,7 +10,7 @@
     "generate-models": "prisma generate",
     "migrations": "ts-node --esm -r dotenv-flow/config bin/migrations.ts",
     "migrations:create": "npm run migrations -- --create",
-    "migrations:migrate-all": "npm run migrations -- --migrateAll",
+    "migrations:apply-all": "npm run migrations -- --applyAll",
     "update-rates": "ts-node --esm -r dotenv-flow/config bin/update-rates.ts",
     "compile": "tsc",
     "lint": "next lint",
