@@ -11,6 +11,7 @@ import {
 } from '../types/statistics.ts'
 import { getStatisticsByCategoryQuerySchema } from './schemas/statistics.ts'
 import { walletSelector } from './selectors/index.ts'
+import { getWalletWhere } from './where/index.ts'
 
 export const getStatisticsByCategory: NextApiHandler<
   GetStatisticsByCategoryResponse
@@ -19,27 +20,30 @@ export const getStatisticsByCategory: NextApiHandler<
 
   let currency: ClientCurrency
   if (query.walletId) {
-    currency = await getWalletCurrency(req, query.walletId)
+    currency = await getWalletCurrency({
+      userId: req.session.user.id,
+      walletId: query.walletId,
+    })
   } else if (query.groupId) {
-    currency = await getGroupDefaultCurrency(req, query.groupId)
+    currency = await getGroupDefaultCurrency({
+      userId: req.session.user.id,
+      groupId: query.groupId,
+    })
   } else {
-    currency = await getDefaultCurrency(req)
+    currency = await getDefaultCurrency()
   }
 
   const wallets = await prisma.wallet.findMany({
-    where: {
-      group: {
-        id: query.groupId,
-        userIds: {
-          has: req.session.user.id,
-        },
-      },
-    },
+    where: getWalletWhere({
+      userId: req.session.user.id,
+      groupId: query.groupId,
+    }),
     select: walletSelector,
   })
 
-  const incomes = await getStatisticsByCategoryItems(req, {
+  const incomes = await getStatisticsByCategoryItems({
     type: 'income',
+    userId: req.session.user.id,
     groupId: query.groupId,
     walletId: query.walletId,
     startDate: query.startDate,
@@ -48,8 +52,9 @@ export const getStatisticsByCategory: NextApiHandler<
     wallets,
   })
 
-  const expenses = await getStatisticsByCategoryItems(req, {
+  const expenses = await getStatisticsByCategoryItems({
     type: 'expense',
+    userId: req.session.user.id,
     groupId: query.groupId,
     walletId: query.walletId,
     startDate: query.startDate,

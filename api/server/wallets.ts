@@ -18,6 +18,7 @@ import {
   updateWalletBodySchema,
 } from './schemas/wallets.ts'
 import { walletSelector } from './selectors/index.ts'
+import { getGroupWhere, getWalletWhere } from './where/index.ts'
 
 export const getWallets: NextApiHandler<GetWalletsResponse> = async (
   req,
@@ -26,14 +27,10 @@ export const getWallets: NextApiHandler<GetWalletsResponse> = async (
   const query = getWalletsQuerySchema.parse(req.query)
 
   const walletsWithoutBalance = await prisma.wallet.findMany({
-    where: {
-      group: {
-        id: query.groupId,
-        userIds: {
-          has: req.session.user.id,
-        },
-      },
-    },
+    where: getWalletWhere({
+      userId: req.session.user.id,
+      groupId: query.groupId,
+    }),
     orderBy: [
       {
         group: {
@@ -48,7 +45,7 @@ export const getWallets: NextApiHandler<GetWalletsResponse> = async (
   })
 
   const wallets = await Promise.all(
-    walletsWithoutBalance.map((wallet) => populateWalletBalance(req, wallet))
+    walletsWithoutBalance.map(populateWalletBalance)
   )
 
   res.status(200).json({ wallets })
@@ -61,18 +58,14 @@ export const getWallet: NextApiHandler<GetWalletResponse> = async (
   const query = getWalletQuerySchema.parse(req.query)
 
   const walletWithoutBalance = await prisma.wallet.findFirstOrThrow({
-    where: {
-      id: query.walletId,
-      group: {
-        userIds: {
-          has: req.session.user.id,
-        },
-      },
-    },
+    where: getWalletWhere({
+      userId: req.session.user.id,
+      walletId: query.walletId,
+    }),
     select: walletSelector,
   })
 
-  const wallet = await populateWalletBalance(req, walletWithoutBalance)
+  const wallet = await populateWalletBalance(walletWithoutBalance)
 
   res.status(200).json({ wallet })
 }
@@ -92,12 +85,10 @@ export const createWallet: NextApiHandler<CreateWalletResponse> = async (
         },
       },
       group: {
-        connect: {
-          id: body.groupId,
-          userIds: {
-            has: req.session.user.id,
-          },
-        },
+        connect: getGroupWhere({
+          userId: req.session.user.id,
+          groupId: body.groupId,
+        }),
       },
     },
     select: {
@@ -115,14 +106,10 @@ export const updateWallet: NextApiHandler<UpdateWalletResponse> = async (
   const body = updateWalletBodySchema.parse(req.body)
 
   await prisma.wallet.update({
-    where: {
-      id: body.walletId,
-      group: {
-        userIds: {
-          has: req.session.user.id,
-        },
-      },
-    },
+    where: getWalletWhere({
+      userId: req.session.user.id,
+      walletId: body.walletId,
+    }),
     data: {
       name: body.name,
       currencyId: body.currencyId,
@@ -142,14 +129,16 @@ export const deleteWallet: NextApiHandler<DeleteWalletResponse> = async (
 ) => {
   const query = deleteWalletQuerySchema.parse(req.query)
 
-  await prisma.wallet.delete({
-    where: {
-      id: query.walletId,
-      group: {
-        userIds: {
-          has: req.session.user.id,
-        },
-      },
+  await prisma.wallet.update({
+    where: getWalletWhere({
+      userId: req.session.user.id,
+      walletId: query.walletId,
+    }),
+    data: {
+      removed: true,
+    },
+    select: {
+      id: true,
     },
   })
 
@@ -165,15 +154,10 @@ export const setWalletsOrder: NextApiHandler<SetWalletsOrderResponse> = async (
   await prisma.$transaction(
     body.walletIds.map((walletId, index) =>
       prisma.wallet.update({
-        where: {
-          id: walletId,
-          group: {
-            id: body.groupId,
-            userIds: {
-              has: req.session.user.id,
-            },
-          },
-        },
+        where: getWalletWhere({
+          userId: req.session.user.id,
+          walletId,
+        }),
         data: {
           order: index,
         },

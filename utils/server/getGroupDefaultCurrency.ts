@@ -1,18 +1,20 @@
-import { NextApiRequest } from 'next'
 import { currencySelector } from '../../api/server/selectors/index.ts'
+import { getGroupWhere } from '../../api/server/where/index.ts'
 import { prisma } from './prisma.ts'
 
-export const getGroupDefaultCurrency = async (
-  req: NextApiRequest,
+interface GetGroupDefaultCurrencyParams {
+  userId: string
   groupId: string
+}
+
+export const getGroupDefaultCurrency = async (
+  params: GetGroupDefaultCurrencyParams
 ) => {
   const group = await prisma.group.findFirstOrThrow({
-    where: {
-      id: groupId,
-      userIds: {
-        has: req.session.user.id,
-      },
-    },
+    where: getGroupWhere({
+      userId: params.userId,
+      groupId: params.groupId,
+    }),
     select: {
       defaultCurrency: { select: currencySelector },
     },

@@ -8,6 +8,7 @@ import {
   getCategoriesQuerySchema,
   renameCategoryBodySchema,
 } from './schemas/categories.ts'
+import { getOperationWhere } from './where/index.ts'
 
 export const getCategories: NextApiHandler<GetCategoriesResponse> = async (
   req,
@@ -16,32 +17,11 @@ export const getCategories: NextApiHandler<GetCategoriesResponse> = async (
   const query = getCategoriesQuerySchema.parse(req.query)
 
   const items = await prisma.operation.groupBy({
-    where: {
-      OR: [
-        {
-          incomeWallet: {
-            id: query.walletId,
-            group: {
-              id: query.groupId,
-              userIds: {
-                has: req.session.user.id,
-              },
-            },
-          },
-        },
-        {
-          expenseWallet: {
-            id: query.walletId,
-            group: {
-              id: query.groupId,
-              userIds: {
-                has: req.session.user.id,
-              },
-            },
-          },
-        },
-      ],
-    },
+    where: getOperationWhere({
+      userId: req.session.user.id,
+      groupId: query.groupId,
+      walletId: query.walletId,
+    }),
     by: ['category'],
     orderBy: {
       category: 'asc',
@@ -61,30 +41,11 @@ export const renameCategory: NextApiHandler<RenameCategoryResponse> = async (
 
   await prisma.operation.updateMany({
     where: {
-      OR: [
-        {
-          incomeWallet: {
-            id: body.walletId,
-            group: {
-              id: body.groupId,
-              userIds: {
-                has: req.session.user.id,
-              },
-            },
-          },
-        },
-        {
-          expenseWallet: {
-            id: body.walletId,
-            group: {
-              id: body.groupId,
-              userIds: {
-                has: req.session.user.id,
-              },
-            },
-          },
-        },
-      ],
+      ...getOperationWhere({
+        userId: req.session.user.id,
+        groupId: body.groupId,
+        walletId: body.walletId,
+      }),
       category: body.category,
     },
     data: {

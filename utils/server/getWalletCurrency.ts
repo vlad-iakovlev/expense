@@ -1,20 +1,20 @@
-import { NextApiRequest } from 'next'
 import { currencySelector } from '../../api/server/selectors/index.ts'
+import { getWalletWhere } from '../../api/server/where/index.ts'
 import { prisma } from './prisma.ts'
 
-export const getWalletCurrency = async (
-  req: NextApiRequest,
+interface GetWalletDefaultCurrencyParams {
+  userId: string
   walletId: string
+}
+
+export const getWalletCurrency = async (
+  params: GetWalletDefaultCurrencyParams
 ) => {
   const wallet = await prisma.wallet.findFirstOrThrow({
-    where: {
-      id: walletId,
-      group: {
-        userIds: {
-          has: req.session.user.id,
-        },
-      },
-    },
+    where: getWalletWhere({
+      userId: params.userId,
+      walletId: params.walletId,
+    }),
     select: {
       currency: { select: currencySelector },
     },

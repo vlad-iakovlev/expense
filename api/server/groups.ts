@@ -14,17 +14,16 @@ import {
   updateGroupBodySchema,
 } from './schemas/groups.ts'
 import { groupSelector } from './selectors/index.ts'
+import { getGroupWhere } from './where/index.ts'
 
 export const getGroups: NextApiHandler<GetGroupsResponse> = async (
   req,
   res
 ) => {
   const groups = await prisma.group.findMany({
-    where: {
-      userIds: {
-        has: req.session.user.id,
-      },
-    },
+    where: getGroupWhere({
+      userId: req.session.user.id,
+    }),
     orderBy: {
       name: 'asc',
     },
@@ -38,12 +37,10 @@ export const getGroup: NextApiHandler<GetGroupResponse> = async (req, res) => {
   const query = getGroupQuerySchema.parse(req.query)
 
   const group = await prisma.group.findFirstOrThrow({
-    where: {
-      id: query.groupId,
-      userIds: {
-        has: req.session.user.id,
-      },
-    },
+    where: getGroupWhere({
+      userId: req.session.user.id,
+      groupId: query.groupId,
+    }),
     select: groupSelector,
   })
 
@@ -77,12 +74,10 @@ export const updateGroup: NextApiHandler<UpdateGroupResponse> = async (
   const body = updateGroupBodySchema.parse(req.body)
 
   await prisma.group.update({
-    where: {
-      id: body.groupId,
-      userIds: {
-        has: req.session.user.id,
-      },
-    },
+    where: getGroupWhere({
+      userId: req.session.user.id,
+      groupId: body.groupId,
+    }),
     data: {
       name: body.name,
       defaultCurrencyId: body.defaultCurrencyId,
@@ -101,12 +96,16 @@ export const deleteGroup: NextApiHandler<DeleteGroupResponse> = async (
 ) => {
   const query = deleteGroupQuerySchema.parse(req.query)
 
-  await prisma.group.delete({
-    where: {
-      id: query.groupId,
-      userIds: {
-        has: req.session.user.id,
-      },
+  await prisma.group.update({
+    where: getGroupWhere({
+      userId: req.session.user.id,
+      groupId: query.groupId,
+    }),
+    data: {
+      removed: true,
+    },
+    select: {
+      id: true,
     },
   })
 
