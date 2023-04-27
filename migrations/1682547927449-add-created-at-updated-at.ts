@@ -14,6 +14,7 @@ export const apply = async () => {
       'Session',
       'User',
       'VerificationToken',
+      'Currency',
       'Group',
       'Wallet',
       'Operation',
