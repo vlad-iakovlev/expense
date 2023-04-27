@@ -8,5 +8,6 @@ COPY . .
 RUN npm run generate-models
 RUN npm run migrations:apply-all
 RUN npm run build
+RUN npm prune --production
 
 CMD npm start
