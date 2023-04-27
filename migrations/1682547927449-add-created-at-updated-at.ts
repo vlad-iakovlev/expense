@@ -9,109 +9,30 @@ export const apply = async () => {
     await client.connect()
     const db = client.db()
 
-    await db
-      .collection('Account')
-      .updateMany(
-        { createdAt: { $eq: null } },
-        { $set: { createdAt: new Date() } }
-      )
-    await db
-      .collection('Account')
-      .updateMany(
-        { updatedAt: { $eq: null } },
-        { $set: { updatedAt: new Date() } }
-      )
+    const collectionNames = [
+      'Account',
+      'Session',
+      'User',
+      'VerificationToken',
+      'Group',
+      'Wallet',
+      'Operation',
+    ]
 
-    await db
-      .collection('Session')
-      .updateMany(
-        { createdAt: { $eq: null } },
-        { $set: { createdAt: new Date() } }
-      )
-    await db
-      .collection('Session')
-      .updateMany(
-        { updatedAt: { $eq: null } },
-        { $set: { updatedAt: new Date() } }
-      )
-
-    await db
-      .collection('User')
-      .updateMany(
-        { createdAt: { $eq: null } },
-        { $set: { createdAt: new Date() } }
-      )
-    await db
-      .collection('User')
-      .updateMany(
-        { updatedAt: { $eq: null } },
-        { $set: { updatedAt: new Date() } }
-      )
-
-    await db
-      .collection('VerificationToken')
-      .updateMany(
-        { createdAt: { $eq: null } },
-        { $set: { createdAt: new Date() } }
-      )
-    await db
-      .collection('VerificationToken')
-      .updateMany(
-        { updatedAt: { $eq: null } },
-        { $set: { updatedAt: new Date() } }
-      )
-
-    await db
-      .collection('Currency')
-      .updateMany(
-        { createdAt: { $eq: null } },
-        { $set: { createdAt: new Date() } }
-      )
-    await db
-      .collection('Currency')
-      .updateMany(
-        { updatedAt: { $eq: null } },
-        { $set: { updatedAt: new Date() } }
-      )
-
-    await db
-      .collection('Group')
-      .updateMany(
-        { createdAt: { $eq: null } },
-        { $set: { createdAt: new Date() } }
-      )
-    await db
-      .collection('Group')
-      .updateMany(
-        { updatedAt: { $eq: null } },
-        { $set: { updatedAt: new Date() } }
-      )
-
-    await db
-      .collection('Wallet')
-      .updateMany(
-        { createdAt: { $eq: null } },
-        { $set: { createdAt: new Date() } }
-      )
-    await db
-      .collection('Wallet')
-      .updateMany(
-        { updatedAt: { $eq: null } },
-        { $set: { updatedAt: new Date() } }
-      )
-
-    await db
-      .collection('Operation')
-      .updateMany(
-        { createdAt: { $eq: null } },
-        { $set: { createdAt: new Date() } }
-      )
-    await db
-      .collection('Operation')
-      .updateMany(
-        { updatedAt: { $eq: null } },
-        { $set: { updatedAt: new Date() } }
-      )
+    for (const collectionName of collectionNames) {
+      await db
+        .collection(collectionName)
+        .updateMany(
+          { createdAt: { $eq: null } },
+          { $set: { createdAt: new Date() } }
+        )
+      await db
+        .collection(collectionName)
+        .updateMany(
+          { updatedAt: { $eq: null } },
+          { $set: { updatedAt: new Date() } }
+        )
+    }
   } finally {
     await client.close()
   }
