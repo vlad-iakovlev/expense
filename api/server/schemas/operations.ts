@@ -19,8 +19,8 @@ export const createOperationBodySchema = z.object({
   date: z.string().datetime(),
   incomeAmount: z.number(),
   expenseAmount: z.number(),
-  incomeWalletId: z.string().refine(isValidObjectId).or(z.null()),
-  expenseWalletId: z.string().refine(isValidObjectId).or(z.null()),
+  incomeWalletId: z.string().refine(isValidObjectId).nullable(),
+  expenseWalletId: z.string().refine(isValidObjectId).nullable(),
 })
 
 export const updateOperationBodySchema = z.object({
@@ -30,8 +30,8 @@ export const updateOperationBodySchema = z.object({
   date: z.string().datetime().optional(),
   incomeAmount: z.number().optional(),
   expenseAmount: z.number().optional(),
-  incomeWalletId: z.string().refine(isValidObjectId).or(z.null()).optional(),
-  expenseWalletId: z.string().refine(isValidObjectId).or(z.null()).optional(),
+  incomeWalletId: z.string().refine(isValidObjectId).nullable().optional(),
+  expenseWalletId: z.string().refine(isValidObjectId).nullable().optional(),
 })
 
 export const deleteOperationQuerySchema = z.object({
