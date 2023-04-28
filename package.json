@@ -29,7 +29,7 @@
     "@prisma/client": "^4.13.0",
     "@types/node": "^18.16.1",
     "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.0.11",
+    "@types/react-dom": "^18.2.1",
     "autoprefixer": "^10.4.14",
     "chalk": "^5.2.0",
     "clsx": "^1.2.1",
