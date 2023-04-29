@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { FC, useCallback, useMemo, useState } from 'react'
 import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
