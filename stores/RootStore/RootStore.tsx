@@ -89,12 +89,13 @@ export const RootStoreProvider: FC<ProviderProps> = ({ children }) => {
     wallets: [],
     operations: [],
     isReady: false,
+    isSyncing: false,
     shouldSync: false,
     syncedAt: null,
   })
 
-  useBrowserStorage(state, dispatch)
-  useRemoteStorage(state, dispatch)
+  const { isBrowserStorageLoaded } = useBrowserStorage(state, dispatch)
+  useRemoteStorage(state, dispatch, isBrowserStorageLoaded)
 
   return (
     <RootStoreContext.Provider value={{ state, dispatch }}>

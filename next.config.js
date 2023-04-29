@@ -1,7 +1,7 @@
 import withPWA from 'next-pwa'
 import nextPWACache from 'next-pwa/cache.js'
 
-const nextConfig = withPWA({
+const applyPWAConfig = withPWA({
   dest: 'public',
   reloadOnOnline: false,
   runtimeCaching: [
@@ -30,6 +30,10 @@ const nextConfig = withPWA({
     },
     ...nextPWACache,
   ],
-})()
+})
+
+const nextConfig = applyPWAConfig({
+  reactStrictMode: true,
+})
 
 export default nextConfig

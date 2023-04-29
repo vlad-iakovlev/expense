@@ -2,16 +2,24 @@ import { Reducer, ReducerAction } from 'react'
 import { PerformSyncResponse } from '../../../api/types.ts'
 import { RootStoreState, StorageActionType } from '../types.tsx'
 
-const setShouldSyncReducer: Reducer<
+const startSyncReducer: Reducer<
   RootStoreState,
-  {
-    type: StorageActionType.SET_SHOULD_SYNC
-    payload: boolean
-  }
-> = (state, action) => {
+  { type: StorageActionType.START_SYNC }
+> = (state) => {
   return {
     ...state,
-    shouldSync: action.payload,
+    isSyncing: true,
+    shouldSync: false,
+  }
+}
+
+const abortSyncReducer: Reducer<
+  RootStoreState,
+  { type: StorageActionType.ABORT_SYNC }
+> = (state) => {
+  return {
+    ...state,
+    isSyncing: false,
   }
 }
 
@@ -57,6 +65,7 @@ const setStateFromRemoteStorageReducer: Reducer<
           array.findIndex((i) => i.id === item.id) === index
       ),
     isReady: true,
+    isSyncing: false,
     shouldSync: false,
     syncedAt: action.payload.syncStartedAt,
   }
@@ -101,13 +110,15 @@ const clearBrowserStorage: Reducer<
     wallets: [],
     operations: [],
     isReady: false,
+    isSyncing: false,
     shouldSync: false,
     syncedAt: null,
   }
 }
 
 export type StorageAction =
-  | ReducerAction<typeof setShouldSyncReducer>
+  | ReducerAction<typeof startSyncReducer>
+  | ReducerAction<typeof abortSyncReducer>
   | ReducerAction<typeof setStateFromRemoteStorageReducer>
   | ReducerAction<typeof setStateFromBrowserStorageReducer>
   | ReducerAction<typeof clearBrowserStorage>
@@ -126,8 +137,11 @@ export const StorageReducer: Reducer<RootStoreState, StorageAction> = (
   action
 ) => {
   switch (action.type) {
-    case StorageActionType.SET_SHOULD_SYNC:
-      return setShouldSyncReducer(state, action)
+    case StorageActionType.START_SYNC:
+      return startSyncReducer(state, action)
+
+    case StorageActionType.ABORT_SYNC:
+      return abortSyncReducer(state, action)
 
     case StorageActionType.SET_STATE_FROM_REMOTE_STORAGE:
       return setStateFromRemoteStorageReducer(state, action)

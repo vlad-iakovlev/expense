@@ -11,25 +11,22 @@ import { RootStoreState, StorageActionType } from '../types.tsx'
 
 export const useRemoteStorage = (
   state: RootStoreState,
-  dispatch: Dispatch<StorageAction>
+  dispatch: Dispatch<StorageAction>,
+  isBrowserStorageLoaded: boolean
 ) => {
   const session = useSession()
   const isAuthenticated = session.status === 'authenticated'
   const isOnline = useIsOnline()
   const isTabVisible = useIsTabVisible()
 
-  const canSync = isAuthenticated && isOnline && isTabVisible
+  const canSync =
+    isBrowserStorageLoaded && isAuthenticated && isOnline && isTabVisible
 
   const sync = useCallback(() => {
     void (async () => {
       try {
-        dispatch({
-          type: StorageActionType.SET_SHOULD_SYNC,
-          payload: false,
-        })
-
+        dispatch({ type: StorageActionType.START_SYNC })
         const syncStartedAt = new Date()
-
         const response = await performSync(getRemoteStorageBody(state))
 
         dispatch({
@@ -38,6 +35,7 @@ export const useRemoteStorage = (
         })
       } catch (error) {
         console.error(error)
+        dispatch({ type: StorageActionType.ABORT_SYNC })
       }
     })()
   }, [dispatch, state])

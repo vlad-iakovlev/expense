@@ -5,21 +5,23 @@ import {
   ClientWallet,
 } from '../../types/client.ts'
 
-export enum StorageActionType {
-  SET_SHOULD_SYNC = 'STORAGE_SET_SHOULD_SYNC',
-  SET_STATE_FROM_REMOTE_STORAGE = 'SET_STATE_FROM_REMOTE_STORAGE',
-  SET_STATE_FROM_BROWSER_STORAGE = 'SET_STATE_FROM_BROWSER_STORAGE',
-  CLEAR_BROWSER_STORAGE = 'CLEAR_BROWSER_STORAGE',
-}
-
 export interface RootStoreState {
   currencies: ClientCurrency[]
   groups: ClientGroup[]
   wallets: ClientWallet[]
   operations: ClientOperation[]
   isReady: boolean
+  isSyncing: boolean
   shouldSync: boolean
   syncedAt: Date | null
+}
+
+export enum StorageActionType {
+  START_SYNC = 'START_SYNC',
+  ABORT_SYNC = 'ABORT_SYNC',
+  SET_STATE_FROM_REMOTE_STORAGE = 'SET_STATE_FROM_REMOTE_STORAGE',
+  SET_STATE_FROM_BROWSER_STORAGE = 'SET_STATE_FROM_BROWSER_STORAGE',
+  CLEAR_BROWSER_STORAGE = 'CLEAR_BROWSER_STORAGE',
 }
 
 export enum GroupsActionTypes {

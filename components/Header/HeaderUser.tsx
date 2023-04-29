@@ -27,20 +27,19 @@ export const HeaderUser: FC = () => {
       try {
         setIsLoading(true)
         await signIn('google')
-        await router.push(ROUTES.DASHBOARD)
       } finally {
         setIsLoading(false)
       }
     })()
-  }, [router])
+  }, [])
 
   const handleSignOut = useCallback(() => {
     void (async () => {
       try {
         setIsOpen(false)
         setIsLoading(true)
+        await router.push(ROUTES.DASHBOARD)
         await signOut()
-        await router.push(ROUTES.HOME)
       } finally {
         setIsLoading(false)
       }

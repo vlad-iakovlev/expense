@@ -26,11 +26,6 @@ export const useBrowserStorage = (
       } catch (error) {
         console.error(error)
       } finally {
-        dispatch({
-          type: StorageActionType.SET_SHOULD_SYNC,
-          payload: true,
-        })
-
         setIsLoaded(true)
       }
     }
@@ -38,10 +33,7 @@ export const useBrowserStorage = (
 
   useEffect(() => {
     if (session.status === 'unauthenticated') {
-      dispatch({
-        type: StorageActionType.CLEAR_BROWSER_STORAGE,
-      })
-
+      dispatch({ type: StorageActionType.CLEAR_BROWSER_STORAGE })
       setIsLoaded(true)
     }
   }, [dispatch, session.status])
@@ -51,4 +43,8 @@ export const useBrowserStorage = (
       window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
     }
   }, [isLoaded, state])
+
+  return {
+    isBrowserStorageLoaded: isLoaded,
+  }
 }
