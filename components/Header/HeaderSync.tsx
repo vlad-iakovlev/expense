@@ -16,7 +16,7 @@ export const HeaderSync: FC = () => {
       ) : (
         <>
           <span className="text-xs">Synced</span>
-          <span className="text-xs">{fns.format(syncedAt, `d MMM HH:mm`)}</span>
+          <span className="text-xs">{fns.format(syncedAt, `d MMM, H:mm`)}</span>
         </>
       )}
     </div>
