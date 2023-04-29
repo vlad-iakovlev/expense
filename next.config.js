@@ -3,6 +3,7 @@ import nextPWACache from 'next-pwa/cache.js'
 
 const applyPWAConfig = withPWA({
   dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
   reloadOnOnline: false,
   runtimeCaching: [
     {
