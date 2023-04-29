@@ -16,12 +16,12 @@ export const useBrowserStorage = (
   useEffect(() => {
     if (session.status === 'authenticated' && !state.isReady) {
       try {
-        const storedState = window.localStorage.getItem(LOCAL_STORAGE_KEY)
-        assert(storedState, 'No stored state found')
+        const storedStateStr = window.localStorage.getItem(LOCAL_STORAGE_KEY)
+        assert(storedStateStr, 'No stored state found')
 
         dispatch({
           type: StorageActionType.SET_STATE_FROM_BROWSER_STORAGE,
-          payload: { storedState },
+          payload: storedStateStr,
         })
       } catch (error) {
         console.error(error)

@@ -20,6 +20,7 @@ const abortSyncReducer: Reducer<
   return {
     ...state,
     isSyncing: false,
+    shouldSync: true,
   }
 }
 
@@ -75,29 +76,31 @@ const setStateFromBrowserStorageReducer: Reducer<
   RootStoreState,
   {
     type: StorageActionType.SET_STATE_FROM_BROWSER_STORAGE
-    payload: {
-      storedState: string
-    }
+    payload: string
   }
 > = (state, action) => {
-  const nextState = JSON.parse(action.payload.storedState) as RootStoreState
+  const storedState = JSON.parse(action.payload) as RootStoreState
 
-  nextState.groups.forEach((group) => {
-    group.updatedAt = new Date(group.updatedAt)
-  })
-
-  nextState.wallets.forEach((wallet) => {
-    wallet.updatedAt = new Date(wallet.updatedAt)
-  })
-
-  nextState.operations.forEach((operation) => {
-    operation.date = new Date(operation.date)
-    operation.updatedAt = new Date(operation.updatedAt)
-  })
-
-  nextState.syncedAt = nextState.syncedAt && new Date(nextState.syncedAt)
-
-  return nextState
+  return {
+    currencies: storedState.currencies,
+    groups: storedState.groups.map((group) => ({
+      ...group,
+      updatedAt: new Date(group.updatedAt),
+    })),
+    wallets: storedState.wallets.map((wallet) => ({
+      ...wallet,
+      updatedAt: new Date(wallet.updatedAt),
+    })),
+    operations: storedState.operations.map((operation) => ({
+      ...operation,
+      date: new Date(operation.date),
+      updatedAt: new Date(operation.updatedAt),
+    })),
+    isReady: storedState.isReady,
+    isSyncing: false,
+    shouldSync: false,
+    syncedAt: storedState.syncedAt ? new Date(storedState.syncedAt) : null,
+  }
 }
 
 const clearBrowserStorage: Reducer<

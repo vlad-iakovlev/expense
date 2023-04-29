@@ -1,8 +1,6 @@
 import { useSession } from 'next-auth/react'
-import { Dispatch, useCallback, useEffect } from 'react'
-import { useDebouncedCallback } from 'use-debounce'
+import { Dispatch, useEffect, useState } from 'react'
 import { performSync } from '../../../api/client/sync.ts'
-import { useInterval } from '../../../hooks/useInterval.ts'
 import { useIsOnline } from '../../../hooks/useIsOnline.ts'
 import { useIsTabVisible } from '../../../hooks/useIsTabVisible.ts'
 import { getRemoteStorageBody } from '../getters/storage.ts'
@@ -18,12 +16,10 @@ export const useRemoteStorage = (
   const isAuthenticated = session.status === 'authenticated'
   const isOnline = useIsOnline()
   const isTabVisible = useIsTabVisible()
+  const [shouldSyncAsap, setShouldSyncAsap] = useState(true)
 
-  const canSync =
-    isBrowserStorageLoaded && isAuthenticated && isOnline && isTabVisible
-
-  const sync = useCallback(() => {
-    void (async () => {
+  useEffect(() => {
+    const sync = async () => {
       try {
         dispatch({ type: StorageActionType.START_SYNC })
         const syncStartedAt = new Date()
@@ -37,16 +33,42 @@ export const useRemoteStorage = (
         console.error(error)
         dispatch({ type: StorageActionType.ABORT_SYNC })
       }
-    })()
-  }, [dispatch, state])
-
-  const syncDebounced = useDebouncedCallback(sync, 2000, { leading: true })
-
-  useInterval(syncDebounced, canSync ? 60 * 1000 : null, { immediate: true })
-
-  useEffect(() => {
-    if (canSync && state.shouldSync) {
-      syncDebounced()
     }
-  }, [canSync, state.shouldSync, syncDebounced])
+
+    if (state.isSyncing) {
+      setShouldSyncAsap(false)
+      return
+    }
+
+    if (
+      !isBrowserStorageLoaded ||
+      !isAuthenticated ||
+      !isOnline ||
+      !isTabVisible
+    ) {
+      setShouldSyncAsap(true)
+      return
+    }
+
+    if (shouldSyncAsap) {
+      setShouldSyncAsap(false)
+      void sync()
+      return
+    }
+
+    const timerId = setTimeout(
+      () => void sync(),
+      state.shouldSync ? 2000 : 60000
+    )
+
+    return () => clearTimeout(timerId)
+  }, [
+    dispatch,
+    isAuthenticated,
+    isBrowserStorageLoaded,
+    isOnline,
+    isTabVisible,
+    shouldSyncAsap,
+    state,
+  ])
 }
