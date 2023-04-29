@@ -11,11 +11,6 @@ import {
 import { useBrowserStorage } from './hooks/useBrowserStorage.ts'
 import { useRemoteStorage } from './hooks/useRemoteStorage.ts'
 import {
-  BrowserStorageAction,
-  browserStorageReducer,
-  isBrowserStorageAction,
-} from './reducers/browserStorage.ts'
-import {
   CategoriesAction,
   categoriesReducer,
   isCategoriesAction,
@@ -31,10 +26,10 @@ import {
   operationsReducer,
 } from './reducers/operations.ts'
 import {
-  RemoteStorageAction,
-  isRemoteStorageAction,
-  remoteStorageReducer,
-} from './reducers/remoteStorage.ts'
+  StorageAction,
+  StorageReducer,
+  isStorageAction,
+} from './reducers/storage.ts'
 import {
   WalletsAction,
   isWalletsAction,
@@ -43,12 +38,11 @@ import {
 import { RootStoreState } from './types.tsx'
 
 type Action =
+  | StorageAction
   | GroupsAction
   | WalletsAction
   | OperationsAction
   | CategoriesAction
-  | BrowserStorageAction
-  | RemoteStorageAction
 
 interface ContextValue {
   state: RootStoreState
@@ -56,28 +50,24 @@ interface ContextValue {
 }
 
 const reducer: Reducer<RootStoreState, Action> = (state, action) => {
+  if (isStorageAction(action)) {
+    return StorageReducer(state, action)
+  }
+
   if (isGroupsAction(action)) {
-    return { ...groupsReducer(state, action), shouldSynchronize: true }
+    return { ...groupsReducer(state, action), shouldSync: true }
   }
 
   if (isWalletsAction(action)) {
-    return { ...walletsReducer(state, action), shouldSynchronize: true }
+    return { ...walletsReducer(state, action), shouldSync: true }
   }
 
   if (isOperationsAction(action)) {
-    return { ...operationsReducer(state, action), shouldSynchronize: true }
+    return { ...operationsReducer(state, action), shouldSync: true }
   }
 
   if (isCategoriesAction(action)) {
-    return { ...categoriesReducer(state, action), shouldSynchronize: true }
-  }
-
-  if (isBrowserStorageAction(action)) {
-    return browserStorageReducer(state, action)
-  }
-
-  if (isRemoteStorageAction(action)) {
-    return remoteStorageReducer(state, action)
+    return { ...categoriesReducer(state, action), shouldSync: true }
   }
 
   return state
@@ -99,7 +89,7 @@ export const RootStoreProvider: FC<ProviderProps> = ({ children }) => {
     wallets: [],
     operations: [],
     isReady: false,
-    shouldSynchronize: false,
+    shouldSync: false,
     syncedAt: null,
   })
 

@@ -5,13 +5,20 @@ import {
   ClientWallet,
 } from '../../types/client.ts'
 
+export enum StorageActionType {
+  SET_SHOULD_SYNC = 'STORAGE_SET_SHOULD_SYNC',
+  SET_STATE_FROM_REMOTE_STORAGE = 'SET_STATE_FROM_REMOTE_STORAGE',
+  SET_STATE_FROM_BROWSER_STORAGE = 'SET_STATE_FROM_BROWSER_STORAGE',
+  CLEAR_BROWSER_STORAGE = 'CLEAR_BROWSER_STORAGE',
+}
+
 export interface RootStoreState {
   currencies: ClientCurrency[]
   groups: ClientGroup[]
   wallets: ClientWallet[]
   operations: ClientOperation[]
   isReady: boolean
-  shouldSynchronize: boolean
+  shouldSync: boolean
   syncedAt: Date | null
 }
 
@@ -45,16 +52,4 @@ export enum OperationsActionTypes {
 
 export enum CategoriesActionTypes {
   RENAME_CATEGORY = 'RENAME_CATEGORY',
-}
-
-export enum RemoteStorageActionType {
-  REMOTE_STORAGE_PREPARE = 'REMOTE_STORAGE_PREPARE',
-  REMOTE_STORAGE_SET_SUCCESSFUL = 'REMOTE_STORAGE_SET_SUCCESSFUL',
-  REMOTE_STORAGE_SET_FAILED = 'REMOTE_STORAGE_SET_FAILED',
-}
-
-export enum BrowserStorageActionType {
-  BROWSER_STORAGE_SET_SUCCESSFUL = 'BROWSER_STORAGE_SET_SUCCESSFUL',
-  BROWSER_STORAGE_SET_FAILED = 'BROWSER_STORAGE_SET_FAILED',
-  BROWSER_STORAGE_CLEAR = 'BROWSER_STORAGE_CLEAR',
 }

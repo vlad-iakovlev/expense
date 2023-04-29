@@ -1,17 +1,17 @@
 import assert from 'assert'
 import { useSession } from 'next-auth/react'
-import { Dispatch, useEffect } from 'react'
-import { useUpdateEffect } from 'usehooks-ts'
-import { BrowserStorageAction } from '../reducers/browserStorage.ts'
-import { BrowserStorageActionType, RootStoreState } from '../types.tsx'
+import { Dispatch, useEffect, useState } from 'react'
+import { StorageAction } from '../reducers/storage.ts'
+import { RootStoreState, StorageActionType } from '../types.tsx'
 
 const LOCAL_STORAGE_KEY = 'rootStore/v1'
 
 export const useBrowserStorage = (
   state: RootStoreState,
-  dispatch: Dispatch<BrowserStorageAction>
+  dispatch: Dispatch<StorageAction>
 ) => {
   const session = useSession()
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     if (session.status === 'authenticated' && !state.isReady) {
@@ -20,13 +20,16 @@ export const useBrowserStorage = (
         assert(storedState, 'No stored state found')
 
         dispatch({
-          type: BrowserStorageActionType.BROWSER_STORAGE_SET_SUCCESSFUL,
+          type: StorageActionType.SET_STATE_FROM_BROWSER_STORAGE,
           payload: { storedState },
         })
-      } catch (error) {
+      } finally {
         dispatch({
-          type: BrowserStorageActionType.BROWSER_STORAGE_SET_FAILED,
+          type: StorageActionType.SET_SHOULD_SYNC,
+          payload: true,
         })
+
+        setIsLoaded(true)
       }
     }
   }, [dispatch, session.status, state.isReady])
@@ -34,12 +37,16 @@ export const useBrowserStorage = (
   useEffect(() => {
     if (session.status === 'unauthenticated') {
       dispatch({
-        type: BrowserStorageActionType.BROWSER_STORAGE_CLEAR,
+        type: StorageActionType.CLEAR_BROWSER_STORAGE,
       })
+
+      setIsLoaded(true)
     }
   }, [dispatch, session.status])
 
-  useUpdateEffect(() => {
-    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
-  }, [state])
+  useEffect(() => {
+    if (isLoaded) {
+      window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
+    }
+  }, [isLoaded, state])
 }
