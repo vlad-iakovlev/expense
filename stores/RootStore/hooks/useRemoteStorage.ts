@@ -5,7 +5,7 @@ import { performSync } from '../../../api/client/sync.ts'
 import { useInterval } from '../../../hooks/useInterval.ts'
 import { useIsOnline } from '../../../hooks/useIsOnline.ts'
 import { useIsTabVisible } from '../../../hooks/useIsTabVisible.ts'
-import { getRemoteStorageBody } from '../getters/remoteStorage.ts'
+import { getRemoteStorageBody } from '../getters/storage.ts'
 import { StorageAction } from '../reducers/storage.ts'
 import { RootStoreState, StorageActionType } from '../types.tsx'
 
