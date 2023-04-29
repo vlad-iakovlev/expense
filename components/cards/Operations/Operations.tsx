@@ -42,7 +42,7 @@ export const OperationsCard: FC<Props> = ({ className, groupId, walletId }) => {
 
   useEffect(() => {
     setSkip(0)
-  }, [operationIds])
+  }, [category])
 
   if (!walletId && !category && !operationIds.length) {
     return null
