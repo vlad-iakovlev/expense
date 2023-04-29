@@ -20,7 +20,6 @@ const createGroupReducer: Reducer<
       {
         id: action.payload.groupId,
         name: 'Untitled',
-        createdAt: new Date(),
         updatedAt: new Date(),
         removed: false,
         defaultCurrencyId: getDefaultCurrency(state).id,
@@ -115,7 +114,7 @@ export type GroupsAction =
 
 export const isGroupsAction = (action: {
   type: string
-  payload: unknown
+  payload?: unknown
 }): action is GroupsAction => {
   return Object.values(GroupsActionTypes).includes(
     action.type as GroupsActionTypes

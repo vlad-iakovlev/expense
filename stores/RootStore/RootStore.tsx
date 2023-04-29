@@ -8,6 +8,13 @@ import {
   useContext,
   useReducer,
 } from 'react'
+import { useBrowserStorage } from './hooks/useBrowserStorage.ts'
+import { useRemoteStorage } from './hooks/useRemoteStorage.ts'
+import {
+  BrowserStorageAction,
+  browserStorageReducer,
+  isBrowserStorageAction,
+} from './reducers/browserStorage.ts'
 import {
   CategoriesAction,
   categoriesReducer,
@@ -24,10 +31,10 @@ import {
   operationsReducer,
 } from './reducers/operations.ts'
 import {
-  SynchronizeAction,
-  isSynchronizeAction,
-  synchronizeReducer,
-} from './reducers/synchronize.ts'
+  RemoteStorageAction,
+  isRemoteStorageAction,
+  remoteStorageReducer,
+} from './reducers/remoteStorage.ts'
 import {
   WalletsAction,
   isWalletsAction,
@@ -40,23 +47,39 @@ type Action =
   | WalletsAction
   | OperationsAction
   | CategoriesAction
-  | SynchronizeAction
+  | BrowserStorageAction
+  | RemoteStorageAction
 
 interface ContextValue {
   state: RootStoreState
   dispatch: Dispatch<Action>
 }
 
-interface ProviderProps {
-  children: ReactNode
-}
-
 const reducer: Reducer<RootStoreState, Action> = (state, action) => {
-  if (isGroupsAction(action)) return groupsReducer(state, action)
-  if (isWalletsAction(action)) return walletsReducer(state, action)
-  if (isOperationsAction(action)) return operationsReducer(state, action)
-  if (isCategoriesAction(action)) return categoriesReducer(state, action)
-  if (isSynchronizeAction(action)) return synchronizeReducer(state, action)
+  if (isGroupsAction(action)) {
+    return { ...groupsReducer(state, action), shouldSynchronize: true }
+  }
+
+  if (isWalletsAction(action)) {
+    return { ...walletsReducer(state, action), shouldSynchronize: true }
+  }
+
+  if (isOperationsAction(action)) {
+    return { ...operationsReducer(state, action), shouldSynchronize: true }
+  }
+
+  if (isCategoriesAction(action)) {
+    return { ...categoriesReducer(state, action), shouldSynchronize: true }
+  }
+
+  if (isBrowserStorageAction(action)) {
+    return browserStorageReducer(state, action)
+  }
+
+  if (isRemoteStorageAction(action)) {
+    return remoteStorageReducer(state, action)
+  }
+
   return state
 }
 
@@ -65,32 +88,23 @@ export const RootStoreContext = createContext<ContextValue | undefined>(
 )
 RootStoreContext.displayName = 'RootStoreContext'
 
+interface ProviderProps {
+  children: ReactNode
+}
+
 export const RootStoreProvider: FC<ProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
-    currencies: [
-      {
-        id: 'usd-mock',
-        name: 'USD',
-        symbol: '$',
-        rate: 1,
-      },
-      {
-        id: 'eur-mock',
-        name: 'EUR',
-        symbol: '€',
-        rate: 0.9,
-      },
-      {
-        id: 'rub-mock',
-        name: 'RUB',
-        symbol: '₽',
-        rate: 80,
-      },
-    ],
+    currencies: [],
     groups: [],
     wallets: [],
     operations: [],
+    isReady: false,
+    shouldSynchronize: false,
+    syncedAt: null,
   })
+
+  useBrowserStorage(state, dispatch)
+  useRemoteStorage(state, dispatch)
 
   return (
     <RootStoreContext.Provider value={{ state, dispatch }}>

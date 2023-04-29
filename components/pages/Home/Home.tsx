@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { NextHead } from '../../next/Head.ts'
 import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
 import { HomeFeatures } from './HomeFeatures.tsx'
@@ -7,6 +8,10 @@ import { HomeWhatToDo } from './HomeWhatToDo.tsx'
 
 export const Home: FC = () => (
   <>
+    <NextHead>
+      <title>Expense</title>
+    </NextHead>
+
     <Breadcrumbs title="Home" />
 
     <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] lg:grid-rows-none">

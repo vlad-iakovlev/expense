@@ -15,7 +15,6 @@ export interface ClientGroup {
   id: string
   name: string
   removed: boolean
-  createdAt: Date
   updatedAt: Date
   defaultCurrencyId: string
   users: ClientUser[]
@@ -32,7 +31,6 @@ export interface ClientWallet {
   id: string
   name: string
   order: number | null
-  createdAt: Date
   updatedAt: Date
   removed: boolean
   currencyId: string
@@ -53,7 +51,6 @@ export interface ClientOperation {
   date: Date
   incomeAmount: number
   expenseAmount: number
-  createdAt: Date
   updatedAt: Date
   removed: boolean
   incomeWalletId: string | null

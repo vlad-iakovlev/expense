@@ -3,7 +3,6 @@ export const getGroupWhere = (params: {
   groupId?: string
 }) => ({
   id: params.groupId,
-  removed: false,
   userIds: {
     has: params.userId,
   },
@@ -15,7 +14,6 @@ export const getWalletWhere = (params: {
   walletId?: string
 }) => ({
   id: params.walletId,
-  removed: false,
   group: getGroupWhere({
     userId: params.userId,
     groupId: params.groupId,
@@ -30,7 +28,6 @@ export const getOperationWhere = (params: {
   type?: 'income' | 'expense'
 }) => ({
   id: params.operationId,
-  removed: false,
   ...(params.type === 'income' && {
     incomeWallet: getWalletWhere({
       userId: params.userId,

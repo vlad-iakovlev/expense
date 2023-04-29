@@ -10,7 +10,9 @@ export interface RootStoreState {
   groups: ClientGroup[]
   wallets: ClientWallet[]
   operations: ClientOperation[]
-  nextStartFrom?: Date
+  isReady: boolean
+  shouldSynchronize: boolean
+  syncedAt: Date | null
 }
 
 export enum GroupsActionTypes {
@@ -45,6 +47,14 @@ export enum CategoriesActionTypes {
   RENAME_CATEGORY = 'RENAME_CATEGORY',
 }
 
-export enum SynchronizeActionTypes {
-  APPLY_SYNCHRONIZE_RESPONSE = 'APPLY_SYNCHRONIZE_RESPONSE',
+export enum RemoteStorageActionType {
+  REMOTE_STORAGE_PREPARE = 'REMOTE_STORAGE_PREPARE',
+  REMOTE_STORAGE_SET_SUCCESSFUL = 'REMOTE_STORAGE_SET_SUCCESSFUL',
+  REMOTE_STORAGE_SET_FAILED = 'REMOTE_STORAGE_SET_FAILED',
+}
+
+export enum BrowserStorageActionType {
+  BROWSER_STORAGE_SET_SUCCESSFUL = 'BROWSER_STORAGE_SET_SUCCESSFUL',
+  BROWSER_STORAGE_SET_FAILED = 'BROWSER_STORAGE_SET_FAILED',
+  BROWSER_STORAGE_CLEAR = 'BROWSER_STORAGE_CLEAR',
 }

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { isValidObjectId } from '../../utils/isValidObjectId.ts'
 
-export const synchronizeBodySchema = z.object({
+export const performSyncBodySchema = z.object({
   groups: z.array(
     z.object({
       id: z.string().refine(isValidObjectId),
@@ -15,7 +15,7 @@ export const synchronizeBodySchema = z.object({
     z.object({
       id: z.string().refine(isValidObjectId),
       name: z.string().min(1),
-      order: z.number(),
+      order: z.number().nullable(),
       removed: z.boolean(),
       currencyId: z.string().refine(isValidObjectId),
       groupId: z.string().refine(isValidObjectId),
@@ -27,7 +27,7 @@ export const synchronizeBodySchema = z.object({
       id: z.string().refine(isValidObjectId),
       name: z.string().min(1),
       category: z.string().min(1),
-      date: z.string().datetime(),
+      date: z.union([z.string().datetime(), z.date()]),
       incomeAmount: z.number(),
       expenseAmount: z.number(),
       removed: z.boolean(),
@@ -36,5 +36,5 @@ export const synchronizeBodySchema = z.object({
     })
   ),
 
-  startDate: z.string().datetime().optional(),
+  syncedAt: z.union([z.string().datetime(), z.date()]).nullable(),
 })

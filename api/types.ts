@@ -5,13 +5,21 @@ import {
   ClientOperation,
   ClientWallet,
 } from '../types/client.ts'
-import { synchronizeBodySchema } from './server/schemas.ts'
+import { performSyncBodySchema } from './server/schemas.ts'
 
-export type SynchronizeBody = z.infer<typeof synchronizeBodySchema>
+export type PerformSyncBody = z.infer<typeof performSyncBodySchema>
 
-export interface SynchronizeResponse {
-  currencies: ClientCurrency[]
-  groups: ClientGroup[]
-  wallets: ClientWallet[]
-  operations: ClientOperation[]
+type PerformSyncResponseCurrency = ClientCurrency
+type PerformSyncResponseGroup = Omit<ClientGroup, 'updatedAt'>
+type PerformSyncResponseWallet = Omit<ClientWallet, 'updatedAt'>
+type PerformSyncResponseOperation = Omit<
+  ClientOperation,
+  'date' | 'updatedAt'
+> & { date: string | Date }
+
+export interface PerformSyncResponse {
+  currencies: PerformSyncResponseCurrency[]
+  groups: PerformSyncResponseGroup[]
+  wallets: PerformSyncResponseWallet[]
+  operations: PerformSyncResponseOperation[]
 }

@@ -20,7 +20,6 @@ const createWalletReducer: Reducer<
         id: action.payload.walletId,
         name: 'Untitled',
         order: null,
-        createdAt: new Date(),
         updatedAt: new Date(),
         removed: false,
         currencyId: getDefaultCurrency(state, {
@@ -152,7 +151,7 @@ export type WalletsAction =
 
 export const isWalletsAction = (action: {
   type: string
-  payload: unknown
+  payload?: unknown
 }): action is WalletsAction => {
   return Object.values(WalletsActionTypes).includes(
     action.type as WalletsActionTypes

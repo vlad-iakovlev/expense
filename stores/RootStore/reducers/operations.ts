@@ -23,7 +23,6 @@ const createOperationReducer: Reducer<
         date: new Date(),
         incomeAmount: 0,
         expenseAmount: 0,
-        createdAt: new Date(),
         updatedAt: new Date(),
         removed: false,
         incomeWalletId: action.payload.walletId,
@@ -308,7 +307,7 @@ export type OperationsAction =
 
 export const isOperationsAction = (action: {
   type: string
-  payload: unknown
+  payload?: unknown
 }): action is OperationsAction => {
   return Object.values(OperationsActionTypes).includes(
     action.type as OperationsActionTypes

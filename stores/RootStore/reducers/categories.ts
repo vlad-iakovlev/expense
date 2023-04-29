@@ -31,7 +31,7 @@ export type CategoriesAction = ReducerAction<typeof renameCategoryReducer>
 
 export const isCategoriesAction = (action: {
   type: string
-  payload: unknown
+  payload?: unknown
 }): action is CategoriesAction => {
   return Object.values(CategoriesActionTypes).includes(
     action.type as CategoriesActionTypes

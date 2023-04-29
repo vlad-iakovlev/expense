@@ -1,14 +1,14 @@
 import { NextApiHandler } from 'next'
 import { prisma } from '../../utils/server/prisma.ts'
-import { SynchronizeResponse } from '../types.ts'
-import { synchronizeBodySchema } from './schemas.ts'
+import { PerformSyncResponse } from '../types.ts'
+import { performSyncBodySchema } from './schemas.ts'
 import { getGroupWhere, getOperationWhere, getWalletWhere } from './where.ts'
 
-export const synchronize: NextApiHandler<SynchronizeResponse> = async (
+export const performSync: NextApiHandler<PerformSyncResponse> = async (
   req,
   res
 ) => {
-  const body = synchronizeBodySchema.parse(req.body)
+  const body = performSyncBodySchema.parse(req.body)
 
   await prisma.$transaction([
     ...body.groups.map((group) => {
@@ -84,24 +84,22 @@ export const synchronize: NextApiHandler<SynchronizeResponse> = async (
         incomeAmount: operation.incomeAmount,
         expenseAmount: operation.expenseAmount,
         removed: operation.removed,
-        incomeWallet: {
-          ...(operation.incomeWalletId && {
+        ...(operation.incomeWalletId && {
+          incomeWallet: {
             connect: getWalletWhere({
               userId: req.session.user.id,
               walletId: operation.incomeWalletId,
             }),
-          }),
-          ...(!operation.incomeWalletId && { disconnect: true }),
-        },
-        expenseWallet: {
-          ...(operation.expenseWalletId && {
+          },
+        }),
+        ...(operation.expenseWalletId && {
+          expenseWallet: {
             connect: getWalletWhere({
               userId: req.session.user.id,
               walletId: operation.expenseWalletId,
             }),
-          }),
-          ...(!operation.expenseWalletId && { disconnect: true }),
-        },
+          },
+        }),
       }
 
       return prisma.operation.upsert({
@@ -113,7 +111,15 @@ export const synchronize: NextApiHandler<SynchronizeResponse> = async (
           ...operationData,
           id: operation.id,
         },
-        update: operationData,
+        update: {
+          ...operationData,
+          ...(!operation.incomeWalletId && {
+            incomeWallet: { disconnect: true },
+          }),
+          ...(!operation.expenseWalletId && {
+            expenseWallet: { disconnect: true },
+          }),
+        },
         select: {
           id: true,
         },
@@ -134,7 +140,11 @@ export const synchronize: NextApiHandler<SynchronizeResponse> = async (
     where: getGroupWhere({
       userId: req.session.user.id,
     }),
-    include: {
+    select: {
+      id: true,
+      name: true,
+      removed: true,
+      defaultCurrencyId: true,
       users: {
         select: {
           id: true,
@@ -151,8 +161,16 @@ export const synchronize: NextApiHandler<SynchronizeResponse> = async (
         userId: req.session.user.id,
       }),
       updatedAt: {
-        gte: body.startDate,
+        gte: body.syncedAt ?? undefined,
       },
+    },
+    select: {
+      id: true,
+      name: true,
+      order: true,
+      removed: true,
+      currencyId: true,
+      groupId: true,
     },
   })
 
@@ -162,8 +180,19 @@ export const synchronize: NextApiHandler<SynchronizeResponse> = async (
         userId: req.session.user.id,
       }),
       updatedAt: {
-        gte: body.startDate,
+        gte: body.syncedAt ?? undefined,
       },
+    },
+    select: {
+      id: true,
+      name: true,
+      category: true,
+      date: true,
+      incomeAmount: true,
+      expenseAmount: true,
+      removed: true,
+      incomeWalletId: true,
+      expenseWalletId: true,
     },
   })
 
