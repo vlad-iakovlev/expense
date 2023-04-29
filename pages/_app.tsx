@@ -18,17 +18,6 @@ const App: FC<AppProps<{ session: Session | null }>> = ({
     fns.setDefaultOptions({ weekStartsOn: 1 })
   }, [])
 
-  useEffect(() => {
-    void (async () => {
-      if ('serviceWorker' in navigator) {
-        const registrations = await navigator.serviceWorker.getRegistrations()
-        for (const registration of registrations) {
-          await registration.unregister()
-        }
-      }
-    })()
-  }, [])
-
   return (
     <>
       <NextHead>

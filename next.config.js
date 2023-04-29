@@ -1,5 +1,5 @@
 import withPWA from 'next-pwa'
 
-const nextConfig = withPWA({ dest: 'public', disable: true })()
+const nextConfig = withPWA({ dest: 'public' })()
 
 export default nextConfig
