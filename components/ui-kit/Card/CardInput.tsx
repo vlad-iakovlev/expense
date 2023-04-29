@@ -5,11 +5,9 @@ import {
   FocusEvent,
   KeyboardEvent,
   useCallback,
-  useEffect,
   useRef,
   useState,
 } from 'react'
-import { MayBePromise } from '../../../types/utility.ts'
 import { Card } from './Card.tsx'
 
 export interface CardInputProps {
@@ -17,7 +15,7 @@ export interface CardInputProps {
   name: string
   suggestions?: string[]
   value: string
-  onChange: (value: string) => MayBePromise<void>
+  onChange: (value: string) => void
 }
 
 export const CardInput: FC<CardInputProps> = ({
@@ -64,42 +62,32 @@ export const CardInput: FC<CardInputProps> = ({
 
   const handleBlur = useCallback(
     (event: FocusEvent<HTMLInputElement>) => {
-      void (async () => {
-        if (popupRef.current?.contains(event.relatedTarget)) {
-          event.preventDefault()
-          return
-        }
+      if (popupRef.current?.contains(event.relatedTarget)) {
+        event.preventDefault()
+        return
+      }
 
-        if (!inputValue || inputValue === value) {
-          setIsEditing(false)
-          return
-        }
+      if (inputValue && inputValue !== value) {
+        onChange(inputValue)
+      }
 
-        await onChange(inputValue)
-        setIsEditing(false)
-      })()
+      setIsEditing(false)
     },
     [inputValue, value, onChange]
   )
 
   const handleSelect = useCallback(
     (suggestion: string) => {
-      void (async () => {
-        if (suggestion === value) {
-          setIsEditing(false)
-          return
-        }
-
-        await onChange(suggestion)
+      if (suggestion === value) {
         setIsEditing(false)
-      })()
+        return
+      }
+
+      onChange(suggestion)
+      setIsEditing(false)
     },
     [onChange, value]
   )
-
-  useEffect(() => {
-    setIsEditing(false)
-  }, [value])
 
   return (
     <>

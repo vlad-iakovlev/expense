@@ -1,0 +1,50 @@
+import {
+  ClientCurrency,
+  ClientGroup,
+  ClientOperation,
+  ClientWallet,
+} from '../../types/client.ts'
+
+export interface RootStoreState {
+  currencies: ClientCurrency[]
+  groups: ClientGroup[]
+  wallets: ClientWallet[]
+  operations: ClientOperation[]
+  nextStartFrom?: Date
+}
+
+export enum GroupsActionTypes {
+  CREATE_GROUP = 'CREATE_GROUP',
+  REMOVE_GROUP = 'REMOVE_GROUP',
+  SET_GROUP_NAME = 'SET_GROUP_NAME',
+  SET_GROUP_DEFAULT_CURRENCY = 'SET_GROUP_DEFAULT_CURRENCY',
+}
+
+export enum WalletsActionTypes {
+  CREATE_WALLET = 'CREATE_WALLET',
+  REMOVE_WALLET = 'REMOVE_WALLET',
+  SET_WALLET_NAME = 'SET_WALLET_NAME',
+  SET_WALLET_CURRENCY = 'SET_WALLET_CURRENCY',
+  REORDER_WALLETS = 'REORDER_WALLETS',
+}
+
+export enum OperationsActionTypes {
+  CREATE_OPERATION = 'CREATE_OPERATION',
+  REMOVE_OPERATION = 'REMOVE_OPERATION',
+  SET_OPERATION_NAME = 'SET_OPERATION_NAME',
+  SET_OPERATION_CATEGORY = 'SET_OPERATION_CATEGORY',
+  SET_OPERATION_DATE = 'SET_OPERATION_DATE',
+  SET_OPERATION_TYPE = 'SET_OPERATION_TYPE',
+  SET_OPERATION_INCOME_AMOUNT = 'SET_OPERATION_INCOME_AMOUNT',
+  SET_OPERATION_EXPENSE_AMOUNT = 'SET_OPERATION_EXPENSE_AMOUNT',
+  SET_OPERATION_INCOME_WALLET = 'SET_OPERATION_INCOME_WALLET',
+  SET_OPERATION_EXPENSE_WALLET = 'SET_OPERATION_EXPENSE_WALLET',
+}
+
+export enum CategoriesActionTypes {
+  RENAME_CATEGORY = 'RENAME_CATEGORY',
+}
+
+export enum SynchronizeActionTypes {
+  APPLY_SYNCHRONIZE_RESPONSE = 'APPLY_SYNCHRONIZE_RESPONSE',
+}

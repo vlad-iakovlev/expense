@@ -1,50 +1,29 @@
 import assert from 'assert'
 import { FC, useCallback } from 'react'
-import { updateOperation } from '../../../api/client/operations.ts'
+import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
 import { formatAmount } from '../../../utils/formatAmount.ts'
 import { parseAmount } from '../../../utils/parseAmount.ts'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useOperationContext } from '../../contexts/Operation.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
-export const OperationInfoExpenseAmount: FC = () => {
-  const { setLoading } = useLoadingContext()
-  const { operationResponse, mutateOperation } = useOperationContext()
+interface Props {
+  operationId: string
+}
+
+export const OperationInfoExpenseAmount: FC<Props> = ({ operationId }) => {
+  const { operation, setOperationExpenseAmount } = useOperation({ operationId })
 
   const handleChange = useCallback(
-    async (amountString: string) => {
-      assert(
-        operationResponse?.operation.expenseWallet,
-        'expenseWallet is not defined'
-      )
+    (amountString: string) => {
+      assert(operation.expenseWallet, 'expenseWallet is not defined')
 
-      try {
-        setLoading(true)
-
-        const amount = parseAmount(
-          amountString,
-          operationResponse.operation.expenseWallet.currency
-        )
-        if (isNaN(amount)) return
-
-        await updateOperation({
-          operationId: operationResponse.operation.id,
-          expenseAmount: amount,
-        })
-
-        await mutateOperation()
-      } finally {
-        setLoading(false)
-      }
+      const amount = parseAmount(amountString, operation.expenseWallet.currency)
+      if (isNaN(amount)) return
+      setOperationExpenseAmount(amount)
     },
-    [mutateOperation, operationResponse, setLoading]
+    [operation.expenseWallet, setOperationExpenseAmount]
   )
 
-  if (!operationResponse) {
-    return <Card.Skeleton />
-  }
-
-  if (!operationResponse.operation.expenseWallet) {
+  if (!operation.expenseWallet) {
     return null
   }
 
@@ -53,8 +32,8 @@ export const OperationInfoExpenseAmount: FC = () => {
       className="text-red-700"
       name="Amount"
       value={formatAmount(
-        operationResponse.operation.expenseAmount,
-        operationResponse.operation.expenseWallet.currency
+        operation.expenseAmount,
+        operation.expenseWallet.currency
       )}
       onChange={handleChange}
     />

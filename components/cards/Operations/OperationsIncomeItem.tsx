@@ -1,21 +1,18 @@
+import assert from 'assert'
 import { FC } from 'react'
-import { ClientOperation } from '../../../api/types/operations.ts'
 import { ROUTES } from '../../../constants/routes.ts'
+import { PopulatedClientOperation } from '../../../types/client.ts'
 import { formatDate } from '../../../utils/formatDate.ts'
-import { useOperationsContext } from '../../contexts/Operations.tsx'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
-  operation: ClientOperation
+  operation: PopulatedClientOperation
+  walletId: string | undefined
 }
 
-export const OperationsIncomeItem: FC<Props> = ({ operation }) => {
-  const { operationsPayload } = useOperationsContext()
-
-  if (!operation.incomeWallet) {
-    return null
-  }
+export const OperationsIncomeItem: FC<Props> = ({ operation, walletId }) => {
+  assert(operation.incomeWallet, 'Income wallet is not defined')
 
   return (
     <Card.Link href={ROUTES.OPERATION(operation.id)}>
@@ -33,7 +30,7 @@ export const OperationsIncomeItem: FC<Props> = ({ operation }) => {
 
       <div className="flex items-center gap-3 text-sm text-zinc-600">
         <div className="flex-none">{formatDate(operation.date)}</div>
-        {!operationsPayload.walletId && (
+        {!walletId && (
           <div className="flex-auto min-w-0 text-right truncate">
             {operation.incomeWallet.name}
           </div>

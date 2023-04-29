@@ -1,6 +1,6 @@
 import { clsx } from 'clsx'
 import { FC } from 'react'
-import { ClientCurrency } from '../../../api/types/currencies.ts'
+import { ClientCurrency } from '../../../types/client.ts'
 import { formatAmount } from '../../../utils/formatAmount.ts'
 
 export interface AmountProps {

@@ -1,14 +1,10 @@
 import assert from 'assert'
 import { GetServerSideProps, NextPage } from 'next'
-import { CheckSwrContexts } from '../../components/CheckSwrContexts/CheckSwrContexts.tsx'
-import { Wallet } from '../../components/Wallet/Wallet.tsx'
-import { CategoriesProvider } from '../../components/contexts/Categories.tsx'
-import { CurrenciesProvider } from '../../components/contexts/Currencies.tsx'
-import { ErrorProvider } from '../../components/contexts/Error.tsx'
-import { LoadingProvider } from '../../components/contexts/Loading.tsx'
-import { OperationsProvider } from '../../components/contexts/Operations.tsx'
-import { StatisticsByCategoryProvider } from '../../components/contexts/StatisticsByCategory.tsx'
-import { WalletProvider } from '../../components/contexts/Wallet.tsx'
+import { useSession } from 'next-auth/react'
+import { NextError } from '../../components/next/Error.ts'
+import { NextHead } from '../../components/next/Head.ts'
+import { Wallet } from '../../components/pages/Wallet/Wallet.tsx'
+import { Overlay } from '../../components/ui-kit/Overlay/Overlay.tsx'
 
 interface Props {
   walletId: string
@@ -22,22 +18,24 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   return Promise.resolve({ props: { walletId } })
 }
 
-const WalletPage: NextPage<Props> = ({ walletId }) => (
-  <LoadingProvider>
-    <ErrorProvider>
-      <CurrenciesProvider>
-        <CategoriesProvider walletId={walletId}>
-          <OperationsProvider walletId={walletId}>
-            <WalletProvider walletId={walletId}>
-              <StatisticsByCategoryProvider walletId={walletId}>
-                <CheckSwrContexts renderContent={() => <Wallet />} />
-              </StatisticsByCategoryProvider>
-            </WalletProvider>
-          </OperationsProvider>
-        </CategoriesProvider>
-      </CurrenciesProvider>
-    </ErrorProvider>
-  </LoadingProvider>
-)
+const WalletPage: NextPage<Props> = ({ walletId }) => {
+  const session = useSession()
+
+  return (
+    <>
+      {session.status === 'authenticated' ? (
+        <Wallet walletId={walletId} />
+      ) : (
+        <NextHead>
+          <title>Expense</title>
+        </NextHead>
+      )}
+
+      {session.status === 'unauthenticated' && <NextError statusCode={403} />}
+
+      <Overlay isVisible={session.status === 'loading'} />
+    </>
+  )
+}
 
 export default WalletPage

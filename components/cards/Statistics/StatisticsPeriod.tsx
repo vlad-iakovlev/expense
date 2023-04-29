@@ -1,52 +1,55 @@
 import { FC, useCallback, useMemo } from 'react'
+import { Period } from '../../../hooks/usePeriod.ts'
 import {
   formatMonth,
   formatWeek,
   formatYear,
 } from '../../../utils/formatDate.ts'
-import {
-  StatisticsByCategoryPeriod,
-  useStatisticsByCategoryContext,
-} from '../../contexts/StatisticsByCategory.tsx'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
-const options = [
+const options: CardSelectOption<Period>[] = [
   {
-    id: StatisticsByCategoryPeriod.ALL,
+    id: Period.ALL,
     name: 'All',
   },
   {
-    id: StatisticsByCategoryPeriod.WEEK,
+    id: Period.WEEK,
     name: 'Week',
   },
   {
-    id: StatisticsByCategoryPeriod.MONTH,
+    id: Period.MONTH,
     name: 'Month',
   },
   {
-    id: StatisticsByCategoryPeriod.YEAR,
+    id: Period.YEAR,
     name: 'Year',
   },
 ]
 
-export const StatisticsPeriod: FC = () => {
-  const { statisticsByCategoryPayload } = useStatisticsByCategoryContext()
+interface Props {
+  fromDate: Date
+  period: Period
+  setPeriod: (period: Period) => void
+  goPrev: () => void
+  goNext: () => void
+}
 
+export const StatisticsPeriod: FC<Props> = ({
+  fromDate,
+  period,
+  setPeriod,
+  goPrev,
+  goNext,
+}) => {
   const value = useMemo(() => {
-    return (
-      options.find(
-        (option) => statisticsByCategoryPayload.period === option.id
-      ) ?? options[0]
-    )
-  }, [statisticsByCategoryPayload.period])
+    return options.find((option) => period === option.id) ?? options[0]
+  }, [period])
 
   const handleChange = useCallback(
-    (option: CardSelectOption) => {
-      statisticsByCategoryPayload.setPeriod(
-        option.id as StatisticsByCategoryPeriod
-      )
+    (option: CardSelectOption<Period>) => {
+      setPeriod(option.id)
     },
-    [statisticsByCategoryPayload]
+    [setPeriod]
   )
 
   return (
@@ -58,26 +61,17 @@ export const StatisticsPeriod: FC = () => {
         onChange={handleChange}
       />
 
-      {statisticsByCategoryPayload.period !==
-        StatisticsByCategoryPeriod.ALL && (
+      {period !== Period.ALL && (
         <Card.Pagination
           hasPrev
           hasNext
-          onPrevClick={statisticsByCategoryPayload.goPrev}
-          onNextClick={statisticsByCategoryPayload.goNext}
+          onPrevClick={goPrev}
+          onNextClick={goNext}
         >
           <div className="font-medium text-center">
-            {statisticsByCategoryPayload.period ===
-              StatisticsByCategoryPeriod.WEEK &&
-              formatWeek(statisticsByCategoryPayload.fromDate)}
-
-            {statisticsByCategoryPayload.period ===
-              StatisticsByCategoryPeriod.MONTH &&
-              formatMonth(statisticsByCategoryPayload.fromDate)}
-
-            {statisticsByCategoryPayload.period ===
-              StatisticsByCategoryPeriod.YEAR &&
-              formatYear(statisticsByCategoryPayload.fromDate)}
+            {period === Period.WEEK && formatWeek(fromDate)}
+            {period === Period.MONTH && formatMonth(fromDate)}
+            {period === Period.YEAR && formatYear(fromDate)}
           </div>
         </Card.Pagination>
       )}

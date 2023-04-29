@@ -1,47 +1,30 @@
 import assert from 'assert'
-import { FC, useCallback } from 'react'
-import { updateOperation } from '../../../api/client/operations.ts'
-import { useCategoriesContext } from '../../contexts/Categories.tsx'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useOperationContext } from '../../contexts/Operation.tsx'
+import { FC, useMemo } from 'react'
+import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
+import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
-import { CardSkeleton } from '../../ui-kit/Card/CardSkeleton.tsx'
 
-export const OperationInfoCategory: FC = () => {
-  const { setLoading } = useLoadingContext()
-  const { categoriesResponse, mutateCategories } = useCategoriesContext()
-  const { operationResponse, mutateOperation } = useOperationContext()
+interface Props {
+  operationId: string
+}
 
-  const handleChange = useCallback(
-    async (category: string) => {
-      assert(operationResponse, 'operationResponse is not defined')
+export const OperationInfoCategory: FC<Props> = ({ operationId }) => {
+  const { operation, setOperationCategory } = useOperation({ operationId })
 
-      try {
-        setLoading(true)
+  const groupId = useMemo(() => {
+    const wallet = operation.incomeWallet ?? operation.expenseWallet
+    assert(wallet, 'Wallet not found')
+    return wallet.group.id
+  }, [operation.expenseWallet, operation.incomeWallet])
 
-        await updateOperation({
-          operationId: operationResponse.operation.id,
-          category,
-        })
-
-        await Promise.all([mutateCategories(), mutateOperation()])
-      } finally {
-        setLoading(false)
-      }
-    },
-    [mutateCategories, mutateOperation, operationResponse, setLoading]
-  )
-
-  if (!categoriesResponse || !operationResponse) {
-    return <CardSkeleton />
-  }
+  const { categories } = useCategories({ groupId })
 
   return (
     <Card.Input
       name="Category"
-      suggestions={categoriesResponse.categories}
-      value={operationResponse.operation.category}
-      onChange={handleChange}
+      suggestions={categories}
+      value={operation.category}
+      onChange={setOperationCategory}
     />
   )
 }

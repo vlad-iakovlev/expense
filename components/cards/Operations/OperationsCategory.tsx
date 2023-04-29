@@ -1,11 +1,14 @@
 import { FC, useCallback, useMemo } from 'react'
-import { useCategoriesContext } from '../../contexts/Categories.tsx'
-import { useOperationsContext } from '../../contexts/Operations.tsx'
+import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
-export const OperationsCategory: FC = () => {
-  const { categoriesResponse } = useCategoriesContext()
-  const { operationsPayload } = useOperationsContext()
+interface Props {
+  category: string
+  setCategory: (category: string) => void
+}
+
+export const OperationsCategory: FC<Props> = ({ category, setCategory }) => {
+  const { categories } = useCategories()
 
   const options = useMemo<CardSelectOption[]>(() => {
     return [
@@ -13,30 +16,26 @@ export const OperationsCategory: FC = () => {
         id: '',
         name: 'Any',
       },
-      ...(categoriesResponse?.categories.map((category) => ({
+      ...categories.map((category) => ({
         id: category,
         name: category,
-      })) ?? []),
+      })),
     ]
-  }, [categoriesResponse])
+  }, [categories])
 
   const value = useMemo(() => {
     return {
-      id: operationsPayload.category,
-      name: operationsPayload.category || 'Any',
+      id: category,
+      name: category || 'Any',
     }
-  }, [operationsPayload.category])
+  }, [category])
 
   const handleChange = useCallback(
     (option: CardSelectOption) => {
-      operationsPayload.setCategory(option.id)
+      setCategory(option.id)
     },
-    [operationsPayload]
+    [setCategory]
   )
-
-  if (!categoriesResponse) {
-    return <Card.Skeleton />
-  }
 
   return (
     <Card.Select

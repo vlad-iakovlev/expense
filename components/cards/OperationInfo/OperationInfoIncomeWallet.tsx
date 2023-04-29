@@ -1,62 +1,48 @@
 import assert from 'assert'
 import { FC, useCallback, useMemo } from 'react'
-import { updateOperation } from '../../../api/client/operations.ts'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useOperationContext } from '../../contexts/Operation.tsx'
-import { useWalletsContext } from '../../contexts/Wallets.tsx'
+import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
+import { useWalletsOptions } from '../../../stores/RootStore/hooks/useWalletsOptions.ts'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
-export const OperationInfoIncomeWallet: FC = () => {
-  const { setLoading } = useLoadingContext()
-  const { operationResponse, mutateOperation } = useOperationContext()
-  const { walletsResponse } = useWalletsContext()
+interface Props {
+  operationId: string
+}
 
-  const options = useMemo(() => {
-    return (
-      walletsResponse?.wallets.map((wallet) => ({
-        id: wallet.id,
-        name: `${wallet.name} ${wallet.currency.name}`,
-      })) ?? []
-    )
-  }, [walletsResponse])
+export const OperationInfoIncomeWallet: FC<Props> = ({ operationId }) => {
+  const { operation, setOperationIncomeWallet } = useOperation({ operationId })
+
+  const groupId = useMemo(() => {
+    const wallet = operation.incomeWallet ?? operation.expenseWallet
+    assert(wallet, 'Wallet not found')
+    return wallet.group.id
+  }, [operation.expenseWallet, operation.incomeWallet])
+
+  const { walletsOptions } = useWalletsOptions({ groupId })
 
   const value = useMemo(() => {
-    const wallet = operationResponse?.operation.incomeWallet
+    const wallet = operation.incomeWallet
 
     return {
       id: wallet?.id ?? '',
       name: `${wallet?.name ?? ''} ${wallet?.currency.name ?? ''}`,
     }
-  }, [operationResponse?.operation.incomeWallet])
+  }, [operation.incomeWallet])
 
   const handleChange = useCallback(
-    async (option: CardSelectOption) => {
-      assert(operationResponse, 'operationResponse is not defined')
-
-      try {
-        setLoading(true)
-
-        await updateOperation({
-          operationId: operationResponse.operation.id,
-          incomeWalletId: option.id,
-        })
-
-        await mutateOperation()
-      } finally {
-        setLoading(false)
-      }
+    (option: CardSelectOption) => {
+      setOperationIncomeWallet(option.id)
     },
-    [mutateOperation, operationResponse, setLoading]
+    [setOperationIncomeWallet]
   )
 
-  if (!operationResponse?.operation.incomeWallet) {
+  if (!operation.incomeWallet) {
     return null
   }
 
   return (
     <Card.Select
-      name={operationResponse.operation.expenseWallet ? 'To Wallet' : 'Wallet'}
-      options={options}
+      name={operation.expenseWallet ? 'To Wallet' : 'Wallet'}
+      options={walletsOptions}
       value={value}
       onChange={handleChange}
     />

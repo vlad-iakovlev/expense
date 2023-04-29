@@ -1,16 +1,18 @@
 import { FC } from 'react'
-import { useWalletContext } from '../../contexts/Wallet.tsx'
+import { useWallet } from '../../../stores/RootStore/hooks/useWallet.ts'
+import { useWalletBalance } from '../../../stores/RootStore/hooks/useWalletBalance.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
-export const WalletInfoBalanceInDefaultCurrency: FC = () => {
-  const { walletResponse } = useWalletContext()
+interface Props {
+  walletId: string
+}
 
-  if (
-    !walletResponse ||
-    walletResponse.wallet.currency.id ===
-      walletResponse.wallet.group.defaultCurrency.id
-  ) {
+export const WalletInfoBalanceInDefaultCurrency: FC<Props> = ({ walletId }) => {
+  const { wallet } = useWallet({ walletId })
+  const { walletBalance } = useWalletBalance({ walletId })
+
+  if (wallet.currency.id === wallet.group.defaultCurrency.id) {
     return null
   }
 
@@ -19,13 +21,13 @@ export const WalletInfoBalanceInDefaultCurrency: FC = () => {
       end={
         <Amount
           className="font-medium"
-          amount={walletResponse.wallet.balance}
-          currency={walletResponse.wallet.currency}
-          displayCurrency={walletResponse.wallet.group.defaultCurrency}
+          amount={walletBalance.balance}
+          currency={walletBalance.currency}
+          displayCurrency={wallet.group.defaultCurrency}
         />
       }
     >
-      Balance in {walletResponse.wallet.group.defaultCurrency.name}
+      Balance in {wallet.group.defaultCurrency.name}
     </Card.Text>
   )
 }

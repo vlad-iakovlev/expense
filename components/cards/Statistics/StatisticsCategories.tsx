@@ -1,14 +1,15 @@
 import { FC } from 'react'
-import { ClientCurrency } from '../../../api/types/currencies.ts'
-import { StatisticsByCategoryItem } from '../../../api/types/statistics.ts'
-import { stringToColor } from '../../../utils/stringToColor.ts'
+import {
+  ClientCurrency,
+  ClientStatisticsByCategory,
+} from '../../../types/client.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Switch } from '../../ui-kit/Switch/Switch.tsx'
 
 interface Props {
   currency: ClientCurrency
-  items: StatisticsByCategoryItem[]
+  items: ClientStatisticsByCategory[]
   isCategoryDisabled: (category: string) => boolean
   setCategoryDisabled: (category: string, disabled: boolean) => void
 }
@@ -47,7 +48,7 @@ export const StatisticsCategories: FC<Props> = ({
         >
           <div
             className="w-20 h-4 my-1 rounded-full"
-            style={{ backgroundColor: stringToColor(item.category) }}
+            style={{ backgroundColor: item.color }}
           />
           {item.category}
         </Card.Text>

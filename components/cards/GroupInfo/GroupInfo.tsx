@@ -7,16 +7,17 @@ import { GroupInfoName } from './GroupInfoName.tsx'
 
 interface Props {
   className?: string
+  groupId: string
 }
 
-export const GroupInfoCard: FC<Props> = ({ className }) => {
+export const GroupInfoCard: FC<Props> = ({ className, groupId }) => {
   return (
     <Card className={className}>
-      <Card.Title title="Info" action={<GroupInfoDelete />} />
+      <Card.Title title="Info" action={<GroupInfoDelete groupId={groupId} />} />
       <Card.Divider />
-      <GroupInfoName />
-      <GroupInfoDefaultCurrency />
-      <GroupInfoBalance />
+      <GroupInfoName groupId={groupId} />
+      <GroupInfoDefaultCurrency groupId={groupId} />
+      <GroupInfoBalance groupId={groupId} />
     </Card>
   )
 }

@@ -1,61 +1,37 @@
-import assert from 'assert'
 import { FC, useCallback, useMemo } from 'react'
-import { updateGroup } from '../../../api/client/groups.ts'
-import { useCurrenciesContext } from '../../contexts/Currencies.tsx'
-import { useGroupContext } from '../../contexts/Group.tsx'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory.tsx'
+import { useCurrencies } from '../../../stores/RootStore/hooks/useCurrencies.ts'
+import { useGroup } from '../../../stores/RootStore/hooks/useGroup.ts'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
-export const GroupInfoDefaultCurrency: FC = () => {
-  const { setLoading } = useLoadingContext()
-  const { currenciesResponse } = useCurrenciesContext()
-  const { groupResponse, mutateGroup } = useGroupContext()
-  const { mutateStatisticsByCategory } = useStatisticsByCategoryContext()
+interface Props {
+  groupId: string
+}
+
+export const GroupInfoDefaultCurrency: FC<Props> = ({ groupId }) => {
+  const { currencies } = useCurrencies()
+  const { group, setGroupDefaultCurrency } = useGroup({ groupId })
 
   const options = useMemo(() => {
-    return (
-      currenciesResponse?.currencies.map((currency) => ({
-        id: currency.id,
-        name: currency.name,
-      })) ?? []
-    )
-  }, [currenciesResponse])
+    return currencies.map((currency) => ({
+      id: currency.id,
+      name: currency.name,
+    }))
+  }, [currencies])
 
   const value = useMemo(
     () => ({
-      id: groupResponse?.group.defaultCurrency.id ?? '',
-      name: groupResponse?.group.defaultCurrency.name ?? '',
+      id: group.defaultCurrency.id,
+      name: group.defaultCurrency.name,
     }),
-    [
-      groupResponse?.group.defaultCurrency.id,
-      groupResponse?.group.defaultCurrency.name,
-    ]
+    [group.defaultCurrency.id, group.defaultCurrency.name]
   )
 
   const handleChange = useCallback(
-    async (option: CardSelectOption) => {
-      assert(groupResponse, 'groupResponse is not defined')
-
-      try {
-        setLoading(true)
-
-        await updateGroup({
-          groupId: groupResponse.group.id,
-          defaultCurrencyId: option.id,
-        })
-
-        await Promise.all([mutateGroup(), mutateStatisticsByCategory()])
-      } finally {
-        setLoading(false)
-      }
+    (option: CardSelectOption) => {
+      setGroupDefaultCurrency(option.id)
     },
-    [groupResponse, setLoading, mutateGroup, mutateStatisticsByCategory]
+    [setGroupDefaultCurrency]
   )
-
-  if (!currenciesResponse || !groupResponse) {
-    return <Card.Skeleton />
-  }
 
   return (
     <Card.Select

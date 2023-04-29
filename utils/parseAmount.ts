@@ -1,4 +1,4 @@
-import { ClientCurrency } from '../api/types/currencies.ts'
+import { ClientCurrency } from '../types/client.ts'
 
 export const parseAmount = (amount: string, currency: ClientCurrency) => {
   amount = amount.replace(currency.symbol, '').replace(',', '.')

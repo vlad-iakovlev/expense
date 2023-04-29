@@ -12,21 +12,25 @@ import { OperationInfoType } from './OperationInfoType.tsx'
 
 interface Props {
   className?: string
+  operationId: string
 }
 
-export const OperationInfoCard: FC<Props> = ({ className }) => {
+export const OperationInfoCard: FC<Props> = ({ className, operationId }) => {
   return (
     <Card className={className}>
-      <Card.Title title="Info" action={<OperationInfoDelete />} />
+      <Card.Title
+        title="Info"
+        action={<OperationInfoDelete operationId={operationId} />}
+      />
       <Card.Divider />
-      <OperationInfoDate />
-      <OperationInfoCategory />
-      <OperationInfoName />
-      <OperationInfoType />
-      <OperationInfoExpenseWallet />
-      <OperationInfoExpenseAmount />
-      <OperationInfoIncomeWallet />
-      <OperationInfoIncomeAmount />
+      <OperationInfoDate operationId={operationId} />
+      <OperationInfoCategory operationId={operationId} />
+      <OperationInfoName operationId={operationId} />
+      <OperationInfoType operationId={operationId} />
+      <OperationInfoExpenseWallet operationId={operationId} />
+      <OperationInfoExpenseAmount operationId={operationId} />
+      <OperationInfoIncomeWallet operationId={operationId} />
+      <OperationInfoIncomeAmount operationId={operationId} />
     </Card>
   )
 }

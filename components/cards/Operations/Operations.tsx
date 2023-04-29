@@ -1,78 +1,91 @@
-import { FC, Fragment } from 'react'
-import { useOperationsContext } from '../../contexts/Operations.tsx'
+import { FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { OperationsCategory } from './OperationsCategory.tsx'
 import { OperationsCreate } from './OperationsCreate.tsx'
-import { OperationsExpenseItem } from './OperationsExpenseItem.tsx'
-import { OperationsIncomeItem } from './OperationsIncomeItem.tsx'
-import { OperationsTransferItem } from './OperationsTransferItem.tsx'
+import { OperationsItem } from './OperationsItem.tsx'
 
 interface Props {
   className?: string
+  groupId?: string
+  walletId?: string
 }
 
-export const OperationsCard: FC<Props> = ({ className }) => {
-  const { operationsResponse, operationsPayload } = useOperationsContext()
+const TAKE = 10
 
-  if (
-    !operationsPayload.walletId &&
-    !operationsPayload.category &&
-    operationsResponse?.operations.length === 0
-  ) {
+export const OperationsCard: FC<Props> = ({ className, groupId, walletId }) => {
+  const [category, setCategory] = useState<string>('')
+
+  const { operationIds } = useOperations({ groupId, walletId, category })
+
+  const [skip, setSkip] = useState(0)
+
+  const visibleOperationIds = useMemo(() => {
+    return operationIds.slice(skip, skip + TAKE)
+  }, [operationIds, skip])
+
+  const hasPrevOperations = useMemo(() => {
+    return skip > 0
+  }, [skip])
+
+  const hasNextOperations = useMemo(() => {
+    return skip + TAKE < operationIds.length
+  }, [operationIds, skip])
+
+  const getPrevOperations = useCallback(() => {
+    setSkip((prevSkip) => prevSkip - TAKE)
+  }, [])
+
+  const getNextOperations = useCallback(() => {
+    setSkip((prevSkip) => prevSkip + TAKE)
+  }, [])
+
+  useEffect(() => {
+    setSkip(0)
+  }, [operationIds])
+
+  if (!walletId && !category && !operationIds.length) {
     return null
   }
 
   return (
     <Card className={className}>
-      <Card.Title title="Operations" action={<OperationsCreate />} />
-      <Card.Divider />
-      <OperationsCategory />
-      {operationsResponse?.operations.length !== 0 && <Card.Divider />}
+      <Card.Title
+        title="Operations"
+        action={<OperationsCreate walletId={walletId} />}
+      />
 
-      {operationsResponse?.operations.map((operation) => (
-        <Fragment key={operation.id}>
-          {operation.incomeWallet && operation.expenseWallet ? (
-            <OperationsTransferItem operation={operation} />
-          ) : null}
-          {operation.incomeWallet && !operation.expenseWallet ? (
-            <OperationsIncomeItem operation={operation} />
-          ) : null}
-          {!operation.incomeWallet && operation.expenseWallet ? (
-            <OperationsExpenseItem operation={operation} />
-          ) : null}
-        </Fragment>
-      ))}
-
-      {operationsResponse?.hasPrevOperations ||
-      operationsResponse?.hasNextOperations ? (
+      {(!!category || !!operationIds.length) && (
         <>
           <Card.Divider />
+          <OperationsCategory category={category} setCategory={setCategory} />
+        </>
+      )}
 
+      {!!visibleOperationIds.length && (
+        <>
+          <Card.Divider />
+          {visibleOperationIds.map((operationId) => (
+            <OperationsItem
+              key={operationId}
+              operationId={operationId}
+              walletId={walletId}
+            />
+          ))}
+        </>
+      )}
+
+      {hasPrevOperations || hasNextOperations ? (
+        <>
+          <Card.Divider />
           <Card.Pagination
-            hasPrev={operationsResponse.hasPrevOperations}
-            hasNext={operationsResponse.hasNextOperations}
-            onPrevClick={operationsPayload.getPrevOperations}
-            onNextClick={operationsPayload.getNextOperations}
+            hasPrev={hasPrevOperations}
+            hasNext={hasNextOperations}
+            onPrevClick={getPrevOperations}
+            onNextClick={getNextOperations}
           />
         </>
       ) : null}
-
-      {!operationsResponse && (
-        <>
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Skeleton type="operation" />
-          <Card.Divider />
-          <Card.Skeleton />
-        </>
-      )}
     </Card>
   )
 }

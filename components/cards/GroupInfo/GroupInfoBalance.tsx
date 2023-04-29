@@ -1,38 +1,22 @@
-import { FC, useMemo } from 'react'
-import { useGroupContext } from '../../contexts/Group.tsx'
-import { useWalletsContext } from '../../contexts/Wallets.tsx'
+import { FC } from 'react'
+import { useGroupBalance } from '../../../stores/RootStore/hooks/useGroupBalance.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
-export const GroupInfoBalance: FC = () => {
-  const { groupResponse } = useGroupContext()
-  const { walletsResponse } = useWalletsContext()
+interface Props {
+  groupId: string
+}
 
-  const amount = useMemo(() => {
-    if (!groupResponse || !walletsResponse) {
-      return 0
-    }
-
-    return walletsResponse.wallets.reduce<number>((acc, wallet) => {
-      return (
-        acc +
-        wallet.balance *
-          (groupResponse.group.defaultCurrency.rate / wallet.currency.rate)
-      )
-    }, 0)
-  }, [groupResponse, walletsResponse])
-
-  if (!groupResponse || !walletsResponse) {
-    return <Card.Skeleton />
-  }
+export const GroupInfoBalance: FC<Props> = ({ groupId }) => {
+  const { groupBalance } = useGroupBalance({ groupId })
 
   return (
     <Card.Text
       end={
         <Amount
           className="font-medium"
-          amount={amount}
-          currency={groupResponse.group.defaultCurrency}
+          amount={groupBalance.balance}
+          currency={groupBalance.currency}
         />
       }
     >

@@ -1,15 +1,10 @@
 import assert from 'assert'
 import { GetServerSideProps, NextPage } from 'next'
-import { CheckSwrContexts } from '../../components/CheckSwrContexts/CheckSwrContexts.tsx'
-import { Group } from '../../components/Group/Group.tsx'
-import { CategoriesProvider } from '../../components/contexts/Categories.tsx'
-import { CurrenciesProvider } from '../../components/contexts/Currencies.tsx'
-import { ErrorProvider } from '../../components/contexts/Error.tsx'
-import { GroupProvider } from '../../components/contexts/Group.tsx'
-import { LoadingProvider } from '../../components/contexts/Loading.tsx'
-import { OperationsProvider } from '../../components/contexts/Operations.tsx'
-import { StatisticsByCategoryProvider } from '../../components/contexts/StatisticsByCategory.tsx'
-import { WalletsProvider } from '../../components/contexts/Wallets.tsx'
+import { useSession } from 'next-auth/react'
+import { NextError } from '../../components/next/Error.ts'
+import { NextHead } from '../../components/next/Head.ts'
+import { Group } from '../../components/pages/Group/Group.tsx'
+import { Overlay } from '../../components/ui-kit/Overlay/Overlay.tsx'
 
 interface Props {
   groupId: string
@@ -23,24 +18,24 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   return Promise.resolve({ props: { groupId } })
 }
 
-const GroupPage: NextPage<Props> = ({ groupId }) => (
-  <LoadingProvider>
-    <ErrorProvider>
-      <CurrenciesProvider>
-        <CategoriesProvider groupId={groupId}>
-          <GroupProvider groupId={groupId}>
-            <OperationsProvider groupId={groupId}>
-              <WalletsProvider groupId={groupId}>
-                <StatisticsByCategoryProvider groupId={groupId}>
-                  <CheckSwrContexts renderContent={() => <Group />} />
-                </StatisticsByCategoryProvider>
-              </WalletsProvider>
-            </OperationsProvider>
-          </GroupProvider>
-        </CategoriesProvider>
-      </CurrenciesProvider>
-    </ErrorProvider>
-  </LoadingProvider>
-)
+const GroupPage: NextPage<Props> = ({ groupId }) => {
+  const session = useSession()
+
+  return (
+    <>
+      {session.status === 'authenticated' ? (
+        <Group groupId={groupId} />
+      ) : (
+        <NextHead>
+          <title>Expense</title>
+        </NextHead>
+      )}
+
+      {session.status === 'unauthenticated' && <NextError statusCode={403} />}
+
+      <Overlay isVisible={session.status === 'loading'} />
+    </>
+  )
+}
 
 export default GroupPage

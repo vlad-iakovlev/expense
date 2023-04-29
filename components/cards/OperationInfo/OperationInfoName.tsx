@@ -1,43 +1,19 @@
-import assert from 'assert'
-import { FC, useCallback } from 'react'
-import { updateOperation } from '../../../api/client/operations.ts'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useOperationContext } from '../../contexts/Operation.tsx'
+import { FC } from 'react'
+import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
-export const OperationInfoName: FC = () => {
-  const { setLoading } = useLoadingContext()
-  const { operationResponse, mutateOperation } = useOperationContext()
+interface Props {
+  operationId: string
+}
 
-  const handleChange = useCallback(
-    async (name: string) => {
-      assert(operationResponse, 'operationResponse is not defined')
-
-      try {
-        setLoading(true)
-
-        await updateOperation({
-          operationId: operationResponse.operation.id,
-          name,
-        })
-
-        await mutateOperation()
-      } finally {
-        setLoading(false)
-      }
-    },
-    [mutateOperation, operationResponse, setLoading]
-  )
-
-  if (!operationResponse) {
-    return <Card.Skeleton />
-  }
+export const OperationInfoName: FC<Props> = ({ operationId }) => {
+  const { operation, setOperationName } = useOperation({ operationId })
 
   return (
     <Card.Input
       name="Name"
-      value={operationResponse.operation.name}
-      onChange={handleChange}
+      value={operation.name}
+      onChange={setOperationName}
     />
   )
 }

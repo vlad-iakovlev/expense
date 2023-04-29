@@ -1,23 +1,21 @@
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
+import assert from 'assert'
 import { clsx } from 'clsx'
 import { FC } from 'react'
-import { ClientOperation } from '../../../api/types/operations.ts'
 import { ROUTES } from '../../../constants/routes.ts'
+import { PopulatedClientOperation } from '../../../types/client.ts'
 import { formatDate } from '../../../utils/formatDate.ts'
-import { useOperationsContext } from '../../contexts/Operations.tsx'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
-  operation: ClientOperation
+  operation: PopulatedClientOperation
+  walletId: string | undefined
 }
 
-export const OperationsTransferItem: FC<Props> = ({ operation }) => {
-  const { operationsPayload } = useOperationsContext()
-
-  if (!operation.incomeWallet || !operation.expenseWallet) {
-    return null
-  }
+export const OperationsTransferItem: FC<Props> = ({ operation, walletId }) => {
+  assert(operation.incomeWallet, 'Income wallet is not defined')
+  assert(operation.expenseWallet, 'Expense wallet is not defined')
 
   return (
     <Card.Link href={ROUTES.OPERATION(operation.id)}>
@@ -38,10 +36,8 @@ export const OperationsTransferItem: FC<Props> = ({ operation }) => {
 
           <div
             className={clsx('text-sm truncate', {
-              'font-medium':
-                operationsPayload.walletId === operation.expenseWallet.id,
-              'text-zinc-600':
-                operationsPayload.walletId !== operation.expenseWallet.id,
+              'font-medium': operation.expenseWallet.id === walletId,
+              'text-zinc-600': operation.expenseWallet.id !== walletId,
             })}
           >
             {operation.expenseWallet.name}
@@ -60,10 +56,8 @@ export const OperationsTransferItem: FC<Props> = ({ operation }) => {
 
           <div
             className={clsx('text-sm truncate', {
-              'font-medium':
-                operationsPayload.walletId === operation.incomeWallet.id,
-              'text-zinc-600':
-                operationsPayload.walletId !== operation.incomeWallet.id,
+              'font-medium': operation.incomeWallet.id === walletId,
+              'text-zinc-600': operation.incomeWallet.id !== walletId,
             })}
           >
             {operation.incomeWallet.name}

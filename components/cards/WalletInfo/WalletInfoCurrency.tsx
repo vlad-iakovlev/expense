@@ -1,58 +1,37 @@
-import assert from 'assert'
 import { FC, useCallback, useMemo } from 'react'
-import { updateWallet } from '../../../api/client/wallets.ts'
-import { useCurrenciesContext } from '../../contexts/Currencies.tsx'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useOperationsContext } from '../../contexts/Operations.tsx'
-import { useWalletContext } from '../../contexts/Wallet.tsx'
+import { useCurrencies } from '../../../stores/RootStore/hooks/useCurrencies.ts'
+import { useWallet } from '../../../stores/RootStore/hooks/useWallet.ts'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
-export const WalletInfoCurrency: FC = () => {
-  const { setLoading } = useLoadingContext()
-  const { currenciesResponse } = useCurrenciesContext()
-  const { mutateOperations } = useOperationsContext()
-  const { walletResponse, mutateWallet } = useWalletContext()
+interface Props {
+  walletId: string
+}
+
+export const WalletInfoCurrency: FC<Props> = ({ walletId }) => {
+  const { currencies } = useCurrencies()
+  const { wallet, setWalletCurrency } = useWallet({ walletId })
 
   const options = useMemo(() => {
-    return (
-      currenciesResponse?.currencies.map((currency) => ({
-        id: currency.id,
-        name: currency.name,
-      })) ?? []
-    )
-  }, [currenciesResponse])
+    return currencies.map((currency) => ({
+      id: currency.id,
+      name: currency.name,
+    }))
+  }, [currencies])
 
   const value = useMemo(
     () => ({
-      id: walletResponse?.wallet.currency.id ?? '',
-      name: walletResponse?.wallet.currency.name ?? '',
+      id: wallet.currency.id,
+      name: wallet.currency.name,
     }),
-    [walletResponse?.wallet.currency.id, walletResponse?.wallet.currency.name]
+    [wallet.currency.id, wallet.currency.name]
   )
 
   const handleChange = useCallback(
-    async (option: CardSelectOption) => {
-      assert(walletResponse, 'walletResponse is not defined')
-
-      try {
-        setLoading(true)
-
-        await updateWallet({
-          walletId: walletResponse.wallet.id,
-          currencyId: option.id,
-        })
-
-        await Promise.all([mutateOperations(), mutateWallet()])
-      } finally {
-        setLoading(false)
-      }
+    (option: CardSelectOption) => {
+      setWalletCurrency(option.id)
     },
-    [walletResponse, setLoading, mutateOperations, mutateWallet]
+    [setWalletCurrency]
   )
-
-  if (!walletResponse) {
-    return <Card.Skeleton />
-  }
 
   return (
     <Card.Select
