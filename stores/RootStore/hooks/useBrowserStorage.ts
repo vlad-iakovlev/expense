@@ -23,6 +23,8 @@ export const useBrowserStorage = (
           type: StorageActionType.SET_STATE_FROM_BROWSER_STORAGE,
           payload: { storedState },
         })
+      } catch (error) {
+        console.error(error)
       } finally {
         dispatch({
           type: StorageActionType.SET_SHOULD_SYNC,
