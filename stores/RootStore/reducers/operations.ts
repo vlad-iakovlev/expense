@@ -25,8 +25,8 @@ const createOperationReducer: Reducer<
         expenseAmount: 0,
         updatedAt: new Date(),
         removed: false,
-        incomeWalletId: action.payload.walletId,
-        expenseWalletId: null,
+        incomeWalletId: null,
+        expenseWalletId: action.payload.walletId,
       },
     ],
   }
