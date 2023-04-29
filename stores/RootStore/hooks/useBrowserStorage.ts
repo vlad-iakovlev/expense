@@ -1,6 +1,6 @@
-import assert from 'assert'
 import { useSession } from 'next-auth/react'
 import { Dispatch, useEffect, useState } from 'react'
+import { getBrowserStorageState } from '../getters/storage.ts'
 import { StorageAction } from '../reducers/storage.ts'
 import { RootStoreState, StorageActionType } from '../types.tsx'
 
@@ -14,33 +14,53 @@ export const useBrowserStorage = (
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    if (session.status === 'authenticated' && !state.isReady) {
+    if (session.status === 'authenticated' && !isLoaded) {
       try {
-        const storedStateStr = window.localStorage.getItem(LOCAL_STORAGE_KEY)
-        assert(storedStateStr, 'No stored state found')
+        const storedState = window.localStorage.getItem(LOCAL_STORAGE_KEY)
 
-        dispatch({
-          type: StorageActionType.SET_STATE_FROM_BROWSER_STORAGE,
-          payload: storedStateStr,
-        })
+        if (storedState) {
+          dispatch({
+            type: StorageActionType.SET_STATE_FROM_BROWSER_STORAGE,
+            payload: storedState,
+          })
+        }
       } catch (error) {
         console.error(error)
       } finally {
         setIsLoaded(true)
       }
     }
-  }, [dispatch, session.status, state.isReady])
+  }, [dispatch, isLoaded, session.status])
 
   useEffect(() => {
     if (session.status === 'unauthenticated') {
-      dispatch({ type: StorageActionType.CLEAR_BROWSER_STORAGE })
-      setIsLoaded(true)
+      dispatch({ type: StorageActionType.RESET_STATE })
+      window.localStorage.removeItem(LOCAL_STORAGE_KEY)
+      setIsLoaded(false)
     }
   }, [dispatch, session.status])
 
   useEffect(() => {
+    const handleStorage = (event: StorageEvent) => {
+      if (
+        event.storageArea === window.localStorage &&
+        event.key === LOCAL_STORAGE_KEY &&
+        event.newValue !== event.oldValue
+      ) {
+        setIsLoaded(false)
+      }
+    }
+
+    window.addEventListener('storage', handleStorage)
+    return () => window.removeEventListener('storage', handleStorage)
+  }, [])
+
+  useEffect(() => {
     if (isLoaded) {
-      window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
+      window.localStorage.setItem(
+        LOCAL_STORAGE_KEY,
+        JSON.stringify(getBrowserStorageState(state))
+      )
     }
   }, [isLoaded, state])
 

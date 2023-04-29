@@ -1,6 +1,10 @@
 import { Reducer, ReducerAction } from 'react'
 import { PerformSyncResponse } from '../../../api/types.ts'
-import { RootStoreState, StorageActionType } from '../types.tsx'
+import {
+  BrowserStorageState,
+  RootStoreState,
+  StorageActionType,
+} from '../types.tsx'
 
 const startSyncReducer: Reducer<
   RootStoreState,
@@ -65,7 +69,6 @@ const setStateFromRemoteStorageReducer: Reducer<
         (item, index, array) =>
           array.findIndex((i) => i.id === item.id) === index
       ),
-    isReady: true,
     isSyncing: false,
     shouldSync: false,
     syncedAt: action.payload.syncStartedAt,
@@ -79,7 +82,7 @@ const setStateFromBrowserStorageReducer: Reducer<
     payload: string
   }
 > = (state, action) => {
-  const storedState = JSON.parse(action.payload) as RootStoreState
+  const storedState = JSON.parse(action.payload) as BrowserStorageState
 
   return {
     currencies: storedState.currencies,
@@ -96,23 +99,21 @@ const setStateFromBrowserStorageReducer: Reducer<
       date: new Date(operation.date),
       updatedAt: new Date(operation.updatedAt),
     })),
-    isReady: storedState.isReady,
     isSyncing: false,
     shouldSync: false,
     syncedAt: storedState.syncedAt ? new Date(storedState.syncedAt) : null,
   }
 }
 
-const clearBrowserStorage: Reducer<
+const resetStateReducer: Reducer<
   RootStoreState,
-  { type: StorageActionType.CLEAR_BROWSER_STORAGE }
+  { type: StorageActionType.RESET_STATE }
 > = () => {
   return {
     currencies: [],
     groups: [],
     wallets: [],
     operations: [],
-    isReady: false,
     isSyncing: false,
     shouldSync: false,
     syncedAt: null,
@@ -124,7 +125,7 @@ export type StorageAction =
   | ReducerAction<typeof abortSyncReducer>
   | ReducerAction<typeof setStateFromRemoteStorageReducer>
   | ReducerAction<typeof setStateFromBrowserStorageReducer>
-  | ReducerAction<typeof clearBrowserStorage>
+  | ReducerAction<typeof resetStateReducer>
 
 export const isStorageAction = (action: {
   type: string
@@ -152,7 +153,7 @@ export const StorageReducer: Reducer<RootStoreState, StorageAction> = (
     case StorageActionType.SET_STATE_FROM_BROWSER_STORAGE:
       return setStateFromBrowserStorageReducer(state, action)
 
-    case StorageActionType.CLEAR_BROWSER_STORAGE:
-      return clearBrowserStorage(state, action)
+    case StorageActionType.RESET_STATE:
+      return resetStateReducer(state, action)
   }
 }

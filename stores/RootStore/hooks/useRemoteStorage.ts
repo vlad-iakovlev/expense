@@ -13,7 +13,6 @@ export const useRemoteStorage = (
   isBrowserStorageLoaded: boolean
 ) => {
   const session = useSession()
-  const isAuthenticated = session.status === 'authenticated'
   const isOnline = useIsOnline()
   const isTabVisible = useIsTabVisible()
   const [shouldSyncAsap, setShouldSyncAsap] = useState(true)
@@ -42,7 +41,7 @@ export const useRemoteStorage = (
 
     if (
       !isBrowserStorageLoaded ||
-      !isAuthenticated ||
+      session.status !== 'authenticated' ||
       !isOnline ||
       !isTabVisible
     ) {
@@ -64,10 +63,10 @@ export const useRemoteStorage = (
     return () => clearTimeout(timerId)
   }, [
     dispatch,
-    isAuthenticated,
     isBrowserStorageLoaded,
     isOnline,
     isTabVisible,
+    session.status,
     shouldSyncAsap,
     state,
   ])

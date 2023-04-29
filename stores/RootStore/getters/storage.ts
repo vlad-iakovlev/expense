@@ -1,10 +1,22 @@
 import { PerformSyncBody } from '../../../api/types.ts'
-import { RootStoreState } from '../types.tsx'
+import { BrowserStorageState, RootStoreState } from '../types.tsx'
+
+export const getBrowserStorageState = (
+  state: RootStoreState
+): BrowserStorageState => {
+  return {
+    currencies: state.currencies,
+    groups: state.groups,
+    wallets: state.wallets,
+    operations: state.operations,
+    syncedAt: state.syncedAt,
+  }
+}
 
 export const getRemoteStorageBody = (
   state: RootStoreState
 ): PerformSyncBody => {
-  if (!state.isReady) {
+  if (!state.syncedAt) {
     return {
       groups: [],
       wallets: [],
@@ -16,7 +28,7 @@ export const getRemoteStorageBody = (
   const syncedAt = state.syncedAt
 
   const groups = state.groups
-    .filter((group) => !syncedAt || group.updatedAt > syncedAt)
+    .filter((group) => group.updatedAt > syncedAt)
     .map((group) => ({
       id: group.id,
       name: group.name,
@@ -25,7 +37,7 @@ export const getRemoteStorageBody = (
     }))
 
   const wallets = state.wallets
-    .filter((wallet) => !syncedAt || wallet.updatedAt > syncedAt)
+    .filter((wallet) => wallet.updatedAt > syncedAt)
     .map((wallet) => ({
       id: wallet.id,
       name: wallet.name,
@@ -36,7 +48,7 @@ export const getRemoteStorageBody = (
     }))
 
   const operations = state.operations
-    .filter((operation) => !syncedAt || operation.updatedAt > syncedAt)
+    .filter((operation) => operation.updatedAt > syncedAt)
     .map((operation) => ({
       id: operation.id,
       name: operation.name,

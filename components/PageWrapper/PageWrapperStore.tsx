@@ -11,8 +11,8 @@ export const PageWrapperStore: FC<Props> = ({ children }) => {
 
   return (
     <>
-      {state.isReady && children}
-      <PageWrapperLoading isLoading={!state.isReady} />
+      {!!state.syncedAt && children}
+      <PageWrapperLoading isLoading={!state.syncedAt} />
     </>
   )
 }

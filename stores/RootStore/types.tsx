@@ -4,16 +4,38 @@ import {
   ClientOperation,
   ClientWallet,
 } from '../../types/client.ts'
+import { Modify } from '../../types/utility.ts'
 
 export interface RootStoreState {
   currencies: ClientCurrency[]
   groups: ClientGroup[]
   wallets: ClientWallet[]
   operations: ClientOperation[]
-  isReady: boolean
   isSyncing: boolean
   shouldSync: boolean
   syncedAt: Date | null
+}
+
+type BrowserStorageStateCurrency = ClientCurrency
+type BrowserStorageStateGroup = Modify<
+  ClientGroup,
+  { updatedAt: string | Date }
+>
+type BrowserStorageStateWallet = Modify<
+  ClientWallet,
+  { updatedAt: string | Date }
+>
+type BrowserStorageStateOperation = Modify<
+  ClientOperation,
+  { date: string | Date; updatedAt: string | Date }
+>
+
+export interface BrowserStorageState {
+  currencies: BrowserStorageStateCurrency[]
+  groups: BrowserStorageStateGroup[]
+  wallets: BrowserStorageStateWallet[]
+  operations: BrowserStorageStateOperation[]
+  syncedAt: string | Date | null
 }
 
 export enum StorageActionType {
@@ -21,7 +43,7 @@ export enum StorageActionType {
   ABORT_SYNC = 'ABORT_SYNC',
   SET_STATE_FROM_REMOTE_STORAGE = 'SET_STATE_FROM_REMOTE_STORAGE',
   SET_STATE_FROM_BROWSER_STORAGE = 'SET_STATE_FROM_BROWSER_STORAGE',
-  CLEAR_BROWSER_STORAGE = 'CLEAR_BROWSER_STORAGE',
+  RESET_STATE = 'RESET_STATE',
 }
 
 export enum GroupsActionTypes {

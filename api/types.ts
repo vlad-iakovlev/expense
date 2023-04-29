@@ -5,6 +5,7 @@ import {
   ClientOperation,
   ClientWallet,
 } from '../types/client.ts'
+import { Modify } from '../types/utility.ts'
 import { performSyncBodySchema } from './server/schemas.ts'
 
 export type PerformSyncBody = z.infer<typeof performSyncBodySchema>
@@ -12,10 +13,10 @@ export type PerformSyncBody = z.infer<typeof performSyncBodySchema>
 type PerformSyncResponseCurrency = ClientCurrency
 type PerformSyncResponseGroup = Omit<ClientGroup, 'updatedAt'>
 type PerformSyncResponseWallet = Omit<ClientWallet, 'updatedAt'>
-type PerformSyncResponseOperation = Omit<
-  ClientOperation,
-  'date' | 'updatedAt'
-> & { date: string | Date }
+type PerformSyncResponseOperation = Modify<
+  Omit<ClientOperation, 'updatedAt'>,
+  { date: string | Date }
+>
 
 export interface PerformSyncResponse {
   currencies: PerformSyncResponseCurrency[]

@@ -88,7 +88,6 @@ export const RootStoreProvider: FC<ProviderProps> = ({ children }) => {
     groups: [],
     wallets: [],
     operations: [],
-    isReady: false,
     isSyncing: false,
     shouldSync: false,
     syncedAt: null,
