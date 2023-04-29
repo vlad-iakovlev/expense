@@ -1,24 +1,21 @@
-import assert from 'assert'
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next'
+import { useRouter } from 'next/router.js'
 import { PageWrapper } from '../../components/PageWrapper/PageWrapper.tsx'
 import { Group } from '../../components/pages/Group/Group.tsx'
 
-interface Props {
-  groupId: string
-}
+const GroupPage: NextPage = () => {
+  const router = useRouter()
+  const groupId = router.query.groupId
 
-export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
-) => {
-  const groupId = context.query.groupId
-  assert(typeof groupId === 'string', 'groupId is not a string')
-  return Promise.resolve({ props: { groupId } })
-}
+  if (typeof groupId !== 'string') {
+    return null
+  }
 
-const GroupPage: NextPage<Props> = ({ groupId }) => (
-  <PageWrapper>
-    <Group groupId={groupId} />
-  </PageWrapper>
-)
+  return (
+    <PageWrapper>
+      <Group groupId={groupId} />
+    </PageWrapper>
+  )
+}
 
 export default GroupPage

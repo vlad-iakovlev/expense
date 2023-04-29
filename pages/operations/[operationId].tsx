@@ -1,24 +1,21 @@
-import assert from 'assert'
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next'
+import { useRouter } from 'next/router.js'
 import { PageWrapper } from '../../components/PageWrapper/PageWrapper.tsx'
 import { Operation } from '../../components/pages/Operation/Operation.tsx'
 
-interface Props {
-  operationId: string
-}
+const OperationPage: NextPage = () => {
+  const router = useRouter()
+  const operationId = router.query.operationId
 
-export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
-) => {
-  const operationId = context.query.operationId
-  assert(typeof operationId === 'string', 'operationId is not a string')
-  return Promise.resolve({ props: { operationId } })
-}
+  if (typeof operationId !== 'string') {
+    return null
+  }
 
-const OperationPage: NextPage<Props> = ({ operationId }) => (
-  <PageWrapper>
-    <Operation operationId={operationId} />
-  </PageWrapper>
-)
+  return (
+    <PageWrapper>
+      <Operation operationId={operationId} />
+    </PageWrapper>
+  )
+}
 
 export default OperationPage

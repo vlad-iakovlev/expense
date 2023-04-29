@@ -1,24 +1,21 @@
-import assert from 'assert'
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next'
+import { useRouter } from 'next/router.js'
 import { PageWrapper } from '../../components/PageWrapper/PageWrapper.tsx'
 import { Wallet } from '../../components/pages/Wallet/Wallet.tsx'
 
-interface Props {
-  walletId: string
-}
+const WalletPage: NextPage = () => {
+  const router = useRouter()
+  const walletId = router.query.walletId
 
-export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
-) => {
-  const walletId = context.query.walletId
-  assert(typeof walletId === 'string', 'walletId is not a string')
-  return Promise.resolve({ props: { walletId } })
-}
+  if (typeof walletId !== 'string') {
+    return null
+  }
 
-const WalletPage: NextPage<Props> = ({ walletId }) => (
-  <PageWrapper>
-    <Wallet walletId={walletId} />
-  </PageWrapper>
-)
+  return (
+    <PageWrapper>
+      <Wallet walletId={walletId} />
+    </PageWrapper>
+  )
+}
 
 export default WalletPage
