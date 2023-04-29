@@ -1,43 +1,24 @@
 import { PlusIcon } from '@heroicons/react/20/solid'
-import assert from 'assert'
 import { useRouter } from 'next/router.js'
 import { FC, useCallback } from 'react'
-import { createOperation } from '../../../api/client/operations.ts'
 import { ROUTES } from '../../../constants/routes.ts'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useOperationsContext } from '../../contexts/Operations.tsx'
+import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 
-export const OperationsCreate: FC = () => {
+interface Props {
+  walletId: string | undefined
+}
+
+export const OperationsCreate: FC<Props> = ({ walletId }) => {
   const router = useRouter()
-  const { setLoading } = useLoadingContext()
-  const { operationsPayload } = useOperationsContext()
+  const { createOperation } = useOperations({ walletId })
 
   const handleCreate = useCallback(() => {
-    void (async () => {
-      assert(operationsPayload.walletId, 'walletId is not defined')
+    const operationId = createOperation()
+    void router.push(ROUTES.OPERATION(operationId))
+  }, [createOperation, router])
 
-      try {
-        setLoading(true)
-
-        const { operationId } = await createOperation({
-          name: 'Untitled',
-          category: 'No category',
-          date: new Date().toISOString(),
-          incomeAmount: 0,
-          expenseAmount: 0,
-          incomeWalletId: null,
-          expenseWalletId: operationsPayload.walletId,
-        })
-
-        await router.push(ROUTES.OPERATION(operationId))
-      } finally {
-        setLoading(false)
-      }
-    })()
-  }, [operationsPayload.walletId, router, setLoading])
-
-  if (!operationsPayload.walletId) {
+  if (!walletId) {
     return null
   }
 

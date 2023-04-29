@@ -1,20 +1,20 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import assert from 'assert'
 import { useRouter } from 'next/router.js'
 import { FC, useCallback, useState } from 'react'
-import { deleteWallet } from '../../../api/client/wallets.ts'
 import { ROUTES } from '../../../constants/routes.ts'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useOperationsContext } from '../../contexts/Operations.tsx'
-import { useWalletContext } from '../../contexts/Wallet.tsx'
+import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
+import { useWallet } from '../../../stores/RootStore/hooks/useWallet.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { ConfirmDialog } from '../../ui-kit/ConfirmDialog/ConfirmDialog.tsx'
 
-export const WalletInfoDelete: FC = () => {
+interface Props {
+  walletId: string
+}
+
+export const WalletInfoDelete: FC<Props> = ({ walletId }) => {
   const router = useRouter()
-  const { setLoading } = useLoadingContext()
-  const { walletResponse } = useWalletContext()
-  const { operationsResponse } = useOperationsContext()
+  const { wallet, removeWallet } = useWallet({ walletId })
+  const { operationIds } = useOperations({ walletId })
 
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
 
@@ -24,22 +24,10 @@ export const WalletInfoDelete: FC = () => {
 
   const handleDeleteConfirm = useCallback(() => {
     void (async () => {
-      assert(walletResponse, 'walletResponse is not defined')
-
-      try {
-        setLoading(true)
-        setIsDeleteConfirmOpen(false)
-
-        await deleteWallet({
-          walletId: walletResponse.wallet.id,
-        })
-
-        await router.push(ROUTES.GROUP(walletResponse.wallet.group.id))
-      } finally {
-        setLoading(false)
-      }
+      await router.push(ROUTES.GROUP(wallet.group.id))
+      removeWallet()
     })()
-  }, [router, setLoading, walletResponse])
+  }, [removeWallet, router, wallet.group.id])
 
   const handleDeleteCancel = useCallback(() => {
     setIsDeleteConfirmOpen(false)
@@ -47,7 +35,7 @@ export const WalletInfoDelete: FC = () => {
 
   return (
     <>
-      {walletResponse && operationsResponse?.operations.length === 0 ? (
+      {!operationIds.length && (
         <Button
           rounded
           size="sm"
@@ -55,7 +43,7 @@ export const WalletInfoDelete: FC = () => {
           iconStart={<XMarkIcon />}
           onClick={handleDelete}
         />
-      ) : null}
+      )}
 
       <ConfirmDialog
         isOpen={isDeleteConfirmOpen}

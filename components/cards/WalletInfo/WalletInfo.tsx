@@ -8,17 +8,21 @@ import { WalletInfoName } from './WalletInfoName.tsx'
 
 interface Props {
   className?: string
+  walletId: string
 }
 
-export const WalletInfoCard: FC<Props> = ({ className }) => {
+export const WalletInfoCard: FC<Props> = ({ className, walletId }) => {
   return (
     <Card className={className}>
-      <Card.Title title="Info" action={<WalletInfoDelete />} />
+      <Card.Title
+        title="Info"
+        action={<WalletInfoDelete walletId={walletId} />}
+      />
       <Card.Divider />
-      <WalletInfoName />
-      <WalletInfoCurrency />
-      <WalletInfoBalance />
-      <WalletInfoBalanceInDefaultCurrency />
+      <WalletInfoName walletId={walletId} />
+      <WalletInfoCurrency walletId={walletId} />
+      <WalletInfoBalance walletId={walletId} />
+      <WalletInfoBalanceInDefaultCurrency walletId={walletId} />
     </Card>
   )
 }

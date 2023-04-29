@@ -1,13 +1,14 @@
 import { FC, useMemo } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
-import { ClientCurrency } from '../../../api/types/currencies.ts'
-import { StatisticsByCategoryItem } from '../../../api/types/statistics.ts'
-import { stringToColor } from '../../../utils/stringToColor.ts'
+import {
+  ClientCurrency,
+  ClientStatisticsByCategory,
+} from '../../../types/client.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 
 interface Props {
-  currency?: ClientCurrency
-  items: StatisticsByCategoryItem[]
+  currency: ClientCurrency
+  items: ClientStatisticsByCategory[]
 }
 
 export const StatisticsCharts: FC<Props> = ({ currency, items }) => {
@@ -36,23 +37,20 @@ export const StatisticsCharts: FC<Props> = ({ currency, items }) => {
               animationBegin={0}
             >
               {items.map((item) => (
-                <Cell key={item.category} fill={stringToColor(item.category)} />
+                <Cell key={item.category} fill={item.color} />
               ))}
             </Pie>
           </PieChart>
         </ResponsiveContainer>
 
         <div className="relative">Incomes</div>
-        {currency ? (
-          <Amount
-            className="relative font-medium"
-            amount={totalIncome}
-            currency={currency}
-            type="income"
-          />
-        ) : (
-          <div className="relative w-12 h-3 my-1 bg-zinc-900 rounded-full opacity-20 animate-pulse" />
-        )}
+
+        <Amount
+          className="relative font-medium"
+          amount={totalIncome}
+          currency={currency}
+          type="income"
+        />
       </div>
 
       <div className="relative flex-1 flex flex-col items-center justify-center aspect-square">
@@ -70,23 +68,20 @@ export const StatisticsCharts: FC<Props> = ({ currency, items }) => {
               animationBegin={0}
             >
               {items.map((item) => (
-                <Cell key={item.category} fill={stringToColor(item.category)} />
+                <Cell key={item.category} fill={item.color} />
               ))}
             </Pie>
           </PieChart>
         </ResponsiveContainer>
 
         <div className="relative">Expenses</div>
-        {currency ? (
-          <Amount
-            className="relative font-medium"
-            amount={totalExpense}
-            currency={currency}
-            type="expense"
-          />
-        ) : (
-          <div className="relative w-12 h-3 my-1 bg-zinc-900 rounded-full opacity-20 animate-pulse" />
-        )}
+
+        <Amount
+          className="relative font-medium"
+          amount={totalExpense}
+          currency={currency}
+          type="expense"
+        />
       </div>
     </div>
   )

@@ -11,17 +11,18 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { ClientWallet } from '../../../api/types/wallets.ts'
 import { ROUTES } from '../../../constants/routes.ts'
+import { useWallet } from '../../../stores/RootStore/hooks/useWallet.ts'
+import { useWalletBalance } from '../../../stores/RootStore/hooks/useWalletBalance.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   canDrag: boolean
-  wallet: ClientWallet
+  walletId: string
 }
 
-export const WalletsItem: FC<Props> = ({ canDrag, wallet }) => {
+export const WalletsItem: FC<Props> = ({ canDrag, walletId }) => {
   const router = useRouter()
   const {
     attributes,
@@ -30,7 +31,9 @@ export const WalletsItem: FC<Props> = ({ canDrag, wallet }) => {
     setNodeRef,
     transform,
     transition,
-  } = useSortable({ id: wallet.id })
+  } = useSortable({ id: walletId })
+  const { wallet } = useWallet({ walletId })
+  const { walletBalance } = useWalletBalance({ walletId })
 
   const dragHandleRef = useRef<HTMLDivElement>(null)
 
@@ -84,8 +87,8 @@ export const WalletsItem: FC<Props> = ({ canDrag, wallet }) => {
         end={
           <Amount
             className="font-medium"
-            amount={wallet.balance}
-            currency={wallet.currency}
+            amount={walletBalance.balance}
+            currency={walletBalance.currency}
           />
         }
         onClick={handleClick}

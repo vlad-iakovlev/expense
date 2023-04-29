@@ -1,18 +1,18 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import assert from 'assert'
 import { useRouter } from 'next/router.js'
 import { FC, useCallback, useState } from 'react'
-import { deleteOperation } from '../../../api/client/operations.ts'
 import { ROUTES } from '../../../constants/routes.ts'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useOperationContext } from '../../contexts/Operation.tsx'
+import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { ConfirmDialog } from '../../ui-kit/ConfirmDialog/ConfirmDialog.tsx'
 
-export const OperationInfoDelete: FC = () => {
+interface Props {
+  operationId: string
+}
+
+export const OperationInfoDelete: FC<Props> = ({ operationId }) => {
   const router = useRouter()
-  const { setLoading } = useLoadingContext()
-  const { operationResponse } = useOperationContext()
+  const { operation, removeOperation } = useOperation({ operationId })
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
 
   const handleDelete = useCallback(() => {
@@ -21,30 +21,11 @@ export const OperationInfoDelete: FC = () => {
 
   const handleDeleteConfirm = useCallback(() => {
     void (async () => {
-      assert(operationResponse, 'operationResponse is not defined')
-
-      try {
-        setLoading(true)
-        setIsDeleteConfirmOpen(false)
-
-        await deleteOperation({
-          operationId: operationResponse.operation.id,
-        })
-
-        const wallet =
-          operationResponse.operation.expenseWallet ??
-          operationResponse.operation.incomeWallet
-
-        if (wallet) {
-          await router.push(ROUTES.WALLET(wallet.id))
-        } else {
-          await router.push(ROUTES.DASHBOARD)
-        }
-      } finally {
-        setLoading(false)
-      }
+      const wallet = operation.expenseWallet ?? operation.incomeWallet
+      await router.push(wallet ? ROUTES.WALLET(wallet.id) : ROUTES.DASHBOARD)
+      removeOperation()
     })()
-  }, [operationResponse, router, setLoading])
+  }, [operation.expenseWallet, operation.incomeWallet, removeOperation, router])
 
   const handleDeleteCancel = useCallback(() => {
     setIsDeleteConfirmOpen(false)
@@ -52,15 +33,13 @@ export const OperationInfoDelete: FC = () => {
 
   return (
     <>
-      {operationResponse && (
-        <Button
-          rounded
-          size="sm"
-          theme="error"
-          iconStart={<XMarkIcon />}
-          onClick={handleDelete}
-        />
-      )}
+      <Button
+        rounded
+        size="sm"
+        theme="error"
+        iconStart={<XMarkIcon />}
+        onClick={handleDelete}
+      />
 
       <ConfirmDialog
         isOpen={isDeleteConfirmOpen}

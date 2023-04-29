@@ -1,4 +1,4 @@
-import { ClientCurrency } from '../api/types/currencies.ts'
+import { ClientCurrency } from '../types/client.ts'
 
 export const formatAmount = (
   amount: number,

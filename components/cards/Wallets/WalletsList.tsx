@@ -12,90 +12,45 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import assert from 'assert'
-import { FC, useCallback, useEffect, useState } from 'react'
-import { setWalletsOrder } from '../../../api/client/wallets.ts'
-import { ClientWallet } from '../../../api/types/wallets.ts'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useWalletsContext } from '../../contexts/Wallets.tsx'
-import { Card } from '../../ui-kit/Card/Card.tsx'
+import { FC, useCallback } from 'react'
+import { useWallets } from '../../../stores/RootStore/hooks/useWallets.ts'
 import { WalletsItem } from './WalletsItem.tsx'
 
-export const WalletsList: FC = () => {
-  const { setLoading } = useLoadingContext()
-  const { walletsResponse, walletsPayload, mutateWallets } = useWalletsContext()
-  const [wallets, setWallets] = useState<ClientWallet[]>([])
+interface Props {
+  walletIds: string[]
+  groupId: string | undefined
+}
+
+export const WalletsList: FC<Props> = ({ walletIds, groupId }) => {
+  const { reorderWallets } = useWallets({ groupId })
 
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
 
-  const canDrag = !!walletsPayload.groupId && wallets.length > 1
+  const canDrag = !!groupId && walletIds.length > 1
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
-      void (async () => {
-        assert(walletsPayload.groupId, 'groupId is not defined')
+      const oldIndex = walletIds.indexOf(String(event.active.id))
+      const newIndex = walletIds.indexOf(String(event.over?.id))
+      if (oldIndex === -1 || newIndex === -1 || oldIndex === newIndex) return
 
-        const oldIndex = wallets.findIndex(
-          (wallet) => wallet.id === event.active.id
-        )
-        const newIndex = wallets.findIndex(
-          (wallet) => wallet.id === event.over?.id
-        )
-        if (oldIndex === -1 || newIndex === -1 || oldIndex === newIndex) return
-
-        const newWallets = arrayMove(wallets, oldIndex, newIndex)
-        setWallets(newWallets)
-
-        try {
-          setLoading(true)
-
-          await setWalletsOrder({
-            groupId: walletsPayload.groupId,
-            walletIds: newWallets.map((wallet) => wallet.id),
-          })
-
-          await mutateWallets()
-        } finally {
-          setLoading(false)
-        }
-      })()
+      const newWalletIds = arrayMove(walletIds, oldIndex, newIndex)
+      reorderWallets(newWalletIds)
     },
-    [mutateWallets, setLoading, wallets, walletsPayload.groupId]
+    [reorderWallets, walletIds]
   )
 
-  useEffect(() => {
-    setWallets(walletsResponse?.wallets ?? [])
-  }, [walletsResponse?.wallets])
-
-  if (!walletsResponse) {
-    return (
-      <>
-        <Card.Divider />
-        <Card.Skeleton />
-        <Card.Skeleton />
-        <Card.Skeleton />
-        <Card.Skeleton />
-        <Card.Skeleton />
-        <Card.Skeleton />
-      </>
-    )
-  }
-
   return (
-    <>
-      {wallets.length > 0 && <Card.Divider />}
-
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext items={wallets} strategy={verticalListSortingStrategy}>
-          {wallets.map((wallet) => (
-            <WalletsItem key={wallet.id} canDrag={canDrag} wallet={wallet} />
-          ))}
-        </SortableContext>
-      </DndContext>
-    </>
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+    >
+      <SortableContext items={walletIds} strategy={verticalListSortingStrategy}>
+        {walletIds.map((walletId) => (
+          <WalletsItem key={walletId} canDrag={canDrag} walletId={walletId} />
+        ))}
+      </SortableContext>
+    </DndContext>
   )
 }

@@ -89,6 +89,7 @@ model Group {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  removed   Boolean  @default(false)
 
   defaultCurrency   Currency @relation(fields: [defaultCurrencyId], references: [id], onDelete: Restrict)
   defaultCurrencyId String   @db.ObjectId
@@ -105,6 +106,7 @@ model Wallet {
   order     Int?     @db.Long
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  removed   Boolean  @default(false)
 
   currency   Currency @relation(fields: [currencyId], references: [id], onDelete: Restrict)
   currencyId String   @db.ObjectId
@@ -125,6 +127,7 @@ model Operation {
   expenseAmount Int      @db.Long
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  removed       Boolean  @default(false)
 
   incomeWallet   Wallet? @relation(name: "WalletOperationIncome", fields: [incomeWalletId], references: [id], onDelete: Restrict)
   incomeWalletId String? @db.ObjectId

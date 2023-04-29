@@ -1,5 +1,6 @@
 import { FC, useCallback, useMemo, useState } from 'react'
-import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory.tsx'
+import { usePeriod } from '../../../hooks/usePeriod.ts'
+import { useStatisticsByCategory } from '../../../stores/RootStore/hooks/useStatisticsByCategory.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { StatisticsCategories } from './StatisticsCategories.tsx'
 import { StatisticsCharts } from './StatisticsCharts.tsx'
@@ -7,26 +8,29 @@ import { StatisticsPeriod } from './StatisticsPeriod.tsx'
 
 interface Props {
   className?: string
+  groupId?: string
+  walletId?: string
 }
 
-export const StatisticsCard: FC<Props> = ({ className }) => {
-  const { statisticsByCategoryResponse } = useStatisticsByCategoryContext()
+export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
+  const { startDate, endDate, fromDate, period, setPeriod, goPrev, goNext } =
+    usePeriod()
+  const { statisticsByCategoryItems, statisticsByCategoryCurrency } =
+    useStatisticsByCategory({ groupId, walletId, startDate, endDate })
 
   const [disabledCategories, setDisabledCategories] = useState<
     Record<string, boolean>
   >({})
 
   const chartItems = useMemo(() => {
-    return (
-      statisticsByCategoryResponse?.statisticsByCategory.items.map((item) => ({
-        ...item,
-        ...(disabledCategories[item.category] && {
-          incomeAmount: 0,
-          expenseAmount: 0,
-        }),
-      })) ?? []
-    )
-  }, [disabledCategories, statisticsByCategoryResponse])
+    return statisticsByCategoryItems.map((item) => ({
+      ...item,
+      ...(disabledCategories[item.category] && {
+        incomeAmount: 0,
+        expenseAmount: 0,
+      }),
+    }))
+  }, [disabledCategories, statisticsByCategoryItems])
 
   const isCategoryDisabled = useCallback(
     (category: string) => {
@@ -50,32 +54,29 @@ export const StatisticsCard: FC<Props> = ({ className }) => {
   return (
     <Card className={className}>
       <Card.Title title="Statistics" />
+
       <Card.Divider />
-      <StatisticsPeriod />
+
+      <StatisticsPeriod
+        fromDate={fromDate}
+        period={period}
+        setPeriod={setPeriod}
+        goPrev={goPrev}
+        goNext={goNext}
+      />
 
       <StatisticsCharts
-        currency={statisticsByCategoryResponse?.statisticsByCategory.currency}
+        currency={statisticsByCategoryCurrency}
         items={chartItems}
       />
 
-      {statisticsByCategoryResponse?.statisticsByCategory.items.length ? (
+      {!!statisticsByCategoryItems.length && (
         <StatisticsCategories
-          currency={statisticsByCategoryResponse.statisticsByCategory.currency}
-          items={statisticsByCategoryResponse.statisticsByCategory.items}
+          currency={statisticsByCategoryCurrency}
+          items={statisticsByCategoryItems}
           isCategoryDisabled={isCategoryDisabled}
           setCategoryDisabled={setCategoryDisabled}
         />
-      ) : null}
-
-      {!statisticsByCategoryResponse && (
-        <>
-          <Card.Skeleton type="statistics" />
-          <Card.Skeleton type="statistics" />
-          <Card.Skeleton type="statistics" />
-          <Card.Skeleton type="statistics" />
-          <Card.Skeleton type="statistics" />
-          <Card.Skeleton type="statistics" />
-        </>
       )}
     </Card>
   )

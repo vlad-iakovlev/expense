@@ -1,20 +1,20 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import assert from 'assert'
 import { useRouter } from 'next/router.js'
 import { FC, useCallback, useState } from 'react'
-import { deleteGroup } from '../../../api/client/groups.ts'
 import { ROUTES } from '../../../constants/routes.ts'
-import { useGroupContext } from '../../contexts/Group.tsx'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useWalletsContext } from '../../contexts/Wallets.tsx'
+import { useGroup } from '../../../stores/RootStore/hooks/useGroup.ts'
+import { useWallets } from '../../../stores/RootStore/hooks/useWallets.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { ConfirmDialog } from '../../ui-kit/ConfirmDialog/ConfirmDialog.tsx'
 
-export const GroupInfoDelete: FC = () => {
+interface Props {
+  groupId: string
+}
+
+export const GroupInfoDelete: FC<Props> = ({ groupId }) => {
   const router = useRouter()
-  const { setLoading } = useLoadingContext()
-  const { groupResponse } = useGroupContext()
-  const { walletsResponse } = useWalletsContext()
+  const { removeGroup } = useGroup({ groupId })
+  const { walletIds } = useWallets({ groupId })
 
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
 
@@ -24,22 +24,10 @@ export const GroupInfoDelete: FC = () => {
 
   const handleDeleteConfirm = useCallback(() => {
     void (async () => {
-      assert(groupResponse, 'groupResponse is not defined')
-
-      try {
-        setLoading(true)
-        setIsDeleteConfirmOpen(false)
-
-        await deleteGroup({
-          groupId: groupResponse.group.id,
-        })
-
-        await router.push(ROUTES.DASHBOARD)
-      } finally {
-        setLoading(false)
-      }
+      await router.push(ROUTES.DASHBOARD)
+      removeGroup()
     })()
-  }, [groupResponse, router, setLoading])
+  }, [removeGroup, router])
 
   const handleDeleteCancel = useCallback(() => {
     setIsDeleteConfirmOpen(false)
@@ -47,7 +35,7 @@ export const GroupInfoDelete: FC = () => {
 
   return (
     <>
-      {groupResponse && walletsResponse?.wallets.length === 0 && (
+      {!walletIds.length && (
         <Button
           rounded
           size="sm"

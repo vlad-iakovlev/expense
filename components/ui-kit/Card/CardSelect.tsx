@@ -1,48 +1,41 @@
-import { FC, useCallback, useEffect, useRef, useState } from 'react'
-import { MayBePromise } from '../../../types/utility.ts'
+import { ReactElement, useCallback, useRef, useState } from 'react'
 import { Card } from './Card.tsx'
 
-export interface CardSelectOption {
-  id: string
+export interface CardSelectOption<Id extends string = string> {
+  id: Id
   name: string
 }
 
-export interface CardSelectProps {
+export interface CardSelectProps<Id extends string = string> {
   name: string
-  options: CardSelectOption[]
-  value: CardSelectOption
-  onChange: (value: CardSelectOption) => MayBePromise<void>
+  options: CardSelectOption<Id>[]
+  value: CardSelectOption<Id>
+  onChange: (value: CardSelectOption<Id>) => void
 }
 
-export const CardSelect: FC<CardSelectProps> = ({
+export function CardSelect<Id extends string = string>({
   name,
   options,
   value,
   onChange,
-}) => {
+}: CardSelectProps<Id>): ReactElement | null {
   const rootRef = useRef<HTMLButtonElement>(null)
   const [isOpen, setIsOpen] = useState(false)
   const show = useCallback(() => setIsOpen(true), [])
   const hide = useCallback(() => setIsOpen(false), [])
 
   const handleChange = useCallback(
-    (option: CardSelectOption) => {
-      void (async () => {
-        if (option.id === value.id) {
-          setIsOpen(false)
-          return
-        }
-
-        await onChange(option)
+    (option: CardSelectOption<Id>) => {
+      if (option.id === value.id) {
         setIsOpen(false)
-      })()
+        return
+      }
+
+      onChange(option)
+      setIsOpen(false)
     },
     [onChange, value.id]
   )
-
-  useEffect(() => {
-    setIsOpen(false)
-  }, [value.id])
 
   return (
     <>

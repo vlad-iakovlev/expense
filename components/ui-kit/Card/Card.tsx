@@ -8,7 +8,6 @@ import { CardLink } from './CardLink.tsx'
 import { CardPagination } from './CardPagination.tsx'
 import { CardPopup } from './CardPopup.tsx'
 import { CardSelect } from './CardSelect.tsx'
-import { CardSkeleton } from './CardSkeleton.tsx'
 import { CardText } from './CardText.tsx'
 import { CardTitle } from './CardTitle.tsx'
 
@@ -48,6 +47,5 @@ Card.Link = CardLink
 Card.Pagination = CardPagination
 Card.Popup = CardPopup
 Card.Select = CardSelect
-Card.Skeleton = CardSkeleton
 Card.Text = CardText
 Card.Title = CardTitle

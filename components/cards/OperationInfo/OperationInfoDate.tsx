@@ -1,44 +1,19 @@
-import assert from 'assert'
-import { FC, useCallback } from 'react'
-import { updateOperation } from '../../../api/client/operations.ts'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useOperationContext } from '../../contexts/Operation.tsx'
+import { FC } from 'react'
+import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
-import { CardSkeleton } from '../../ui-kit/Card/CardSkeleton.tsx'
 
-export const OperationInfoDate: FC = () => {
-  const { setLoading } = useLoadingContext()
-  const { operationResponse, mutateOperation } = useOperationContext()
+interface Props {
+  operationId: string
+}
 
-  const handleChange = useCallback(
-    async (date: Date) => {
-      assert(operationResponse, 'operationResponse is not defined')
-
-      try {
-        setLoading(true)
-
-        await updateOperation({
-          operationId: operationResponse.operation.id,
-          date: date.toISOString(),
-        })
-
-        await mutateOperation()
-      } finally {
-        setLoading(false)
-      }
-    },
-    [mutateOperation, operationResponse, setLoading]
-  )
-
-  if (!operationResponse) {
-    return <CardSkeleton />
-  }
+export const OperationInfoDate: FC<Props> = ({ operationId }) => {
+  const { operation, setOperationDate } = useOperation({ operationId })
 
   return (
     <Card.DateTime
       name="Date"
-      value={operationResponse.operation.date}
-      onChange={handleChange}
+      value={operation.date}
+      onChange={setOperationDate}
     />
   )
 }

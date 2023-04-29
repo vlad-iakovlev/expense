@@ -3,16 +3,15 @@ import {
   FC,
   KeyboardEvent,
   useCallback,
-  useEffect,
+  useMemo,
   useState,
 } from 'react'
-import { MayBePromise } from '../../../types/utility.ts'
 import { formatDate, formatDateForInput } from '../../../utils/formatDate.ts'
 
 export interface CardDateTimeProps {
   name: string
   value: Date
-  onChange: (value: Date) => MayBePromise<void>
+  onChange: (value: Date) => void
 }
 
 export const CardDateTime: FC<CardDateTimeProps> = ({
@@ -23,10 +22,12 @@ export const CardDateTime: FC<CardDateTimeProps> = ({
   const [inputValue, setInputValue] = useState('')
   const [isEditing, setIsEditing] = useState(false)
 
+  const dateForInput = useMemo(() => formatDateForInput(value), [value])
+
   const handleTextClick = useCallback(() => {
-    setInputValue(formatDateForInput(value))
+    setInputValue(dateForInput)
     setIsEditing(true)
-  }, [value])
+  }, [dateForInput])
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
@@ -48,20 +49,12 @@ export const CardDateTime: FC<CardDateTimeProps> = ({
   }, [])
 
   const handleBlur = useCallback(() => {
-    void (async () => {
-      if (!inputValue || inputValue === formatDateForInput(value)) {
-        setIsEditing(false)
-        return
-      }
+    if (inputValue && inputValue !== dateForInput) {
+      onChange(new Date(inputValue))
+    }
 
-      await onChange(new Date(inputValue))
-      setIsEditing(false)
-    })()
-  }, [inputValue, value, onChange])
-
-  useEffect(() => {
     setIsEditing(false)
-  }, [value])
+  }, [inputValue, dateForInput, onChange])
 
   return (
     <>

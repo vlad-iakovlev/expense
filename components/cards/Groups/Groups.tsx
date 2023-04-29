@@ -1,47 +1,26 @@
 import { FC } from 'react'
-import { ROUTES } from '../../../constants/routes.ts'
-import { useGroupsContext } from '../../contexts/Groups.tsx'
-import { AvatarGroup } from '../../ui-kit/AvatarGroup/AvatarGroup.tsx'
+import { useGroups } from '../../../stores/RootStore/hooks/useGroups.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { GroupsCreate } from './GroupsCreate.tsx'
+import { GroupsItem } from './GroupsItem.tsx'
 
 interface Props {
   className?: string
 }
 
 export const GroupsCard: FC<Props> = ({ className }) => {
-  const { groupsResponse } = useGroupsContext()
+  const { groupIds } = useGroups()
 
   return (
     <Card className={className}>
       <Card.Title title="Groups" action={<GroupsCreate />} />
-      {groupsResponse?.groups.length !== 0 && <Card.Divider />}
 
-      {groupsResponse?.groups.map((group) => (
-        <Card.Link
-          key={group.id}
-          end={
-            <AvatarGroup
-              className="flex-none"
-              avatars={group.users.map((user) => ({
-                name: user.name ?? undefined,
-                src: user.image ?? undefined,
-              }))}
-              max={3}
-              size="sm"
-            />
-          }
-          href={ROUTES.GROUP(group.id)}
-        >
-          {group.name}
-        </Card.Link>
-      ))}
-
-      {!groupsResponse && (
+      {!!groupIds.length && (
         <>
-          <Card.Skeleton />
-          <Card.Skeleton />
-          <Card.Skeleton />
+          <Card.Divider />
+          {groupIds.map((groupId) => (
+            <GroupsItem key={groupId} groupId={groupId} />
+          ))}
         </>
       )}
     </Card>

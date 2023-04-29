@@ -1,11 +1,14 @@
 import { signIn, signOut, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router.js'
 import { FC, useCallback, useRef, useState } from 'react'
+import { ROUTES } from '../../constants/routes.ts'
 import { Avatar } from '../ui-kit/Avatar/Avatar.tsx'
 import { Button } from '../ui-kit/Button/Button.tsx'
 import { Card } from '../ui-kit/Card/Card.tsx'
 
 export const HeaderUser: FC = () => {
   const session = useSession()
+  const router = useRouter()
 
   const profileButtonRef = useRef<HTMLButtonElement>(null)
   const [isOpen, setIsOpen] = useState(false)
@@ -24,11 +27,12 @@ export const HeaderUser: FC = () => {
       try {
         setIsLoading(true)
         await signIn('google')
+        await router.push(ROUTES.DASHBOARD)
       } finally {
         setIsLoading(false)
       }
     })()
-  }, [])
+  }, [router])
 
   const handleSignOut = useCallback(() => {
     void (async () => {
@@ -36,11 +40,12 @@ export const HeaderUser: FC = () => {
         setIsOpen(false)
         setIsLoading(true)
         await signOut()
+        await router.push(ROUTES.HOME)
       } finally {
         setIsLoading(false)
       }
     })()
-  }, [])
+  }, [router])
 
   return (
     <div>

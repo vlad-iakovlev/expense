@@ -1,22 +1,22 @@
 import { FC } from 'react'
-import { useWalletContext } from '../../contexts/Wallet.tsx'
+import { useWalletBalance } from '../../../stores/RootStore/hooks/useWalletBalance.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
-export const WalletInfoBalance: FC = () => {
-  const { walletResponse } = useWalletContext()
+interface Props {
+  walletId: string
+}
 
-  if (!walletResponse) {
-    return <Card.Skeleton />
-  }
+export const WalletInfoBalance: FC<Props> = ({ walletId }) => {
+  const { walletBalance } = useWalletBalance({ walletId })
 
   return (
     <Card.Text
       end={
         <Amount
           className="font-medium"
-          amount={walletResponse.wallet.balance}
-          currency={walletResponse.wallet.currency}
+          amount={walletBalance.balance}
+          currency={walletBalance.currency}
         />
       }
     >

@@ -1,31 +1,22 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react'
-import { renameCategory } from '../../../api/client/categories.ts'
-import { useCategoriesContext } from '../../contexts/Categories.tsx'
-import { useLoadingContext } from '../../contexts/Loading.tsx'
-import { useOperationsContext } from '../../contexts/Operations.tsx'
-import { useStatisticsByCategoryContext } from '../../contexts/StatisticsByCategory.tsx'
+import { FC, useCallback, useMemo, useState } from 'react'
+import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   className?: string
+  groupId: string
 }
 
-export const RenameCategoryCard: FC<Props> = ({ className }) => {
-  const { setLoading } = useLoadingContext()
-  const { categoriesResponse, categoriesPayload, mutateCategories } =
-    useCategoriesContext()
-  const { mutateOperations } = useOperationsContext()
-  const { mutateStatisticsByCategory } = useStatisticsByCategoryContext()
+export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
+  const { categories, renameCategory } = useCategories({ groupId })
   const [category, setCategory] = useState('')
 
   const categoriesOptions = useMemo<CardSelectOption[]>(() => {
-    return (
-      categoriesResponse?.categories.map((category) => ({
-        id: category,
-        name: category,
-      })) ?? []
-    )
-  }, [categoriesResponse])
+    return categories.map((category) => ({
+      id: category,
+      name: category,
+    }))
+  }, [categories])
 
   const categoryValue = useMemo(
     () => ({
@@ -40,43 +31,14 @@ export const RenameCategoryCard: FC<Props> = ({ className }) => {
   }, [])
 
   const handleNameChange = useCallback(
-    async (name: string) => {
-      try {
-        setLoading(true)
-
-        await renameCategory({
-          groupId: categoriesPayload.groupId,
-          walletId: categoriesPayload.walletId,
-          category,
-          name,
-        })
-
-        setCategory('')
-
-        await Promise.all([
-          mutateCategories(),
-          mutateOperations(),
-          mutateStatisticsByCategory(),
-        ])
-      } finally {
-        setLoading(false)
-      }
+    (name: string) => {
+      renameCategory(category, name)
+      setCategory('')
     },
-    [
-      categoriesPayload,
-      category,
-      mutateCategories,
-      mutateOperations,
-      mutateStatisticsByCategory,
-      setLoading,
-    ]
+    [category, renameCategory]
   )
 
-  useEffect(() => {
-    setCategory('')
-  }, [categoriesResponse])
-
-  if (categoriesResponse?.categories.length === 0) {
+  if (!categories.length) {
     return null
   }
 
@@ -85,16 +47,12 @@ export const RenameCategoryCard: FC<Props> = ({ className }) => {
       <Card.Title title="Rename category" />
       <Card.Divider />
 
-      {categoriesResponse ? (
-        <Card.Select
-          name="Category"
-          options={categoriesOptions}
-          value={categoryValue}
-          onChange={handleSelectCategory}
-        />
-      ) : (
-        <Card.Skeleton />
-      )}
+      <Card.Select
+        name="Category"
+        options={categoriesOptions}
+        value={categoryValue}
+        onChange={handleSelectCategory}
+      />
 
       {category ? (
         <Card.Input
