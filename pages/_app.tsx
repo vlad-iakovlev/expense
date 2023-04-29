@@ -27,7 +27,11 @@ const App: FC<AppProps<{ session: Session | null }>> = ({
         />
       </NextHead>
 
-      <SessionProvider session={session}>
+      <SessionProvider
+        session={session}
+        refetchOnWindowFocus={false}
+        refetchWhenOffline={false}
+      >
         <RootStoreProvider>
           <Header />
           <Container className="py-6">
