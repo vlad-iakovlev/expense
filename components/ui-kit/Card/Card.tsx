@@ -31,7 +31,7 @@ export const Card = ({ className, children }: CardProps) => {
     <div
       className={clsx(
         className,
-        'max-sm:-mx-4 py-2 bg-white sm:rounded-md shadow-lg ring-1 ring-black ring-opacity-5'
+        'py-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5'
       )}
     >
       {children}
