@@ -2,6 +2,8 @@
   "name": "Expense",
   "short_name": "Expense",
   "description": "Expense Tracker",
+  "categories": ["finance", "productivity"],
+  "lang": "en",
   "theme_color": "#16a34a",
   "background_color": "#16a34a",
   "display": "standalone",
