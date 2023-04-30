@@ -19,7 +19,7 @@ export const PageWrapperLoading: FC<Props> = ({ isLoading }) => {
       <Portal>
         <Transition
           show={isLoading}
-          className="fixed z-50 inset-0 bg-zinc-500"
+          className="fixed z-50 inset-0 top-[72px] bg-zinc-500"
           enter="transition ease-out duration-300"
           enterFrom="opacity-0"
           enterTo="opacity-75"
