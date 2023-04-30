@@ -12,6 +12,7 @@
     "migrations:create": "npm run migrations -- --create",
     "migrations:apply-all": "npm run migrations -- --applyAll",
     "update-rates": "ts-node --esm -r dotenv/config bin/update-rates.ts",
+    "generate-splash": "pwa-asset-generator public/icon-white.svg public/splash -b '#16a34a' -p '40vh 40vw' -t png -h -x",
     "compile": "tsc",
     "lint": "next lint",
     "lint:ci": "DEBUG=eslint:cli-engine next lint",
@@ -62,6 +63,7 @@
     "lint-staged": "^13.2.1",
     "prettier": "^2.8.7",
     "prisma": "^4.13.0",
+    "pwa-asset-generator": "^6.2.1",
     "typescript": "^5.0.4"
   },
   "eslintConfig": {
