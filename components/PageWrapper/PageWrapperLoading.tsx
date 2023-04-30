@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { NextHead } from '../next/Head.ts'
+import { NextHead } from '../ui-kit/NextHead/NextHead.ts'
 
 export const PageWrapperLoading: FC = () => {
   return (

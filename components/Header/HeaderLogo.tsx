@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { NextLink } from '../next/Link.ts'
+import { NextLink } from '../ui-kit/NextLink/NextLink.ts'
 
 interface Props {
   className?: string

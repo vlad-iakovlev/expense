@@ -7,9 +7,9 @@ import { OperationsCard } from '../../cards/Operations/Operations.tsx'
 import { RenameCategoryCard } from '../../cards/RenameCategory/RenameCategory.tsx'
 import { StatisticsCard } from '../../cards/Statistics/Statistics.tsx'
 import { WalletsCard } from '../../cards/Wallets/Wallets.tsx'
-import { NextHead } from '../../next/Head.ts'
 import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
+import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
 
 interface Props {
   groupId: string

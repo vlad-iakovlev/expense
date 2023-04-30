@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import { NextHead } from '../../next/Head.ts'
 import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
+import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
 import { HomeFeatures } from './HomeFeatures.tsx'
 import { HomeInfo } from './HomeInfo.tsx'
 import { HomeWhatToDo } from './HomeWhatToDo.tsx'

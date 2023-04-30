@@ -4,9 +4,9 @@ import { useWallet } from '../../../stores/RootStore/hooks/useWallet.ts'
 import { OperationsCard } from '../../cards/Operations/Operations.tsx'
 import { StatisticsCard } from '../../cards/Statistics/Statistics.tsx'
 import { WalletInfoCard } from '../../cards/WalletInfo/WalletInfo.tsx'
-import { NextHead } from '../../next/Head.ts'
 import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
+import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
 
 interface Props {
   walletId: string
