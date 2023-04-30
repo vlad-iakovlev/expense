@@ -1,8 +1,8 @@
 import assert from 'assert'
 import chalk from 'chalk'
-import * as fs from 'fs'
+import fs from 'fs'
 import { Db, MongoClient } from 'mongodb'
-import * as path from 'path'
+import path from 'path'
 import { parseArgs } from 'util'
 
 const MIGRATIONS_PATH = path.join(process.cwd(), './migrations')
