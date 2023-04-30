@@ -10,6 +10,7 @@ export const MyDocument: FC<DocumentProps> = () => {
         <meta name="theme-color" content="#16a34a" />
         <meta name="description" content="Expense Tracker" />
 
+        {/* Some Apple related staff below */}
         <link rel="apple-touch-icon" href="/icons/icon.png" />
         <link rel="mask-icon" href="/icon.svg" color="#16a34a" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
