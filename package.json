@@ -13,6 +13,7 @@
     "migrations:apply-all": "npm run migrations -- --applyAll",
     "update-rates": "ts-node --esm -r dotenv/config bin/update-rates.ts",
     "generate-splash": "pwa-asset-generator public/icon.white.svg public/splash -b '#16a34a' -p '40vh 40vw' -t png -h -x",
+    "generate-icons": "convert-svg-to-png public/icons/icon.green.svg public/icons/icon.maskable.svg",
     "compile": "tsc",
     "lint": "next lint",
     "lint:ci": "DEBUG=eslint:cli-engine next lint",
@@ -56,6 +57,7 @@
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
     "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "convert-svg-to-png": "^0.6.4",
     "eslint": "^8.38.0",
     "eslint-config-next": "^13.3.1",
     "eslint-config-prettier": "^8.8.0",
