@@ -70,7 +70,6 @@ export const HeaderUser: FC = () => {
 
           <Card.Popup
             className="mt-2 w-72"
-            noMaxWidth
             isOpen={isOpen}
             anchorRef={profileButtonRef}
             position="below-right"
