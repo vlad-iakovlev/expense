@@ -1,8 +1,13 @@
+import { clsx } from 'clsx'
 import * as fns from 'date-fns'
 import { FC } from 'react'
 import { useSyncStatus } from '../../stores/RootStore/hooks/useSyncStatus.ts'
 
-export const HeaderSync: FC = () => {
+interface Props {
+  className?: string
+}
+
+export const HeaderSync: FC<Props> = ({ className }) => {
   const { isSyncing, syncedAt } = useSyncStatus()
 
   if (!syncedAt) {
@@ -10,7 +15,12 @@ export const HeaderSync: FC = () => {
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-28 h-10 px-2 font-medium bg-green-700 text-white rounded-md shadow-inner">
+    <div
+      className={clsx(
+        className,
+        'flex flex-col items-center justify-center w-28 h-10 px-2 font-medium bg-green-700 text-white rounded-md shadow-inner'
+      )}
+    >
       {isSyncing ? (
         <span className="text-sm">Syncing...</span>
       ) : (

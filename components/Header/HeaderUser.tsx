@@ -6,7 +6,11 @@ import { Avatar } from '../ui-kit/Avatar/Avatar.tsx'
 import { Button } from '../ui-kit/Button/Button.tsx'
 import { Card } from '../ui-kit/Card/Card.tsx'
 
-export const HeaderUser: FC = () => {
+interface Props {
+  className?: string
+}
+
+export const HeaderUser: FC<Props> = ({ className }) => {
   const session = useSession()
   const router = useRouter()
 
@@ -47,7 +51,7 @@ export const HeaderUser: FC = () => {
   }, [router])
 
   return (
-    <div>
+    <div className={className}>
       {session.status === 'unauthenticated' && (
         <Button disabled={isLoading} onClick={handleSignIn}>
           Sign In
