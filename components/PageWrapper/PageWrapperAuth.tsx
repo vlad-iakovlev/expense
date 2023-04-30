@@ -14,7 +14,7 @@ export const PageWrapperAuth: FC<Props> = ({ children, unauthenticated }) => {
     <>
       {session.status === 'authenticated' && children}
       {session.status === 'unauthenticated' && unauthenticated}
-      <PageWrapperLoading isLoading={session.status === 'loading'} />
+      {session.status === 'loading' && <PageWrapperLoading />}
     </>
   )
 }

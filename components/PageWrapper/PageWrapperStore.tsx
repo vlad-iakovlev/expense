@@ -12,7 +12,7 @@ export const PageWrapperStore: FC<Props> = ({ children }) => {
   return (
     <>
       {!!state.syncedAt && children}
-      <PageWrapperLoading isLoading={!state.syncedAt} />
+      {!state.syncedAt && <PageWrapperLoading />}
     </>
   )
 }
