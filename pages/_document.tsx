@@ -11,7 +11,7 @@ export const MyDocument: FC<DocumentProps> = () => {
         <meta name="description" content="Expense Tracker" />
 
         {/* Some Apple related staff below */}
-        <link rel="apple-touch-icon" href="/icons/icon.maskable.png" />
+        <link rel="apple-touch-icon" href="/icons/icon.apple.png" />
         <link rel="mask-icon" href="/icons/icon.mask.svg" color="#16a34a" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link

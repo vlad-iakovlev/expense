@@ -12,7 +12,7 @@
     "migrations:create": "npm run migrations -- --create",
     "migrations:apply-all": "npm run migrations -- --applyAll",
     "update-rates": "ts-node --esm -r dotenv/config bin/update-rates.ts",
-    "generate-splash": "pwa-asset-generator public/icon-white.svg public/splash -b '#16a34a' -p '40vh 40vw' -t png -h -x",
+    "generate-splash": "pwa-asset-generator public/icon.white.svg public/splash -b '#16a34a' -p '40vh 40vw' -t png -h -x",
     "compile": "tsc",
     "lint": "next lint",
     "lint:ci": "DEBUG=eslint:cli-engine next lint",
