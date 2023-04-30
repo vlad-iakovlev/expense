@@ -15,22 +15,17 @@ import { Portal } from '../Portal/Portal.tsx'
 
 export interface CardPopupProps {
   className?: string
+  noMaxWidth?: boolean
   isOpen: boolean
   anchorRef: RefObject<HTMLElement>
-  position:
-    | 'above-left'
-    | 'above-right'
-    | 'below-left'
-    | 'below-right'
-    | 'above'
-    | 'below'
+  position: 'above-left' | 'above-right' | 'below-left' | 'below-right'
   children: ReactNode
   onClose?: () => void
 }
 
 export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
   function CardPopup(
-    { className, isOpen, anchorRef, position, children, onClose },
+    { className, noMaxWidth, isOpen, anchorRef, position, children, onClose },
     ref
   ) {
     const rootRef = useRef<HTMLDivElement>(null)
@@ -68,20 +63,6 @@ export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
           return {
             top: anchorRect.bottom + scroll.top,
             left: anchorRect.right + scroll.left,
-          }
-
-        case 'above':
-          return {
-            top: anchorRect.top + scroll.top,
-            left: anchorRect.left + scroll.left,
-            width: anchorRect.width,
-          }
-
-        case 'below':
-          return {
-            top: anchorRect.bottom + scroll.top,
-            left: anchorRect.left + scroll.left,
-            width: anchorRect.width,
           }
       }
     }, [anchorRect, position, scroll])
@@ -131,8 +112,6 @@ export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
               'bottom-0 right-0 origin-top-right': position === 'above-right',
               'top-0 left-0 origin-top-left': position === 'below-left',
               'top-0 right-0 origin-top-right': position === 'below-right',
-              'bottom-0 left-0 right-0 origin-top-left': position === 'above',
-              'top-0 left-0 right-0 origin-top-left': position === 'below',
             })}
             enter="transition ease-out duration-100"
             enterFrom="transform opacity-0 scale-95"
@@ -140,6 +119,7 @@ export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
             leave="transition ease-in duration-75"
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
+            style={{ maxWidth: noMaxWidth ? undefined : anchorRect?.width }}
           >
             <div className="max-h-64 overflow-auto py-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
               {children}

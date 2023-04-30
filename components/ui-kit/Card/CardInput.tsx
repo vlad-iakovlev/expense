@@ -118,10 +118,10 @@ export const CardInput: FC<CardInputProps> = ({
       {suggestions?.length ? (
         <Card.Popup
           ref={popupRef}
-          className="-mt-2 mx-4 sm:mx-6"
+          className="-mt-2 px-4 sm:px-6"
           isOpen={isEditing}
           anchorRef={rootRef}
-          position="below"
+          position="below-right"
         >
           {suggestions.map((suggestion) => (
             <Card.Button

@@ -51,10 +51,10 @@ export function CardSelect<Id extends string = string>({
       </button>
 
       <Card.Popup
-        className="-mt-2 mx-4 sm:mx-6"
+        className="-mt-2 px-4 sm:px-6"
         isOpen={isOpen}
         anchorRef={rootRef}
-        position="below"
+        position="below-right"
         onClose={hide}
       >
         {options.map((option) => (
