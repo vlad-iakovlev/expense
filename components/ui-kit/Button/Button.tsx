@@ -29,7 +29,7 @@ export const Button: FC<ButtonProps> = ({
   <button
     className={clsx(
       className,
-      'relative inline-flex items-center justify-center before:absolute before:inset-0 before:border shadow-sm transition-colors',
+      'relative inline-flex items-center justify-center shadow-inner transition-colors before:absolute before:inset-0 before:border',
       {
         'rounded-md before:rounded-md': !rounded,
         'rounded-full before:rounded-full': rounded,

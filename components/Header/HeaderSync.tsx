@@ -10,7 +10,7 @@ export const HeaderSync: FC = () => {
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-28 h-10 px-2 font-medium bg-green-700 text-white rounded-md shadow-sm">
+    <div className="relative flex flex-col items-center justify-center w-28 h-10 px-2 font-medium bg-green-700 text-white rounded-md shadow-inner">
       {isSyncing ? (
         <span className="text-sm">Syncing...</span>
       ) : (
