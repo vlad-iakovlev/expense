@@ -166,7 +166,7 @@ export const MyDocument: FC<DocumentProps> = () => {
         />
       </Head>
 
-      <body className="bg-zinc-300">
+      <body className="bg-zinc-300 overscroll-none">
         <Main />
         <NextScript />
       </body>
