@@ -10,7 +10,13 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "/icon.png",
+      "src": "/icons/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon.maskable.png",
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "maskable"
