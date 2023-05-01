@@ -1,34 +1,89 @@
 import chalk from 'chalk'
 import fs from 'fs'
-import { Image } from 'imagescript'
 import path from 'path'
+import sharp from 'sharp'
 
-const SRC_PATH = path.join(process.cwd(), './icons')
-const DEST_PATH = path.join(process.cwd(), './public/icons')
+interface Icon {
+  srcPath: string
+  dstPath: string
+  srcSize: number
+  dstSize: number
+  background: string
+}
 
-const ICONS = {
-  'icon.green': [192, 512],
-  'icon.maskable': [192, 512],
+const generateIcon = async (icon: Icon) => {
+  const srcPath = path.join(process.cwd(), icon.srcPath)
+  const dstPath = path.join(process.cwd(), 'public', icon.dstPath)
+
+  await fs.promises.mkdir(path.dirname(dstPath), { recursive: true })
+
+  const srcIcon = await sharp(srcPath)
+    .resize({
+      width: Math.floor(icon.srcSize),
+      height: Math.floor(icon.srcSize),
+      fit: 'contain',
+    })
+    .toBuffer()
+
+  await sharp({
+    create: {
+      width: icon.dstSize,
+      height: icon.dstSize,
+      channels: 4,
+      background: icon.background,
+    },
+  })
+    .composite([{ input: srcIcon }])
+    .png()
+    .toFile(dstPath)
+
+  console.log(
+    chalk.green.bold(`[${icon.srcPath} => ${icon.dstPath}]`),
+    'Generated'
+  )
 }
 
 void (async () => {
   try {
-    for (const [name, sizes] of Object.entries(ICONS)) {
-      for (const size of sizes) {
-        const src = path.join(SRC_PATH, `${name}.svg`)
-        const dest = path.join(DEST_PATH, `${name}.${size}.png`)
+    await generateIcon({
+      srcPath: 'icons/icon-green.svg',
+      dstPath: 'icons/favicon.png',
+      srcSize: 32,
+      dstSize: 32,
+      background: '#00000000',
+    })
 
-        const iconSvg = await fs.promises.readFile(src, 'utf-8')
-        const icon = await Image.renderSVG(iconSvg, size, Image.SVG_MODE_WIDTH)
-        const iconPng = await icon.encode()
-        await fs.promises.writeFile(dest, iconPng)
+    await generateIcon({
+      srcPath: 'icons/icon-green.svg',
+      dstPath: 'icons/icon-192.png',
+      srcSize: 192,
+      dstSize: 192,
+      background: '#00000000',
+    })
 
-        console.log(
-          chalk.green.bold(`[${name}.svg]`),
-          `Generated ${name}.${size}.png`
-        )
-      }
-    }
+    await generateIcon({
+      srcPath: 'icons/icon-green.svg',
+      dstPath: 'icons/icon-512.png',
+      srcSize: 512,
+      dstSize: 512,
+      background: '#00000000',
+    })
+
+    await generateIcon({
+      srcPath: 'icons/icon-white.svg',
+      dstPath: 'icons/icon-192-maskable.png',
+      srcSize: 192,
+      dstSize: 192,
+      background: '#16a34aff',
+    })
+
+    await generateIcon({
+      srcPath: 'icons/icon-white.svg',
+      dstPath: 'icons/icon-512-maskable.png',
+      srcSize: 512,
+      dstSize: 512,
+      background: '#16a34aff',
+    })
 
     process.exit(0)
   } catch (error) {
