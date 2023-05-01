@@ -3,12 +3,6 @@ import { clsx } from 'clsx'
 import { FC, ReactNode, useEffect, useRef, useState } from 'react'
 import { Thumb, Track, getThumb, getTrack } from './utils.ts'
 
-export interface ScrollableProps {
-  className?: string
-  contentClassName?: string
-  children: ReactNode
-}
-
 const DEFAULT_TRACK: Track = {
   startOffset: 0,
   endOffset: 0,
@@ -19,9 +13,17 @@ const DEFAULT_TRACK: Track = {
 
 const DEFAULT_THUMB: Thumb = { offset: 0, length: 0 }
 
+export interface ScrollableProps {
+  className?: string
+  contentClassName?: string
+  theme?: 'light' | 'dark'
+  children: ReactNode
+}
+
 export const Scrollable: FC<ScrollableProps> = ({
   className,
   contentClassName,
+  theme = 'light',
   children,
 }) => {
   const contentRef = useRef<HTMLDivElement>(null)
@@ -115,7 +117,10 @@ export const Scrollable: FC<ScrollableProps> = ({
         }}
       >
         <div
-          className="absolute w-full bg-black bg-opacity-[0.35] rounded-full"
+          className={clsx('absolute w-full rounded-full', {
+            'bg-black bg-opacity-[0.35]': theme === 'light',
+            'bg-white bg-opacity-50': theme === 'dark',
+          })}
           style={{
             top: vThumb.offset,
             height: vThumb.length,
@@ -142,7 +147,10 @@ export const Scrollable: FC<ScrollableProps> = ({
         }}
       >
         <div
-          className="absolute h-full bg-black bg-opacity-[0.35] rounded-full"
+          className={clsx('absolute h-full rounded-full', {
+            'bg-black bg-opacity-[0.35]': theme === 'light',
+            'bg-white bg-opacity-50': theme === 'dark',
+          })}
           style={{
             left: hThumb.offset,
             width: hThumb.length,
