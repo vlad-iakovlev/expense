@@ -35,7 +35,7 @@
     "autoprefixer": "^10.4.14",
     "chalk": "^5.2.0",
     "clsx": "^1.2.1",
-    "date-fns": "^2.29.3",
+    "date-fns": "^2.30.0",
     "default-import": "^1.1.5",
     "dotenv": "^16.0.3",
     "imagescript": "^1.2.16",
