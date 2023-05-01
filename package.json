@@ -13,7 +13,7 @@
     "migrations:apply-all": "npm run migrations -- --applyAll",
     "update-rates": "ts-node --esm -r dotenv/config bin/update-rates.ts",
     "generate-icons": "ts-node --esm bin/generate-icons.ts",
-    "generate-splash": "pwa-asset-generator icons/icon.splash.svg public/splash -b '#16a34a' -p '40vh 40vw' -t png -h -x",
+    "generate-splash": "ts-node --esm bin/generate-splash.ts",
     "compile": "tsc",
     "lint": "next lint",
     "lint:ci": "DEBUG=eslint:cli-engine next lint",
@@ -45,6 +45,7 @@
     "next-auth": "^4.22.1",
     "next-pwa": "^5.6.0",
     "node-fetch": "^3.3.1",
+    "node-html-parser": "^6.1.5",
     "postcss": "^8.4.22",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -65,7 +66,6 @@
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.7",
     "prisma": "^4.13.0",
-    "pwa-asset-generator": "^6.2.1",
     "typescript": "^5.0.4"
   },
   "eslintConfig": {

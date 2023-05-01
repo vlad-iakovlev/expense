@@ -132,12 +132,12 @@ export const ApplePWA: FC = () => {
       />
       <link
         rel="apple-touch-startup-image"
-        href="/splash/apple-splash-1242-2208.png"
+        href="/splash/apple-splash-1080-1920.png"
         media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
       />
       <link
         rel="apple-touch-startup-image"
-        href="/splash/apple-splash-2208-1242.png"
+        href="/splash/apple-splash-1920-1080.png"
         media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
       />
       <link
