@@ -1,16 +1,17 @@
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { FC, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
+import { useIsBrowser } from '../../../hooks/useIsBrowser.ts'
 
 export interface PortalProps {
   children: ReactNode
 }
 
 export const Portal: FC<PortalProps> = ({ children }) => {
-  const [domLoaded, setDomLoaded] = useState(false)
+  const isBrowser = useIsBrowser()
 
-  useEffect(() => {
-    setDomLoaded(true)
-  }, [])
+  if (!isBrowser) {
+    return null
+  }
 
-  return domLoaded ? createPortal(children, document.body) : null
+  return createPortal(children, document.body)
 }

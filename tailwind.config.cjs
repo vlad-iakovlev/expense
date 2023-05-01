@@ -21,6 +21,7 @@ module.exports = {
     },
   },
   safelist: [
+    // Avatars
     'bg-red-700',
     'bg-orange-700',
     'bg-amber-700',
