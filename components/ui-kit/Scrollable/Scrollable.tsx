@@ -74,14 +74,14 @@ export const Scrollable: FC<ScrollableProps> = ({
 
   useEffect(() => {
     if (isVThumbVisible) {
-      const timerId = setTimeout(() => setIsVThumbVisible(false), 300)
+      const timerId = setTimeout(() => setIsVThumbVisible(false), 1000)
       return () => clearTimeout(timerId)
     }
   }, [isVThumbVisible, vThumbStyle])
 
   useEffect(() => {
     if (isHThumbVisible) {
-      const timerId = setTimeout(() => setIsHThumbVisible(false), 300)
+      const timerId = setTimeout(() => setIsHThumbVisible(false), 1000)
       return () => clearTimeout(timerId)
     }
   }, [isHThumbVisible, hThumbStyle])
@@ -99,10 +99,10 @@ export const Scrollable: FC<ScrollableProps> = ({
         unmount={false}
         show={isVThumbVisible}
         className="absolute bg-black bg-opacity-50 rounded-full pointer-events-none"
-        enter="transition-opacity ease-out duration-100"
+        enter="transition-opacity ease-out duration-75"
         enterFrom="opacity-0"
         enterTo="opacity-100"
-        leave="transition-opacity ease-in duration-75"
+        leave="transition-opacity ease-in duration-200"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
         style={vThumbStyle}
@@ -112,10 +112,10 @@ export const Scrollable: FC<ScrollableProps> = ({
         unmount={false}
         show={isHThumbVisible}
         className="absolute bg-black bg-opacity-50 rounded-full pointer-events-none"
-        enter="transition-opacity ease-out duration-100"
+        enter="transition-opacity ease-out duration-75"
         enterFrom="opacity-0"
         enterTo="opacity-100"
-        leave="transition-opacity ease-in duration-75"
+        leave="transition-opacity ease-in duration-200"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
         style={hThumbStyle}
