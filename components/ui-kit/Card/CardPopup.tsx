@@ -12,6 +12,7 @@ import {
   useState,
 } from 'react'
 import { Portal } from '../Portal/Portal.tsx'
+import { Scrollable } from '../Scrollable/Scrollable.tsx'
 
 export interface CardPopupProps {
   className?: string
@@ -121,9 +122,14 @@ export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
             leaveTo="transform opacity-0 scale-95"
             style={{ maxWidth: noMaxWidth ? undefined : anchorRect?.width }}
           >
-            <div className="max-h-64 overflow-auto py-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+            <Scrollable
+              classNames={{
+                root: 'bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5',
+                content: 'max-h-64 py-2 -mx-px px-px',
+              }}
+            >
               {children}
-            </div>
+            </Scrollable>
           </Transition>
         </div>
       </Portal>

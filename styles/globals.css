@@ -17,3 +17,14 @@ header {
   padding-right: env(safe-area-inset-right);
   padding-left: env(safe-area-inset-left);
 }
+
+@layer utilities {
+  .hide-scrollbars {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .hide-scrollbars::-webkit-scrollbar {
+    display: none;
+  }
+}
