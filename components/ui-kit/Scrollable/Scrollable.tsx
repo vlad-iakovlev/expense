@@ -73,7 +73,7 @@ export const Scrollable: FC<ScrollableProps> = ({
       setHThumb(hThumb)
     }
 
-    contentEl.addEventListener('scroll', handleScroll)
+    contentEl.addEventListener('scroll', handleScroll, { passive: true })
     return () => contentEl.removeEventListener('scroll', handleScroll)
   }, [])
 
