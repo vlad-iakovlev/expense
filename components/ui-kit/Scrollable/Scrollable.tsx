@@ -115,7 +115,7 @@ export const Scrollable: FC<ScrollableProps> = ({
         }}
       >
         <div
-          className="absolute w-full bg-black bg-opacity-50 rounded-full"
+          className="absolute w-full bg-black bg-opacity-[0.35] rounded-full"
           style={{
             top: vThumb.offset,
             height: vThumb.length,
@@ -142,7 +142,7 @@ export const Scrollable: FC<ScrollableProps> = ({
         }}
       >
         <div
-          className="absolute h-full bg-black bg-opacity-50 rounded-full"
+          className="absolute h-full bg-black bg-opacity-[0.35] rounded-full"
           style={{
             left: hThumb.offset,
             width: hThumb.length,
