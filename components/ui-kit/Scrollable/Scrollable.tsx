@@ -1,125 +1,154 @@
 import { Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import {
-  CSSProperties,
-  FC,
-  ReactNode,
-  UIEvent,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
-import { getThumbParams } from './utils.ts'
-
-interface ClassNames {
-  root?: string
-  content?: string
-}
+import { FC, ReactNode, useEffect, useRef, useState } from 'react'
+import { Thumb, Track, getThumb, getTrack } from './utils.ts'
 
 export interface ScrollableProps {
-  classNames?: ClassNames
+  className?: string
+  contentClassName?: string
   children: ReactNode
 }
 
+const DEFAULT_TRACK: Track = {
+  startOffset: 0,
+  endOffset: 0,
+  edgeOffset: 0,
+  thickness: 0,
+  length: 0,
+}
+
+const DEFAULT_THUMB: Thumb = { offset: 0, length: 0 }
+
 export const Scrollable: FC<ScrollableProps> = ({
-  classNames = {},
+  className,
+  contentClassName,
   children,
 }) => {
-  const [isVThumbVisible, setIsVThumbVisible] = useState(false)
-  const [isHThumbVisible, setIsHThumbVisible] = useState(false)
-  const [vThumbStyle, setVThumbStyle] = useState<CSSProperties>({})
-  const [hThumbStyle, setHThumbStyle] = useState<CSSProperties>({})
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [isVTrackVisible, setIsVTrackVisible] = useState(false)
+  const [isHTrackVisible, setIsHTrackVisible] = useState(false)
+  const [vTrack, setVTrack] = useState(DEFAULT_TRACK)
+  const [hTrack, setHTrack] = useState(DEFAULT_TRACK)
+  const [vThumb, setVThumb] = useState(DEFAULT_THUMB)
+  const [hThumb, setHThumb] = useState(DEFAULT_THUMB)
 
-  const handleScroll = useCallback((event: UIEvent<HTMLDivElement>) => {
-    const {
-      scrollTop,
-      scrollLeft,
-      scrollHeight,
-      scrollWidth,
-      clientHeight,
-      clientWidth,
-    } = event.currentTarget
+  useEffect(() => {
+    const contentEl = contentRef.current
+    if (!contentEl) return
 
-    const isVThumbVisible = scrollHeight > clientHeight
-    const isHThumbVisible = scrollWidth > clientWidth
+    const handleScroll = () => {
+      const needVTrack = contentEl.scrollHeight > contentEl.clientHeight
+      const needHTrack = contentEl.scrollWidth > contentEl.clientWidth
+      const isBothVisible = needVTrack && needHTrack
 
-    setIsVThumbVisible(isVThumbVisible)
-    const vThumbParams = getThumbParams({
-      scrolled: scrollTop,
-      container: clientHeight,
-      content: scrollHeight,
-      bothVisible: isVThumbVisible && isHThumbVisible,
-    })
-    setVThumbStyle({
-      top: vThumbParams.scrolledOffset,
-      right: vThumbParams.edgeOffset,
-      height: vThumbParams.length,
-      width: vThumbParams.thickness,
-    })
+      const vTrack = getTrack({
+        container: contentEl.clientHeight,
+        isBothVisible,
+      })
 
-    setIsHThumbVisible(isHThumbVisible)
-    const hThumbParams = getThumbParams({
-      scrolled: scrollLeft,
-      container: clientWidth,
-      content: scrollWidth,
-      bothVisible: isVThumbVisible && isHThumbVisible,
-    })
-    setHThumbStyle({
-      bottom: hThumbParams.edgeOffset,
-      left: hThumbParams.scrolledOffset,
-      height: hThumbParams.thickness,
-      width: hThumbParams.length,
-    })
+      const hTrack = getTrack({
+        container: contentEl.clientWidth,
+        isBothVisible,
+      })
+
+      const vThumb = getThumb({
+        container: contentEl.clientHeight,
+        content: contentEl.scrollHeight,
+        scrolled: contentEl.scrollTop,
+        trackLength: vTrack.length,
+      })
+
+      const hThumb = getThumb({
+        container: contentEl.clientWidth,
+        content: contentEl.scrollWidth,
+        scrolled: contentEl.scrollLeft,
+        trackLength: hTrack.length,
+      })
+
+      setIsVTrackVisible(needVTrack)
+      setIsHTrackVisible(needHTrack)
+      setVTrack(vTrack)
+      setHTrack(hTrack)
+      setVThumb(vThumb)
+      setHThumb(hThumb)
+    }
+
+    contentEl.addEventListener('scroll', handleScroll)
+    return () => contentEl.removeEventListener('scroll', handleScroll)
   }, [])
 
   useEffect(() => {
-    if (isVThumbVisible) {
-      const timerId = setTimeout(() => setIsVThumbVisible(false), 1000)
+    if (isVTrackVisible || isHTrackVisible) {
+      const timerId = setTimeout(() => {
+        setIsVTrackVisible(false)
+        setIsHTrackVisible(false)
+      }, 1000)
       return () => clearTimeout(timerId)
     }
-  }, [isVThumbVisible, vThumbStyle])
-
-  useEffect(() => {
-    if (isHThumbVisible) {
-      const timerId = setTimeout(() => setIsHThumbVisible(false), 1000)
-      return () => clearTimeout(timerId)
-    }
-  }, [isHThumbVisible, hThumbStyle])
+  }, [isVTrackVisible, isHTrackVisible, vTrack, hTrack, vThumb, hThumb])
 
   return (
-    <div className={clsx(classNames.root, 'relative overflow-hidden')}>
+    <div className={clsx(className, 'relative overflow-hidden')}>
       <div
-        className={clsx(classNames.content, 'overflow-auto hide-scrollbars')}
-        onScroll={handleScroll}
+        ref={contentRef}
+        className={clsx(contentClassName, 'overflow-auto hide-scrollbars')}
       >
         {children}
       </div>
 
       <Transition
+        aria-hidden
         unmount={false}
-        show={isVThumbVisible}
-        className="absolute bg-black bg-opacity-50 rounded-full pointer-events-none"
+        show={isVTrackVisible}
+        className="absolute pointer-events-none"
         enter="transition-opacity ease-out duration-75"
         enterFrom="opacity-0"
         enterTo="opacity-100"
         leave="transition-opacity ease-in duration-200"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
-        style={vThumbStyle}
-      />
+        style={{
+          top: vTrack.startOffset,
+          bottom: vTrack.endOffset,
+          right: vTrack.edgeOffset,
+          width: vTrack.thickness,
+        }}
+      >
+        <div
+          className="absolute w-full bg-black bg-opacity-50 rounded-full"
+          style={{
+            top: vThumb.offset,
+            height: vThumb.length,
+          }}
+        />
+      </Transition>
 
       <Transition
+        aria-hidden
         unmount={false}
-        show={isHThumbVisible}
-        className="absolute bg-black bg-opacity-50 rounded-full pointer-events-none"
+        show={isHTrackVisible}
+        className="absolute pointer-events-none"
         enter="transition-opacity ease-out duration-75"
         enterFrom="opacity-0"
         enterTo="opacity-100"
         leave="transition-opacity ease-in duration-200"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
-        style={hThumbStyle}
-      />
+        style={{
+          left: hTrack.startOffset,
+          right: hTrack.endOffset,
+          bottom: hTrack.edgeOffset,
+          height: hTrack.thickness,
+        }}
+      >
+        <div
+          className="absolute h-full bg-black bg-opacity-50 rounded-full"
+          style={{
+            left: hThumb.offset,
+            width: hThumb.length,
+          }}
+        />
+      </Transition>
     </div>
   )
 }

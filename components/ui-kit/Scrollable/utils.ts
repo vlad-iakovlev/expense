@@ -1,41 +1,77 @@
+import { clamp } from '../../../utils/clamp.ts'
+
 const THICKNESS = 3
 const OFFSET = 3
 const OVERLAP_OFFSET = 7
-const MIN_LENGTH = 36
+const MIN_BASE_LENGTH = 36
+const MIN_COMPRESSED_LENGTH = 7
 
-interface GetThumbParamsProps {
-  scrolled: number
+interface GetTrackParams {
   container: number
-  content: number
-  bothVisible: boolean
+  isBothVisible: boolean
 }
 
-interface ThumbParams {
+export interface Track {
+  startOffset: number
+  endOffset: number
   edgeOffset: number
-  scrolledOffset: number
   thickness: number
   length: number
 }
 
-export const getThumbParams = ({
-  scrolled,
+export const getTrack = ({
+  container,
+  isBothVisible,
+}: GetTrackParams): Track => {
+  const startOffset = OFFSET
+  const endOffset = isBothVisible ? OVERLAP_OFFSET : OFFSET
+
+  return {
+    startOffset,
+    endOffset,
+    edgeOffset: OFFSET,
+    thickness: THICKNESS,
+    length: container - startOffset - endOffset,
+  }
+}
+
+interface GetThumbParams {
+  container: number
+  content: number
+  scrolled: number
+  trackLength: number
+}
+
+export interface Thumb {
+  offset: number
+  length: number
+}
+
+export const getThumb = ({
   container,
   content,
-  bothVisible,
-}: GetThumbParamsProps): ThumbParams => {
-  const maxLength = container - OFFSET - (bothVisible ? OVERLAP_OFFSET : OFFSET)
-  const normalizedScrolled = (scrolled / content) * maxLength
-  const baseLength = (container / content) * maxLength
+  scrolled,
+  trackLength,
+}: GetThumbParams): Thumb => {
+  const maxScrolled = content - container
+  const normalizedScrolled = clamp(scrolled, 0, maxScrolled)
+  const overScrollTop = Math.max(normalizedScrolled - scrolled, 0)
+  const overScrollBottom = Math.max(scrolled - normalizedScrolled, 0)
 
-  const length = Math.min(
-    Math.max(baseLength, MIN_LENGTH) + Math.min(normalizedScrolled, 0),
-    maxLength - normalizedScrolled
+  const baseOffset = (normalizedScrolled / content) * trackLength
+  const baseLength = Math.max(
+    (container / content) * trackLength,
+    Math.min(MIN_BASE_LENGTH, trackLength)
   )
 
   return {
-    edgeOffset: OFFSET,
-    scrolledOffset: Math.max(normalizedScrolled, 0) + OFFSET,
-    thickness: THICKNESS,
-    length,
+    offset: Math.min(
+      baseOffset + overScrollBottom,
+      trackLength - Math.min(MIN_COMPRESSED_LENGTH, trackLength)
+    ),
+    length: Math.max(
+      baseLength - overScrollTop - overScrollBottom,
+      Math.min(MIN_COMPRESSED_LENGTH, trackLength)
+    ),
   }
 }

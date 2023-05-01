@@ -123,10 +123,8 @@ export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
             style={{ maxWidth: noMaxWidth ? undefined : anchorRect?.width }}
           >
             <Scrollable
-              classNames={{
-                root: 'bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5',
-                content: 'max-h-64 py-2 -mx-px px-px',
-              }}
+              className="bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
+              contentClassName="max-h-64 py-2 -mx-px px-px"
             >
               {children}
             </Scrollable>
