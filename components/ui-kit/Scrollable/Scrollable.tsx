@@ -78,7 +78,7 @@ export const Scrollable: FC<ScrollableProps> = ({
       <Transition
         unmount={false}
         show={isVThumbVisible}
-        className="absolute right-2 w-1 bg-zinc-400 rounded-full pointer-events-none"
+        className="absolute right-2 w-[3px] bg-black bg-opacity-50 rounded-full pointer-events-none"
         enter="transition-opacity ease-out duration-100"
         enterFrom="opacity-0"
         enterTo="opacity-100"
@@ -91,7 +91,7 @@ export const Scrollable: FC<ScrollableProps> = ({
       <Transition
         unmount={false}
         show={isHThumbVisible}
-        className="absolute bottom-2 h-1 bg-zinc-400 rounded-full pointer-events-none"
+        className="absolute bottom-2 h-[3px] bg-black bg-opacity-50 rounded-full pointer-events-none"
         enter="transition-opacity ease-out duration-100"
         enterFrom="opacity-0"
         enterTo="opacity-100"
