@@ -62,7 +62,7 @@
     "eslint-config-next": "^13.3.4",
     "eslint-config-prettier": "^8.8.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.1",
+    "lint-staged": "^13.2.2",
     "prettier": "^2.8.7",
     "prisma": "^4.13.0",
     "pwa-asset-generator": "^6.2.1",
