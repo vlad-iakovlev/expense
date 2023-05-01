@@ -88,7 +88,7 @@ void (async () => {
     await generateIcon({
       srcPath: 'icons/icon-white.svg',
       dstPath: 'icons/apple-touch-icon.png',
-      srcSize: Math.floor(180 * 0.7),
+      srcSize: Math.floor(180 * 0.75),
       dstSize: 180,
       background: '#16a34aff',
     })
