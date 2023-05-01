@@ -3,9 +3,13 @@ import { FC } from 'react'
 export const ApplePWA: FC = () => {
   return (
     <>
-      <link rel="apple-touch-icon" href="/icons/icon.maskable.512.png" />
-      <link rel="mask-icon" href="/icons/icon.mask.svg" color="#16a34a" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
+      <link rel="mask-icon" href="/icons/mask-icon.svg" color="#16a34a" />
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/icons/apple-touch-icon.png"
+      />
       <link
         rel="apple-touch-startup-image"
         href="/splash/apple-splash-2048-2732.png"
@@ -128,12 +132,12 @@ export const ApplePWA: FC = () => {
       />
       <link
         rel="apple-touch-startup-image"
-        href="/splash/apple-splash-1242-2208.png"
+        href="/splash/apple-splash-1080-1920.png"
         media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
       />
       <link
         rel="apple-touch-startup-image"
-        href="/splash/apple-splash-2208-1242.png"
+        href="/splash/apple-splash-1920-1080.png"
         media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
       />
       <link
