@@ -10,7 +10,7 @@ jobs:
     if: github.repository == 'vlad-yakovlev/expense'
     runs-on: ubuntu-latest
     steps:
-      - name: Call update-rates script in Digital Ocean droplet via SSH action
+      - name: Call update-rates script in Digital Ocean droplet
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
