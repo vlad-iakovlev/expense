@@ -19,8 +19,8 @@ const generateIcon = async (icon: Icon) => {
 
   const srcIcon = await sharp(srcPath)
     .resize({
-      width: Math.floor(icon.srcSize),
-      height: Math.floor(icon.srcSize),
+      width: icon.srcSize,
+      height: icon.srcSize,
       fit: 'contain',
     })
     .toBuffer()
@@ -72,7 +72,7 @@ void (async () => {
     await generateIcon({
       srcPath: 'icons/icon-white.svg',
       dstPath: 'icons/icon-192-maskable.png',
-      srcSize: 192,
+      srcSize: Math.floor(192 * 0.65),
       dstSize: 192,
       background: '#16a34aff',
     })
@@ -80,7 +80,7 @@ void (async () => {
     await generateIcon({
       srcPath: 'icons/icon-white.svg',
       dstPath: 'icons/icon-512-maskable.png',
-      srcSize: 512,
+      srcSize: Math.floor(512 * 0.65),
       dstSize: 512,
       background: '#16a34aff',
     })
