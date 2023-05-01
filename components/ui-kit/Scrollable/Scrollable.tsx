@@ -41,14 +41,14 @@ export const Scrollable: FC<ScrollableProps> = ({
 
     setIsVThumbVisible(scrollHeight > clientHeight)
     setVThumbStyle({
-      top: (scrollTop / scrollHeight) * (clientHeight - 32) + 8,
-      height: (clientHeight / scrollHeight) * (clientHeight - 32) + 16,
+      top: (scrollTop / scrollHeight) * (clientHeight - 12) + 3,
+      height: (clientHeight / scrollHeight) * (clientHeight - 12) + 6,
     })
 
     setIsHThumbVisible(scrollWidth > clientWidth)
     setHThumbStyle({
-      left: (scrollLeft / scrollWidth) * (clientWidth - 32) + 8,
-      width: (clientWidth / scrollWidth) * (clientWidth - 32) + 16,
+      left: (scrollLeft / scrollWidth) * (clientWidth - 12) + 3,
+      width: (clientWidth / scrollWidth) * (clientWidth - 12) + 6,
     })
   }, [])
 
@@ -78,7 +78,7 @@ export const Scrollable: FC<ScrollableProps> = ({
       <Transition
         unmount={false}
         show={isVThumbVisible}
-        className="absolute right-2 w-[3px] bg-black bg-opacity-50 rounded-full pointer-events-none"
+        className="absolute right-[3px] w-[3px] bg-black bg-opacity-50 rounded-full pointer-events-none"
         enter="transition-opacity ease-out duration-100"
         enterFrom="opacity-0"
         enterTo="opacity-100"
@@ -91,7 +91,7 @@ export const Scrollable: FC<ScrollableProps> = ({
       <Transition
         unmount={false}
         show={isHThumbVisible}
-        className="absolute bottom-2 h-[3px] bg-black bg-opacity-50 rounded-full pointer-events-none"
+        className="absolute bottom-[3px] h-[3px] bg-black bg-opacity-50 rounded-full pointer-events-none"
         enter="transition-opacity ease-out duration-100"
         enterFrom="opacity-0"
         enterTo="opacity-100"
