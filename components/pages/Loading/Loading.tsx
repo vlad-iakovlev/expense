@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import { NextHead } from '../ui-kit/NextHead/NextHead.ts'
+import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
 
-export const PageWrapperLoading: FC = () => {
+export const Loading: FC = () => {
   return (
     <NextHead>
       <title>Expense loading...</title>

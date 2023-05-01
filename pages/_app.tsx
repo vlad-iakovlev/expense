@@ -1,5 +1,4 @@
 import * as fns from 'date-fns'
-import 'inter-ui/inter.css'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app.js'

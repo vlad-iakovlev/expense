@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react'
 import { useRootStore } from '../../stores/RootStore/RootStore.tsx'
-import { PageWrapperLoading } from './PageWrapperLoading.tsx'
+import { Loading } from '../pages/Loading/Loading.tsx'
 
 interface Props {
   children: ReactNode
@@ -12,7 +12,7 @@ export const PageWrapperStore: FC<Props> = ({ children }) => {
   return (
     <>
       {!!state.syncedAt && children}
-      {!state.syncedAt && <PageWrapperLoading />}
+      {!state.syncedAt && <Loading />}
     </>
   )
 }

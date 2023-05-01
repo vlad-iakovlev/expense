@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
 import { FC, ReactNode } from 'react'
-import { PageWrapperLoading } from './PageWrapperLoading.tsx'
+import { Loading } from '../pages/Loading/Loading.tsx'
 
 interface Props {
   children: ReactNode
@@ -14,7 +14,7 @@ export const PageWrapperAuth: FC<Props> = ({ children, unauthenticated }) => {
     <>
       {session.status === 'authenticated' && children}
       {session.status === 'unauthenticated' && unauthenticated}
-      {session.status === 'loading' && <PageWrapperLoading />}
+      {session.status === 'loading' && <Loading />}
     </>
   )
 }
