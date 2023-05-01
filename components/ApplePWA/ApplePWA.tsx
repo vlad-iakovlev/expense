@@ -3,9 +3,13 @@ import { FC } from 'react'
 export const ApplePWA: FC = () => {
   return (
     <>
-      <link rel="apple-touch-icon" href="/icons/icon-512-maskable.png" />
-      <link rel="mask-icon" href="/icons/mask-icon.svg" color="#16a34a" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
+      <link rel="mask-icon" href="/icons/mask-icon.svg" color="#16a34a" />
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/icons/apple-touch-icon.png"
+      />
       <link
         rel="apple-touch-startup-image"
         href="/splash/apple-splash-2048-2732.png"

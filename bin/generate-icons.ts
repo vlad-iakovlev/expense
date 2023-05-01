@@ -72,7 +72,7 @@ void (async () => {
     await generateIcon({
       srcPath: 'icons/icon-white.svg',
       dstPath: 'icons/icon-192-maskable.png',
-      srcSize: Math.floor(192 * 0.65),
+      srcSize: Math.floor(192 * 0.6),
       dstSize: 192,
       background: '#16a34aff',
     })
@@ -80,8 +80,16 @@ void (async () => {
     await generateIcon({
       srcPath: 'icons/icon-white.svg',
       dstPath: 'icons/icon-512-maskable.png',
-      srcSize: Math.floor(512 * 0.65),
+      srcSize: Math.floor(512 * 0.6),
       dstSize: 512,
+      background: '#16a34aff',
+    })
+
+    await generateIcon({
+      srcPath: 'icons/icon-white.svg',
+      dstPath: 'icons/apple-touch-icon.png',
+      srcSize: Math.floor(180 * 0.7),
+      dstSize: 180,
       background: '#16a34aff',
     })
 
