@@ -9,6 +9,7 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { getThumbParams } from './utils.ts'
 
 interface ClassNames {
   root?: string
@@ -39,16 +40,35 @@ export const Scrollable: FC<ScrollableProps> = ({
       clientWidth,
     } = event.currentTarget
 
-    setIsVThumbVisible(scrollHeight > clientHeight)
+    const isVThumbVisible = scrollHeight > clientHeight
+    const isHThumbVisible = scrollWidth > clientWidth
+
+    setIsVThumbVisible(isVThumbVisible)
+    const vThumbParams = getThumbParams({
+      scrolled: scrollTop,
+      container: clientHeight,
+      content: scrollHeight,
+      bothVisible: isVThumbVisible && isHThumbVisible,
+    })
     setVThumbStyle({
-      top: (scrollTop / scrollHeight) * (clientHeight - 12) + 3,
-      height: (clientHeight / scrollHeight) * (clientHeight - 12) + 6,
+      top: vThumbParams.scrolledOffset,
+      right: vThumbParams.edgeOffset,
+      height: vThumbParams.length,
+      width: vThumbParams.thickness,
     })
 
-    setIsHThumbVisible(scrollWidth > clientWidth)
+    setIsHThumbVisible(isHThumbVisible)
+    const hThumbParams = getThumbParams({
+      scrolled: scrollLeft,
+      container: clientWidth,
+      content: scrollWidth,
+      bothVisible: isVThumbVisible && isHThumbVisible,
+    })
     setHThumbStyle({
-      left: (scrollLeft / scrollWidth) * (clientWidth - 12) + 3,
-      width: (clientWidth / scrollWidth) * (clientWidth - 12) + 6,
+      bottom: hThumbParams.edgeOffset,
+      left: hThumbParams.scrolledOffset,
+      height: hThumbParams.thickness,
+      width: hThumbParams.length,
     })
   }, [])
 
@@ -78,7 +98,7 @@ export const Scrollable: FC<ScrollableProps> = ({
       <Transition
         unmount={false}
         show={isVThumbVisible}
-        className="absolute right-[3px] w-[3px] bg-black bg-opacity-50 rounded-full pointer-events-none"
+        className="absolute bg-black bg-opacity-50 rounded-full pointer-events-none"
         enter="transition-opacity ease-out duration-100"
         enterFrom="opacity-0"
         enterTo="opacity-100"
@@ -91,7 +111,7 @@ export const Scrollable: FC<ScrollableProps> = ({
       <Transition
         unmount={false}
         show={isHThumbVisible}
-        className="absolute bottom-[3px] h-[3px] bg-black bg-opacity-50 rounded-full pointer-events-none"
+        className="absolute bg-black bg-opacity-50 rounded-full pointer-events-none"
         enter="transition-opacity ease-out duration-100"
         enterFrom="opacity-0"
         enterTo="opacity-100"
