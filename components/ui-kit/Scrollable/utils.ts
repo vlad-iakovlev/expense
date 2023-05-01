@@ -24,12 +24,17 @@ export const getThumbParams = ({
   bothVisible,
 }: GetThumbParamsProps): ThumbParams => {
   const maxLength = container - OFFSET - (bothVisible ? OVERLAP_OFFSET : OFFSET)
-  const length = Math.max((container / content) * maxLength, MIN_LENGTH)
-  const scrolledOffset = Math.max((scrolled / content) * maxLength + OFFSET, 0)
+  const normalizedScrolled = (scrolled / content) * maxLength
+  const baseLength = (container / content) * maxLength
+
+  const length = Math.min(
+    Math.max(baseLength, MIN_LENGTH) + Math.min(normalizedScrolled, 0),
+    maxLength - normalizedScrolled
+  )
 
   return {
     edgeOffset: OFFSET,
-    scrolledOffset,
+    scrolledOffset: Math.max(normalizedScrolled, 0) + OFFSET,
     thickness: THICKNESS,
     length,
   }
