@@ -67,8 +67,10 @@ export const CardInput: FC<CardInputProps> = ({
         return
       }
 
-      if (inputValue && inputValue !== value) {
-        onChange(inputValue)
+      const formattedValue = inputValue.trim().replace(/\s+/g, ' ')
+
+      if (formattedValue && formattedValue !== value) {
+        onChange(formattedValue)
       }
 
       setIsEditing(false)
