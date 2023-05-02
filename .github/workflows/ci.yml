@@ -11,6 +11,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   checks:
     strategy:
@@ -36,9 +40,6 @@ jobs:
   deploy:
     needs: checks
     if: github.repository == 'vlad-yakovlev/expense' && github.ref == 'refs/heads/main'
-    concurrency:
-      group: ci-deploy-${{ github.ref }}
-      cancel-in-progress: true
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Digital Ocean droplet
