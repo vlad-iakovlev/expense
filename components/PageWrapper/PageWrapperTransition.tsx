@@ -1,6 +1,6 @@
 import { HTMLMotionProps, Variants, motion } from 'framer-motion'
 import { useRouter } from 'next/router.js'
-import { forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useEffect, useMemo, useState } from 'react'
 
 const transition = { ease: 'easeInOut', duration: 0.3 }
 
@@ -40,6 +40,13 @@ export const PageWrapperTransition = forwardRef<
       }),
     }
   }, [animation])
+
+  useEffect(() => {
+    if (router.query.animation) {
+      // Update route to prevent animation on refresh or browser back
+      void router.replace(router.asPath, undefined, { shallow: true })
+    }
+  }, [router])
 
   return (
     <motion.div
