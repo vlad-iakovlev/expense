@@ -6,7 +6,7 @@ import { HeaderUser } from './HeaderUser.tsx'
 
 export const Header: FC = () => {
   return (
-    <header className="sticky z-10 w-full pt-[env(safe-area-inset-top)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] bg-green-600">
+    <header className="sticky top-0 z-10 w-full pt-[env(safe-area-inset-top)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] bg-green-600">
       <Container className="flex items-center h-[72px]">
         <HeaderLogo className="flex-1 min-w-0" />
         <div className="flex-none h-[72px] w-6 -ml-6 bg-gradient-to-l from-green-600 pointer-events-none" />
