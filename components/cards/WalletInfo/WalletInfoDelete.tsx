@@ -24,7 +24,8 @@ export const WalletInfoDelete: FC<Props> = ({ walletId }) => {
 
   const handleDeleteConfirm = useCallback(() => {
     void (async () => {
-      await router.push(ROUTES.GROUP(wallet.group.id))
+      const href = ROUTES.GROUP(wallet.group.id)
+      await router.push({ pathname: href, query: { animation: 'back' } }, href)
       removeWallet()
     })()
   }, [removeWallet, router, wallet.group.id])

@@ -24,7 +24,8 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({
         <Fragment key={parent.href}>
           <NextLink
             className="max-md:hidden min-w-0 text-lg font-medium text-cyan-900 truncate"
-            href={parent.href}
+            href={{ pathname: parent.href, query: { animation: 'back' } }}
+            as={parent.href}
           >
             {parent.title}
           </NextLink>
@@ -35,7 +36,8 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({
       {mobileBack ? (
         <NextLink
           className="flex md:hidden items-center gap-2 min-w-0 text-lg font-medium text-cyan-900 truncate"
-          href={mobileBack.href}
+          href={{ pathname: mobileBack.href, query: { animation: 'back' } }}
+          as={mobileBack.href}
         >
           <ArrowUturnLeftIcon className="flex-none w-5 h-5" />
           {mobileBack.title}

@@ -42,7 +42,7 @@ export const HeaderUser: FC<Props> = ({ className }) => {
       try {
         setIsOpen(false)
         setIsLoading(true)
-        await router.push(ROUTES.DASHBOARD)
+        await router.push(router.asPath, ROUTES.DASHBOARD)
         await signOut()
       } finally {
         setIsLoading(false)

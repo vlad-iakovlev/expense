@@ -22,7 +22,8 @@ export const OperationInfoDelete: FC<Props> = ({ operationId }) => {
   const handleDeleteConfirm = useCallback(() => {
     void (async () => {
       const wallet = operation.expenseWallet ?? operation.incomeWallet
-      await router.push(wallet ? ROUTES.WALLET(wallet.id) : ROUTES.DASHBOARD)
+      const href = wallet ? ROUTES.WALLET(wallet.id) : ROUTES.DASHBOARD
+      await router.push({ pathname: href, query: { animation: 'back' } }, href)
       removeOperation()
     })()
   }, [operation.expenseWallet, operation.incomeWallet, removeOperation, router])

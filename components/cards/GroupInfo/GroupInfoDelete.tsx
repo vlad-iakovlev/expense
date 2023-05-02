@@ -24,7 +24,8 @@ export const GroupInfoDelete: FC<Props> = ({ groupId }) => {
 
   const handleDeleteConfirm = useCallback(() => {
     void (async () => {
-      await router.push(ROUTES.DASHBOARD)
+      const href = ROUTES.DASHBOARD
+      await router.push({ pathname: href, query: { animation: 'back' } }, href)
       removeGroup()
     })()
   }, [removeGroup, router])
