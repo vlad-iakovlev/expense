@@ -11,6 +11,13 @@ export const PageWrapperTransition = forwardRef<
   const router = useRouter()
   const [animation] = useState(router.query.animation)
 
+  useEffect(() => {
+    if (router.query.animation) {
+      // Update route to prevent animation on refresh or browser back
+      void router.replace(router.asPath, undefined, { shallow: true })
+    }
+  }, [router])
+
   const variants = useMemo<Variants>(() => {
     return {
       initial: {
@@ -40,13 +47,6 @@ export const PageWrapperTransition = forwardRef<
       }),
     }
   }, [animation])
-
-  useEffect(() => {
-    if (router.query.animation) {
-      // Update route to prevent animation on refresh or browser back
-      void router.replace(router.asPath, undefined, { shallow: true })
-    }
-  }, [router])
 
   return (
     <motion.div
