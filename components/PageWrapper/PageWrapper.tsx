@@ -18,12 +18,12 @@ export const PageWrapper = forwardRef<HTMLDivElement, Props>(
   ) {
     return (
       <PageWrapperTransition
-        className="h-full pt-[calc(env(safe-area-inset-top)+72px)]bg-zinc-300"
+        className="h-full pt-[calc(env(safe-area-inset-top)+72px)] bg-zinc-300"
         ref={ref}
       >
         <Scrollable
           className="h-full"
-          contentClassName="h-full pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] "
+          contentClassName="h-full pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]"
         >
           <Container className="py-6">
             <PageWrapperAuth unauthenticated={unauthenticated}>
