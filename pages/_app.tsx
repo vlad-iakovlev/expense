@@ -1,10 +1,11 @@
 import * as fns from 'date-fns'
+import { AnimatePresence } from 'framer-motion'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app.js'
+import { useRouter } from 'next/router.js'
 import { FC, useEffect } from 'react'
 import { Header } from '../components/Header/Header.tsx'
-import { Container } from '../components/ui-kit/Container/Container.tsx'
 import { NextHead } from '../components/ui-kit/NextHead/NextHead.ts'
 import { RootStoreProvider } from '../stores/RootStore/RootStore.tsx'
 import '../styles/globals.css'
@@ -13,6 +14,8 @@ const App: FC<AppProps<{ session: Session | null }>> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  const router = useRouter()
+
   useEffect(() => {
     fns.setDefaultOptions({ weekStartsOn: 1 })
   }, [])
@@ -33,9 +36,9 @@ const App: FC<AppProps<{ session: Session | null }>> = ({
       >
         <RootStoreProvider>
           <Header />
-          <Container className="py-6">
-            <Component {...pageProps} />
-          </Container>
+          <AnimatePresence initial={false} mode="popLayout">
+            <Component key={router.asPath} {...pageProps} />
+          </AnimatePresence>
         </RootStoreProvider>
       </SessionProvider>
     </>
