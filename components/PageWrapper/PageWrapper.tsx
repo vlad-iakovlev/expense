@@ -17,7 +17,7 @@ export const PageWrapper = forwardRef<HTMLDivElement, Props>(
   ) {
     return (
       <PageWrapperTransition
-        className="min-h-[calc(100vh-env(safe-area-inset-top)-72px)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] bg-zinc-300"
+        className="min-h-screen pt-[calc(env(safe-area-inset-top)+72px)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] bg-zinc-300"
         ref={ref}
       >
         <Container className="py-6">
