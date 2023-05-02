@@ -11,9 +11,7 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
+concurrency: ci-${{ github.ref }}
 
 jobs:
   checks:
