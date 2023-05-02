@@ -161,6 +161,7 @@ const setOperationTypeReducer: Reducer<
               expenseAmount: 0,
               incomeWalletId: walletId,
               expenseWalletId: null,
+              updatedAt: new Date(),
             }
           }
 
@@ -171,6 +172,7 @@ const setOperationTypeReducer: Reducer<
               expenseAmount: amount,
               incomeWalletId: null,
               expenseWalletId: walletId ?? null,
+              updatedAt: new Date(),
             }
 
           case ClientOperationType.TRANSFER:
@@ -180,6 +182,7 @@ const setOperationTypeReducer: Reducer<
               expenseAmount: amount,
               incomeWalletId: walletId ?? null,
               expenseWalletId: walletId ?? null,
+              updatedAt: new Date(),
             }
         }
       }
