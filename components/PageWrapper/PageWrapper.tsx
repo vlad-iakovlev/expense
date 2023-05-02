@@ -16,7 +16,10 @@ export const PageWrapper = forwardRef<HTMLDivElement, Props>(
     ref
   ) {
     return (
-      <PageTransition className="main-content bg-zinc-300" ref={ref}>
+      <PageTransition
+        className="min-h-screen pt-[calc(env(safe-area-inset-top)+72px)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] bg-zinc-300"
+        ref={ref}
+      >
         <Container className="py-6">
           <PageWrapperAuth unauthenticated={unauthenticated}>
             <PageWrapperStore>{children}</PageWrapperStore>
