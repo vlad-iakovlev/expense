@@ -1,9 +1,4 @@
-import {
-  HTMLMotionProps,
-  Variants,
-  motion,
-  useMotionValue,
-} from 'framer-motion'
+import { HTMLMotionProps, Variants, motion } from 'framer-motion'
 import { useRouter } from 'next/router.js'
 import { forwardRef, useEffect, useMemo, useState } from 'react'
 
@@ -14,7 +9,6 @@ export const PageWrapperTransition = forwardRef<
   HTMLMotionProps<'div'>
 >(function PageTransition({ children, ...rest }, ref) {
   const router = useRouter()
-  const [asPath] = useState(router.asPath)
   const [animation] = useState(router.query.animation)
 
   useEffect(() => {
@@ -23,23 +17,6 @@ export const PageWrapperTransition = forwardRef<
       void router.replace(router.asPath, undefined, { shallow: true })
     }
   }, [router])
-
-  const y = useMotionValue(0)
-
-  useEffect(() => {
-    const handleRouteChange = (
-      url: string,
-      { shallow }: { shallow: boolean }
-    ) => {
-      if (url !== asPath && !shallow) {
-        y.set(-document.documentElement.scrollTop)
-        document.documentElement.scrollTop = 0
-      }
-    }
-
-    router.events.on('routeChangeStart', handleRouteChange)
-    return () => router.events.off('routeChangeStart', handleRouteChange)
-  }, [asPath, router.events, y])
 
   const variants = useMemo<Variants>(() => {
     return {
@@ -79,7 +56,6 @@ export const PageWrapperTransition = forwardRef<
       exit="exitTo"
       transition={transition}
       variants={variants}
-      style={{ y }}
       {...rest}
     >
       {children}
