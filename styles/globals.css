@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+a {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
 @layer utilities {
   .hide-scrollbars {
     scrollbar-width: none;
