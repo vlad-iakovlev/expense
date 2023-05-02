@@ -36,7 +36,11 @@ const App: FC<AppProps<{ session: Session | null }>> = ({
       >
         <RootStoreProvider>
           <Header />
-          <AnimatePresence initial={false} mode="popLayout">
+          <AnimatePresence
+            initial={false}
+            mode="popLayout"
+            custom={router.query.animation}
+          >
             <Component key={router.asPath} {...pageProps} />
           </AnimatePresence>
         </RootStoreProvider>

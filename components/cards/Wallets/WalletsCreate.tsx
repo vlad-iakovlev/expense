@@ -15,7 +15,8 @@ export const WalletsCreate: FC<Props> = ({ groupId }) => {
 
   const handleCreate = useCallback(() => {
     const walletId = createWallet()
-    void router.push(ROUTES.WALLET(walletId))
+    const href = ROUTES.WALLET(walletId)
+    void router.push({ pathname: href, query: { animation: 'forward' } }, href)
   }, [createWallet, router])
 
   if (!groupId) {

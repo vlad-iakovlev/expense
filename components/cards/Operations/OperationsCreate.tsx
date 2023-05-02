@@ -15,7 +15,8 @@ export const OperationsCreate: FC<Props> = ({ walletId }) => {
 
   const handleCreate = useCallback(() => {
     const operationId = createOperation()
-    void router.push(ROUTES.OPERATION(operationId))
+    const href = ROUTES.OPERATION(operationId)
+    void router.push({ pathname: href, query: { animation: 'forward' } }, href)
   }, [createOperation, router])
 
   if (!walletId) {

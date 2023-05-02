@@ -48,7 +48,11 @@ export const WalletsItem: FC<Props> = ({ canDrag, walletId }) => {
   const handleClick = useCallback(
     (event: MouseEvent) => {
       if (!dragHandleRef.current?.contains(event.target as Node)) {
-        void router.push(ROUTES.WALLET(wallet.id))
+        const href = ROUTES.WALLET(wallet.id)
+        void router.push(
+          { pathname: href, query: { animation: 'forward' } },
+          href
+        )
       }
     },
     [router, wallet.id]

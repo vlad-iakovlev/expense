@@ -11,7 +11,8 @@ export const GroupsCreate: FC = () => {
 
   const handleCreate = useCallback(() => {
     const groupId = createGroup()
-    void router.push(ROUTES.GROUP(groupId))
+    const href = ROUTES.GROUP(groupId)
+    void router.push({ pathname: href, query: { animation: 'forward' } }, href)
   }, [createGroup, router])
 
   return (
