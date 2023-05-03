@@ -7,6 +7,7 @@ import { WalletInfoCard } from '../../cards/WalletInfo/WalletInfo.tsx'
 import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
 import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
+import { Title } from '../../ui-kit/Title/Title.tsx'
 
 interface Props {
   walletId: string
@@ -14,6 +15,8 @@ interface Props {
 
 export const Wallet: FC<Props> = ({ walletId }) => {
   const { wallet } = useWallet({ walletId })
+
+  const walletName = `${wallet.name} ${wallet.currency.name}`
 
   const parents = useMemo(() => {
     return [
@@ -31,13 +34,11 @@ export const Wallet: FC<Props> = ({ walletId }) => {
   return (
     <>
       <NextHead>
-        <title>{`Expense > ${wallet.name} ${wallet.currency.name}`}</title>
+        <title>{`Expense > ${walletName}`}</title>
       </NextHead>
 
-      <Breadcrumbs
-        title={`${wallet.name} ${wallet.currency.name}`}
-        parents={parents}
-      />
+      <Breadcrumbs parents={parents} />
+      <Title>{walletName}</Title>
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] lg:grid-rows-none">
         <WalletInfoCard walletId={walletId} />

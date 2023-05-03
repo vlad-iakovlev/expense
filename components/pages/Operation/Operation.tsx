@@ -5,6 +5,7 @@ import { OperationInfoCard } from '../../cards/OperationInfo/OperationInfo.tsx'
 import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
 import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
+import { Title } from '../../ui-kit/Title/Title.tsx'
 
 interface Props {
   operationId: string
@@ -40,10 +41,8 @@ export const Operation: FC<Props> = ({ operationId }) => {
         <title>{`Expense > ${operation.category} – ${operation.name}`}</title>
       </NextHead>
 
-      <Breadcrumbs
-        title={`${operation.category} – ${operation.name}`}
-        parents={parents}
-      />
+      <Breadcrumbs parents={parents} />
+      <Title>{operation.name}</Title>
 
       <Columns>
         <OperationInfoCard operationId={operationId} />

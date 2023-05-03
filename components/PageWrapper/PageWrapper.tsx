@@ -20,7 +20,7 @@ export const PageWrapper = forwardRef<HTMLDivElement, Props>(
         className="min-h-screen pt-[calc(env(safe-area-inset-top)+72px)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] bg-zinc-300"
         ref={ref}
       >
-        <Container className="py-6">
+        <Container className="py-8">
           <PageWrapperAuth unauthenticated={unauthenticated}>
             <PageWrapperStore>{children}</PageWrapperStore>
           </PageWrapperAuth>

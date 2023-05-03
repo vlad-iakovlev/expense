@@ -10,6 +10,7 @@ import { WalletsCard } from '../../cards/Wallets/Wallets.tsx'
 import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
 import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
+import { Title } from '../../ui-kit/Title/Title.tsx'
 
 interface Props {
   groupId: string
@@ -33,7 +34,8 @@ export const Group: FC<Props> = ({ groupId }) => {
         <title>{`Expense > ${group.name}`}</title>
       </NextHead>
 
-      <Breadcrumbs title={group.name} parents={parents} />
+      <Breadcrumbs parents={parents} />
+      <Title>{group.name}</Title>
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_auto_auto_auto_1fr] lg:grid-rows-[auto_auto_auto_1fr] xl:grid-rows-[auto_auto_1fr]">
         <GroupInfoCard groupId={groupId} />

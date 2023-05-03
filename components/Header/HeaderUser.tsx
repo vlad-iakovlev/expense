@@ -79,10 +79,12 @@ export const HeaderUser: FC<Props> = ({ className }) => {
             position="below-right"
             onClose={handlePopupClose}
           >
-            <Card.Title
-              title={session.data.user.name ?? undefined}
-              subtitle={session.data.user.email ?? undefined}
-            />
+            <Card.Text>
+              <p className="text-xl truncate">{session.data.user.name}</p>
+              <p className="text-zinc-600 truncate">
+                {session.data.user.email}
+              </p>
+            </Card.Text>
 
             <Card.Divider />
 

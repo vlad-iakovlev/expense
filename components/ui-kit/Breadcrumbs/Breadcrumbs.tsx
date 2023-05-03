@@ -8,34 +8,36 @@ export interface BreadCrumbsParent {
 }
 
 export interface BreadcrumbsProps {
-  title: string
   parents?: BreadCrumbsParent[]
   mobileBack?: BreadCrumbsParent
 }
 
 export const Breadcrumbs: FC<BreadcrumbsProps> = ({
-  title,
   parents,
   mobileBack = parents?.at(-1),
 }) => {
   return (
-    <div className="flex max-md:flex-col md:items-center gap-4 md:gap-2 mb-6">
-      {parents?.map((parent) => (
-        <Fragment key={parent.href}>
-          <NextLink
-            className="max-md:hidden min-w-0 text-lg font-medium text-cyan-900 truncate"
-            href={{ pathname: parent.href, query: { animation: 'back' } }}
-            as={parent.href}
-          >
-            {parent.title}
-          </NextLink>
-          <ChevronRightIcon className="max-md:hidden flex-none w-5 h-5" />
-        </Fragment>
-      ))}
+    <>
+      {!!parents?.length && (
+        <div className="max-md:hidden flex items-center gap-2 -mt-2 -mb-4">
+          {parents.map((parent) => (
+            <Fragment key={parent.href}>
+              <NextLink
+                className="min-w-0 text-lg leading-6 font-medium text-cyan-900 truncate"
+                href={{ pathname: parent.href, query: { animation: 'back' } }}
+                as={parent.href}
+              >
+                {parent.title}
+              </NextLink>
+              <ChevronRightIcon className="flex-none w-5 h-5" />
+            </Fragment>
+          ))}
+        </div>
+      )}
 
       {mobileBack ? (
         <NextLink
-          className="flex md:hidden items-center gap-2 min-w-0 text-lg font-medium text-cyan-900 truncate"
+          className="md:hidden flex items-center gap-2 -mt-2 -mb-4 text-lg leading-6 font-medium text-cyan-900 truncate"
           href={{ pathname: mobileBack.href, query: { animation: 'back' } }}
           as={mobileBack.href}
         >
@@ -43,8 +45,6 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({
           {mobileBack.title}
         </NextLink>
       ) : null}
-
-      <h1 className="min-w-0 text-lg font-medium truncate">{title}</h1>
-    </div>
+    </>
   )
 }
