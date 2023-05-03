@@ -1,7 +1,7 @@
-import withPWA from 'next-pwa'
+import nextPWA from 'next-pwa'
 import nextPWACache from 'next-pwa/cache.js'
 
-const applyPWAConfig = withPWA({
+const withPWA = nextPWA({
   dest: 'public',
   disable: process.env.NODE_ENV === 'development',
   reloadOnOnline: false,
@@ -33,7 +33,7 @@ const applyPWAConfig = withPWA({
   ],
 })
 
-const nextConfig = applyPWAConfig({
+const nextConfig = withPWA({
   reactStrictMode: true,
   images: {
     remotePatterns: [
