@@ -25,7 +25,6 @@ export const CardPagination: FC<CardPaginationProps> = ({
           invisible: !hasPrev,
         })}
         theme="secondary"
-        size="sm"
         iconStart={<ChevronLeftIcon />}
         onClick={onPrevClick}
       />
@@ -37,7 +36,6 @@ export const CardPagination: FC<CardPaginationProps> = ({
           invisible: !hasNext,
         })}
         theme="secondary"
-        size="sm"
         iconStart={<ChevronRightIcon />}
         onClick={onNextClick}
       />
