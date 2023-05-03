@@ -4,18 +4,18 @@ import { FC, MouseEvent, ReactNode } from 'react'
 export interface CardButtonProps {
   active?: boolean
   disabled?: boolean
-  start?: ReactNode
-  end?: ReactNode
-  children?: ReactNode
+  prefix?: ReactNode
+  label?: ReactNode
+  value?: ReactNode
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
 }
 
 export const CardButton: FC<CardButtonProps> = ({
   active,
   disabled,
-  start,
-  end,
-  children,
+  prefix,
+  label,
+  value,
   onClick,
 }) => (
   <button
@@ -30,8 +30,8 @@ export const CardButton: FC<CardButtonProps> = ({
     type="button"
     onClick={onClick}
   >
-    {start ? <div className="flex-none">{start}</div> : null}
-    <div className="flex-auto truncate">{children}</div>
-    {end ? <div className="flex-none">{end}</div> : null}
+    {prefix ? <div className="flex-none">{prefix}</div> : null}
+    <div className="flex-auto truncate">{label}</div>
+    {value ? <div className="flex-none">{value}</div> : null}
   </button>
 )

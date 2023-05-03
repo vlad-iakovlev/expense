@@ -70,7 +70,7 @@ export const Wallet: FC<Props> = ({ canDrag, walletId }) => {
       <Card.Button
         key={wallet.id}
         active={isDragging}
-        start={
+        prefix={
           canDrag ? (
             <div
               ref={dragHandleRef}
@@ -88,7 +88,8 @@ export const Wallet: FC<Props> = ({ canDrag, walletId }) => {
             </div>
           ) : null
         }
-        end={
+        label={wallet.name}
+        value={
           <Amount
             className="font-medium"
             amount={walletBalance.balance}
@@ -96,9 +97,7 @@ export const Wallet: FC<Props> = ({ canDrag, walletId }) => {
           />
         }
         onClick={handleClick}
-      >
-        {wallet.name}
-      </Card.Button>
+      />
     </div>
   )
 }

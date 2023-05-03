@@ -59,9 +59,11 @@ export function CardSelect<Id extends string = string>({
         onClose={hide}
       >
         {options.map((option) => (
-          <Card.Button key={option.id} onClick={() => handleChange(option)}>
-            {option.name}
-          </Card.Button>
+          <Card.Button
+            key={option.id}
+            label={option.name}
+            onClick={() => handleChange(option)}
+          />
         ))}
       </Card.Popup>
     </>

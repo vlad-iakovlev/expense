@@ -65,11 +65,10 @@ export const OperationsListCard: FC<Props> = ({
         <>
           <Card.Divider />
           <Card.Button
-            start={<EllipsisHorizontalIcon className="w-6 h-6" />}
+            prefix={<EllipsisHorizontalIcon className="w-6 h-6" />}
+            label="Show more"
             onClick={handleShowMore}
-          >
-            Show more
-          </Card.Button>
+          />
         </>
       ) : null}
     </Card>

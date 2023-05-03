@@ -129,10 +129,9 @@ export const CardInput: FC<CardInputProps> = ({
           {suggestions.map((suggestion) => (
             <Card.Button
               key={suggestion}
+              label={suggestion}
               onClick={() => handleSelect(suggestion)}
-            >
-              {suggestion}
-            </Card.Button>
+            />
           ))}
         </Card.Popup>
       ) : null}

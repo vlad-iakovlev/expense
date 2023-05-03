@@ -30,11 +30,10 @@ export const HomeWhatToDo: FC<Props> = ({ className }) => {
       <Card.Divider />
       <Card.Button
         disabled={isLoading}
-        start={<ArrowLeftOnRectangleIcon className="w-6 h-6" />}
+        prefix={<ArrowLeftOnRectangleIcon className="w-6 h-6" />}
+        label="Sign In with Google Account"
         onClick={handleSignIn}
-      >
-        Sign In with Google Account
-      </Card.Button>
+      />
       <Card.Link
         start={<CodeBracketIcon className="w-6 h-6" />}
         href="https://github.com/vlad-yakovlev/expense"

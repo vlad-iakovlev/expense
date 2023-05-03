@@ -1,3 +1,4 @@
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router.js'
 import { FC, useCallback, useRef, useState } from 'react'
@@ -92,9 +93,12 @@ export const HeaderUser: FC<Props> = ({ className }) => {
 
             <Card.Divider />
 
-            <Card.Button disabled={isLoading} onClick={handleSignOut}>
-              Sign Out
-            </Card.Button>
+            <Card.Button
+              disabled={isLoading}
+              prefix={<ArrowRightOnRectangleIcon className="w-6 h-6" />}
+              label="Sign Out"
+              onClick={handleSignOut}
+            />
           </Card.Popup>
         </>
       )}
