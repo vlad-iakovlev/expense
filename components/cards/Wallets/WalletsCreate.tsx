@@ -6,7 +6,7 @@ import { useWallets } from '../../../stores/RootStore/hooks/useWallets.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 
 interface Props {
-  groupId: string | undefined
+  groupId: string
 }
 
 export const WalletsCreate: FC<Props> = ({ groupId }) => {
@@ -18,10 +18,6 @@ export const WalletsCreate: FC<Props> = ({ groupId }) => {
     const href = ROUTES.WALLET(walletId)
     void router.push({ pathname: href, query: { animation: 'forward' } }, href)
   }, [createWallet, router])
-
-  if (!groupId) {
-    return null
-  }
 
   return (
     <Button rounded size="sm" iconStart={<PlusIcon />} onClick={handleCreate} />

@@ -18,7 +18,7 @@ import { WalletsItem } from './WalletsItem.tsx'
 
 interface Props {
   walletIds: string[]
-  groupId: string | undefined
+  groupId: string
 }
 
 export const WalletsList: FC<Props> = ({ walletIds, groupId }) => {
@@ -26,7 +26,7 @@ export const WalletsList: FC<Props> = ({ walletIds, groupId }) => {
 
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
 
-  const canDrag = !!groupId && walletIds.length > 1
+  const canDrag = walletIds.length > 1
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {

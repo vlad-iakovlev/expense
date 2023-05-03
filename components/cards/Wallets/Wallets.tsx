@@ -6,15 +6,11 @@ import { WalletsList } from './WalletsList.tsx'
 
 interface Props {
   className?: string
-  groupId?: string
+  groupId: string
 }
 
 export const WalletsCard: FC<Props> = ({ className, groupId }) => {
   const { walletIds } = useWallets({ groupId })
-
-  if (!groupId && !walletIds.length) {
-    return null
-  }
 
   return (
     <Card className={className}>
