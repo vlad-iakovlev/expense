@@ -1,9 +1,9 @@
-import { FC, ReactNode } from 'react'
+import { FC } from 'react'
 
 export interface TitleProps {
-  children: ReactNode
+  title: string
 }
 
-export const Title: FC<TitleProps> = ({ children }) => {
-  return <h1 className="my-8 text-4xl font-bold truncate">{children}</h1>
+export const Title: FC<TitleProps> = ({ title }) => {
+  return <h1 className="my-8 text-4xl font-bold truncate">{title}</h1>
 }

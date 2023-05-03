@@ -12,7 +12,7 @@ export const Home: FC = () => (
       <title>Expense</title>
     </NextHead>
 
-    <Title>Home</Title>
+    <Title title="Home" />
 
     <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] lg:grid-rows-none">
       <HomeInfo />

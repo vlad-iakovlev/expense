@@ -15,7 +15,7 @@ export const Dashboard: FC = () => {
         <title>Expense</title>
       </NextHead>
 
-      <Title>Dashboard</Title>
+      <Title title="Dashboard" />
 
       <Columns>
         {groupIds.map((groupId) => (

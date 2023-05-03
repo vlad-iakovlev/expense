@@ -42,7 +42,7 @@ export const Operation: FC<Props> = ({ operationId }) => {
       </NextHead>
 
       <Breadcrumbs parents={parents} />
-      <Title>{operation.name}</Title>
+      <Title title={operation.name} />
 
       <Columns>
         <OperationInfoCard operationId={operationId} />

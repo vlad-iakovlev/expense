@@ -35,7 +35,7 @@ export const Group: FC<Props> = ({ groupId }) => {
       </NextHead>
 
       <Breadcrumbs parents={parents} />
-      <Title>{group.name}</Title>
+      <Title title={group.name} />
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_auto_auto_auto_1fr] lg:grid-rows-[auto_auto_auto_1fr] xl:grid-rows-[auto_auto_1fr]">
         <GroupInfoCard groupId={groupId} />

@@ -38,7 +38,7 @@ export const Wallet: FC<Props> = ({ walletId }) => {
       </NextHead>
 
       <Breadcrumbs parents={parents} />
-      <Title>{walletName}</Title>
+      <Title title={walletName} />
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] lg:grid-rows-none">
         <WalletInfoCard walletId={walletId} />
