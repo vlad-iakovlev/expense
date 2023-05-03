@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { Variants, motion } from 'framer-motion'
 import {
   CSSProperties,
   ReactNode,
@@ -123,21 +123,19 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
     <Portal>
       <div ref={rootRef} className="absolute z-10 top-0 left-0">
         <div className="absolute" style={popupStyle}>
-          <AnimatePresence>
-            <motion.div
-              className={clsx(className, 'absolute', {
-                'bottom-0 left-0 origin-top-left': position === 'above-left',
-                'bottom-0 right-0 origin-top-right': position === 'above-right',
-                'top-0 left-0 origin-top-left': position === 'below-left',
-                'top-0 right-0 origin-top-right': position === 'below-right',
-              })}
-              animate={isOpen ? 'open' : 'closed'}
-              variants={variants}
-              style={{ maxWidth: setMaxWidth ? anchorRect?.width : undefined }}
-            >
-              {children}
-            </motion.div>
-          </AnimatePresence>
+          <motion.div
+            className={clsx(className, 'absolute', {
+              'bottom-0 left-0 origin-top-left': position === 'above-left',
+              'bottom-0 right-0 origin-top-right': position === 'above-right',
+              'top-0 left-0 origin-top-left': position === 'below-left',
+              'top-0 right-0 origin-top-right': position === 'below-right',
+            })}
+            animate={isOpen ? 'open' : 'closed'}
+            variants={variants}
+            style={{ maxWidth: setMaxWidth ? anchorRect?.width : undefined }}
+          >
+            {children}
+          </motion.div>
         </div>
       </div>
     </Portal>

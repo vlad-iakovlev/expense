@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { Variants, motion } from 'framer-motion'
 import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { Thumb, Track, getThumb, getTrack } from './utils.ts'
 
@@ -117,43 +117,41 @@ export const Scrollable: FC<ScrollableProps> = ({
         {children}
       </div>
 
-      <AnimatePresence>
-        <motion.div
-          key="v-track"
-          className="absolute pointer-events-none"
-          animate={isVTrackVisible ? 'open' : 'closed'}
-          variants={variants}
-          style={{
-            top: vTrack.startOffset,
-            bottom: vTrack.endOffset,
-            right: vTrack.edgeOffset,
-            width: vTrack.thickness,
-          }}
-        >
-          <div
-            className={clsx(thumbClassName, 'w-full')}
-            style={{ top: vThumb.offset, height: vThumb.length }}
-          />
-        </motion.div>
+      <motion.div
+        key="v-track"
+        className="absolute pointer-events-none"
+        animate={isVTrackVisible ? 'open' : 'closed'}
+        variants={variants}
+        style={{
+          top: vTrack.startOffset,
+          bottom: vTrack.endOffset,
+          right: vTrack.edgeOffset,
+          width: vTrack.thickness,
+        }}
+      >
+        <div
+          className={clsx(thumbClassName, 'w-full')}
+          style={{ top: vThumb.offset, height: vThumb.length }}
+        />
+      </motion.div>
 
-        <motion.div
-          key="h-track"
-          className="absolute pointer-events-none"
-          animate={isHTrackVisible ? 'open' : 'closed'}
-          variants={variants}
-          style={{
-            left: hTrack.startOffset,
-            right: hTrack.endOffset,
-            bottom: hTrack.edgeOffset,
-            height: hTrack.thickness,
-          }}
-        >
-          <div
-            className={clsx(thumbClassName, 'h-full')}
-            style={{ left: hThumb.offset, width: hThumb.length }}
-          />
-        </motion.div>
-      </AnimatePresence>
+      <motion.div
+        key="h-track"
+        className="absolute pointer-events-none"
+        animate={isHTrackVisible ? 'open' : 'closed'}
+        variants={variants}
+        style={{
+          left: hTrack.startOffset,
+          right: hTrack.endOffset,
+          bottom: hTrack.edgeOffset,
+          height: hTrack.thickness,
+        }}
+      >
+        <div
+          className={clsx(thumbClassName, 'h-full')}
+          style={{ left: hThumb.offset, width: hThumb.length }}
+        />
+      </motion.div>
     </div>
   )
 }
