@@ -7,7 +7,7 @@ interface Props {
   unauthenticated: ReactNode
 }
 
-export const PageWrapperAuth: FC<Props> = ({ children, unauthenticated }) => {
+export const PageAuth: FC<Props> = ({ children, unauthenticated }) => {
   const session = useSession()
 
   return (

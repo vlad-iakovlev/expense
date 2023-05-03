@@ -9,7 +9,7 @@ import { forwardRef, useEffect, useMemo, useState } from 'react'
 
 const transition = { ease: 'easeInOut', duration: 0.3 }
 
-export const PageWrapperTransition = forwardRef<
+export const PageTransition = forwardRef<
   HTMLDivElement,
   HTMLMotionProps<'div'>
 >(function PageTransition({ children, ...rest }, ref) {

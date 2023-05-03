@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
 import { forwardRef, useState } from 'react'
-import { PageWrapper } from '../../components/layout/PageWrapper/PageWrapper.tsx'
+import { Page } from '../../components/layout/Page/Page.tsx'
 import { Wallet } from '../../components/pages/Wallet/Wallet.tsx'
 
 const WalletPage = forwardRef<HTMLDivElement, NextPage>(function WalletPage(
@@ -16,9 +16,9 @@ const WalletPage = forwardRef<HTMLDivElement, NextPage>(function WalletPage(
   }
 
   return (
-    <PageWrapper ref={ref}>
+    <Page ref={ref}>
       <Wallet walletId={walletId} />
-    </PageWrapper>
+    </Page>
   )
 })
 
