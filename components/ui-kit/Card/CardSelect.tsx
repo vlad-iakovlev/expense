@@ -55,6 +55,7 @@ export function CardSelect<Id extends string = string>({
         isOpen={isOpen}
         anchorRef={rootRef}
         position="below-right"
+        setMaxWidth
         onClose={hide}
       >
         {options.map((option) => (

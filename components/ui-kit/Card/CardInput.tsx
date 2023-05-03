@@ -124,6 +124,7 @@ export const CardInput: FC<CardInputProps> = ({
           isOpen={isEditing}
           anchorRef={rootRef}
           position="below-right"
+          setMaxWidth
         >
           {suggestions.map((suggestion) => (
             <Card.Button

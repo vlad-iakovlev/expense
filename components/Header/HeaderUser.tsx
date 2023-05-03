@@ -75,7 +75,6 @@ export const HeaderUser: FC<Props> = ({ className }) => {
           <Card.Popup
             className="mt-2 w-72"
             isOpen={isOpen}
-            noMaxWidth
             anchorRef={profileButtonRef}
             position="below-right"
             onClose={handlePopupClose}
