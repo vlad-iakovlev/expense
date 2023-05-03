@@ -1,5 +1,6 @@
 import { clsx } from 'clsx'
 import { FC, ReactNode } from 'react'
+import { NextImage } from '../NextImage/NextImage.ts'
 
 export const avatarColors = [
   'red',
@@ -56,12 +57,7 @@ export const Avatar: FC<AvatarProps> = ({
       })}
     >
       {src ? (
-        <img
-          className="w-full h-full"
-          src={src}
-          alt={name}
-          referrerPolicy="no-referrer"
-        />
+        <NextImage src={src} alt={name} width={48} height={48} quality={100} />
       ) : (
         <div
           className={clsx(

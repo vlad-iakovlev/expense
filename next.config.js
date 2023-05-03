@@ -35,6 +35,13 @@ const applyPWAConfig = withPWA({
 
 const nextConfig = applyPWAConfig({
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'lh3.googleusercontent.com',
+      },
+    ],
+  },
 })
 
 export default nextConfig

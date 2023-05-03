@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+nextjs-portal {
+  user-select: text;
+}
+
 @layer utilities {
   .hide-scrollbars {
     scrollbar-width: none;
