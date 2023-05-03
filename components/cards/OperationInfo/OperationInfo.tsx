@@ -1,14 +1,14 @@
 import { FC } from 'react'
 import { Card } from '../../ui-kit/Card/Card.tsx'
-import { OperationInfoCategory } from './OperationInfoCategory.tsx'
-import { OperationInfoDate } from './OperationInfoDate.tsx'
-import { OperationInfoDelete } from './OperationInfoDelete.tsx'
-import { OperationInfoExpenseAmount } from './OperationInfoExpenseAmount.tsx'
-import { OperationInfoExpenseWallet } from './OperationInfoExpenseWallet.tsx'
-import { OperationInfoIncomeAmount } from './OperationInfoIncomeAmount.tsx'
-import { OperationInfoIncomeWallet } from './OperationInfoIncomeWallet.tsx'
-import { OperationInfoName } from './OperationInfoName.tsx'
-import { OperationInfoType } from './OperationInfoType.tsx'
+import { Category } from './OperationInfo.Category.tsx'
+import { Date } from './OperationInfo.Date.tsx'
+import { Delete } from './OperationInfo.Delete.tsx'
+import { ExpenseAmount } from './OperationInfo.ExpenseAmount.tsx'
+import { ExpenseWallet } from './OperationInfo.ExpenseWallet.tsx'
+import { IncomeAmount } from './OperationInfo.IncomeAmount.tsx'
+import { IncomeWallet } from './OperationInfo.IncomeWallet.tsx'
+import { Name } from './OperationInfo.Name.tsx'
+import { Type } from './OperationInfo.Type.tsx'
 
 interface Props {
   className?: string
@@ -18,19 +18,16 @@ interface Props {
 export const OperationInfoCard: FC<Props> = ({ className, operationId }) => {
   return (
     <Card className={className}>
-      <Card.Title
-        title="Info"
-        action={<OperationInfoDelete operationId={operationId} />}
-      />
+      <Card.Title title="Info" action={<Delete operationId={operationId} />} />
       <Card.Divider />
-      <OperationInfoDate operationId={operationId} />
-      <OperationInfoCategory operationId={operationId} />
-      <OperationInfoName operationId={operationId} />
-      <OperationInfoType operationId={operationId} />
-      <OperationInfoExpenseWallet operationId={operationId} />
-      <OperationInfoExpenseAmount operationId={operationId} />
-      <OperationInfoIncomeWallet operationId={operationId} />
-      <OperationInfoIncomeAmount operationId={operationId} />
+      <Date operationId={operationId} />
+      <Category operationId={operationId} />
+      <Name operationId={operationId} />
+      <Type operationId={operationId} />
+      <ExpenseWallet operationId={operationId} />
+      <ExpenseAmount operationId={operationId} />
+      <IncomeWallet operationId={operationId} />
+      <IncomeAmount operationId={operationId} />
     </Card>
   )
 }

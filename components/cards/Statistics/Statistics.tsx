@@ -2,9 +2,9 @@ import { FC, useCallback, useMemo, useState } from 'react'
 import { usePeriod } from '../../../hooks/usePeriod.ts'
 import { useStatisticsByCategory } from '../../../stores/RootStore/hooks/useStatisticsByCategory.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
-import { StatisticsCategories } from './StatisticsCategories.tsx'
-import { StatisticsCharts } from './StatisticsCharts.tsx'
-import { StatisticsPeriod } from './StatisticsPeriod.tsx'
+import { Categories } from './Statistics.Categories.tsx'
+import { Charts } from './Statistics.Charts.tsx'
+import { PeriodSelector } from './Statistics.PeriodSelector.tsx'
 
 interface Props {
   className?: string
@@ -57,7 +57,7 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
 
       <Card.Divider />
 
-      <StatisticsPeriod
+      <PeriodSelector
         fromDate={fromDate}
         period={period}
         setPeriod={setPeriod}
@@ -65,13 +65,10 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
         goNext={goNext}
       />
 
-      <StatisticsCharts
-        currency={statisticsByCategoryCurrency}
-        items={chartItems}
-      />
+      <Charts currency={statisticsByCategoryCurrency} items={chartItems} />
 
       {!!statisticsByCategoryItems.length && (
-        <StatisticsCategories
+        <Categories
           currency={statisticsByCategoryCurrency}
           items={statisticsByCategoryItems}
           isCategoryDisabled={isCategoryDisabled}

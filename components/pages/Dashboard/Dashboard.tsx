@@ -1,10 +1,14 @@
 import { FC } from 'react'
-import { GroupsCards } from '../../cards/Groups/Groups.tsx'
+import { useGroups } from '../../../stores/RootStore/hooks/useGroups.ts'
+import { GroupCreateCard } from '../../cards/GroupCreate/GroupCreate.tsx'
+import { GroupOpenCard } from '../../cards/GroupOpen/GroupOpen.tsx'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
 import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
 import { Title } from '../../ui-kit/Title/Title.tsx'
 
 export const Dashboard: FC = () => {
+  const { groupIds } = useGroups()
+
   return (
     <>
       <NextHead>
@@ -14,7 +18,10 @@ export const Dashboard: FC = () => {
       <Title>Dashboard</Title>
 
       <Columns>
-        <GroupsCards />
+        {groupIds.map((groupId) => (
+          <GroupOpenCard key={groupId} groupId={groupId} />
+        ))}
+        <GroupCreateCard />
       </Columns>
     </>
   )

@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { Card } from '../../ui-kit/Card/Card.tsx'
-import { WalletInfoBalance } from './WalletInfoBalance.tsx'
-import { WalletInfoBalanceInDefaultCurrency } from './WalletInfoBalanceInDefaultCurrency.tsx'
-import { WalletInfoCurrency } from './WalletInfoCurrency.tsx'
-import { WalletInfoDelete } from './WalletInfoDelete.tsx'
-import { WalletInfoName } from './WalletInfoName.tsx'
+import { Balance } from './WalletInfo.Balance.tsx'
+import { BalanceInDefaultCurrency } from './WalletInfo.BalanceInDefaultCurrency.tsx'
+import { Currency } from './WalletInfo.Currency.tsx'
+import { Delete } from './WalletInfo.Delete.tsx'
+import { Name } from './WalletInfo.Name.tsx'
 
 interface Props {
   className?: string
@@ -14,15 +14,12 @@ interface Props {
 export const WalletInfoCard: FC<Props> = ({ className, walletId }) => {
   return (
     <Card className={className}>
-      <Card.Title
-        title="Info"
-        action={<WalletInfoDelete walletId={walletId} />}
-      />
+      <Card.Title title="Info" action={<Delete walletId={walletId} />} />
       <Card.Divider />
-      <WalletInfoName walletId={walletId} />
-      <WalletInfoCurrency walletId={walletId} />
-      <WalletInfoBalance walletId={walletId} />
-      <WalletInfoBalanceInDefaultCurrency walletId={walletId} />
+      <Name walletId={walletId} />
+      <Currency walletId={walletId} />
+      <Balance walletId={walletId} />
+      <BalanceInDefaultCurrency walletId={walletId} />
     </Card>
   )
 }

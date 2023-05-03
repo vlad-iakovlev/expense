@@ -3,10 +3,10 @@ import { ROUTES } from '../../../constants/routes.ts'
 import { useGroup } from '../../../stores/RootStore/hooks/useGroup.ts'
 import { GroupInfoCard } from '../../cards/GroupInfo/GroupInfo.tsx'
 import { GroupUsersCard } from '../../cards/GroupUsers/GroupUsers.tsx'
-import { OperationsCard } from '../../cards/Operations/Operations.tsx'
+import { OperationsListCard } from '../../cards/OperationsList/OperationsList.tsx'
 import { RenameCategoryCard } from '../../cards/RenameCategory/RenameCategory.tsx'
 import { StatisticsCard } from '../../cards/Statistics/Statistics.tsx'
-import { WalletsCard } from '../../cards/Wallets/Wallets.tsx'
+import { WalletsListCard } from '../../cards/WalletsList/WalletsList.tsx'
 import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
 import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
@@ -41,8 +41,8 @@ export const Group: FC<Props> = ({ groupId }) => {
         <GroupInfoCard groupId={groupId} />
         <GroupUsersCard groupId={groupId} />
         <RenameCategoryCard groupId={groupId} />
-        <WalletsCard className="xl:row-span-full" groupId={groupId} />
-        <OperationsCard className="lg:row-span-full" groupId={groupId} />
+        <WalletsListCard className="xl:row-span-full" groupId={groupId} />
+        <OperationsListCard className="lg:row-span-full" groupId={groupId} />
         <StatisticsCard className="md:row-span-full" groupId={groupId} />
       </Columns>
     </>

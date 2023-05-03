@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { Card } from '../../ui-kit/Card/Card.tsx'
-import { GroupInfoBalance } from './GroupInfoBalance.tsx'
-import { GroupInfoDefaultCurrency } from './GroupInfoDefaultCurrency.tsx'
-import { GroupInfoDelete } from './GroupInfoDelete.tsx'
-import { GroupInfoName } from './GroupInfoName.tsx'
+import { Balance } from './GroupInfo.Balance.tsx'
+import { DefaultCurrency } from './GroupInfo.DefaultCurrency.tsx'
+import { Delete } from './GroupInfo.Delete.tsx'
+import { Name } from './GroupInfo.Name.tsx'
 
 interface Props {
   className?: string
@@ -13,11 +13,11 @@ interface Props {
 export const GroupInfoCard: FC<Props> = ({ className, groupId }) => {
   return (
     <Card className={className}>
-      <Card.Title title="Info" action={<GroupInfoDelete groupId={groupId} />} />
+      <Card.Title title="Info" action={<Delete groupId={groupId} />} />
       <Card.Divider />
-      <GroupInfoName groupId={groupId} />
-      <GroupInfoDefaultCurrency groupId={groupId} />
-      <GroupInfoBalance groupId={groupId} />
+      <Name groupId={groupId} />
+      <DefaultCurrency groupId={groupId} />
+      <Balance groupId={groupId} />
     </Card>
   )
 }
