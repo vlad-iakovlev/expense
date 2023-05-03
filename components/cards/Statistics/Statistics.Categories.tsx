@@ -28,6 +28,7 @@ export const Categories: FC<Props> = ({
           start={
             <Switch
               value={!isCategoryDisabled(item.category)}
+              color={isCategoryDisabled(item.category) ? undefined : item.color}
               onChange={(value) => setCategoryDisabled(item.category, !value)}
             />
           }
@@ -46,10 +47,6 @@ export const Categories: FC<Props> = ({
             </div>
           }
         >
-          <div
-            className="w-20 h-4 my-1 rounded-full"
-            style={{ backgroundColor: item.color }}
-          />
           {item.category}
         </Card.Text>
       ))}
