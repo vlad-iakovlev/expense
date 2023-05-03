@@ -11,7 +11,7 @@ export const Name: FC<Props> = ({ operationId }) => {
 
   return (
     <Card.Input
-      name="Name"
+      label="Name"
       value={operation.name}
       onChange={setOperationName}
     />

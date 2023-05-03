@@ -48,7 +48,7 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
       <Card.Divider />
 
       <Card.Select
-        name="Category"
+        label="Category"
         options={categoriesOptions}
         value={categoryValue}
         onChange={handleSelectCategory}
@@ -56,7 +56,7 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
 
       {category ? (
         <Card.Input
-          name="New name"
+          label="New name"
           value={category}
           onChange={handleNameChange}
         />

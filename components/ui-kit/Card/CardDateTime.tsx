@@ -9,13 +9,13 @@ import {
 import { formatDate, formatDateForInput } from '../../../utils/formatDate.ts'
 
 export interface CardDateTimeProps {
-  name: string
+  label: string
   value: Date
   onChange: (value: Date) => void
 }
 
 export const CardDateTime: FC<CardDateTimeProps> = ({
-  name,
+  label,
   value,
   onChange,
 }) => {
@@ -59,7 +59,7 @@ export const CardDateTime: FC<CardDateTimeProps> = ({
   return (
     <>
       <div className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors">
-        <div className="flex-auto">{name}</div>
+        <div className="flex-auto">{label}</div>
 
         <div className="font-medium">
           {isEditing ? (

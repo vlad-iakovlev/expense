@@ -35,7 +35,7 @@ export const Currency: FC<Props> = ({ walletId }) => {
 
   return (
     <Card.Select
-      name="Currency"
+      label="Currency"
       options={options}
       value={value}
       onChange={handleChange}

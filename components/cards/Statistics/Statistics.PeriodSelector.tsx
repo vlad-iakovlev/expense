@@ -55,7 +55,7 @@ export const PeriodSelector: FC<Props> = ({
   return (
     <>
       <Card.Select
-        name="Period"
+        label="Period"
         options={options}
         value={value}
         onChange={handleChange}

@@ -11,7 +11,7 @@ export const Date: FC<Props> = ({ operationId }) => {
 
   return (
     <Card.DateTime
-      name="Date"
+      label="Date"
       value={operation.date}
       onChange={setOperationDate}
     />

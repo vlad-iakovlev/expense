@@ -21,7 +21,7 @@ export const Category: FC<Props> = ({ operationId }) => {
 
   return (
     <Card.Input
-      name="Category"
+      label="Category"
       suggestions={categories}
       value={operation.category}
       onChange={setOperationCategory}

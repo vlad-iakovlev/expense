@@ -39,7 +39,7 @@ export const Type: FC<Props> = ({ operationId }) => {
 
   return (
     <Card.Select
-      name="Type"
+      label="Type"
       options={options}
       value={OperationTypeOptionsMap[operation.type]}
       onChange={handleChange}

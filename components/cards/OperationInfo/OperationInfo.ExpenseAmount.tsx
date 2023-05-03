@@ -30,7 +30,7 @@ export const ExpenseAmount: FC<Props> = ({ operationId }) => {
   return (
     <Card.Input
       className="text-red-700"
-      name="Amount"
+      label="Amount"
       value={formatAmount(
         operation.expenseAmount,
         operation.expenseWallet.currency

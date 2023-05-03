@@ -12,7 +12,7 @@ import { Card } from './Card.tsx'
 
 export interface CardInputProps {
   className?: string
-  name: string
+  label: string
   suggestions?: string[]
   value: string
   onChange: (value: string) => void
@@ -20,7 +20,7 @@ export interface CardInputProps {
 
 export const CardInput: FC<CardInputProps> = ({
   className,
-  name,
+  label,
   suggestions,
   value,
   onChange,
@@ -98,7 +98,7 @@ export const CardInput: FC<CardInputProps> = ({
         className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors"
         onClick={handleClick}
       >
-        <div className="flex-none">{name}</div>
+        <div className="flex-none">{label}</div>
 
         <div className={clsx(className, 'flex-auto min-w-0 font-medium')}>
           {isEditing ? (

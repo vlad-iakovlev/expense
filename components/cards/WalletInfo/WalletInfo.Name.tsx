@@ -9,5 +9,7 @@ interface Props {
 export const Name: FC<Props> = ({ walletId }) => {
   const { wallet, setWalletName } = useWallet({ walletId })
 
-  return <Card.Input name="Name" value={wallet.name} onChange={setWalletName} />
+  return (
+    <Card.Input label="Name" value={wallet.name} onChange={setWalletName} />
+  )
 }

@@ -39,7 +39,7 @@ export const CategoryFilter: FC<Props> = ({ category, setCategory }) => {
 
   return (
     <Card.Select
-      name="Category"
+      label="Category"
       options={options}
       value={value}
       onChange={handleChange}

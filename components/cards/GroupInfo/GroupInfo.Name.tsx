@@ -9,5 +9,5 @@ interface Props {
 export const Name: FC<Props> = ({ groupId }) => {
   const { group, setGroupName } = useGroup({ groupId })
 
-  return <Card.Input name="Name" value={group.name} onChange={setGroupName} />
+  return <Card.Input label="Name" value={group.name} onChange={setGroupName} />
 }

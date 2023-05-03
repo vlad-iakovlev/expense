@@ -35,7 +35,7 @@ export const DefaultCurrency: FC<Props> = ({ groupId }) => {
 
   return (
     <Card.Select
-      name="Default currency"
+      label="Default currency"
       options={options}
       value={value}
       onChange={handleChange}

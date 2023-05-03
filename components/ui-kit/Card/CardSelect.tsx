@@ -7,14 +7,14 @@ export interface CardSelectOption<Id extends string = string> {
 }
 
 export interface CardSelectProps<Id extends string = string> {
-  name: string
+  label: string
   options: CardSelectOption<Id>[]
   value: CardSelectOption<Id>
   onChange: (value: CardSelectOption<Id>) => void
 }
 
 export function CardSelect<Id extends string = string>({
-  name,
+  label,
   options,
   value,
   onChange,
@@ -44,7 +44,7 @@ export function CardSelect<Id extends string = string>({
         className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors"
         onClick={show}
       >
-        <div className="flex-none">{name}</div>
+        <div className="flex-none">{label}</div>
         <div className="flex-auto text-right font-medium truncate">
           {value.name}
         </div>

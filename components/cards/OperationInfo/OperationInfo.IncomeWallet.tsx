@@ -41,7 +41,7 @@ export const IncomeWallet: FC<Props> = ({ operationId }) => {
 
   return (
     <Card.Select
-      name={operation.expenseWallet ? 'To Wallet' : 'Wallet'}
+      label={operation.expenseWallet ? 'To Wallet' : 'Wallet'}
       options={walletsOptions}
       value={value}
       onChange={handleChange}
