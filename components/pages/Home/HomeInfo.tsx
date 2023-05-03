@@ -18,10 +18,9 @@ export const HomeInfo: FC<Props> = ({ className }) => (
       value={<div className="font-medium">Expense tracker</div>}
     />
     <Card.Link
-      end={<div className="font-medium">Vlad Yakovlev</div>}
+      label="Created by"
+      value={<div className="font-medium">Vlad Yakovlev</div>}
       href="https://vlad-yakovlev.dev"
-    >
-      Created by
-    </Card.Link>
+    />
   </Card>
 )

@@ -1,5 +1,7 @@
 import { FC } from 'react'
+import { ROUTES } from '../../../constants/routes.ts'
 import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
+import { Card } from '../../ui-kit/Card/Card.tsx'
 import { ExpenseOperation } from './OperationsList.ExpenseOperation.tsx'
 import { IncomeOperation } from './OperationsList.IncomeOperation.tsx'
 import { TransferOperation } from './OperationsList.TransferOperation.tsx'
@@ -13,16 +15,21 @@ export const Operation: FC<Props> = ({ operationId, walletId }) => {
   const { operation } = useOperation({ operationId })
 
   return (
-    <>
-      {operation.incomeWallet && operation.expenseWallet ? (
-        <TransferOperation operation={operation} walletId={walletId} />
-      ) : null}
-      {operation.incomeWallet && !operation.expenseWallet ? (
-        <IncomeOperation operation={operation} walletId={walletId} />
-      ) : null}
-      {!operation.incomeWallet && operation.expenseWallet ? (
-        <ExpenseOperation operation={operation} walletId={walletId} />
-      ) : null}
-    </>
+    <Card.Link
+      href={ROUTES.OPERATION(operation.id)}
+      label={
+        <>
+          {operation.incomeWallet && operation.expenseWallet ? (
+            <TransferOperation operation={operation} walletId={walletId} />
+          ) : null}
+          {operation.incomeWallet && !operation.expenseWallet ? (
+            <IncomeOperation operation={operation} walletId={walletId} />
+          ) : null}
+          {!operation.incomeWallet && operation.expenseWallet ? (
+            <ExpenseOperation operation={operation} walletId={walletId} />
+          ) : null}
+        </>
+      }
+    />
   )
 }

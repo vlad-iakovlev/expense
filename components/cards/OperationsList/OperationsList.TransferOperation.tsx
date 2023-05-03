@@ -2,11 +2,9 @@ import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import assert from 'assert'
 import { clsx } from 'clsx'
 import { FC } from 'react'
-import { ROUTES } from '../../../constants/routes.ts'
 import { PopulatedClientOperation } from '../../../types/client.ts'
 import { formatDate } from '../../../utils/formatDate.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
-import { Card } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   operation: PopulatedClientOperation
@@ -18,7 +16,7 @@ export const TransferOperation: FC<Props> = ({ operation, walletId }) => {
   assert(operation.expenseWallet, 'Expense wallet is not defined')
 
   return (
-    <Card.Link href={ROUTES.OPERATION(operation.id)}>
+    <>
       <div className="truncate">
         {operation.category} – {operation.name}
       </div>
@@ -64,6 +62,6 @@ export const TransferOperation: FC<Props> = ({ operation, walletId }) => {
           </div>
         </div>
       </div>
-    </Card.Link>
+    </>
   )
 }

@@ -35,11 +35,10 @@ export const HomeWhatToDo: FC<Props> = ({ className }) => {
         onClick={handleSignIn}
       />
       <Card.Link
-        start={<CodeBracketIcon className="w-6 h-6" />}
+        prefix={<CodeBracketIcon className="w-6 h-6" />}
+        label="See the code on GitHub"
         href="https://github.com/vlad-yakovlev/expense"
-      >
-        See the code on GitHub
-      </Card.Link>
+      />
     </Card>
   )
 }

@@ -1,10 +1,8 @@
 import assert from 'assert'
 import { FC } from 'react'
-import { ROUTES } from '../../../constants/routes.ts'
 import { PopulatedClientOperation } from '../../../types/client.ts'
 import { formatDate } from '../../../utils/formatDate.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
-import { Card } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   operation: PopulatedClientOperation
@@ -15,7 +13,7 @@ export const ExpenseOperation: FC<Props> = ({ operation, walletId }) => {
   assert(operation.expenseWallet, 'Expense wallet is not defined')
 
   return (
-    <Card.Link href={ROUTES.OPERATION(operation.id)}>
+    <>
       <div className="flex items-center gap-3">
         <div className="flex-auto truncate">
           {operation.category} – {operation.name}
@@ -36,6 +34,6 @@ export const ExpenseOperation: FC<Props> = ({ operation, walletId }) => {
           </div>
         )}
       </div>
-    </Card.Link>
+    </>
   )
 }
