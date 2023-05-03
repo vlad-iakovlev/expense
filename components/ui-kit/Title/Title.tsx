@@ -5,5 +5,5 @@ export interface TitleProps {
 }
 
 export const Title: FC<TitleProps> = ({ children }) => {
-  return <h1 className="mt-6 mb-8 text-4xl font-bold truncate">{children}</h1>
+  return <h1 className="my-8 text-4xl font-bold truncate">{children}</h1>
 }
