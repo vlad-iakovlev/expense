@@ -22,7 +22,7 @@ export const GroupOpenCard: FC<Props> = ({ groupId }) => {
   }, [groupId, router])
 
   return (
-    <Card onClick={handleClick}>
+    <Card clickable onClick={handleClick}>
       <Card.Title
         title={group.name}
         action={

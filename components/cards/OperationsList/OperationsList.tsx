@@ -65,7 +65,7 @@ export const OperationsListCard: FC<Props> = ({
         <>
           <Card.Divider />
           <Card.Button
-            end={<EllipsisHorizontalIcon className="w-6 h-6" />}
+            start={<EllipsisHorizontalIcon className="w-6 h-6" />}
             onClick={handleShowMore}
           >
             Show more

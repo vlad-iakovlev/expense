@@ -1,9 +1,8 @@
-import { PlusIcon } from '@heroicons/react/20/solid'
+import { PlusIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router.js'
 import { FC, useCallback } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useGroups } from '../../../stores/RootStore/hooks/useGroups.ts'
-import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
 export const GroupCreateCard: FC = () => {
@@ -17,13 +16,10 @@ export const GroupCreateCard: FC = () => {
   }, [createGroup, router])
 
   return (
-    <Card onClick={handleCreate}>
+    <Card clickable onClick={handleCreate}>
       <Card.Title title="New Group" />
       <Card.Divider />
-      <Card.Text
-        label="Create"
-        value={<Button rounded disabled size="sm" iconStart={<PlusIcon />} />}
-      />
+      <Card.Text prefix={<PlusIcon className="w-6 h-6" />} label="Create" />
     </Card>
   )
 }
