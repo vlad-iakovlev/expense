@@ -17,15 +17,6 @@ export interface CardProps {
   onClick?: () => void
 }
 
-export type * from './CardButton.tsx'
-export type * from './CardDateTime.tsx'
-export type * from './CardInput.tsx'
-export type * from './CardLink.tsx'
-export type * from './CardPopup.tsx'
-export type * from './CardSelect.tsx'
-export type * from './CardText.tsx'
-export type * from './CardTitle.tsx'
-
 export const Card = ({
   className,
   clickable,
@@ -49,12 +40,28 @@ export const Card = ({
   )
 }
 
+export type * from './CardButton.tsx'
 Card.Button = CardButton
+
+export type * from './CardDateTime.tsx'
 Card.DateTime = CardDateTime
+
 Card.Divider = CardDivider
+
+export type * from './CardInput.tsx'
 Card.Input = CardInput
+
+export type * from './CardLink.tsx'
 Card.Link = CardLink
+
+export type * from './CardPopup.tsx'
 Card.Popup = CardPopup
+
+export type * from './CardSelect.tsx'
 Card.Select = CardSelect
+
+export type * from './CardText.tsx'
 Card.Text = CardText
+
+export type * from './CardTitle.tsx'
 Card.Title = CardTitle
