@@ -1,5 +1,5 @@
-import { Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
+import { AnimatePresence, Variants, motion } from 'framer-motion'
 import {
   CSSProperties,
   ReactNode,
@@ -13,6 +13,22 @@ import {
   useState,
 } from 'react'
 import { Portal } from '../Portal/Portal.tsx'
+
+const variants: Variants = {
+  open: {
+    opacity: 1,
+    scale: 1,
+    pointerEvents: 'auto',
+    transition: { ease: 'easeOut', duration: 0.1 },
+  },
+
+  closed: {
+    opacity: 0,
+    scale: 0.95,
+    pointerEvents: 'none',
+    transition: { ease: 'easeIn', duration: 0.075 },
+  },
+}
 
 export type PopupPosition =
   | 'above-left'
@@ -109,24 +125,21 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
     <Portal>
       <div ref={rootRef} className="absolute z-10 top-0 left-0">
         <div className="absolute" style={popupStyle}>
-          <Transition
-            show={isOpen}
-            className={clsx(className, 'absolute', {
-              'bottom-0 left-0 origin-top-left': position === 'above-left',
-              'bottom-0 right-0 origin-top-right': position === 'above-right',
-              'top-0 left-0 origin-top-left': position === 'below-left',
-              'top-0 right-0 origin-top-right': position === 'below-right',
-            })}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-            style={{ maxWidth: setMaxWidth ? anchorRect?.width : undefined }}
-          >
-            {children}
-          </Transition>
+          <AnimatePresence>
+            <motion.div
+              className={clsx(className, 'absolute', {
+                'bottom-0 left-0 origin-top-left': position === 'above-left',
+                'bottom-0 right-0 origin-top-right': position === 'above-right',
+                'top-0 left-0 origin-top-left': position === 'below-left',
+                'top-0 right-0 origin-top-right': position === 'below-right',
+              })}
+              animate={isOpen ? 'open' : 'closed'}
+              variants={variants}
+              style={{ maxWidth: setMaxWidth ? anchorRect?.width : undefined }}
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </Portal>
