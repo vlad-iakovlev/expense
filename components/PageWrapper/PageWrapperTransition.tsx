@@ -7,7 +7,7 @@ import {
 import { useRouter } from 'next/router.js'
 import { forwardRef, useEffect, useMemo, useState } from 'react'
 
-const transition = { ease: 'easeInOut', duration: 0.3 }
+const transition = { ease: 'easeInOut', duration: 10 }
 
 export const PageWrapperTransition = forwardRef<
   HTMLDivElement,
@@ -55,6 +55,9 @@ export const PageWrapperTransition = forwardRef<
 
       enterTo: {
         x: 0,
+        transitionEnd: {
+          boxShadow: 'none',
+        },
       },
 
       exitTo: (animation?: unknown) => ({
