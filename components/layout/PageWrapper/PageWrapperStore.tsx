@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react'
-import { useRootStore } from '../../stores/RootStore/RootStore.tsx'
-import { Loading } from '../pages/Loading/Loading.tsx'
+import { useRootStore } from '../../../stores/RootStore/RootStore.tsx'
+import { Loading } from '../../pages/Loading/Loading.tsx'
 
 interface Props {
   children: ReactNode

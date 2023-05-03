@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
 import { forwardRef, useState } from 'react'
-import { PageWrapper } from '../../components/PageWrapper/PageWrapper.tsx'
+import { PageWrapper } from '../../components/layout/PageWrapper/PageWrapper.tsx'
 import { Operation } from '../../components/pages/Operation/Operation.tsx'
 
 const OperationPage = forwardRef<HTMLDivElement, NextPage>(

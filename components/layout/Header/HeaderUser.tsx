@@ -2,10 +2,10 @@ import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router.js'
 import { FC, useCallback, useRef, useState } from 'react'
-import { ROUTES } from '../../constants/routes.ts'
-import { Avatar } from '../ui-kit/Avatar/Avatar.tsx'
-import { Button } from '../ui-kit/Button/Button.tsx'
-import { Card } from '../ui-kit/Card/Card.tsx'
+import { ROUTES } from '../../../constants/routes.ts'
+import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
+import { Button } from '../../ui-kit/Button/Button.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   className?: string

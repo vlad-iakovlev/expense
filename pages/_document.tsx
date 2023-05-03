@@ -1,6 +1,6 @@
 import { DocumentProps, Head, Html, Main, NextScript } from 'next/document.js'
 import { FC } from 'react'
-import { ApplePWA } from '../components/ApplePWA/ApplePWA.tsx'
+import { ApplePWA } from '../components/misc/ApplePWA.tsx'
 
 export const MyDocument: FC<DocumentProps> = () => {
   return (

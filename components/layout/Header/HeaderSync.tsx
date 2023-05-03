@@ -1,7 +1,7 @@
 import { clsx } from 'clsx'
 import * as fns from 'date-fns'
 import { FC } from 'react'
-import { useSyncStatus } from '../../stores/RootStore/hooks/useSyncStatus.ts'
+import { useSyncStatus } from '../../../stores/RootStore/hooks/useSyncStatus.ts'
 
 interface Props {
   className?: string

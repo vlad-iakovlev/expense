@@ -1,6 +1,6 @@
 import { ReactNode, forwardRef } from 'react'
-import { Unauthenticated } from '../pages/Unauthenticated/Unauthenticated.tsx'
-import { Container } from '../ui-kit/Container/Container.tsx'
+import { Unauthenticated } from '../../pages/Unauthenticated/Unauthenticated.tsx'
+import { Container } from '../../ui-kit/Container/Container.tsx'
 import { PageWrapperAuth } from './PageWrapperAuth.tsx'
 import { PageWrapperStore } from './PageWrapperStore.tsx'
 import { PageWrapperTransition } from './PageWrapperTransition.tsx'

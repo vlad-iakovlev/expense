@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Container } from '../ui-kit/Container/Container.tsx'
+import { Container } from '../../ui-kit/Container/Container.tsx'
 import { HeaderLogo } from './HeaderLogo.tsx'
 import { HeaderSync } from './HeaderSync.tsx'
 import { HeaderUser } from './HeaderUser.tsx'
