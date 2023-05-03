@@ -29,6 +29,7 @@ export const performSync: NextApiHandler<PerformSyncResponse> = async (
         }),
         create: {
           ...groupData,
+          id: group.id,
           users: {
             connect: {
               id: req.session.user.id,
