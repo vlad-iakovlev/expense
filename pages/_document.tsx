@@ -19,7 +19,7 @@ export const MyDocument: FC<DocumentProps> = () => {
         <ApplePWA />
       </Head>
 
-      <body>
+      <body className="bg-zinc-300 overscroll-none select-none touch-pan-y [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]">
         <Main />
         <NextScript />
       </body>
