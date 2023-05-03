@@ -1,13 +1,13 @@
 import { FC, useMemo } from 'react'
-import { ROUTES } from '../../../constants/routes.ts'
-import { useWallet } from '../../../stores/RootStore/hooks/useWallet.ts'
-import { OperationsListCard } from '../../cards/OperationsList/OperationsList.tsx'
-import { StatisticsCard } from '../../cards/Statistics/Statistics.tsx'
-import { WalletInfoCard } from '../../cards/WalletInfo/WalletInfo.tsx'
-import { NextHead } from '../../next/Head.ts'
-import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
-import { Columns } from '../../ui-kit/Columns/Columns.tsx'
-import { Title } from '../../ui-kit/Title/Title.tsx'
+import { ROUTES } from '../../constants/routes.ts'
+import { useWallet } from '../../stores/RootStore/hooks/useWallet.ts'
+import { OperationsListCard } from '../cards/OperationsList/OperationsList.tsx'
+import { StatisticsCard } from '../cards/Statistics/Statistics.tsx'
+import { WalletInfoCard } from '../cards/WalletInfo/WalletInfo.tsx'
+import { NextHead } from '../next/Head.ts'
+import { Breadcrumbs } from '../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
+import { Columns } from '../ui-kit/Columns/Columns.tsx'
+import { Title } from '../ui-kit/Title/Title.tsx'
 
 interface Props {
   walletId: string

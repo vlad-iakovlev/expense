@@ -1,11 +1,11 @@
 import { FC, useMemo } from 'react'
-import { ROUTES } from '../../../constants/routes.ts'
-import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
-import { OperationInfoCard } from '../../cards/OperationInfo/OperationInfo.tsx'
-import { NextHead } from '../../next/Head.ts'
-import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
-import { Columns } from '../../ui-kit/Columns/Columns.tsx'
-import { Title } from '../../ui-kit/Title/Title.tsx'
+import { ROUTES } from '../../constants/routes.ts'
+import { useOperation } from '../../stores/RootStore/hooks/useOperation.ts'
+import { OperationInfoCard } from '../cards/OperationInfo/OperationInfo.tsx'
+import { NextHead } from '../next/Head.ts'
+import { Breadcrumbs } from '../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
+import { Columns } from '../ui-kit/Columns/Columns.tsx'
+import { Title } from '../ui-kit/Title/Title.tsx'
 
 interface Props {
   operationId: string

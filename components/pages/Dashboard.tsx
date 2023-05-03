@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { useGroups } from '../../../stores/RootStore/hooks/useGroups.ts'
-import { GroupCreateCard } from '../../cards/GroupCreate/GroupCreate.tsx'
-import { GroupOpenCard } from '../../cards/GroupOpen/GroupOpen.tsx'
-import { NextHead } from '../../next/Head.ts'
-import { Columns } from '../../ui-kit/Columns/Columns.tsx'
-import { Title } from '../../ui-kit/Title/Title.tsx'
+import { useGroups } from '../../stores/RootStore/hooks/useGroups.ts'
+import { GroupCreateCard } from '../cards/GroupCreate/GroupCreate.tsx'
+import { GroupOpenCard } from '../cards/GroupOpen/GroupOpen.tsx'
+import { NextHead } from '../next/Head.ts'
+import { Columns } from '../ui-kit/Columns/Columns.tsx'
+import { Title } from '../ui-kit/Title/Title.tsx'
 
 export const Dashboard: FC = () => {
   const { groupIds } = useGroups()

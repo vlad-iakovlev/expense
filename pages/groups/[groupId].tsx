@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
 import { forwardRef, useState } from 'react'
 import { Page } from '../../components/layout/Page/Page.tsx'
-import { Group } from '../../components/pages/Group/Group.tsx'
+import { Group } from '../../components/pages/Group.tsx'
 
 const GroupPage = forwardRef<HTMLDivElement, NextPage>(function GroupPage(
   {},

@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
 import { FC, ReactNode } from 'react'
-import { Loading } from '../../pages/Loading/Loading.tsx'
+import { Loading } from '../../pages/Loading.tsx'
 
 interface Props {
   children: ReactNode

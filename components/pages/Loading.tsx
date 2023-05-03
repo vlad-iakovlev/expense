@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { NextHead } from '../../next/Head.ts'
+import { NextHead } from '../next/Head.ts'
 
 export const Loading: FC = () => {
   return (

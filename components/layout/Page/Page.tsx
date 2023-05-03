@@ -1,5 +1,5 @@
 import { ReactNode, forwardRef } from 'react'
-import { Unauthenticated } from '../../pages/Unauthenticated/Unauthenticated.tsx'
+import { Unauthenticated } from '../../pages/Unauthenticated.tsx'
 import { Container } from '../../ui-kit/Container/Container.tsx'
 import { PageAuth } from './PageAuth.tsx'
 import { PageStore } from './PageStore.tsx'
