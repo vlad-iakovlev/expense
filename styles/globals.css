@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-a,
-button {
+body {
+  overscroll-behavior: none;
+  user-select: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
 }

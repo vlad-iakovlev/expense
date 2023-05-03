@@ -14,7 +14,7 @@ export const GroupInfoBalance: FC<Props> = ({ groupId }) => {
     <Card.Text
       end={
         <Amount
-          className="font-medium"
+          className="font-medium select-text"
           amount={groupBalance.balance}
           currency={groupBalance.currency}
         />

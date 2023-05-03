@@ -36,11 +36,11 @@ export const Button: FC<ButtonProps> = ({
         'min-w-8 h-8 px-2 text-sm font-medium': size === 'sm',
         'min-w-10 h-10 px-2 text-sm font-medium': size === 'md',
         'min-w-12 h-12 px-3 font-medium': size === 'lg',
-        'bg-green-700 text-white before:border-transparent hover:bg-green-800 shadow-inner':
+        'bg-green-700 text-white before:border-transparent hover:bg-green-800 active:bg-green-800 shadow-inner':
           theme === 'primary',
-        'bg-white text-black before:border-zinc-300 hover:bg-zinc-50 shadow-sm':
+        'bg-white text-black before:border-zinc-300 hover:bg-zinc-50 active:bg-zinc-50 shadow-sm':
           theme === 'secondary',
-        'bg-red-700 text-white before:border-transparent hover:bg-red-800 shadow-inner':
+        'bg-red-700 text-white before:border-transparent hover:bg-red-800 active:bg-red-800 shadow-inner':
           theme === 'error',
         'pointer-events-none': disabled,
       }

@@ -22,7 +22,7 @@ export const CardButton: FC<CardButtonProps> = ({
     className={clsx(
       'flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left transition-colors',
       {
-        'bg-white hover:bg-zinc-100': !active,
+        'bg-white hover:bg-zinc-100 active:bg-zinc-100': !active,
         'bg-zinc-100': active,
         'pointer-events-none': disabled,
       }

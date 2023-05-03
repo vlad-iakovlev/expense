@@ -20,7 +20,7 @@ export const WalletInfoBalanceInDefaultCurrency: FC<Props> = ({ walletId }) => {
     <Card.Text
       end={
         <Amount
-          className="font-medium"
+          className="font-medium select-text"
           amount={walletBalance.balance}
           currency={walletBalance.currency}
           displayCurrency={wallet.group.defaultCurrency}
