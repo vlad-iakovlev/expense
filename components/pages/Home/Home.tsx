@@ -1,6 +1,6 @@
 import { FC } from 'react'
+import { NextHead } from '../../next/Head.ts'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
-import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
 import { Title } from '../../ui-kit/Title/Title.tsx'
 import { HomeFeatures } from './HomeFeatures.tsx'
 import { HomeInfo } from './HomeInfo.tsx'

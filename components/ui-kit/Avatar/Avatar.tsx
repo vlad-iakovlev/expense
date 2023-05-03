@@ -1,6 +1,6 @@
 import { clsx } from 'clsx'
 import { FC, ReactNode } from 'react'
-import { NextImage } from '../NextImage/NextImage.ts'
+import { NextImage } from '../../next/Image.ts'
 
 export const avatarColors = [
   'red',

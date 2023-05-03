@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { NextError } from '../../ui-kit/NextError/NextError.ts'
-import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
+import { NextError } from '../../next/Error.ts'
+import { NextHead } from '../../next/Head.ts'
 
 export const Unauthenticated: FC = () => {
   return (

@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import { NextLink } from '../NextLink/NextLink.ts'
+import { NextLink } from '../../next/Link.ts'
 
 export interface CardLinkProps {
   href: string

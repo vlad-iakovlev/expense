@@ -7,9 +7,9 @@ import { OperationsListCard } from '../../cards/OperationsList/OperationsList.ts
 import { RenameCategoryCard } from '../../cards/RenameCategory/RenameCategory.tsx'
 import { StatisticsCard } from '../../cards/Statistics/Statistics.tsx'
 import { WalletsListCard } from '../../cards/WalletsList/WalletsList.tsx'
+import { NextHead } from '../../next/Head.ts'
 import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
-import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
 import { Title } from '../../ui-kit/Title/Title.tsx'
 
 interface Props {

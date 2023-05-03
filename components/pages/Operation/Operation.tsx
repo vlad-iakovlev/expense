@@ -2,9 +2,9 @@ import { FC, useMemo } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
 import { OperationInfoCard } from '../../cards/OperationInfo/OperationInfo.tsx'
+import { NextHead } from '../../next/Head.ts'
 import { Breadcrumbs } from '../../ui-kit/Breadcrumbs/Breadcrumbs.tsx'
 import { Columns } from '../../ui-kit/Columns/Columns.tsx'
-import { NextHead } from '../../ui-kit/NextHead/NextHead.ts'
 import { Title } from '../../ui-kit/Title/Title.tsx'
 
 interface Props {

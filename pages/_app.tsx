@@ -6,7 +6,7 @@ import { AppProps } from 'next/app.js'
 import { useRouter } from 'next/router.js'
 import { FC, useEffect } from 'react'
 import { Header } from '../components/Header/Header.tsx'
-import { NextHead } from '../components/ui-kit/NextHead/NextHead.ts'
+import { NextHead } from '../components/next/Head.ts'
 import { RootStoreProvider } from '../stores/RootStore/RootStore.tsx'
 import '../styles/globals.css'
 
