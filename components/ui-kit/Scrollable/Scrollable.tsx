@@ -1,6 +1,6 @@
-import { Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { FC, ReactNode, useEffect, useRef, useState } from 'react'
+import { AnimatePresence, HTMLMotionProps, motion } from 'framer-motion'
+import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { Thumb, Track, getThumb, getTrack } from './utils.ts'
 
 const DEFAULT_TRACK: Track = {
@@ -89,6 +89,72 @@ export const Scrollable: FC<ScrollableProps> = ({
     }
   }, [isVTrackVisible, isHTrackVisible, vTrack, hTrack, vThumb, hThumb])
 
+  const tracks = useMemo<ReactNode[]>(() => {
+    const trackProps: HTMLMotionProps<'div'> = {
+      className: 'absolute pointer-events-none',
+      initial: {
+        opacity: 0,
+      },
+      animate: {
+        opacity: 1,
+        transition: { ease: 'easeOut', duration: 0.075 },
+      },
+      exit: {
+        opacity: 0,
+        transition: { ease: 'easeIn', duration: 0.2 },
+      },
+    }
+
+    const thumbClassName = clsx('absolute rounded-full', {
+      'bg-black bg-opacity-[0.35]': theme === 'light',
+      'bg-white bg-opacity-50': theme === 'dark',
+    })
+
+    const tracks: ReactNode[] = []
+
+    if (isVTrackVisible) {
+      tracks.push(
+        <motion.div
+          {...trackProps}
+          key="v-track"
+          style={{
+            top: vTrack.startOffset,
+            bottom: vTrack.endOffset,
+            right: vTrack.edgeOffset,
+            width: vTrack.thickness,
+          }}
+        >
+          <div
+            className={clsx(thumbClassName, 'w-full')}
+            style={{ top: vThumb.offset, height: vThumb.length }}
+          />
+        </motion.div>
+      )
+    }
+
+    if (isHTrackVisible) {
+      tracks.push(
+        <motion.div
+          {...trackProps}
+          key="h-track"
+          style={{
+            left: hTrack.startOffset,
+            right: hTrack.endOffset,
+            bottom: hTrack.edgeOffset,
+            height: hTrack.thickness,
+          }}
+        >
+          <div
+            className={clsx(thumbClassName, 'h-full')}
+            style={{ left: hThumb.offset, width: hThumb.length }}
+          />
+        </motion.div>
+      )
+    }
+
+    return tracks
+  }, [hThumb, hTrack, isHTrackVisible, isVTrackVisible, theme, vThumb, vTrack])
+
   return (
     <div className={clsx(className, 'relative overflow-hidden')}>
       <div
@@ -98,65 +164,7 @@ export const Scrollable: FC<ScrollableProps> = ({
         {children}
       </div>
 
-      <Transition
-        aria-hidden
-        unmount={false}
-        show={isVTrackVisible}
-        className="absolute pointer-events-none"
-        enter="transition-opacity ease-out duration-75"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity ease-in duration-200"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-        style={{
-          top: vTrack.startOffset,
-          bottom: vTrack.endOffset,
-          right: vTrack.edgeOffset,
-          width: vTrack.thickness,
-        }}
-      >
-        <div
-          className={clsx('absolute w-full rounded-full', {
-            'bg-black bg-opacity-[0.35]': theme === 'light',
-            'bg-white bg-opacity-50': theme === 'dark',
-          })}
-          style={{
-            top: vThumb.offset,
-            height: vThumb.length,
-          }}
-        />
-      </Transition>
-
-      <Transition
-        aria-hidden
-        unmount={false}
-        show={isHTrackVisible}
-        className="absolute pointer-events-none"
-        enter="transition-opacity ease-out duration-75"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity ease-in duration-200"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-        style={{
-          left: hTrack.startOffset,
-          right: hTrack.endOffset,
-          bottom: hTrack.edgeOffset,
-          height: hTrack.thickness,
-        }}
-      >
-        <div
-          className={clsx('absolute h-full rounded-full', {
-            'bg-black bg-opacity-[0.35]': theme === 'light',
-            'bg-white bg-opacity-50': theme === 'dark',
-          })}
-          style={{
-            left: hThumb.offset,
-            width: hThumb.length,
-          }}
-        />
-      </Transition>
+      <AnimatePresence>{tracks}</AnimatePresence>
     </div>
   )
 }
