@@ -1,3 +1,4 @@
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
 import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -11,7 +12,7 @@ interface Props {
   walletId?: string
 }
 
-const TAKE = 10
+const PAGE_SIZE = 10
 
 export const OperationsListCard: FC<Props> = ({
   className,
@@ -19,34 +20,18 @@ export const OperationsListCard: FC<Props> = ({
   walletId,
 }) => {
   const [category, setCategory] = useState<string>('')
-
   const { operationIds } = useOperations({ groupId, walletId, category })
 
-  const [skip, setSkip] = useState(0)
+  const [take, setTake] = useState(PAGE_SIZE)
+  useEffect(() => setTake(PAGE_SIZE), [category])
 
-  const visibleOperationIds = useMemo(() => {
-    return operationIds.slice(skip, skip + TAKE)
-  }, [operationIds, skip])
+  const canShowMore = useMemo(() => {
+    return take < operationIds.length
+  }, [operationIds.length, take])
 
-  const hasPrevOperations = useMemo(() => {
-    return skip > 0
-  }, [skip])
-
-  const hasNextOperations = useMemo(() => {
-    return skip + TAKE < operationIds.length
-  }, [operationIds, skip])
-
-  const getPrevOperations = useCallback(() => {
-    setSkip((prevSkip) => prevSkip - TAKE)
+  const handleShowMore = useCallback(() => {
+    setTake((prevTake) => prevTake + PAGE_SIZE)
   }, [])
-
-  const getNextOperations = useCallback(() => {
-    setSkip((prevSkip) => prevSkip + TAKE)
-  }, [])
-
-  useEffect(() => {
-    setSkip(0)
-  }, [category])
 
   if (!walletId && !category && !operationIds.length) {
     return null
@@ -63,10 +48,10 @@ export const OperationsListCard: FC<Props> = ({
         </>
       )}
 
-      {!!visibleOperationIds.length && (
+      {!!operationIds.length && (
         <>
           <Card.Divider />
-          {visibleOperationIds.map((operationId) => (
+          {operationIds.slice(0, take).map((operationId) => (
             <Operation
               key={operationId}
               operationId={operationId}
@@ -76,15 +61,15 @@ export const OperationsListCard: FC<Props> = ({
         </>
       )}
 
-      {hasPrevOperations || hasNextOperations ? (
+      {canShowMore ? (
         <>
           <Card.Divider />
-          <Card.Pagination
-            hasPrev={hasPrevOperations}
-            hasNext={hasNextOperations}
-            onPrevClick={getPrevOperations}
-            onNextClick={getNextOperations}
-          />
+          <Card.Button
+            end={<EllipsisHorizontalIcon className="w-6 h-6" />}
+            onClick={handleShowMore}
+          >
+            Show more
+          </Card.Button>
         </>
       ) : null}
     </Card>
