@@ -55,8 +55,6 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
   const [anchorRect, setAnchorRect] = useState<DOMRect>()
 
   const popupStyle = useMemo<CSSProperties>(() => {
-    console.log(rootRect, anchorRect)
-
     if (!rootRect || !anchorRect) {
       return {
         top: 0,
