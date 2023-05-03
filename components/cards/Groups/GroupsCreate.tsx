@@ -4,6 +4,7 @@ import { FC, useCallback } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useGroups } from '../../../stores/RootStore/hooks/useGroups.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
 
 export const GroupsCreate: FC = () => {
   const router = useRouter()
@@ -16,6 +17,14 @@ export const GroupsCreate: FC = () => {
   }, [createGroup, router])
 
   return (
-    <Button rounded size="sm" iconStart={<PlusIcon />} onClick={handleCreate} />
+    <Card onClick={handleCreate}>
+      <Card.Title title="New Group" />
+      <Card.Divider />
+      <Card.Text
+        end={<Button rounded disabled size="sm" iconStart={<PlusIcon />} />}
+      >
+        Create
+      </Card.Text>
+    </Card>
   )
 }

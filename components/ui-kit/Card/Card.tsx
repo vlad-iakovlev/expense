@@ -14,6 +14,7 @@ import { CardTitle } from './CardTitle.tsx'
 export interface CardProps {
   className?: string
   children?: ReactNode
+  onClick?: () => void
 }
 
 export type * from './CardButton.tsx'
@@ -26,13 +27,15 @@ export type * from './CardSelect.tsx'
 export type * from './CardText.tsx'
 export type * from './CardTitle.tsx'
 
-export const Card = ({ className, children }: CardProps) => {
+export const Card = ({ className, children, onClick }: CardProps) => {
   return (
     <div
       className={clsx(
         className,
-        'max-sm:-mx-4 py-2 bg-white sm:rounded-md shadow-lg ring-1 ring-black ring-opacity-5'
+        'max-sm:-mx-4 py-2 bg-white sm:rounded-md shadow-lg ring-1 ring-black ring-opacity-5 transition-shadow',
+        { 'hover:shadow-xl active:shadow-lg cursor-pointer': onClick }
       )}
+      onClick={onClick}
     >
       {children}
     </div>
