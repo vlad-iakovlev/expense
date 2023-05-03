@@ -5,7 +5,6 @@ import { CardDateTime } from './CardDateTime.tsx'
 import { CardDivider } from './CardDivider.tsx'
 import { CardInput } from './CardInput.tsx'
 import { CardLink } from './CardLink.tsx'
-import { CardPagination } from './CardPagination.tsx'
 import { CardPopup } from './CardPopup.tsx'
 import { CardSelect } from './CardSelect.tsx'
 import { CardText } from './CardText.tsx'
@@ -22,7 +21,6 @@ export type * from './CardButton.tsx'
 export type * from './CardDateTime.tsx'
 export type * from './CardInput.tsx'
 export type * from './CardLink.tsx'
-export type * from './CardPagination.tsx'
 export type * from './CardPopup.tsx'
 export type * from './CardSelect.tsx'
 export type * from './CardText.tsx'
@@ -56,7 +54,6 @@ Card.DateTime = CardDateTime
 Card.Divider = CardDivider
 Card.Input = CardInput
 Card.Link = CardLink
-Card.Pagination = CardPagination
 Card.Popup = CardPopup
 Card.Select = CardSelect
 Card.Text = CardText

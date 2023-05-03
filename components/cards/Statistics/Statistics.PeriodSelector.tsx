@@ -1,3 +1,4 @@
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { FC, useCallback, useMemo } from 'react'
 import { Period } from '../../../hooks/usePeriod.ts'
 import {
@@ -5,6 +6,7 @@ import {
   formatWeek,
   formatYear,
 } from '../../../utils/formatDate.ts'
+import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
 const options: CardSelectOption<Period>[] = [
@@ -62,18 +64,27 @@ export const PeriodSelector: FC<Props> = ({
       />
 
       {period !== Period.ALL && (
-        <Card.Pagination
-          hasPrev
-          hasNext
-          onPrevClick={goPrev}
-          onNextClick={goNext}
-        >
-          <div className="font-medium text-center">
+        <div className="flex items-center min-h-12 px-4 sm:px-6 py-2 gap-3">
+          <Button
+            className="flex-none"
+            theme="secondary"
+            iconStart={<ChevronLeftIcon />}
+            onClick={goPrev}
+          />
+
+          <div className="flex-auto font-medium text-center truncate">
             {period === Period.WEEK && formatWeek(fromDate)}
             {period === Period.MONTH && formatMonth(fromDate)}
             {period === Period.YEAR && formatYear(fromDate)}
           </div>
-        </Card.Pagination>
+
+          <Button
+            className="flex-none"
+            theme="secondary"
+            iconStart={<ChevronRightIcon />}
+            onClick={goNext}
+          />
+        </div>
       )}
     </>
   )
