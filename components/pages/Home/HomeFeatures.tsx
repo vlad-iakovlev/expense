@@ -17,23 +17,29 @@ export const HomeFeatures: FC<Props> = ({ className }) => (
   <Card className={className}>
     <Card.Title title="Features" />
     <Card.Divider />
-    <Card.Text start={<ArrowPathIcon className="w-6 h-6" />}>
-      Built-in cross-device sync
-    </Card.Text>
-    <Card.Text start={<SignalSlashIcon className="w-6 h-6" />}>
-      Available even offline
-    </Card.Text>
-    <Card.Text start={<TagIcon className="w-6 h-6" />}>
-      Flexible categorization
-    </Card.Text>
-    <Card.Text start={<UsersIcon className="w-6 h-6" />}>
-      Collaborative tracking
-    </Card.Text>
-    <Card.Text start={<CurrencyDollarIcon className="w-6 h-6" />}>
-      Automatic currency conversion
-    </Card.Text>
-    <Card.Text start={<ChartPieIcon className="w-6 h-6" />}>
-      Pie charts for week/month/year
-    </Card.Text>
+    <Card.Text
+      prefix={<ArrowPathIcon className="w-6 h-6" />}
+      label="Built-in cross-device sync"
+    />
+    <Card.Text
+      prefix={<SignalSlashIcon className="w-6 h-6" />}
+      label="Available even offline"
+    />
+    <Card.Text
+      prefix={<TagIcon className="w-6 h-6" />}
+      label="Flexible categorization"
+    />
+    <Card.Text
+      prefix={<UsersIcon className="w-6 h-6" />}
+      label="Collaborative tracking"
+    />
+    <Card.Text
+      prefix={<CurrencyDollarIcon className="w-6 h-6" />}
+      label="Automatic currency conversion"
+    />
+    <Card.Text
+      prefix={<ChartPieIcon className="w-6 h-6" />}
+      label="Pie charts for week/month/year"
+    />
   </Card>
 )

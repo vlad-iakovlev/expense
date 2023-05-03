@@ -25,14 +25,15 @@ export const Categories: FC<Props> = ({
       {items.map((item) => (
         <Card.Text
           key={item.category}
-          start={
+          prefix={
             <Switch
               value={!isCategoryDisabled(item.category)}
               color={isCategoryDisabled(item.category) ? undefined : item.color}
               onChange={(value) => setCategoryDisabled(item.category, !value)}
             />
           }
-          end={
+          label={item.category}
+          value={
             <div className="font-medium text-right">
               <Amount
                 amount={item.incomeAmount}
@@ -46,9 +47,7 @@ export const Categories: FC<Props> = ({
               />
             </div>
           }
-        >
-          {item.category}
-        </Card.Text>
+        />
       ))}
     </>
   )

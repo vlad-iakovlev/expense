@@ -79,12 +79,16 @@ export const HeaderUser: FC<Props> = ({ className }) => {
             position="below-right"
             onClose={handlePopupClose}
           >
-            <Card.Text>
-              <p className="text-xl truncate">{session.data.user.name}</p>
-              <p className="text-zinc-600 truncate">
-                {session.data.user.email}
-              </p>
-            </Card.Text>
+            <Card.Text
+              label={
+                <>
+                  <p className="text-xl truncate">{session.data.user.name}</p>
+                  <p className="text-zinc-600 truncate">
+                    {session.data.user.email}
+                  </p>
+                </>
+              }
+            />
 
             <Card.Divider />
 

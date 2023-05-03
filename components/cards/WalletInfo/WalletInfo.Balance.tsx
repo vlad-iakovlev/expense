@@ -12,15 +12,14 @@ export const Balance: FC<Props> = ({ walletId }) => {
 
   return (
     <Card.Text
-      end={
+      label="Balance"
+      value={
         <Amount
           className="font-medium select-text"
           amount={walletBalance.balance}
           currency={walletBalance.currency}
         />
       }
-    >
-      Balance
-    </Card.Text>
+    />
   )
 }

@@ -21,16 +21,15 @@ export const GroupUsersCard: FC<Props> = ({ className, groupId }) => {
           {group.users.map((user) => (
             <Card.Text
               key={user.id}
-              start={
+              label={user.name}
+              prefix={
                 <Avatar
                   src={user.image ?? undefined}
                   name={user.name ?? undefined}
                   size="sm"
                 />
               }
-            >
-              {user.name}
-            </Card.Text>
+            />
           ))}
         </>
       )}

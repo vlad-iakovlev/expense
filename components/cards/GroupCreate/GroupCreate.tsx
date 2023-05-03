@@ -21,10 +21,9 @@ export const GroupCreateCard: FC = () => {
       <Card.Title title="New Group" />
       <Card.Divider />
       <Card.Text
-        end={<Button rounded disabled size="sm" iconStart={<PlusIcon />} />}
-      >
-        Create
-      </Card.Text>
+        label="Create"
+        value={<Button rounded disabled size="sm" iconStart={<PlusIcon />} />}
+      />
     </Card>
   )
 }

@@ -9,10 +9,14 @@ export const HomeInfo: FC<Props> = ({ className }) => (
   <Card className={className}>
     <Card.Title title="Info" />
     <Card.Divider />
-    <Card.Text end={<div className="font-medium">Expense</div>}>Name</Card.Text>
-    <Card.Text end={<div className="font-medium">Expense tracker</div>}>
-      Description
-    </Card.Text>
+    <Card.Text
+      label="Name"
+      value={<div className="font-medium">Expense</div>}
+    />
+    <Card.Text
+      label="Name"
+      value={<div className="font-medium">Expense tracker</div>}
+    />
     <Card.Link
       end={<div className="font-medium">Vlad Yakovlev</div>}
       href="https://vlad-yakovlev.dev"

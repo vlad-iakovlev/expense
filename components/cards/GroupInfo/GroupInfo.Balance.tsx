@@ -12,15 +12,14 @@ export const Balance: FC<Props> = ({ groupId }) => {
 
   return (
     <Card.Text
-      end={
+      label="Balance"
+      value={
         <Amount
           className="font-medium select-text"
           amount={groupBalance.balance}
           currency={groupBalance.currency}
         />
       }
-    >
-      Balance
-    </Card.Text>
+    />
   )
 }
