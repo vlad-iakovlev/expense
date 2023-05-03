@@ -19,7 +19,7 @@ export const MyDocument: FC<DocumentProps> = () => {
         <ApplePWA />
       </Head>
 
-      <body>
+      <body className="overscroll-none">
         <Main />
         <NextScript />
       </body>
