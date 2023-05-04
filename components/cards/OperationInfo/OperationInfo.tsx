@@ -18,7 +18,7 @@ interface Props {
 export const OperationInfoCard: FC<Props> = ({ className, operationId }) => {
   return (
     <Card className={className}>
-      <Card.Title title="Info" action={<Delete operationId={operationId} />} />
+      <Card.Title title="Info" actions={<Delete operationId={operationId} />} />
       <Card.Divider />
       <Date operationId={operationId} />
       <Category operationId={operationId} />

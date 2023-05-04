@@ -25,7 +25,7 @@ export const GroupOpenCard: FC<Props> = ({ groupId }) => {
     <Card clickable onClick={handleClick}>
       <Card.Title
         title={group.name}
-        action={
+        actions={
           <AvatarGroup
             className="flex-none"
             avatars={group.users.map((user) => ({

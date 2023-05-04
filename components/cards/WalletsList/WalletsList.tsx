@@ -1,19 +1,13 @@
-import {
-  DndContext,
-  DragEndEvent,
-  MouseSensor,
-  TouchSensor,
-  closestCenter,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core'
+import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core'
 import {
   SortableContext,
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { FC, useCallback } from 'react'
+import { ArrowsUpDownIcon } from '@heroicons/react/20/solid'
+import { FC, useCallback, useState } from 'react'
 import { useWallets } from '../../../stores/RootStore/hooks/useWallets.ts'
+import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Create } from './WalletsList.Create.tsx'
 import { Wallet } from './WalletsList.Wallet.tsx'
@@ -25,10 +19,6 @@ interface Props {
 
 export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
   const { walletIds, reorderWallets } = useWallets({ groupId })
-
-  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
-
-  const canDrag = walletIds.length > 1
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
@@ -42,15 +32,39 @@ export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
     [reorderWallets, walletIds]
   )
 
+  const [isReordering, setIsReordering] = useState(false)
+  const startReordering = useCallback(() => setIsReordering(true), [])
+  const stopReordering = useCallback(() => setIsReordering(false), [])
+
   return (
     <Card className={className}>
-      <Card.Title title="Wallets" action={<Create groupId={groupId} />} />
+      <Card.Title
+        title="Wallets"
+        actions={
+          isReordering ? (
+            <Button rounded size="sm" onClick={stopReordering}>
+              Done
+            </Button>
+          ) : (
+            <>
+              <Create groupId={groupId} />
+              {walletIds.length > 1 && (
+                <Button
+                  rounded
+                  size="sm"
+                  iconStart={<ArrowsUpDownIcon />}
+                  onClick={startReordering}
+                />
+              )}
+            </>
+          )
+        }
+      />
 
       {walletIds.length > 0 && (
         <>
           <Card.Divider />
           <DndContext
-            sensors={sensors}
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
           >
@@ -59,7 +73,11 @@ export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
               strategy={verticalListSortingStrategy}
             >
               {walletIds.map((walletId) => (
-                <Wallet key={walletId} canDrag={canDrag} walletId={walletId} />
+                <Wallet
+                  key={walletId}
+                  isReordering={isReordering}
+                  walletId={walletId}
+                />
               ))}
             </SortableContext>
           </DndContext>

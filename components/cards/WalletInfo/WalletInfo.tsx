@@ -14,7 +14,7 @@ interface Props {
 export const WalletInfoCard: FC<Props> = ({ className, walletId }) => {
   return (
     <Card className={className}>
-      <Card.Title title="Info" action={<Delete walletId={walletId} />} />
+      <Card.Title title="Info" actions={<Delete walletId={walletId} />} />
       <Card.Divider />
       <Name walletId={walletId} />
       <Currency walletId={walletId} />

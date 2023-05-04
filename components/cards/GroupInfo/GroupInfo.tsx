@@ -13,7 +13,7 @@ interface Props {
 export const GroupInfoCard: FC<Props> = ({ className, groupId }) => {
   return (
     <Card className={className}>
-      <Card.Title title="Info" action={<Delete groupId={groupId} />} />
+      <Card.Title title="Info" actions={<Delete groupId={groupId} />} />
       <Card.Divider />
       <Name groupId={groupId} />
       <DefaultCurrency groupId={groupId} />

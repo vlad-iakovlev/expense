@@ -2,7 +2,6 @@ import { clsx } from 'clsx'
 import { FC, MouseEvent, ReactNode } from 'react'
 
 export interface CardButtonProps {
-  active?: boolean
   disabled?: boolean
   prefix?: ReactNode
   label?: ReactNode
@@ -12,7 +11,6 @@ export interface CardButtonProps {
 }
 
 export const CardButton: FC<CardButtonProps> = ({
-  active,
   disabled,
   prefix,
   label,
@@ -22,10 +20,8 @@ export const CardButton: FC<CardButtonProps> = ({
 }) => (
   <button
     className={clsx(
-      'flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left transition-colors',
+      'flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors',
       {
-        'bg-white hover:bg-zinc-100 active:bg-zinc-100': !active,
-        'bg-zinc-100': active,
         'pointer-events-none': disabled,
       }
     )}

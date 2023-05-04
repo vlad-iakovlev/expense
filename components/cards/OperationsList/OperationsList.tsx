@@ -39,7 +39,7 @@ export const OperationsListCard: FC<Props> = ({
 
   return (
     <Card className={className}>
-      <Card.Title title="Operations" action={<Create walletId={walletId} />} />
+      <Card.Title title="Operations" actions={<Create walletId={walletId} />} />
 
       {(!!category || !!operationIds.length) && (
         <>
