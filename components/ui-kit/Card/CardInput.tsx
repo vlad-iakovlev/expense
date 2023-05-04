@@ -70,23 +70,15 @@ export const CardInput: FC<CardInputProps> = ({
     event.currentTarget.select()
   }, [])
 
-  const handleBlur = useCallback(
-    (event: FocusEvent<HTMLInputElement>) => {
-      if (popupRef.current?.contains(event.relatedTarget)) {
-        event.preventDefault()
-        return
-      }
+  const handleBlur = useCallback(() => {
+    const formattedValue = inputValue.trim().replace(/\s+/g, ' ')
 
-      const formattedValue = inputValue.trim().replace(/\s+/g, ' ')
+    if (formattedValue && formattedValue !== value) {
+      onChange(formattedValue)
+    }
 
-      if (formattedValue && formattedValue !== value) {
-        onChange(formattedValue)
-      }
-
-      setIsEditing(false)
-    },
-    [inputValue, value, onChange]
-  )
+    setIsEditing(false)
+  }, [inputValue, value, onChange])
 
   const handleSelect = useCallback(
     (suggestion: string) => {
@@ -140,6 +132,7 @@ export const CardInput: FC<CardInputProps> = ({
             key={suggestion}
             label={suggestion}
             onClick={() => handleSelect(suggestion)}
+            onPointerDown={(event) => event.preventDefault()}
           />
         ))}
       </Card.Popup>

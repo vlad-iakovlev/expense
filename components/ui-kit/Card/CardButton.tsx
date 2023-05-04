@@ -8,6 +8,7 @@ export interface CardButtonProps {
   label?: ReactNode
   value?: ReactNode
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
+  onPointerDown?: (event: MouseEvent<HTMLButtonElement>) => void
 }
 
 export const CardButton: FC<CardButtonProps> = ({
@@ -17,6 +18,7 @@ export const CardButton: FC<CardButtonProps> = ({
   label,
   value,
   onClick,
+  onPointerDown,
 }) => (
   <button
     className={clsx(
@@ -29,6 +31,7 @@ export const CardButton: FC<CardButtonProps> = ({
     )}
     type="button"
     onClick={onClick}
+    onPointerDown={onPointerDown}
   >
     {prefix ? <div className="flex-none">{prefix}</div> : null}
     <div className="flex-auto truncate">{label}</div>
