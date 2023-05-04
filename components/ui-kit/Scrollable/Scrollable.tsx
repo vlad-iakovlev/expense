@@ -14,7 +14,7 @@ const DEFAULT_TRACK: Track = {
 const DEFAULT_THUMB: Thumb = { offset: 0, length: 0 }
 
 const variants: Variants = {
-  open: {
+  opened: {
     opacity: 1,
     transition: { ease: 'easeOut', duration: 0.075 },
   },
@@ -120,7 +120,7 @@ export const Scrollable: FC<ScrollableProps> = ({
       <motion.div
         key="v-track"
         className="absolute pointer-events-none"
-        animate={isVTrackVisible ? 'open' : 'closed'}
+        animate={isVTrackVisible ? 'opened' : 'closed'}
         variants={variants}
         style={{
           top: vTrack.startOffset,
@@ -138,7 +138,7 @@ export const Scrollable: FC<ScrollableProps> = ({
       <motion.div
         key="h-track"
         className="absolute pointer-events-none"
-        animate={isHTrackVisible ? 'open' : 'closed'}
+        animate={isHTrackVisible ? 'opened' : 'closed'}
         variants={variants}
         style={{
           left: hTrack.startOffset,

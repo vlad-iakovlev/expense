@@ -15,7 +15,7 @@ import {
 import { Portal } from '../Portal/Portal.tsx'
 
 const variants: Variants = {
-  open: {
+  opened: {
     opacity: 1,
     scale: 1,
     pointerEvents: 'auto',
@@ -130,7 +130,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
               'top-0 left-0 origin-top-left': position === 'below-left',
               'top-0 right-0 origin-top-right': position === 'below-right',
             })}
-            animate={isOpen ? 'open' : 'closed'}
+            animate={isOpen ? 'opened' : 'closed'}
             variants={variants}
             style={{ maxWidth: setMaxWidth ? anchorRect?.width : undefined }}
           >
