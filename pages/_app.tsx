@@ -5,9 +5,10 @@ import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app.js'
 import { useRouter } from 'next/router.js'
 import { FC, useEffect } from 'react'
-import { ErrorBoundary } from '../components/layout/ErrorBoundary/ErrorBoundary.tsx'
 import { Header } from '../components/layout/Header/Header.tsx'
+import { ErrorBoundary } from '../components/misc/ErrorBoundary.tsx'
 import { NextHead } from '../components/next/Head.ts'
+import { Fallback } from '../components/pages/Fallback.tsx'
 import { RootStoreProvider } from '../stores/RootStore/RootStore.tsx'
 import '../styles/globals.css'
 
@@ -22,7 +23,7 @@ const App: FC<AppProps<{ session: Session | null }>> = ({
   }, [])
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundary fallback={<Fallback />}>
       <NextHead>
         <meta
           name="viewport"

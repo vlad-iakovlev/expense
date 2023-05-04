@@ -1,5 +1,5 @@
 import { ReactNode, forwardRef } from 'react'
-import { Unauthenticated } from '../../pages/Unauthenticated.tsx'
+import { Fallback } from '../../pages/Fallback.tsx'
 import { Container } from '../../ui-kit/Container/Container.tsx'
 import { PageAuth } from './PageAuth.tsx'
 import { PageStore } from './PageStore.tsx'
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const Page = forwardRef<HTMLDivElement, Props>(function Page(
-  { children, unauthenticated = <Unauthenticated /> },
+  { children, unauthenticated = <Fallback /> },
   ref
 ) {
   return (
