@@ -33,7 +33,7 @@ const withPWA = nextPWA({
   ],
 })
 
-const nextConfig = withPWA({
+const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -42,6 +42,6 @@ const nextConfig = withPWA({
       },
     ],
   },
-})
+}
 
-export default nextConfig
+export default withPWA(nextConfig)
