@@ -51,7 +51,7 @@ export function CardSelect<Id extends string = string>({
       </button>
 
       <Card.Popup
-        className="-mt-2 px-4 sm:px-6 pb-6"
+        className="-mt-2 pb-8"
         isOpen={isOpen}
         anchorRef={rootRef}
         position="below-right"

@@ -29,7 +29,7 @@ export const Card = ({
     <Component
       className={clsx(
         className,
-        'max-sm:-mx-4 py-2 bg-white sm:rounded-md shadow-lg text-left ring-1 ring-black ring-opacity-5 transition-shadow',
+        'py-2 bg-white rounded-md shadow-lg text-left ring-1 ring-black ring-opacity-5 transition-shadow',
         { 'hover:shadow-xl active:shadow-lg cursor-pointer': clickable }
       )}
       type="button"

@@ -121,7 +121,7 @@ export const CardInput: FC<CardInputProps> = ({
 
       <Card.Popup
         ref={popupRef}
-        className="-mt-2 px-4 sm:px-6 pb-6"
+        className="-mt-2 pb-8"
         isOpen={isEditing && !!filteredSuggestions.length}
         anchorRef={rootRef}
         position="below-right"
