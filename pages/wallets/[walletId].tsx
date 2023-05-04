@@ -1,13 +1,10 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
-import { forwardRef, useState } from 'react'
+import { useState } from 'react'
 import { Page } from '../../components/layout/Page/Page.tsx'
 import { Wallet } from '../../components/pages/Wallet.tsx'
 
-const WalletPage = forwardRef<HTMLDivElement, NextPage>(function WalletPage(
-  {},
-  ref
-) {
+const WalletPage: NextPage = () => {
   const router = useRouter()
   const [walletId] = useState(router.query.walletId)
 
@@ -16,10 +13,10 @@ const WalletPage = forwardRef<HTMLDivElement, NextPage>(function WalletPage(
   }
 
   return (
-    <Page ref={ref}>
+    <Page>
       <Wallet walletId={walletId} />
     </Page>
   )
-})
+}
 
 export default WalletPage

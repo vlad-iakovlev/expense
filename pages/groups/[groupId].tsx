@@ -1,13 +1,10 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
-import { forwardRef, useState } from 'react'
+import { useState } from 'react'
 import { Page } from '../../components/layout/Page/Page.tsx'
 import { Group } from '../../components/pages/Group.tsx'
 
-const GroupPage = forwardRef<HTMLDivElement, NextPage>(function GroupPage(
-  {},
-  ref
-) {
+const GroupPage: NextPage = () => {
   const router = useRouter()
   const [groupId] = useState(router.query.groupId)
 
@@ -16,10 +13,10 @@ const GroupPage = forwardRef<HTMLDivElement, NextPage>(function GroupPage(
   }
 
   return (
-    <Page ref={ref}>
+    <Page>
       <Group groupId={groupId} />
     </Page>
   )
-})
+}
 
 export default GroupPage

@@ -6,6 +6,7 @@ import { AppProps } from 'next/app.js'
 import { useRouter } from 'next/router.js'
 import { FC, useEffect } from 'react'
 import { Header } from '../components/layout/Header/Header.tsx'
+import { PageTransition } from '../components/layout/PageTransition/PageTransition.tsx'
 import { ErrorBoundary } from '../components/misc/ErrorBoundary.tsx'
 import { NextHead } from '../components/next/Head.ts'
 import { Fallback } from '../components/pages/Fallback.tsx'
@@ -43,7 +44,9 @@ const App: FC<AppProps<{ session: Session | null }>> = ({
             mode="popLayout"
             custom={router.query.animation}
           >
-            <Component key={router.asPath} {...pageProps} />
+            <PageTransition key={router.asPath}>
+              <Component {...pageProps} />
+            </PageTransition>
           </AnimatePresence>
         </RootStoreProvider>
       </SessionProvider>
