@@ -5,6 +5,7 @@ import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app.js'
 import { useRouter } from 'next/router.js'
 import { FC, useEffect } from 'react'
+import { ErrorBoundary } from '../components/layout/ErrorBoundary/ErrorBoundary.tsx'
 import { Header } from '../components/layout/Header/Header.tsx'
 import { NextHead } from '../components/next/Head.ts'
 import { RootStoreProvider } from '../stores/RootStore/RootStore.tsx'
@@ -21,7 +22,7 @@ const App: FC<AppProps<{ session: Session | null }>> = ({
   }, [])
 
   return (
-    <>
+    <ErrorBoundary>
       <NextHead>
         <meta
           name="viewport"
@@ -45,7 +46,7 @@ const App: FC<AppProps<{ session: Session | null }>> = ({
           </AnimatePresence>
         </RootStoreProvider>
       </SessionProvider>
-    </>
+    </ErrorBoundary>
   )
 }
 
