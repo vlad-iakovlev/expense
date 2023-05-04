@@ -6,7 +6,6 @@ import {
 } from 'framer-motion'
 import { useRouter } from 'next/router.js'
 import { forwardRef, useEffect, useMemo, useState } from 'react'
-import { useEffectOnce } from '../../../hooks/useEffectOnce.ts'
 
 const transition = { ease: 'easeInOut', duration: 0.3 }
 
@@ -18,12 +17,12 @@ export const PageTransition = forwardRef<
   const [asPath] = useState(router.asPath)
   const [animation] = useState(router.query.animation)
 
-  useEffectOnce(() => {
-    if (router.query.animation) {
+  useEffect(() => {
+    if (router.asPath === asPath && router.query.animation) {
       // Update route to prevent animation on refresh or browser back
       void router.replace(router.asPath, undefined, { shallow: true })
     }
-  })
+  }, [asPath, router])
 
   const y = useMotionValue(0)
 
