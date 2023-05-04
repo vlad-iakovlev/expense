@@ -1,17 +1,13 @@
-import {
-  HTMLMotionProps,
-  Variants,
-  motion,
-  useMotionValue,
-} from 'framer-motion'
+import { HTMLMotionProps, Variants, motion } from 'framer-motion'
 import { useRouter } from 'next/router.js'
-import { forwardRef, useEffect, useMemo, useState } from 'react'
+import { ReactNode, forwardRef, useEffect, useMemo, useState } from 'react'
+import { Modify } from '../../../types/utility.ts'
 
 const transition = { ease: 'easeInOut', duration: 0.3 }
 
 export const PageTransition = forwardRef<
   HTMLDivElement,
-  HTMLMotionProps<'div'>
+  Modify<HTMLMotionProps<'div'>, { children: ReactNode }>
 >(function PageTransition({ children, ...rest }, ref) {
   const router = useRouter()
   const [asPath] = useState(router.asPath)
@@ -24,7 +20,7 @@ export const PageTransition = forwardRef<
     }
   }, [asPath, router])
 
-  const y = useMotionValue(0)
+  const [marginTop, setMarginTop] = useState(0)
 
   useEffect(() => {
     const handleRouteChange = (
@@ -32,42 +28,42 @@ export const PageTransition = forwardRef<
       { shallow }: { shallow: boolean }
     ) => {
       if (url !== asPath && !shallow) {
-        y.set(-document.documentElement.scrollTop)
+        setMarginTop(-document.documentElement.scrollTop)
         document.documentElement.scrollTop = 0
       }
     }
 
     router.events.on('routeChangeStart', handleRouteChange)
     return () => router.events.off('routeChangeStart', handleRouteChange)
-  }, [asPath, router.events, y])
+  }, [asPath, router.events])
 
-  const variants = useMemo<Variants>(() => {
+  const variants: Variants = useMemo(() => {
     return {
       initial: {
         ...(animation === 'forward' && {
-          x: '100%',
+          transform: 'translateX(100%)',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
         }),
         ...(animation === 'back' && {
-          x: '-25%',
+          transform: 'translateX(-25%)',
+          zIndex: -1,
         }),
       },
 
       enterTo: {
-        x: 0,
+        transform: 'translateX(0%)',
         transitionEnd: {
           boxShadow: 'none',
+          zIndex: 'auto',
         },
       },
 
       exitTo: (animation?: unknown) => ({
         ...(animation === 'forward' && {
-          x: '-10%',
+          transform: 'translateX(-10%)',
         }),
         ...(animation === 'back' && {
-          x: '100%',
-          position: 'relative',
-          zIndex: 1,
+          transform: 'translateX(100%)',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
         }),
       }),
@@ -77,15 +73,15 @@ export const PageTransition = forwardRef<
   return (
     <motion.div
       ref={ref}
+      className="relative flex flex-col"
       initial="initial"
       animate="enterTo"
       exit="exitTo"
       transition={transition}
       variants={variants}
-      style={{ y }}
       {...rest}
     >
-      {children}
+      <div style={{ marginTop }}>{children}</div>
     </motion.div>
   )
 })
