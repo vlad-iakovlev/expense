@@ -13,8 +13,8 @@ export const performSync: NextApiHandler<PerformSyncResponse> = async (
   await prisma.$transaction([
     ...body.groups.map((group) => {
       const groupData = {
-        name: group.name,
         removed: group.removed,
+        name: group.name,
         defaultCurrency: {
           connect: {
             id: group.defaultCurrencyId,
@@ -45,9 +45,9 @@ export const performSync: NextApiHandler<PerformSyncResponse> = async (
 
     ...body.wallets.map((wallet) => {
       const walletData = {
+        removed: wallet.removed,
         name: wallet.name,
         order: wallet.order,
-        removed: wallet.removed,
         currency: {
           connect: {
             id: wallet.currencyId,
@@ -79,12 +79,12 @@ export const performSync: NextApiHandler<PerformSyncResponse> = async (
 
     ...body.operations.map((operation) => {
       const operationData = {
+        removed: operation.removed,
         name: operation.name,
         category: operation.category,
         date: operation.date,
         incomeAmount: operation.incomeAmount,
         expenseAmount: operation.expenseAmount,
-        removed: operation.removed,
         ...(operation.incomeWalletId && {
           incomeWallet: {
             connect: getWalletWhere({
@@ -143,8 +143,8 @@ export const performSync: NextApiHandler<PerformSyncResponse> = async (
     }),
     select: {
       id: true,
-      name: true,
       removed: true,
+      name: true,
       defaultCurrencyId: true,
       users: {
         select: {
@@ -167,9 +167,9 @@ export const performSync: NextApiHandler<PerformSyncResponse> = async (
     },
     select: {
       id: true,
+      removed: true,
       name: true,
       order: true,
-      removed: true,
       currencyId: true,
       groupId: true,
     },
@@ -186,12 +186,12 @@ export const performSync: NextApiHandler<PerformSyncResponse> = async (
     },
     select: {
       id: true,
+      removed: true,
       name: true,
       category: true,
       date: true,
       incomeAmount: true,
       expenseAmount: true,
-      removed: true,
       incomeWalletId: true,
       expenseWalletId: true,
     },

@@ -50,8 +50,8 @@ const setStateFromRemoteStorageReducer: Reducer<
 
   const newOperations = action.payload.response.operations.map((operation) => ({
     ...operation,
-    date: new Date(operation.date),
     updatedAt: action.payload.syncStartedAt,
+    date: new Date(operation.date),
   }))
 
   return {
@@ -101,8 +101,8 @@ const setStateFromBrowserStorageReducer: Reducer<
     })),
     operations: storedState.operations.map((operation) => ({
       ...operation,
-      date: new Date(operation.date),
       updatedAt: new Date(operation.updatedAt),
+      date: new Date(operation.date),
     })),
     isSyncing: false,
     shouldSync: false,

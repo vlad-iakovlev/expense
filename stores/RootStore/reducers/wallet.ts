@@ -18,9 +18,9 @@ const createWalletReducer: Reducer<
       ...state.wallets,
       {
         id: action.payload.walletId,
+        updatedAt: new Date(),
         name: 'Untitled',
         order: null,
-        updatedAt: new Date(),
         removed: false,
         currencyId: getDefaultCurrency(state, {
           groupId: action.payload.groupId,
@@ -46,8 +46,8 @@ const removeWalletReducer: Reducer<
       if (wallet.id === action.payload.walletId) {
         return {
           ...wallet,
-          removed: true,
           updatedAt: new Date(),
+          removed: true,
         }
       }
 
@@ -72,8 +72,8 @@ const setWalletNameReducer: Reducer<
       if (wallet.id === action.payload.walletId) {
         return {
           ...wallet,
-          name: action.payload.name,
           updatedAt: new Date(),
+          name: action.payload.name,
         }
       }
 
@@ -98,8 +98,8 @@ const setWalletCurrencyReducer: Reducer<
       if (wallet.id === action.payload.walletId) {
         return {
           ...wallet,
-          currencyId: action.payload.currencyId,
           updatedAt: new Date(),
+          currencyId: action.payload.currencyId,
         }
       }
 
@@ -135,8 +135,8 @@ const reorderWalletsReducer: Reducer<
 
       return {
         ...wallet,
-        order: newOrder,
         updatedAt: new Date(),
+        order: newOrder,
       }
     }),
   }

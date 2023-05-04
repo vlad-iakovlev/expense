@@ -8,33 +8,22 @@ import { Modify } from '../../types/utility.ts'
 
 export interface RootStoreState {
   currencies: ClientCurrency[]
-  groups: ClientGroup[]
-  wallets: ClientWallet[]
-  operations: ClientOperation[]
+  groups: Modify<ClientGroup, { updatedAt: Date }>[]
+  wallets: Modify<ClientWallet, { updatedAt: Date }>[]
+  operations: Modify<ClientOperation, { updatedAt: Date }>[]
   isSyncing: boolean
   shouldSync: boolean
   syncedAt: Date | null
 }
 
-type BrowserStorageStateCurrency = ClientCurrency
-type BrowserStorageStateGroup = Modify<
-  ClientGroup,
-  { updatedAt: string | Date }
->
-type BrowserStorageStateWallet = Modify<
-  ClientWallet,
-  { updatedAt: string | Date }
->
-type BrowserStorageStateOperation = Modify<
-  ClientOperation,
-  { date: string | Date; updatedAt: string | Date }
->
-
 export interface BrowserStorageState {
-  currencies: BrowserStorageStateCurrency[]
-  groups: BrowserStorageStateGroup[]
-  wallets: BrowserStorageStateWallet[]
-  operations: BrowserStorageStateOperation[]
+  currencies: ClientCurrency[]
+  groups: Modify<ClientGroup, { updatedAt: string | Date }>[]
+  wallets: Modify<ClientWallet, { updatedAt: string | Date }>[]
+  operations: Modify<
+    ClientOperation,
+    { date: string | Date; updatedAt: string | Date }
+  >[]
   syncedAt: string | Date | null
 }
 

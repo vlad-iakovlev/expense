@@ -19,8 +19,8 @@ const createGroupReducer: Reducer<
       ...state.groups,
       {
         id: action.payload.groupId,
-        name: 'Untitled',
         updatedAt: new Date(),
+        name: 'Untitled',
         removed: false,
         defaultCurrencyId: getDefaultCurrency(state).id,
         users: [action.payload.user],
@@ -44,8 +44,8 @@ const removeGroupReducer: Reducer<
       if (group.id === action.payload.groupId) {
         return {
           ...group,
-          removed: true,
           updatedAt: new Date(),
+          removed: true,
         }
       }
 
@@ -70,8 +70,8 @@ const setGroupNameReducer: Reducer<
       if (group.id === action.payload.groupId) {
         return {
           ...group,
-          name: action.payload.name,
           updatedAt: new Date(),
+          name: action.payload.name,
         }
       }
 
@@ -96,8 +96,8 @@ const setGroupDefaultCurrencyReducer: Reducer<
       if (group.id === action.payload.groupId) {
         return {
           ...group,
-          defaultCurrencyId: action.payload.defaultCurrencyId,
           updatedAt: new Date(),
+          defaultCurrencyId: action.payload.defaultCurrencyId,
         }
       }
 

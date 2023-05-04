@@ -18,12 +18,12 @@ const createOperationReducer: Reducer<
       ...state.operations,
       {
         id: action.payload.operationId,
+        updatedAt: new Date(),
         name: 'Untitled',
         category: 'No category',
         date: new Date(),
         incomeAmount: 0,
         expenseAmount: 0,
-        updatedAt: new Date(),
         removed: false,
         incomeWalletId: null,
         expenseWalletId: action.payload.walletId,
@@ -47,8 +47,8 @@ const removeOperationReducer: Reducer<
       if (operation.id === action.payload.operationId) {
         return {
           ...operation,
-          removed: true,
           updatedAt: new Date(),
+          removed: true,
         }
       }
 
@@ -73,8 +73,8 @@ const setOperationNameReducer: Reducer<
       if (operation.id === action.payload.operationId) {
         return {
           ...operation,
-          name: action.payload.name,
           updatedAt: new Date(),
+          name: action.payload.name,
         }
       }
 
@@ -99,8 +99,8 @@ const setOperationCategoryReducer: Reducer<
       if (operation.id === action.payload.operationId) {
         return {
           ...operation,
-          category: action.payload.category,
           updatedAt: new Date(),
+          category: action.payload.category,
         }
       }
 
@@ -125,8 +125,8 @@ const setOperationDateReducer: Reducer<
       if (operation.id === action.payload.operationId) {
         return {
           ...operation,
-          date: action.payload.date,
           updatedAt: new Date(),
+          date: action.payload.date,
         }
       }
 
@@ -157,32 +157,32 @@ const setOperationTypeReducer: Reducer<
           case ClientOperationType.INCOME: {
             return {
               ...operation,
+              updatedAt: new Date(),
               incomeAmount: amount,
               expenseAmount: 0,
               incomeWalletId: walletId,
               expenseWalletId: null,
-              updatedAt: new Date(),
             }
           }
 
           case ClientOperationType.EXPENSE:
             return {
               ...operation,
+              updatedAt: new Date(),
               incomeAmount: 0,
               expenseAmount: amount,
               incomeWalletId: null,
               expenseWalletId: walletId ?? null,
-              updatedAt: new Date(),
             }
 
           case ClientOperationType.TRANSFER:
             return {
               ...operation,
+              updatedAt: new Date(),
               incomeAmount: amount,
               expenseAmount: amount,
               incomeWalletId: walletId ?? null,
               expenseWalletId: walletId ?? null,
-              updatedAt: new Date(),
             }
         }
       }
@@ -208,8 +208,8 @@ const setOperationIncomeAmountReducer: Reducer<
       if (operation.id === action.payload.operationId) {
         return {
           ...operation,
-          incomeAmount: action.payload.incomeAmount,
           updatedAt: new Date(),
+          incomeAmount: action.payload.incomeAmount,
         }
       }
 
@@ -234,8 +234,8 @@ const setOperationExpenseAmountReducer: Reducer<
       if (operation.id === action.payload.operationId) {
         return {
           ...operation,
-          expenseAmount: action.payload.expenseAmount,
           updatedAt: new Date(),
+          expenseAmount: action.payload.expenseAmount,
         }
       }
 
@@ -260,8 +260,8 @@ const setOperationIncomeWalletReducer: Reducer<
       if (operation.id === action.payload.operationId) {
         return {
           ...operation,
-          incomeWalletId: action.payload.incomeWalletId,
           updatedAt: new Date(),
+          incomeWalletId: action.payload.incomeWalletId,
         }
       }
 
@@ -286,8 +286,8 @@ const setOperationExpenseWalletReducer: Reducer<
       if (operation.id === action.payload.operationId) {
         return {
           ...operation,
-          expenseWalletId: action.payload.expenseWalletId,
           updatedAt: new Date(),
+          expenseWalletId: action.payload.expenseWalletId,
         }
       }
 

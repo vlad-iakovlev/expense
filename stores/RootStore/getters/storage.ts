@@ -31,8 +31,8 @@ export const getRemoteStorageBody = (
     .filter((group) => group.updatedAt > syncedAt)
     .map((group) => ({
       id: group.id,
-      name: group.name,
       removed: group.removed,
+      name: group.name,
       defaultCurrencyId: group.defaultCurrencyId,
     }))
 
@@ -40,9 +40,9 @@ export const getRemoteStorageBody = (
     .filter((wallet) => wallet.updatedAt > syncedAt)
     .map((wallet) => ({
       id: wallet.id,
+      removed: wallet.removed,
       name: wallet.name,
       order: wallet.order,
-      removed: wallet.removed,
       currencyId: wallet.currencyId,
       groupId: wallet.groupId,
     }))
@@ -51,12 +51,12 @@ export const getRemoteStorageBody = (
     .filter((operation) => operation.updatedAt > syncedAt)
     .map((operation) => ({
       id: operation.id,
+      removed: operation.removed,
       name: operation.name,
       category: operation.category,
       date: operation.date,
       incomeAmount: operation.incomeAmount,
       expenseAmount: operation.expenseAmount,
-      removed: operation.removed,
       incomeWalletId: operation.incomeWalletId,
       expenseWalletId: operation.expenseWalletId,
     }))
