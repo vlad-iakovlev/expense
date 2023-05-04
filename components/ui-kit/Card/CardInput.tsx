@@ -5,6 +5,7 @@ import {
   FocusEvent,
   KeyboardEvent,
   useCallback,
+  useMemo,
   useRef,
   useState,
 } from 'react'
@@ -21,19 +22,27 @@ export interface CardInputProps {
 export const CardInput: FC<CardInputProps> = ({
   className,
   label,
-  suggestions,
+  suggestions = [],
   value,
   onChange,
 }) => {
   const rootRef = useRef<HTMLDivElement>(null)
   const popupRef = useRef<HTMLDivElement>(null)
-  const [inputValue, setInputValue] = useState('')
   const [isEditing, setIsEditing] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+  const [suggestionsFilter, setSuggestionsFilter] = useState<string>('')
+
+  const filteredSuggestions = useMemo(() => {
+    return suggestions.filter((suggestion) =>
+      suggestion.toLowerCase().includes(suggestionsFilter.toLowerCase())
+    )
+  }, [suggestions, suggestionsFilter])
 
   const handleClick = useCallback(() => {
     if (!isEditing) {
-      setInputValue(value)
       setIsEditing(true)
+      setInputValue(value)
+      setSuggestionsFilter('')
     }
   }, [isEditing, value])
 
@@ -54,6 +63,7 @@ export const CardInput: FC<CardInputProps> = ({
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
+    setSuggestionsFilter(event.target.value)
   }, [])
 
   const handleFocus = useCallback((event: FocusEvent<HTMLInputElement>) => {
@@ -117,24 +127,22 @@ export const CardInput: FC<CardInputProps> = ({
         </div>
       </div>
 
-      {suggestions?.length ? (
-        <Card.Popup
-          ref={popupRef}
-          className="-mt-2 px-4 sm:px-6 pb-6"
-          isOpen={isEditing}
-          anchorRef={rootRef}
-          position="below-right"
-          setMaxWidth
-        >
-          {suggestions.map((suggestion) => (
-            <Card.Button
-              key={suggestion}
-              label={suggestion}
-              onClick={() => handleSelect(suggestion)}
-            />
-          ))}
-        </Card.Popup>
-      ) : null}
+      <Card.Popup
+        ref={popupRef}
+        className="-mt-2 px-4 sm:px-6 pb-6"
+        isOpen={isEditing && !!filteredSuggestions.length}
+        anchorRef={rootRef}
+        position="below-right"
+        setMaxWidth
+      >
+        {filteredSuggestions.map((suggestion) => (
+          <Card.Button
+            key={suggestion}
+            label={suggestion}
+            onClick={() => handleSelect(suggestion)}
+          />
+        ))}
+      </Card.Popup>
     </>
   )
 }
