@@ -56,7 +56,12 @@ const setStateFromRemoteStorageReducer: Reducer<
 
   return {
     currencies: action.payload.response.currencies,
-    groups: newGroups,
+    groups: [...newGroups, ...state.groups]
+      .sort((a, b) => Number(b.updatedAt) - Number(a.updatedAt))
+      .filter(
+        (item, index, array) =>
+          array.findIndex((i) => i.id === item.id) === index
+      ),
     wallets: [...newWallets, ...state.wallets]
       .sort((a, b) => Number(b.updatedAt) - Number(a.updatedAt))
       .filter(
