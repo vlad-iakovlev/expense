@@ -13,7 +13,7 @@ export const getAvailableGroups = (state: RootStoreState): ClientGroup[] => {
   return state.groups.filter((group) => !group.removed)
 }
 
-export const getSortedGroups = (state: RootStoreState): ClientGroup[] => {
+export const getOrderedGroups = (state: RootStoreState): ClientGroup[] => {
   const groups = getAvailableGroups(state)
   return groups.sort((a, b) => a.name.localeCompare(b.name))
 }

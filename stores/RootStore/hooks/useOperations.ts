@@ -2,7 +2,7 @@ import assert from 'assert'
 import { useCallback, useMemo } from 'react'
 import { generateObjectId } from '../../../utils/client/generateObjectId.ts'
 import { useRootStore } from '../RootStore.tsx'
-import { getSortedOperations } from '../getters/operations.ts'
+import { getOrderedOperations } from '../getters/operations.ts'
 import { OperationsActionTypes } from '../types.tsx'
 
 interface Props {
@@ -15,7 +15,7 @@ export const useOperations = ({ groupId, walletId, category }: Props = {}) => {
   const { state, dispatch } = useRootStore()
 
   const operationIds = useMemo<string[]>(() => {
-    const operations = getSortedOperations(state, {
+    const operations = getOrderedOperations(state, {
       groupId,
       walletId,
       category,

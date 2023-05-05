@@ -19,7 +19,7 @@ export const getAvailableWallets = (
   })
 }
 
-export const getSortedWallets = (
+export const getOrderedWallets = (
   state: RootStoreState,
   { groupId }: GetWalletsParams = {}
 ): ClientWallet[] => {

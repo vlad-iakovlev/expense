@@ -46,7 +46,7 @@ export const getAvailableOperations = (
   })
 }
 
-export const getSortedOperations = (
+export const getOrderedOperations = (
   state: RootStoreState,
   { groupId, walletId, category }: GetOperationsParams = {}
 ): ClientOperation[] => {
