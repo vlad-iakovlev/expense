@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useGroup } from '../../../stores/RootStore/hooks/useGroup.ts'
+import { useGroupUsers } from '../../../stores/RootStore/hooks/useGroupUsers.ts'
 import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
@@ -9,16 +9,16 @@ interface Props {
 }
 
 export const GroupUsersCard: FC<Props> = ({ className, groupId }) => {
-  const { group } = useGroup({ groupId })
+  const { groupUsers } = useGroupUsers({ groupId })
 
   return (
     <Card className={className}>
       <Card.Title title="Users" />
 
-      {!!group.users.length && (
+      {!!groupUsers.length && (
         <>
           <Card.Divider />
-          {group.users.map((user) => (
+          {groupUsers.map((user) => (
             <Card.Text
               key={user.id}
               label={user.name}

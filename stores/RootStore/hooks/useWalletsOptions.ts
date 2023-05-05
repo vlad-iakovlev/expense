@@ -2,7 +2,7 @@ import assert from 'assert'
 import { useMemo } from 'react'
 import { ClientCurrency } from '../../../types/client.ts'
 import { useRootStore } from '../RootStore.tsx'
-import { getWallets } from '../getters/wallets.ts'
+import { getOrderedWallets } from '../getters/wallets.ts'
 
 interface Props {
   groupId?: string
@@ -19,9 +19,7 @@ export const useWalletsOptions = ({ groupId }: Props = {}) => {
       return acc
     }, {})
 
-    const wallets = getWallets(state, { groupId })
-
-    return wallets.map((wallet) => {
+    return getOrderedWallets(state, { groupId }).map((wallet) => {
       const currency = currenciesMap[wallet.currencyId]
       assert(currency, 'Currency not found')
 

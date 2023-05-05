@@ -1,10 +1,29 @@
+export const getUserGroupWhere = (params: {
+  userId: string
+  userGroupId?: string
+  removed?: boolean
+}) => ({
+  id: params.userGroupId,
+  removed: params.removed,
+  OR: [
+    { userId: params.userId },
+    // We need this to get other users from groups available to requester
+    { group: getGroupWhere({ userId: params.userId }) },
+  ],
+})
+
 export const getGroupWhere = (params: {
   userId: string
   groupId?: string
+  removed?: boolean
 }) => ({
   id: params.groupId,
-  userIds: {
-    has: params.userId,
+  removed: params.removed,
+  userGroups: {
+    some: {
+      removed: false,
+      userId: params.userId,
+    },
   },
 })
 
@@ -12,8 +31,10 @@ export const getWalletWhere = (params: {
   userId: string
   groupId?: string
   walletId?: string
+  removed?: boolean
 }) => ({
   id: params.walletId,
+  removed: params.removed,
   group: getGroupWhere({
     userId: params.userId,
     groupId: params.groupId,
@@ -25,39 +46,24 @@ export const getOperationWhere = (params: {
   groupId?: string
   walletId?: string
   operationId?: string
-  type?: 'income' | 'expense'
+  removed?: boolean
 }) => ({
   id: params.operationId,
-  ...(params.type === 'income' && {
-    incomeWallet: getWalletWhere({
-      userId: params.userId,
-      groupId: params.groupId,
-      walletId: params.walletId,
-    }),
-  }),
-  ...(params.type === 'expense' && {
-    expenseWallet: getWalletWhere({
-      userId: params.userId,
-      groupId: params.groupId,
-      walletId: params.walletId,
-    }),
-  }),
-  ...(!params.type && {
-    OR: [
-      {
-        incomeWallet: getWalletWhere({
-          userId: params.userId,
-          groupId: params.groupId,
-          walletId: params.walletId,
-        }),
-      },
-      {
-        expenseWallet: getWalletWhere({
-          userId: params.userId,
-          groupId: params.groupId,
-          walletId: params.walletId,
-        }),
-      },
-    ],
-  }),
+  removed: params.removed,
+  OR: [
+    {
+      incomeWallet: getWalletWhere({
+        userId: params.userId,
+        groupId: params.groupId,
+        walletId: params.walletId,
+      }),
+    },
+    {
+      expenseWallet: getWalletWhere({
+        userId: params.userId,
+        groupId: params.groupId,
+        walletId: params.walletId,
+      }),
+    },
+  ],
 })

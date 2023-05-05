@@ -2,7 +2,7 @@ import assert from 'assert'
 import { useCallback, useMemo } from 'react'
 import { generateObjectId } from '../../../utils/client/generateObjectId.ts'
 import { useRootStore } from '../RootStore.tsx'
-import { getWallets } from '../getters/wallets.ts'
+import { getOrderedWallets } from '../getters/wallets.ts'
 import { WalletsActionTypes } from '../types.tsx'
 
 interface Props {
@@ -13,7 +13,7 @@ export const useWallets = ({ groupId }: Props = {}) => {
   const { state, dispatch } = useRootStore()
 
   const walletIds = useMemo<string[]>(
-    () => getWallets(state, { groupId }).map((wallet) => wallet.id),
+    () => getOrderedWallets(state, { groupId }).map((wallet) => wallet.id),
     [groupId, state]
   )
 

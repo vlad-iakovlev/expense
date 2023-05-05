@@ -1,7 +1,8 @@
-export interface ClientUser {
-  id: string
-  name?: string | null
-  image?: string | null
+export interface ClientTransaction {
+  userGroups: string[]
+  groups: string[]
+  wallets: string[]
+  operations: string[]
 }
 
 export interface ClientCurrency {
@@ -11,19 +12,30 @@ export interface ClientCurrency {
   rate: number
 }
 
+export interface ClientUser {
+  id: string
+  name?: string | null
+  image?: string | null
+}
+
+export interface ClientUserGroup {
+  id: string
+  removed: boolean
+  userId: string
+  groupId: string
+}
+
 export interface ClientGroup {
   id: string
   removed: boolean
   name: string
   defaultCurrencyId: string
-  users: ClientUser[]
 }
 
 export interface PopulatedClientGroup {
   id: string
   name: string
   defaultCurrency: ClientCurrency
-  users: ClientUser[]
 }
 
 export interface ClientWallet {

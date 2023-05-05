@@ -2,28 +2,39 @@ import {
   ClientCurrency,
   ClientGroup,
   ClientOperation,
+  ClientTransaction,
+  ClientUser,
+  ClientUserGroup,
   ClientWallet,
 } from '../../types/client.ts'
 import { Modify } from '../../types/utility.ts'
 
 export interface RootStoreState {
   currencies: ClientCurrency[]
+  users: ClientUser[]
+  userGroups: Modify<ClientUserGroup, { updatedAt: Date }>[]
   groups: Modify<ClientGroup, { updatedAt: Date }>[]
   wallets: Modify<ClientWallet, { updatedAt: Date }>[]
   operations: Modify<ClientOperation, { updatedAt: Date }>[]
-  isSyncing: boolean
-  shouldSync: boolean
+  nextSyncTransaction: ClientTransaction
+  syncingTransaction: ClientTransaction
+  lastTransactionId: string | null
   syncedAt: Date | null
 }
 
 export interface BrowserStorageState {
   currencies: ClientCurrency[]
+  users: ClientUser[]
+  userGroups: Modify<ClientUserGroup, { updatedAt: Date }>[]
   groups: Modify<ClientGroup, { updatedAt: string | Date }>[]
   wallets: Modify<ClientWallet, { updatedAt: string | Date }>[]
   operations: Modify<
     ClientOperation,
     { date: string | Date; updatedAt: string | Date }
   >[]
+  nextSyncTransaction: ClientTransaction
+  syncingTransaction: ClientTransaction
+  lastTransactionId: string | null
   syncedAt: string | Date | null
 }
 

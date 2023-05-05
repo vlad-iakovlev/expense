@@ -2,10 +2,6 @@ import assert from 'assert'
 import { ClientCurrency } from '../../../types/client.ts'
 import { RootStoreState } from '../types.tsx'
 
-export const getCurrencies = (state: RootStoreState): ClientCurrency[] => {
-  return [...state.currencies].sort((a, b) => a.name.localeCompare(b.name))
-}
-
 export const getCurrency = (
   state: RootStoreState,
   currencyId: string

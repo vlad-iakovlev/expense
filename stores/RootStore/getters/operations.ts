@@ -13,39 +13,49 @@ interface GetOperationsParams {
   category?: string
 }
 
-export const getOperations = (
+export const getAvailableOperations = (
   state: RootStoreState,
   { groupId, walletId, category }: GetOperationsParams = {}
 ): ClientOperation[] => {
-  return state.operations
-    .filter((operation) => {
-      if (
-        operation.removed ||
-        (category && operation.category !== category) ||
-        (walletId &&
-          operation.incomeWalletId !== walletId &&
-          operation.expenseWalletId !== walletId)
-      ) {
-        return false
-      }
+  return state.operations.filter((operation) => {
+    if (
+      operation.removed ||
+      (category && operation.category !== category) ||
+      (walletId &&
+        operation.incomeWalletId !== walletId &&
+        operation.expenseWalletId !== walletId)
+    ) {
+      return false
+    }
 
-      if (!groupId) {
-        return true
-      }
+    if (!groupId) {
+      return true
+    }
 
-      const wallets = state.wallets.filter(
-        (wallet) =>
-          wallet.id === operation.incomeWalletId ||
-          wallet.id === operation.expenseWalletId
-      )
+    const wallets = state.wallets.filter(
+      (wallet) =>
+        wallet.id === operation.incomeWalletId ||
+        wallet.id === operation.expenseWalletId
+    )
 
-      const groups = state.groups.filter((group) =>
-        wallets.some((wallet) => wallet.groupId === group.id)
-      )
+    const groups = state.groups.filter((group) =>
+      wallets.some((wallet) => wallet.groupId === group.id)
+    )
 
-      return groups.some((group) => group.id === groupId)
-    })
-    .sort((a, b) => Number(b.date) - Number(a.date))
+    return groups.some((group) => group.id === groupId)
+  })
+}
+
+export const getOrderedOperations = (
+  state: RootStoreState,
+  { groupId, walletId, category }: GetOperationsParams = {}
+): ClientOperation[] => {
+  const operations = getAvailableOperations(state, {
+    groupId,
+    walletId,
+    category,
+  })
+  return operations.sort((a, b) => Number(b.date) - Number(a.date))
 }
 
 export const getOperationType = (
