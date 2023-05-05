@@ -1,6 +1,7 @@
 import { Reducer, ReducerAction } from 'react'
 import { ClientOperationType } from '../../../types/client.ts'
 import { OperationsActionTypes, RootStoreState } from '../types.tsx'
+import { createInState, updateInState } from '../utils.ts'
 
 const createOperationReducer: Reducer<
   RootStoreState,
@@ -11,25 +12,17 @@ const createOperationReducer: Reducer<
       walletId: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    operations: [
-      ...state.operations,
-      {
-        id: action.payload.operationId,
-        updatedAt: new Date(),
-        name: 'Untitled',
-        category: 'No category',
-        date: new Date(),
-        incomeAmount: 0,
-        expenseAmount: 0,
-        removed: false,
-        incomeWalletId: null,
-        expenseWalletId: action.payload.walletId,
-      },
-    ],
-  }
+> = (state, { payload: { operationId, walletId } }) => {
+  return createInState(state, 'operations', {
+    id: operationId,
+    name: 'Untitled',
+    category: 'No category',
+    date: new Date(),
+    incomeAmount: 0,
+    expenseAmount: 0,
+    incomeWalletId: null,
+    expenseWalletId: walletId,
+  })
 }
 
 const removeOperationReducer: Reducer<
@@ -40,21 +33,10 @@ const removeOperationReducer: Reducer<
       operationId: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    operations: state.operations.map((operation) => {
-      if (operation.id === action.payload.operationId) {
-        return {
-          ...operation,
-          updatedAt: new Date(),
-          removed: true,
-        }
-      }
-
-      return operation
-    }),
-  }
+> = (state, { payload: { operationId } }) => {
+  return updateInState(state, 'operations', operationId, {
+    removed: true,
+  })
 }
 
 const setOperationNameReducer: Reducer<
@@ -66,21 +48,8 @@ const setOperationNameReducer: Reducer<
       name: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    operations: state.operations.map((operation) => {
-      if (operation.id === action.payload.operationId) {
-        return {
-          ...operation,
-          updatedAt: new Date(),
-          name: action.payload.name,
-        }
-      }
-
-      return operation
-    }),
-  }
+> = (state, { payload: { operationId, name } }) => {
+  return updateInState(state, 'operations', operationId, { name })
 }
 
 const setOperationCategoryReducer: Reducer<
@@ -92,21 +61,8 @@ const setOperationCategoryReducer: Reducer<
       category: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    operations: state.operations.map((operation) => {
-      if (operation.id === action.payload.operationId) {
-        return {
-          ...operation,
-          updatedAt: new Date(),
-          category: action.payload.category,
-        }
-      }
-
-      return operation
-    }),
-  }
+> = (state, { payload: { operationId, category } }) => {
+  return updateInState(state, 'operations', operationId, { category })
 }
 
 const setOperationDateReducer: Reducer<
@@ -118,21 +74,8 @@ const setOperationDateReducer: Reducer<
       date: Date
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    operations: state.operations.map((operation) => {
-      if (operation.id === action.payload.operationId) {
-        return {
-          ...operation,
-          updatedAt: new Date(),
-          date: action.payload.date,
-        }
-      }
-
-      return operation
-    }),
-  }
+> = (state, { payload: { operationId, date } }) => {
+  return updateInState(state, 'operations', operationId, { date })
 }
 
 const setOperationTypeReducer: Reducer<
@@ -144,52 +87,45 @@ const setOperationTypeReducer: Reducer<
       type: ClientOperationType
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    operations: state.operations.map((operation) => {
-      if (operation.id === action.payload.operationId) {
-        const amount = operation.expenseAmount || operation.incomeAmount
-        const walletId =
-          operation.expenseWalletId ?? operation.incomeWalletId ?? null
+> = (state, { payload: { operationId, type } }) => {
+  return updateInState(state, 'operations', operationId, (operation) => {
+    const amount = operation.expenseAmount || operation.incomeAmount
+    const walletId =
+      operation.expenseWalletId ?? operation.incomeWalletId ?? null
 
-        switch (action.payload.type) {
-          case ClientOperationType.INCOME: {
-            return {
-              ...operation,
-              updatedAt: new Date(),
-              incomeAmount: amount,
-              expenseAmount: 0,
-              incomeWalletId: walletId,
-              expenseWalletId: null,
-            }
-          }
-
-          case ClientOperationType.EXPENSE:
-            return {
-              ...operation,
-              updatedAt: new Date(),
-              incomeAmount: 0,
-              expenseAmount: amount,
-              incomeWalletId: null,
-              expenseWalletId: walletId ?? null,
-            }
-
-          case ClientOperationType.TRANSFER:
-            return {
-              ...operation,
-              updatedAt: new Date(),
-              incomeAmount: amount,
-              expenseAmount: amount,
-              incomeWalletId: walletId ?? null,
-              expenseWalletId: walletId ?? null,
-            }
+    switch (type) {
+      case ClientOperationType.INCOME: {
+        return {
+          ...operation,
+          updatedAt: new Date(),
+          incomeAmount: amount,
+          expenseAmount: 0,
+          incomeWalletId: walletId,
+          expenseWalletId: null,
         }
       }
 
-      return operation
-    }),
-  }
+      case ClientOperationType.EXPENSE:
+        return {
+          ...operation,
+          updatedAt: new Date(),
+          incomeAmount: 0,
+          expenseAmount: amount,
+          incomeWalletId: null,
+          expenseWalletId: walletId ?? null,
+        }
+
+      case ClientOperationType.TRANSFER:
+        return {
+          ...operation,
+          updatedAt: new Date(),
+          incomeAmount: amount,
+          expenseAmount: amount,
+          incomeWalletId: walletId ?? null,
+          expenseWalletId: walletId ?? null,
+        }
+    }
+  })
 }
 
 const setOperationIncomeAmountReducer: Reducer<
@@ -201,21 +137,8 @@ const setOperationIncomeAmountReducer: Reducer<
       incomeAmount: number
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    operations: state.operations.map((operation) => {
-      if (operation.id === action.payload.operationId) {
-        return {
-          ...operation,
-          updatedAt: new Date(),
-          incomeAmount: action.payload.incomeAmount,
-        }
-      }
-
-      return operation
-    }),
-  }
+> = (state, { payload: { operationId, incomeAmount } }) => {
+  return updateInState(state, 'operations', operationId, { incomeAmount })
 }
 
 const setOperationExpenseAmountReducer: Reducer<
@@ -227,21 +150,8 @@ const setOperationExpenseAmountReducer: Reducer<
       expenseAmount: number
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    operations: state.operations.map((operation) => {
-      if (operation.id === action.payload.operationId) {
-        return {
-          ...operation,
-          updatedAt: new Date(),
-          expenseAmount: action.payload.expenseAmount,
-        }
-      }
-
-      return operation
-    }),
-  }
+> = (state, { payload: { operationId, expenseAmount } }) => {
+  return updateInState(state, 'operations', operationId, { expenseAmount })
 }
 
 const setOperationIncomeWalletReducer: Reducer<
@@ -253,21 +163,8 @@ const setOperationIncomeWalletReducer: Reducer<
       incomeWalletId: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    operations: state.operations.map((operation) => {
-      if (operation.id === action.payload.operationId) {
-        return {
-          ...operation,
-          updatedAt: new Date(),
-          incomeWalletId: action.payload.incomeWalletId,
-        }
-      }
-
-      return operation
-    }),
-  }
+> = (state, { payload: { operationId, incomeWalletId } }) => {
+  return updateInState(state, 'operations', operationId, { incomeWalletId })
 }
 
 const setOperationExpenseWalletReducer: Reducer<
@@ -279,21 +176,8 @@ const setOperationExpenseWalletReducer: Reducer<
       expenseWalletId: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    operations: state.operations.map((operation) => {
-      if (operation.id === action.payload.operationId) {
-        return {
-          ...operation,
-          updatedAt: new Date(),
-          expenseWalletId: action.payload.expenseWalletId,
-        }
-      }
-
-      return operation
-    }),
-  }
+> = (state, { payload: { operationId, expenseWalletId } }) => {
+  return updateInState(state, 'operations', operationId, { expenseWalletId })
 }
 
 export type OperationsAction =

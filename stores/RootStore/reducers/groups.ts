@@ -2,6 +2,7 @@ import { Reducer, ReducerAction } from 'react'
 import { ClientUser } from '../../../types/client.ts'
 import { getDefaultCurrency } from '../getters/currencies.ts'
 import { GroupsActionTypes, RootStoreState } from '../types.tsx'
+import { createInState, updateInState } from '../utils.ts'
 
 const createGroupReducer: Reducer<
   RootStoreState,
@@ -12,21 +13,13 @@ const createGroupReducer: Reducer<
       user: ClientUser
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    groups: [
-      ...state.groups,
-      {
-        id: action.payload.groupId,
-        updatedAt: new Date(),
-        name: 'Untitled',
-        removed: false,
-        defaultCurrencyId: getDefaultCurrency(state).id,
-        users: [action.payload.user],
-      },
-    ],
-  }
+> = (state, { payload: { groupId, user } }) => {
+  return createInState(state, 'groups', {
+    id: groupId,
+    name: 'Untitled',
+    defaultCurrencyId: getDefaultCurrency(state).id,
+    users: [user],
+  })
 }
 
 const removeGroupReducer: Reducer<
@@ -37,21 +30,8 @@ const removeGroupReducer: Reducer<
       groupId: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    groups: state.groups.map((group) => {
-      if (group.id === action.payload.groupId) {
-        return {
-          ...group,
-          updatedAt: new Date(),
-          removed: true,
-        }
-      }
-
-      return group
-    }),
-  }
+> = (state, { payload: { groupId } }) => {
+  return updateInState(state, 'groups', groupId, { removed: true })
 }
 
 const setGroupNameReducer: Reducer<
@@ -63,21 +43,8 @@ const setGroupNameReducer: Reducer<
       name: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    groups: state.groups.map((group) => {
-      if (group.id === action.payload.groupId) {
-        return {
-          ...group,
-          updatedAt: new Date(),
-          name: action.payload.name,
-        }
-      }
-
-      return group
-    }),
-  }
+> = (state, { payload: { groupId, name } }) => {
+  return updateInState(state, 'groups', groupId, { name })
 }
 
 const setGroupDefaultCurrencyReducer: Reducer<
@@ -89,21 +56,8 @@ const setGroupDefaultCurrencyReducer: Reducer<
       defaultCurrencyId: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    groups: state.groups.map((group) => {
-      if (group.id === action.payload.groupId) {
-        return {
-          ...group,
-          updatedAt: new Date(),
-          defaultCurrencyId: action.payload.defaultCurrencyId,
-        }
-      }
-
-      return group
-    }),
-  }
+> = (state, { payload: { groupId, defaultCurrencyId } }) => {
+  return updateInState(state, 'groups', groupId, { defaultCurrencyId })
 }
 
 export type GroupsAction =

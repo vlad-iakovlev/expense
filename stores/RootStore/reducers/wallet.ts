@@ -1,6 +1,7 @@
 import { Reducer, ReducerAction } from 'react'
 import { getDefaultCurrency } from '../getters/currencies.ts'
 import { RootStoreState, WalletsActionTypes } from '../types.tsx'
+import { createInState, updateInState } from '../utils.ts'
 
 const createWalletReducer: Reducer<
   RootStoreState,
@@ -11,24 +12,14 @@ const createWalletReducer: Reducer<
       groupId: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    wallets: [
-      ...state.wallets,
-      {
-        id: action.payload.walletId,
-        updatedAt: new Date(),
-        name: 'Untitled',
-        order: null,
-        removed: false,
-        currencyId: getDefaultCurrency(state, {
-          groupId: action.payload.groupId,
-        }).id,
-        groupId: action.payload.groupId,
-      },
-    ],
-  }
+> = (state, { payload: { walletId, groupId } }) => {
+  return createInState(state, 'wallets', {
+    id: walletId,
+    name: 'Untitled',
+    order: null,
+    currencyId: getDefaultCurrency(state, { groupId }).id,
+    groupId: groupId,
+  })
 }
 
 const removeWalletReducer: Reducer<
@@ -39,21 +30,8 @@ const removeWalletReducer: Reducer<
       walletId: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    wallets: state.wallets.map((wallet) => {
-      if (wallet.id === action.payload.walletId) {
-        return {
-          ...wallet,
-          updatedAt: new Date(),
-          removed: true,
-        }
-      }
-
-      return wallet
-    }),
-  }
+> = (state, { payload: { walletId } }) => {
+  return updateInState(state, 'wallets', walletId, { removed: true })
 }
 
 const setWalletNameReducer: Reducer<
@@ -65,21 +43,8 @@ const setWalletNameReducer: Reducer<
       name: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    wallets: state.wallets.map((wallet) => {
-      if (wallet.id === action.payload.walletId) {
-        return {
-          ...wallet,
-          updatedAt: new Date(),
-          name: action.payload.name,
-        }
-      }
-
-      return wallet
-    }),
-  }
+> = (state, { payload: { walletId, name } }) => {
+  return updateInState(state, 'wallets', walletId, { name })
 }
 
 const setWalletCurrencyReducer: Reducer<
@@ -91,21 +56,8 @@ const setWalletCurrencyReducer: Reducer<
       currencyId: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    wallets: state.wallets.map((wallet) => {
-      if (wallet.id === action.payload.walletId) {
-        return {
-          ...wallet,
-          updatedAt: new Date(),
-          currencyId: action.payload.currencyId,
-        }
-      }
-
-      return wallet
-    }),
-  }
+> = (state, { payload: { walletId, currencyId } }) => {
+  return updateInState(state, 'wallets', walletId, { currencyId })
 }
 
 const reorderWalletsReducer: Reducer<
@@ -114,32 +66,12 @@ const reorderWalletsReducer: Reducer<
     type: WalletsActionTypes.REORDER_WALLETS
     payload: {
       walletIds: string[]
-      groupId: string
     }
   }
-> = (state, action) => {
-  return {
-    ...state,
-    wallets: state.wallets.map((wallet) => {
-      if (wallet.groupId !== action.payload.groupId) {
-        return wallet
-      }
-
-      const newOrder = action.payload.walletIds.findIndex(
-        (id) => id === wallet.id
-      )
-
-      if (newOrder === -1) {
-        return wallet
-      }
-
-      return {
-        ...wallet,
-        updatedAt: new Date(),
-        order: newOrder,
-      }
-    }),
-  }
+> = (state, { payload: { walletIds } }) => {
+  return walletIds.reduce<RootStoreState>((state, walletId, order) => {
+    return updateInState(state, 'wallets', walletId, { order })
+  }, state)
 }
 
 export type WalletsAction =
