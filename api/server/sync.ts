@@ -54,13 +54,31 @@ const applyUpdates = async (
   userId: string,
   updates: NonNullable<PerformSyncBody['updates']>
 ): Promise<void> => {
+  const prismaWithField = prisma.$extends({
+    name: 'named-prisma',
+    result: {
+      userGroup: {
+        field: { needs: {}, compute: () => 'userGroupIds' as const },
+      },
+      group: {
+        field: { needs: {}, compute: () => 'groupIds' as const },
+      },
+      wallet: {
+        field: { needs: {}, compute: () => 'walletIds' as const },
+      },
+      operation: {
+        field: { needs: {}, compute: () => 'operationIds' as const },
+      },
+    },
+  })
+
   const updateGroups = updates.groups.map((group) => {
     const groupData = {
       name: group.name,
       defaultCurrencyId: group.defaultCurrencyId,
     }
 
-    return prisma.group.upsert({
+    return prismaWithField.group.upsert({
       where: getGroupWhere({
         userId,
         groupId: group.id,
@@ -68,18 +86,26 @@ const applyUpdates = async (
       create: {
         ...groupData,
         id: group.id,
-        userGroups: {
-          create: {
-            user: {
-              connect: {
-                id: userId,
-              },
-            },
-          },
-        },
       },
       update: groupData,
-      select: { id: true },
+      select: { id: true, field: true },
+    })
+  })
+
+  const updateUserGroups = updates.groups.map((group) => {
+    return prismaWithField.userGroup.upsert({
+      where: {
+        userId_groupId: {
+          userId,
+          groupId: group.id,
+        },
+      },
+      create: {
+        userId,
+        groupId: group.id,
+      },
+      update: {},
+      select: { id: true, field: true },
     })
   })
 
@@ -94,7 +120,7 @@ const applyUpdates = async (
       },
     }
 
-    return prisma.wallet.upsert({
+    return prismaWithField.wallet.upsert({
       where: getWalletWhere({
         userId,
         walletId: wallet.id,
@@ -111,7 +137,7 @@ const applyUpdates = async (
         },
       },
       update: walletData,
-      select: { id: true },
+      select: { id: true, field: true },
     })
   })
 
@@ -142,7 +168,7 @@ const applyUpdates = async (
       }),
     }
 
-    return prisma.operation.upsert({
+    return prismaWithField.operation.upsert({
       where: getOperationWhere({
         userId,
         operationId: operation.id,
@@ -160,26 +186,32 @@ const applyUpdates = async (
           expenseWallet: { disconnect: true },
         }),
       },
-      select: { id: true },
+      select: { id: true, field: true },
     })
   })
 
-  const createTransaction = prisma.transaction.create({
-    data: {
-      userGroupIds: [], // TODO !!!!!!
-      groupIds: updates.groups.map((group) => group.id),
-      walletIds: updates.wallets.map((wallet) => wallet.id),
-      operationIds: updates.operations.map((operation) => operation.id),
-    },
-    select: { id: true },
-  })
-
-  await prisma.$transaction([
+  const response = await prismaWithField.$transaction([
     ...updateGroups,
+    ...updateUserGroups,
     ...updateWallets,
     ...updateOperations,
-    createTransaction,
   ])
+
+  await prisma.transaction.create({
+    data: response.reduce<UpdatedIds>(
+      (acc, item) => {
+        acc[item.field].push(item.id)
+        return acc
+      },
+      {
+        userGroupIds: [],
+        groupIds: [],
+        walletIds: [],
+        operationIds: [],
+      }
+    ),
+    select: { id: true },
+  })
 }
 
 const collectUpdates = async (
