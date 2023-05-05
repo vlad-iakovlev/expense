@@ -62,7 +62,10 @@ export const getWalletWhere = <WalletId extends Enumerable<string>>(params: {
   removed?: boolean
 }) =>
   ({
-    id: { in: params.walletId },
+    id:
+      typeof params.walletId === 'string'
+        ? params.walletId
+        : { in: params.walletId },
     removed: params.removed,
     group: getGroupWhere({
       userId: params.userId,
@@ -90,7 +93,10 @@ export const getOperationWhere = <
   removed?: boolean
 }) =>
   ({
-    id: { in: params.operationId },
+    id:
+      typeof params.operationId === 'string'
+        ? params.operationId
+        : { in: params.operationId },
     removed: params.removed,
     OR: [
       {
