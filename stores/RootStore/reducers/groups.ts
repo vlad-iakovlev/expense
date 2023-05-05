@@ -1,5 +1,4 @@
 import { Reducer, ReducerAction } from 'react'
-import { ClientUser } from '../../../types/client.ts'
 import { getDefaultCurrency } from '../getters/currencies.ts'
 import { GroupsActionTypes, RootStoreState } from '../types.tsx'
 import { createInState, updateInState } from '../utils.ts'
@@ -10,15 +9,21 @@ const createGroupReducer: Reducer<
     type: GroupsActionTypes.CREATE_GROUP
     payload: {
       groupId: string
-      user: ClientUser
+      userGroupId: string
+      userId: string
     }
   }
-> = (state, { payload: { groupId, user } }) => {
+> = (state, { payload: { groupId, userGroupId, userId } }) => {
+  state = createInState(state, 'userGroups', {
+    id: userGroupId,
+    userId,
+    groupId,
+  })
+
   return createInState(state, 'groups', {
     id: groupId,
     name: 'Untitled',
     defaultCurrencyId: getDefaultCurrency(state).id,
-    users: [user],
   })
 }
 

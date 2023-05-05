@@ -2,16 +2,20 @@ import assert from 'assert'
 import {
   ClientBalance,
   ClientGroup,
+  ClientUser,
   PopulatedClientGroup,
 } from '../../../types/client.ts'
 import { RootStoreState } from '../types.tsx'
 import { getCurrency } from './currencies.ts'
-import { getWalletBalance, getWallets } from './wallets.ts'
+import { getAvailableWallets, getWalletBalance } from './wallets.ts'
 
-export const getGroups = (state: RootStoreState): ClientGroup[] => {
-  return state.groups
-    .filter((group) => !group.removed)
-    .sort((a, b) => a.name.localeCompare(b.name))
+export const getAvailableGroups = (state: RootStoreState): ClientGroup[] => {
+  return state.groups.filter((group) => !group.removed)
+}
+
+export const getSortedGroups = (state: RootStoreState): ClientGroup[] => {
+  const groups = getAvailableGroups(state)
+  return groups.sort((a, b) => a.name.localeCompare(b.name))
 }
 
 export const getPopulatedGroup = (
@@ -25,7 +29,6 @@ export const getPopulatedGroup = (
     id: group.id,
     name: group.name,
     defaultCurrency: getCurrency(state, group.defaultCurrencyId),
-    users: group.users,
   }
 }
 
@@ -35,9 +38,10 @@ export const getGroupBalance = (
 ): ClientBalance => {
   const group = state.groups.find((group) => group.id === groupId)
   assert(group, 'Group not found')
+
   const currency = getCurrency(state, group.defaultCurrencyId)
 
-  const balance = getWallets(state, { groupId }).reduce<number>(
+  const balance = getAvailableWallets(state, { groupId }).reduce<number>(
     (acc, wallet) => {
       const walletBalance = getWalletBalance(state, wallet.id)
       const walletBalanceInDefaultCurrency =
@@ -52,4 +56,19 @@ export const getGroupBalance = (
     balance,
     currency,
   }
+}
+
+export const getGroupUsers = (
+  state: RootStoreState,
+  groupId: string
+): ClientUser[] => {
+  return state.userGroups.reduce<ClientUser[]>((acc, userGroup) => {
+    if (userGroup.groupId === groupId) {
+      const user = state.users.find((user) => user.id === userGroup.userId)
+      assert(user, 'User not found')
+      acc.push(user)
+    }
+
+    return acc
+  }, [])
 }

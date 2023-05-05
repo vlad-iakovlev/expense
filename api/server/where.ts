@@ -1,54 +1,104 @@
-export const getGroupWhere = (params: {
+import { Enumerable } from '../../types/utility.ts'
+
+export const getUserGroupWhere = (params: {
   userId: string
-  groupId?: string
+  userGroupId?: Enumerable<string>
+  removed?: boolean
 }) => ({
-  id: params.groupId,
-  userIds: {
-    has: params.userId,
-  },
+  id: { in: params.userGroupId },
+  removed: params.removed,
+  OR: [
+    { userId: params.userId },
+    // We need this to get other users from groups available to requester
+    {
+      group: getGroupWhere({
+        userId: params.userId,
+        removed: false,
+      }),
+    },
+  ],
 })
 
-export const getWalletWhere = (params: {
+interface GroupWhere<GroupId extends Enumerable<string>> {
+  id: GroupId extends string ? string : { in?: string[] }
+  removed?: boolean
+  userGroups: {
+    some: {
+      removed: boolean
+      userId: string
+    }
+  }
+}
+
+export const getGroupWhere = <GroupId extends Enumerable<string>>(params: {
+  userId: string
+  groupId?: GroupId
+  removed?: boolean
+}) =>
+  ({
+    id:
+      typeof params.groupId === 'string'
+        ? params.groupId
+        : { in: params.groupId },
+    removed: params.removed,
+    userGroups: {
+      some: {
+        removed: false,
+        userId: params.userId,
+      },
+    },
+  } as GroupWhere<GroupId>)
+
+interface WalletWhere<WalletId extends Enumerable<string>> {
+  id: WalletId extends string ? string : { in?: string[] }
+  removed?: boolean
+  group: GroupWhere<string>
+}
+
+export const getWalletWhere = <WalletId extends Enumerable<string>>(params: {
+  userId: string
+  groupId?: string
+  walletId?: WalletId
+  removed?: boolean
+}) =>
+  ({
+    id: { in: params.walletId },
+    removed: params.removed,
+    group: getGroupWhere({
+      userId: params.userId,
+      groupId: params.groupId,
+      removed: false,
+    }),
+  } as WalletWhere<WalletId>)
+
+interface OperationWhere<OperationId extends Enumerable<string>> {
+  id: OperationId extends string ? string : { in?: string[] }
+  removed?: boolean
+  OR: [
+    { incomeWallet: WalletWhere<string> },
+    { expenseWallet: WalletWhere<string> }
+  ]
+}
+
+export const getOperationWhere = <
+  OperationId extends Enumerable<string>
+>(params: {
   userId: string
   groupId?: string
   walletId?: string
-}) => ({
-  id: params.walletId,
-  group: getGroupWhere({
-    userId: params.userId,
-    groupId: params.groupId,
-  }),
-})
-
-export const getOperationWhere = (params: {
-  userId: string
-  groupId?: string
-  walletId?: string
-  operationId?: string
-  type?: 'income' | 'expense'
-}) => ({
-  id: params.operationId,
-  ...(params.type === 'income' && {
-    incomeWallet: getWalletWhere({
-      userId: params.userId,
-      groupId: params.groupId,
-      walletId: params.walletId,
-    }),
-  }),
-  ...(params.type === 'expense' && {
-    expenseWallet: getWalletWhere({
-      userId: params.userId,
-      groupId: params.groupId,
-      walletId: params.walletId,
-    }),
-  }),
-  ...(!params.type && {
+  operationId?: OperationId
+  removed?: boolean
+}) =>
+  ({
+    id: { in: params.operationId },
+    removed: params.removed,
     OR: [
       {
         incomeWallet: getWalletWhere({
           userId: params.userId,
           groupId: params.groupId,
           walletId: params.walletId,
+          removed: false,
         }),
       },
       {
@@ -56,8 +106,8 @@ export const getOperationWhere = (params: {
           userId: params.userId,
           groupId: params.groupId,
           walletId: params.walletId,
+          removed: false,
         }),
       },
     ],
-  }),
-})
+  } as OperationWhere<OperationId>)

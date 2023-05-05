@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react'
 import { useCallback, useMemo } from 'react'
 import { generateObjectId } from '../../../utils/client/generateObjectId.ts'
 import { useRootStore } from '../RootStore.tsx'
-import { getGroups } from '../getters/groups.ts'
+import { getSortedGroups } from '../getters/groups.ts'
 import { GroupsActionTypes } from '../types.tsx'
 
 export const useGroups = () => {
@@ -11,18 +11,19 @@ export const useGroups = () => {
   const { state, dispatch } = useRootStore()
 
   const groupIds = useMemo<string[]>(
-    () => getGroups(state).map((group) => group.id),
+    () => getSortedGroups(state).map((group) => group.id),
     [state]
   )
 
   const createGroup = useCallback(() => {
-    const user = session.data?.user
-    assert(user, 'User not found')
+    const userId = session.data?.user.id
+    assert(userId, 'User not found')
     const groupId = generateObjectId()
+    const userGroupId = generateObjectId()
 
     dispatch({
       type: GroupsActionTypes.CREATE_GROUP,
-      payload: { groupId, user },
+      payload: { groupId, userGroupId, userId },
     })
 
     return groupId

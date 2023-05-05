@@ -8,8 +8,7 @@ import {
   useContext,
   useReducer,
 } from 'react'
-import { useBrowserStorage } from './hooks/useBrowserStorage.ts'
-import { useRemoteStorage } from './hooks/useRemoteStorage.ts'
+import { useStorage } from './hooks/useStorage.ts'
 import {
   CategoriesAction,
   categoriesReducer,
@@ -36,6 +35,7 @@ import {
   walletsReducer,
 } from './reducers/wallet.ts'
 import { RootStoreState } from './types.tsx'
+import { getEmptyState } from './utils.ts'
 
 type Action =
   | StorageAction
@@ -83,18 +83,9 @@ interface ProviderProps {
 }
 
 export const RootStoreProvider: FC<ProviderProps> = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, {
-    currencies: [],
-    groups: [],
-    wallets: [],
-    operations: [],
-    isSyncing: false,
-    shouldSync: false,
-    syncedAt: null,
-  })
+  const [state, dispatch] = useReducer(reducer, getEmptyState())
 
-  const { isBrowserStorageLoaded } = useBrowserStorage(state, dispatch)
-  useRemoteStorage(state, dispatch, isBrowserStorageLoaded)
+  useStorage(state, dispatch)
 
   return (
     <RootStoreContext.Provider value={{ state, dispatch }}>

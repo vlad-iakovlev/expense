@@ -1,6 +1,7 @@
-export type Modify<T, R> = Omit<T, keyof R> & R
+export type Enumerable<T> = T | T[]
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type MayBeFn<Args extends any[], Value> =
+export type MayBeFn<Args extends unknown[], Value> =
   | ((...args: Args) => Value)
   | Value
+
+export type Modify<T, R> = Omit<T, keyof R> & R
