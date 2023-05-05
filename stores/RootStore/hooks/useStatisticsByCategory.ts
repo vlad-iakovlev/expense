@@ -62,6 +62,7 @@ export const useStatisticsByCategory = ({
   >(() => {
     return P.pipe(state.operations)
       .pipe(P.map(P.prop('category')))
+      .pipe(P.uniq())
       .pipe(P.sort((a, b) => a.localeCompare(b)))
       .pipe(
         P.reduce((acc, category) => {
