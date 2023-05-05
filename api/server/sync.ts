@@ -197,6 +197,7 @@ const applyUpdates = async (
     ...updateOperations,
   ])
 
+  // TODO: create transaction during $transaction
   await prisma.transaction.create({
     data: response.reduce<UpdatedIds>(
       (acc, item) => {
