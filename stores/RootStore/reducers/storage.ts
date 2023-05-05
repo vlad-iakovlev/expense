@@ -68,7 +68,7 @@ const setStateFromRemoteStorageReducer: Reducer<
   ): ((newItems: T[]) => T[]) => {
     return (newItems) =>
       P.pipe([...newItems, ...oldItems])
-        .pipe(P.sort((a, b) => Number(b.updatedAt) - Number(a.updatedAt)))
+        .pipe(P.sort((a, b) => Number(a.updatedAt) - Number(b.updatedAt)))
         .pipe(P.uniqBy((item) => item.id))
         .value()
   }
