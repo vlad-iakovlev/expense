@@ -68,6 +68,7 @@ const setStateFromRemoteStorageReducer: Reducer<
   ): ((newItems: T[]) => T[]) => {
     return (newItems) =>
       P.pipe([...newItems, ...oldItems])
+        // P.uniq preserves last item in case of duplicates
         .pipe(P.sort((a, b) => Number(a.updatedAt) - Number(b.updatedAt)))
         .pipe(P.uniqBy((item) => item.id))
         .value()
