@@ -81,7 +81,7 @@ export const useStorage = (
     // Save state to local storage
     if (isLsLoaded) {
       window.localStorage.setItem(
-        LS_KEY,
+        getLsKey(),
         JSON.stringify(getBrowserStorageState(state))
       )
     }
