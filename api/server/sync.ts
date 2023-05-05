@@ -54,129 +54,132 @@ const applyUpdates = async (
   userId: string,
   updates: NonNullable<PerformSyncBody['updates']>
 ): Promise<void> => {
-  await prisma.$transaction(
-    [
-      updates.groups.map((group) => {
-        const groupData = {
-          name: group.name,
-          defaultCurrencyId: group.defaultCurrencyId,
-        }
+  const updateGroups = updates.groups.map((group) => {
+    const groupData = {
+      name: group.name,
+      defaultCurrencyId: group.defaultCurrencyId,
+    }
 
-        return prisma.group.upsert({
-          where: getGroupWhere({
-            userId,
-            groupId: group.id,
-          }),
+    return prisma.group.upsert({
+      where: getGroupWhere({
+        userId,
+        groupId: group.id,
+      }),
+      create: {
+        ...groupData,
+        id: group.id,
+        userGroups: {
           create: {
-            ...groupData,
-            id: group.id,
-            userGroups: {
-              create: {
-                user: {
-                  connect: {
-                    id: userId,
-                  },
-                },
+            user: {
+              connect: {
+                id: userId,
               },
             },
           },
-          update: groupData,
-          select: { id: true },
-        })
-      }),
-
-      updates.wallets.map((wallet) => {
-        const walletData = {
-          name: wallet.name,
-          order: wallet.order,
-          currency: {
-            connect: {
-              id: wallet.currencyId,
-            },
-          },
-        }
-
-        return prisma.wallet.upsert({
-          where: getWalletWhere({
-            userId,
-            walletId: wallet.id,
-          }),
-          create: {
-            ...walletData,
-            id: wallet.id,
-            group: {
-              connect: getGroupWhere({
-                userId,
-                groupId: wallet.groupId,
-                removed: false,
-              }),
-            },
-          },
-          update: walletData,
-          select: { id: true },
-        })
-      }),
-
-      updates.operations.map((operation) => {
-        const operationData = {
-          name: operation.name,
-          category: operation.category,
-          date: operation.date,
-          incomeAmount: operation.incomeAmount,
-          expenseAmount: operation.expenseAmount,
-          ...(operation.incomeWalletId && {
-            incomeWallet: {
-              connect: getWalletWhere({
-                userId,
-                walletId: operation.incomeWalletId,
-                removed: false,
-              }),
-            },
-          }),
-          ...(operation.expenseWalletId && {
-            expenseWallet: {
-              connect: getWalletWhere({
-                userId,
-                walletId: operation.expenseWalletId,
-                removed: false,
-              }),
-            },
-          }),
-        }
-
-        return prisma.operation.upsert({
-          where: getOperationWhere({
-            userId,
-            operationId: operation.id,
-          }),
-          create: {
-            ...operationData,
-            id: operation.id,
-          },
-          update: {
-            ...operationData,
-            ...(!operation.incomeWalletId && {
-              incomeWallet: { disconnect: true },
-            }),
-            ...(!operation.expenseWalletId && {
-              expenseWallet: { disconnect: true },
-            }),
-          },
-          select: { id: true },
-        })
-      }),
-
-      prisma.transaction.create({
-        data: {
-          userGroupIds: [], // TODO !!!!!!
-          groupIds: updates.groups.map((group) => group.id),
-          walletIds: updates.wallets.map((wallet) => wallet.id),
-          operationIds: updates.operations.map((operation) => operation.id),
         },
-        select: { id: true },
+      },
+      update: groupData,
+      select: { id: true },
+    })
+  })
+
+  const updateWallets = updates.wallets.map((wallet) => {
+    const walletData = {
+      name: wallet.name,
+      order: wallet.order,
+      currency: {
+        connect: {
+          id: wallet.currencyId,
+        },
+      },
+    }
+
+    return prisma.wallet.upsert({
+      where: getWalletWhere({
+        userId,
+        walletId: wallet.id,
       }),
-    ].flat()
-  )
+      create: {
+        ...walletData,
+        id: wallet.id,
+        group: {
+          connect: getGroupWhere({
+            userId,
+            groupId: wallet.groupId,
+            removed: false,
+          }),
+        },
+      },
+      update: walletData,
+      select: { id: true },
+    })
+  })
+
+  const updateOperations = updates.operations.map((operation) => {
+    const operationData = {
+      name: operation.name,
+      category: operation.category,
+      date: operation.date,
+      incomeAmount: operation.incomeAmount,
+      expenseAmount: operation.expenseAmount,
+      ...(operation.incomeWalletId && {
+        incomeWallet: {
+          connect: getWalletWhere({
+            userId,
+            walletId: operation.incomeWalletId,
+            removed: false,
+          }),
+        },
+      }),
+      ...(operation.expenseWalletId && {
+        expenseWallet: {
+          connect: getWalletWhere({
+            userId,
+            walletId: operation.expenseWalletId,
+            removed: false,
+          }),
+        },
+      }),
+    }
+
+    return prisma.operation.upsert({
+      where: getOperationWhere({
+        userId,
+        operationId: operation.id,
+      }),
+      create: {
+        ...operationData,
+        id: operation.id,
+      },
+      update: {
+        ...operationData,
+        ...(!operation.incomeWalletId && {
+          incomeWallet: { disconnect: true },
+        }),
+        ...(!operation.expenseWalletId && {
+          expenseWallet: { disconnect: true },
+        }),
+      },
+      select: { id: true },
+    })
+  })
+
+  const createTransaction = prisma.transaction.create({
+    data: {
+      userGroupIds: [], // TODO !!!!!!
+      groupIds: updates.groups.map((group) => group.id),
+      walletIds: updates.wallets.map((wallet) => wallet.id),
+      operationIds: updates.operations.map((operation) => operation.id),
+    },
+    select: { id: true },
+  })
+
+  await prisma.$transaction([
+    ...updateGroups,
+    ...updateWallets,
+    ...updateOperations,
+    createTransaction,
+  ])
 }
 
 const collectUpdates = async (
@@ -259,99 +262,106 @@ const collect = async (
   userId: string,
   updatedIds?: UpdatedIds
 ): Promise<PerformSyncResponseUpdates> => {
+  // Find all currencies without transactional filtering
+  const findCurrencies = prisma.currency.findMany({
+    orderBy: { name: 'asc' },
+    select: {
+      id: true,
+      name: true,
+      symbol: true,
+      rate: true,
+    },
+  })
+
+  // Find all users available to requester without transactional filtering
+  const findUsers = prisma.user.findMany({
+    where: {
+      OR: [
+        { id: userId },
+        {
+          userGroups: {
+            some: getUserGroupWhere({
+              userId,
+              removed: false,
+            }),
+          },
+        },
+      ],
+    },
+    select: {
+      id: true,
+      name: true,
+      image: true,
+    },
+  })
+
+  const findUserGroups = prisma.userGroup.findMany({
+    where: getUserGroupWhere({
+      userId,
+      userGroupId: updatedIds?.userGroupIds,
+    }),
+    select: {
+      id: true,
+      removed: true,
+      userId: true,
+      groupId: true,
+    },
+  })
+
+  const findGroups = prisma.group.findMany({
+    where: getGroupWhere({
+      userId,
+      groupId: updatedIds?.groupIds,
+    }),
+    select: {
+      id: true,
+      removed: true,
+      name: true,
+      defaultCurrencyId: true,
+    },
+  })
+
+  const findWallets = prisma.wallet.findMany({
+    where: getWalletWhere({
+      userId,
+      walletId: updatedIds?.walletIds,
+    }),
+    select: {
+      id: true,
+      removed: true,
+      name: true,
+      order: true,
+      currencyId: true,
+      groupId: true,
+    },
+  })
+
+  const findOperations = prisma.operation.findMany({
+    where: getOperationWhere({
+      userId,
+      operationId: updatedIds?.operationIds,
+    }),
+    select: {
+      id: true,
+      removed: true,
+      name: true,
+      category: true,
+      date: true,
+      incomeAmount: true,
+      expenseAmount: true,
+      incomeWalletId: true,
+      expenseWalletId: true,
+    },
+  })
+
   const [currencies, users, userGroups, groups, wallets, operations] =
     await prisma.$transaction([
-      // Send all currencies without transactional filtering
-      prisma.currency.findMany({
-        orderBy: { name: 'asc' },
-        select: {
-          id: true,
-          name: true,
-          symbol: true,
-          rate: true,
-        },
-      }),
-
-      // Send all users available to requester without transactional filtering
-      prisma.user.findMany({
-        where: {
-          OR: [
-            { id: userId },
-            {
-              userGroups: {
-                some: getUserGroupWhere({
-                  userId,
-                  removed: false,
-                }),
-              },
-            },
-          ],
-        },
-        select: {
-          id: true,
-          name: true,
-          image: true,
-        },
-      }),
-
-      prisma.userGroup.findMany({
-        where: getUserGroupWhere({
-          userId,
-          userGroupId: updatedIds?.userGroupIds,
-        }),
-        select: {
-          id: true,
-          removed: true,
-          userId: true,
-          groupId: true,
-        },
-      }),
-
-      prisma.group.findMany({
-        where: getGroupWhere({
-          userId,
-          groupId: updatedIds?.groupIds,
-        }),
-        select: {
-          id: true,
-          removed: true,
-          name: true,
-          defaultCurrencyId: true,
-        },
-      }),
-
-      prisma.wallet.findMany({
-        where: getWalletWhere({
-          userId,
-          walletId: updatedIds?.walletIds,
-        }),
-        select: {
-          id: true,
-          removed: true,
-          name: true,
-          order: true,
-          currencyId: true,
-          groupId: true,
-        },
-      }),
-
-      prisma.operation.findMany({
-        where: getOperationWhere({
-          userId,
-          operationId: updatedIds?.operationIds,
-        }),
-        select: {
-          id: true,
-          removed: true,
-          name: true,
-          category: true,
-          date: true,
-          incomeAmount: true,
-          expenseAmount: true,
-          incomeWalletId: true,
-          expenseWalletId: true,
-        },
-      }),
+      findCurrencies,
+      findUsers,
+      findUserGroups,
+      findGroups,
+      findWallets,
+      findOperations,
     ])
 
   return {
