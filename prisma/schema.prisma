@@ -5,7 +5,7 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["extendedWhereUnique", "clientExtensions"]
+  previewFeatures = ["extendedWhereUnique"]
 }
 
 model Migration {
@@ -17,11 +17,19 @@ model Transaction {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  draft     Boolean
 
-  userGroupIds String[]
-  groupIds     String[]
-  walletIds    String[]
-  operationIds String[]
+  userGroups   UserGroup[] @relation(fields: [userGroupIds], references: [id])
+  userGroupIds String[]    @db.ObjectId
+
+  groups   Group[]  @relation(fields: [groupIds], references: [id])
+  groupIds String[] @db.ObjectId
+
+  wallets   Wallet[] @relation(fields: [walletIds], references: [id])
+  walletIds String[] @db.ObjectId
+
+  operations   Operation[] @relation(fields: [operationIds], references: [id])
+  operationIds String[]    @db.ObjectId
 }
 
 model Account {
@@ -110,6 +118,9 @@ model UserGroup {
   group   Group  @relation(fields: [groupId], references: [id], onDelete: Restrict)
   groupId String @db.ObjectId
 
+  transactions   Transaction[] @relation(fields: [transactionIds], references: [id])
+  transactionIds String[]      @db.ObjectId
+
   @@unique([userId, groupId])
 }
 
@@ -126,6 +137,9 @@ model Group {
 
   userGroups UserGroup[]
   wallets    Wallet[]
+
+  transactions   Transaction[] @relation(fields: [transactionIds], references: [id])
+  transactionIds String[]      @db.ObjectId
 }
 
 model Wallet {
@@ -145,6 +159,9 @@ model Wallet {
 
   incomeOperations  Operation[] @relation("WalletOperationIncome")
   expenseOperations Operation[] @relation("WalletOperationExpense")
+
+  transactions   Transaction[] @relation(fields: [transactionIds], references: [id])
+  transactionIds String[]      @db.ObjectId
 }
 
 model Operation {
@@ -164,4 +181,7 @@ model Operation {
 
   expenseWallet   Wallet? @relation(name: "WalletOperationExpense", fields: [expenseWalletId], references: [id], onDelete: Restrict)
   expenseWalletId String? @db.ObjectId
+
+  transactions   Transaction[] @relation(fields: [transactionIds], references: [id])
+  transactionIds String[]      @db.ObjectId
 }

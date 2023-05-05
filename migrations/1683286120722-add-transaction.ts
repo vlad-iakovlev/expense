@@ -21,12 +21,29 @@ export const apply = async (db: Db) => {
     .find({}, { projection: { _id: true } })
     .toArray()
 
-  await db.collection('Transaction').insertOne({
+  const { insertedId } = await db.collection('Transaction').insertOne({
     createdAt: new Date(),
     updatedAt: new Date(),
+    draft: false,
     userGroupIds: userGroups.map((userGroup) => userGroup._id),
     groupIds: groups.map((group) => group._id),
     walletIds: wallets.map((wallet) => wallet._id),
     operationIds: operations.map((operation) => operation._id),
   })
+
+  await db
+    .collection('UserGroup')
+    .updateMany({}, { $set: { transactionIds: [insertedId] } })
+
+  await db
+    .collection('Group')
+    .updateMany({}, { $set: { transactionIds: [insertedId] } })
+
+  await db
+    .collection('Wallet')
+    .updateMany({}, { $set: { transactionIds: [insertedId] } })
+
+  await db
+    .collection('Operation')
+    .updateMany({}, { $set: { transactionIds: [insertedId] } })
 }
