@@ -139,7 +139,7 @@ const setStateFromRemoteStorageReducer: Reducer<
     .value()
 
   return {
-    currencies: updates.currencies.sort((a, b) => a.name.localeCompare(b.name)),
+    currencies: updates.currencies,
     users: updates.users,
     userGroups,
     groups,
