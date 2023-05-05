@@ -28,7 +28,7 @@ export const performSync: NextApiHandler<PerformSyncResponse> = async (
 
   // If cold start, respond with all data available to user
   if (!body.lastTransactionId) {
-    res.status(400).json(await collectAll(req.session.user.id))
+    res.status(200).json(await collectAll(req.session.user.id))
     return
   }
 
@@ -168,11 +168,12 @@ const applyUpdates = async (
 
       prisma.transaction.create({
         data: {
+          userGroupIds: [], // TODO !!!!!!
           groupIds: updates.groups.map((group) => group.id),
           walletIds: updates.wallets.map((wallet) => wallet.id),
           operationIds: updates.operations.map((operation) => operation.id),
         },
-        select: {},
+        select: { id: true },
       }),
     ].flat()
   )
