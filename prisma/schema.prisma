@@ -13,6 +13,17 @@ model Migration {
   name String @unique
 }
 
+model Transaction {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userGroupIds String[]
+  groupIds     String[]
+  walletIds    String[]
+  operationIds String[]
+}
+
 model Account {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
