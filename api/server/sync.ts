@@ -211,6 +211,7 @@ const collectUpdates = async (
 
 const collectAll = async (userId: string): Promise<PerformSyncResponse> => {
   const lastTransaction = await prisma.transaction.findFirstOrThrow({
+    where: { draft: false },
     orderBy: { createdAt: 'desc' },
     select: { id: true },
   })
