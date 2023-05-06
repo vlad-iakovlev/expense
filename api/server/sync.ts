@@ -1,3 +1,4 @@
+import assert from 'assert'
 import { NextApiHandler } from 'next'
 import { prisma } from '../../utils/server/prisma.ts'
 import {
@@ -48,7 +49,7 @@ const applyUpdates = async (
   updates: NonNullable<PerformSyncBody['updates']>
 ): Promise<void> => {
   const transaction = await prisma.transaction.create({
-    data: { draft: true },
+    data: {},
     select: { id: true },
   })
 
@@ -160,9 +161,8 @@ const applyUpdates = async (
     })
   })
 
-  const updateTransaction = prisma.transaction.update({
-    where: { id: transaction.id },
-    data: { draft: false },
+  const createCompletedTransaction = prisma.completedTransaction.create({
+    data: { transactionId: transaction.id },
     select: { id: true },
   })
 
@@ -170,7 +170,7 @@ const applyUpdates = async (
     ...updateGroups,
     ...updateWallets,
     ...updateOperations,
-    updateTransaction,
+    createCompletedTransaction,
   ])
 }
 
@@ -178,22 +178,24 @@ const collectUpdates = async (
   userId: string,
   lastTransactionId: string
 ): Promise<PerformSyncResponse> => {
-  const clientLastTransaction = await prisma.transaction.findFirstOrThrow({
+  const clientTransaction = await prisma.transaction.findFirstOrThrow({
     where: { id: lastTransactionId },
-    select: { updatedAt: true },
+    select: { completedTransaction: { select: { createdAt: true } } },
   })
+  assert(clientTransaction.completedTransaction, 'Transaction is not completed')
 
   const [lastTransaction, transactions] = await prisma.$transaction([
     prisma.transaction.findFirstOrThrow({
-      where: { draft: false },
-      orderBy: { updatedAt: 'desc' },
+      where: { completedTransaction: { isNot: null } },
+      orderBy: { completedTransaction: { createdAt: 'desc' } },
       select: { id: true },
     }),
 
     prisma.transaction.findMany({
       where: {
-        updatedAt: { gt: clientLastTransaction.updatedAt },
-        draft: false,
+        completedTransaction: {
+          createdAt: { gt: clientTransaction.completedTransaction.createdAt },
+        },
       },
       select: { id: true },
     }),
@@ -211,8 +213,8 @@ const collectUpdates = async (
 
 const collectAll = async (userId: string): Promise<PerformSyncResponse> => {
   const lastTransaction = await prisma.transaction.findFirstOrThrow({
-    where: { draft: false },
-    orderBy: { updatedAt: 'desc' },
+    where: { completedTransaction: { isNot: null } },
+    orderBy: { completedTransaction: { createdAt: 'desc' } },
     select: { id: true },
   })
 
