@@ -3,10 +3,7 @@ import { Dispatch, useEffect, useState } from 'react'
 import { performSync } from '../../../api/client/sync.ts'
 import { useIsOnline } from '../../../hooks/useIsOnline.ts'
 import { useIsTabVisible } from '../../../hooks/useIsTabVisible.ts'
-import {
-  getBrowserStorageState,
-  getRemoteStorageBody,
-} from '../getters/storage.ts'
+import { getRemoteStorageBody } from '../getters/storage.ts'
 import { StorageAction } from '../reducers/storage.ts'
 import { RootStoreState, StorageActionType } from '../types.tsx'
 import { isTransactionEmpty } from '../utils.ts'
@@ -80,10 +77,7 @@ export const useStorage = (
   useEffect(() => {
     // Save state to local storage
     if (isLsLoaded) {
-      window.localStorage.setItem(
-        getLsKey(),
-        JSON.stringify(getBrowserStorageState(state))
-      )
+      window.localStorage.setItem(getLsKey(), JSON.stringify(state))
     }
   }, [isLsLoaded, state])
 
@@ -92,8 +86,7 @@ export const useStorage = (
       try {
         dispatch({ type: StorageActionType.START_SYNC })
 
-        // This getter still receive the old state, so we use nextSyncTransaction
-        const body = getRemoteStorageBody(state, state.nextSyncTransaction)
+        const body = getRemoteStorageBody(state)
         const syncStartedAt = new Date()
         const response = await performSync(body)
 

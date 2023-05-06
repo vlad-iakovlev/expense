@@ -7,7 +7,7 @@ export const createInState = <
 >(
   state: RootStoreState,
   scope: Scope,
-  data: Omit<RootStoreState[Scope][number], 'updatedAt' | 'removed'>
+  data: Omit<RootStoreState[Scope][number], 'removed'>
 ): RootStoreState => {
   return {
     ...state,
@@ -15,7 +15,6 @@ export const createInState = <
       ...state[scope],
       {
         ...data,
-        updatedAt: new Date(),
         removed: false,
       },
     ],
@@ -34,7 +33,7 @@ export const updateInState = <
   id: string,
   data: MayBeFn<
     [RootStoreState[Scope][number]],
-    Partial<Omit<RootStoreState[Scope][number], 'id' | 'updatedAt'>>
+    Partial<Omit<RootStoreState[Scope][number], 'id'>>
   >
 ): RootStoreState => {
   const getData = typeof data === 'function' ? data : () => data
@@ -46,13 +45,11 @@ export const updateInState = <
         return {
           ...item,
           ...getData(item),
-          updatedAt: new Date(),
         }
       }
 
       return item
     }),
-
     nextSyncTransaction: {
       ...state.nextSyncTransaction,
       [scope]: [...state.nextSyncTransaction[scope], id],

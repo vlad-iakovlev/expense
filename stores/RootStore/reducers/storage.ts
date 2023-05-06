@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { Reducer, ReducerAction } from 'react'
 import { PerformSyncResponse } from '../../../api/types.ts'
-import * as P from '../../../utils/piped/index.ts'
+import { uniqBy } from '../../../utils/uniqBy.ts'
 import {
   BrowserStorageState,
   RootStoreState,
@@ -63,81 +63,75 @@ const setStateFromRemoteStorageReducer: Reducer<
     },
   }
 ) => {
-  const mergeItems = <T extends { id: string; updatedAt: Date }>(
-    oldItems: T[]
-  ): ((newItems: T[]) => T[]) => {
-    return (newItems) =>
-      P.pipe([...newItems, ...oldItems])
-        // P.uniq preserves last item in case of duplicates
-        .pipe(P.sort((a, b) => Number(a.updatedAt) - Number(b.updatedAt)))
-        .pipe(P.uniqBy((item) => item.id))
-        .value()
-  }
+  const groups = uniqBy(
+    [
+      ...state.groups,
+      ...updates.groups.filter((group) => {
+        return !state.nextSyncTransaction.groups.includes(group.id)
+      }),
+    ],
+    (group) => group.id
+  ).filter((group) => {
+    return !group.removed || state.nextSyncTransaction.groups.includes(group.id)
+  })
 
-  const groups = P.pipe(updates.groups)
-    .pipe(P.map((group) => ({ ...group, updatedAt: syncStartedAt })))
-    .pipe(mergeItems(state.groups))
-    .pipe(
-      P.filter(
-        (group) =>
-          !group.removed || state.nextSyncTransaction.groups.includes(group.id)
-      )
+  const userGroups = uniqBy(
+    [
+      ...state.userGroups.filter((userGroup) => {
+        return !state.syncingTransaction.userGroups.includes(userGroup.id)
+      }),
+      ...updates.userGroups.filter((userGroup) => {
+        return !state.nextSyncTransaction.userGroups.includes(userGroup.id)
+      }),
+    ],
+    (userGroup) => userGroup.id
+  ).filter((userGroup) => {
+    return (
+      (!userGroup.removed ||
+        state.nextSyncTransaction.userGroups.includes(userGroup.id)) &&
+      groups.find((group) => group.id === userGroup.groupId)
     )
-    .value()
+  })
 
-  const userGroups = P.pipe(updates.userGroups)
-    .pipe(P.map((userGroup) => ({ ...userGroup, updatedAt: syncStartedAt })))
-    .pipe(
-      mergeItems(
-        state.userGroups.filter(
-          (userGroup) =>
-            !state.syncingTransaction.userGroups.includes(userGroup.id)
-        )
-      )
+  const wallets = uniqBy(
+    [
+      ...state.wallets,
+      ...updates.wallets.filter((wallet) => {
+        return !state.nextSyncTransaction.wallets.includes(wallet.id)
+      }),
+    ],
+    (wallet) => wallet.id
+  ).filter((wallet) => {
+    return (
+      (!wallet.removed ||
+        state.nextSyncTransaction.wallets.includes(wallet.id)) &&
+      groups.find((group) => group.id === wallet.groupId)
     )
-    .pipe(
-      P.filter(
-        (userGroup) =>
-          !userGroup.removed &&
-          groups.find((group) => group.id === userGroup.groupId)
-      )
-    )
-    .value()
+  })
 
-  const wallets = P.pipe(updates.wallets)
-    .pipe(P.map((wallet) => ({ ...wallet, updatedAt: syncStartedAt })))
-    .pipe(mergeItems(state.wallets))
-    .pipe(
-      P.filter(
-        (wallet) =>
-          (!wallet.removed ||
-            state.nextSyncTransaction.wallets.includes(wallet.id)) &&
-          groups.find((group) => group.id === wallet.groupId)
-      )
+  const operations = uniqBy(
+    [
+      ...state.operations,
+      ...updates.operations
+        .filter((operation) => {
+          return !state.nextSyncTransaction.operations.includes(operation.id)
+        })
+        .map((operation) => ({
+          ...operation,
+          date: new Date(operation.date),
+        })),
+    ],
+    (operation) => operation.id
+  ).filter((operation) => {
+    return (
+      (!operation.removed ||
+        state.nextSyncTransaction.operations.includes(operation.id)) &&
+      (!operation.incomeWalletId ||
+        wallets.find((wallet) => wallet.id === operation.incomeWalletId)) &&
+      (!operation.expenseWalletId ||
+        wallets.find((wallet) => wallet.id === operation.expenseWalletId))
     )
-    .value()
-
-  const operations = P.pipe(updates.operations)
-    .pipe(
-      P.map((operation) => ({
-        ...operation,
-        updatedAt: syncStartedAt,
-        date: new Date(operation.date),
-      }))
-    )
-    .pipe(mergeItems(state.operations))
-    .pipe(
-      P.filter(
-        (operation) =>
-          (!operation.removed ||
-            state.nextSyncTransaction.operations.includes(operation.id)) &&
-          (!operation.incomeWalletId ||
-            wallets.find((wallet) => wallet.id === operation.incomeWalletId)) &&
-          (!operation.expenseWalletId ||
-            wallets.find((wallet) => wallet.id === operation.expenseWalletId))
-      )
-    )
-    .value()
+  })
 
   return {
     currencies: updates.currencies,
@@ -166,17 +160,10 @@ const setStateFromBrowserStorageReducer: Reducer<
     currencies: storedState.currencies,
     users: storedState.users,
     userGroups: storedState.userGroups,
-    groups: storedState.groups.map((group) => ({
-      ...group,
-      updatedAt: new Date(group.updatedAt),
-    })),
-    wallets: storedState.wallets.map((wallet) => ({
-      ...wallet,
-      updatedAt: new Date(wallet.updatedAt),
-    })),
+    groups: storedState.groups,
+    wallets: storedState.wallets,
     operations: storedState.operations.map((operation) => ({
       ...operation,
-      updatedAt: new Date(operation.updatedAt),
       date: new Date(operation.date),
     })),
     nextSyncTransaction: mergeTransactions(

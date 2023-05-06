@@ -17,7 +17,6 @@ const renameCategoryReducer: Reducer<
       if (operation.category === action.payload.oldName) {
         return {
           ...operation,
-          updatedAt: new Date(),
           category: action.payload.newName,
         }
       }

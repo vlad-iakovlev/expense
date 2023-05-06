@@ -5,8 +5,8 @@ import {
   ClientStatisticsByCategory,
   ClientWallet,
 } from '../../../types/client.ts'
-import * as P from '../../../utils/piped/index.ts'
 import { stringToColor } from '../../../utils/stringToColor.ts'
+import { uniq } from '../../../utils/uniq.ts'
 import { useRootStore } from '../RootStore.tsx'
 import { getDefaultCurrency } from '../getters/currencies.ts'
 
@@ -60,87 +60,78 @@ export const useStatisticsByCategory = ({
   const statisticsByCategoryItems = useMemo<
     ClientStatisticsByCategory[]
   >(() => {
-    return P.pipe(state.operations)
-      .pipe(P.map(P.prop('category')))
-      .pipe(P.uniq())
-      .pipe(P.sort((a, b) => a.localeCompare(b)))
-      .pipe(
-        P.reduce((acc, category) => {
-          const incomeOperations = state.operations.filter((operation) => {
-            return (
-              !operation.removed &&
-              operation.category === category &&
-              operation.incomeWalletId &&
-              walletsMap[operation.incomeWalletId] &&
-              (!startDate || operation.date >= startDate) &&
-              (!endDate || operation.date < endDate)
-            )
-          })
+    const categories = uniq(
+      state.operations.map((operation) => operation.category)
+    ).sort((a, b) => a.localeCompare(b))
 
-          const expenseOperations = state.operations.filter((operation) => {
-            return (
-              !operation.removed &&
-              operation.category === category &&
-              operation.expenseWalletId &&
-              walletsMap[operation.expenseWalletId] &&
-              (!startDate || operation.date >= startDate) &&
-              (!endDate || operation.date < endDate)
-            )
-          })
+    return categories.reduce<ClientStatisticsByCategory[]>((acc, category) => {
+      const incomeOperations = state.operations.filter((operation) => {
+        return (
+          !operation.removed &&
+          operation.category === category &&
+          operation.incomeWalletId &&
+          walletsMap[operation.incomeWalletId] &&
+          (!startDate || operation.date >= startDate) &&
+          (!endDate || operation.date < endDate)
+        )
+      })
 
-          if (incomeOperations.length || expenseOperations.length) {
-            const incomeAmount = incomeOperations.reduce<number>(
-              (acc, operation) => {
-                assert(
-                  operation.incomeWalletId,
-                  'incomeWalletId is not defined'
-                )
-                const wallet = walletsMap[operation.incomeWalletId]
-                assert(wallet, 'Wallet not found')
-                const currency = currenciesMap[wallet.currencyId]
-                assert(currency, 'Currency not found')
+      const expenseOperations = state.operations.filter((operation) => {
+        return (
+          !operation.removed &&
+          operation.category === category &&
+          operation.expenseWalletId &&
+          walletsMap[operation.expenseWalletId] &&
+          (!startDate || operation.date >= startDate) &&
+          (!endDate || operation.date < endDate)
+        )
+      })
 
-                const amount =
-                  operation.incomeAmount *
-                  (statisticsByCategoryCurrency.rate / currency.rate)
+      if (incomeOperations.length || expenseOperations.length) {
+        const incomeAmount = incomeOperations.reduce<number>(
+          (acc, operation) => {
+            assert(operation.incomeWalletId, 'incomeWalletId is not defined')
+            const wallet = walletsMap[operation.incomeWalletId]
+            assert(wallet, 'Wallet not found')
+            const currency = currenciesMap[wallet.currencyId]
+            assert(currency, 'Currency not found')
 
-                return acc + amount
-              },
-              0
-            )
+            const amount =
+              operation.incomeAmount *
+              (statisticsByCategoryCurrency.rate / currency.rate)
 
-            const expenseAmount = expenseOperations.reduce<number>(
-              (acc, operation) => {
-                assert(
-                  operation.expenseWalletId,
-                  'incomeWalletId is not defined'
-                )
-                const wallet = walletsMap[operation.expenseWalletId]
-                assert(wallet, 'Wallet not found')
-                const currency = currenciesMap[wallet.currencyId]
-                assert(currency, 'Currency not found')
+            return acc + amount
+          },
+          0
+        )
 
-                const amount =
-                  operation.expenseAmount *
-                  (statisticsByCategoryCurrency.rate / currency.rate)
+        const expenseAmount = expenseOperations.reduce<number>(
+          (acc, operation) => {
+            assert(operation.expenseWalletId, 'expenseWalletId is not defined')
+            const wallet = walletsMap[operation.expenseWalletId]
+            assert(wallet, 'Wallet not found')
+            const currency = currenciesMap[wallet.currencyId]
+            assert(currency, 'Currency not found')
 
-                return acc + amount
-              },
-              0
-            )
+            const amount =
+              operation.expenseAmount *
+              (statisticsByCategoryCurrency.rate / currency.rate)
 
-            acc.push({
-              category,
-              color: stringToColor(category),
-              incomeAmount,
-              expenseAmount,
-            })
-          }
+            return acc + amount
+          },
+          0
+        )
 
-          return acc
-        }, [] as ClientStatisticsByCategory[])
-      )
-      .value()
+        acc.push({
+          category,
+          color: stringToColor(category),
+          incomeAmount,
+          expenseAmount,
+        })
+      }
+
+      return acc
+    }, [])
   }, [
     currenciesMap,
     endDate,

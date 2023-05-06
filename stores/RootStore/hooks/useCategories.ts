@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import * as P from '../../../utils/piped/index.ts'
+import { uniq } from '../../../utils/uniq.ts'
 import { useRootStore } from '../RootStore.tsx'
 import { getAvailableOperations } from '../getters/operations.ts'
 import { CategoriesActionTypes } from '../types.tsx'
@@ -13,11 +13,9 @@ export const useCategories = ({ groupId, walletId }: Props = {}) => {
   const { state, dispatch } = useRootStore()
 
   const categories = useMemo<string[]>(() => {
-    return P.pipe(getAvailableOperations(state, { groupId, walletId }))
-      .pipe(P.map(P.prop('category')))
-      .pipe(P.uniq())
-      .pipe(P.sort((a, b) => a.localeCompare(b)))
-      .value()
+    const operations = getAvailableOperations(state, { groupId, walletId })
+    const categories = uniq(operations.map((operation) => operation.category))
+    return categories.sort((a, b) => a.localeCompare(b))
   }, [groupId, state, walletId])
 
   const renameCategory = useCallback(

@@ -12,10 +12,10 @@ import { Modify } from '../../types/utility.ts'
 export interface RootStoreState {
   currencies: ClientCurrency[]
   users: ClientUser[]
-  userGroups: Modify<ClientUserGroup, { updatedAt: Date }>[]
-  groups: Modify<ClientGroup, { updatedAt: Date }>[]
-  wallets: Modify<ClientWallet, { updatedAt: Date }>[]
-  operations: Modify<ClientOperation, { updatedAt: Date }>[]
+  userGroups: ClientUserGroup[]
+  groups: ClientGroup[]
+  wallets: ClientWallet[]
+  operations: ClientOperation[]
   nextSyncTransaction: ClientTransaction
   syncingTransaction: ClientTransaction
   lastTransactionId: string | null
@@ -25,13 +25,10 @@ export interface RootStoreState {
 export interface BrowserStorageState {
   currencies: ClientCurrency[]
   users: ClientUser[]
-  userGroups: Modify<ClientUserGroup, { updatedAt: Date }>[]
-  groups: Modify<ClientGroup, { updatedAt: string | Date }>[]
-  wallets: Modify<ClientWallet, { updatedAt: string | Date }>[]
-  operations: Modify<
-    ClientOperation,
-    { date: string | Date; updatedAt: string | Date }
-  >[]
+  userGroups: ClientUserGroup[]
+  groups: ClientGroup[]
+  wallets: ClientWallet[]
+  operations: Modify<ClientOperation, { date: string | Date }>[]
   nextSyncTransaction: ClientTransaction
   syncingTransaction: ClientTransaction
   lastTransactionId: string | null

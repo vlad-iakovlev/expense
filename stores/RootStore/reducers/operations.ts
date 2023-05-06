@@ -97,7 +97,6 @@ const setOperationTypeReducer: Reducer<
       case ClientOperationType.INCOME: {
         return {
           ...operation,
-          updatedAt: new Date(),
           incomeAmount: amount,
           expenseAmount: 0,
           incomeWalletId: walletId,
@@ -108,7 +107,6 @@ const setOperationTypeReducer: Reducer<
       case ClientOperationType.EXPENSE:
         return {
           ...operation,
-          updatedAt: new Date(),
           incomeAmount: 0,
           expenseAmount: amount,
           incomeWalletId: null,
@@ -118,7 +116,6 @@ const setOperationTypeReducer: Reducer<
       case ClientOperationType.TRANSFER:
         return {
           ...operation,
-          updatedAt: new Date(),
           incomeAmount: amount,
           expenseAmount: amount,
           incomeWalletId: walletId ?? null,
