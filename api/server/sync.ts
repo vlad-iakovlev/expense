@@ -180,19 +180,19 @@ const collectUpdates = async (
 ): Promise<PerformSyncResponse> => {
   const clientLastTransaction = await prisma.transaction.findFirstOrThrow({
     where: { id: lastTransactionId },
-    select: { createdAt: true },
+    select: { updatedAt: true },
   })
 
   const [lastTransaction, transactions] = await prisma.$transaction([
     prisma.transaction.findFirstOrThrow({
       where: { draft: false },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { updatedAt: 'desc' },
       select: { id: true },
     }),
 
     prisma.transaction.findMany({
       where: {
-        createdAt: { gt: clientLastTransaction.createdAt },
+        updatedAt: { gt: clientLastTransaction.updatedAt },
         draft: false,
       },
       select: { id: true },
@@ -212,7 +212,7 @@ const collectUpdates = async (
 const collectAll = async (userId: string): Promise<PerformSyncResponse> => {
   const lastTransaction = await prisma.transaction.findFirstOrThrow({
     where: { draft: false },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { updatedAt: 'desc' },
     select: { id: true },
   })
 
