@@ -24,6 +24,18 @@ export class ErrorBoundary extends Component<Props, State> {
     console.error({ error, errorInfo })
   }
 
+  rejectionHandler = () => {
+    this.setState({ hasError: true })
+  }
+
+  componentDidMount(): void {
+    window.addEventListener('unhandledrejection', this.rejectionHandler)
+  }
+
+  componentWillUnmount(): void {
+    window.removeEventListener('unhandledrejection', this.rejectionHandler)
+  }
+
   render() {
     if (this.state.hasError) {
       return this.props.fallback

@@ -99,8 +99,7 @@ export const useStorage = (
 
         if (response.coldStartNeeded) {
           window.localStorage.removeItem(getLsKey())
-          window.location.pathname = '/'
-          return
+          throw new Error('Cold start needed')
         }
 
         dispatch({
@@ -108,6 +107,10 @@ export const useStorage = (
           payload: { response, syncStartedAt },
         })
       } catch (error) {
+        if ((error as Error | null)?.message === 'Cold start needed') {
+          throw error
+        }
+
         console.error(error)
         dispatch({ type: StorageActionType.ABORT_SYNC })
       }
