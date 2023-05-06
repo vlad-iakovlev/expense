@@ -26,8 +26,8 @@ import {
 } from './reducers/operations.ts'
 import {
   StorageAction,
-  StorageReducer,
   isStorageAction,
+  storageReducer,
 } from './reducers/storage.ts'
 import {
   WalletsAction,
@@ -50,26 +50,11 @@ interface ContextValue {
 }
 
 const reducer: Reducer<RootStoreState, Action> = (state, action) => {
-  if (isStorageAction(action)) {
-    return StorageReducer(state, action)
-  }
-
-  if (isGroupsAction(action)) {
-    return { ...groupsReducer(state, action), shouldSync: true }
-  }
-
-  if (isWalletsAction(action)) {
-    return { ...walletsReducer(state, action), shouldSync: true }
-  }
-
-  if (isOperationsAction(action)) {
-    return { ...operationsReducer(state, action), shouldSync: true }
-  }
-
-  if (isCategoriesAction(action)) {
-    return { ...categoriesReducer(state, action), shouldSync: true }
-  }
-
+  if (isStorageAction(action)) return storageReducer(state, action)
+  if (isGroupsAction(action)) return groupsReducer(state, action)
+  if (isWalletsAction(action)) return walletsReducer(state, action)
+  if (isOperationsAction(action)) return operationsReducer(state, action)
+  if (isCategoriesAction(action)) return categoriesReducer(state, action)
   return state
 }
 

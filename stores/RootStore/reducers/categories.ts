@@ -1,3 +1,4 @@
+import { produce } from 'immer'
 import { Reducer, ReducerAction } from 'react'
 import { CategoriesActionTypes, RootStoreState } from '../types.tsx'
 
@@ -11,19 +12,14 @@ const renameCategoryReducer: Reducer<
     }
   }
 > = (state, action) => {
-  return {
-    ...state,
-    operations: state.operations.map((operation) => {
+  return produce(state, (draft) => {
+    draft.operations.forEach((operation) => {
       if (operation.category === action.payload.oldName) {
-        return {
-          ...operation,
-          category: action.payload.newName,
-        }
+        operation.category = action.payload.newName
+        draft.nextSyncTransaction.operations.push(operation.id)
       }
-
-      return operation
-    }),
-  }
+    })
+  })
 }
 
 export type CategoriesAction = ReducerAction<typeof renameCategoryReducer>

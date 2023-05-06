@@ -197,7 +197,7 @@ export const isStorageAction = (action: {
   )
 }
 
-export const StorageReducer: Reducer<RootStoreState, StorageAction> = (
+export const storageReducer: Reducer<RootStoreState, StorageAction> = (
   state,
   action
 ) => {

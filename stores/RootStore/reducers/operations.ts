@@ -1,7 +1,7 @@
+import { produce } from 'immer'
 import { Reducer, ReducerAction } from 'react'
 import { ClientOperationType } from '../../../types/client.ts'
 import { OperationsActionTypes, RootStoreState } from '../types.tsx'
-import { createInState, updateInState } from '../utils.ts'
 
 const createOperationReducer: Reducer<
   RootStoreState,
@@ -13,15 +13,19 @@ const createOperationReducer: Reducer<
     }
   }
 > = (state, { payload: { operationId, walletId } }) => {
-  return createInState(state, 'operations', {
-    id: operationId,
-    name: 'Untitled',
-    category: 'No category',
-    date: new Date(),
-    incomeAmount: 0,
-    expenseAmount: 0,
-    incomeWalletId: null,
-    expenseWalletId: walletId,
+  return produce(state, (draft) => {
+    draft.operations.push({
+      id: operationId,
+      removed: false,
+      name: 'Untitled',
+      category: 'No category',
+      date: new Date(),
+      incomeAmount: 0,
+      expenseAmount: 0,
+      incomeWalletId: null,
+      expenseWalletId: walletId,
+    })
+    draft.nextSyncTransaction.operations.push(operationId)
   })
 }
 
@@ -34,8 +38,13 @@ const removeOperationReducer: Reducer<
     }
   }
 > = (state, { payload: { operationId } }) => {
-  return updateInState(state, 'operations', operationId, {
-    removed: true,
+  return produce(state, (draft) => {
+    draft.operations.forEach((operation) => {
+      if (operation.id === operationId) {
+        operation.removed = true
+        draft.nextSyncTransaction.operations.push(operationId)
+      }
+    })
   })
 }
 
@@ -49,7 +58,14 @@ const setOperationNameReducer: Reducer<
     }
   }
 > = (state, { payload: { operationId, name } }) => {
-  return updateInState(state, 'operations', operationId, { name })
+  return produce(state, (draft) => {
+    draft.operations.forEach((operation) => {
+      if (operation.id === operationId) {
+        operation.name = name
+        draft.nextSyncTransaction.operations.push(operationId)
+      }
+    })
+  })
 }
 
 const setOperationCategoryReducer: Reducer<
@@ -62,7 +78,14 @@ const setOperationCategoryReducer: Reducer<
     }
   }
 > = (state, { payload: { operationId, category } }) => {
-  return updateInState(state, 'operations', operationId, { category })
+  return produce(state, (draft) => {
+    draft.operations.forEach((operation) => {
+      if (operation.id === operationId) {
+        operation.category = category
+        draft.nextSyncTransaction.operations.push(operationId)
+      }
+    })
+  })
 }
 
 const setOperationDateReducer: Reducer<
@@ -75,7 +98,14 @@ const setOperationDateReducer: Reducer<
     }
   }
 > = (state, { payload: { operationId, date } }) => {
-  return updateInState(state, 'operations', operationId, { date })
+  return produce(state, (draft) => {
+    draft.operations.forEach((operation) => {
+      if (operation.id === operationId) {
+        operation.date = date
+        draft.nextSyncTransaction.operations.push(operationId)
+      }
+    })
+  })
 }
 
 const setOperationTypeReducer: Reducer<
@@ -88,40 +118,39 @@ const setOperationTypeReducer: Reducer<
     }
   }
 > = (state, { payload: { operationId, type } }) => {
-  return updateInState(state, 'operations', operationId, (operation) => {
-    const amount = operation.expenseAmount || operation.incomeAmount
-    const walletId =
-      operation.expenseWalletId ?? operation.incomeWalletId ?? null
+  return produce(state, (draft) => {
+    draft.operations.forEach((operation) => {
+      if (operation.id === operationId) {
+        const amount = operation.expenseAmount || operation.incomeAmount
+        const walletId = operation.expenseWalletId ?? operation.incomeWalletId
 
-    switch (type) {
-      case ClientOperationType.INCOME: {
-        return {
-          ...operation,
-          incomeAmount: amount,
-          expenseAmount: 0,
-          incomeWalletId: walletId,
-          expenseWalletId: null,
+        switch (type) {
+          case ClientOperationType.INCOME:
+            operation.incomeAmount = amount
+            operation.expenseAmount = 0
+            operation.incomeWalletId = walletId
+            operation.expenseWalletId = null
+            draft.nextSyncTransaction.operations.push(operationId)
+            break
+
+          case ClientOperationType.EXPENSE:
+            operation.incomeAmount = 0
+            operation.expenseAmount = amount
+            operation.incomeWalletId = null
+            operation.expenseWalletId = walletId
+            draft.nextSyncTransaction.operations.push(operationId)
+            break
+
+          case ClientOperationType.TRANSFER:
+            operation.incomeAmount = amount
+            operation.expenseAmount = amount
+            operation.incomeWalletId = walletId
+            operation.expenseWalletId = walletId
+            draft.nextSyncTransaction.operations.push(operationId)
+            break
         }
       }
-
-      case ClientOperationType.EXPENSE:
-        return {
-          ...operation,
-          incomeAmount: 0,
-          expenseAmount: amount,
-          incomeWalletId: null,
-          expenseWalletId: walletId ?? null,
-        }
-
-      case ClientOperationType.TRANSFER:
-        return {
-          ...operation,
-          incomeAmount: amount,
-          expenseAmount: amount,
-          incomeWalletId: walletId ?? null,
-          expenseWalletId: walletId ?? null,
-        }
-    }
+    })
   })
 }
 
@@ -135,7 +164,14 @@ const setOperationIncomeAmountReducer: Reducer<
     }
   }
 > = (state, { payload: { operationId, incomeAmount } }) => {
-  return updateInState(state, 'operations', operationId, { incomeAmount })
+  return produce(state, (draft) => {
+    draft.operations.forEach((operation) => {
+      if (operation.id === operationId) {
+        operation.incomeAmount = incomeAmount
+        draft.nextSyncTransaction.operations.push(operationId)
+      }
+    })
+  })
 }
 
 const setOperationExpenseAmountReducer: Reducer<
@@ -148,7 +184,14 @@ const setOperationExpenseAmountReducer: Reducer<
     }
   }
 > = (state, { payload: { operationId, expenseAmount } }) => {
-  return updateInState(state, 'operations', operationId, { expenseAmount })
+  return produce(state, (draft) => {
+    draft.operations.forEach((operation) => {
+      if (operation.id === operationId) {
+        operation.expenseAmount = expenseAmount
+        draft.nextSyncTransaction.operations.push(operationId)
+      }
+    })
+  })
 }
 
 const setOperationIncomeWalletReducer: Reducer<
@@ -161,7 +204,14 @@ const setOperationIncomeWalletReducer: Reducer<
     }
   }
 > = (state, { payload: { operationId, incomeWalletId } }) => {
-  return updateInState(state, 'operations', operationId, { incomeWalletId })
+  return produce(state, (draft) => {
+    draft.operations.forEach((operation) => {
+      if (operation.id === operationId) {
+        operation.incomeWalletId = incomeWalletId
+        draft.nextSyncTransaction.operations.push(operationId)
+      }
+    })
+  })
 }
 
 const setOperationExpenseWalletReducer: Reducer<
@@ -174,7 +224,14 @@ const setOperationExpenseWalletReducer: Reducer<
     }
   }
 > = (state, { payload: { operationId, expenseWalletId } }) => {
-  return updateInState(state, 'operations', operationId, { expenseWalletId })
+  return produce(state, (draft) => {
+    draft.operations.forEach((operation) => {
+      if (operation.id === operationId) {
+        operation.expenseWalletId = expenseWalletId
+        draft.nextSyncTransaction.operations.push(operationId)
+      }
+    })
+  })
 }
 
 export type OperationsAction =

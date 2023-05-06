@@ -1,7 +1,7 @@
+import { produce } from 'immer'
 import { Reducer, ReducerAction } from 'react'
 import { getDefaultCurrency } from '../getters/currencies.ts'
 import { GroupsActionTypes, RootStoreState } from '../types.tsx'
-import { createInState, updateInState } from '../utils.ts'
 
 const createGroupReducer: Reducer<
   RootStoreState,
@@ -14,16 +14,22 @@ const createGroupReducer: Reducer<
     }
   }
 > = (state, { payload: { groupId, userGroupId, userId } }) => {
-  state = createInState(state, 'userGroups', {
-    id: userGroupId,
-    userId,
-    groupId,
-  })
+  return produce(state, (draft) => {
+    draft.userGroups.push({
+      id: userGroupId,
+      removed: false,
+      userId,
+      groupId,
+    })
+    draft.nextSyncTransaction.userGroups.push(userGroupId)
 
-  return createInState(state, 'groups', {
-    id: groupId,
-    name: 'Untitled',
-    defaultCurrencyId: getDefaultCurrency(state).id,
+    draft.groups.push({
+      id: groupId,
+      removed: false,
+      name: 'Untitled',
+      defaultCurrencyId: getDefaultCurrency(state).id,
+    })
+    draft.nextSyncTransaction.groups.push(groupId)
   })
 }
 
@@ -36,7 +42,14 @@ const removeGroupReducer: Reducer<
     }
   }
 > = (state, { payload: { groupId } }) => {
-  return updateInState(state, 'groups', groupId, { removed: true })
+  return produce(state, (draft) => {
+    draft.groups.forEach((groups) => {
+      if (groups.id === groupId) {
+        groups.removed = true
+        draft.nextSyncTransaction.groups.push(groupId)
+      }
+    })
+  })
 }
 
 const setGroupNameReducer: Reducer<
@@ -49,7 +62,14 @@ const setGroupNameReducer: Reducer<
     }
   }
 > = (state, { payload: { groupId, name } }) => {
-  return updateInState(state, 'groups', groupId, { name })
+  return produce(state, (draft) => {
+    draft.groups.forEach((group) => {
+      if (group.id === groupId) {
+        group.name = name
+        draft.nextSyncTransaction.groups.push(groupId)
+      }
+    })
+  })
 }
 
 const setGroupDefaultCurrencyReducer: Reducer<
@@ -62,7 +82,14 @@ const setGroupDefaultCurrencyReducer: Reducer<
     }
   }
 > = (state, { payload: { groupId, defaultCurrencyId } }) => {
-  return updateInState(state, 'groups', groupId, { defaultCurrencyId })
+  return produce(state, (draft) => {
+    draft.groups.forEach((group) => {
+      if (group.id === groupId) {
+        group.defaultCurrencyId = defaultCurrencyId
+        draft.nextSyncTransaction.groups.push(groupId)
+      }
+    })
+  })
 }
 
 export type GroupsAction =

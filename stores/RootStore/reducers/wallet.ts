@@ -1,7 +1,7 @@
+import { produce } from 'immer'
 import { Reducer, ReducerAction } from 'react'
 import { getDefaultCurrency } from '../getters/currencies.ts'
 import { RootStoreState, WalletsActionTypes } from '../types.tsx'
-import { createInState, updateInState } from '../utils.ts'
 
 const createWalletReducer: Reducer<
   RootStoreState,
@@ -13,12 +13,16 @@ const createWalletReducer: Reducer<
     }
   }
 > = (state, { payload: { walletId, groupId } }) => {
-  return createInState(state, 'wallets', {
-    id: walletId,
-    name: 'Untitled',
-    order: null,
-    currencyId: getDefaultCurrency(state, { groupId }).id,
-    groupId: groupId,
+  return produce(state, (draft) => {
+    draft.wallets.push({
+      id: walletId,
+      removed: false,
+      name: 'Untitled',
+      order: null,
+      currencyId: getDefaultCurrency(state, { groupId }).id,
+      groupId: groupId,
+    })
+    draft.nextSyncTransaction.wallets.push(walletId)
   })
 }
 
@@ -31,7 +35,14 @@ const removeWalletReducer: Reducer<
     }
   }
 > = (state, { payload: { walletId } }) => {
-  return updateInState(state, 'wallets', walletId, { removed: true })
+  return produce(state, (draft) => {
+    draft.wallets.forEach((wallet) => {
+      if (wallet.id === walletId) {
+        wallet.removed = true
+        draft.nextSyncTransaction.wallets.push(walletId)
+      }
+    })
+  })
 }
 
 const setWalletNameReducer: Reducer<
@@ -44,7 +55,14 @@ const setWalletNameReducer: Reducer<
     }
   }
 > = (state, { payload: { walletId, name } }) => {
-  return updateInState(state, 'wallets', walletId, { name })
+  return produce(state, (draft) => {
+    draft.wallets.forEach((wallet) => {
+      if (wallet.id === walletId) {
+        wallet.name = name
+        draft.nextSyncTransaction.wallets.push(walletId)
+      }
+    })
+  })
 }
 
 const setWalletCurrencyReducer: Reducer<
@@ -57,7 +75,14 @@ const setWalletCurrencyReducer: Reducer<
     }
   }
 > = (state, { payload: { walletId, currencyId } }) => {
-  return updateInState(state, 'wallets', walletId, { currencyId })
+  return produce(state, (draft) => {
+    draft.wallets.forEach((wallet) => {
+      if (wallet.id === walletId) {
+        wallet.currencyId = currencyId
+        draft.nextSyncTransaction.wallets.push(walletId)
+      }
+    })
+  })
 }
 
 const reorderWalletsReducer: Reducer<
@@ -69,9 +94,16 @@ const reorderWalletsReducer: Reducer<
     }
   }
 > = (state, { payload: { walletIds } }) => {
-  return walletIds.reduce<RootStoreState>((state, walletId, order) => {
-    return updateInState(state, 'wallets', walletId, { order })
-  }, state)
+  return produce(state, (draft) => {
+    walletIds.forEach((walletId, order) => {
+      draft.wallets.forEach((wallet) => {
+        if (wallet.id === walletId) {
+          wallet.order = order
+          draft.nextSyncTransaction.wallets.push(walletId)
+        }
+      })
+    })
+  })
 }
 
 export type WalletsAction =
