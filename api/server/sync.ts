@@ -161,17 +161,17 @@ const applyUpdates = async (
     })
   })
 
-  const createCompletedTransaction = prisma.completedTransaction.create({
-    data: { transactionId: transaction.id },
-    select: { id: true },
-  })
-
   await prisma.$transaction([
     ...updateGroups,
     ...updateWallets,
     ...updateOperations,
-    createCompletedTransaction,
   ])
+
+  await prisma.transaction.update({
+    where: { id: transaction.id },
+    data: { completedAt: new Date() },
+    select: { id: true },
+  })
 }
 
 const collectUpdates = async (
@@ -180,23 +180,19 @@ const collectUpdates = async (
 ): Promise<PerformSyncResponse> => {
   const clientTransaction = await prisma.transaction.findFirstOrThrow({
     where: { id: lastTransactionId },
-    select: { completedTransaction: { select: { createdAt: true } } },
+    select: { completedAt: true },
   })
-  assert(clientTransaction.completedTransaction, 'Transaction is not completed')
+  assert(clientTransaction.completedAt, 'Client transaction is not completed')
 
   const [lastTransaction, transactions] = await prisma.$transaction([
     prisma.transaction.findFirstOrThrow({
-      where: { completedTransaction: { isNot: null } },
-      orderBy: { completedTransaction: { createdAt: 'desc' } },
+      where: { NOT: { completedAt: null } },
+      orderBy: { completedAt: 'desc' },
       select: { id: true },
     }),
 
     prisma.transaction.findMany({
-      where: {
-        completedTransaction: {
-          createdAt: { gt: clientTransaction.completedTransaction.createdAt },
-        },
-      },
+      where: { completedAt: { gt: clientTransaction.completedAt } },
       select: { id: true },
     }),
   ])
@@ -213,8 +209,8 @@ const collectUpdates = async (
 
 const collectAll = async (userId: string): Promise<PerformSyncResponse> => {
   const lastTransaction = await prisma.transaction.findFirstOrThrow({
-    where: { completedTransaction: { isNot: null } },
-    orderBy: { completedTransaction: { createdAt: 'desc' } },
+    where: { NOT: { completedAt: null } },
+    orderBy: { completedAt: 'desc' },
     select: { id: true },
   })
 

@@ -14,9 +14,10 @@ model Migration {
 }
 
 model Transaction {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  completedAt DateTime?
 
   userGroups   UserGroup[] @relation(fields: [userGroupIds], references: [id])
   userGroupIds String[]    @db.ObjectId
@@ -29,17 +30,6 @@ model Transaction {
 
   operations   Operation[] @relation(fields: [operationIds], references: [id])
   operationIds String[]    @db.ObjectId
-
-  completedTransaction CompletedTransaction?
-}
-
-model CompletedTransaction {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Restrict)
-  transactionId String      @unique @db.ObjectId
 }
 
 model Account {
