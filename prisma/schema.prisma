@@ -98,7 +98,7 @@ model Currency {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name   String
+  name   String @unique
   symbol String
   rate   Float
 
