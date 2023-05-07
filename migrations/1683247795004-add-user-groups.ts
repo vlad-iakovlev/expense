@@ -15,7 +15,9 @@ export const apply = async (db: Db) => {
     )
     .flat()
 
-  await db.collection('UserGroup').insertMany(userGroups)
+  if (userGroups.length) {
+    await db.collection('UserGroup').insertMany(userGroups)
+  }
 
   await db.collection('User').updateMany({}, { $unset: { groupId: '' } })
   await db.collection('Group').updateMany({}, { $unset: { userIds: '' } })
