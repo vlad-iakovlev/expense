@@ -1,11 +1,11 @@
 import assert from 'assert'
 import { NextApiHandler } from 'next'
-import { prisma } from '../../utils/server/prisma.ts'
+import { prisma } from '../../../utils/server/prisma.ts'
 import {
   PerformSyncBody,
   PerformSyncResponse,
   PerformSyncResponseUpdates,
-} from '../types.ts'
+} from '../../types.ts'
 import { performSyncBodySchema } from './schemas.ts'
 import {
   getGroupWhere,

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { isValidObjectId } from '../../utils/isValidObjectId.ts'
+import { isValidObjectId } from '../../../utils/isValidObjectId.ts'
 
 export const performSyncBodySchema = z.object({
   lastTransactionId: z.string().refine(isValidObjectId).nullable(),
