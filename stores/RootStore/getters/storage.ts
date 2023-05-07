@@ -1,4 +1,4 @@
-import { PerformSyncBody } from '../../../api/types.ts'
+import { PerformSyncBody } from '../../../api/server/sync/types.ts'
 import { RootStoreState } from '../types.tsx'
 import { isTransactionEmpty } from '../utils.ts'
 

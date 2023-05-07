@@ -6,9 +6,9 @@ import {
   ClientUser,
   ClientUserGroup,
   ClientWallet,
-} from '../types/client.ts'
-import { Modify } from '../types/utility.ts'
-import { performSyncBodySchema } from './server/sync/schemas.ts'
+} from '../../../types/client.ts'
+import { Modify } from '../../../types/utility.ts'
+import { performSyncBodySchema } from './schemas.ts'
 
 export type PerformSyncBody = z.infer<typeof performSyncBodySchema>
 

@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { Reducer, ReducerAction } from 'react'
-import { PerformSyncResponse } from '../../../api/types.ts'
+import { PerformSyncResponse } from '../../../api/server/sync/types.ts'
 import { uniqBy } from '../../../utils/uniqBy.ts'
 import {
   BrowserStorageState,
