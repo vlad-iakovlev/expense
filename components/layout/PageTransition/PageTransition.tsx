@@ -29,7 +29,7 @@ export const PageTransition = forwardRef<
     ) => {
       if (url !== asPath && !shallow) {
         setMarginTop(-document.documentElement.scrollTop)
-        document.documentElement.scrollTop = 0
+        document.documentElement.scrollTo(0, 0)
       }
     }
 

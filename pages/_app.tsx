@@ -23,6 +23,18 @@ const App: FC<AppProps<{ session: Session | null }>> = ({
     fns.setDefaultOptions({ weekStartsOn: 1 })
   }, [])
 
+  useEffect(() => {
+    const visualViewport = window.visualViewport
+    if (!visualViewport) return
+
+    const handleResize = () => {
+      document.documentElement.scrollLeft = 0
+    }
+
+    visualViewport.addEventListener('resize', handleResize)
+    return () => visualViewport.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <ErrorBoundary fallback={<Fallback />}>
       <NextHead>
