@@ -42,12 +42,17 @@ jobs:
     steps:
       - name: Deploy to Digital Ocean droplet
         uses: appleboy/ssh-action@master
+        env:
+          SHA: ${{ github.sha }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
+          envs:
+            - SHA
           script_stop: true
           script: |
             cd Projects/expense
-            git pull
+            git fetch --prune --prune-tags --verbose
+            git checkout $SHA
             docker compose up -d --build
