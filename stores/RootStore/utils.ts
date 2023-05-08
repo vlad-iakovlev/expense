@@ -16,22 +16,25 @@ export const getEmptyState = (): RootStoreState => ({
 })
 
 export const getEmptyTransaction = (): ClientTransaction => ({
+  userGroups: [],
   groups: [],
   wallets: [],
   operations: [],
 })
 
 export const mergeTransactions = (
-  a: ClientTransaction,
-  b: ClientTransaction
+  a: Partial<ClientTransaction>,
+  b: Partial<ClientTransaction>
 ): ClientTransaction => ({
-  groups: [...a.groups, ...b.groups],
-  wallets: [...a.wallets, ...b.wallets],
-  operations: [...a.operations, ...b.operations],
+  userGroups: [...(a.userGroups ?? []), ...(b.userGroups ?? [])],
+  groups: [...(a.groups ?? []), ...(b.groups ?? [])],
+  wallets: [...(a.wallets ?? []), ...(b.wallets ?? [])],
+  operations: [...(a.operations ?? []), ...(b.operations ?? [])],
 })
 
 export const isTransactionEmpty = (transaction: ClientTransaction) => {
   return (
+    transaction.userGroups.length === 0 &&
     transaction.groups.length === 0 &&
     transaction.wallets.length === 0 &&
     transaction.operations.length === 0

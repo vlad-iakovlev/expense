@@ -1,3 +1,5 @@
+import assert from 'assert'
+import { useSession } from 'next-auth/react'
 import { useCallback, useMemo } from 'react'
 import { PopulatedClientGroup } from '../../../types/client.ts'
 import { useRootStore } from '../RootStore.tsx'
@@ -9,6 +11,7 @@ interface Props {
 }
 
 export const useGroup = ({ groupId }: Props) => {
+  const session = useSession()
   const { state, dispatch } = useRootStore()
 
   const group = useMemo<PopulatedClientGroup>(
@@ -43,10 +46,31 @@ export const useGroup = ({ groupId }: Props) => {
     })
   }, [dispatch, groupId])
 
+  const removeUserFromGroup = useCallback(
+    (userId: string) => {
+      dispatch({
+        type: GroupsActionTypes.REMOVE_USER_FROM_GROUP,
+        payload: { groupId, userId },
+      })
+    },
+    [dispatch, groupId]
+  )
+
+  const leaveGroup = useCallback(() => {
+    assert(session.status === 'authenticated', 'User not authenticated')
+
+    dispatch({
+      type: GroupsActionTypes.LEAVE_GROUP,
+      payload: { groupId, me: session.data.user },
+    })
+  }, [dispatch, groupId, session.data?.user, session.status])
+
   return {
     group,
     setGroupName,
     setGroupDefaultCurrency,
     removeGroup,
+    removeUserFromGroup,
+    leaveGroup,
   }
 }

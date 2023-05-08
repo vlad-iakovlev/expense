@@ -1,5 +1,6 @@
 import { produce } from 'immer'
 import { Reducer, ReducerAction } from 'react'
+import { ClientUser } from '../../../types/client.ts'
 import { getDefaultCurrency } from '../getters/currencies.ts'
 import { GroupsActionTypes, RootStoreState } from '../types.tsx'
 
@@ -38,6 +39,52 @@ const removeGroupReducer: Reducer<
       if (groups.id === groupId) {
         groups.removed = true
         draft.nextSyncTransaction.groups.push(groupId)
+      }
+    })
+  })
+}
+
+const removeUserFromGroupReducer: Reducer<
+  RootStoreState,
+  {
+    type: GroupsActionTypes.REMOVE_USER_FROM_GROUP
+    payload: {
+      groupId: string
+      userId: string
+    }
+  }
+> = (state, { payload: { groupId, userId } }) => {
+  return produce(state, (draft) => {
+    draft.userGroups.forEach((userGroup) => {
+      if (userGroup.groupId === groupId && userGroup.userId === userId) {
+        userGroup.removed = true
+        draft.nextSyncTransaction.userGroups.push(userGroup.id)
+      }
+    })
+  })
+}
+
+const leaveGroupReducer: Reducer<
+  RootStoreState,
+  {
+    type: GroupsActionTypes.LEAVE_GROUP
+    payload: {
+      groupId: string
+      me: ClientUser
+    }
+  }
+> = (state, { payload: { groupId, me } }) => {
+  return produce(state, (draft) => {
+    draft.userGroups.forEach((userGroup) => {
+      if (userGroup.groupId === groupId && userGroup.userId === me.id) {
+        userGroup.removed = true
+        draft.nextSyncTransaction.userGroups.push(userGroup.id)
+      }
+    })
+
+    draft.groups.map((group) => {
+      if (group.id === groupId) {
+        group.clientRemoved = true
       }
     })
   })
@@ -86,6 +133,8 @@ const setGroupDefaultCurrencyReducer: Reducer<
 export type GroupsAction =
   | ReducerAction<typeof createGroupReducer>
   | ReducerAction<typeof removeGroupReducer>
+  | ReducerAction<typeof removeUserFromGroupReducer>
+  | ReducerAction<typeof leaveGroupReducer>
   | ReducerAction<typeof setGroupNameReducer>
   | ReducerAction<typeof setGroupDefaultCurrencyReducer>
 
@@ -108,6 +157,12 @@ export const groupsReducer: Reducer<RootStoreState, GroupsAction> = (
 
     case GroupsActionTypes.REMOVE_GROUP:
       return removeGroupReducer(state, action)
+
+    case GroupsActionTypes.REMOVE_USER_FROM_GROUP:
+      return removeUserFromGroupReducer(state, action)
+
+    case GroupsActionTypes.LEAVE_GROUP:
+      return leaveGroupReducer(state, action)
 
     case GroupsActionTypes.SET_GROUP_NAME:
       return setGroupNameReducer(state, action)

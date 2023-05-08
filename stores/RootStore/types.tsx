@@ -13,7 +13,7 @@ export interface RootStoreState {
   currencies: ClientCurrency[]
   users: ClientUser[]
   userGroups: ClientUserGroup[]
-  groups: Modify<ClientGroup, { clientOnly?: true }>[]
+  groups: Modify<ClientGroup, { clientOnly?: true; clientRemoved?: true }>[]
   wallets: ClientWallet[]
   operations: ClientOperation[]
   nextSyncTransaction: ClientTransaction
@@ -27,7 +27,7 @@ export interface BrowserStorageState {
   currencies: ClientCurrency[]
   users: ClientUser[]
   userGroups: ClientUserGroup[]
-  groups: Modify<ClientGroup, { clientOnly?: true }>[]
+  groups: Modify<ClientGroup, { clientOnly?: true; clientRemoved?: true }>[]
   wallets: ClientWallet[]
   operations: Modify<ClientOperation, { date: string | Date }>[]
   nextSyncTransaction: ClientTransaction
@@ -47,6 +47,8 @@ export enum StorageActionType {
 export enum GroupsActionTypes {
   CREATE_GROUP = 'CREATE_GROUP',
   REMOVE_GROUP = 'REMOVE_GROUP',
+  REMOVE_USER_FROM_GROUP = 'REMOVE_USER_FROM_GROUP',
+  LEAVE_GROUP = 'LEAVE_GROUP',
   SET_GROUP_NAME = 'SET_GROUP_NAME',
   SET_GROUP_DEFAULT_CURRENCY = 'SET_GROUP_DEFAULT_CURRENCY',
 }

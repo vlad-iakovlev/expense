@@ -63,9 +63,19 @@ const setStateFromRemoteStorageReducer: Reducer<
   }
 ) => {
   const userGroups = uniqBy(
-    [...state.userGroups, ...updates.userGroups],
+    [
+      ...state.userGroups,
+      ...updates.userGroups.filter((userGroup) => {
+        return !state.nextSyncTransaction.userGroups.includes(userGroup.id)
+      }),
+    ],
     (userGroup) => userGroup.id
-  ).filter((userGroup) => !userGroup.removed)
+  ).filter((userGroup) => {
+    return (
+      !userGroup.removed ||
+      state.nextSyncTransaction.userGroups.includes(userGroup.id)
+    )
+  })
 
   const groups = uniqBy(
     [
@@ -77,7 +87,8 @@ const setStateFromRemoteStorageReducer: Reducer<
     (group) => group.id
   ).filter((group) => {
     return (
-      (!group.removed || state.nextSyncTransaction.groups.includes(group.id)) &&
+      ((!group.removed && !group.clientRemoved) ||
+        state.nextSyncTransaction.groups.includes(group.id)) &&
       (group.clientOnly ||
         userGroups.find((userGroup) => userGroup.groupId === group.id))
     )

@@ -150,10 +150,25 @@ const applyUpdates = async (
       })
     })
 
+    const updateUserGroups = updates.userGroups.map((userGroup) => {
+      return prisma.userGroup.update({
+        where: getUserGroupWhere({
+          userId,
+          userGroupId: userGroup.id,
+        }),
+        data: {
+          removed: userGroup.removed,
+          transactions: { connect: { id: transaction.id } },
+        },
+        select: { id: true },
+      })
+    })
+
     await prisma.$transaction([
       ...updateGroups,
       ...updateWallets,
       ...updateOperations,
+      ...updateUserGroups,
     ])
 
     await prisma.transaction.update({

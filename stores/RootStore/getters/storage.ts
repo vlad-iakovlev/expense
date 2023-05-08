@@ -39,6 +39,9 @@ export const getRemoteStorageBody = (
   return {
     lastTransactionId: state.lastTransactionId,
     updates: {
+      userGroups: state.userGroups.filter((userGroup) => {
+        return state.nextSyncTransaction.userGroups.includes(userGroup.id)
+      }),
       groups: state.groups.filter((group) => {
         return state.nextSyncTransaction.groups.includes(group.id)
       }),

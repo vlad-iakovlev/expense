@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { useGroupUsers } from '../../../stores/RootStore/hooks/useGroupUsers.ts'
 import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
+import { Delete } from './GroupUsers.Delete.tsx'
 import { Invite } from './GroupUsers.Invite.tsx'
 
 interface Props {
@@ -29,6 +30,11 @@ export const GroupUsersCard: FC<Props> = ({ className, groupId }) => {
                   name={user.name ?? undefined}
                   size="sm"
                 />
+              }
+              value={
+                groupUsers.length > 1 && (
+                  <Delete groupId={groupId} userId={user.id} />
+                )
               }
             />
           ))}

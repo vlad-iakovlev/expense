@@ -70,24 +70,21 @@ const getInviteByToken = async (token: string) => {
 
 const joinGroup = async (userId: string, groupId: string) => {
   try {
-    await prisma.userGroup.create({
-      data: {
-        user: {
-          connect: {
-            id: userId,
-          },
+    await prisma.userGroup.upsert({
+      where: {
+        userId_groupId: {
+          userId,
+          groupId,
         },
-        group: {
-          connect: {
-            id: groupId,
-            removed: false,
-          },
-        },
-        transactions: {
-          create: {
-            completedAt: new Date(),
-          },
-        },
+      },
+      create: {
+        user: { connect: { id: userId } },
+        group: { connect: { id: groupId } },
+        transactions: { create: { completedAt: new Date() } },
+      },
+      update: {
+        removed: false,
+        transactions: { create: { completedAt: new Date() } },
       },
       select: { id: true },
     })

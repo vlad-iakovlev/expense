@@ -10,7 +10,7 @@ import { getCurrency } from './currencies.ts'
 import { getAvailableWallets, getWalletBalance } from './wallets.ts'
 
 export const getAvailableGroups = (state: RootStoreState): ClientGroup[] => {
-  return state.groups.filter((group) => !group.removed)
+  return state.groups.filter((group) => !group.removed && !group.clientRemoved)
 }
 
 export const getOrderedGroups = (state: RootStoreState): ClientGroup[] => {
@@ -69,7 +69,7 @@ export const getGroupUsers = (
   if (group.clientOnly) return [me]
 
   return state.userGroups.reduce<ClientUser[]>((acc, userGroup) => {
-    if (userGroup.groupId === groupId) {
+    if (!userGroup.removed && userGroup.groupId === groupId) {
       const user = state.users.find((user) => user.id === userGroup.userId)
       assert(user, 'User not found')
       acc.push(user)

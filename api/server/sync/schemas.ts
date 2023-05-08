@@ -6,6 +6,13 @@ export const performSyncBodySchema = z.object({
 
   updates: z
     .object({
+      userGroups: z.array(
+        z.object({
+          id: z.string().refine(isValidObjectId),
+          removed: z.boolean(),
+        })
+      ),
+
       groups: z.array(
         z.object({
           id: z.string().refine(isValidObjectId),
