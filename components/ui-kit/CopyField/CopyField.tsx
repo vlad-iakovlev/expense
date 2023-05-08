@@ -28,11 +28,13 @@ export const CopyField: FC<CopyFieldProps> = ({ value }) => {
       onClick={handleCopy}
     >
       {value}
-      {isCopied ? (
-        <CheckIcon className="absolute top-2 right-3 w-5 h-5 text-green-700" />
-      ) : (
-        <DocumentDuplicateIcon className="absolute top-2 right-3 w-5 h-5" />
-      )}
+      <div className="absolute top-2 right-3 w-5 h-5">
+        {isCopied ? (
+          <CheckIcon className="text-green-700" />
+        ) : (
+          <DocumentDuplicateIcon />
+        )}
+      </div>
     </button>
   )
 }
