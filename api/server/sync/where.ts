@@ -1,8 +1,11 @@
+import { Transaction } from '@prisma/client'
+import { Modify } from '../../../types/utility.ts'
+
 export const getGroupWhere = (params: {
   userId: string
   groupId?: string
   removed?: boolean
-  transactionIds?: string[]
+  clientTransaction?: Modify<Transaction, { completedAt: Date }>
 }) => ({
   id: params.groupId,
   removed: params.removed,
@@ -12,8 +15,12 @@ export const getGroupWhere = (params: {
       userId: params.userId,
     },
   },
-  ...(params.transactionIds && {
-    transactionIds: { hasSome: params.transactionIds },
+  ...(params.clientTransaction && {
+    transactions: {
+      some: {
+        completedAt: { gt: params.clientTransaction.completedAt },
+      },
+    },
   }),
 })
 
@@ -21,7 +28,7 @@ export const getUserGroupWhere = (params: {
   userId: string
   userGroupId?: string
   removed?: boolean
-  transactionIds?: string[]
+  clientTransaction?: Modify<Transaction, { completedAt: Date }>
 }) => ({
   id: params.userGroupId,
   removed: params.removed,
@@ -29,8 +36,12 @@ export const getUserGroupWhere = (params: {
     { userId: params.userId },
     { group: getGroupWhere({ userId: params.userId }) },
   ],
-  ...(params.transactionIds && {
-    transactionIds: { hasSome: params.transactionIds },
+  ...(params.clientTransaction && {
+    transactions: {
+      some: {
+        completedAt: { gt: params.clientTransaction.completedAt },
+      },
+    },
   }),
 })
 
@@ -39,7 +50,7 @@ export const getWalletWhere = (params: {
   groupId?: string
   walletId?: string
   removed?: boolean
-  transactionIds?: string[]
+  clientTransaction?: Modify<Transaction, { completedAt: Date }>
 }) => ({
   id: params.walletId,
   removed: params.removed,
@@ -47,8 +58,12 @@ export const getWalletWhere = (params: {
     userId: params.userId,
     groupId: params.groupId,
   }),
-  ...(params.transactionIds && {
-    transactionIds: { hasSome: params.transactionIds },
+  ...(params.clientTransaction && {
+    transactions: {
+      some: {
+        completedAt: { gt: params.clientTransaction.completedAt },
+      },
+    },
   }),
 })
 
@@ -58,7 +73,7 @@ export const getOperationWhere = (params: {
   walletId?: string
   operationId?: string
   removed?: boolean
-  transactionIds?: string[]
+  clientTransaction?: Modify<Transaction, { completedAt: Date }>
 }) => ({
   id: params.operationId,
   removed: params.removed,
@@ -78,7 +93,11 @@ export const getOperationWhere = (params: {
       }),
     },
   ],
-  ...(params.transactionIds && {
-    transactionIds: { hasSome: params.transactionIds },
+  ...(params.clientTransaction && {
+    transactions: {
+      some: {
+        completedAt: { gt: params.clientTransaction.completedAt },
+      },
+    },
   }),
 })

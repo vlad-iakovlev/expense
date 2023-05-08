@@ -1,12 +1,9 @@
-import assert from 'assert'
+import { Transaction } from '@prisma/client'
 import { NextApiHandler } from 'next'
+import { Modify } from '../../../types/utility.ts'
 import { prisma } from '../../../utils/server/prisma.ts'
 import { performSyncBodySchema } from './schemas.ts'
-import {
-  PerformSyncBody,
-  PerformSyncResponse,
-  PerformSyncResponseUpdates,
-} from './types.ts'
+import { PerformSyncBody, PerformSyncResponse } from './types.ts'
 import {
   getGroupWhere,
   getOperationWhere,
@@ -22,7 +19,7 @@ export const performSync: NextApiHandler<PerformSyncResponse> = async (
 
   // If cold start, respond with all data available to user
   if (!body.lastTransactionId) {
-    res.status(200).json(await collectAll(req.session.user.id))
+    res.status(200).json(await collect(req.session.user.id))
     return
   }
 
@@ -178,53 +175,23 @@ const collectUpdates = async (
   userId: string,
   lastTransactionId: string
 ): Promise<PerformSyncResponse> => {
-  const clientTransaction = await prisma.transaction.findFirstOrThrow({
-    where: { id: lastTransactionId },
-    select: { completedAt: true },
-  })
-  assert(clientTransaction.completedAt, 'Client transaction is not completed')
+  const clientTransaction = (await prisma.transaction.findFirstOrThrow({
+    where: { id: lastTransactionId, NOT: { completedAt: null } },
+  })) as Modify<Transaction, { completedAt: Date }>
 
-  const [lastTransaction, transactions] = await prisma.$transaction([
-    prisma.transaction.findFirstOrThrow({
-      where: { NOT: { completedAt: null } },
-      orderBy: { completedAt: 'desc' },
-      select: { id: true },
-    }),
-
-    prisma.transaction.findMany({
-      where: { completedAt: { gt: clientTransaction.completedAt } },
-      select: { id: true },
-    }),
-  ])
-
-  return {
-    coldStartNeeded: false,
-    lastTransactionId: lastTransaction.id,
-    updates: await collect(
-      userId,
-      transactions.map((transaction) => transaction.id)
-    ),
-  }
+  return await collect(userId, clientTransaction)
 }
 
-const collectAll = async (userId: string): Promise<PerformSyncResponse> => {
-  const lastTransaction = await prisma.transaction.findFirstOrThrow({
+const collect = async (
+  userId: string,
+  clientTransaction?: Modify<Transaction, { completedAt: Date }>
+): Promise<PerformSyncResponse> => {
+  const findLastTransaction = prisma.transaction.findFirstOrThrow({
     where: { NOT: { completedAt: null } },
     orderBy: { completedAt: 'desc' },
     select: { id: true },
   })
 
-  return {
-    coldStartNeeded: false,
-    lastTransactionId: lastTransaction.id,
-    updates: await collect(userId),
-  }
-}
-
-const collect = async (
-  userId: string,
-  transactionIds?: string[]
-): Promise<PerformSyncResponseUpdates> => {
   // Find all currencies without transactional filtering
   const findCurrencies = prisma.currency.findMany({
     orderBy: { name: 'asc' },
@@ -254,7 +221,7 @@ const collect = async (
   })
 
   const findUserGroups = prisma.userGroup.findMany({
-    where: getUserGroupWhere({ userId, transactionIds }),
+    where: getUserGroupWhere({ userId, clientTransaction }),
     select: {
       id: true,
       removed: true,
@@ -264,7 +231,7 @@ const collect = async (
   })
 
   const findGroups = prisma.group.findMany({
-    where: getGroupWhere({ userId, transactionIds }),
+    where: getGroupWhere({ userId, clientTransaction }),
     select: {
       id: true,
       removed: true,
@@ -274,7 +241,7 @@ const collect = async (
   })
 
   const findWallets = prisma.wallet.findMany({
-    where: getWalletWhere({ userId, transactionIds }),
+    where: getWalletWhere({ userId, clientTransaction }),
     select: {
       id: true,
       removed: true,
@@ -286,7 +253,7 @@ const collect = async (
   })
 
   const findOperations = prisma.operation.findMany({
-    where: getOperationWhere({ userId, transactionIds }),
+    where: getOperationWhere({ userId, clientTransaction }),
     select: {
       id: true,
       removed: true,
@@ -300,22 +267,34 @@ const collect = async (
     },
   })
 
-  const [currencies, users, userGroups, groups, wallets, operations] =
-    await prisma.$transaction([
-      findCurrencies,
-      findUsers,
-      findUserGroups,
-      findGroups,
-      findWallets,
-      findOperations,
-    ])
-
-  return {
+  const [
+    lastTransaction,
     currencies,
     users,
     userGroups,
     groups,
     wallets,
     operations,
+  ] = await prisma.$transaction([
+    findLastTransaction,
+    findCurrencies,
+    findUsers,
+    findUserGroups,
+    findGroups,
+    findWallets,
+    findOperations,
+  ])
+
+  return {
+    coldStartNeeded: false,
+    lastTransactionId: lastTransaction.id,
+    updates: {
+      currencies,
+      users,
+      userGroups,
+      groups,
+      wallets,
+      operations,
+    },
   }
 }
