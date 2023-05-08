@@ -55,20 +55,20 @@ export const Dialog: FC<DialogProps> = ({ isOpen, children, onClose }) => {
       <AnimatePresence>
         {isOpen && (
           <div className="fixed z-20 inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-              <motion.div
-                key="backdrop"
-                className="fixed inset-0 bg-zinc-500"
-                initial="initial"
-                animate="enterTo"
-                exit="exitTo"
-                variants={backdropVariants}
-                onClick={onClose}
-              />
+            <motion.div
+              key="backdrop"
+              className="fixed inset-0 bg-zinc-500"
+              initial="initial"
+              animate="enterTo"
+              exit="exitTo"
+              variants={backdropVariants}
+              onClick={onClose}
+            />
 
+            <div className="flex min-h-full items-end sm:items-center justify-center p-4">
               <motion.div
                 key="dialog"
-                className="relative overflow-hidden sm:w-full sm:max-w-lg sm:my-8 rounded-lg bg-white shadow-xl"
+                className="relative overflow-hidden w-full max-w-lg sm:my-8 rounded-lg bg-white shadow-xl"
                 initial="initial"
                 animate="enterTo"
                 exit="exitTo"

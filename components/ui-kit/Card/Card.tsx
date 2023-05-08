@@ -1,8 +1,10 @@
 import { clsx } from 'clsx'
 import { ReactNode } from 'react'
+import { CardBlock } from './CardBlock.tsx'
 import { CardButton } from './CardButton.tsx'
 import { CardDateTime } from './CardDateTime.tsx'
 import { CardDivider } from './CardDivider.tsx'
+import { CardFooter } from './CardFooter.tsx'
 import { CardInput } from './CardInput.tsx'
 import { CardLink } from './CardLink.tsx'
 import { CardPopup } from './CardPopup.tsx'
@@ -40,6 +42,9 @@ export const Card = ({
   )
 }
 
+export * from './CardBlock.tsx'
+Card.Block = CardBlock
+
 export type * from './CardButton.tsx'
 Card.Button = CardButton
 
@@ -47,6 +52,9 @@ export type * from './CardDateTime.tsx'
 Card.DateTime = CardDateTime
 
 Card.Divider = CardDivider
+
+export type * from './CardFooter.tsx'
+Card.Footer = CardFooter
 
 export type * from './CardInput.tsx'
 Card.Input = CardInput
