@@ -1,4 +1,4 @@
-import { CheckIcon } from '@heroicons/react/24/outline'
+import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { FC, useCallback, useMemo, useState } from 'react'
 import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
@@ -42,6 +42,11 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
     setNewName('')
   }, [category, newName, renameCategory])
 
+  const handleCancelClick = useCallback(() => {
+    setCategory('')
+    setNewName('')
+  }, [])
+
   if (!categories.length) {
     return null
   }
@@ -62,11 +67,20 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
         <>
           <Card.Input label="New name" value={newName} onChange={setNewName} />
           <Card.Divider />
-          <Card.Button
-            prefix={<CheckIcon className="w-6 h-6" />}
-            label="Apply"
-            onClick={handleApplyClick}
-          />
+          <div className="flex">
+            <Card.Button
+              className="flex-1 min-w-0"
+              prefix={<CheckIcon className="w-6 h-6" />}
+              label="Apply"
+              onClick={handleApplyClick}
+            />
+            <Card.Button
+              className="flex-1 min-w-0"
+              prefix={<XMarkIcon className="w-6 h-6" />}
+              label="Cancel"
+              onClick={handleCancelClick}
+            />
+          </div>
         </>
       ) : null}
     </Card>
