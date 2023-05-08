@@ -19,6 +19,7 @@ export interface RootStoreState {
   nextSyncTransaction: ClientTransaction
   syncingTransaction: ClientTransaction
   lastTransactionId: string | null
+  isSyncing: boolean
   syncedAt: Date | null
 }
 

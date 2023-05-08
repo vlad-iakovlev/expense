@@ -1,6 +1,23 @@
 import { PerformSyncBody } from '../../../api/server/sync/types.ts'
-import { RootStoreState } from '../types.tsx'
+import { BrowserStorageState, RootStoreState } from '../types.tsx'
 import { isTransactionEmpty } from '../utils.ts'
+
+export const getBrowserStorageBody = (
+  state: RootStoreState
+): BrowserStorageState => {
+  return {
+    currencies: state.currencies,
+    users: state.users,
+    userGroups: state.userGroups,
+    groups: state.groups,
+    wallets: state.wallets,
+    operations: state.operations,
+    nextSyncTransaction: state.nextSyncTransaction,
+    syncingTransaction: state.syncingTransaction,
+    lastTransactionId: state.lastTransactionId,
+    syncedAt: state.syncedAt,
+  }
+}
 
 export const getRemoteStorageBody = (
   state: RootStoreState

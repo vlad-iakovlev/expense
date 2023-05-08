@@ -10,7 +10,6 @@ import {
 import {
   getEmptyState,
   getEmptyTransaction,
-  isTransactionEmpty,
   mergeTransactions,
 } from '../utils.ts'
 
@@ -18,7 +17,7 @@ const startSyncReducer: Reducer<
   RootStoreState,
   { type: StorageActionType.START_SYNC }
 > = (state) => {
-  assert(isTransactionEmpty(state.syncingTransaction), 'Already syncing')
+  assert(!state.isSyncing, 'Already syncing')
 
   return {
     ...state,
@@ -134,6 +133,7 @@ const setStateFromRemoteStorageReducer: Reducer<
     nextSyncTransaction: state.nextSyncTransaction,
     syncingTransaction: getEmptyTransaction(),
     lastTransactionId,
+    isSyncing: false,
     syncedAt: syncStartedAt,
   }
 }
@@ -163,6 +163,7 @@ const setStateFromBrowserStorageReducer: Reducer<
     ),
     syncingTransaction: getEmptyTransaction(),
     lastTransactionId: storedState.lastTransactionId,
+    isSyncing: false,
     syncedAt: storedState.syncedAt ? new Date(storedState.syncedAt) : null,
   }
 }

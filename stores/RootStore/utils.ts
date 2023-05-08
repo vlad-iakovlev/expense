@@ -11,6 +11,7 @@ export const getEmptyState = (): RootStoreState => ({
   nextSyncTransaction: getEmptyTransaction(),
   syncingTransaction: getEmptyTransaction(),
   lastTransactionId: null,
+  isSyncing: false,
   syncedAt: null,
 })
 

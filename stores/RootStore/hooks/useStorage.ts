@@ -5,7 +5,10 @@ import { performSync } from '../../../api/client/sync.ts'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useIsOnline } from '../../../hooks/useIsOnline.ts'
 import { useIsTabVisible } from '../../../hooks/useIsTabVisible.ts'
-import { getRemoteStorageBody } from '../getters/storage.ts'
+import {
+  getBrowserStorageBody,
+  getRemoteStorageBody,
+} from '../getters/storage.ts'
 import { StorageAction } from '../reducers/storage.ts'
 import { RootStoreState, StorageActionType } from '../types.tsx'
 import { isTransactionEmpty } from '../utils.ts'
@@ -36,10 +39,8 @@ export const useStorage = (
   }, [])
 
   useEffect(() => {
-    if (isInvitePage) return
-
     // Load state from local storage
-    if (session.status === 'authenticated' && !isLsLoaded) {
+    if (!isInvitePage && !isLsLoaded && session.status === 'authenticated') {
       try {
         const storedState = window.localStorage.getItem(getLsKey())
 
@@ -58,10 +59,8 @@ export const useStorage = (
   }, [dispatch, isInvitePage, isLsLoaded, session.status])
 
   useEffect(() => {
-    if (isInvitePage) return
-
     // Reset state if user logs out
-    if (session.status === 'unauthenticated') {
+    if (!isInvitePage && session.status === 'unauthenticated') {
       dispatch({ type: StorageActionType.RESET_STATE })
       window.localStorage.removeItem(getLsKey())
       setIsLsLoaded(false)
@@ -87,19 +86,32 @@ export const useStorage = (
   }, [isInvitePage])
 
   useEffect(() => {
-    if (isInvitePage) return
-
     // Save state to local storage
-    if (isLsLoaded) {
-      window.localStorage.setItem(getLsKey(), JSON.stringify(state))
+    if (!isInvitePage && isLsLoaded) {
+      window.localStorage.setItem(
+        getLsKey(),
+        JSON.stringify(getBrowserStorageBody(state))
+      )
     }
   }, [isInvitePage, isLsLoaded, state])
 
   useEffect(() => {
-    if (isInvitePage) return
+    if (isInvitePage || state.isSyncing) return
+
+    if (
+      !isLsLoaded ||
+      session.status !== 'authenticated' ||
+      !isOnline ||
+      !isTabVisible
+    ) {
+      setShouldSyncAsap(true)
+      return
+    }
 
     const sync = async () => {
       try {
+        setShouldSyncAsap(false)
+
         dispatch({ type: StorageActionType.START_SYNC })
 
         const body = getRemoteStorageBody(state)
@@ -127,26 +139,7 @@ export const useStorage = (
       }
     }
 
-    if (!isTransactionEmpty(state.syncingTransaction)) {
-      setShouldSyncAsap(false)
-      return
-    }
-
-    if (
-      !isLsLoaded ||
-      session.status !== 'authenticated' ||
-      !isOnline ||
-      !isTabVisible
-    ) {
-      setShouldSyncAsap(true)
-      return
-    }
-
-    if (shouldSyncAsap) {
-      setShouldSyncAsap(false)
-      void sync()
-      return
-    }
+    if (shouldSyncAsap) return void sync()
 
     const timerId = setTimeout(
       () => void sync(),
