@@ -1,8 +1,6 @@
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { useRouter } from 'next/router.js'
 import { FC, useCallback, useRef, useState } from 'react'
-import { ROUTES } from '../../../constants/routes.ts'
 import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -13,7 +11,6 @@ interface Props {
 
 export const HeaderUser: FC<Props> = ({ className }) => {
   const session = useSession()
-  const router = useRouter()
 
   const profileButtonRef = useRef<HTMLButtonElement>(null)
   const [isOpen, setIsOpen] = useState(false)
@@ -43,13 +40,12 @@ export const HeaderUser: FC<Props> = ({ className }) => {
       try {
         setIsOpen(false)
         setIsLoading(true)
-        await router.push(router.asPath, ROUTES.DASHBOARD)
         await signOut()
       } finally {
         setIsLoading(false)
       }
     })()
-  }, [router])
+  }, [])
 
   return (
     <div className={className}>
