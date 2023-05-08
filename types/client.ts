@@ -1,5 +1,4 @@
 export interface ClientTransaction {
-  userGroups: string[]
   groups: string[]
   wallets: string[]
   operations: string[]

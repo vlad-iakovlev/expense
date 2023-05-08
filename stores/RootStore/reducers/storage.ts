@@ -64,19 +64,9 @@ const setStateFromRemoteStorageReducer: Reducer<
   }
 ) => {
   const userGroups = uniqBy(
-    [
-      ...state.userGroups,
-      ...updates.userGroups.filter((userGroup) => {
-        return !state.nextSyncTransaction.userGroups.includes(userGroup.id)
-      }),
-    ],
+    [...state.userGroups, ...updates.userGroups],
     (userGroup) => userGroup.id
-  ).filter((userGroup) => {
-    return (
-      !userGroup.removed ||
-      state.nextSyncTransaction.userGroups.includes(userGroup.id)
-    )
-  })
+  ).filter((userGroup) => !userGroup.removed)
 
   const groups = uniqBy(
     [
