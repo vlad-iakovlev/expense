@@ -1,6 +1,7 @@
-import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { FC, useCallback, useMemo, useState } from 'react'
 import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
+import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
@@ -53,7 +54,29 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
 
   return (
     <Card className={className}>
-      <Card.Title title="Rename category" />
+      <Card.Title
+        title="Rename category"
+        actions={
+          category && (
+            <>
+              <Button
+                rounded
+                size="sm"
+                theme="error"
+                iconStart={<XMarkIcon />}
+                onClick={handleCancelClick}
+              />
+              <Button
+                rounded
+                size="sm"
+                theme="primary"
+                iconStart={<CheckIcon />}
+                onClick={handleApplyClick}
+              />
+            </>
+          )
+        }
+      />
       <Card.Divider />
 
       <Card.Select
@@ -63,26 +86,9 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
         onChange={handleSelectCategory}
       />
 
-      {category ? (
-        <>
-          <Card.Input label="New name" value={newName} onChange={setNewName} />
-          <Card.Divider />
-          <div className="flex">
-            <Card.Button
-              className="flex-1 min-w-0"
-              prefix={<CheckIcon className="w-6 h-6" />}
-              label="Apply"
-              onClick={handleApplyClick}
-            />
-            <Card.Button
-              className="flex-1 min-w-0"
-              prefix={<XMarkIcon className="w-6 h-6" />}
-              label="Cancel"
-              onClick={handleCancelClick}
-            />
-          </div>
-        </>
-      ) : null}
+      {!!category && (
+        <Card.Input label="New name" value={newName} onChange={setNewName} />
+      )}
     </Card>
   )
 }
