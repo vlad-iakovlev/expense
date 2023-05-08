@@ -21,14 +21,7 @@ export interface PerformSyncResponseUpdates {
   operations: Modify<ClientOperation, { date: string | Date }>[]
 }
 
-export type PerformSyncResponse =
-  | {
-      coldStartNeeded: true
-      lastTransactionId?: never
-      updates?: never
-    }
-  | {
-      coldStartNeeded: false
-      lastTransactionId: string
-      updates: PerformSyncResponseUpdates
-    }
+export interface PerformSyncResponse {
+  lastTransactionId: string
+  updates: PerformSyncResponseUpdates
+}

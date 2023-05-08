@@ -1,5 +1,6 @@
 import { Dispatch, useCallback, useEffect, useState } from 'react'
 import { performSync } from '../../../../api/client/sync.ts'
+import { ERROR_TYPES } from '../../../../constants/errors.ts'
 import { useThrowError } from '../../../../hooks/useThrowError.ts'
 import { getRemoteStorageBody } from '../../getters/storage.ts'
 import { StorageAction } from '../../reducers/storage.ts'
@@ -26,17 +27,21 @@ export const useSyncStateWithServer = (
       const syncStartedAt = new Date()
       const response = await performSync(body)
 
-      if (response.coldStartNeeded) {
-        window.localStorage.removeItem(getLocalStorageKey())
-        throw new Error('Cold start needed')
-      }
-
       dispatch({
         type: StorageActionType.SET_STATE_FROM_REMOTE_STORAGE,
         payload: { response, syncStartedAt },
       })
     } catch (error) {
-      if ((error as Error | null)?.message === 'Cold start needed') {
+      if (
+        error instanceof Error &&
+        (
+          [
+            ERROR_TYPES.INVALID_UPDATES,
+            ERROR_TYPES.INVALID_TRANSACTION,
+          ] as string[]
+        ).includes(error.message)
+      ) {
+        window.localStorage.removeItem(getLocalStorageKey())
         return throwError(error)
       }
 

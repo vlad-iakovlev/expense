@@ -1,17 +1,29 @@
 export const request = {
   post: async <Body, Response>(url: string, body: Body): Promise<Response> => {
-    return (await fetch(url, {
+    const response = await fetch(url, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
-    }).then((res) => res.json())) as Promise<Response>
+    })
+
+    if (response.status >= 400) {
+      throw new Error(await response.text())
+    }
+
+    return (await response.json()) as Response
   },
 
   put: async <Body, Response>(url: string, body: Body): Promise<Response> => {
-    return (await fetch(url, {
+    const response = await fetch(url, {
       method: 'put',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
-    }).then((res) => res.json())) as Promise<Response>
+    })
+
+    if (response.status >= 400) {
+      throw new Error(await response.text())
+    }
+
+    return (await response.json()) as Response
   },
 }

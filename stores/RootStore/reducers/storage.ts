@@ -49,7 +49,7 @@ const setStateFromRemoteStorageReducer: Reducer<
   {
     type: StorageActionType.SET_STATE_FROM_REMOTE_STORAGE
     payload: {
-      response: PerformSyncResponse & { coldStartNeeded: false }
+      response: PerformSyncResponse
       syncStartedAt: Date
     }
   }

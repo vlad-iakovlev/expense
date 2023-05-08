@@ -1,6 +1,7 @@
 import * as fns from 'date-fns'
 import { NextApiHandler } from 'next'
 import { v4 as uuid } from 'uuid'
+import { ERROR_TYPES } from '../../../constants/errors.ts'
 import { prisma } from '../../../utils/server/prisma.ts'
 import { acceptInviteBodySchema, createInviteBodySchema } from './schemas.ts'
 import { AcceptInviteResponse, CreateInviteResponse } from './types.ts'
@@ -11,7 +12,7 @@ export const createInvite: NextApiHandler<CreateInviteResponse> = async (
 ) => {
   const body = createInviteBodySchema.parse(req.body)
 
-  const { token, expiresAt } = await prisma.invite.create({
+  const invite = await prisma.invite.create({
     data: {
       token: uuid(),
       expiresAt: fns.addDays(new Date(), 1),
@@ -28,13 +29,12 @@ export const createInvite: NextApiHandler<CreateInviteResponse> = async (
         },
       },
     },
-    select: {
-      token: true,
-      expiresAt: true,
-    },
   })
 
-  res.status(200).json({ token, expiresAt })
+  res.status(200).json({
+    token: invite.token,
+    expiresAt: invite.expiresAt,
+  })
 }
 
 export const acceptInvite: NextApiHandler<AcceptInviteResponse> = async (
@@ -43,45 +43,56 @@ export const acceptInvite: NextApiHandler<AcceptInviteResponse> = async (
 ) => {
   const body = acceptInviteBodySchema.parse(req.body)
 
-  const invite = await prisma.invite.update({
-    where: {
-      accepted: false,
-      token: body.token,
-      expiresAt: { gt: new Date() },
-    },
-    data: {
-      accepted: true,
-    },
-    select: {
-      group: {
-        select: {
-          id: true,
-        },
-      },
-    },
-  })
+  const invite = await getInviteByToken(body.token)
 
-  await prisma.userGroup.create({
-    data: {
-      user: {
-        connect: {
-          id: req.session.user.id,
-        },
-      },
-      group: {
-        connect: {
-          id: invite.group.id,
-          removed: false,
-        },
-      },
-      transactions: {
-        create: {
-          completedAt: new Date(),
-        },
-      },
-    },
-    select: { id: true },
-  })
+  await joinGroup(req.session.user.id, invite.groupId)
 
   res.status(200).json({ ok: true })
+}
+
+const getInviteByToken = async (token: string) => {
+  try {
+    return await prisma.invite.update({
+      where: {
+        accepted: false,
+        token: token,
+        expiresAt: { gt: new Date() },
+      },
+      data: {
+        accepted: true,
+      },
+    })
+  } catch (error) {
+    console.error(error)
+    throw new Error(ERROR_TYPES.INVALID_INVITE)
+  }
+}
+
+const joinGroup = async (userId: string, groupId: string) => {
+  try {
+    await prisma.userGroup.create({
+      data: {
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
+        group: {
+          connect: {
+            id: groupId,
+            removed: false,
+          },
+        },
+        transactions: {
+          create: {
+            completedAt: new Date(),
+          },
+        },
+      },
+      select: { id: true },
+    })
+  } catch (error) {
+    console.error(error)
+    throw new Error(ERROR_TYPES.CANNOT_JOIN_GROUP)
+  }
 }
