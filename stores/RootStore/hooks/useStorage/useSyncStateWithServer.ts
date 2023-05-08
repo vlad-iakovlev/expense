@@ -1,6 +1,7 @@
 import { Dispatch, useCallback, useEffect, useState } from 'react'
 import { performSync } from '../../../../api/client/sync.ts'
 import { ERROR_TYPES } from '../../../../constants/errors.ts'
+import { useIsOnline } from '../../../../hooks/useIsOnline.ts'
 import { useThrowError } from '../../../../hooks/useThrowError.ts'
 import { getRemoteStorageBody } from '../../getters/storage.ts'
 import { StorageAction } from '../../reducers/storage.ts'
@@ -14,7 +15,7 @@ export const useSyncStateWithServer = (
   isStateLoaded: boolean
 ) => {
   const throwError = useThrowError()
-
+  const isOnline = useIsOnline()
   const [shouldSyncAsap, setShouldSyncAsap] = useState(true)
 
   const sync = useCallback(async () => {
@@ -52,7 +53,7 @@ export const useSyncStateWithServer = (
 
   useEffect(() => {
     if (state.isSyncing) return
-    if (!isStateLoaded) return setShouldSyncAsap(true)
+    if (!isStateLoaded || !isOnline) return setShouldSyncAsap(true)
     if (shouldSyncAsap) return void sync()
 
     const timerId = setTimeout(
@@ -61,6 +62,7 @@ export const useSyncStateWithServer = (
     )
     return () => clearTimeout(timerId)
   }, [
+    isOnline,
     isStateLoaded,
     shouldSyncAsap,
     state.isSyncing,
