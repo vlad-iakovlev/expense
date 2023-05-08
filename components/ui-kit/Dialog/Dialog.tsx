@@ -54,7 +54,7 @@ export const Dialog: FC<DialogProps> = ({ isOpen, children, onClose }) => {
     <Portal>
       <AnimatePresence>
         {isOpen && (
-          <div className="fixed z-20 inset-0 overflow-y-auto">
+          <div className="fixed z-20 inset-0 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] overflow-y-auto">
             <motion.div
               key="backdrop"
               className="fixed inset-0 bg-zinc-500"
