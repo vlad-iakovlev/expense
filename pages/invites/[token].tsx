@@ -14,7 +14,7 @@ const InvitePage: NextPage = () => {
   }
 
   return (
-    <Page withStore={false} unauthenticated={<Home />}>
+    <Page withStoreValidation={false} unauthenticated={<Home />}>
       <Invite token={token} />
     </Page>
   )

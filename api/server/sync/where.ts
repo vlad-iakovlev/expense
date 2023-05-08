@@ -16,11 +16,28 @@ export const getGroupWhere = (params: {
     },
   },
   ...(params.clientTransaction && {
-    transactions: {
-      some: {
-        completedAt: { gt: params.clientTransaction.completedAt },
+    OR: [
+      {
+        transactions: {
+          some: {
+            completedAt: { gt: params.clientTransaction.completedAt },
+          },
+        },
       },
-    },
+      {
+        userGroups: {
+          some: {
+            removed: false,
+            userId: params.userId,
+            transactions: {
+              some: {
+                completedAt: { gt: params.clientTransaction.completedAt },
+              },
+            },
+          },
+        },
+      },
+    ],
   }),
 })
 
@@ -37,11 +54,30 @@ export const getUserGroupWhere = (params: {
     { group: getGroupWhere({ userId: params.userId }) },
   ],
   ...(params.clientTransaction && {
-    transactions: {
-      some: {
-        completedAt: { gt: params.clientTransaction.completedAt },
+    OR: [
+      {
+        transactions: {
+          some: {
+            completedAt: { gt: params.clientTransaction.completedAt },
+          },
+        },
       },
-    },
+      {
+        group: {
+          userGroups: {
+            some: {
+              removed: false,
+              userId: params.userId,
+              transactions: {
+                some: {
+                  completedAt: { gt: params.clientTransaction.completedAt },
+                },
+              },
+            },
+          },
+        },
+      },
+    ],
   }),
 })
 
@@ -59,11 +95,30 @@ export const getWalletWhere = (params: {
     groupId: params.groupId,
   }),
   ...(params.clientTransaction && {
-    transactions: {
-      some: {
-        completedAt: { gt: params.clientTransaction.completedAt },
+    OR: [
+      {
+        transactions: {
+          some: {
+            completedAt: { gt: params.clientTransaction.completedAt },
+          },
+        },
       },
-    },
+      {
+        group: {
+          userGroups: {
+            some: {
+              removed: false,
+              userId: params.userId,
+              transactions: {
+                some: {
+                  completedAt: { gt: params.clientTransaction.completedAt },
+                },
+              },
+            },
+          },
+        },
+      },
+    ],
   }),
 })
 
@@ -94,10 +149,48 @@ export const getOperationWhere = (params: {
     },
   ],
   ...(params.clientTransaction && {
-    transactions: {
-      some: {
-        completedAt: { gt: params.clientTransaction.completedAt },
+    OR: [
+      {
+        transactions: {
+          some: {
+            completedAt: { gt: params.clientTransaction.completedAt },
+          },
+        },
       },
-    },
+      {
+        incomeWallet: {
+          group: {
+            userGroups: {
+              some: {
+                removed: false,
+                userId: params.userId,
+                transactions: {
+                  some: {
+                    completedAt: { gt: params.clientTransaction.completedAt },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        expenseWallet: {
+          group: {
+            userGroups: {
+              some: {
+                removed: false,
+                userId: params.userId,
+                transactions: {
+                  some: {
+                    completedAt: { gt: params.clientTransaction.completedAt },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    ],
   }),
 })

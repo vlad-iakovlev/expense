@@ -1,5 +1,7 @@
-import { FC, useEffect, useState } from 'react'
+import { useRouter } from 'next/router.js'
+import { FC, useEffect } from 'react'
 import { acceptInvite } from '../../api/client/invites.ts'
+import { ROUTES } from '../../constants/routes.ts'
 import { Loading } from './Loading.tsx'
 
 interface Props {
@@ -7,21 +9,17 @@ interface Props {
 }
 
 export const Invite: FC<Props> = ({ token }) => {
-  const [, setState] = useState()
+  const router = useRouter()
 
   useEffect(() => {
     void (async () => {
       try {
         await acceptInvite({ token })
-        window.localStorage.clear()
-        window.location.href = '/'
-      } catch (error) {
-        setState(() => {
-          throw error
-        })
+      } finally {
+        await router.push(ROUTES.DASHBOARD)
       }
     })()
-  }, [token])
+  }, [router, token])
 
   return <Loading />
 }
