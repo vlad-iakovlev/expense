@@ -2,7 +2,7 @@ import { PerformSyncBody } from '../../../api/server/sync/types.ts'
 import { BrowserStorageState, RootStoreState } from '../types.tsx'
 import { isTransactionEmpty } from '../utils.ts'
 
-export const getBrowserStorageBody = (
+export const getBrowserStorageState = (
   state: RootStoreState
 ): BrowserStorageState => {
   return {

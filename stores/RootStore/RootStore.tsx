@@ -8,7 +8,7 @@ import {
   useContext,
   useReducer,
 } from 'react'
-import { useStorage } from './hooks/useStorage.ts'
+import { useStorage } from './hooks/useStorage/useStorage.ts'
 import {
   CategoriesAction,
   categoriesReducer,
