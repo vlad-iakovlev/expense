@@ -34,7 +34,7 @@ export const Button: FC<ButtonProps> = ({
         'rounded-md before:rounded-md': !rounded,
         'rounded-full before:rounded-full': rounded,
         'min-w-8 h-8 px-2 text-sm font-medium': size === 'sm',
-        'min-w-10 h-10 px-2 text-sm font-medium': size === 'md',
+        'min-w-10 h-10 px-2 font-medium': size === 'md',
         'min-w-12 h-12 px-3 font-medium': size === 'lg',
         'bg-green-700 text-white before:border-transparent hover:bg-green-800 active:bg-green-800 shadow-inner':
           theme === 'primary',
