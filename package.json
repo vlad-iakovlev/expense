@@ -71,9 +71,6 @@
     "typescript": "^5.0.4"
   },
   "eslintConfig": {
-    "plugins": [
-      "@typescript-eslint"
-    ],
     "parserOptions": {
       "project": "./tsconfig.json"
     },
