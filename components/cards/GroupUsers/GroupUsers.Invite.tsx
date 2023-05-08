@@ -47,7 +47,7 @@ export const Invite: FC<Props> = ({ groupId }) => {
     setIsOpen(false)
   }, [])
 
-  if (!isOnline) {
+  if (!isOnline || group.clientOnly) {
     return null
   }
 

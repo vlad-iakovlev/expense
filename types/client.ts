@@ -33,6 +33,7 @@ export interface ClientGroup {
 
 export interface PopulatedClientGroup {
   id: string
+  clientOnly: boolean
   name: string
   defaultCurrency: ClientCurrency
 }
