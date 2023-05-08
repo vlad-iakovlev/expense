@@ -42,7 +42,7 @@ export const Wallet: FC<Props> = ({ isReordering, walletId }) => {
         label={wallet.name}
         value={
           <div className="flex items-center gap-3">
-            <div className="flex-none px-2 py-1 text-sm text-zinc-600 bg-zinc-100 rounded-md">
+            <div className="flex-none flex items-center justify-center w-14 px-2 py-1 text-sm text-zinc-600 bg-zinc-100 rounded-md">
               {wallet.currency.name}
             </div>
             <div
