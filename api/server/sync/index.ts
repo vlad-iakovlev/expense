@@ -2,6 +2,7 @@ import { Transaction } from '@prisma/client'
 import { NextApiHandler } from 'next'
 import { ERROR_TYPES } from '../../../constants/errors.ts'
 import { Modify } from '../../../types/utility.ts'
+import { getHandledError } from '../../../utils/server/getHandledError.ts'
 import { prisma } from '../../../utils/server/prisma.ts'
 import { performSyncBodySchema } from './schemas.ts'
 import { PerformSyncBody, PerformSyncResponse } from './types.ts'
@@ -161,8 +162,7 @@ const applyUpdates = async (
       select: { id: true },
     })
   } catch (error) {
-    console.error(error)
-    throw new Error(ERROR_TYPES.INVALID_UPDATES)
+    throw getHandledError(ERROR_TYPES.INVALID_UPDATES, error)
   }
 }
 
@@ -172,8 +172,7 @@ const findTransaction = async (transactionId: string) => {
       where: { id: transactionId, NOT: { completedAt: null } },
     })) as Modify<Transaction, { completedAt: Date }>
   } catch (error) {
-    console.error(error)
-    throw new Error(ERROR_TYPES.INVALID_TRANSACTION)
+    throw getHandledError(ERROR_TYPES.INVALID_TRANSACTION, error)
   }
 }
 

@@ -2,6 +2,7 @@ import * as fns from 'date-fns'
 import { NextApiHandler } from 'next'
 import { v4 as uuid } from 'uuid'
 import { ERROR_TYPES } from '../../../constants/errors.ts'
+import { getHandledError } from '../../../utils/server/getHandledError.ts'
 import { prisma } from '../../../utils/server/prisma.ts'
 import { acceptInviteBodySchema, createInviteBodySchema } from './schemas.ts'
 import { AcceptInviteResponse, CreateInviteResponse } from './types.ts'
@@ -63,8 +64,7 @@ const getInviteByToken = async (token: string) => {
       },
     })
   } catch (error) {
-    console.error(error)
-    throw new Error(ERROR_TYPES.INVALID_INVITE)
+    throw getHandledError(ERROR_TYPES.INVALID_INVITE, error)
   }
 }
 
@@ -92,7 +92,6 @@ const joinGroup = async (userId: string, groupId: string) => {
       select: { id: true },
     })
   } catch (error) {
-    console.error(error)
-    throw new Error(ERROR_TYPES.CANNOT_JOIN_GROUP)
+    throw getHandledError(ERROR_TYPES.CANNOT_JOIN_GROUP, error)
   }
 }
