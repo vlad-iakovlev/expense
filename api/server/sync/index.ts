@@ -239,17 +239,12 @@ const collect = async (
   // Find all users available to requester without transactional filtering
   const findUsers = prisma.user.findMany({
     where: {
-      OR: [
-        { id: userId },
-        {
-          userGroups: {
-            some: getUserGroupWhere({
-              userId,
-              removed: false,
-            }),
-          },
-        },
-      ],
+      userGroups: {
+        some: getUserGroupWhere({
+          userId,
+          removed: false,
+        }),
+      },
     },
     select: {
       id: true,
@@ -259,10 +254,7 @@ const collect = async (
   })
 
   const findUserGroups = prisma.userGroup.findMany({
-    where: {
-      ...getUserGroupWhere({ userId }),
-      ...(transactionIds && { transactionIds: { hasSome: transactionIds } }),
-    },
+    where: getUserGroupWhere({ userId, transactionIds }),
     select: {
       id: true,
       removed: true,
@@ -272,10 +264,7 @@ const collect = async (
   })
 
   const findGroups = prisma.group.findMany({
-    where: {
-      ...getGroupWhere({ userId }),
-      ...(transactionIds && { transactionIds: { hasSome: transactionIds } }),
-    },
+    where: getGroupWhere({ userId, transactionIds }),
     select: {
       id: true,
       removed: true,
@@ -285,10 +274,7 @@ const collect = async (
   })
 
   const findWallets = prisma.wallet.findMany({
-    where: {
-      ...getWalletWhere({ userId }),
-      ...(transactionIds && { transactionIds: { hasSome: transactionIds } }),
-    },
+    where: getWalletWhere({ userId, transactionIds }),
     select: {
       id: true,
       removed: true,
@@ -300,10 +286,7 @@ const collect = async (
   })
 
   const findOperations = prisma.operation.findMany({
-    where: {
-      ...getOperationWhere({ userId }),
-      ...(transactionIds && { transactionIds: { hasSome: transactionIds } }),
-    },
+    where: getOperationWhere({ userId, transactionIds }),
     select: {
       id: true,
       removed: true,

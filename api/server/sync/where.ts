@@ -1,21 +1,8 @@
-export const getUserGroupWhere = (params: {
-  userId: string
-  userGroupId?: string
-  removed?: boolean
-}) => ({
-  id: params.userGroupId,
-  removed: params.removed,
-  OR: [
-    { userId: params.userId },
-    // We need this to get other users from groups available to requester
-    { group: getGroupWhere({ userId: params.userId }) },
-  ],
-})
-
 export const getGroupWhere = (params: {
   userId: string
   groupId?: string
   removed?: boolean
+  transactionIds?: string[]
 }) => ({
   id: params.groupId,
   removed: params.removed,
@@ -25,6 +12,26 @@ export const getGroupWhere = (params: {
       userId: params.userId,
     },
   },
+  ...(params.transactionIds && {
+    transactionIds: { hasSome: params.transactionIds },
+  }),
+})
+
+export const getUserGroupWhere = (params: {
+  userId: string
+  userGroupId?: string
+  removed?: boolean
+  transactionIds?: string[]
+}) => ({
+  id: params.userGroupId,
+  removed: params.removed,
+  OR: [
+    { userId: params.userId },
+    { group: getGroupWhere({ userId: params.userId }) },
+  ],
+  ...(params.transactionIds && {
+    transactionIds: { hasSome: params.transactionIds },
+  }),
 })
 
 export const getWalletWhere = (params: {
@@ -32,12 +39,16 @@ export const getWalletWhere = (params: {
   groupId?: string
   walletId?: string
   removed?: boolean
+  transactionIds?: string[]
 }) => ({
   id: params.walletId,
   removed: params.removed,
   group: getGroupWhere({
     userId: params.userId,
     groupId: params.groupId,
+  }),
+  ...(params.transactionIds && {
+    transactionIds: { hasSome: params.transactionIds },
   }),
 })
 
@@ -47,6 +58,7 @@ export const getOperationWhere = (params: {
   walletId?: string
   operationId?: string
   removed?: boolean
+  transactionIds?: string[]
 }) => ({
   id: params.operationId,
   removed: params.removed,
@@ -66,4 +78,7 @@ export const getOperationWhere = (params: {
       }),
     },
   ],
+  ...(params.transactionIds && {
+    transactionIds: { hasSome: params.transactionIds },
+  }),
 })
