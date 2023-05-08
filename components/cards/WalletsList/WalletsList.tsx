@@ -48,7 +48,12 @@ export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
             <>
               <Add groupId={groupId} />
               {walletIds.length > 1 && (
-                <Button rounded size="sm" onClick={startReordering}>
+                <Button
+                  rounded
+                  size="sm"
+                  theme="secondary"
+                  onClick={startReordering}
+                >
                   Edit
                 </Button>
               )}
