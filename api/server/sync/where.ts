@@ -1,6 +1,23 @@
 import { Transaction } from '@prisma/client'
 import { Modify } from '../../../types/utility.ts'
 
+const getGroupAddedSinceLastSyncWhere = (params: {
+  userId: string
+  clientTransaction: Modify<Transaction, { completedAt: Date }>
+}) => ({
+  userGroups: {
+    some: {
+      removed: false,
+      userId: params.userId,
+      transactions: {
+        some: {
+          completedAt: { gt: params.clientTransaction.completedAt },
+        },
+      },
+    },
+  },
+})
+
 export const getGroupWhere = (params: {
   userId: string
   groupId?: string
@@ -24,19 +41,10 @@ export const getGroupWhere = (params: {
           },
         },
       },
-      {
-        userGroups: {
-          some: {
-            removed: false,
-            userId: params.userId,
-            transactions: {
-              some: {
-                completedAt: { gt: params.clientTransaction.completedAt },
-              },
-            },
-          },
-        },
-      },
+      getGroupAddedSinceLastSyncWhere({
+        userId: params.userId,
+        clientTransaction: params.clientTransaction,
+      }),
     ],
   }),
 })
@@ -63,19 +71,10 @@ export const getUserGroupWhere = (params: {
         },
       },
       {
-        group: {
-          userGroups: {
-            some: {
-              removed: false,
-              userId: params.userId,
-              transactions: {
-                some: {
-                  completedAt: { gt: params.clientTransaction.completedAt },
-                },
-              },
-            },
-          },
-        },
+        group: getGroupAddedSinceLastSyncWhere({
+          userId: params.userId,
+          clientTransaction: params.clientTransaction,
+        }),
       },
     ],
   }),
@@ -104,19 +103,10 @@ export const getWalletWhere = (params: {
         },
       },
       {
-        group: {
-          userGroups: {
-            some: {
-              removed: false,
-              userId: params.userId,
-              transactions: {
-                some: {
-                  completedAt: { gt: params.clientTransaction.completedAt },
-                },
-              },
-            },
-          },
-        },
+        group: getGroupAddedSinceLastSyncWhere({
+          userId: params.userId,
+          clientTransaction: params.clientTransaction,
+        }),
       },
     ],
   }),
@@ -159,36 +149,18 @@ export const getOperationWhere = (params: {
       },
       {
         incomeWallet: {
-          group: {
-            userGroups: {
-              some: {
-                removed: false,
-                userId: params.userId,
-                transactions: {
-                  some: {
-                    completedAt: { gt: params.clientTransaction.completedAt },
-                  },
-                },
-              },
-            },
-          },
+          group: getGroupAddedSinceLastSyncWhere({
+            userId: params.userId,
+            clientTransaction: params.clientTransaction,
+          }),
         },
       },
       {
         expenseWallet: {
-          group: {
-            userGroups: {
-              some: {
-                removed: false,
-                userId: params.userId,
-                transactions: {
-                  some: {
-                    completedAt: { gt: params.clientTransaction.completedAt },
-                  },
-                },
-              },
-            },
-          },
+          group: getGroupAddedSinceLastSyncWhere({
+            userId: params.userId,
+            clientTransaction: params.clientTransaction,
+          }),
         },
       },
     ],
