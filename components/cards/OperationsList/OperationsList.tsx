@@ -2,8 +2,8 @@ import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
 import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
+import { Add } from './OperationsList.Add.tsx'
 import { CategoryFilter } from './OperationsList.CategoryFilter.tsx'
-import { Create } from './OperationsList.Create.tsx'
 import { Operation } from './OperationsList.Operation.tsx'
 
 interface Props {
@@ -39,7 +39,7 @@ export const OperationsListCard: FC<Props> = ({
 
   return (
     <Card className={className}>
-      <Card.Title title="Operations" actions={<Create walletId={walletId} />} />
+      <Card.Title title="Operations" actions={<Add walletId={walletId} />} />
 
       {(!!category || !!operationIds.length) && (
         <>

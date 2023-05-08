@@ -1,4 +1,3 @@
-import { PlusIcon } from '@heroicons/react/20/solid'
 import { CheckIcon } from '@heroicons/react/24/solid'
 import { FC, useCallback, useState } from 'react'
 import { createInvite } from '../../../api/client/invites.ts'
@@ -46,13 +45,9 @@ export const Invite: FC<Props> = ({ groupId }) => {
 
   return (
     <>
-      <Button
-        disabled={isLoading}
-        rounded
-        size="sm"
-        iconStart={<PlusIcon />}
-        onClick={handleInvite}
-      />
+      <Button disabled={isLoading} rounded size="sm" onClick={handleInvite}>
+        Invite
+      </Button>
 
       <Dialog isOpen={isOpen} onClose={handleClose}>
         <Card>

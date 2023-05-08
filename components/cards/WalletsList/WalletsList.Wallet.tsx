@@ -1,6 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { ArrowsUpDownIcon } from '@heroicons/react/20/solid'
+import { Bars3Icon } from '@heroicons/react/24/outline'
 import { clsx } from 'clsx'
 import { FC } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
@@ -39,20 +39,25 @@ export const Wallet: FC<Props> = ({ isReordering, walletId }) => {
           transform: CSS.Transform.toString(transform),
           transition,
         }}
-        label={`${wallet.name} ${wallet.currency.name}`}
+        label={wallet.name}
         value={
-          <div
-            className={clsx(
-              'flex items-center justify-center w-8 h-8 -mx-2 touch-none',
-              {
-                'cursor-grab': !isDragging,
-                'cursor-grabbing': isDragging,
-              }
-            )}
-            {...attributes}
-            {...listeners}
-          >
-            <ArrowsUpDownIcon className="w-4 h-4" />
+          <div className="flex items-center gap-3">
+            <div className="flex-none px-2 py-1 text-sm text-zinc-600 bg-zinc-100 rounded-md">
+              {wallet.currency.name}
+            </div>
+            <div
+              className={clsx(
+                'flex-none flex items-center justify-center w-8 h-8 -mx-2 touch-none',
+                {
+                  'cursor-grab': !isDragging,
+                  'cursor-grabbing': isDragging,
+                }
+              )}
+              {...attributes}
+              {...listeners}
+            >
+              <Bars3Icon className="w-6 h-6" />
+            </div>
           </div>
         }
       />

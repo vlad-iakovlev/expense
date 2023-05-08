@@ -1,4 +1,3 @@
-import { XMarkIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/router.js'
 import { FC, useCallback, useState } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
@@ -37,13 +36,9 @@ export const Delete: FC<Props> = ({ walletId }) => {
   return (
     <>
       {!operationIds.length && (
-        <Button
-          rounded
-          size="sm"
-          theme="error"
-          iconStart={<XMarkIcon />}
-          onClick={handleDelete}
-        />
+        <Button rounded size="sm" theme="error" onClick={handleDelete}>
+          Delete
+        </Button>
       )}
 
       <ConfirmDialog

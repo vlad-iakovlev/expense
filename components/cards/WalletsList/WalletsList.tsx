@@ -4,12 +4,11 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { ArrowsUpDownIcon } from '@heroicons/react/20/solid'
 import { FC, useCallback, useState } from 'react'
 import { useWallets } from '../../../stores/RootStore/hooks/useWallets.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Create } from './WalletsList.Create.tsx'
+import { Add } from './WalletsList.Add.tsx'
 import { Wallet } from './WalletsList.Wallet.tsx'
 
 interface Props {
@@ -47,14 +46,11 @@ export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
             </Button>
           ) : (
             <>
-              <Create groupId={groupId} />
+              <Add groupId={groupId} />
               {walletIds.length > 1 && (
-                <Button
-                  rounded
-                  size="sm"
-                  iconStart={<ArrowsUpDownIcon />}
-                  onClick={startReordering}
-                />
+                <Button rounded size="sm" onClick={startReordering}>
+                  Edit
+                </Button>
               )}
             </>
           )

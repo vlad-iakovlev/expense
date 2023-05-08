@@ -1,4 +1,3 @@
-import { PlusIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/router.js'
 import { FC, useCallback } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
@@ -9,7 +8,7 @@ interface Props {
   groupId: string
 }
 
-export const Create: FC<Props> = ({ groupId }) => {
+export const Add: FC<Props> = ({ groupId }) => {
   const router = useRouter()
   const { createWallet } = useWallets({ groupId })
 
@@ -20,6 +19,8 @@ export const Create: FC<Props> = ({ groupId }) => {
   }, [createWallet, router])
 
   return (
-    <Button rounded size="sm" iconStart={<PlusIcon />} onClick={handleCreate} />
+    <Button rounded size="sm" onClick={handleCreate}>
+      Add
+    </Button>
   )
 }
