@@ -14,9 +14,10 @@ model Migration {
 }
 
 model Transaction {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   completedAt DateTime?
 
   userGroups   UserGroup[] @relation(fields: [userGroupIds], references: [id])
@@ -124,6 +125,19 @@ model UserGroup {
   @@unique([userId, groupId])
 }
 
+model Invite {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  token     String   @unique
+  expiresAt DateTime
+  accepted  Boolean  @default(false)
+
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId String @db.ObjectId
+}
+
 model Group {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
@@ -136,6 +150,7 @@ model Group {
   defaultCurrencyId String   @db.ObjectId
 
   userGroups UserGroup[]
+  invites    Invite[]
   wallets    Wallet[]
 
   transactions   Transaction[] @relation(fields: [transactionIds], references: [id])

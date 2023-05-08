@@ -20,20 +20,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // TODO: Send to server
-    console.error({ error, errorInfo })
-  }
-
-  rejectionHandler = () => {
-    this.setState({ hasError: true })
-  }
-
-  componentDidMount(): void {
-    window.addEventListener('unhandledrejection', this.rejectionHandler)
-  }
-
-  componentWillUnmount(): void {
-    window.removeEventListener('unhandledrejection', this.rejectionHandler)
+    console.error('Unhandled error:', error, errorInfo)
   }
 
   render() {

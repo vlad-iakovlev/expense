@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /groups/
+Disallow: /wallets/
+Disallow: /operations/
+Disallow: /invites/

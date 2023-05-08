@@ -27,7 +27,7 @@ export const AvatarGroup: FC<AvatarGroupProps> = ({
       {visibleAvatars.map((props, index) => (
         <Avatar
           {...props}
-          key={props.src}
+          key={props.src ?? index}
           size={size}
           className={clsx(props.className, {
             '-ml-5': index > 0 && size === 'sm',

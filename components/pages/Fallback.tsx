@@ -5,7 +5,7 @@ import { Card } from '../ui-kit/Card/Card.tsx'
 
 export const Fallback: FC = () => {
   const handleRestart = useCallback(() => {
-    window.location.pathname = '/'
+    window.location.href = '/'
   }, [])
 
   return (

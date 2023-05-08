@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { useGroupUsers } from '../../../stores/RootStore/hooks/useGroupUsers.ts'
 import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
+import { Invite } from './GroupUsers.Invite.tsx'
 
 interface Props {
   className?: string
@@ -13,7 +14,7 @@ export const GroupUsersCard: FC<Props> = ({ className, groupId }) => {
 
   return (
     <Card className={className}>
-      <Card.Title title="Users" />
+      <Card.Title title="Users" actions={<Invite groupId={groupId} />} />
 
       {!!groupUsers.length && (
         <>
