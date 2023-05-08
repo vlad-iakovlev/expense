@@ -2,7 +2,6 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
 import { useState } from 'react'
 import { Page } from '../../components/layout/Page/Page.tsx'
-import { Home } from '../../components/pages/Home.tsx'
 import { Invite } from '../../components/pages/Invite.tsx'
 
 const InvitePage: NextPage = () => {
@@ -14,7 +13,7 @@ const InvitePage: NextPage = () => {
   }
 
   return (
-    <Page withStoreValidation={false} unauthenticated={<Home />}>
+    <Page withStoreValidation={false}>
       <Invite token={token} />
     </Page>
   )
