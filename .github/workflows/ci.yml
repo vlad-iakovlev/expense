@@ -48,8 +48,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          envs:
-            - SHA
+          envs: SHA
           script_stop: true
           script: |
             cd Projects/expense
