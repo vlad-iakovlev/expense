@@ -63,23 +63,9 @@ const setStateFromRemoteStorageReducer: Reducer<
     },
   }
 ) => {
-  const groups = uniqBy(
-    [
-      ...state.groups,
-      ...updates.groups.filter((group) => {
-        return !state.nextSyncTransaction.groups.includes(group.id)
-      }),
-    ],
-    (group) => group.id
-  ).filter((group) => {
-    return !group.removed || state.nextSyncTransaction.groups.includes(group.id)
-  })
-
   const userGroups = uniqBy(
     [
-      ...state.userGroups.filter((userGroup) => {
-        return !state.syncingTransaction.userGroups.includes(userGroup.id)
-      }),
+      ...state.userGroups,
       ...updates.userGroups.filter((userGroup) => {
         return !state.nextSyncTransaction.userGroups.includes(userGroup.id)
       }),
@@ -87,9 +73,24 @@ const setStateFromRemoteStorageReducer: Reducer<
     (userGroup) => userGroup.id
   ).filter((userGroup) => {
     return (
-      (!userGroup.removed ||
-        state.nextSyncTransaction.userGroups.includes(userGroup.id)) &&
-      groups.find((group) => group.id === userGroup.groupId)
+      !userGroup.removed ||
+      state.nextSyncTransaction.userGroups.includes(userGroup.id)
+    )
+  })
+
+  const groups = uniqBy(
+    [
+      ...state.groups,
+      ...(updates.groups.filter((group) => {
+        return !state.nextSyncTransaction.groups.includes(group.id)
+      }) as typeof state.groups),
+    ],
+    (group) => group.id
+  ).filter((group) => {
+    return (
+      (!group.removed || state.nextSyncTransaction.groups.includes(group.id)) &&
+      (group.clientOnly ||
+        userGroups.find((userGroup) => userGroup.groupId === group.id))
     )
   })
 

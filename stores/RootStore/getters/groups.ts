@@ -60,8 +60,13 @@ export const getGroupBalance = (
 
 export const getGroupUsers = (
   state: RootStoreState,
-  groupId: string
+  groupId: string,
+  me: ClientUser
 ): ClientUser[] => {
+  const group = state.groups.find((group) => group.id === groupId)
+  assert(group, 'Group not found')
+  if (group.clientOnly) return [me]
+
   return state.userGroups.reduce<ClientUser[]>((acc, userGroup) => {
     if (userGroup.groupId === groupId) {
       const user = state.users.find((user) => user.id === userGroup.userId)

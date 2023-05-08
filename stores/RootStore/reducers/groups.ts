@@ -9,23 +9,14 @@ const createGroupReducer: Reducer<
     type: GroupsActionTypes.CREATE_GROUP
     payload: {
       groupId: string
-      userGroupId: string
-      userId: string
     }
   }
-> = (state, { payload: { groupId, userGroupId, userId } }) => {
+> = (state, { payload: { groupId } }) => {
   return produce(state, (draft) => {
-    draft.userGroups.push({
-      id: userGroupId,
-      removed: false,
-      userId,
-      groupId,
-    })
-    draft.nextSyncTransaction.userGroups.push(userGroupId)
-
     draft.groups.push({
       id: groupId,
       removed: false,
+      clientOnly: true,
       name: 'Untitled',
       defaultCurrencyId: getDefaultCurrency(state).id,
     })

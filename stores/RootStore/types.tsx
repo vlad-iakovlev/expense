@@ -13,7 +13,7 @@ export interface RootStoreState {
   currencies: ClientCurrency[]
   users: ClientUser[]
   userGroups: ClientUserGroup[]
-  groups: ClientGroup[]
+  groups: Modify<ClientGroup, { clientOnly?: true }>[]
   wallets: ClientWallet[]
   operations: ClientOperation[]
   nextSyncTransaction: ClientTransaction
@@ -26,7 +26,7 @@ export interface BrowserStorageState {
   currencies: ClientCurrency[]
   users: ClientUser[]
   userGroups: ClientUserGroup[]
-  groups: ClientGroup[]
+  groups: Modify<ClientGroup, { clientOnly?: true }>[]
   wallets: ClientWallet[]
   operations: Modify<ClientOperation, { date: string | Date }>[]
   nextSyncTransaction: ClientTransaction
