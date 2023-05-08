@@ -4,7 +4,7 @@ import { StorageAction } from '../../reducers/storage.ts'
 import { RootStoreState, StorageActionType } from '../../types.tsx'
 import { getLocalStorageKey } from './constants.ts'
 
-export const useResetState = (
+export const useResetStateForUnauthenticated = (
   state: RootStoreState,
   dispatch: Dispatch<StorageAction>
 ) => {
