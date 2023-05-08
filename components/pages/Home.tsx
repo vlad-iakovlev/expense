@@ -73,7 +73,7 @@ export const Home: FC = () => {
           />
           <Card.Text
             prefix={<UsersIcon className="w-6 h-6" />}
-            label="Collaborative tracking (WIP)"
+            label="Collaborative tracking"
           />
           <Card.Text
             prefix={<CurrencyDollarIcon className="w-6 h-6" />}
