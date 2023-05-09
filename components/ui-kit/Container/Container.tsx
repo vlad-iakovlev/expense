@@ -11,7 +11,7 @@ export const Container: FC<ContainerProps> = ({ children, className }) => {
     <div
       className={clsx(
         className,
-        'mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 xl:px-8'
+        'mx-auto max-w-screen-2xl px-4 sm:px-6 md:px-8'
       )}
     >
       {children}

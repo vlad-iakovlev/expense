@@ -9,6 +9,13 @@ module.exports = {
     hoverOnlyWhenSupported: true,
   },
   theme: {
+    screens: {
+      sm: '432px',
+      md: '736px',
+      lg: '1088px',
+      xl: '1440px',
+      '2xl': '1792px',
+    },
     extend: {
       boxShadow: {
         dnd: '0 5px 15px rgb(0 0 0 / 0.25)',
