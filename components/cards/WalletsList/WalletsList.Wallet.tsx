@@ -1,6 +1,5 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { Bars4Icon } from '@heroicons/react/24/outline'
 import { clsx } from 'clsx'
 import { FC } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
@@ -41,13 +40,13 @@ export const Wallet: FC<Props> = ({ isReordering, walletId }) => {
         }}
         label={wallet.name}
         value={
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-3 sm:gap-4">
             <div className="flex-none flex items-center justify-center w-14 px-2 py-1 text-sm text-zinc-600 bg-zinc-100 rounded-md">
               {wallet.currency.name}
             </div>
             <div
               className={clsx(
-                'flex-none w-10 sm:w-14 h-12 pr-3 sm:pr-5 pl-1 sm:pl-3 py-3 -mr-4 sm:-mr-6 -my-3 touch-none',
+                'flex-none flex flex-col items-center justify-center h-12 w-12 -m-3 gap-[3px] touch-none',
                 {
                   'cursor-grab': !isDragging,
                   'cursor-grabbing': isDragging,
@@ -56,7 +55,9 @@ export const Wallet: FC<Props> = ({ isReordering, walletId }) => {
               {...attributes}
               {...listeners}
             >
-              <Bars4Icon className="text-zinc-400" />
+              <div className="w-5 h-[2px] bg-zinc-400 rounded-full" />
+              <div className="w-5 h-[2px] bg-zinc-400 rounded-full" />
+              <div className="w-5 h-[2px] bg-zinc-400 rounded-full" />
             </div>
           </div>
         }
