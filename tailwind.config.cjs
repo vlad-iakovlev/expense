@@ -10,11 +10,11 @@ module.exports = {
   },
   theme: {
     screens: {
-      sm: '432px',
-      md: '736px',
-      lg: '1088px',
-      xl: '1440px',
-      '2xl': '1792px',
+      sm: '448px',
+      md: '768px',
+      lg: '1136px',
+      xl: '1504px',
+      '2xl': '1872px',
     },
     extend: {
       boxShadow: {
