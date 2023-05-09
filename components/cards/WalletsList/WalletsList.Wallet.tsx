@@ -41,13 +41,13 @@ export const Wallet: FC<Props> = ({ isReordering, walletId }) => {
         }}
         label={wallet.name}
         value={
-          <div className="flex items-center gap-4 sm:gap-5">
+          <div className="flex items-center gap-1">
             <div className="flex-none flex items-center justify-center w-14 px-2 py-1 text-sm text-zinc-600 bg-zinc-100 rounded-md">
               {wallet.currency.name}
             </div>
             <div
               className={clsx(
-                'flex-none flex items-center justify-center w-8 h-8 -mx-2 touch-none',
+                'flex-none flex items-center justify-center w-12 sm:w-14 h-12 pr-5 pl-1 sm:pl-3 py-3 -mr-6 -my-3 touch-none',
                 {
                   'cursor-grab': !isDragging,
                   'cursor-grabbing': isDragging,
@@ -56,7 +56,7 @@ export const Wallet: FC<Props> = ({ isReordering, walletId }) => {
               {...attributes}
               {...listeners}
             >
-              <Bars4Icon className="w-6 h-6 text-zinc-400" />
+              <Bars4Icon className="text-zinc-400" />
             </div>
           </div>
         }
