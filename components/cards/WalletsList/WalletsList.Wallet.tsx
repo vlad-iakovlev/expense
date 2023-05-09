@@ -47,7 +47,7 @@ export const Wallet: FC<Props> = ({ isReordering, walletId }) => {
             </div>
             <div
               className={clsx(
-                'flex-none flex items-center justify-center w-12 sm:w-14 h-12 pr-5 pl-1 sm:pl-3 py-3 -mr-6 -my-3 touch-none',
+                'flex-none w-12 sm:w-14 h-12 pr-5 pl-1 sm:pl-3 py-3 -mr-6 -my-3 touch-none',
                 {
                   'cursor-grab': !isDragging,
                   'cursor-grabbing': isDragging,
