@@ -42,8 +42,14 @@ export const Wallet: FC<Props> = ({ walletId }) => {
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] lg:grid-rows-none">
         <WalletInfoCard walletId={walletId} />
-        <OperationsListCard walletId={walletId} />
-        <StatisticsCard className="md:row-span-full" walletId={walletId} />
+        <OperationsListCard
+          className="md:max-lg:row-span-full"
+          walletId={walletId}
+        />
+        <StatisticsCard
+          className="md:max-lg:col-start-1 md:max-lg:row-start-2"
+          walletId={walletId}
+        />
       </Columns>
     </>
   )
