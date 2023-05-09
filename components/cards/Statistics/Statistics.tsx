@@ -1,5 +1,6 @@
 import { FC, useCallback, useMemo, useState } from 'react'
 import { usePeriod } from '../../../hooks/usePeriod.ts'
+import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
 import { useStatisticsByCategory } from '../../../stores/RootStore/hooks/useStatisticsByCategory.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Categories } from './Statistics.Categories.tsx'
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
+  const { operationIds } = useOperations({ groupId, walletId })
+
   const { startDate, endDate, fromDate, period, setPeriod, goPrev, goNext } =
     usePeriod()
   const { statisticsByCategoryItems, statisticsByCategoryCurrency } =
@@ -50,6 +53,10 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
     },
     []
   )
+
+  if (!operationIds.length) {
+    return null
+  }
 
   return (
     <Card className={className}>
