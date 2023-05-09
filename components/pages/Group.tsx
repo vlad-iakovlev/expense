@@ -37,13 +37,18 @@ export const Group: FC<Props> = ({ groupId }) => {
       <Breadcrumbs parents={parents} />
       <Title title={group.name} />
 
-      <Columns className="md:grid-flow-col md:grid-rows-[auto_auto_auto_auto_1fr] lg:grid-rows-[auto_auto_auto_1fr] xl:grid-rows-[auto_auto_1fr]">
+      <Columns className="md:grid-flow-col md:grid-rows-[auto_auto_auto_1fr] xl:grid-rows-[auto_auto_1fr]">
         <GroupInfoCard groupId={groupId} />
         <GroupUsersCard groupId={groupId} />
         <RenameCategoryCard groupId={groupId} />
-        <WalletsListCard className="xl:row-span-full" groupId={groupId} />
-        <OperationsListCard className="lg:row-span-full" groupId={groupId} />
-        <StatisticsCard className="md:row-span-full" groupId={groupId} />
+        <div className="md:row-span-full lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 items-start gap-[inherit]">
+          <WalletsListCard groupId={groupId} />
+          <OperationsListCard groupId={groupId} />
+        </div>
+        <StatisticsCard
+          className="md:max-xl:col-start-1 md:max-xl:row-start-4 xl:row-span-full"
+          groupId={groupId}
+        />
       </Columns>
     </>
   )
