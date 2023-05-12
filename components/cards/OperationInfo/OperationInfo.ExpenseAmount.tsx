@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { FC, useCallback } from 'react'
 import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
 import { formatAmount } from '../../../utils/formatAmount.ts'
@@ -14,13 +13,10 @@ export const ExpenseAmount: FC<Props> = ({ operationId }) => {
 
   const handleChange = useCallback(
     (amountString: string) => {
-      assert(operation.expenseWallet, 'expenseWallet is not defined')
-
-      const amount = parseAmount(amountString, operation.expenseWallet.currency)
-      if (isNaN(amount)) return
-      setOperationExpenseAmount(amount)
+      const amount = parseAmount(amountString)
+      if (!isNaN(amount)) setOperationExpenseAmount(amount)
     },
-    [operation.expenseWallet, setOperationExpenseAmount]
+    [setOperationExpenseAmount]
   )
 
   if (!operation.expenseWallet) {

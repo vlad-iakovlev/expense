@@ -12,6 +12,8 @@ export const formatAmount = (
     )}`
   }
 
+  // In case symbol is not defined, use name with extra space
+  const symbol = currency.symbol ?? currency.name + ' '
   const value = Math.abs(amount / 1e4).toFixed(2)
-  return `${currency.symbol}${value}`
+  return `${symbol}${value}`
 }

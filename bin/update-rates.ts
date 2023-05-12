@@ -28,9 +28,11 @@ const fetchRates = async () => {
 const updateRates = async (rates: RatesResponse) => {
   await prisma.$transaction(
     Object.entries(rates.rates).map(([name, rate]) => {
-      return prisma.currency.updateMany({
+      return prisma.currency.upsert({
         where: { name },
-        data: { rate },
+        create: { name, rate },
+        update: { rate },
+        select: { id: true },
       })
     })
   )
