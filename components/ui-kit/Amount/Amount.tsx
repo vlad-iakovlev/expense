@@ -7,7 +7,7 @@ export interface AmountProps {
   className?: string
   amount: number
   currency?: ClientCurrency
-  type?: 'income' | 'expense' | 'none'
+  type?: 'income' | 'expense'
 }
 
 export const Amount: FC<AmountProps> = ({
