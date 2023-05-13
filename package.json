@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "start:prod": "prisma db push && npm run migrations:apply-all && npm run start",
+    "start:prod": "npm run migrations:apply-all && prisma db push && npm run start",
     "migrations": "ts-node --esm -r dotenv/config bin/migrations.ts",
     "migrations:create": "npm run migrations -- --create",
     "migrations:apply-all": "npm run migrations -- --applyAll",
