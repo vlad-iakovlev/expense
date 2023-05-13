@@ -15,6 +15,7 @@
     "update-currency-rates": "ts-node --esm -r dotenv/config bin/update-currency-rates.ts",
     "generate-icons": "ts-node --esm bin/generate-icons.ts",
     "generate-splash": "ts-node --esm bin/generate-splash.ts",
+    "import-csv": "ts-node --esm bin/import-csv.ts",
     "compile": "tsc",
     "lint": "next lint",
     "lint:ci": "DEBUG=eslint:cli-engine next lint",
