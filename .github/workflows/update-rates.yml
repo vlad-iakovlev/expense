@@ -19,4 +19,4 @@ jobs:
           script_stop: true
           script: |
             cd Projects/expense
-            docker compose exec expense npm run update-rates
+            docker compose exec expense npm run update-currency-rates
