@@ -21,7 +21,9 @@ module.exports = {
         dnd: '0 5px 15px rgb(0 0 0 / 0.25)',
       },
       minHeight: ({ theme }) => ({ ...theme('spacing') }),
+      maxHeight: ({ theme }) => ({ ...theme('spacing') }),
       minWidth: ({ theme }) => ({ ...theme('spacing') }),
+      maxWidth: ({ theme }) => ({ ...theme('spacing') }),
     },
   },
   safelist: [

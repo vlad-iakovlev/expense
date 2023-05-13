@@ -1,89 +1,64 @@
-import { FC, useMemo } from 'react'
-import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
+import { FC, useCallback, useMemo } from 'react'
 import {
   ClientCurrency,
   ClientStatisticsByCategory,
+  ClientStatisticsType,
 } from '../../../types/client.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
+import { PieChart, PieChartItem } from '../../ui-kit/PieChart/PieChart.tsx'
+
+const TITLE = {
+  [ClientStatisticsType.INCOMES]: 'Incomes',
+  [ClientStatisticsType.EXPENSES]: 'Expenses',
+}
 
 interface Props {
   currency: ClientCurrency
   items: ClientStatisticsByCategory[]
+  type: ClientStatisticsType
 }
 
-export const Charts: FC<Props> = ({ currency, items }) => {
-  const totalIncome = useMemo(() => {
-    return items.reduce<number>((acc, item) => acc + item.incomeAmount, 0)
+export const Charts: FC<Props> = ({ currency, items, type }) => {
+  const chartItems = useMemo<PieChartItem[]>(() => {
+    return items.map((item) => ({
+      id: item.category,
+      color: item.color,
+      value: item.amount,
+    }))
   }, [items])
 
-  const totalExpense = useMemo(() => {
-    return items.reduce<number>((acc, item) => acc + item.expenseAmount, 0)
-  }, [items])
+  const renderTooltip = useCallback(
+    (itemId: string | null, total: number) => {
+      const item = items.find((item) => item.category === itemId)
 
-  return (
-    <Card.Block className="flex gap-3">
-      <div className="relative flex-1 flex items-center justify-center min-w-0 aspect-square">
-        <ResponsiveContainer className="absolute inset-0">
-          <PieChart>
-            <Pie
-              className="focus:outline-none"
-              data={items}
-              dataKey="incomeAmount"
-              cx="50%"
-              cy="50%"
-              outerRadius="100%"
-              minAngle={2}
-              animationBegin={0}
-            >
-              {items.map((item) => (
-                <Cell key={item.category} fill={item.color} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
+      const title = item ? item.category : TITLE[type]
+      const amount = item ? item.amount : total
+      const percent = item ? Math.round((item.amount / total) * 100) : 100
 
-        <div className="relative py-1 px-2 text-center bg-white bg-opacity-90 rounded-sm">
-          Incomes
+      return (
+        <div className="max-w-[65%] pt-1 text-center">
+          <div className="text-gray-600 truncate">{title}</div>
           <Amount
-            className="font-medium"
-            amount={totalIncome}
-            currency={currency}
-            type="income"
-          />
-        </div>
-      </div>
-
-      <div className="relative flex-1 flex items-center justify-center min-w-0 aspect-square">
-        <ResponsiveContainer className="absolute inset-0">
-          <PieChart>
-            <Pie
-              className="focus:outline-none"
-              data={items}
-              dataKey="expenseAmount"
-              cx="50%"
-              cy="50%"
-              outerRadius="100%"
-              minAngle={2}
-              animationBegin={0}
-            >
-              {items.map((item) => (
-                <Cell key={item.category} fill={item.color} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
-
-        <div className="relative py-1 px-2 text-center bg-white bg-opacity-90 rounded-sm">
-          Expenses
-          <Amount
-            className="font-medium"
-            amount={totalExpense}
+            className="text-lg font-medium truncate"
+            amount={amount}
             currency={currency}
             type="expense"
           />
+          <div className="text-gray-800">{percent}%</div>
         </div>
-      </div>
+      )
+    },
+    [currency, items, type]
+  )
+
+  return (
+    <Card.Block className="flex justify-center gap-3">
+      <PieChart
+        className="flex-1 max-w-56"
+        items={chartItems}
+        renderTooltip={renderTooltip}
+      />
     </Card.Block>
   )
 }

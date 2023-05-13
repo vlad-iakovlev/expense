@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import {
   ClientCurrency,
   ClientStatisticsByCategory,
+  ClientStatisticsType,
   ClientWallet,
 } from '../../../types/client.ts'
 import { stringToColor } from '../../../utils/stringToColor.ts'
@@ -10,11 +11,22 @@ import { uniq } from '../../../utils/uniq.ts'
 import { useRootStore } from '../RootStore.tsx'
 import { getDefaultCurrency } from '../getters/currencies.ts'
 
+const WALLET_ID_FIELD = {
+  [ClientStatisticsType.INCOMES]: 'incomeWalletId',
+  [ClientStatisticsType.EXPENSES]: 'expenseWalletId',
+} as const
+
+const AMOUNT_FIELD = {
+  [ClientStatisticsType.INCOMES]: 'incomeAmount',
+  [ClientStatisticsType.EXPENSES]: 'expenseAmount',
+} as const
+
 interface Props {
   groupId?: string
   walletId?: string
   startDate?: Date
   endDate?: Date
+  type: ClientStatisticsType
 }
 
 export const useStatisticsByCategory = ({
@@ -22,6 +34,7 @@ export const useStatisticsByCategory = ({
   walletId,
   startDate,
   endDate,
+  type,
 }: Props) => {
   const { state } = useRootStore()
 
@@ -65,68 +78,34 @@ export const useStatisticsByCategory = ({
     ).sort((a, b) => a.localeCompare(b))
 
     return categories.reduce<ClientStatisticsByCategory[]>((acc, category) => {
-      const incomeOperations = state.operations.filter((operation) => {
+      const operations = state.operations.filter((operation) => {
         return (
           !operation.removed &&
           operation.category === category &&
-          operation.incomeWalletId &&
-          walletsMap[operation.incomeWalletId] &&
+          walletsMap[operation[WALLET_ID_FIELD[type]] ?? ''] &&
           (!startDate || operation.date >= startDate) &&
           (!endDate || operation.date < endDate)
         )
       })
 
-      const expenseOperations = state.operations.filter((operation) => {
-        return (
-          !operation.removed &&
-          operation.category === category &&
-          operation.expenseWalletId &&
-          walletsMap[operation.expenseWalletId] &&
-          (!startDate || operation.date >= startDate) &&
-          (!endDate || operation.date < endDate)
-        )
-      })
+      if (operations.length) {
+        const amount = operations.reduce<number>((acc, operation) => {
+          const wallet = walletsMap[operation[WALLET_ID_FIELD[type]] ?? '']
+          assert(wallet, 'Wallet not found')
+          const currency = currenciesMap[wallet.currencyId]
+          assert(currency, 'Currency not found')
 
-      if (incomeOperations.length || expenseOperations.length) {
-        const incomeAmount = incomeOperations.reduce<number>(
-          (acc, operation) => {
-            assert(operation.incomeWalletId, 'incomeWalletId is not defined')
-            const wallet = walletsMap[operation.incomeWalletId]
-            assert(wallet, 'Wallet not found')
-            const currency = currenciesMap[wallet.currencyId]
-            assert(currency, 'Currency not found')
+          const amount =
+            operation[AMOUNT_FIELD[type]] *
+            (statisticsByCategoryCurrency.rate / currency.rate)
 
-            const amount =
-              operation.incomeAmount *
-              (statisticsByCategoryCurrency.rate / currency.rate)
-
-            return acc + amount
-          },
-          0
-        )
-
-        const expenseAmount = expenseOperations.reduce<number>(
-          (acc, operation) => {
-            assert(operation.expenseWalletId, 'expenseWalletId is not defined')
-            const wallet = walletsMap[operation.expenseWalletId]
-            assert(wallet, 'Wallet not found')
-            const currency = currenciesMap[wallet.currencyId]
-            assert(currency, 'Currency not found')
-
-            const amount =
-              operation.expenseAmount *
-              (statisticsByCategoryCurrency.rate / currency.rate)
-
-            return acc + amount
-          },
-          0
-        )
+          return acc + amount
+        }, 0)
 
         acc.push({
           category,
           color: stringToColor(category),
-          incomeAmount,
-          expenseAmount,
+          amount,
         })
       }
 
@@ -138,6 +117,7 @@ export const useStatisticsByCategory = ({
     startDate,
     state.operations,
     statisticsByCategoryCurrency.rate,
+    type,
     walletsMap,
   ])
 
