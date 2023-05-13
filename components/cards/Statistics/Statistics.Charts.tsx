@@ -55,7 +55,7 @@ export const Charts: FC<Props> = ({ currency, items, type }) => {
   return (
     <Card.Block className="flex justify-center gap-3">
       <PieChart
-        className="flex-1 max-w-48"
+        className="flex-1 max-w-56"
         items={chartItems}
         renderTooltip={renderTooltip}
       />
