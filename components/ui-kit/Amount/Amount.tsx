@@ -25,7 +25,7 @@ export const Amount: FC<AmountProps> = ({
     >
       {formatAmount(amount)}
       {currency && (
-        <span className="ml-[0.3em] text-[0.75em]">{currency.name}</span>
+        <span className="ml-[0.3em] text-[0.75em]">{currency.symbol}</span>
       )}
     </div>
   )

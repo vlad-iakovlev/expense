@@ -14,16 +14,16 @@ export const DefaultCurrency: FC<Props> = ({ groupId }) => {
   const options = useMemo(() => {
     return currencies.map((currency) => ({
       id: currency.id,
-      name: currency.name,
+      name: currency.symbol,
     }))
   }, [currencies])
 
   const value = useMemo(
     () => ({
       id: group.defaultCurrency.id,
-      name: group.defaultCurrency.name,
+      name: group.defaultCurrency.symbol,
     }),
-    [group.defaultCurrency.id, group.defaultCurrency.name]
+    [group.defaultCurrency.id, group.defaultCurrency.symbol]
   )
 
   const handleChange = useCallback(

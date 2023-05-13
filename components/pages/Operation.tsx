@@ -30,7 +30,7 @@ export const Operation: FC<Props> = ({ operationId }) => {
       },
       {
         href: ROUTES.WALLET(wallet.id),
-        title: `${wallet.name} ${wallet.currency.name}`,
+        title: `${wallet.name} ${wallet.currency.symbol}`,
       },
     ]
   }, [operation.expenseWallet, operation.incomeWallet])

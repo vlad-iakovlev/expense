@@ -24,7 +24,7 @@ export const IncomeWallet: FC<Props> = ({ operationId }) => {
 
     return {
       id: wallet?.id ?? '',
-      name: `${wallet?.name ?? ''} ${wallet?.currency.name ?? ''}`,
+      name: `${wallet?.name ?? ''} ${wallet?.currency.symbol ?? ''}`,
     }
   }, [operation.incomeWallet])
 

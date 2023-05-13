@@ -25,7 +25,7 @@ export const useWalletsOptions = ({ groupId }: Props = {}) => {
 
       return {
         id: wallet.id,
-        name: `${wallet.name} ${currency.name}`,
+        name: `${wallet.name} ${currency.symbol}`,
       }
     })
   }, [groupId, state])
