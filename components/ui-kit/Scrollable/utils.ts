@@ -58,20 +58,17 @@ export const getThumb = ({
   const overScrollTop = Math.max(normalizedScrolled - scrolled, 0)
   const overScrollBottom = Math.max(scrolled - normalizedScrolled, 0)
 
-  const baseOffset = (normalizedScrolled / content) * trackLength
   const baseLength = Math.max(
     (container / content) * trackLength,
     Math.min(MIN_BASE_LENGTH, trackLength)
   )
+  const length = Math.max(
+    baseLength - overScrollTop - overScrollBottom,
+    Math.min(MIN_COMPRESSED_LENGTH, trackLength)
+  )
 
   return {
-    offset: Math.min(
-      baseOffset + overScrollBottom,
-      trackLength - Math.min(MIN_COMPRESSED_LENGTH, trackLength)
-    ),
-    length: Math.max(
-      baseLength - overScrollTop - overScrollBottom,
-      Math.min(MIN_COMPRESSED_LENGTH, trackLength)
-    ),
+    offset: (normalizedScrolled / maxScrolled) * (trackLength - length),
+    length,
   }
 }
