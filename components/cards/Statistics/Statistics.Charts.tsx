@@ -1,4 +1,3 @@
-import { CalculatorIcon } from '@heroicons/react/24/outline'
 import { FC, useMemo } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
 import {
@@ -23,63 +22,68 @@ export const Charts: FC<Props> = ({ currency, items }) => {
   }, [items])
 
   return (
-    <>
-      {!!items.length && (
-        <Card.Block className="flex gap-3">
-          <div className="flex-1 min-w-0 aspect-square">
-            <ResponsiveContainer className="">
-              <PieChart>
-                <Pie
-                  className="focus:outline-none"
-                  data={items}
-                  dataKey="incomeAmount"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius="100%"
-                  minAngle={2}
-                  animationBegin={0}
-                >
-                  {items.map((item) => (
-                    <Cell key={item.category} fill={item.color} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
+    <Card.Block className="flex gap-3">
+      <div className="relative flex-1 flex items-center justify-center min-w-0 aspect-square">
+        <ResponsiveContainer className="absolute inset-0">
+          <PieChart>
+            <Pie
+              className="focus:outline-none"
+              data={items}
+              dataKey="incomeAmount"
+              cx="50%"
+              cy="50%"
+              outerRadius="100%"
+              minAngle={2}
+              animationBegin={0}
+            >
+              {items.map((item) => (
+                <Cell key={item.category} fill={item.color} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
 
-          <div className="flex-1 min-w-0 aspect-square">
-            <ResponsiveContainer className="">
-              <PieChart>
-                <Pie
-                  className="focus:outline-none"
-                  data={items}
-                  dataKey="expenseAmount"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius="100%"
-                  minAngle={2}
-                  animationBegin={0}
-                >
-                  {items.map((item) => (
-                    <Cell key={item.category} fill={item.color} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </Card.Block>
-      )}
+        <div className="relative py-1 px-2 text-center bg-white bg-opacity-90 rounded-sm">
+          Incomes
+          <Amount
+            className="font-medium"
+            amount={totalIncome}
+            currency={currency}
+            type="income"
+          />
+        </div>
+      </div>
 
-      <Card.Text
-        prefix={<CalculatorIcon className="w-11 h-6" />}
-        label="Total"
-        value={
-          <div className="font-medium text-right">
-            <Amount amount={totalIncome} currency={currency} type="income" />
-            <Amount amount={totalExpense} currency={currency} type="expense" />
-          </div>
-        }
-      />
-    </>
+      <div className="relative flex-1 flex items-center justify-center min-w-0 aspect-square">
+        <ResponsiveContainer className="absolute inset-0">
+          <PieChart>
+            <Pie
+              className="focus:outline-none"
+              data={items}
+              dataKey="expenseAmount"
+              cx="50%"
+              cy="50%"
+              outerRadius="100%"
+              minAngle={2}
+              animationBegin={0}
+            >
+              {items.map((item) => (
+                <Cell key={item.category} fill={item.color} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+
+        <div className="relative py-1 px-2 text-center bg-white bg-opacity-90 rounded-sm">
+          Expenses
+          <Amount
+            className="font-medium"
+            amount={totalExpense}
+            currency={currency}
+            type="expense"
+          />
+        </div>
+      </div>
+    </Card.Block>
   )
 }
