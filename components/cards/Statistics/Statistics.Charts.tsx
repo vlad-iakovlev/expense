@@ -31,7 +31,6 @@ export const Charts: FC<Props> = ({ currency, items }) => {
               dataKey="incomeAmount"
               cx="50%"
               cy="50%"
-              innerRadius="70%"
               outerRadius="100%"
               minAngle={2}
               animationBegin={0}
@@ -58,7 +57,6 @@ export const Charts: FC<Props> = ({ currency, items }) => {
               dataKey="expenseAmount"
               cx="50%"
               cy="50%"
-              innerRadius="70%"
               outerRadius="100%"
               minAngle={2}
               animationBegin={0}
