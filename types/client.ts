@@ -93,6 +93,10 @@ export interface ClientBalance {
 export interface ClientStatisticsByCategory {
   category: string
   color: string
-  incomeAmount: number
-  expenseAmount: number
+  amount: number
+}
+
+export enum ClientStatisticsType {
+  INCOMES = 'INCOMES',
+  EXPENSES = 'EXPENSES',
 }

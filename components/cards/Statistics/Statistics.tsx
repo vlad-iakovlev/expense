@@ -2,10 +2,12 @@ import { FC, useCallback, useMemo, useState } from 'react'
 import { usePeriod } from '../../../hooks/usePeriod.ts'
 import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
 import { useStatisticsByCategory } from '../../../stores/RootStore/hooks/useStatisticsByCategory.ts'
+import { ClientStatisticsType } from '../../../types/client.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Categories } from './Statistics.Categories.tsx'
 import { Charts } from './Statistics.Charts.tsx'
 import { PeriodSelector } from './Statistics.PeriodSelector.tsx'
+import { TypeSelector } from './Statistics.TypeSelector.tsx'
 
 interface Props {
   className?: string
@@ -16,23 +18,22 @@ interface Props {
 export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
   const { operationIds } = useOperations({ groupId, walletId })
 
+  const [type, setType] = useState<ClientStatisticsType>(
+    ClientStatisticsType.EXPENSES
+  )
   const { startDate, endDate, fromDate, period, setPeriod, goPrev, goNext } =
     usePeriod()
   const { statisticsByCategoryItems, statisticsByCategoryCurrency } =
-    useStatisticsByCategory({ groupId, walletId, startDate, endDate })
+    useStatisticsByCategory({ groupId, walletId, startDate, endDate, type })
 
   const [disabledCategories, setDisabledCategories] = useState<
     Record<string, boolean>
   >({})
 
   const chartItems = useMemo(() => {
-    return statisticsByCategoryItems.map((item) => ({
-      ...item,
-      ...(disabledCategories[item.category] && {
-        incomeAmount: 0,
-        expenseAmount: 0,
-      }),
-    }))
+    return statisticsByCategoryItems.filter((item) => {
+      return !disabledCategories[item.category]
+    })
   }, [disabledCategories, statisticsByCategoryItems])
 
   const isCategoryDisabled = useCallback(
@@ -64,6 +65,8 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
 
       <Card.Divider />
 
+      <TypeSelector type={type} setType={setType} />
+
       <PeriodSelector
         fromDate={fromDate}
         period={period}
@@ -72,12 +75,17 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
         goNext={goNext}
       />
 
-      <Charts currency={statisticsByCategoryCurrency} items={chartItems} />
+      <Charts
+        currency={statisticsByCategoryCurrency}
+        items={chartItems}
+        type={type}
+      />
 
       {!!statisticsByCategoryItems.length && (
         <Categories
           currency={statisticsByCategoryCurrency}
           items={statisticsByCategoryItems}
+          type={type}
           isCategoryDisabled={isCategoryDisabled}
           setCategoryDisabled={setCategoryDisabled}
         />

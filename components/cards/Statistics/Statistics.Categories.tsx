@@ -2,14 +2,21 @@ import { FC } from 'react'
 import {
   ClientCurrency,
   ClientStatisticsByCategory,
+  ClientStatisticsType,
 } from '../../../types/client.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Switch } from '../../ui-kit/Switch/Switch.tsx'
 
+const AMOUNT_TYPE = {
+  [ClientStatisticsType.INCOMES]: 'income',
+  [ClientStatisticsType.EXPENSES]: 'expense',
+} as const
+
 interface Props {
   currency: ClientCurrency
   items: ClientStatisticsByCategory[]
+  type: ClientStatisticsType
   isCategoryDisabled: (category: string) => boolean
   setCategoryDisabled: (category: string, disabled: boolean) => void
 }
@@ -17,6 +24,7 @@ interface Props {
 export const Categories: FC<Props> = ({
   currency,
   items,
+  type,
   isCategoryDisabled,
   setCategoryDisabled,
 }) => {
@@ -34,18 +42,12 @@ export const Categories: FC<Props> = ({
           }
           label={item.category}
           value={
-            <div className="font-medium text-right">
-              <Amount
-                amount={item.incomeAmount}
-                currency={currency}
-                type="income"
-              />
-              <Amount
-                amount={item.expenseAmount}
-                currency={currency}
-                type="expense"
-              />
-            </div>
+            <Amount
+              className="font-medium"
+              amount={item.amount}
+              currency={currency}
+              type={AMOUNT_TYPE[type]}
+            />
           }
         />
       ))}
