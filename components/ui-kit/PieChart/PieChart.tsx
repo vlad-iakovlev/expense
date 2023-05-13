@@ -5,12 +5,12 @@ import { FC, ReactNode, useMemo, useState } from 'react'
 const variants: Variants = {
   opened: {
     opacity: 1,
-    transition: { ease: 'easeInOut', duration: 0.2 },
+    transition: { ease: 'easeInOut', duration: 0.1 },
   },
 
   closed: {
     opacity: 0,
-    transition: { ease: 'easeInOut', duration: 0.2 },
+    transition: { ease: 'easeInOut', duration: 0.1 },
   },
 }
 
@@ -60,7 +60,7 @@ export const PieChart: FC<PieChartProps> = ({
       <svg className="absolute inset-0" viewBox="0 0 100 100">
         {paths.map((path) => (
           <path
-            className="transition-transform duration-200 ease-in-out [pointer-events:all]"
+            className="transition-transform duration-300 ease-in-out [pointer-events:all]"
             key={path.id}
             d={path.d}
             fill={path.color}
