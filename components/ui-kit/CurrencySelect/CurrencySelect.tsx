@@ -40,7 +40,6 @@ export const CurrencySelect: FC<CurrencySelectProps> = ({
 
   return (
     <Card.Select
-      popupFullWidth
       label={label}
       options={options}
       value={valueForSelect}

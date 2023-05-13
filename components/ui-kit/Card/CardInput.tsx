@@ -14,7 +14,6 @@ import { Card } from './Card.tsx'
 export interface CardInputProps {
   className?: string
   label: string
-  popupFullWidth?: boolean
   suggestions?: string[]
   value: string
   onChange: (value: string) => void
@@ -23,7 +22,6 @@ export interface CardInputProps {
 export const CardInput: FC<CardInputProps> = ({
   className,
   label,
-  popupFullWidth,
   suggestions = [],
   value,
   onChange,
@@ -124,9 +122,8 @@ export const CardInput: FC<CardInputProps> = ({
       <Card.Popup
         ref={popupRef}
         anchorRef={rootRef}
-        className="-mt-2 pb-8"
+        className="-mt-2 pl-4 sm:pl-6 pb-8"
         fullMaxWidth
-        fullWidth={popupFullWidth}
         isOpen={isEditing && !!filteredSuggestions.length}
         position="below-right"
       >

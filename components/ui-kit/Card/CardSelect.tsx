@@ -10,7 +10,6 @@ export interface CardSelectOption<Id extends string = string> {
 export interface CardSelectProps<Id extends string = string> {
   label: string
   options: CardSelectOption<Id>[]
-  popupFullWidth?: boolean
   value: CardSelectOption<Id>
   onChange: (value: CardSelectOption<Id>) => void
 }
@@ -18,7 +17,6 @@ export interface CardSelectProps<Id extends string = string> {
 export function CardSelect<Id extends string = string>({
   label,
   options,
-  popupFullWidth,
   value,
   onChange,
 }: CardSelectProps<Id>): ReactElement | null {
@@ -55,9 +53,8 @@ export function CardSelect<Id extends string = string>({
 
       <Card.Popup
         anchorRef={rootRef}
-        className="-mt-2 pb-8"
+        className="-mt-2 pl-4 sm:pl-6 pb-8"
         fullMaxWidth
-        fullWidth={popupFullWidth}
         isOpen={isOpen}
         position="below-right"
         onClose={hide}
