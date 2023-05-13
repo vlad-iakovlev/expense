@@ -17,14 +17,14 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
   const categoriesOptions = useMemo<CardSelectOption[]>(() => {
     return categories.map((category) => ({
       id: category,
-      name: category,
+      label: category,
     }))
   }, [categories])
 
   const categoryValue = useMemo(
     () => ({
       id: category,
-      name: category || 'Select',
+      label: category || 'Select',
     }),
     [category]
   )

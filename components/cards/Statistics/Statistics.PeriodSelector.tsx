@@ -12,19 +12,19 @@ import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 const options: CardSelectOption<Period>[] = [
   {
     id: Period.ALL,
-    name: 'All',
+    label: 'All',
   },
   {
     id: Period.WEEK,
-    name: 'Week',
+    label: 'Week',
   },
   {
     id: Period.MONTH,
-    name: 'Month',
+    label: 'Month',
   },
   {
     id: Period.YEAR,
-    name: 'Year',
+    label: 'Year',
   },
 ]
 

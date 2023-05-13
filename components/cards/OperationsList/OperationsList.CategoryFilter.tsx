@@ -14,11 +14,11 @@ export const CategoryFilter: FC<Props> = ({ category, setCategory }) => {
     return [
       {
         id: '',
-        name: 'Any',
+        label: 'Any',
       },
       ...categories.map((category) => ({
         id: category,
-        name: category,
+        label: category,
       })),
     ]
   }, [categories])
@@ -26,7 +26,7 @@ export const CategoryFilter: FC<Props> = ({ category, setCategory }) => {
   const value = useMemo(() => {
     return {
       id: category,
-      name: category || 'Any',
+      label: category || 'Any',
     }
   }, [category])
 

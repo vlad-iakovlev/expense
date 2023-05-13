@@ -9,15 +9,15 @@ const OperationTypeOptionsMap: Record<
 > = {
   [ClientOperationType.INCOME]: {
     id: ClientOperationType.INCOME,
-    name: 'Income',
+    label: 'Income',
   },
   [ClientOperationType.EXPENSE]: {
     id: ClientOperationType.EXPENSE,
-    name: 'Expense',
+    label: 'Expense',
   },
   [ClientOperationType.TRANSFER]: {
     id: ClientOperationType.TRANSFER,
-    name: 'Transfer',
+    label: 'Transfer',
   },
 }
 

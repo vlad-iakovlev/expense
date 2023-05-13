@@ -7,6 +7,7 @@ import { useWallet } from '../../../stores/RootStore/hooks/useWallet.ts'
 import { useWalletBalance } from '../../../stores/RootStore/hooks/useWalletBalance.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
+import { CurrencyBadge } from '../../ui-kit/CurrencyBadge/CurrencyBadge.tsx'
 
 interface Props {
   isReordering: boolean
@@ -41,9 +42,7 @@ export const Wallet: FC<Props> = ({ isReordering, walletId }) => {
         label={wallet.name}
         value={
           <div className="flex items-center gap-3 sm:gap-4">
-            <div className="flex-none flex items-center justify-center w-14 px-2 py-1 text-sm text-zinc-600 bg-zinc-100 rounded-md">
-              {wallet.currency.symbol}
-            </div>
+            <CurrencyBadge currency={wallet.currency} />
             <div
               className={clsx(
                 'flex-none flex flex-col items-center justify-center h-12 w-12 -m-3 gap-[3px] touch-none',

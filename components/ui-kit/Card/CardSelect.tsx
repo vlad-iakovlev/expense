@@ -3,7 +3,8 @@ import { Card } from './Card.tsx'
 
 export interface CardSelectOption<Id extends string = string> {
   id: Id
-  name: ReactNode
+  label: ReactNode
+  suffix?: ReactNode
 }
 
 export interface CardSelectProps<Id extends string = string> {
@@ -48,7 +49,7 @@ export function CardSelect<Id extends string = string>({
       >
         <div className="flex-none">{label}</div>
         <div className="flex-auto text-right font-medium truncate">
-          {value.name}
+          {value.label}
         </div>
       </button>
 
@@ -64,7 +65,8 @@ export function CardSelect<Id extends string = string>({
         {options.map((option) => (
           <Card.Button
             key={option.id}
-            label={option.name}
+            label={option.label}
+            value={option.suffix}
             onClick={() => handleChange(option)}
           />
         ))}
