@@ -43,12 +43,10 @@ export const Charts: FC<Props> = ({ currency, items }) => {
           </PieChart>
         </ResponsiveContainer>
 
-        <Amount
-          className="relative py-1 px-2 font-medium bg-white bg-opacity-90 rounded-sm truncate"
-          amount={totalIncome}
-          currency={currency}
-          type="income"
-        />
+        <div className="relative py-1 px-2 font-medium bg-white bg-opacity-90 rounded-sm text-center">
+          <Amount className="truncate" amount={totalIncome} type="income" />
+          <div className="text-xs text-green-700">{currency.symbol}</div>
+        </div>
       </div>
 
       <div className="relative flex-1 flex items-center justify-center min-w-0 aspect-square">
@@ -72,12 +70,10 @@ export const Charts: FC<Props> = ({ currency, items }) => {
           </PieChart>
         </ResponsiveContainer>
 
-        <Amount
-          className="relative py-1 px-2 font-medium bg-white bg-opacity-90 rounded-sm truncate"
-          amount={totalExpense}
-          currency={currency}
-          type="expense"
-        />
+        <div className="relative py-1 px-2 font-medium bg-white bg-opacity-90 rounded-sm text-center">
+          <Amount className="truncate" amount={totalExpense} type="expense" />
+          <div className="text-xs text-red-700">{currency.symbol}</div>
+        </div>
       </div>
     </div>
   )
