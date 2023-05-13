@@ -17,7 +17,6 @@ export const Balance: FC<Props> = ({ groupId }) => {
         <Amount
           className="font-medium select-text"
           amount={groupBalance.balance}
-          currency={groupBalance.currency}
         />
       }
     />

@@ -22,9 +22,10 @@ export const BalanceInDefaultCurrency: FC<Props> = ({ walletId }) => {
       value={
         <Amount
           className="font-medium select-text"
-          amount={walletBalance.balance}
-          currency={walletBalance.currency}
-          displayCurrency={wallet.group.defaultCurrency}
+          amount={
+            walletBalance.balance *
+            (wallet.group.defaultCurrency.rate / walletBalance.currency.rate)
+          }
         />
       }
     />
