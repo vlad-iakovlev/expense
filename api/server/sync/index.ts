@@ -207,6 +207,7 @@ const collect = async (
     select: {
       id: true,
       symbol: true,
+      name: true,
       rate: true,
     },
   })

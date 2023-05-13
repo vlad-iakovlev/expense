@@ -1,9 +1,9 @@
-import { ReactElement, useCallback, useRef, useState } from 'react'
+import { ReactElement, ReactNode, useCallback, useRef, useState } from 'react'
 import { Card } from './Card.tsx'
 
 export interface CardSelectOption<Id extends string = string> {
   id: Id
-  name: string
+  name: ReactNode
 }
 
 export interface CardSelectProps<Id extends string = string> {

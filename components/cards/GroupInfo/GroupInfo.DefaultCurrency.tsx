@@ -14,7 +14,14 @@ export const DefaultCurrency: FC<Props> = ({ groupId }) => {
   const options = useMemo(() => {
     return currencies.map((currency) => ({
       id: currency.id,
-      name: currency.symbol,
+      name: (
+        <div className="flex gap-2">
+          {!!currency.name && <div className="truncate">{currency.name}</div>}
+          <div className="flex-none w-10 ml-auto text-right font-medium">
+            {currency.symbol}
+          </div>
+        </div>
+      ),
     }))
   }, [currencies])
 
