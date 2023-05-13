@@ -39,15 +39,25 @@ export type PopupPosition =
 export interface PopupProps {
   anchorRef: RefObject<HTMLElement>
   className?: string
+  fullMaxWidth?: boolean
+  fullWidth?: boolean
   isOpen: boolean
   position: PopupPosition
-  setMaxWidth?: boolean
   children: ReactNode
   onClose?: () => void
 }
 
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
-  { anchorRef, className, isOpen, position, setMaxWidth, children, onClose },
+  {
+    anchorRef,
+    className,
+    fullMaxWidth,
+    fullWidth,
+    isOpen,
+    position,
+    children,
+    onClose,
+  },
   ref
 ) {
   const rootRef = useRef<HTMLDivElement>(null)
@@ -132,7 +142,10 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
             })}
             animate={isOpen ? 'opened' : 'closed'}
             variants={variants}
-            style={{ maxWidth: setMaxWidth ? anchorRect?.width : undefined }}
+            style={{
+              maxWidth: fullMaxWidth ? anchorRect?.width : undefined,
+              width: fullWidth ? anchorRect?.width : undefined,
+            }}
           >
             {children}
           </motion.div>

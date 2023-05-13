@@ -42,6 +42,7 @@ export const Currency: FC<Props> = ({ walletId }) => {
 
   return (
     <Card.Select
+      popupFullWidth
       label="Currency"
       options={options}
       value={value}

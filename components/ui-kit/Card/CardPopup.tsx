@@ -5,16 +5,26 @@ import { Scrollable } from '../Scrollable/Scrollable.tsx'
 export interface CardPopupProps {
   anchorRef: RefObject<HTMLElement>
   className?: string
+  fullMaxWidth?: boolean
+  fullWidth?: boolean
   isOpen: boolean
   position: PopupPosition
-  setMaxWidth?: boolean
   children: ReactNode
   onClose?: () => void
 }
 
 export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
   function CardPopup(
-    { anchorRef, className, isOpen, position, setMaxWidth, children, onClose },
+    {
+      anchorRef,
+      className,
+      fullMaxWidth,
+      fullWidth,
+      isOpen,
+      position,
+      children,
+      onClose,
+    },
     ref
   ) {
     return (
@@ -22,9 +32,10 @@ export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
         ref={ref}
         anchorRef={anchorRef}
         className={className}
+        fullMaxWidth={fullMaxWidth}
+        fullWidth={fullWidth}
         isOpen={isOpen}
         position={position}
-        setMaxWidth={setMaxWidth}
         onClose={onClose}
       >
         <Scrollable

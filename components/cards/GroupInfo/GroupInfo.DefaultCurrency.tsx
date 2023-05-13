@@ -42,6 +42,7 @@ export const DefaultCurrency: FC<Props> = ({ groupId }) => {
 
   return (
     <Card.Select
+      popupFullWidth
       label="Default currency"
       options={options}
       value={value}
