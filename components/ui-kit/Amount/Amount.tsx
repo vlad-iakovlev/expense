@@ -6,8 +6,7 @@ import { formatAmount } from '../../../utils/formatAmount.ts'
 export interface AmountProps {
   className?: string
   amount: number
-  currency: ClientCurrency
-  displayCurrency?: ClientCurrency
+  currency?: ClientCurrency
   type?: 'income' | 'expense'
 }
 
@@ -15,7 +14,6 @@ export const Amount: FC<AmountProps> = ({
   className,
   amount,
   currency,
-  displayCurrency,
   type = amount >= 0 ? 'income' : 'expense',
 }) => {
   return (
@@ -25,7 +23,10 @@ export const Amount: FC<AmountProps> = ({
         'text-red-700': type === 'expense',
       })}
     >
-      {formatAmount(amount, currency, displayCurrency)}
+      {formatAmount(amount)}
+      {currency && (
+        <span className="ml-[0.3em] text-[0.75em]">{currency.symbol}</span>
+      )}
     </div>
   )
 }

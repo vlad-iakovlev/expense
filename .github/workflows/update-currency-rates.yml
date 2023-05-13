@@ -1,0 +1,22 @@
+name: Update Currency Rates
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-currency-rates:
+    if: github.repository == 'vlad-yakovlev/expense'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call update-currency-rates script in Digital Ocean droplet
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script_stop: true
+          script: |
+            cd Projects/expense
+            docker compose exec expense npm run update-currency-rates

@@ -35,7 +35,9 @@ export const getDefaultCurrency = (
     return getCurrency(state, group.defaultCurrencyId)
   }
 
-  const currency = state.currencies.find((currency) => currency.name === 'USD')
+  const currency = state.currencies.find(
+    (currency) => currency.symbol === 'USD'
+  )
   assert(currency, 'Currency not found')
   return currency
 }

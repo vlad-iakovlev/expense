@@ -203,11 +203,11 @@ const collect = async (
 
   // Find all currencies without transactional filtering
   const findCurrencies = prisma.currency.findMany({
-    orderBy: { name: 'asc' },
+    orderBy: { symbol: 'asc' },
     select: {
       id: true,
-      name: true,
       symbol: true,
+      name: true,
       rate: true,
     },
   })

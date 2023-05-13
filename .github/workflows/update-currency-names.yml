@@ -1,16 +1,14 @@
-name: Update Rates
+name: Update Currency Names
 
 on:
-  schedule:
-    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 jobs:
-  update-rates:
+  update-currency-names:
     if: github.repository == 'vlad-yakovlev/expense'
     runs-on: ubuntu-latest
     steps:
-      - name: Call update-rates script in Digital Ocean droplet
+      - name: Call update-currency-names script in Digital Ocean droplet
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -19,4 +17,4 @@ jobs:
           script_stop: true
           script: |
             cd Projects/expense
-            docker compose exec expense npm run update-rates
+            docker compose exec expense npm run update-currency-names

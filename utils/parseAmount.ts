@@ -1,4 +1,3 @@
 export const parseAmount = (amount: string) => {
-  amount = amount.replace(/[^\d.,]/g, '').replace(',', '.')
-  return Math.abs(Math.round(Number(amount) * 1e4))
+  return Math.abs(Math.round(Number(amount.replace(',', '.')) * 1e4))
 }

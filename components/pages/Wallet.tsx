@@ -16,7 +16,7 @@ interface Props {
 export const Wallet: FC<Props> = ({ walletId }) => {
   const { wallet } = useWallet({ walletId })
 
-  const walletName = `${wallet.name} ${wallet.currency.name}`
+  const walletName = `${wallet.name} ${wallet.currency.symbol}`
 
   const parents = useMemo(() => {
     return [

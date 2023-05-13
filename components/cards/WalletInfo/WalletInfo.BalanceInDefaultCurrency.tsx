@@ -18,13 +18,14 @@ export const BalanceInDefaultCurrency: FC<Props> = ({ walletId }) => {
 
   return (
     <Card.Text
-      label={`Balance in ${wallet.group.defaultCurrency.name}`}
+      label={`Balance in ${wallet.group.defaultCurrency.symbol}`}
       value={
         <Amount
           className="font-medium select-text"
-          amount={walletBalance.balance}
-          currency={walletBalance.currency}
-          displayCurrency={wallet.group.defaultCurrency}
+          amount={
+            walletBalance.balance *
+            (wallet.group.defaultCurrency.rate / walletBalance.currency.rate)
+          }
         />
       }
     />

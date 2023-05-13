@@ -21,8 +21,8 @@ export const Charts: FC<Props> = ({ currency, items }) => {
   }, [items])
 
   return (
-    <div className="flex gap-3 px-4 sm:px-6 py-2 text-sm">
-      <div className="relative flex-1 flex flex-col items-center justify-center aspect-square">
+    <div className="flex gap-3 px-4 sm:px-6 py-2">
+      <div className="relative flex-1 flex items-center justify-center min-w-0 aspect-square">
         <ResponsiveContainer className="absolute inset-0">
           <PieChart>
             <Pie
@@ -43,17 +43,13 @@ export const Charts: FC<Props> = ({ currency, items }) => {
           </PieChart>
         </ResponsiveContainer>
 
-        <div className="relative">Incomes</div>
-
-        <Amount
-          className="relative font-medium"
-          amount={totalIncome}
-          currency={currency}
-          type="income"
-        />
+        <div className="relative py-1 px-2 font-medium bg-white bg-opacity-90 rounded-sm text-center">
+          <Amount className="truncate" amount={totalIncome} type="income" />
+          <div className="text-xs text-green-700">{currency.symbol}</div>
+        </div>
       </div>
 
-      <div className="relative flex-1 flex flex-col items-center justify-center aspect-square">
+      <div className="relative flex-1 flex items-center justify-center min-w-0 aspect-square">
         <ResponsiveContainer className="absolute inset-0">
           <PieChart>
             <Pie
@@ -74,14 +70,10 @@ export const Charts: FC<Props> = ({ currency, items }) => {
           </PieChart>
         </ResponsiveContainer>
 
-        <div className="relative">Expenses</div>
-
-        <Amount
-          className="relative font-medium"
-          amount={totalExpense}
-          currency={currency}
-          type="expense"
-        />
+        <div className="relative py-1 px-2 font-medium bg-white bg-opacity-90 rounded-sm text-center">
+          <Amount className="truncate" amount={totalExpense} type="expense" />
+          <div className="text-xs text-red-700">{currency.symbol}</div>
+        </div>
       </div>
     </div>
   )

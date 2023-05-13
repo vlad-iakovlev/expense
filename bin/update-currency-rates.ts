@@ -27,10 +27,10 @@ const fetchRates = async () => {
 
 const updateRates = async (rates: RatesResponse) => {
   await prisma.$transaction(
-    Object.entries(rates.rates).map(([name, rate]) => {
+    Object.entries(rates.rates).map(([symbol, rate]) => {
       return prisma.currency.upsert({
-        where: { name },
-        create: { name, rate },
+        where: { symbol },
+        create: { symbol, rate },
         update: { rate },
         select: { id: true },
       })

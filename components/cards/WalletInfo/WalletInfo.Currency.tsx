@@ -14,16 +14,23 @@ export const Currency: FC<Props> = ({ walletId }) => {
   const options = useMemo(() => {
     return currencies.map((currency) => ({
       id: currency.id,
-      name: currency.name,
+      name: (
+        <div className="flex gap-2">
+          {!!currency.name && <div className="truncate">{currency.name}</div>}
+          <div className="flex-none w-10 ml-auto text-right font-medium">
+            {currency.symbol}
+          </div>
+        </div>
+      ),
     }))
   }, [currencies])
 
   const value = useMemo(
     () => ({
       id: wallet.currency.id,
-      name: wallet.currency.name,
+      name: wallet.currency.symbol,
     }),
-    [wallet.currency.id, wallet.currency.name]
+    [wallet.currency.id, wallet.currency.symbol]
   )
 
   const handleChange = useCallback(

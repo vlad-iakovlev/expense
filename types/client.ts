@@ -7,8 +7,8 @@ export interface ClientTransaction {
 
 export interface ClientCurrency {
   id: string
-  name: string
-  symbol?: string | null
+  symbol: string
+  name?: string | null
   rate: number
 }
 
