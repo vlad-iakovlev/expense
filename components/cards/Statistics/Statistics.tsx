@@ -75,12 +75,16 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
       <Charts currency={statisticsByCategoryCurrency} items={chartItems} />
 
       {!!statisticsByCategoryItems.length && (
-        <Categories
-          currency={statisticsByCategoryCurrency}
-          items={statisticsByCategoryItems}
-          isCategoryDisabled={isCategoryDisabled}
-          setCategoryDisabled={setCategoryDisabled}
-        />
+        <>
+          <Card.Divider />
+
+          <Categories
+            currency={statisticsByCategoryCurrency}
+            items={statisticsByCategoryItems}
+            isCategoryDisabled={isCategoryDisabled}
+            setCategoryDisabled={setCategoryDisabled}
+          />
+        </>
       )}
     </Card>
   )

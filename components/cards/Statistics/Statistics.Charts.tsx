@@ -1,3 +1,4 @@
+import { CalculatorIcon } from '@heroicons/react/24/outline'
 import { FC, useMemo } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
 import {
@@ -5,6 +6,7 @@ import {
   ClientStatisticsByCategory,
 } from '../../../types/client.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
+import { Card } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   currency: ClientCurrency
@@ -21,58 +23,63 @@ export const Charts: FC<Props> = ({ currency, items }) => {
   }, [items])
 
   return (
-    <div className="flex gap-3 px-4 sm:px-6 py-2">
-      <div className="relative flex-1 flex items-center justify-center min-w-0 aspect-square">
-        <ResponsiveContainer className="absolute inset-0">
-          <PieChart>
-            <Pie
-              className="focus:outline-none"
-              data={items}
-              dataKey="incomeAmount"
-              cx="50%"
-              cy="50%"
-              outerRadius="100%"
-              minAngle={2}
-              animationBegin={0}
-            >
-              {items.map((item) => (
-                <Cell key={item.category} fill={item.color} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
+    <>
+      {!!items.length && (
+        <Card.Block className="flex gap-3">
+          <div className="flex-1 min-w-0 aspect-square">
+            <ResponsiveContainer className="">
+              <PieChart>
+                <Pie
+                  className="focus:outline-none"
+                  data={items}
+                  dataKey="incomeAmount"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius="100%"
+                  minAngle={2}
+                  animationBegin={0}
+                >
+                  {items.map((item) => (
+                    <Cell key={item.category} fill={item.color} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
 
-        <div className="relative py-1 px-2 font-medium bg-white bg-opacity-90 rounded-sm text-center">
-          <Amount className="truncate" amount={totalIncome} type="income" />
-          <div className="text-xs text-green-700">{currency.symbol}</div>
-        </div>
-      </div>
+          <div className="flex-1 min-w-0 aspect-square">
+            <ResponsiveContainer className="">
+              <PieChart>
+                <Pie
+                  className="focus:outline-none"
+                  data={items}
+                  dataKey="expenseAmount"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius="100%"
+                  minAngle={2}
+                  animationBegin={0}
+                >
+                  {items.map((item) => (
+                    <Cell key={item.category} fill={item.color} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </Card.Block>
+      )}
 
-      <div className="relative flex-1 flex items-center justify-center min-w-0 aspect-square">
-        <ResponsiveContainer className="absolute inset-0">
-          <PieChart>
-            <Pie
-              className="focus:outline-none"
-              data={items}
-              dataKey="expenseAmount"
-              cx="50%"
-              cy="50%"
-              outerRadius="100%"
-              minAngle={2}
-              animationBegin={0}
-            >
-              {items.map((item) => (
-                <Cell key={item.category} fill={item.color} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
-
-        <div className="relative py-1 px-2 font-medium bg-white bg-opacity-90 rounded-sm text-center">
-          <Amount className="truncate" amount={totalExpense} type="expense" />
-          <div className="text-xs text-red-700">{currency.symbol}</div>
-        </div>
-      </div>
-    </div>
+      <Card.Text
+        prefix={<CalculatorIcon className="w-11 h-6" />}
+        label="Total"
+        value={
+          <div className="font-medium text-right">
+            <Amount amount={totalIncome} currency={currency} type="income" />
+            <Amount amount={totalExpense} currency={currency} type="expense" />
+          </div>
+        }
+      />
+    </>
   )
 }
