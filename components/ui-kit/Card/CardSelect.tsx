@@ -2,14 +2,20 @@ import { ReactElement, ReactNode, useCallback, useRef, useState } from 'react'
 import { Card } from './Card.tsx'
 
 export interface CardSelectOption<Id extends string = string> {
+  type?: 'option'
   id: Id
   label: ReactNode
   suffix?: ReactNode
 }
 
+export interface CardSelectDivider {
+  type: 'divider'
+  id: string
+}
+
 export interface CardSelectProps<Id extends string = string> {
   label: string
-  options: CardSelectOption<Id>[]
+  options: (CardSelectOption<Id> | CardSelectDivider)[]
   value: CardSelectOption<Id>
   onChange: (value: CardSelectOption<Id>) => void
 }
@@ -59,14 +65,18 @@ export function CardSelect<Id extends string = string>({
         position="below-right"
         onClose={hide}
       >
-        {options.map((option) => (
-          <Card.Button
-            key={option.id}
-            label={option.label}
-            value={option.suffix}
-            onClick={() => handleChange(option)}
-          />
-        ))}
+        {options.map((option) =>
+          option.type === 'divider' ? (
+            <Card.Divider key={option.id} />
+          ) : (
+            <Card.Button
+              key={option.id}
+              label={option.label}
+              value={option.suffix}
+              onClick={() => handleChange(option)}
+            />
+          )
+        )}
       </Card.Popup>
     </>
   )

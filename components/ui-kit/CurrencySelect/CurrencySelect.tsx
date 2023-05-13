@@ -1,8 +1,11 @@
+import assert from 'assert'
 import { FC, useCallback, useMemo } from 'react'
 import { useCurrencies } from '../../../stores/RootStore/hooks/useCurrencies.ts'
 import { ClientCurrency } from '../../../types/client.ts'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 import { CurrencyBadge } from '../CurrencyBadge/CurrencyBadge.tsx'
+
+const PRIORITIZED_CURRENCIES = ['USD', 'EUR']
 
 export interface CurrencySelectProps {
   label: string
@@ -18,11 +21,29 @@ export const CurrencySelect: FC<CurrencySelectProps> = ({
   const { currencies } = useCurrencies()
 
   const options = useMemo(() => {
-    return currencies.map((currency) => ({
-      id: currency.id,
-      label: currency.name ?? '',
-      suffix: <CurrencyBadge currency={currency} />,
-    }))
+    return [
+      ...PRIORITIZED_CURRENCIES.map((symbol) => {
+        const currency = currencies.find((item) => item.symbol === symbol)
+        assert(currency, `Currency ${symbol} not found`)
+
+        return {
+          id: currency.id,
+          label: currency.name ?? '',
+          suffix: <CurrencyBadge currency={currency} />,
+        }
+      }),
+      {
+        type: 'divider' as const,
+        id: 'divider',
+      },
+      ...currencies
+        .filter((currency) => !PRIORITIZED_CURRENCIES.includes(currency.symbol))
+        .map((currency) => ({
+          id: currency.id,
+          label: currency.name ?? '',
+          suffix: <CurrencyBadge currency={currency} />,
+        })),
+    ]
   }, [currencies])
 
   const valueForSelect = useMemo(
