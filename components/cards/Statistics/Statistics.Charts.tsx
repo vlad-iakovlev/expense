@@ -40,7 +40,7 @@ export const Charts: FC<Props> = ({ currency, items, type }) => {
         <div className="max-w-[65%] pt-1 text-center">
           <div className="text-gray-600 truncate">{title}</div>
           <Amount
-            className="font-medium truncate"
+            className="text-lg font-medium truncate"
             amount={amount}
             currency={currency}
             type="expense"
