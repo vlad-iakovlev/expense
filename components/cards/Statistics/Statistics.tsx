@@ -1,5 +1,5 @@
-import { FC, useCallback, useMemo, useState } from 'react'
-import { usePeriod } from '../../../hooks/usePeriod.ts'
+import { FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { Period, usePeriod } from '../../../hooks/usePeriod.ts'
 import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
 import { useStatisticsByCategory } from '../../../stores/RootStore/hooks/useStatisticsByCategory.ts'
 import { ClientStatisticsType } from '../../../types/client.ts'
@@ -18,13 +18,14 @@ interface Props {
 export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
   const { operationIds } = useOperations({ groupId, walletId })
 
-  const [type, setType] = useState<ClientStatisticsType>(
-    ClientStatisticsType.EXPENSES
-  )
+  const [type, setType] = useState(ClientStatisticsType.EXPENSES)
   const { startDate, endDate, fromDate, period, setPeriod, goPrev, goNext } =
     usePeriod()
   const { statisticsByCategoryItems, statisticsByCategoryCurrency } =
     useStatisticsByCategory({ groupId, walletId, startDate, endDate, type })
+
+  // Reset period when type changed
+  useEffect(() => setPeriod(Period.WEEK), [setPeriod, type])
 
   const [disabledCategories, setDisabledCategories] = useState<
     Record<string, boolean>
