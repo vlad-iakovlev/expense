@@ -12,7 +12,7 @@ interface Props {
 export const Group: FC<Props> = ({ date, operationIds, walletId }) => {
   return (
     <>
-      <Card.Subtitle key={date.toString()} subtitle={formatDate(date)} />
+      <Card.Subtitle subtitle={formatDate(date)} />
 
       {operationIds.map((operationId) => (
         <Operation

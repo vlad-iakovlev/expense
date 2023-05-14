@@ -43,7 +43,7 @@ export const OperationsListCard: FC<Props> = ({
         return [
           ...acc,
           <Group
-            key={date.toString()}
+            key={Number(date)}
             date={date}
             operationIds={operationIds}
             walletId={walletId}
