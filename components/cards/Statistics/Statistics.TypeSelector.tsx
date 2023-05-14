@@ -1,43 +1,34 @@
-import { FC, useCallback, useMemo } from 'react'
+import { FC } from 'react'
 import { ClientStatisticsType } from '../../../types/client.ts'
-import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
-
-const options: CardSelectOption<ClientStatisticsType>[] = [
-  {
-    id: ClientStatisticsType.EXPENSES,
-    label: 'Expenses',
-  },
-  {
-    id: ClientStatisticsType.INCOMES,
-    label: 'Incomes',
-  },
-]
+import { Button } from '../../ui-kit/Button/Button.tsx'
 
 interface Props {
-  type: ClientStatisticsType
-  setType: (type: ClientStatisticsType) => void
+  value: ClientStatisticsType
+  onChange: (value: ClientStatisticsType) => void
 }
 
-export const TypeSelector: FC<Props> = ({ type, setType }) => {
-  const value = useMemo(() => {
-    return options.find((option) => type === option.id) ?? options[0]
-  }, [type])
-
-  const handleChange = useCallback(
-    (option: CardSelectOption<ClientStatisticsType>) => {
-      setType(option.id)
-    },
-    [setType]
-  )
-
+export const TypeSelector: FC<Props> = ({ value, onChange }) => {
   return (
     <>
-      <Card.Select
-        label="Type"
-        options={options}
-        value={value}
-        onChange={handleChange}
-      />
+      <Button
+        disabled={value === ClientStatisticsType.EXPENSES}
+        rounded
+        theme={value === ClientStatisticsType.EXPENSES ? 'error' : 'secondary'}
+        size="sm"
+        onClick={() => onChange(ClientStatisticsType.EXPENSES)}
+      >
+        Expenses
+      </Button>
+
+      <Button
+        disabled={value === ClientStatisticsType.INCOMES}
+        rounded
+        theme={value === ClientStatisticsType.INCOMES ? 'primary' : 'secondary'}
+        size="sm"
+        onClick={() => onChange(ClientStatisticsType.INCOMES)}
+      >
+        Incomes
+      </Button>
     </>
   )
 }

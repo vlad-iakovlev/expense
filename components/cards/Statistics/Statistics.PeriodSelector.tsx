@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-import { FC, useCallback, useMemo } from 'react'
+import { FC } from 'react'
 import { Period } from '../../../hooks/usePeriod.ts'
 import {
   formatMonth,
@@ -7,69 +7,70 @@ import {
   formatYear,
 } from '../../../utils/formatDate.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
-import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
-
-const options: CardSelectOption<Period>[] = [
-  {
-    id: Period.ALL,
-    label: 'All',
-  },
-  {
-    id: Period.WEEK,
-    label: 'Week',
-  },
-  {
-    id: Period.MONTH,
-    label: 'Month',
-  },
-  {
-    id: Period.YEAR,
-    label: 'Year',
-  },
-]
+import { Card } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   fromDate: Date
   period: Period
-  setPeriod: (period: Period) => void
-  goPrev: () => void
-  goNext: () => void
+  onChangePeriod: (period: Period) => void
+  onGoPrev: () => void
+  onGoNext: () => void
 }
 
 export const PeriodSelector: FC<Props> = ({
   fromDate,
   period,
-  setPeriod,
-  goPrev,
-  goNext,
+  onChangePeriod,
+  onGoPrev,
+  onGoNext,
 }) => {
-  const value = useMemo(() => {
-    return options.find((option) => period === option.id) ?? options[0]
-  }, [period])
-
-  const handleChange = useCallback(
-    (option: CardSelectOption<Period>) => {
-      setPeriod(option.id)
-    },
-    [setPeriod]
-  )
-
   return (
     <>
-      <Card.Select
-        label="Period"
-        options={options}
-        value={value}
-        onChange={handleChange}
-      />
+      <Card.Block className="flex gap-3">
+        <Button
+          disabled={period === Period.ALL}
+          theme={period === Period.ALL ? 'primary' : 'secondary'}
+          size="sm"
+          onClick={() => onChangePeriod(Period.ALL)}
+        >
+          All
+        </Button>
+
+        <Button
+          disabled={period === Period.WEEK}
+          theme={period === Period.WEEK ? 'primary' : 'secondary'}
+          size="sm"
+          onClick={() => onChangePeriod(Period.WEEK)}
+        >
+          Week
+        </Button>
+
+        <Button
+          disabled={period === Period.MONTH}
+          theme={period === Period.MONTH ? 'primary' : 'secondary'}
+          size="sm"
+          onClick={() => onChangePeriod(Period.MONTH)}
+        >
+          Month
+        </Button>
+
+        <Button
+          disabled={period === Period.YEAR}
+          theme={period === Period.YEAR ? 'primary' : 'secondary'}
+          size="sm"
+          onClick={() => onChangePeriod(Period.YEAR)}
+        >
+          Year
+        </Button>
+      </Card.Block>
 
       {period !== Period.ALL && (
-        <div className="flex items-center min-h-12 px-4 sm:px-6 py-2 gap-3">
+        <Card.Block className="flex items-center gap-3">
           <Button
             className="flex-none"
             theme="secondary"
             iconStart={<ChevronLeftIcon />}
-            onClick={goPrev}
+            onClick={onGoPrev}
           />
 
           <div className="flex-auto font-medium text-center truncate">
@@ -82,9 +83,9 @@ export const PeriodSelector: FC<Props> = ({
             className="flex-none"
             theme="secondary"
             iconStart={<ChevronRightIcon />}
-            onClick={goNext}
+            onClick={onGoNext}
           />
-        </div>
+        </Card.Block>
       )}
     </>
   )

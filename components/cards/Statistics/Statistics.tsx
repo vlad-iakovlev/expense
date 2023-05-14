@@ -40,19 +40,22 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
 
   return (
     <Card className={className}>
-      <Card.Title title="Statistics" />
+      <Card.Title
+        title="Stats"
+        actions={<TypeSelector value={type} onChange={setType} />}
+      />
 
       <Card.Divider />
-
-      <TypeSelector type={type} setType={setType} />
 
       <PeriodSelector
         fromDate={fromDate}
         period={period}
-        setPeriod={setPeriod}
-        goPrev={goPrev}
-        goNext={goNext}
+        onChangePeriod={setPeriod}
+        onGoPrev={goPrev}
+        onGoNext={goNext}
       />
+
+      <Card.Divider />
 
       <Charts currency={statisticsCurrency} items={chartItems} type={type} />
 
