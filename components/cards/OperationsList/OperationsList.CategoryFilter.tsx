@@ -1,6 +1,10 @@
 import { FC, useCallback, useMemo } from 'react'
 import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
-import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
+import {
+  Card,
+  CardSelectItem,
+  CardSelectOption,
+} from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   category: string
@@ -10,11 +14,15 @@ interface Props {
 export const CategoryFilter: FC<Props> = ({ category, setCategory }) => {
   const { categories } = useCategories()
 
-  const options = useMemo<CardSelectOption[]>(() => {
+  const options = useMemo<CardSelectItem[]>(() => {
     return [
       {
         id: '',
-        label: 'Any',
+        label: 'All',
+      },
+      {
+        type: 'divider',
+        id: 'divider',
       },
       ...categories.map((category) => ({
         id: category,
@@ -26,7 +34,7 @@ export const CategoryFilter: FC<Props> = ({ category, setCategory }) => {
   const value = useMemo(() => {
     return {
       id: category,
-      label: category || 'Any',
+      label: category || 'All',
     }
   }, [category])
 
