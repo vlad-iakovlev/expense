@@ -7,50 +7,63 @@ import {
 } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
-  category: string
-  setCategory: (category: string) => void
+  groupId: string | undefined
+  walletId: string | undefined
+  value: string
+  onChange: (value: string) => void
 }
 
-export const CategoryFilter: FC<Props> = ({ category, setCategory }) => {
-  const { categories } = useCategories()
+export const CategoryFilter: FC<Props> = ({
+  groupId,
+  walletId,
+  value,
+  onChange,
+}) => {
+  const { categories } = useCategories({ groupId, walletId })
 
   const options = useMemo<CardSelectItem[]>(() => {
-    return [
-      {
-        id: '',
-        label: 'All',
-      },
-      {
-        type: 'divider',
-        id: 'divider',
-      },
-      ...categories.map((category) => ({
-        id: category,
-        label: category,
-      })),
-    ]
-  }, [categories])
-
-  const value = useMemo(() => {
-    return {
+    const options = categories.map<CardSelectItem>((category) => ({
       id: category,
-      label: category || 'All',
+      label: category,
+    }))
+
+    if (value) {
+      options.unshift(
+        { id: '', label: 'Reset filter' },
+        { type: 'divider', id: 'divider' }
+      )
     }
-  }, [category])
+
+    return options
+  }, [categories, value])
+
+  const valueForSelect = useMemo(() => {
+    return {
+      id: value,
+      label: value || 'Show all',
+    }
+  }, [value])
 
   const handleChange = useCallback(
     (option: CardSelectOption) => {
-      setCategory(option.id)
+      onChange(option.id)
     },
-    [setCategory]
+    [onChange]
   )
 
+  if (categories.length < 2) {
+    return null
+  }
+
   return (
-    <Card.Select
-      label="Category"
-      options={options}
-      value={value}
-      onChange={handleChange}
-    />
+    <>
+      <Card.Divider />
+      <Card.Select
+        label="Category"
+        options={options}
+        value={valueForSelect}
+        onChange={handleChange}
+      />
+    </>
   )
 }
