@@ -59,48 +59,40 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
   ref
 ) {
   const rootRef = useRef<HTMLDivElement>(null)
-  const [rootRect, setRootRect] = useState<DOMRect>()
   const [anchorRect, setAnchorRect] = useState<DOMRect>()
 
   const popupStyle = useMemo<CSSProperties>(() => {
-    if (!rootRect || !anchorRect) {
-      return {
-        top: 0,
-        left: 0,
-      }
-    }
+    if (!anchorRect) return { top: 0, left: 0 }
+
+    const scrollTop = document.documentElement.scrollTop
+    const scrollLeft = document.documentElement.scrollLeft
 
     switch (position) {
       case 'above-left':
         return {
-          top: anchorRect.top - rootRect.top,
-          left: anchorRect.left - rootRect.left,
+          top: anchorRect.top + scrollTop,
+          left: anchorRect.left + scrollLeft,
         }
 
       case 'above-right':
         return {
-          top: anchorRect.top - rootRect.top,
-          left: anchorRect.right - rootRect.left,
+          top: anchorRect.top + scrollTop,
+          left: anchorRect.right + scrollLeft,
         }
 
       case 'below-left':
         return {
-          top: anchorRect.bottom - rootRect.top,
-          left: anchorRect.left - rootRect.left,
+          top: anchorRect.bottom + scrollTop,
+          left: anchorRect.left + scrollLeft,
         }
 
       case 'below-right':
         return {
-          top: anchorRect.bottom - rootRect.top,
-          left: anchorRect.right - rootRect.left,
+          top: anchorRect.bottom + scrollTop,
+          left: anchorRect.right + scrollLeft,
         }
     }
-  }, [anchorRect, position, rootRect])
-
-  const updateRects = useCallback(() => {
-    setRootRect(rootRef.current?.getBoundingClientRect())
-    setAnchorRect(anchorRef.current?.getBoundingClientRect())
-  }, [anchorRef])
+  }, [anchorRect, position])
 
   const handleClick = useCallback(
     (event: MouseEvent) => {
@@ -112,10 +104,16 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
   )
 
   useEffect(() => {
-    updateRects()
-    window.addEventListener('resize', updateRects, { passive: true })
-    return () => window.removeEventListener('resize', updateRects)
-  }, [isOpen, updateRects])
+    if (isOpen) {
+      const updateRects = () => {
+        setAnchorRect(anchorRef.current?.getBoundingClientRect())
+      }
+
+      updateRects()
+      window.addEventListener('resize', updateRects, { passive: true })
+      return () => window.removeEventListener('resize', updateRects)
+    }
+  }, [anchorRef, isOpen])
 
   useEffect(() => {
     if (isOpen) {
@@ -129,32 +127,33 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
 
   return (
     <Portal>
-      <div ref={rootRef} className="absolute z-10 top-0 left-0">
-        <div className="absolute" style={popupStyle}>
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div
-                className={clsx(className, 'absolute', {
-                  'bottom-0 left-0 origin-top-left': position === 'above-left',
-                  'bottom-0 right-0 origin-top-right':
-                    position === 'above-right',
-                  'top-0 left-0 origin-top-left': position === 'below-left',
-                  'top-0 right-0 origin-top-right': position === 'below-right',
-                })}
-                initial="closed"
-                animate="opened"
-                exit="closed"
-                variants={variants}
-                style={{
-                  maxWidth: fullMaxWidth ? anchorRect?.width : undefined,
-                  width: fullWidth ? anchorRect?.width : undefined,
-                }}
-              >
-                {children}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+      <div
+        ref={rootRef}
+        className="absolute z-10 top-0 left-0"
+        style={popupStyle}
+      >
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              className={clsx(className, 'absolute', {
+                'bottom-0 left-0': position === 'above-left',
+                'bottom-0 right-0': position === 'above-right',
+                'top-0 left-0': position === 'below-left',
+                'top-0 right-0': position === 'below-right',
+              })}
+              initial="closed"
+              animate="opened"
+              exit="closed"
+              variants={variants}
+              style={{
+                maxWidth: fullMaxWidth ? anchorRect?.width : undefined,
+                width: fullWidth ? anchorRect?.width : undefined,
+              }}
+            >
+              {children}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </Portal>
   )
