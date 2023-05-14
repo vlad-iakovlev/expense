@@ -40,7 +40,7 @@ export const PieChart: FC<PieChartProps> = ({
     let lastAngle = 0
 
     return items.map((item) => {
-      const angle = (item.value / total) * 360
+      const angle = (item.value / total) * (360 - 1e-4)
       const d = describeArc(50, 50, 50, 0, angle)
       const rotate = lastAngle
       lastAngle += angle
@@ -101,9 +101,8 @@ const describeArc = (
 ) => {
   const start = polarToCartesian(cx, cy, radius, endAngle)
   const end = polarToCartesian(cx, cy, radius, startAngle)
-  const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1'
 
-  const d = [
+  return [
     'M',
     start.x,
     start.y,
@@ -111,7 +110,7 @@ const describeArc = (
     radius,
     radius,
     0,
-    largeArcFlag,
+    endAngle - startAngle <= 180 ? '0' : '1',
     0,
     end.x,
     end.y,
@@ -120,8 +119,6 @@ const describeArc = (
     cy,
     'Z',
   ].join(' ')
-
-  return d
 }
 
 const polarToCartesian = (
