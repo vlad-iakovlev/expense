@@ -5,11 +5,11 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { FC, useCallback, useState } from 'react'
-import { useWallets } from '../../../stores/RootStore/hooks/useWallets.ts'
+import { useGroupedWallets } from '../../../stores/RootStore/hooks/useGroupedWallets.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Add } from './WalletsList.Add.tsx'
-import { Wallet } from './WalletsList.Wallet.tsx'
+import { Group } from './WalletsList.Group.tsx'
 
 interface Props {
   className?: string
@@ -17,18 +17,33 @@ interface Props {
 }
 
 export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
-  const { walletIds, reorderWallets } = useWallets({ groupId })
+  const { groupedWallets, reorderWallets } = useGroupedWallets({ groupId })
+  const currencyIds = groupedWallets.map(({ currency }) => currency.id)
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
-      const oldIndex = walletIds.indexOf(String(event.active.id))
-      const newIndex = walletIds.indexOf(String(event.over?.id))
+      const oldIndex = currencyIds.indexOf(String(event.active.id))
+      const newIndex = currencyIds.indexOf(String(event.over?.id))
       if (oldIndex === -1 || newIndex === -1 || oldIndex === newIndex) return
 
-      const newWalletIds = arrayMove(walletIds, oldIndex, newIndex)
-      reorderWallets(newWalletIds)
+      const newGroupedWallets = arrayMove(groupedWallets, oldIndex, newIndex)
+      reorderWallets(newGroupedWallets)
     },
-    [reorderWallets, walletIds]
+    [currencyIds, groupedWallets, reorderWallets]
+  )
+
+  const handleReorder = useCallback(
+    (currencyId: string, walletIds: string[]) => {
+      const newGroupedWallets = groupedWallets.map((groupedWalletIds) => {
+        if (groupedWalletIds.currency.id === currencyId) {
+          return { ...groupedWalletIds, walletIds }
+        }
+        return groupedWalletIds
+      })
+
+      reorderWallets(newGroupedWallets)
+    },
+    [groupedWallets, reorderWallets]
   )
 
   const [isReordering, setIsReordering] = useState(false)
@@ -47,7 +62,7 @@ export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
           ) : (
             <>
               <Add groupId={groupId} />
-              {walletIds.length > 1 && (
+              {groupedWallets.length > 1 && (
                 <Button
                   rounded
                   size="sm"
@@ -62,22 +77,25 @@ export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
         }
       />
 
-      {walletIds.length > 0 && (
+      {groupedWallets.length > 0 && (
         <>
           <Card.Divider />
+
           <DndContext
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
           >
             <SortableContext
-              items={walletIds}
+              items={currencyIds}
               strategy={verticalListSortingStrategy}
             >
-              {walletIds.map((walletId) => (
-                <Wallet
-                  key={walletId}
+              {groupedWallets.map(({ currency, walletIds }) => (
+                <Group
+                  key={currency.id}
                   isReordering={isReordering}
-                  walletId={walletId}
+                  currency={currency}
+                  walletIds={walletIds}
+                  onReorder={handleReorder}
                 />
               ))}
             </SortableContext>

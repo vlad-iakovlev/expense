@@ -29,21 +29,8 @@ export const useWallets = ({ groupId }: Props = {}) => {
     return walletId
   }, [dispatch, groupId])
 
-  const reorderWallets = useCallback(
-    (walletIds: string[]) => {
-      assert(groupId, 'groupId is not defined')
-
-      dispatch({
-        type: WalletsActionTypes.REORDER_WALLETS,
-        payload: { walletIds },
-      })
-    },
-    [dispatch, groupId]
-  )
-
   return {
     walletIds,
     createWallet,
-    reorderWallets,
   }
 }
