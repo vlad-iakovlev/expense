@@ -4,6 +4,7 @@ import {
   ClientStatisticsItem,
   ClientStatisticsType,
 } from '../../../types/client.ts'
+import { formatPercent } from '../../../utils/formatPercent.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { PieChart, PieChartItem } from '../../ui-kit/PieChart/PieChart.tsx'
@@ -32,20 +33,20 @@ export const Charts: FC<Props> = ({ currency, items, type }) => {
     (itemId: string | null, total: number) => {
       const item = items.find((item) => item.category === itemId)
 
-      const title = item ? item.category : TITLE[type]
-      const amount = item ? item.amount : total
-      const percent = item ? Math.round((item.amount / total) * 100) : 100
-
       return (
         <div className="max-w-[65%] pt-1 text-center">
-          <div className="text-gray-600 truncate">{title}</div>
+          <div className="text-gray-600 truncate">
+            {item ? item.category : TITLE[type]}
+          </div>
           <Amount
             className="text-lg font-medium truncate"
-            amount={amount}
+            amount={item ? item.amount : total}
             currency={currency}
             type="expense"
           />
-          <div className="text-gray-800">{percent}%</div>
+          <div className="text-gray-600">
+            {formatPercent(item ? item.amount / total : 1)}
+          </div>
         </div>
       )
     },
