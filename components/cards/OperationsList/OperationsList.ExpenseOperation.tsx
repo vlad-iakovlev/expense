@@ -27,7 +27,7 @@ export const ExpenseOperation: FC<Props> = ({ operation, walletId }) => {
       </div>
 
       <div className="flex items-center gap-3 text-sm text-zinc-600">
-        <div className="flex-none">at {formatTime(operation.date)}</div>
+        <div className="flex-none">{formatTime(operation.date)}</div>
         {!walletId && (
           <div className="flex-auto min-w-0 text-right truncate">
             {operation.expenseWallet.name}

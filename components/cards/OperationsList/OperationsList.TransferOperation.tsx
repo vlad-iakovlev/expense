@@ -21,9 +21,7 @@ export const TransferOperation: FC<Props> = ({ operation, walletId }) => {
         {operation.category} – {operation.name}
       </div>
 
-      <div className="text-sm text-zinc-600">
-        at {formatTime(operation.date)}
-      </div>
+      <div className="text-sm text-zinc-600">{formatTime(operation.date)}</div>
 
       <div className="flex items-center gap-3 mt-2">
         <div className="flex-1 min-w-0">
