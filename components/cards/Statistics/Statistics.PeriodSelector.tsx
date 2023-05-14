@@ -41,7 +41,7 @@ export const PeriodSelector: FC<Props> = ({
 }) => {
   return (
     <>
-      <Card.Block className="flex gap-3">
+      <Card.Block className="flex justify-between">
         <Button
           disabled={period === Period.ALL}
           theme={period === Period.ALL ? 'primary' : 'secondary'}
