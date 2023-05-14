@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Period, usePeriod } from '../../../hooks/usePeriod.ts'
 import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
 import { useStatisticsByCategory } from '../../../stores/RootStore/hooks/useStatisticsByCategory.ts'
@@ -8,6 +8,7 @@ import { Categories } from './Statistics.Categories.tsx'
 import { Charts } from './Statistics.Charts.tsx'
 import { PeriodSelector } from './Statistics.PeriodSelector.tsx'
 import { TypeSelector } from './Statistics.TypeSelector.tsx'
+import { useDisabledCategories } from './useDisabledCategories.ts'
 
 interface Props {
   className?: string
@@ -21,40 +22,17 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
   const [type, setType] = useState(ClientStatisticsType.EXPENSES)
   const { startDate, endDate, fromDate, period, setPeriod, goPrev, goNext } =
     usePeriod()
-  const { statisticsByCategoryItems, statisticsByCategoryCurrency } =
-    useStatisticsByCategory({ groupId, walletId, startDate, endDate, type })
+
+  const {
+    statisticsByCategoryItems: items,
+    statisticsByCategoryCurrency: currency,
+  } = useStatisticsByCategory({ groupId, walletId, startDate, endDate, type })
 
   // Reset period when type changed
   useEffect(() => setPeriod(Period.WEEK), [setPeriod, type])
 
-  const [disabledCategories, setDisabledCategories] = useState<
-    Record<string, boolean>
-  >({})
-
-  const chartItems = useMemo(() => {
-    return statisticsByCategoryItems.filter((item) => {
-      return !disabledCategories[item.category]
-    })
-  }, [disabledCategories, statisticsByCategoryItems])
-
-  const isCategoryDisabled = useCallback(
-    (category: string) => {
-      return !!disabledCategories[category]
-    },
-    [disabledCategories]
-  )
-
-  const setCategoryDisabled = useCallback(
-    (category: string, disabled: boolean) => {
-      setDisabledCategories((disabledCategories) => {
-        return {
-          ...disabledCategories,
-          [category]: disabled,
-        }
-      })
-    },
-    []
-  )
+  const { chartItems, isCategoryDisabled, setCategoryDisabled } =
+    useDisabledCategories(items)
 
   if (!operationIds.length) {
     return null
@@ -76,21 +54,15 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
         goNext={goNext}
       />
 
-      <Charts
-        currency={statisticsByCategoryCurrency}
-        items={chartItems}
-        type={type}
-      />
+      <Charts currency={currency} items={chartItems} type={type} />
 
-      {!!statisticsByCategoryItems.length && (
-        <Categories
-          currency={statisticsByCategoryCurrency}
-          items={statisticsByCategoryItems}
-          type={type}
-          isCategoryDisabled={isCategoryDisabled}
-          setCategoryDisabled={setCategoryDisabled}
-        />
-      )}
+      <Categories
+        currency={currency}
+        items={items}
+        type={type}
+        isCategoryDisabled={isCategoryDisabled}
+        setCategoryDisabled={setCategoryDisabled}
+      />
     </Card>
   )
 }
