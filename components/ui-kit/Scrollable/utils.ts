@@ -68,9 +68,9 @@ export const getThumb = ({
   )
 
   return {
-    offset:
-      maxScrolled &&
-      (normalizedScrolled / maxScrolled) * (trackLength - length),
+    offset: maxScrolled
+      ? (normalizedScrolled / maxScrolled) * (trackLength - length)
+      : 0,
     length,
   }
 }

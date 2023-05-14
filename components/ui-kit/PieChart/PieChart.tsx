@@ -36,7 +36,7 @@ export const PieChart: FC<PieChartProps> = ({
         y: 50,
         radius: item.id === activeId ? 50 : 48,
         start: lastAngle,
-        end: total && lastAngle + (item.value / total) * 360,
+        end: total ? lastAngle + (item.value / total) * 360 : lastAngle,
       }
 
       lastAngle = sectorProps.end
