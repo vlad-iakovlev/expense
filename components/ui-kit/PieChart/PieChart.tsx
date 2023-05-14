@@ -1,20 +1,7 @@
 import { clsx } from 'clsx'
-import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { FC, ReactNode, useMemo, useState } from 'react'
 import { GetSectorProps } from '../../../utils/client/getSector.ts'
 import { Sector } from './PieChart.Sector.tsx'
-
-const variants: Variants = {
-  opened: {
-    opacity: 1,
-    transition: { duration: 0.1 },
-  },
-
-  closed: {
-    opacity: 0,
-    transition: { duration: 0.1 },
-  },
-}
 
 export interface PieChartItem {
   id: string
@@ -73,18 +60,9 @@ export const PieChart: FC<PieChartProps> = ({
         <circle cx="50" cy="50" r="40" fill="white" />
       </svg>
 
-      <AnimatePresence>
-        <motion.div
-          key={activeId ?? 'null'}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          initial="closed"
-          animate="opened"
-          exit="closed"
-          variants={variants}
-        >
-          {renderTooltip(activeId, total)}
-        </motion.div>
-      </AnimatePresence>
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        {renderTooltip(activeId, total)}
+      </div>
     </div>
   )
 }
