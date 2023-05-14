@@ -73,6 +73,7 @@ export const Wallet: FC<Props> = ({
           className="font-medium"
           amount={walletBalance.balance}
           currency={walletBalance.currency}
+          showSign="negative"
         />
       }
     />

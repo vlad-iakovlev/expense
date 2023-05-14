@@ -26,6 +26,7 @@ export const BalanceInDefaultCurrency: FC<Props> = ({ walletId }) => {
             walletBalance.balance *
             (wallet.group.defaultCurrency.rate / walletBalance.currency.rate)
           }
+          showSign="negative"
         />
       }
     />

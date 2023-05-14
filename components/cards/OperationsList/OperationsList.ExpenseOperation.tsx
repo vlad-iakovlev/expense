@@ -23,6 +23,7 @@ export const ExpenseOperation: FC<Props> = ({ operation, walletId }) => {
           amount={operation.expenseAmount}
           currency={operation.expenseWallet.currency}
           type="expense"
+          showSign="non-zero"
         />
       </div>
 
