@@ -3,7 +3,6 @@ import { FC, useCallback, useMemo, useState } from 'react'
 import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
-import { CountBadge } from '../../ui-kit/CountBadge/CountBadge.tsx'
 
 interface Props {
   className?: string
@@ -17,9 +16,8 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
 
   const categoriesOptions = useMemo<CardSelectOption[]>(() => {
     return categories.map((category) => ({
-      id: category.name,
-      label: category.name,
-      suffix: <CountBadge count={category.operationsCount} />,
+      id: category,
+      label: category,
     }))
   }, [categories])
 

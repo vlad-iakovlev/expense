@@ -111,8 +111,3 @@ export enum ClientStatisticsType {
   INCOMES = 'INCOMES',
   EXPENSES = 'EXPENSES',
 }
-
-export interface ClientCategory {
-  name: string
-  operationsCount: number
-}

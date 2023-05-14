@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { ClientCategory } from '../../../types/client.ts'
+import { uniq } from '../../../utils/uniq.ts'
 import { useRootStore } from '../RootStore.tsx'
 import { getAvailableOperations } from '../getters/operations.ts'
 import { CategoriesActionTypes } from '../types.tsx'
@@ -12,25 +12,10 @@ interface Props {
 export const useCategories = ({ groupId, walletId }: Props = {}) => {
   const { state, dispatch } = useRootStore()
 
-  const categories = useMemo<ClientCategory[]>(() => {
+  const categories = useMemo<string[]>(() => {
     const operations = getAvailableOperations(state, { groupId, walletId })
-
-    const categoriesMap = operations.reduce<
-      Record<string, ClientCategory | undefined>
-    >((acc, operation) => {
-      let category = acc[operation.category]
-      if (!category) {
-        category = { name: operation.category, operationsCount: 0 }
-        acc[operation.category] = category
-      }
-
-      category.operationsCount++
-
-      return acc
-    }, {})
-
-    const categories = Object.values(categoriesMap) as ClientCategory[]
-    return categories.sort((a, b) => a.name.localeCompare(b.name))
+    const categories = uniq(operations.map((operation) => operation.category))
+    return categories.sort((a, b) => a.localeCompare(b))
   }, [groupId, state, walletId])
 
   const renameCategory = useCallback(

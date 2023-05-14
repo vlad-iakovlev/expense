@@ -4,7 +4,6 @@ import {
   FC,
   FocusEvent,
   KeyboardEvent,
-  ReactNode,
   useCallback,
   useMemo,
   useRef,
@@ -12,16 +11,10 @@ import {
 } from 'react'
 import { Card } from './Card.tsx'
 
-export interface CartInputSuggestion {
-  id: string
-  label: ReactNode
-  suffix?: ReactNode
-}
-
 export interface CardInputProps {
   className?: string
   label: string
-  suggestions?: CartInputSuggestion[]
+  suggestions?: string[]
   value: string
   onChange: (value: string) => void
 }
@@ -41,7 +34,7 @@ export const CardInput: FC<CardInputProps> = ({
 
   const filteredSuggestions = useMemo(() => {
     return suggestions.filter((suggestion) =>
-      suggestion.id.toLowerCase().includes(suggestionsFilter.toLowerCase())
+      suggestion.toLowerCase().includes(suggestionsFilter.toLowerCase())
     )
   }, [suggestions, suggestionsFilter])
 
@@ -136,10 +129,9 @@ export const CardInput: FC<CardInputProps> = ({
       >
         {filteredSuggestions.map((suggestion) => (
           <Card.Button
-            key={suggestion.id}
-            label={suggestion.label}
-            value={suggestion.suffix}
-            onClick={() => handleSelect(suggestion.id)}
+            key={suggestion}
+            label={suggestion}
+            onClick={() => handleSelect(suggestion)}
             onPointerDown={(event) => event.preventDefault()}
           />
         ))}

@@ -5,7 +5,6 @@ import {
   CardSelectItem,
   CardSelectOption,
 } from '../../ui-kit/Card/Card.tsx'
-import { CountBadge } from '../../ui-kit/CountBadge/CountBadge.tsx'
 
 interface Props {
   category: string
@@ -16,25 +15,18 @@ export const CategoryFilter: FC<Props> = ({ category, setCategory }) => {
   const { categories } = useCategories()
 
   const options = useMemo<CardSelectItem[]>(() => {
-    const totalOperations = categories.reduce(
-      (acc, category) => acc + category.operationsCount,
-      0
-    )
-
     return [
       {
         id: '',
-        label: 'Show all',
-        suffix: <CountBadge count={totalOperations} />,
+        label: 'All',
       },
       {
         type: 'divider',
         id: 'divider',
       },
       ...categories.map((category) => ({
-        id: category.name,
-        label: category.name,
-        suffix: <CountBadge count={category.operationsCount} />,
+        id: category,
+        label: category,
       })),
     ]
   }, [categories])
@@ -42,7 +34,7 @@ export const CategoryFilter: FC<Props> = ({ category, setCategory }) => {
   const value = useMemo(() => {
     return {
       id: category,
-      label: category || 'Show all',
+      label: category || 'All',
     }
   }, [category])
 
