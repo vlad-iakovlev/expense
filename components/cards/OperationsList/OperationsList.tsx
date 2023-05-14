@@ -77,12 +77,12 @@ export const OperationsListCard: FC<Props> = ({
     <Card className={className}>
       <Card.Title title="Operations" actions={<Add walletId={walletId} />} />
 
-      <CategoryFilter
-        groupId={groupId}
-        walletId={walletId}
-        category={category}
-        setCategory={setCategory}
-      />
+      {(!!category || !!groupedOperations.length) && (
+        <>
+          <Card.Divider />
+          <CategoryFilter category={category} setCategory={setCategory} />
+        </>
+      )}
 
       {renderedOperations}
 
