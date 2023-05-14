@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { Variants, motion } from 'framer-motion'
+import { AnimatePresence, Variants, motion } from 'framer-motion'
 import {
   CSSProperties,
   ReactNode,
@@ -18,14 +18,12 @@ const variants: Variants = {
   opened: {
     opacity: 1,
     scale: 1,
-    pointerEvents: 'auto',
     transition: { ease: 'easeOut', duration: 0.1 },
   },
 
   closed: {
     opacity: 0,
     scale: 0.95,
-    pointerEvents: 'none',
     transition: { ease: 'easeIn', duration: 0.075 },
   },
 }
@@ -133,22 +131,29 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
     <Portal>
       <div ref={rootRef} className="absolute z-10 top-0 left-0">
         <div className="absolute" style={popupStyle}>
-          <motion.div
-            className={clsx(className, 'absolute', {
-              'bottom-0 left-0 origin-top-left': position === 'above-left',
-              'bottom-0 right-0 origin-top-right': position === 'above-right',
-              'top-0 left-0 origin-top-left': position === 'below-left',
-              'top-0 right-0 origin-top-right': position === 'below-right',
-            })}
-            animate={isOpen ? 'opened' : 'closed'}
-            variants={variants}
-            style={{
-              maxWidth: fullMaxWidth ? anchorRect?.width : undefined,
-              width: fullWidth ? anchorRect?.width : undefined,
-            }}
-          >
-            {children}
-          </motion.div>
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                className={clsx(className, 'absolute', {
+                  'bottom-0 left-0 origin-top-left': position === 'above-left',
+                  'bottom-0 right-0 origin-top-right':
+                    position === 'above-right',
+                  'top-0 left-0 origin-top-left': position === 'below-left',
+                  'top-0 right-0 origin-top-right': position === 'below-right',
+                })}
+                initial="closed"
+                animate="opened"
+                exit="closed"
+                variants={variants}
+                style={{
+                  maxWidth: fullMaxWidth ? anchorRect?.width : undefined,
+                  width: fullWidth ? anchorRect?.width : undefined,
+                }}
+              >
+                {children}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </Portal>
