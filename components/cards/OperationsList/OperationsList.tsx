@@ -43,12 +43,7 @@ export const OperationsListCard: FC<Props> = ({
 
         return [
           ...acc,
-          <Card.Block
-            key={`${date.toString()}/date`}
-            className="flex items-center my-1 font-medium bg-zinc-100 truncate"
-          >
-            {formatDate(date)}
-          </Card.Block>,
+          <Card.Subtitle key={date.toString()} subtitle={formatDate(date)} />,
           ...operationIds.map((operationId) => (
             <Operation
               key={operationId}
