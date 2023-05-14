@@ -11,7 +11,7 @@ interface Props {
 
 export const Group: FC<Props> = ({ date, operationIds, walletId }) => {
   return (
-    <>
+    <div className="bg-white">
       <Card.Subtitle subtitle={formatDate(date)} />
 
       {operationIds.map((operationId) => (
@@ -21,6 +21,6 @@ export const Group: FC<Props> = ({ date, operationIds, walletId }) => {
           walletId={walletId}
         />
       ))}
-    </>
+    </div>
   )
 }

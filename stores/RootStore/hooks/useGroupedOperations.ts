@@ -1,10 +1,8 @@
 import * as fns from 'date-fns'
 import { useMemo } from 'react'
-import { ClientOperation } from '../../../types/client.ts'
+import { ClientOperation, GroupedOperations } from '../../../types/client.ts'
 import { useRootStore } from '../RootStore.tsx'
 import { getOrderedOperations } from '../getters/operations.ts'
-
-type GroupedOperations = { date: Date; operationIds: string[] }[]
 
 interface Props {
   groupId?: string
@@ -19,7 +17,7 @@ export const useGroupedOperations = ({
 }: Props = {}) => {
   const { state } = useRootStore()
 
-  const groupedOperationIds = useMemo<GroupedOperations>(() => {
+  const groupedOperations = useMemo<GroupedOperations[]>(() => {
     const operations = getOrderedOperations(state, {
       groupId,
       walletId,
@@ -29,14 +27,14 @@ export const useGroupedOperations = ({
   }, [category, groupId, state, walletId])
 
   return {
-    groupedOperationIds,
+    groupedOperations,
   }
 }
 
 const groupOperations = (operations: ClientOperation[]) => {
   if (!operations.length) return []
 
-  const result: GroupedOperations = []
+  const result: GroupedOperations[] = []
 
   let date = fns.startOfDay(operations[0].date)
   let operationIds = [operations[0].id]

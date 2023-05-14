@@ -20,7 +20,7 @@ export const OperationsListCard: FC<Props> = ({
   walletId,
 }) => {
   const [category, setCategory] = useState<string>('')
-  const { groupedOperationIds } = useGroupedOperations({
+  const { groupedOperations } = useGroupedOperations({
     groupId,
     walletId,
     category,
@@ -30,11 +30,11 @@ export const OperationsListCard: FC<Props> = ({
   useEffect(() => setTake(PAGE_SIZE), [category])
 
   const renderedOperations = useMemo(() => {
-    if (!groupedOperationIds.length) return []
+    if (!groupedOperations.length) return []
 
     let left = take
 
-    return groupedOperationIds.reduce<ReactNode[]>(
+    return groupedOperations.reduce<ReactNode[]>(
       (acc, { date, operationIds }) => {
         if (left <= 0) return acc
         operationIds = operationIds.slice(0, left)
@@ -52,10 +52,10 @@ export const OperationsListCard: FC<Props> = ({
       },
       [<Card.Divider key="divider" />]
     )
-  }, [groupedOperationIds, take, walletId])
+  }, [groupedOperations, take, walletId])
 
   const canShowMore = useMemo(() => {
-    const operationsCount = groupedOperationIds.reduce(
+    const operationsCount = groupedOperations.reduce(
       (acc, { operationIds }) => {
         return acc + operationIds.length
       },
@@ -63,13 +63,13 @@ export const OperationsListCard: FC<Props> = ({
     )
 
     return take < operationsCount
-  }, [groupedOperationIds, take])
+  }, [groupedOperations, take])
 
   const handleShowMore = useCallback(() => {
     setTake((prevTake) => prevTake + PAGE_SIZE)
   }, [])
 
-  if (!walletId && !category && !groupedOperationIds.length) {
+  if (!walletId && !category && !groupedOperations.length) {
     return null
   }
 
@@ -77,7 +77,7 @@ export const OperationsListCard: FC<Props> = ({
     <Card className={className}>
       <Card.Title title="Operations" actions={<Add walletId={walletId} />} />
 
-      {(!!category || !!groupedOperationIds.length) && (
+      {(!!category || !!groupedOperations.length) && (
         <>
           <Card.Divider />
           <CategoryFilter category={category} setCategory={setCategory} />

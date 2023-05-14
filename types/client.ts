@@ -86,6 +86,11 @@ export interface PopulatedClientOperation {
   expenseWallet: PopulatedClientWallet | null
 }
 
+export interface GroupedOperations {
+  date: Date
+  operationIds: string[]
+}
+
 export interface ClientBalance {
   balance: number
   currency: ClientCurrency
