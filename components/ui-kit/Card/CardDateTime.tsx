@@ -6,7 +6,10 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { formatDate, formatDateForInput } from '../../../utils/formatDate.ts'
+import {
+  formatDateForInput,
+  formatDateTime,
+} from '../../../utils/formatDate.ts'
 
 export interface CardDateTimeProps {
   label: string
@@ -74,7 +77,7 @@ export const CardDateTime: FC<CardDateTimeProps> = ({
             />
           ) : (
             <div className="text-right truncate" onClick={handleTextClick}>
-              {formatDate(value)}
+              {formatDateTime(value)}
             </div>
           )}
         </div>

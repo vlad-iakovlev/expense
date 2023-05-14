@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { FC } from 'react'
 import { PopulatedClientOperation } from '../../../types/client.ts'
-import { formatDate } from '../../../utils/formatDate.ts'
+import { formatTime } from '../../../utils/formatDate.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 
 interface Props {
@@ -27,7 +27,7 @@ export const IncomeOperation: FC<Props> = ({ operation, walletId }) => {
       </div>
 
       <div className="flex items-center gap-3 text-sm text-zinc-600">
-        <div className="flex-none">{formatDate(operation.date)}</div>
+        <div className="flex-none">at {formatTime(operation.date)}</div>
         {!walletId && (
           <div className="flex-auto min-w-0 text-right truncate">
             {operation.incomeWallet.name}
