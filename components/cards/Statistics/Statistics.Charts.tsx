@@ -14,6 +14,11 @@ const TITLE = {
   [ClientStatisticsType.EXPENSES]: 'Expenses',
 }
 
+const AMOUNT_TYPE = {
+  [ClientStatisticsType.INCOMES]: 'income',
+  [ClientStatisticsType.EXPENSES]: 'expense',
+} as const
+
 interface Props {
   currency: ClientCurrency
   items: ClientStatisticsItem[]
@@ -42,7 +47,7 @@ export const Charts: FC<Props> = ({ currency, items, type }) => {
             className="text-lg font-medium truncate"
             amount={item ? item.amount : total}
             currency={currency}
-            type="expense"
+            type={AMOUNT_TYPE[type]}
           />
           <div className="text-gray-600">
             {formatPercent(item ? item.amount / total : 1)}
