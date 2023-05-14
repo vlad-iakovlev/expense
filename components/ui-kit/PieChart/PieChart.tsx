@@ -7,12 +7,12 @@ import { Sector } from './PieChart.Sector.tsx'
 const variants: Variants = {
   opened: {
     opacity: 1,
-    transition: { ease: 'linear', duration: 0.1 },
+    transition: { duration: 0.1 },
   },
 
   closed: {
     opacity: 0,
-    transition: { ease: 'linear', duration: 0.1 },
+    transition: { duration: 0.1 },
   },
 }
 

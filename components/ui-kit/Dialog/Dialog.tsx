@@ -2,44 +2,31 @@ import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { FC, ReactNode } from 'react'
 import { Portal } from '../Portal/Portal.tsx'
 
-const enterTransition = { ease: 'easeOut', duration: 0.3 }
-const exitTransition = { ease: 'easeIn', duration: 0.2 }
-
 const backdropVariants: Variants = {
-  initial: {
-    opacity: 0,
-  },
-
-  enterTo: {
+  opened: {
     opacity: 0.75,
-    transition: enterTransition,
+    transition: { duration: 0.3 },
   },
 
-  exitTo: {
+  closed: {
     opacity: 0,
-    transition: exitTransition,
+    transition: { duration: 0.2 },
   },
 }
 
 const dialogVariants: Variants = {
-  initial: {
-    opacity: 0,
-    y: 16,
-    scale: 0.95,
-  },
-
-  enterTo: {
+  opened: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: enterTransition,
+    transition: { duration: 0.3 },
   },
 
-  exitTo: {
+  closed: {
     opacity: 0,
     y: 16,
     scale: 0.95,
-    transition: exitTransition,
+    transition: { duration: 0.2 },
   },
 }
 
@@ -58,9 +45,9 @@ export const Dialog: FC<DialogProps> = ({ isOpen, children, onClose }) => {
             <motion.div
               key="backdrop"
               className="fixed inset-0 bg-zinc-500"
-              initial="initial"
-              animate="enterTo"
-              exit="exitTo"
+              initial="closed"
+              animate="opened"
+              exit="closed"
               variants={backdropVariants}
               onClick={onClose}
             />
@@ -69,9 +56,9 @@ export const Dialog: FC<DialogProps> = ({ isOpen, children, onClose }) => {
               <motion.div
                 key="dialog"
                 className="relative overflow-hidden w-full max-w-lg sm:my-8 rounded-lg bg-white shadow-xl"
-                initial="initial"
-                animate="enterTo"
-                exit="exitTo"
+                initial="closed"
+                animate="opened"
+                exit="closed"
                 variants={dialogVariants}
               >
                 {children}

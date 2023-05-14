@@ -18,13 +18,13 @@ const variants: Variants = {
   opened: {
     opacity: 1,
     scale: 1,
-    transition: { ease: 'easeOut', duration: 0.1 },
+    transition: { duration: 0.1 },
   },
 
   closed: {
     opacity: 0,
     scale: 0.95,
-    transition: { ease: 'easeIn', duration: 0.075 },
+    transition: { duration: 0.075 },
   },
 }
 

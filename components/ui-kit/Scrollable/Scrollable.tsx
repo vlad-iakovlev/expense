@@ -16,12 +16,12 @@ const DEFAULT_THUMB: Thumb = { offset: 0, length: 0 }
 const variants: Variants = {
   opened: {
     opacity: 1,
-    transition: { ease: 'easeOut', duration: 0.075 },
+    transition: { duration: 0.075 },
   },
 
   closed: {
     opacity: 0,
-    transition: { ease: 'easeIn', duration: 0.2 },
+    transition: { duration: 0.2 },
   },
 }
 
