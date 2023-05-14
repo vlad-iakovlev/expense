@@ -13,6 +13,10 @@ export const formatDate = (date: Date) => {
     return 'Yesterday'
   }
 
+  if (fns.isThisWeek(date)) {
+    return fns.format(date, 'd MMM, EEEE')
+  }
+
   if (fns.isThisYear(date)) {
     return fns.format(date, 'd MMM')
   }
