@@ -1,7 +1,31 @@
 import * as fns from 'date-fns'
 
-export const formatDate = (date: Date) => {
+export const formatDateTime = (date: Date) => {
   return fns.format(date, "d MMM yyyy 'at' HH:mm")
+}
+
+export const formatDate = (date: Date) => {
+  if (fns.isToday(date)) {
+    return 'Today'
+  }
+
+  if (fns.isYesterday(date)) {
+    return 'Yesterday'
+  }
+
+  if (fns.isThisWeek(date)) {
+    return fns.format(date, 'd MMM, EEEE')
+  }
+
+  if (fns.isThisYear(date)) {
+    return fns.format(date, 'd MMM')
+  }
+
+  return fns.format(date, 'd MMM yyyy')
+}
+
+export const formatTime = (date: Date) => {
+  return fns.format(date, 'HH:mm')
 }
 
 export const formatWeek = (firstDate: Date) => {

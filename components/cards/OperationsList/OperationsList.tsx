@@ -1,6 +1,7 @@
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
-import { FC, useCallback, useEffect, useMemo, useState } from 'react'
-import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
+import { FC, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
+import { useGroupedOperations } from '../../../stores/RootStore/hooks/useGroupedOperations.ts'
+import { formatDate } from '../../../utils/formatDate.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Add } from './OperationsList.Add.tsx'
 import { CategoryFilter } from './OperationsList.CategoryFilter.tsx'
@@ -20,20 +21,63 @@ export const OperationsListCard: FC<Props> = ({
   walletId,
 }) => {
   const [category, setCategory] = useState<string>('')
-  const { operationIds } = useOperations({ groupId, walletId, category })
+  const { groupedOperationIds } = useGroupedOperations({
+    groupId,
+    walletId,
+    category,
+  })
 
   const [take, setTake] = useState(PAGE_SIZE)
   useEffect(() => setTake(PAGE_SIZE), [category])
 
+  const renderedOperations = useMemo(() => {
+    if (!groupedOperationIds.length) return []
+
+    let left = take
+
+    return groupedOperationIds.reduce<ReactNode[]>(
+      (acc, { date, operationIds }) => {
+        if (left <= 0) return acc
+        operationIds = operationIds.slice(0, left)
+        left -= operationIds.length
+
+        return [
+          ...acc,
+          <Card.Block
+            key={`${date.toString()}/date`}
+            className="flex items-center my-1 font-medium bg-zinc-100 truncate"
+          >
+            {formatDate(date)}
+          </Card.Block>,
+          ...operationIds.map((operationId) => (
+            <Operation
+              key={operationId}
+              operationId={operationId}
+              walletId={walletId}
+            />
+          )),
+        ]
+      },
+      [<Card.Divider key="divider" />]
+    )
+  }, [groupedOperationIds, take, walletId])
+
   const canShowMore = useMemo(() => {
-    return take < operationIds.length
-  }, [operationIds.length, take])
+    const operationsCount = groupedOperationIds.reduce(
+      (acc, { operationIds }) => {
+        return acc + operationIds.length
+      },
+      0
+    )
+
+    return take < operationsCount
+  }, [groupedOperationIds, take])
 
   const handleShowMore = useCallback(() => {
     setTake((prevTake) => prevTake + PAGE_SIZE)
   }, [])
 
-  if (!walletId && !category && !operationIds.length) {
+  if (!walletId && !category && !groupedOperationIds.length) {
     return null
   }
 
@@ -41,25 +85,14 @@ export const OperationsListCard: FC<Props> = ({
     <Card className={className}>
       <Card.Title title="Operations" actions={<Add walletId={walletId} />} />
 
-      {(!!category || !!operationIds.length) && (
+      {(!!category || !!groupedOperationIds.length) && (
         <>
           <Card.Divider />
           <CategoryFilter category={category} setCategory={setCategory} />
         </>
       )}
 
-      {!!operationIds.length && (
-        <>
-          <Card.Divider />
-          {operationIds.slice(0, take).map((operationId) => (
-            <Operation
-              key={operationId}
-              operationId={operationId}
-              walletId={walletId}
-            />
-          ))}
-        </>
-      )}
+      {renderedOperations}
 
       {canShowMore ? (
         <>
