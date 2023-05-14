@@ -1,16 +1,18 @@
 import { clsx } from 'clsx'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { FC, ReactNode, useMemo, useState } from 'react'
+import { GetSectorProps } from '../../../utils/client/getSector.ts'
+import { Sector } from './PieChart.Sector.tsx'
 
 const variants: Variants = {
   opened: {
     opacity: 1,
-    transition: { ease: 'easeInOut', duration: 0.1 },
+    transition: { ease: 'linear', duration: 0.1 },
   },
 
   closed: {
     opacity: 0,
-    transition: { ease: 'easeInOut', duration: 0.1 },
+    transition: { ease: 'linear', duration: 0.1 },
   },
 }
 
@@ -36,43 +38,38 @@ export const PieChart: FC<PieChartProps> = ({
     [items]
   )
 
-  const paths = useMemo(() => {
+  const [activeId, setActiveId] = useState<string | null>(null)
+
+  const sectors = useMemo(() => {
     let lastAngle = 0
 
     return items.map((item) => {
-      const angle = (item.value / total) * (360 - 1e-4)
-      const d = describeArc(50, 50, 50, 0, angle)
-      const rotate = lastAngle
-      lastAngle += angle
-      return {
-        ...item,
-        angle,
-        rotate,
-        d,
+      const sectorProps: GetSectorProps = {
+        x: 50,
+        y: 50,
+        radius: item.id === activeId ? 50 : 48,
+        start: lastAngle,
+        end: total && lastAngle + (item.value / total) * 360,
       }
-    })
-  }, [items, total])
 
-  const [activeId, setActiveId] = useState<string | null>(null)
+      lastAngle = sectorProps.end
+
+      return (
+        <Sector
+          key={item.id}
+          sectorProps={sectorProps}
+          color={item.color}
+          onPointerEnter={() => setActiveId(item.id)}
+          onPointerLeave={() => setActiveId(null)}
+        />
+      )
+    })
+  }, [activeId, items, total])
 
   return (
     <div className={clsx(className, 'relative aspect-square')}>
       <svg className="absolute inset-0" viewBox="0 0 100 100">
-        {paths.map((path) => (
-          <path
-            className="transition-transform duration-300 ease-in-out [pointer-events:all]"
-            key={path.id}
-            d={path.d}
-            fill={path.color}
-            transform={
-              path.id === activeId
-                ? `rotate(${path.rotate} 50 50)`
-                : `translate(2 2) rotate(${path.rotate} 48 48) scale(0.96)`
-            }
-            onPointerEnter={() => setActiveId(path.id)}
-            onPointerLeave={() => setActiveId(null)}
-          />
-        ))}
+        {sectors}
         <circle cx="50" cy="50" r="40" fill="white" />
       </svg>
 
@@ -90,47 +87,4 @@ export const PieChart: FC<PieChartProps> = ({
       </AnimatePresence>
     </div>
   )
-}
-
-const describeArc = (
-  cx: number,
-  cy: number,
-  radius: number,
-  startAngle: number,
-  endAngle: number
-) => {
-  const start = polarToCartesian(cx, cy, radius, endAngle)
-  const end = polarToCartesian(cx, cy, radius, startAngle)
-
-  return [
-    'M',
-    start.x,
-    start.y,
-    'A',
-    radius,
-    radius,
-    0,
-    endAngle - startAngle <= 180 ? '0' : '1',
-    0,
-    end.x,
-    end.y,
-    'L',
-    cx,
-    cy,
-    'Z',
-  ].join(' ')
-}
-
-const polarToCartesian = (
-  centerX: number,
-  centerY: number,
-  radius: number,
-  angleInDegrees: number
-) => {
-  const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0
-
-  return {
-    x: centerX + radius * Math.cos(angleInRadians),
-    y: centerY + radius * Math.sin(angleInRadians),
-  }
 }

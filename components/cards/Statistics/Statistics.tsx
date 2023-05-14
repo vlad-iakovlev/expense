@@ -57,12 +57,7 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
         goNext={goNext}
       />
 
-      <Charts
-        key={`${type}_${Number(startDate)}_${Number(endDate)}`}
-        currency={statisticsCurrency}
-        items={chartItems}
-        type={type}
-      />
+      <Charts currency={statisticsCurrency} items={chartItems} type={type} />
 
       <Categories
         currency={statisticsCurrency}

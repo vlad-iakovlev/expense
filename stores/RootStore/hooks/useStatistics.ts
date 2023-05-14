@@ -86,26 +86,24 @@ export const useStatistics = ({
         )
       })
 
-      if (operations.length) {
-        const amount = operations.reduce<number>((acc, operation) => {
-          const wallet = walletsMap[operation[WALLET_ID_FIELD[type]] ?? '']
-          assert(wallet, 'Wallet not found')
-          const currency = currenciesMap[wallet.currencyId]
-          assert(currency, 'Currency not found')
+      const amount = operations.reduce<number>((acc, operation) => {
+        const wallet = walletsMap[operation[WALLET_ID_FIELD[type]] ?? '']
+        assert(wallet, 'Wallet not found')
+        const currency = currenciesMap[wallet.currencyId]
+        assert(currency, 'Currency not found')
 
-          const amount =
-            operation[AMOUNT_FIELD[type]] *
-            (statisticsCurrency.rate / currency.rate)
+        const amount =
+          operation[AMOUNT_FIELD[type]] *
+          (statisticsCurrency.rate / currency.rate)
 
-          return acc + amount
-        }, 0)
+        return acc + amount
+      }, 0)
 
-        acc.push({
-          category,
-          color: stringToColor(category),
-          amount,
-        })
-      }
+      acc.push({
+        category,
+        color: stringToColor(category),
+        amount,
+      })
 
       return acc
     }, [])

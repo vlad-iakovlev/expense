@@ -30,27 +30,31 @@ export const Categories: FC<Props> = ({
 }) => {
   return (
     <>
-      {items.map((item) => (
-        <Card.Text
-          key={item.category}
-          prefix={
-            <Switch
-              value={!isCategoryDisabled(item.category)}
-              color={isCategoryDisabled(item.category) ? undefined : item.color}
-              onChange={(value) => setCategoryDisabled(item.category, !value)}
-            />
-          }
-          label={item.category}
-          value={
-            <Amount
-              className="font-medium"
-              amount={item.amount}
-              currency={currency}
-              type={AMOUNT_TYPE[type]}
-            />
-          }
-        />
-      ))}
+      {items
+        .filter((item) => item.amount)
+        .map((item) => (
+          <Card.Text
+            key={item.category}
+            prefix={
+              <Switch
+                value={!isCategoryDisabled(item.category)}
+                color={
+                  isCategoryDisabled(item.category) ? undefined : item.color
+                }
+                onChange={(value) => setCategoryDisabled(item.category, !value)}
+              />
+            }
+            label={item.category}
+            value={
+              <Amount
+                className="font-medium"
+                amount={item.amount}
+                currency={currency}
+                type={AMOUNT_TYPE[type]}
+              />
+            }
+          />
+        ))}
     </>
   )
 }
