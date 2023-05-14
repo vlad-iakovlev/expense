@@ -1,4 +1,11 @@
-import { ReactElement, ReactNode, useCallback, useRef, useState } from 'react'
+import {
+  Fragment,
+  ReactElement,
+  ReactNode,
+  useCallback,
+  useRef,
+  useState,
+} from 'react'
 import { Card } from './Card.tsx'
 
 export interface CardSelectOption<Id extends string = string> {
@@ -8,14 +15,18 @@ export interface CardSelectOption<Id extends string = string> {
   suffix?: ReactNode
 }
 
-export interface CardSelectDivider {
+export interface CardSelectDivider<Id extends string = string> {
   type: 'divider'
-  id: string
+  id: Id
 }
+
+export type CardSelectItem<Id extends string = string> =
+  | CardSelectOption<Id>
+  | CardSelectDivider<Id>
 
 export interface CardSelectProps<Id extends string = string> {
   label: string
-  options: (CardSelectOption<Id> | CardSelectDivider)[]
+  options: CardSelectItem<Id>[]
   value: CardSelectOption<Id>
   onChange: (value: CardSelectOption<Id>) => void
 }
@@ -65,18 +76,19 @@ export function CardSelect<Id extends string = string>({
         position="below-right"
         onClose={hide}
       >
-        {options.map((option) =>
-          option.type === 'divider' ? (
-            <Card.Divider key={option.id} />
-          ) : (
-            <Card.Button
-              key={option.id}
-              label={option.label}
-              value={option.suffix}
-              onClick={() => handleChange(option)}
-            />
-          )
-        )}
+        {options.map((option) => (
+          <Fragment key={option.id}>
+            {option.type === 'divider' && <Card.Divider />}
+            {(!option.type || option.type === 'option') && (
+              <Card.Button
+                key={option.id}
+                label={option.label}
+                value={option.suffix}
+                onClick={() => handleChange(option)}
+              />
+            )}
+          </Fragment>
+        ))}
       </Card.Popup>
     </>
   )

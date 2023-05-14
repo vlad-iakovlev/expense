@@ -2,7 +2,11 @@ import assert from 'assert'
 import { FC, useCallback, useMemo } from 'react'
 import { useCurrencies } from '../../../stores/RootStore/hooks/useCurrencies.ts'
 import { ClientCurrency } from '../../../types/client.ts'
-import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
+import {
+  Card,
+  CardSelectItem,
+  CardSelectOption,
+} from '../../ui-kit/Card/Card.tsx'
 import { CurrencyBadge } from '../CurrencyBadge/CurrencyBadge.tsx'
 
 const PRIORITIZED_CURRENCIES = ['USD', 'EUR']
@@ -20,7 +24,7 @@ export const CurrencySelect: FC<CurrencySelectProps> = ({
 }) => {
   const { currencies } = useCurrencies()
 
-  const options = useMemo(() => {
+  const options = useMemo<CardSelectItem[]>(() => {
     return [
       ...PRIORITIZED_CURRENCIES.map((symbol) => {
         const currency = currencies.find((item) => item.symbol === symbol)
@@ -32,10 +36,7 @@ export const CurrencySelect: FC<CurrencySelectProps> = ({
           suffix: <CurrencyBadge currency={currency} />,
         }
       }),
-      {
-        type: 'divider' as const,
-        id: 'divider',
-      },
+      { type: 'divider', id: 'divider' },
       ...currencies
         .filter((currency) => !PRIORITIZED_CURRENCIES.includes(currency.symbol))
         .map((currency) => ({

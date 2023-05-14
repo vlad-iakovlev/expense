@@ -1,9 +1,13 @@
 import { FC, useCallback, useMemo } from 'react'
 import { useRootStore } from '../../../stores/RootStore/RootStore.tsx'
 import { getPopulatedWallet } from '../../../stores/RootStore/getters/wallets.ts'
-import { useWallets } from '../../../stores/RootStore/hooks/useWallets.ts'
+import { useGroupedWallets } from '../../../stores/RootStore/hooks/useGroupedWallets.ts'
 import { PopulatedClientWallet } from '../../../types/client.ts'
-import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
+import {
+  Card,
+  CardSelectItem,
+  CardSelectOption,
+} from '../../ui-kit/Card/Card.tsx'
 import { CurrencyBadge } from '../CurrencyBadge/CurrencyBadge.tsx'
 
 export interface WalletSelectProps {
@@ -20,19 +24,28 @@ export const WalletSelect: FC<WalletSelectProps> = ({
   onChange,
 }) => {
   const { state } = useRootStore()
-  const { walletIds } = useWallets({ groupId })
+  const { groupedWallets } = useGroupedWallets({ groupId })
 
-  const walletsOptions = useMemo(() => {
-    return walletIds.map((walletId) => {
-      const wallet = getPopulatedWallet(state, walletId)
+  const walletsOptions = useMemo<CardSelectItem[]>(() => {
+    return groupedWallets.reduce<CardSelectItem[]>(
+      (acc, { currency, walletIds }, index) => {
+        if (index > 0) acc.push({ type: 'divider', id: currency.id })
 
-      return {
-        id: wallet.id,
-        label: wallet.name,
-        suffix: <CurrencyBadge currency={wallet.currency} />,
-      }
-    })
-  }, [state, walletIds])
+        walletIds.forEach((walletId) => {
+          const wallet = getPopulatedWallet(state, walletId)
+
+          acc.push({
+            id: wallet.id,
+            label: wallet.name,
+            suffix: <CurrencyBadge currency={wallet.currency} />,
+          })
+        })
+
+        return acc
+      },
+      []
+    )
+  }, [groupedWallets, state])
 
   const valueForSelect = useMemo(
     () => ({
