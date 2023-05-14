@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react'
+import { FC, useCallback, useEffect, useMemo } from 'react'
 import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
 import {
   Card,
@@ -8,12 +8,19 @@ import {
 import { CountBadge } from '../../ui-kit/CountBadge/CountBadge.tsx'
 
 interface Props {
+  groupId: string | undefined
+  walletId: string | undefined
   category: string
   setCategory: (category: string) => void
 }
 
-export const CategoryFilter: FC<Props> = ({ category, setCategory }) => {
-  const { categories } = useCategories()
+export const CategoryFilter: FC<Props> = ({
+  groupId,
+  walletId,
+  category,
+  setCategory,
+}) => {
+  const { categories } = useCategories({ groupId, walletId })
 
   const options = useMemo<CardSelectItem[]>(() => {
     const totalOperations = categories.reduce(
@@ -53,12 +60,23 @@ export const CategoryFilter: FC<Props> = ({ category, setCategory }) => {
     [setCategory]
   )
 
+  useEffect(() => {
+    if (categories.length < 2) setCategory('')
+  }, [categories.length, setCategory])
+
+  if (categories.length < 2) {
+    return null
+  }
+
   return (
-    <Card.Select
-      label="Category"
-      options={options}
-      value={value}
-      onChange={handleChange}
-    />
+    <>
+      <Card.Divider />
+      <Card.Select
+        label="Category"
+        options={options}
+        value={value}
+        onChange={handleChange}
+      />
+    </>
   )
 }
