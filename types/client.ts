@@ -56,6 +56,11 @@ export interface PopulatedClientWallet {
   group: PopulatedClientGroup
 }
 
+export interface GroupedWallets {
+  currency: ClientCurrency
+  walletIds: string[]
+}
+
 export interface ClientOperation {
   id: string
   removed: boolean
