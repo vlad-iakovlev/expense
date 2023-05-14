@@ -17,6 +17,7 @@ export const Balance: FC<Props> = ({ walletId }) => {
         <Amount
           className="font-medium select-text"
           amount={walletBalance.balance}
+          showSign="negative"
         />
       }
     />

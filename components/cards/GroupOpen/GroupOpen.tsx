@@ -49,6 +49,7 @@ export const GroupOpenCard: FC<Props> = ({ groupId }) => {
             className="font-medium select-text"
             amount={groupBalance.balance}
             currency={groupBalance.currency}
+            showSign="negative"
           />
         }
       />
