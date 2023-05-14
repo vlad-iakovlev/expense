@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from 'react'
-import { Period, usePeriod } from '../../../hooks/usePeriod.ts'
+import { FC, useState } from 'react'
+import { usePeriod } from '../../../hooks/usePeriod.ts'
 import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
 import { useStatistics } from '../../../stores/RootStore/hooks/useStatistics.ts'
 import { ClientStatisticsType } from '../../../types/client.ts'
@@ -30,9 +30,6 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
     endDate,
     type,
   })
-
-  // Reset period when type changed
-  useEffect(() => setPeriod(Period.WEEK), [setPeriod, type])
 
   const { chartItems, isCategoryDisabled, setCategoryDisabled } =
     useDisabledCategories(statisticsItems)
