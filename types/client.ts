@@ -90,7 +90,7 @@ export interface ClientBalance {
   currency: ClientCurrency
 }
 
-export interface ClientStatisticsByCategory {
+export interface ClientStatisticsItem {
   category: string
   color: string
   amount: number

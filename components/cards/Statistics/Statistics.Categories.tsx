@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import {
   ClientCurrency,
-  ClientStatisticsByCategory,
+  ClientStatisticsItem,
   ClientStatisticsType,
 } from '../../../types/client.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
@@ -15,7 +15,7 @@ const AMOUNT_TYPE = {
 
 interface Props {
   currency: ClientCurrency
-  items: ClientStatisticsByCategory[]
+  items: ClientStatisticsItem[]
   type: ClientStatisticsType
   isCategoryDisabled: (category: string) => boolean
   setCategoryDisabled: (category: string, disabled: boolean) => void

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
-import { ClientStatisticsByCategory } from '../../../types/client.ts'
+import { ClientStatisticsItem } from '../../../types/client.ts'
 
-export const useDisabledCategories = (items: ClientStatisticsByCategory[]) => {
+export const useDisabledCategories = (items: ClientStatisticsItem[]) => {
   const [disabled, setDisabled] = useState<Record<string, boolean>>({})
 
   const chartItems = useMemo(

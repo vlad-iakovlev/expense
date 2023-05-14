@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { Period, usePeriod } from '../../../hooks/usePeriod.ts'
 import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
-import { useStatisticsByCategory } from '../../../stores/RootStore/hooks/useStatisticsByCategory.ts'
+import { useStatistics } from '../../../stores/RootStore/hooks/useStatistics.ts'
 import { ClientStatisticsType } from '../../../types/client.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Categories } from './Statistics.Categories.tsx'
@@ -23,16 +23,19 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
   const { startDate, endDate, fromDate, period, setPeriod, goPrev, goNext } =
     usePeriod()
 
-  const {
-    statisticsByCategoryItems: items,
-    statisticsByCategoryCurrency: currency,
-  } = useStatisticsByCategory({ groupId, walletId, startDate, endDate, type })
+  const { statisticsItems, statisticsCurrency } = useStatistics({
+    groupId,
+    walletId,
+    startDate,
+    endDate,
+    type,
+  })
 
   // Reset period when type changed
   useEffect(() => setPeriod(Period.WEEK), [setPeriod, type])
 
   const { chartItems, isCategoryDisabled, setCategoryDisabled } =
-    useDisabledCategories(items)
+    useDisabledCategories(statisticsItems)
 
   if (!operationIds.length) {
     return null
@@ -54,11 +57,11 @@ export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
         goNext={goNext}
       />
 
-      <Charts currency={currency} items={chartItems} type={type} />
+      <Charts currency={statisticsCurrency} items={chartItems} type={type} />
 
       <Categories
-        currency={currency}
-        items={items}
+        currency={statisticsCurrency}
+        items={statisticsItems}
         type={type}
         isCategoryDisabled={isCategoryDisabled}
         setCategoryDisabled={setCategoryDisabled}

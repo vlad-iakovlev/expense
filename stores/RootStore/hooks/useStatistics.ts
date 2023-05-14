@@ -2,7 +2,7 @@ import assert from 'assert'
 import { useMemo } from 'react'
 import {
   ClientCurrency,
-  ClientStatisticsByCategory,
+  ClientStatisticsItem,
   ClientStatisticsType,
   ClientWallet,
 } from '../../../types/client.ts'
@@ -29,7 +29,7 @@ interface Props {
   type: ClientStatisticsType
 }
 
-export const useStatisticsByCategory = ({
+export const useStatistics = ({
   groupId,
   walletId,
   startDate,
@@ -38,7 +38,7 @@ export const useStatisticsByCategory = ({
 }: Props) => {
   const { state } = useRootStore()
 
-  const statisticsByCategoryCurrency = useMemo(
+  const statisticsCurrency = useMemo(
     () => getDefaultCurrency(state, { groupId, walletId }),
     [groupId, state, walletId]
   )
@@ -70,14 +70,12 @@ export const useStatisticsByCategory = ({
     )
   }, [groupId, state.wallets, walletId])
 
-  const statisticsByCategoryItems = useMemo<
-    ClientStatisticsByCategory[]
-  >(() => {
+  const statisticsItems = useMemo<ClientStatisticsItem[]>(() => {
     const categories = uniq(
       state.operations.map((operation) => operation.category)
     ).sort((a, b) => a.localeCompare(b))
 
-    return categories.reduce<ClientStatisticsByCategory[]>((acc, category) => {
+    return categories.reduce<ClientStatisticsItem[]>((acc, category) => {
       const operations = state.operations.filter((operation) => {
         return (
           !operation.removed &&
@@ -97,7 +95,7 @@ export const useStatisticsByCategory = ({
 
           const amount =
             operation[AMOUNT_FIELD[type]] *
-            (statisticsByCategoryCurrency.rate / currency.rate)
+            (statisticsCurrency.rate / currency.rate)
 
           return acc + amount
         }, 0)
@@ -116,13 +114,13 @@ export const useStatisticsByCategory = ({
     endDate,
     startDate,
     state.operations,
-    statisticsByCategoryCurrency.rate,
+    statisticsCurrency.rate,
     type,
     walletsMap,
   ])
 
   return {
-    statisticsByCategoryItems,
-    statisticsByCategoryCurrency,
+    statisticsItems,
+    statisticsCurrency,
   }
 }

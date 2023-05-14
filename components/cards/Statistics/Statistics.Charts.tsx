@@ -1,7 +1,7 @@
 import { FC, useCallback, useMemo } from 'react'
 import {
   ClientCurrency,
-  ClientStatisticsByCategory,
+  ClientStatisticsItem,
   ClientStatisticsType,
 } from '../../../types/client.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
@@ -15,7 +15,7 @@ const TITLE = {
 
 interface Props {
   currency: ClientCurrency
-  items: ClientStatisticsByCategory[]
+  items: ClientStatisticsItem[]
   type: ClientStatisticsType
 }
 
