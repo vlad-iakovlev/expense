@@ -10,11 +10,16 @@ import { Card } from '../../ui-kit/Card/Card.tsx'
 import { DndIcon } from '../../ui-kit/DndIcon/DndIcon.tsx'
 
 interface Props {
+  canReorderWallets: boolean
   isReordering: boolean
   walletId: string
 }
 
-export const Wallet: FC<Props> = ({ isReordering, walletId }) => {
+export const Wallet: FC<Props> = ({
+  canReorderWallets,
+  isReordering,
+  walletId,
+}) => {
   const {
     attributes,
     listeners,
@@ -26,11 +31,10 @@ export const Wallet: FC<Props> = ({ isReordering, walletId }) => {
   const { wallet } = useWallet({ walletId })
   const { walletBalance } = useWalletBalance({ walletId })
 
-  if (isReordering) {
+  if (canReorderWallets && isReordering) {
     return (
       <Card.Text
         ref={setNodeRef}
-        key={wallet.id}
         className={clsx('relative transition-shadow', {
           'shadow-none': !isDragging,
           'z-10 shadow-dnd': isDragging,
@@ -56,9 +60,12 @@ export const Wallet: FC<Props> = ({ isReordering, walletId }) => {
     )
   }
 
+  if (isReordering) {
+    return <Card.Text label={wallet.name} />
+  }
+
   return (
     <Card.Link
-      key={wallet.id}
       href={ROUTES.WALLET(wallet.id)}
       label={wallet.name}
       value={

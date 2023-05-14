@@ -4,7 +4,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback, useMemo, useState } from 'react'
 import { useGroupedWallets } from '../../../stores/RootStore/hooks/useGroupedWallets.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -18,7 +18,17 @@ interface Props {
 
 export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
   const { groupedWallets, reorderWallets } = useGroupedWallets({ groupId })
-  const currencyIds = groupedWallets.map(({ currency }) => currency.id)
+
+  const currencyIds = useMemo(
+    () => groupedWallets.map(({ currency }) => currency.id),
+    [groupedWallets]
+  )
+
+  const canReorderGroups = groupedWallets.length > 1
+  const canReorderWallets = useMemo(
+    () => groupedWallets.some(({ walletIds }) => walletIds.length > 1),
+    [groupedWallets]
+  )
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
@@ -62,7 +72,7 @@ export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
           ) : (
             <>
               <Add groupId={groupId} />
-              {groupedWallets.length > 1 && (
+              {(canReorderGroups || canReorderWallets) && (
                 <Button
                   rounded
                   size="sm"
@@ -92,6 +102,7 @@ export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
               {groupedWallets.map(({ currency, walletIds }) => (
                 <Group
                   key={currency.id}
+                  canReorderGroups={canReorderGroups}
                   isReordering={isReordering}
                   currency={currency}
                   walletIds={walletIds}

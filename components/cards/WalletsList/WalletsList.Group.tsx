@@ -14,6 +14,7 @@ import { DndIcon } from '../../ui-kit/DndIcon/DndIcon.tsx'
 import { Wallet } from './WalletsList.Wallet.tsx'
 
 interface Props {
+  canReorderGroups: boolean
   isReordering: boolean
   currency: ClientCurrency
   walletIds: string[]
@@ -21,6 +22,7 @@ interface Props {
 }
 
 export const Group: FC<Props> = ({
+  canReorderGroups,
   isReordering,
   currency,
   walletIds,
@@ -35,6 +37,8 @@ export const Group: FC<Props> = ({
     transition,
   } = useSortable({ id: currency.id })
 
+  const canReorderWallets = walletIds.length > 1
+
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
       const oldIndex = walletIds.indexOf(String(event.active.id))
@@ -47,36 +51,23 @@ export const Group: FC<Props> = ({
     [currency.id, onReorder, walletIds]
   )
 
-  const wallets = (
-    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <SortableContext items={walletIds} strategy={verticalListSortingStrategy}>
-        {walletIds.map((walletId) => (
-          <Wallet
-            key={walletId}
-            isReordering={isReordering}
-            walletId={walletId}
-          />
-        ))}
-      </SortableContext>
-    </DndContext>
-  )
-
-  if (isReordering) {
-    return (
-      <div
-        ref={setNodeRef}
-        className={clsx('relative transition-shadow bg-white', {
-          'shadow-none': !isDragging,
-          'z-10 shadow-dnd': isDragging,
-        })}
-        style={{
-          transform: CSS.Translate.toString(transform),
-          transition,
-        }}
-      >
-        <Card.Subtitle
-          subtitle={currency.symbol}
-          actions={
+  return (
+    <div
+      ref={setNodeRef}
+      className={clsx('relative transition-shadow bg-white', {
+        'shadow-none': !isDragging,
+        'z-10 shadow-dnd': isDragging,
+      })}
+      style={{
+        transform: CSS.Translate.toString(transform),
+        transition,
+      }}
+    >
+      <Card.Subtitle
+        subtitle={currency.symbol}
+        actions={
+          canReorderGroups &&
+          isReordering && (
             <div
               className={clsx(
                 'flex-none flex items-center justify-center h-12 w-12 -m-3 touch-none',
@@ -87,17 +78,25 @@ export const Group: FC<Props> = ({
             >
               <DndIcon className="w-6 h-6 text-zinc-400" />
             </div>
-          }
-        />
-        {wallets}
-      </div>
-    )
-  }
+          )
+        }
+      />
 
-  return (
-    <div className="bg-white">
-      <Card.Subtitle subtitle={currency.symbol} />
-      {wallets}
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext
+          items={walletIds}
+          strategy={verticalListSortingStrategy}
+        >
+          {walletIds.map((walletId) => (
+            <Wallet
+              key={walletId}
+              canReorderWallets={canReorderWallets}
+              isReordering={isReordering}
+              walletId={walletId}
+            />
+          ))}
+        </SortableContext>
+      </DndContext>
     </div>
   )
 }
