@@ -12,10 +12,9 @@ export const createInvite = async (body: CreateInviteBody) => {
     body
   )
 
-  return {
-    ...response,
-    expiresAt: new Date(response.expiresAt),
-  }
+  response.expiresAt = new Date(response.expiresAt)
+
+  return response
 }
 
 export const acceptInvite = async (body: AcceptInviteBody) => {

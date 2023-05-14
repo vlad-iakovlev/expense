@@ -16,6 +16,7 @@ const createWalletReducer: Reducer<
   return produce(state, (draft) => {
     draft.wallets.push({
       id: walletId,
+      createdAt: new Date(),
       removed: false,
       name: 'Untitled',
       order: null,

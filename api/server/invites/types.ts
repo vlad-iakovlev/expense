@@ -5,7 +5,7 @@ export type CreateInviteBody = z.infer<typeof createInviteBodySchema>
 
 export interface CreateInviteResponse {
   token: string
-  expiresAt: string | Date
+  expiresAt: Date
 }
 
 export type AcceptInviteBody = z.infer<typeof acceptInviteBodySchema>

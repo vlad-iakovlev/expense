@@ -113,14 +113,9 @@ const setStateFromRemoteStorageReducer: Reducer<
   const operations = uniqBy(
     [
       ...state.operations,
-      ...updates.operations
-        .filter((operation) => {
-          return !state.nextSyncTransaction.operations.includes(operation.id)
-        })
-        .map((operation) => ({
-          ...operation,
-          date: new Date(operation.date),
-        })),
+      ...updates.operations.filter((operation) => {
+        return !state.nextSyncTransaction.operations.includes(operation.id)
+      }),
     ],
     (operation) => operation.id
   ).filter((operation) => {
@@ -163,7 +158,10 @@ const setStateFromBrowserStorageReducer: Reducer<
     users: storedState.users,
     userGroups: storedState.userGroups,
     groups: storedState.groups,
-    wallets: storedState.wallets,
+    wallets: storedState.wallets.map((wallet) => ({
+      ...wallet,
+      createdAt: new Date(wallet.createdAt),
+    })),
     operations: storedState.operations.map((operation) => ({
       ...operation,
       date: new Date(operation.date),

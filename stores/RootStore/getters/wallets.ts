@@ -25,8 +25,10 @@ export const getOrderedWallets = (
 ): ClientWallet[] => {
   const wallets = getAvailableWallets(state, { groupId })
   return wallets.sort((a, b) => {
-    if (a.order != null && b.order != null) return a.order - b.order
-    return a.name.localeCompare(b.name)
+    if (a.order !== null && b.order !== null) return a.order - b.order
+    if (a.order === null && b.order !== null) return 1
+    if (a.order !== null && b.order === null) return -1
+    return Number(a.createdAt) - Number(b.createdAt)
   })
 }
 

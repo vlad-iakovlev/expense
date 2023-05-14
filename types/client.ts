@@ -41,6 +41,7 @@ export interface PopulatedClientGroup {
 
 export interface ClientWallet {
   id: string
+  createdAt: Date
   removed: boolean
   name: string
   order: number | null

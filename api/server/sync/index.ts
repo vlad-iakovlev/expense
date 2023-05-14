@@ -253,6 +253,7 @@ const collect = async (
     where: getWalletWhere({ userId, clientTransaction }),
     select: {
       id: true,
+      createdAt: true,
       removed: true,
       name: true,
       order: true,

@@ -7,7 +7,6 @@ import {
   ClientUserGroup,
   ClientWallet,
 } from '../../../types/client.ts'
-import { Modify } from '../../../types/utility.ts'
 import { performSyncBodySchema } from './schemas.ts'
 
 export type PerformSyncBody = z.infer<typeof performSyncBodySchema>
@@ -18,7 +17,7 @@ export interface PerformSyncResponseUpdates {
   userGroups: ClientUserGroup[]
   groups: ClientGroup[]
   wallets: ClientWallet[]
-  operations: Modify<ClientOperation, { date: string | Date }>[]
+  operations: ClientOperation[]
 }
 
 export interface PerformSyncResponse {
