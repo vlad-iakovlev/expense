@@ -1,17 +1,9 @@
 import assert from 'assert'
-import {
-  Dispatch,
-  FC,
-  ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-} from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 
 interface ContextValue {
   categoryFilter: string
-  setCategoryFilter: Dispatch<string>
+  setCategoryFilter: React.Dispatch<React.SetStateAction<string>>
   resetCategoryFilter: () => void
 }
 
@@ -21,10 +13,12 @@ export const CategoryFilterContext = createContext<ContextValue | undefined>(
 CategoryFilterContext.displayName = 'CategoryFilterContext'
 
 interface ProviderProps {
-  children: ReactNode
+  children: React.ReactNode
 }
 
-export const CategoryFilterProvider: FC<ProviderProps> = ({ children }) => {
+export const CategoryFilterProvider: React.FC<ProviderProps> = ({
+  children,
+}) => {
   const [categoryFilter, setCategoryFilter] = useState('')
 
   const resetCategoryFilter = useCallback(() => setCategoryFilter(''), [])

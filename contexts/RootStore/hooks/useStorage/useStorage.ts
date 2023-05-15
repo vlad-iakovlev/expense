@@ -1,4 +1,3 @@
-import { Dispatch } from 'react'
 import { StorageAction } from '../../reducers/storage.ts'
 import { RootStoreState } from '../../types.tsx'
 import { useCleanupOldLocalStorageVersions } from './useCleanupOldLocalStorageVersions.ts'
@@ -9,7 +8,7 @@ import { useSyncStateWithServer } from './useSyncStateWithServer.ts'
 
 export const useStorage = (
   state: RootStoreState,
-  dispatch: Dispatch<StorageAction>
+  dispatch: React.Dispatch<StorageAction>
 ) => {
   const isStateLoaded = useLoadStateFromLocalStorage(state, dispatch)
   useResetStateForUnauthenticated(state, dispatch)

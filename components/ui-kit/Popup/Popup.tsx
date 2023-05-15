@@ -1,5 +1,5 @@
 import { AnimatePresence, Variants, motion } from 'framer-motion'
-import { FC, ReactNode, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 const variants: Variants = {
@@ -27,11 +27,11 @@ export interface PopupProps {
   popupClassName?: string
   isOpen: boolean
   position: PopupPosition
-  children: ReactNode
+  children: React.ReactNode
   onClose?: () => void
 }
 
-export const Popup: FC<PopupProps> = ({
+export const Popup: React.FC<PopupProps> = ({
   className,
   popupClassName,
   isOpen,

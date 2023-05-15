@@ -1,6 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
-import { FC } from 'react'
 import { Period } from '../../../hooks/usePeriod.ts'
 import {
   formatMonth,
@@ -32,7 +31,7 @@ interface Props {
   onGoNext: () => void
 }
 
-export const PeriodSelector: FC<Props> = ({
+export const PeriodSelector: React.FC<Props> = ({
   fromDate,
   period,
   onChangePeriod,

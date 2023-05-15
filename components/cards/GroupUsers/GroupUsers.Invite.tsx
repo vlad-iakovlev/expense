@@ -1,5 +1,5 @@
 import { CheckIcon } from '@heroicons/react/24/solid'
-import { FC, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { createInvite } from '../../../api/client/invites.ts'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.ts'
@@ -14,7 +14,7 @@ interface Props {
   groupId: string
 }
 
-export const Invite: FC<Props> = ({ groupId }) => {
+export const Invite: React.FC<Props> = ({ groupId }) => {
   const isOnline = useIsOnline()
   const { group } = useGroup({ groupId })
   const [isLoading, setIsLoading] = useState(false)

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router.js'
-import { FC, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useOperations } from '../../../contexts/RootStore/hooks/useOperations.ts'
 import { useWallet } from '../../../contexts/RootStore/hooks/useWallet.ts'
@@ -10,7 +10,7 @@ interface Props {
   walletId: string
 }
 
-export const Delete: FC<Props> = ({ walletId }) => {
+export const Delete: React.FC<Props> = ({ walletId }) => {
   const router = useRouter()
   const { wallet, removeWallet } = useWallet({ walletId })
   const { operationIds } = useOperations({ walletId })

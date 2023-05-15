@@ -1,12 +1,11 @@
-import { FC, ReactNode } from 'react'
 import { CardBlock } from './CardBlock.tsx'
 
 export interface CardTitleProps {
-  title: ReactNode
-  actions?: ReactNode
+  title: React.ReactNode
+  actions?: React.ReactNode
 }
 
-export const CardTitle: FC<CardTitleProps> = ({ title, actions }) => (
+export const CardTitle: React.FC<CardTitleProps> = ({ title, actions }) => (
   <CardBlock>
     <h2 className="flex-auto min-w-0 text-xl leading-6 font-semibold text-zinc-900 truncate">
       {title}

@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { useMemo } from 'react'
 import { ROUTES } from '../../constants/routes.ts'
 import { useOperation } from '../../contexts/RootStore/hooks/useOperation.ts'
 import { OperationInfoCard } from '../cards/OperationInfo/OperationInfo.tsx'
@@ -11,7 +11,7 @@ interface Props {
   operationId: string
 }
 
-export const Operation: FC<Props> = ({ operationId }) => {
+export const Operation: React.FC<Props> = ({ operationId }) => {
   const { operation } = useOperation({ operationId })
 
   const parents = useMemo(() => {

@@ -1,15 +1,14 @@
-import { FC, ReactNode } from 'react'
 import { NextLink } from '../../next/Link.ts'
 
 export interface CardLinkProps {
   href: string
-  prefix?: ReactNode
-  suffix?: ReactNode
-  label?: ReactNode
-  value?: ReactNode
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
+  label?: React.ReactNode
+  value?: React.ReactNode
 }
 
-export const CardLink: FC<CardLinkProps> = ({
+export const CardLink: React.FC<CardLinkProps> = ({
   href,
   prefix,
   suffix,

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router.js'
-import { FC, useCallback } from 'react'
+import { useCallback } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useWallets } from '../../../contexts/RootStore/hooks/useWallets.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
@@ -8,7 +8,7 @@ interface Props {
   groupId: string
 }
 
-export const Add: FC<Props> = ({ groupId }) => {
+export const Add: React.FC<Props> = ({ groupId }) => {
   const router = useRouter()
   const { createWallet } = useWallets({ groupId })
 

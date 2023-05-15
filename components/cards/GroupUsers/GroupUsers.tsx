@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { useGroupUsers } from '../../../contexts/RootStore/hooks/useGroupUsers.ts'
 import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -10,7 +9,7 @@ interface Props {
   groupId: string
 }
 
-export const GroupUsersCard: FC<Props> = ({ className, groupId }) => {
+export const GroupUsersCard: React.FC<Props> = ({ className, groupId }) => {
   const { groupUsers } = useGroupUsers({ groupId })
 
   return (

@@ -1,5 +1,4 @@
 import assert from 'assert'
-import { Reducer, ReducerAction } from 'react'
 import { PerformSyncResponse } from '../../../api/server/sync/types.ts'
 import { uniqBy } from '../../../utils/uniqBy.ts'
 import {
@@ -13,7 +12,7 @@ import {
   mergeTransactions,
 } from '../utils.ts'
 
-const startSyncReducer: Reducer<
+const startSyncReducer: React.Reducer<
   RootStoreState,
   { type: StorageActionType.START_SYNC }
 > = (state) => {
@@ -28,7 +27,7 @@ const startSyncReducer: Reducer<
   }
 }
 
-const abortSyncReducer: Reducer<
+const abortSyncReducer: React.Reducer<
   RootStoreState,
   { type: StorageActionType.ABORT_SYNC }
 > = (state) => {
@@ -44,7 +43,7 @@ const abortSyncReducer: Reducer<
   }
 }
 
-const setStateFromRemoteStorageReducer: Reducer<
+const setStateFromRemoteStorageReducer: React.Reducer<
   RootStoreState,
   {
     type: StorageActionType.SET_STATE_FROM_REMOTE_STORAGE
@@ -144,7 +143,7 @@ const setStateFromRemoteStorageReducer: Reducer<
   }
 }
 
-const setStateFromBrowserStorageReducer: Reducer<
+const setStateFromBrowserStorageReducer: React.Reducer<
   RootStoreState,
   {
     type: StorageActionType.SET_STATE_FROM_BROWSER_STORAGE
@@ -177,17 +176,17 @@ const setStateFromBrowserStorageReducer: Reducer<
   }
 }
 
-const resetStateReducer: Reducer<
+const resetStateReducer: React.Reducer<
   RootStoreState,
   { type: StorageActionType.RESET_STATE }
 > = () => getEmptyState()
 
 export type StorageAction =
-  | ReducerAction<typeof startSyncReducer>
-  | ReducerAction<typeof abortSyncReducer>
-  | ReducerAction<typeof setStateFromRemoteStorageReducer>
-  | ReducerAction<typeof setStateFromBrowserStorageReducer>
-  | ReducerAction<typeof resetStateReducer>
+  | React.ReducerAction<typeof startSyncReducer>
+  | React.ReducerAction<typeof abortSyncReducer>
+  | React.ReducerAction<typeof setStateFromRemoteStorageReducer>
+  | React.ReducerAction<typeof setStateFromBrowserStorageReducer>
+  | React.ReducerAction<typeof resetStateReducer>
 
 export const isStorageAction = (action: {
   type: string
@@ -198,7 +197,7 @@ export const isStorageAction = (action: {
   )
 }
 
-export const storageReducer: Reducer<RootStoreState, StorageAction> = (
+export const storageReducer: React.Reducer<RootStoreState, StorageAction> = (
   state,
   action
 ) => {

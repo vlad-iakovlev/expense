@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Balance } from './WalletInfo.Balance.tsx'
 import { BalanceInDefaultCurrency } from './WalletInfo.BalanceInDefaultCurrency.tsx'
@@ -11,7 +10,7 @@ interface Props {
   walletId: string
 }
 
-export const WalletInfoCard: FC<Props> = ({ className, walletId }) => {
+export const WalletInfoCard: React.FC<Props> = ({ className, walletId }) => {
   return (
     <Card className={className}>
       <Card.Title title="Info" actions={<Delete walletId={walletId} />} />

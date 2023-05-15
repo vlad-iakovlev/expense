@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { useMemo } from 'react'
 import { ROUTES } from '../../constants/routes.ts'
 import { useGroup } from '../../contexts/RootStore/hooks/useGroup.ts'
 import { GroupInfoCard } from '../cards/GroupInfo/GroupInfo.tsx'
@@ -16,7 +16,7 @@ interface Props {
   groupId: string
 }
 
-export const Group: FC<Props> = ({ groupId }) => {
+export const Group: React.FC<Props> = ({ groupId }) => {
   const { group } = useGroup({ groupId })
 
   const parents = useMemo(() => {

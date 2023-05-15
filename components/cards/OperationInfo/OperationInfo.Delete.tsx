@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router.js'
-import { FC, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
@@ -9,7 +9,7 @@ interface Props {
   operationId: string
 }
 
-export const Delete: FC<Props> = ({ operationId }) => {
+export const Delete: React.FC<Props> = ({ operationId }) => {
   const router = useRouter()
   const { operation, removeOperation } = useOperation({ operationId })
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)

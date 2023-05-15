@@ -4,7 +4,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { FC, useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useGroupedWallets } from '../../../contexts/RootStore/hooks/useGroupedWallets.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -16,7 +16,7 @@ interface Props {
   groupId: string
 }
 
-export const WalletsListCard: FC<Props> = ({ className, groupId }) => {
+export const WalletsListCard: React.FC<Props> = ({ className, groupId }) => {
   const { groupedWallets, reorderWallets } = useGroupedWallets({ groupId })
 
   const currencyIds = useMemo(

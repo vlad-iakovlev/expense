@@ -1,9 +1,9 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
-import { FC, useCallback } from 'react'
+import { useCallback } from 'react'
 import { NextHead } from '../next/Head.ts'
 import { Card } from '../ui-kit/Card/Card.tsx'
 
-export const Fallback: FC = () => {
+export const Fallback: React.FC = () => {
   const handleRestart = useCallback(() => {
     window.location.href = '/'
   }, [])

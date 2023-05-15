@@ -1,11 +1,10 @@
-import { FC } from 'react'
 import { NextLink } from '../../next/Link.ts'
 
 interface Props {
   className?: string
 }
 
-export const HeaderLogo: FC<Props> = ({ className }) => {
+export const HeaderLogo: React.FC<Props> = ({ className }) => {
   return (
     <div className={className}>
       <NextLink

@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { useGroupBalance } from '../../../contexts/RootStore/hooks/useGroupBalance.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -7,7 +6,7 @@ interface Props {
   groupId: string
 }
 
-export const Balance: FC<Props> = ({ groupId }) => {
+export const Balance: React.FC<Props> = ({ groupId }) => {
   const { groupBalance } = useGroupBalance({ groupId })
 
   return (

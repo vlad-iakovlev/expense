@@ -1,5 +1,5 @@
 import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
-import { FC, useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
 import { useCategories } from '../../../contexts/RootStore/hooks/useCategories.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
@@ -10,7 +10,7 @@ interface Props {
   groupId: string
 }
 
-export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
+export const RenameCategoryCard: React.FC<Props> = ({ className, groupId }) => {
   const { resetCategoryFilter } = useCategoryFilter()
   const { categories, renameCategory } = useCategories({ groupId })
   const [oldName, setOldName] = useState('')

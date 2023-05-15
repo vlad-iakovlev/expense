@@ -1,5 +1,4 @@
 import { AnimatePresence, Variants, motion } from 'framer-motion'
-import { FC, ReactNode } from 'react'
 import { Portal } from '../Portal/Portal.tsx'
 
 const rootVariants: Variants = {
@@ -30,11 +29,15 @@ const dialogVariants: Variants = {
 
 export interface DialogProps {
   isOpen: boolean
-  children: ReactNode
+  children: React.ReactNode
   onClose: () => void
 }
 
-export const Dialog: FC<DialogProps> = ({ isOpen, children, onClose }) => {
+export const Dialog: React.FC<DialogProps> = ({
+  isOpen,
+  children,
+  onClose,
+}) => {
   return (
     <Portal>
       <AnimatePresence>

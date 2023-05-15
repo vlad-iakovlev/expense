@@ -1,20 +1,19 @@
-import { FC, MouseEvent, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface ButtonProps {
   className?: string
-  children?: ReactNode
+  children?: React.ReactNode
   disabled?: boolean
-  iconEnd?: ReactNode
-  iconStart?: ReactNode
+  iconEnd?: React.ReactNode
+  iconStart?: React.ReactNode
   rounded?: boolean
   size?: 'sm' | 'md' | 'lg'
   theme?: 'primary' | 'secondary' | 'error'
   type?: 'button' | 'submit' | 'reset'
-  onClick?: (event: MouseEvent) => void
+  onClick?: (event: React.MouseEvent) => void
 }
 
-export const Button: FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   className,
   children,
   disabled,

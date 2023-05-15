@@ -1,12 +1,12 @@
 import { useSession } from 'next-auth/react'
-import { Dispatch, useEffect } from 'react'
+import { useEffect } from 'react'
 import { StorageAction } from '../../reducers/storage.ts'
 import { RootStoreState, StorageActionType } from '../../types.tsx'
 import { getLocalStorageKey } from './constants.ts'
 
 export const useResetStateForUnauthenticated = (
   state: RootStoreState,
-  dispatch: Dispatch<StorageAction>
+  dispatch: React.Dispatch<StorageAction>
 ) => {
   const session = useSession()
 

@@ -1,7 +1,6 @@
-import { FC } from 'react'
 import { NextHead } from '../next/Head.ts'
 
-export const Loading: FC = () => {
+export const Loading: React.FC = () => {
   return (
     <NextHead>
       <title>Expense loading...</title>

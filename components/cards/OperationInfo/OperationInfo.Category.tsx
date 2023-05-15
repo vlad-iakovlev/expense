@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { FC, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useCategories } from '../../../contexts/RootStore/hooks/useCategories.ts'
 import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -8,7 +8,7 @@ interface Props {
   operationId: string
 }
 
-export const Category: FC<Props> = ({ operationId }) => {
+export const Category: React.FC<Props> = ({ operationId }) => {
   const { operation, setOperationCategory } = useOperation({ operationId })
 
   const groupId = useMemo(() => {

@@ -1,8 +1,8 @@
-import { Component, ErrorInfo, ReactNode } from 'react'
+import { Component } from 'react'
 
 interface Props {
-  children: ReactNode
-  fallback: ReactNode
+  children: React.ReactNode
+  fallback: React.ReactNode
 }
 
 interface State {
@@ -19,7 +19,7 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true }
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('Unhandled error:', error, errorInfo)
   }
 

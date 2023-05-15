@@ -1,4 +1,3 @@
-import { FC, ReactNode } from 'react'
 import { Popup, PopupPosition } from '../Popup/Popup.tsx'
 import { Scrollable } from '../Scrollable/Scrollable.tsx'
 
@@ -7,11 +6,11 @@ export interface CardPopupProps {
   popupClassName?: string
   isOpen: boolean
   position: PopupPosition
-  children: ReactNode
+  children: React.ReactNode
   onClose?: () => void
 }
 
-export const CardPopup: FC<CardPopupProps> = ({
+export const CardPopup: React.FC<CardPopupProps> = ({
   className,
   popupClassName,
   isOpen,

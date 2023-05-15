@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
 import { ClientOperationType } from '../../../types/client.ts'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
@@ -27,7 +26,7 @@ interface Props {
   operationId: string
 }
 
-export const Type: FC<Props> = ({ operationId }) => {
+export const Type: React.FC<Props> = ({ operationId }) => {
   const { operation, setOperationType } = useOperation({ operationId })
 
   return (

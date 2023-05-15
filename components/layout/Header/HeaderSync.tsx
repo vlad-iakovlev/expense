@@ -1,5 +1,4 @@
 import * as fns from 'date-fns'
-import { FC } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useSyncStatus } from '../../../contexts/RootStore/hooks/useSyncStatus.ts'
 
@@ -7,7 +6,7 @@ interface Props {
   className?: string
 }
 
-export const HeaderSync: FC<Props> = ({ className }) => {
+export const HeaderSync: React.FC<Props> = ({ className }) => {
   const { isSyncing, syncedAt } = useSyncStatus()
 
   if (!syncedAt) {

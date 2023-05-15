@@ -1,6 +1,5 @@
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import assert from 'assert'
-import { FC } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { PopulatedClientOperation } from '../../../types/client.ts'
 import { formatTime } from '../../../utils/formatDate.ts'
@@ -11,7 +10,7 @@ interface Props {
   walletId: string | undefined
 }
 
-export const TransferOperation: FC<Props> = ({ operation, walletId }) => {
+export const TransferOperation: React.FC<Props> = ({ operation, walletId }) => {
   assert(operation.incomeWallet, 'Income wallet is not defined')
   assert(operation.expenseWallet, 'Expense wallet is not defined')
 

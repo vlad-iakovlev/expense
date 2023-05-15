@@ -1,8 +1,7 @@
 import { produce } from 'immer'
-import { Reducer, ReducerAction } from 'react'
 import { CategoriesActionTypes, RootStoreState } from '../types.tsx'
 
-const renameCategoryReducer: Reducer<
+const renameCategoryReducer: React.Reducer<
   RootStoreState,
   {
     type: CategoriesActionTypes.RENAME_CATEGORY
@@ -22,7 +21,7 @@ const renameCategoryReducer: Reducer<
   })
 }
 
-export type CategoriesAction = ReducerAction<typeof renameCategoryReducer>
+export type CategoriesAction = React.ReducerAction<typeof renameCategoryReducer>
 
 export const isCategoriesAction = (action: {
   type: string
@@ -33,10 +32,10 @@ export const isCategoriesAction = (action: {
   )
 }
 
-export const categoriesReducer: Reducer<RootStoreState, CategoriesAction> = (
-  state,
-  action
-) => {
+export const categoriesReducer: React.Reducer<
+  RootStoreState,
+  CategoriesAction
+> = (state, action) => {
   switch (action.type) {
     case CategoriesActionTypes.RENAME_CATEGORY:
       return renameCategoryReducer(state, action)

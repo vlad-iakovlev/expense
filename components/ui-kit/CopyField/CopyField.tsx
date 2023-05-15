@@ -1,11 +1,11 @@
 import { CheckIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline'
-import { FC, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface CopyFieldProps {
   value: string
 }
 
-export const CopyField: FC<CopyFieldProps> = ({ value }) => {
+export const CopyField: React.FC<CopyFieldProps> = ({ value }) => {
   const [isCopied, setIsCopied] = useState(false)
 
   const handleCopy = useCallback(() => {

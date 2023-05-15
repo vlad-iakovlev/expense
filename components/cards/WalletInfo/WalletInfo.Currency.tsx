@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { useWallet } from '../../../contexts/RootStore/hooks/useWallet.ts'
 import { CurrencySelect } from '../../ui-kit/CurrencySelect/CurrencySelect.tsx'
 
@@ -6,7 +5,7 @@ interface Props {
   walletId: string
 }
 
-export const Currency: FC<Props> = ({ walletId }) => {
+export const Currency: React.FC<Props> = ({ walletId }) => {
   const { wallet, setWalletCurrency } = useWallet({ walletId })
 
   return (

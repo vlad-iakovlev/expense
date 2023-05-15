@@ -1,27 +1,18 @@
-import {
-  ChangeEvent,
-  FC,
-  FocusEvent,
-  KeyboardEvent,
-  ReactNode,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Card } from './Card.tsx'
 
 export interface CardInputProps {
   className?: string
-  prefix?: ReactNode
-  suffix?: ReactNode
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
   label: string
   suggestions?: string[]
   value: string
   onChange: (value: string) => void
 }
 
-export const CardInput: FC<CardInputProps> = ({
+export const CardInput: React.FC<CardInputProps> = ({
   className,
   prefix,
   suffix,
@@ -49,7 +40,7 @@ export const CardInput: FC<CardInputProps> = ({
   }, [isEditing, value])
 
   const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLInputElement>) => {
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
       switch (event.key) {
         case 'Enter':
           event.currentTarget.blur()
@@ -63,14 +54,20 @@ export const CardInput: FC<CardInputProps> = ({
     []
   )
 
-  const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value)
-    setSuggestionsFilter(event.target.value)
-  }, [])
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue(event.target.value)
+      setSuggestionsFilter(event.target.value)
+    },
+    []
+  )
 
-  const handleFocus = useCallback((event: FocusEvent<HTMLInputElement>) => {
-    event.currentTarget.select()
-  }, [])
+  const handleFocus = useCallback(
+    (event: React.FocusEvent<HTMLInputElement>) => {
+      event.currentTarget.select()
+    },
+    []
+  )
 
   const handleBlur = useCallback(() => {
     const formattedValue = inputValue.trim().replace(/\s+/g, ' ')

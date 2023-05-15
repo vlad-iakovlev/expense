@@ -1,6 +1,5 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { FC } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useWallet } from '../../../contexts/RootStore/hooks/useWallet.ts'
@@ -15,7 +14,7 @@ interface Props {
   walletId: string
 }
 
-export const Wallet: FC<Props> = ({
+export const Wallet: React.FC<Props> = ({
   canReorderWallets,
   isReordering,
   walletId,

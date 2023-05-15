@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router.js'
-import { FC, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.ts'
 import { useWallets } from '../../../contexts/RootStore/hooks/useWallets.ts'
@@ -10,7 +10,7 @@ interface Props {
   groupId: string
 }
 
-export const Delete: FC<Props> = ({ groupId }) => {
+export const Delete: React.FC<Props> = ({ groupId }) => {
   const router = useRouter()
   const { removeGroup } = useGroup({ groupId })
   const { walletIds } = useWallets({ groupId })

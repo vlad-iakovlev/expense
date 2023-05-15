@@ -1,4 +1,4 @@
-import { Dispatch, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { performSync } from '../../../../api/client/sync.ts'
 import { ERROR_TYPES } from '../../../../constants/errors.ts'
 import { useIsOnline } from '../../../../hooks/useIsOnline.ts'
@@ -11,7 +11,7 @@ import { getLocalStorageKey } from './constants.ts'
 
 export const useSyncStateWithServer = (
   state: RootStoreState,
-  dispatch: Dispatch<StorageAction>,
+  dispatch: React.Dispatch<StorageAction>,
   isStateLoaded: boolean
 ) => {
   const throwError = useThrowError()

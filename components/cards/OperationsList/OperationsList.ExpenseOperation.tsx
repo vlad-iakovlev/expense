@@ -1,5 +1,4 @@
 import assert from 'assert'
-import { FC } from 'react'
 import { PopulatedClientOperation } from '../../../types/client.ts'
 import { formatTime } from '../../../utils/formatDate.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
@@ -9,7 +8,7 @@ interface Props {
   walletId: string | undefined
 }
 
-export const ExpenseOperation: FC<Props> = ({ operation, walletId }) => {
+export const ExpenseOperation: React.FC<Props> = ({ operation, walletId }) => {
   assert(operation.expenseWallet, 'Expense wallet is not defined')
 
   return (

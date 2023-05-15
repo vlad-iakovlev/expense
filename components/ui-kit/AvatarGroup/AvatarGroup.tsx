@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Avatar, AvatarProps } from '../Avatar/Avatar.tsx'
 
@@ -9,7 +9,7 @@ export interface AvatarGroupProps {
   size?: 'sm' | 'md'
 }
 
-export const AvatarGroup: FC<AvatarGroupProps> = ({
+export const AvatarGroup: React.FC<AvatarGroupProps> = ({
   className,
   avatars,
   max,

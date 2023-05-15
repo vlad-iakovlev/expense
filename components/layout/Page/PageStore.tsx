@@ -1,12 +1,11 @@
-import { FC, ReactNode } from 'react'
 import { useRootStore } from '../../../contexts/RootStore/RootStore.tsx'
 import { Loading } from '../../pages/Loading.tsx'
 
 interface Props {
-  children: ReactNode
+  children: React.ReactNode
 }
 
-export const PageStore: FC<Props> = ({ children }) => {
+export const PageStore: React.FC<Props> = ({ children }) => {
   const { state } = useRootStore()
 
   return (

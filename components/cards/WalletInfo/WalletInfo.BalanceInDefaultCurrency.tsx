@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { useWallet } from '../../../contexts/RootStore/hooks/useWallet.ts'
 import { useWalletBalance } from '../../../contexts/RootStore/hooks/useWalletBalance.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
@@ -8,7 +7,7 @@ interface Props {
   walletId: string
 }
 
-export const BalanceInDefaultCurrency: FC<Props> = ({ walletId }) => {
+export const BalanceInDefaultCurrency: React.FC<Props> = ({ walletId }) => {
   const { wallet } = useWallet({ walletId })
   const { walletBalance } = useWalletBalance({ walletId })
 

@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Balance } from './GroupInfo.Balance.tsx'
 import { DefaultCurrency } from './GroupInfo.DefaultCurrency.tsx'
@@ -10,7 +9,7 @@ interface Props {
   groupId: string
 }
 
-export const GroupInfoCard: FC<Props> = ({ className, groupId }) => {
+export const GroupInfoCard: React.FC<Props> = ({ className, groupId }) => {
   return (
     <Card className={className}>
       <Card.Title title="Info" actions={<Delete groupId={groupId} />} />

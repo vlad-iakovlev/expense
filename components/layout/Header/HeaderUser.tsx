@@ -1,6 +1,6 @@
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { FC, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -9,7 +9,7 @@ interface Props {
   className?: string
 }
 
-export const HeaderUser: FC<Props> = ({ className }) => {
+export const HeaderUser: React.FC<Props> = ({ className }) => {
   const session = useSession()
 
   const [isOpen, setIsOpen] = useState(false)

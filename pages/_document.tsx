@@ -1,8 +1,7 @@
 import { DocumentProps, Head, Html, Main, NextScript } from 'next/document.js'
-import { FC } from 'react'
 import { ApplePWA } from '../components/misc/ApplePWA.tsx'
 
-export const MyDocument: FC<DocumentProps> = () => {
+export const MyDocument: React.FC<DocumentProps> = () => {
   return (
     <Html lang="en">
       <Head>

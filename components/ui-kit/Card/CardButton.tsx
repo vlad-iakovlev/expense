@@ -1,18 +1,17 @@
-import { FC, MouseEvent, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface CardButtonProps {
   className?: string
   disabled?: boolean
-  prefix?: ReactNode
-  suffix?: ReactNode
-  label?: ReactNode
-  value?: ReactNode
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void
-  onPointerDown?: (event: MouseEvent<HTMLButtonElement>) => void
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
+  label?: React.ReactNode
+  value?: React.ReactNode
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
+  onPointerDown?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const CardButton: FC<CardButtonProps> = ({
+export const CardButton: React.FC<CardButtonProps> = ({
   className,
   disabled,
   prefix,

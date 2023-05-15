@@ -1,5 +1,4 @@
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid'
-import { FC } from 'react'
 import { Button } from '../Button/Button.tsx'
 import { Card } from '../Card/Card.tsx'
 import { Dialog } from '../Dialog/Dialog.tsx'
@@ -13,7 +12,7 @@ export interface ConfirmDialogProps {
   onCancel: () => void
 }
 
-export const ConfirmDialog: FC<ConfirmDialogProps> = ({
+export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   isOpen,
   title,
   description,

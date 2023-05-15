@@ -1,4 +1,4 @@
-import { FC, ReactNode, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { GetSectorProps } from '../../../utils/client/getSector.ts'
 import { Sector } from './PieChart.Sector.tsx'
@@ -12,10 +12,10 @@ export interface PieChartItem {
 export interface PieChartProps {
   className?: string
   items: PieChartItem[]
-  renderTooltip: (itemId: string | null, total: number) => ReactNode
+  renderTooltip: (itemId: string | null, total: number) => React.ReactNode
 }
 
-export const PieChart: FC<PieChartProps> = ({
+export const PieChart: React.FC<PieChartProps> = ({
   className,
   items,
   renderTooltip,

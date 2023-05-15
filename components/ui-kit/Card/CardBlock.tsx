@@ -1,10 +1,10 @@
-import { CSSProperties, ReactNode, forwardRef } from 'react'
+import { forwardRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface CardBlockProps {
   className?: string
-  style?: CSSProperties
-  children?: ReactNode
+  style?: React.CSSProperties
+  children?: React.ReactNode
 }
 
 export const CardBlock = forwardRef<HTMLDivElement, CardBlockProps>(

@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { FC, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
 import { WalletSelect } from '../../ui-kit/WalletSelect/WalletSelect.tsx'
 
@@ -7,7 +7,7 @@ interface Props {
   operationId: string
 }
 
-export const ExpenseWallet: FC<Props> = ({ operationId }) => {
+export const ExpenseWallet: React.FC<Props> = ({ operationId }) => {
   const { operation, setOperationExpenseWallet } = useOperation({ operationId })
 
   const groupId = useMemo(() => {

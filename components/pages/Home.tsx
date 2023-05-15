@@ -9,13 +9,13 @@ import {
   UsersIcon,
 } from '@heroicons/react/24/outline'
 import { signIn } from 'next-auth/react'
-import { FC, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { NextHead } from '../next/Head.ts'
 import { Card } from '../ui-kit/Card/Card.tsx'
 import { Columns } from '../ui-kit/Columns/Columns.tsx'
 import { Title } from '../ui-kit/Title/Title.tsx'
 
-export const Home: FC = () => {
+export const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSignIn = useCallback(() => {

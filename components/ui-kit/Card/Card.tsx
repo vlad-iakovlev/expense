@@ -1,4 +1,3 @@
-import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { CardBlock } from './CardBlock.tsx'
 import { CardButton } from './CardButton.tsx'
@@ -16,7 +15,7 @@ import { CardTitle } from './CardTitle.tsx'
 export interface CardProps {
   className?: string
   clickable?: boolean
-  children?: ReactNode
+  children?: React.ReactNode
   onClick?: () => void
 }
 

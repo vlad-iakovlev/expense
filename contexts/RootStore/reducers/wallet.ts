@@ -1,9 +1,8 @@
 import { produce } from 'immer'
-import { Reducer, ReducerAction } from 'react'
 import { getDefaultCurrency } from '../getters/currencies.ts'
 import { RootStoreState, WalletsActionTypes } from '../types.tsx'
 
-const createWalletReducer: Reducer<
+const createWalletReducer: React.Reducer<
   RootStoreState,
   {
     type: WalletsActionTypes.CREATE_WALLET
@@ -27,7 +26,7 @@ const createWalletReducer: Reducer<
   })
 }
 
-const removeWalletReducer: Reducer<
+const removeWalletReducer: React.Reducer<
   RootStoreState,
   {
     type: WalletsActionTypes.REMOVE_WALLET
@@ -46,7 +45,7 @@ const removeWalletReducer: Reducer<
   })
 }
 
-const setWalletNameReducer: Reducer<
+const setWalletNameReducer: React.Reducer<
   RootStoreState,
   {
     type: WalletsActionTypes.SET_WALLET_NAME
@@ -66,7 +65,7 @@ const setWalletNameReducer: Reducer<
   })
 }
 
-const setWalletCurrencyReducer: Reducer<
+const setWalletCurrencyReducer: React.Reducer<
   RootStoreState,
   {
     type: WalletsActionTypes.SET_WALLET_CURRENCY
@@ -86,7 +85,7 @@ const setWalletCurrencyReducer: Reducer<
   })
 }
 
-const reorderWalletsReducer: Reducer<
+const reorderWalletsReducer: React.Reducer<
   RootStoreState,
   {
     type: WalletsActionTypes.REORDER_WALLETS
@@ -108,11 +107,11 @@ const reorderWalletsReducer: Reducer<
 }
 
 export type WalletsAction =
-  | ReducerAction<typeof createWalletReducer>
-  | ReducerAction<typeof removeWalletReducer>
-  | ReducerAction<typeof setWalletNameReducer>
-  | ReducerAction<typeof setWalletCurrencyReducer>
-  | ReducerAction<typeof reorderWalletsReducer>
+  | React.ReducerAction<typeof createWalletReducer>
+  | React.ReducerAction<typeof removeWalletReducer>
+  | React.ReducerAction<typeof setWalletNameReducer>
+  | React.ReducerAction<typeof setWalletCurrencyReducer>
+  | React.ReducerAction<typeof reorderWalletsReducer>
 
 export const isWalletsAction = (action: {
   type: string
@@ -123,7 +122,7 @@ export const isWalletsAction = (action: {
   )
 }
 
-export const walletsReducer: Reducer<RootStoreState, WalletsAction> = (
+export const walletsReducer: React.Reducer<RootStoreState, WalletsAction> = (
   state,
   action
 ) => {

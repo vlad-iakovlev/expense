@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Category } from './OperationInfo.Category.tsx'
 import { Date } from './OperationInfo.Date.tsx'
@@ -15,7 +14,10 @@ interface Props {
   operationId: string
 }
 
-export const OperationInfoCard: FC<Props> = ({ className, operationId }) => {
+export const OperationInfoCard: React.FC<Props> = ({
+  className,
+  operationId,
+}) => {
   return (
     <Card className={className}>
       <Card.Title title="Info" actions={<Delete operationId={operationId} />} />

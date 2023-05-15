@@ -1,12 +1,11 @@
-import { FC, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { useIsBrowser } from '../../../hooks/useIsBrowser.ts'
 
 export interface PortalProps {
-  children: ReactNode
+  children: React.ReactNode
 }
 
-export const Portal: FC<PortalProps> = ({ children }) => {
+export const Portal: React.FC<PortalProps> = ({ children }) => {
   const isBrowser = useIsBrowser()
 
   if (!isBrowser) {

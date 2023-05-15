@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
 import {
   ClientCurrency,
@@ -22,7 +21,7 @@ interface Props {
   setCategoryDisabled: (category: string, disabled: boolean) => void
 }
 
-export const Categories: FC<Props> = ({
+export const Categories: React.FC<Props> = ({
   currency,
   items,
   type,

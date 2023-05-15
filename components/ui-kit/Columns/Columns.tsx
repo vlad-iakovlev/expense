@@ -1,12 +1,11 @@
-import { FC, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface ColumnsProps {
   className?: string
-  children: ReactNode
+  children: React.ReactNode
 }
 
-export const Columns: FC<ColumnsProps> = ({ className, children }) => {
+export const Columns: React.FC<ColumnsProps> = ({ className, children }) => {
   return (
     <div
       className={twMerge(

@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useRootStore } from '../../../contexts/RootStore/RootStore.tsx'
 import { getPopulatedWallet } from '../../../contexts/RootStore/getters/wallets.ts'
 import { useGroupedWallets } from '../../../contexts/RootStore/hooks/useGroupedWallets.ts'
@@ -13,7 +13,7 @@ export interface WalletSelectProps {
   onChange: (walletId: string) => void
 }
 
-export const WalletSelect: FC<WalletSelectProps> = ({
+export const WalletSelect: React.FC<WalletSelectProps> = ({
   label,
   groupId,
   value,

@@ -1,26 +1,18 @@
-import {
-  ChangeEvent,
-  FC,
-  KeyboardEvent,
-  ReactNode,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import {
   formatDateForInput,
   formatDateTime,
 } from '../../../utils/formatDate.ts'
 
 export interface CardDateTimeProps {
-  prefix?: ReactNode
-  suffix?: ReactNode
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
   label: string
   value: Date
   onChange: (value: Date) => void
 }
 
-export const CardDateTime: FC<CardDateTimeProps> = ({
+export const CardDateTime: React.FC<CardDateTimeProps> = ({
   prefix,
   suffix,
   label,
@@ -38,7 +30,7 @@ export const CardDateTime: FC<CardDateTimeProps> = ({
   }, [dateForInput])
 
   const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLInputElement>) => {
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
       switch (event.key) {
         case 'Enter':
           event.currentTarget.blur()
@@ -52,9 +44,12 @@ export const CardDateTime: FC<CardDateTimeProps> = ({
     []
   )
 
-  const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value)
-  }, [])
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue(event.target.value)
+    },
+    []
+  )
 
   const handleBlur = useCallback(() => {
     if (inputValue && inputValue !== dateForInput) {

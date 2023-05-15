@@ -1,13 +1,15 @@
-import { FC, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { CardBlock } from './CardBlock.tsx'
 
 export interface CardFooterProps {
   fullWidth?: boolean
-  children?: ReactNode
+  children?: React.ReactNode
 }
 
-export const CardFooter: FC<CardFooterProps> = ({ fullWidth, children }) => {
+export const CardFooter: React.FC<CardFooterProps> = ({
+  fullWidth,
+  children,
+}) => {
   return (
     <CardBlock
       className={twMerge(

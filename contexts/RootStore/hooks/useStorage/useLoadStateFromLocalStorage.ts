@@ -1,4 +1,4 @@
-import { Dispatch, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { StorageAction } from '../../reducers/storage.ts'
 import { RootStoreState, StorageActionType } from '../../types.tsx'
 import { getLocalStorageKey } from './constants.ts'
@@ -6,7 +6,7 @@ import { useCanLoadState } from './useCanLoadState.ts'
 
 export const useLoadStateFromLocalStorage = (
   state: RootStoreState,
-  dispatch: Dispatch<StorageAction>
+  dispatch: React.Dispatch<StorageAction>
 ) => {
   const canLoadState = useCanLoadState()
   const [isStateLoaded, setIsStateLoaded] = useState(false)

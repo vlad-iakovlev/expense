@@ -6,7 +6,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { FC, useCallback } from 'react'
+import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ClientCurrency } from '../../../types/client.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -21,7 +21,7 @@ interface Props {
   onReorder: (currencyId: string, walletIds: string[]) => void
 }
 
-export const Group: FC<Props> = ({
+export const Group: React.FC<Props> = ({
   canReorderGroups,
   isReordering,
   currency,

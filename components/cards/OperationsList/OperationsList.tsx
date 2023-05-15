@@ -1,5 +1,5 @@
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
-import { FC, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
 import { useGroupedOperations } from '../../../contexts/RootStore/hooks/useGroupedOperations.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -15,7 +15,7 @@ interface Props {
 
 const PAGE_SIZE = 10
 
-export const OperationsListCard: FC<Props> = ({
+export const OperationsListCard: React.FC<Props> = ({
   className,
   groupId,
   walletId,
@@ -35,7 +35,7 @@ export const OperationsListCard: FC<Props> = ({
 
     let left = take
 
-    return groupedOperations.reduce<ReactNode[]>(
+    return groupedOperations.reduce<React.ReactNode[]>(
       (acc, { date, operationIds }) => {
         if (left <= 0) return acc
         operationIds = operationIds.slice(0, left)

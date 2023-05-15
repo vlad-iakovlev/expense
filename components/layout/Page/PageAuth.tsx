@@ -1,13 +1,12 @@
 import { useSession } from 'next-auth/react'
-import { FC, ReactNode } from 'react'
 import { Home } from '../../pages/Home.tsx'
 import { Loading } from '../../pages/Loading.tsx'
 
 interface Props {
-  children: ReactNode
+  children: React.ReactNode
 }
 
-export const PageAuth: FC<Props> = ({ children }) => {
+export const PageAuth: React.FC<Props> = ({ children }) => {
   const session = useSession()
 
   return (

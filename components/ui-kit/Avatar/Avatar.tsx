@@ -1,4 +1,3 @@
-import { FC, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { NextImage } from '../../next/Image.ts'
 
@@ -26,7 +25,7 @@ export interface AvatarProps {
   className?: string
   color?: string
   name?: string
-  slug?: ReactNode
+  slug?: React.ReactNode
   src?: string
   size?: 'sm' | 'md'
 }
@@ -41,7 +40,7 @@ const getColorByName = (name: string) => {
   return avatarColors[(slug.charCodeAt(0) || 0) % avatarColors.length]
 }
 
-export const Avatar: FC<AvatarProps> = ({
+export const Avatar: React.FC<AvatarProps> = ({
   className,
   name = 'Unknown',
   color = getColorByName(name),

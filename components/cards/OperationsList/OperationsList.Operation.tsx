@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -11,7 +10,7 @@ interface Props {
   walletId: string | undefined
 }
 
-export const Operation: FC<Props> = ({ operationId, walletId }) => {
+export const Operation: React.FC<Props> = ({ operationId, walletId }) => {
   const { operation } = useOperation({ operationId })
 
   return (

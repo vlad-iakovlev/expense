@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ClientCurrency } from '../../../types/client.ts'
 import { formatAmount } from '../../../utils/formatAmount.ts'
@@ -11,7 +11,7 @@ export interface AmountProps {
   showSign?: 'non-zero' | 'negative' | 'never'
 }
 
-export const Amount: FC<AmountProps> = ({
+export const Amount: React.FC<AmountProps> = ({
   className,
   amount,
   currency,

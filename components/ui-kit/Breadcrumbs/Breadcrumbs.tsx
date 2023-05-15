@@ -1,5 +1,5 @@
 import { ArrowUturnLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
-import { FC, Fragment } from 'react'
+import { Fragment } from 'react'
 import { NextLink } from '../../next/Link.ts'
 
 export interface BreadCrumbsParent {
@@ -12,7 +12,7 @@ export interface BreadcrumbsProps {
   mobileBack?: BreadCrumbsParent
 }
 
-export const Breadcrumbs: FC<BreadcrumbsProps> = ({
+export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   parents,
   mobileBack = parents?.at(-1),
 }) => {

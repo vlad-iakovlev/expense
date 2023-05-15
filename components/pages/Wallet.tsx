@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react'
+import { useMemo } from 'react'
 import { ROUTES } from '../../constants/routes.ts'
 import { useWallet } from '../../contexts/RootStore/hooks/useWallet.ts'
 import { OperationsListCard } from '../cards/OperationsList/OperationsList.tsx'
@@ -13,7 +13,7 @@ interface Props {
   walletId: string
 }
 
-export const Wallet: FC<Props> = ({ walletId }) => {
+export const Wallet: React.FC<Props> = ({ walletId }) => {
   const { wallet } = useWallet({ walletId })
 
   const walletName = `${wallet.name} ${wallet.currency.symbol}`

@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
 import { formatAmount } from '../../../utils/formatAmount.ts'
 import { parseAmount } from '../../../utils/parseAmount.ts'
@@ -8,7 +8,7 @@ interface Props {
   operationId: string
 }
 
-export const IncomeAmount: FC<Props> = ({ operationId }) => {
+export const IncomeAmount: React.FC<Props> = ({ operationId }) => {
   const { operation, setOperationIncomeAmount } = useOperation({ operationId })
 
   const handleChange = useCallback(

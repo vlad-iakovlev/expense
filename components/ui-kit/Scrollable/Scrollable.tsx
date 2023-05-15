@@ -1,5 +1,5 @@
 import { Variants, motion } from 'framer-motion'
-import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Thumb, Track, getThumb, getTrack } from './utils.ts'
 
@@ -29,10 +29,10 @@ export interface ScrollableProps {
   className?: string
   contentClassName?: string
   theme?: 'light' | 'dark'
-  children: ReactNode
+  children: React.ReactNode
 }
 
-export const Scrollable: FC<ScrollableProps> = ({
+export const Scrollable: React.FC<ScrollableProps> = ({
   className,
   contentClassName,
   theme = 'light',

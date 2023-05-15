@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { FC, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useCurrencies } from '../../../contexts/RootStore/hooks/useCurrencies.ts'
 import { ClientCurrency } from '../../../types/client.ts'
 import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
@@ -13,7 +13,7 @@ export interface CurrencySelectProps {
   onChange: (currencyId: string) => void
 }
 
-export const CurrencySelect: FC<CurrencySelectProps> = ({
+export const CurrencySelect: React.FC<CurrencySelectProps> = ({
   label,
   value,
   onChange,

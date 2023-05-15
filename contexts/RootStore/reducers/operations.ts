@@ -1,9 +1,8 @@
 import { produce } from 'immer'
-import { Reducer, ReducerAction } from 'react'
 import { ClientOperationType } from '../../../types/client.ts'
 import { OperationsActionTypes, RootStoreState } from '../types.tsx'
 
-const createOperationReducer: Reducer<
+const createOperationReducer: React.Reducer<
   RootStoreState,
   {
     type: OperationsActionTypes.CREATE_OPERATION
@@ -29,7 +28,7 @@ const createOperationReducer: Reducer<
   })
 }
 
-const removeOperationReducer: Reducer<
+const removeOperationReducer: React.Reducer<
   RootStoreState,
   {
     type: OperationsActionTypes.REMOVE_OPERATION
@@ -48,7 +47,7 @@ const removeOperationReducer: Reducer<
   })
 }
 
-const setOperationNameReducer: Reducer<
+const setOperationNameReducer: React.Reducer<
   RootStoreState,
   {
     type: OperationsActionTypes.SET_OPERATION_NAME
@@ -68,7 +67,7 @@ const setOperationNameReducer: Reducer<
   })
 }
 
-const setOperationCategoryReducer: Reducer<
+const setOperationCategoryReducer: React.Reducer<
   RootStoreState,
   {
     type: OperationsActionTypes.SET_OPERATION_CATEGORY
@@ -88,7 +87,7 @@ const setOperationCategoryReducer: Reducer<
   })
 }
 
-const setOperationDateReducer: Reducer<
+const setOperationDateReducer: React.Reducer<
   RootStoreState,
   {
     type: OperationsActionTypes.SET_OPERATION_DATE
@@ -108,7 +107,7 @@ const setOperationDateReducer: Reducer<
   })
 }
 
-const setOperationTypeReducer: Reducer<
+const setOperationTypeReducer: React.Reducer<
   RootStoreState,
   {
     type: OperationsActionTypes.SET_OPERATION_TYPE
@@ -154,7 +153,7 @@ const setOperationTypeReducer: Reducer<
   })
 }
 
-const setOperationIncomeAmountReducer: Reducer<
+const setOperationIncomeAmountReducer: React.Reducer<
   RootStoreState,
   {
     type: OperationsActionTypes.SET_OPERATION_INCOME_AMOUNT
@@ -174,7 +173,7 @@ const setOperationIncomeAmountReducer: Reducer<
   })
 }
 
-const setOperationExpenseAmountReducer: Reducer<
+const setOperationExpenseAmountReducer: React.Reducer<
   RootStoreState,
   {
     type: OperationsActionTypes.SET_OPERATION_EXPENSE_AMOUNT
@@ -194,7 +193,7 @@ const setOperationExpenseAmountReducer: Reducer<
   })
 }
 
-const setOperationIncomeWalletReducer: Reducer<
+const setOperationIncomeWalletReducer: React.Reducer<
   RootStoreState,
   {
     type: OperationsActionTypes.SET_OPERATION_INCOME_WALLET
@@ -214,7 +213,7 @@ const setOperationIncomeWalletReducer: Reducer<
   })
 }
 
-const setOperationExpenseWalletReducer: Reducer<
+const setOperationExpenseWalletReducer: React.Reducer<
   RootStoreState,
   {
     type: OperationsActionTypes.SET_OPERATION_EXPENSE_WALLET
@@ -235,16 +234,16 @@ const setOperationExpenseWalletReducer: Reducer<
 }
 
 export type OperationsAction =
-  | ReducerAction<typeof createOperationReducer>
-  | ReducerAction<typeof removeOperationReducer>
-  | ReducerAction<typeof setOperationNameReducer>
-  | ReducerAction<typeof setOperationCategoryReducer>
-  | ReducerAction<typeof setOperationDateReducer>
-  | ReducerAction<typeof setOperationTypeReducer>
-  | ReducerAction<typeof setOperationIncomeAmountReducer>
-  | ReducerAction<typeof setOperationExpenseAmountReducer>
-  | ReducerAction<typeof setOperationIncomeWalletReducer>
-  | ReducerAction<typeof setOperationExpenseWalletReducer>
+  | React.ReducerAction<typeof createOperationReducer>
+  | React.ReducerAction<typeof removeOperationReducer>
+  | React.ReducerAction<typeof setOperationNameReducer>
+  | React.ReducerAction<typeof setOperationCategoryReducer>
+  | React.ReducerAction<typeof setOperationDateReducer>
+  | React.ReducerAction<typeof setOperationTypeReducer>
+  | React.ReducerAction<typeof setOperationIncomeAmountReducer>
+  | React.ReducerAction<typeof setOperationExpenseAmountReducer>
+  | React.ReducerAction<typeof setOperationIncomeWalletReducer>
+  | React.ReducerAction<typeof setOperationExpenseWalletReducer>
 
 export const isOperationsAction = (action: {
   type: string
@@ -255,10 +254,10 @@ export const isOperationsAction = (action: {
   )
 }
 
-export const operationsReducer: Reducer<RootStoreState, OperationsAction> = (
-  state,
-  action
-) => {
+export const operationsReducer: React.Reducer<
+  RootStoreState,
+  OperationsAction
+> = (state, action) => {
   switch (action.type) {
     case OperationsActionTypes.CREATE_OPERATION:
       return createOperationReducer(state, action)

@@ -1,11 +1,11 @@
-import { Fragment, ReactElement, ReactNode, useCallback, useState } from 'react'
+import { Fragment, useCallback, useState } from 'react'
 import { Card } from './Card.tsx'
 
 export interface CardSelectOption<Id extends string = string> {
   type?: 'option'
   id: Id
-  label: ReactNode
-  suffix?: ReactNode
+  label: React.ReactNode
+  suffix?: React.ReactNode
 }
 
 export interface CardSelectDivider<Id extends string = string> {
@@ -18,8 +18,8 @@ export type CardSelectItem<Id extends string = string> =
   | CardSelectDivider<Id>
 
 export interface CardSelectProps<Id extends string = string> {
-  prefix?: ReactNode
-  suffix?: ReactNode
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
   label: string
   options: CardSelectItem<Id>[]
   value: CardSelectOption<Id>
@@ -33,7 +33,7 @@ export function CardSelect<Id extends string = string>({
   options,
   value,
   onChange,
-}: CardSelectProps<Id>): ReactElement | null {
+}: CardSelectProps<Id>): React.ReactElement | null {
   const [isOpen, setIsOpen] = useState(false)
   const handleOpen = useCallback(() => setIsOpen(true), [])
   const handleClose = useCallback(() => setIsOpen(false), [])

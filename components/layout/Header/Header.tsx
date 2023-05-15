@@ -1,10 +1,9 @@
-import { FC } from 'react'
 import { Container } from '../../ui-kit/Container/Container.tsx'
 import { HeaderLogo } from './HeaderLogo.tsx'
 import { HeaderSync } from './HeaderSync.tsx'
 import { HeaderUser } from './HeaderUser.tsx'
 
-export const Header: FC = () => {
+export const Header: React.FC = () => {
   return (
     <header className="fixed z-10 top-0 w-full pt-[env(safe-area-inset-top)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] bg-green-600">
       <Container className="flex items-center h-[4.5rem]">

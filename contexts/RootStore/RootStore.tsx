@@ -1,13 +1,5 @@
 import assert from 'assert'
-import {
-  Dispatch,
-  FC,
-  ReactNode,
-  Reducer,
-  createContext,
-  useContext,
-  useReducer,
-} from 'react'
+import { createContext, useContext, useReducer } from 'react'
 import { useStorage } from './hooks/useStorage/useStorage.ts'
 import {
   CategoriesAction,
@@ -46,10 +38,10 @@ type Action =
 
 interface ContextValue {
   state: RootStoreState
-  dispatch: Dispatch<Action>
+  dispatch: React.Dispatch<Action>
 }
 
-const reducer: Reducer<RootStoreState, Action> = (state, action) => {
+const reducer: React.Reducer<RootStoreState, Action> = (state, action) => {
   if (isStorageAction(action)) return storageReducer(state, action)
   if (isGroupsAction(action)) return groupsReducer(state, action)
   if (isWalletsAction(action)) return walletsReducer(state, action)
@@ -64,10 +56,10 @@ export const RootStoreContext = createContext<ContextValue | undefined>(
 RootStoreContext.displayName = 'RootStoreContext'
 
 interface ProviderProps {
-  children: ReactNode
+  children: React.ReactNode
 }
 
-export const RootStoreProvider: FC<ProviderProps> = ({ children }) => {
+export const RootStoreProvider: React.FC<ProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, getEmptyState())
 
   useStorage(state, dispatch)

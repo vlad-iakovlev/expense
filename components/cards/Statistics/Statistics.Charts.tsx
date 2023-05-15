@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import {
   ClientCurrency,
   ClientStatisticsItem,
@@ -25,7 +25,7 @@ interface Props {
   type: ClientStatisticsType
 }
 
-export const Charts: FC<Props> = ({ currency, items, type }) => {
+export const Charts: React.FC<Props> = ({ currency, items, type }) => {
   const chartItems = useMemo<PieChartItem[]>(() => {
     return items.map((item) => ({
       id: item.category,

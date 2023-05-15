@@ -1,13 +1,13 @@
-import { CSSProperties, ReactNode, forwardRef } from 'react'
+import { forwardRef } from 'react'
 import { CardBlock } from './CardBlock.tsx'
 
 export interface CardTextProps {
   className?: string
-  style?: CSSProperties
-  prefix?: ReactNode
-  suffix?: ReactNode
-  label?: ReactNode
-  value?: ReactNode
+  style?: React.CSSProperties
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
+  label?: React.ReactNode
+  value?: React.ReactNode
 }
 
 export const CardText = forwardRef<HTMLDivElement, CardTextProps>(

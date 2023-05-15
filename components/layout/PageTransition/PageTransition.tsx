@@ -1,13 +1,13 @@
 import { HTMLMotionProps, Variants, motion } from 'framer-motion'
 import { useRouter } from 'next/router.js'
-import { ReactNode, forwardRef, useEffect, useMemo, useState } from 'react'
+import { forwardRef, useEffect, useMemo, useState } from 'react'
 import { Modify } from '../../../types/utility.ts'
 
 const transition = { ease: 'easeInOut', duration: 0.3 }
 
 export const PageTransition = forwardRef<
   HTMLDivElement,
-  Modify<HTMLMotionProps<'div'>, { children: ReactNode }>
+  Modify<HTMLMotionProps<'div'>, { children: React.ReactNode }>
 >(function PageTransition({ children, ...rest }, ref) {
   const router = useRouter()
   const [asPath] = useState(router.asPath)

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router.js'
-import { FC, useCallback } from 'react'
+import { useCallback } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.ts'
 import { useGroupBalance } from '../../../contexts/RootStore/hooks/useGroupBalance.ts'
@@ -12,7 +12,7 @@ interface Props {
   groupId: string
 }
 
-export const GroupOpenCard: FC<Props> = ({ groupId }) => {
+export const GroupOpenCard: React.FC<Props> = ({ groupId }) => {
   const router = useRouter()
   const { group } = useGroup({ groupId })
   const { groupBalance } = useGroupBalance({ groupId })

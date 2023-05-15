@@ -2,7 +2,7 @@ import { XMarkIcon } from '@heroicons/react/20/solid'
 import assert from 'assert'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router.js'
-import { FC, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
@@ -13,7 +13,7 @@ interface Props {
   userId: string
 }
 
-export const Delete: FC<Props> = ({ groupId, userId }) => {
+export const Delete: React.FC<Props> = ({ groupId, userId }) => {
   const session = useSession()
   const router = useRouter()
   const { group, removeUserFromGroup, leaveGroup } = useGroup({ groupId })

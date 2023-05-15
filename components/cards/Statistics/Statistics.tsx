@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { useOperations } from '../../../contexts/RootStore/hooks/useOperations.ts'
 import { useStatistics } from '../../../contexts/RootStore/hooks/useStatistics.ts'
 import { usePeriod } from '../../../hooks/usePeriod.ts'
@@ -16,7 +16,11 @@ interface Props {
   walletId?: string
 }
 
-export const StatisticsCard: FC<Props> = ({ className, groupId, walletId }) => {
+export const StatisticsCard: React.FC<Props> = ({
+  className,
+  groupId,
+  walletId,
+}) => {
   const { operationIds } = useOperations({ groupId, walletId })
 
   const [type, setType] = useState(ClientStatisticsType.EXPENSES)

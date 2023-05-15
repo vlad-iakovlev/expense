@@ -4,7 +4,7 @@ import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app.js'
 import { useRouter } from 'next/router.js'
-import { FC, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Header } from '../components/layout/Header/Header.tsx'
 import { PageTransition } from '../components/layout/PageTransition/PageTransition.tsx'
 import { ErrorBoundary } from '../components/misc/ErrorBoundary.tsx'
@@ -13,7 +13,7 @@ import { Fallback } from '../components/pages/Fallback.tsx'
 import { RootStoreProvider } from '../contexts/RootStore/RootStore.tsx'
 import '../styles/globals.css'
 
-const App: FC<AppProps<{ session: Session | null }>> = ({
+const App: React.FC<AppProps<{ session: Session | null }>> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {

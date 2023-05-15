@@ -1,5 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import { FC, MouseEvent, useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
 import { useCategories } from '../../../contexts/RootStore/hooks/useCategories.ts'
 import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
@@ -9,7 +9,7 @@ interface Props {
   walletId: string | undefined
 }
 
-export const CategoryFilter: FC<Props> = ({ groupId, walletId }) => {
+export const CategoryFilter: React.FC<Props> = ({ groupId, walletId }) => {
   const { categoryFilter, setCategoryFilter, resetCategoryFilter } =
     useCategoryFilter()
   const { categories } = useCategories({ groupId, walletId })
@@ -29,7 +29,7 @@ export const CategoryFilter: FC<Props> = ({ groupId, walletId }) => {
   }, [categoryFilter])
 
   const handleReset = useCallback(
-    (event: MouseEvent) => {
+    (event: React.MouseEvent) => {
       event.stopPropagation()
       resetCategoryFilter()
     },

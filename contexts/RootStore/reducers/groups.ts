@@ -1,10 +1,9 @@
 import { produce } from 'immer'
-import { Reducer, ReducerAction } from 'react'
 import { ClientUser } from '../../../types/client.ts'
 import { getDefaultCurrency } from '../getters/currencies.ts'
 import { GroupsActionTypes, RootStoreState } from '../types.tsx'
 
-const createGroupReducer: Reducer<
+const createGroupReducer: React.Reducer<
   RootStoreState,
   {
     type: GroupsActionTypes.CREATE_GROUP
@@ -25,7 +24,7 @@ const createGroupReducer: Reducer<
   })
 }
 
-const removeGroupReducer: Reducer<
+const removeGroupReducer: React.Reducer<
   RootStoreState,
   {
     type: GroupsActionTypes.REMOVE_GROUP
@@ -44,7 +43,7 @@ const removeGroupReducer: Reducer<
   })
 }
 
-const removeUserFromGroupReducer: Reducer<
+const removeUserFromGroupReducer: React.Reducer<
   RootStoreState,
   {
     type: GroupsActionTypes.REMOVE_USER_FROM_GROUP
@@ -64,7 +63,7 @@ const removeUserFromGroupReducer: Reducer<
   })
 }
 
-const leaveGroupReducer: Reducer<
+const leaveGroupReducer: React.Reducer<
   RootStoreState,
   {
     type: GroupsActionTypes.LEAVE_GROUP
@@ -90,7 +89,7 @@ const leaveGroupReducer: Reducer<
   })
 }
 
-const setGroupNameReducer: Reducer<
+const setGroupNameReducer: React.Reducer<
   RootStoreState,
   {
     type: GroupsActionTypes.SET_GROUP_NAME
@@ -110,7 +109,7 @@ const setGroupNameReducer: Reducer<
   })
 }
 
-const setGroupDefaultCurrencyReducer: Reducer<
+const setGroupDefaultCurrencyReducer: React.Reducer<
   RootStoreState,
   {
     type: GroupsActionTypes.SET_GROUP_DEFAULT_CURRENCY
@@ -131,12 +130,12 @@ const setGroupDefaultCurrencyReducer: Reducer<
 }
 
 export type GroupsAction =
-  | ReducerAction<typeof createGroupReducer>
-  | ReducerAction<typeof removeGroupReducer>
-  | ReducerAction<typeof removeUserFromGroupReducer>
-  | ReducerAction<typeof leaveGroupReducer>
-  | ReducerAction<typeof setGroupNameReducer>
-  | ReducerAction<typeof setGroupDefaultCurrencyReducer>
+  | React.ReducerAction<typeof createGroupReducer>
+  | React.ReducerAction<typeof removeGroupReducer>
+  | React.ReducerAction<typeof removeUserFromGroupReducer>
+  | React.ReducerAction<typeof leaveGroupReducer>
+  | React.ReducerAction<typeof setGroupNameReducer>
+  | React.ReducerAction<typeof setGroupDefaultCurrencyReducer>
 
 export const isGroupsAction = (action: {
   type: string
@@ -147,7 +146,7 @@ export const isGroupsAction = (action: {
   )
 }
 
-export const groupsReducer: Reducer<RootStoreState, GroupsAction> = (
+export const groupsReducer: React.Reducer<RootStoreState, GroupsAction> = (
   state,
   action
 ) => {

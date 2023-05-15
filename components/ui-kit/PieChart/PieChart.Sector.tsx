@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { GetSectorProps, getSector } from '../../../utils/client/getSector.ts'
 
 const DURATION = 200
@@ -10,7 +10,7 @@ interface Props {
   onPointerLeave: () => void
 }
 
-export const Sector: FC<Props> = ({
+export const Sector: React.FC<Props> = ({
   sectorProps,
   color,
   onPointerEnter,
