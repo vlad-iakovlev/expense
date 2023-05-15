@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react'
+import { FC, MouseEvent, useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface SwitchProps {
@@ -14,9 +14,13 @@ export const Switch: FC<SwitchProps> = ({
   value,
   onChange,
 }) => {
-  const handleClick = useCallback(() => {
-    onChange(!value)
-  }, [onChange, value])
+  const handleClick = useCallback(
+    (event: MouseEvent) => {
+      event.stopPropagation()
+      onChange(!value)
+    },
+    [onChange, value]
+  )
 
   return (
     <div
