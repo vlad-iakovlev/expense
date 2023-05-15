@@ -6,7 +6,6 @@ import {
   ReactNode,
   useCallback,
   useMemo,
-  useRef,
   useState,
 } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -31,7 +30,6 @@ export const CardInput: FC<CardInputProps> = ({
   value,
   onChange,
 }) => {
-  const rootRef = useRef<HTMLDivElement>(null)
   const [isEditing, setIsEditing] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [suggestionsFilter, setSuggestionsFilter] = useState<string>('')
@@ -100,7 +98,6 @@ export const CardInput: FC<CardInputProps> = ({
   return (
     <>
       <div
-        ref={rootRef}
         className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors"
         onClick={handleClick}
       >
@@ -128,9 +125,7 @@ export const CardInput: FC<CardInputProps> = ({
       </div>
 
       <Card.Popup
-        anchorRef={rootRef}
-        className="-mt-2 pl-4 sm:pl-6 pb-8"
-        fullMaxWidth
+        popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
         isOpen={isEditing && !!filteredSuggestions.length}
         position="below-right"
       >

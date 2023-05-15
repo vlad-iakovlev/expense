@@ -1,12 +1,10 @@
-import { FC, ReactNode, RefObject } from 'react'
+import { FC, ReactNode } from 'react'
 import { Popup, PopupPosition } from '../Popup/Popup.tsx'
 import { Scrollable } from '../Scrollable/Scrollable.tsx'
 
 export interface CardPopupProps {
-  anchorRef: RefObject<HTMLElement>
   className?: string
-  fullMaxWidth?: boolean
-  fullWidth?: boolean
+  popupClassName?: string
   isOpen: boolean
   position: PopupPosition
   children: ReactNode
@@ -14,10 +12,8 @@ export interface CardPopupProps {
 }
 
 export const CardPopup: FC<CardPopupProps> = ({
-  anchorRef,
   className,
-  fullMaxWidth,
-  fullWidth,
+  popupClassName,
   isOpen,
   position,
   children,
@@ -25,10 +21,8 @@ export const CardPopup: FC<CardPopupProps> = ({
 }) => {
   return (
     <Popup
-      anchorRef={anchorRef}
       className={className}
-      fullMaxWidth={fullMaxWidth}
-      fullWidth={fullWidth}
+      popupClassName={popupClassName}
       isOpen={isOpen}
       position={position}
       onClose={onClose}

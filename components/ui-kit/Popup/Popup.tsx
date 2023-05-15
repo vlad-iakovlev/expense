@@ -1,15 +1,6 @@
-import { AnimatePresence, MotionStyle, Variants, motion } from 'framer-motion'
-import {
-  CSSProperties,
-  FC,
-  ReactNode,
-  RefObject,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { FC, ReactNode, useEffect, useRef } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Portal } from '../Portal/Portal.tsx'
 
 const variants: Variants = {
   opened: {
@@ -32,10 +23,8 @@ export type PopupPosition =
   | 'below-right'
 
 export interface PopupProps {
-  anchorRef: RefObject<HTMLElement>
   className?: string
-  fullMaxWidth?: boolean
-  fullWidth?: boolean
+  popupClassName?: string
   isOpen: boolean
   position: PopupPosition
   children: ReactNode
@@ -43,84 +32,55 @@ export interface PopupProps {
 }
 
 export const Popup: FC<PopupProps> = ({
-  anchorRef,
   className,
-  fullMaxWidth,
-  fullWidth,
+  popupClassName,
   isOpen,
   position,
   children,
   onClose,
 }) => {
-  const [anchorRect, setAnchorRect] = useState<DOMRect>()
-
-  const isAbove = position === 'above-left' || position === 'above-right'
-  const isRight = position === 'above-right' || position === 'below-right'
-
-  const popupStyle = useMemo<CSSProperties>(() => {
-    if (!anchorRect) return {}
-
-    const translateX = isRight
-      ? `calc(${anchorRect.right}px - 100%)`
-      : `${anchorRect.left}px`
-
-    const translateY = isAbove
-      ? `calc(${anchorRect.top}px - 100%)`
-      : `${anchorRect.bottom}px`
-
-    return {
-      transform: `translate(${translateX}, ${translateY})`,
-      ...(fullMaxWidth && { maxWidth: anchorRect.width }),
-      ...(fullWidth && { width: anchorRect.width }),
-    }
-  }, [anchorRect, fullMaxWidth, fullWidth, isAbove, isRight])
-
-  const rootStyle = useMemo<MotionStyle>(() => {
-    if (!anchorRect) return {}
-
-    return {
-      originX: `${isRight ? anchorRect.right : anchorRect.left}px`,
-      originY: `${isAbove ? anchorRect.top : anchorRect.bottom}px`,
-    }
-  }, [anchorRect, isAbove, isRight])
+  const popupRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (isOpen) {
-      const updateRects = () => {
-        setAnchorRect(anchorRef.current?.getBoundingClientRect())
-      }
+    if (!isOpen || !onClose) return
 
-      updateRects()
-      window.addEventListener('resize', updateRects, { passive: true })
-      window.addEventListener('scroll', updateRects, { passive: true })
-
-      return () => {
-        window.removeEventListener('resize', updateRects)
-        window.removeEventListener('scroll', updateRects)
+    const handleClick = (event: MouseEvent) => {
+      if (!popupRef.current?.contains(event.target as Node)) {
+        event.stopPropagation()
+        onClose()
       }
     }
-  }, [anchorRef, isOpen])
+
+    document.addEventListener('click', handleClick, { capture: true })
+
+    return () => {
+      document.removeEventListener('click', handleClick, { capture: true })
+    }
+  }, [isOpen, onClose])
 
   return (
-    <Portal>
+    <div className={twMerge('relative z-10', className)}>
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed z-20 inset-0"
+            ref={popupRef}
+            className={twMerge(
+              'absolute',
+              position === 'above-left' && 'bottom-0 left-0',
+              position === 'above-right' && 'bottom-0 right-0',
+              position === 'below-left' && 'top-0 left-0',
+              position === 'below-right' && 'top-0 right-0',
+              popupClassName
+            )}
             initial="closed"
             animate="opened"
             exit="closed"
             variants={variants}
-            style={rootStyle}
           >
-            <div className="absolute inset-0" onClick={onClose} />
-
-            <div className={twMerge('relative', className)} style={popupStyle}>
-              {children}
-            </div>
+            {children}
           </motion.div>
         )}
       </AnimatePresence>
-    </Portal>
+    </div>
   )
 }

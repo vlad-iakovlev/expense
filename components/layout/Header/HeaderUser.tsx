@@ -1,6 +1,6 @@
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { FC, useCallback, useRef, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -12,7 +12,6 @@ interface Props {
 export const HeaderUser: FC<Props> = ({ className }) => {
   const session = useSession()
 
-  const profileButtonRef = useRef<HTMLButtonElement>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -58,7 +57,6 @@ export const HeaderUser: FC<Props> = ({ className }) => {
       {session.status === 'authenticated' && (
         <>
           <button
-            ref={profileButtonRef}
             className="block rounded-full"
             type="button"
             onClick={handleProfileClick}
@@ -70,9 +68,8 @@ export const HeaderUser: FC<Props> = ({ className }) => {
           </button>
 
           <Card.Popup
-            className="mt-2 w-72"
+            popupClassName="w-72 mt-2"
             isOpen={isOpen}
-            anchorRef={profileButtonRef}
             position="below-right"
             onClose={handlePopupClose}
           >

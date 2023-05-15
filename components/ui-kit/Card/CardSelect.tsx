@@ -1,11 +1,4 @@
-import {
-  Fragment,
-  ReactElement,
-  ReactNode,
-  useCallback,
-  useRef,
-  useState,
-} from 'react'
+import { Fragment, ReactElement, ReactNode, useCallback, useState } from 'react'
 import { Card } from './Card.tsx'
 
 export interface CardSelectOption<Id extends string = string> {
@@ -41,10 +34,9 @@ export function CardSelect<Id extends string = string>({
   value,
   onChange,
 }: CardSelectProps<Id>): ReactElement | null {
-  const rootRef = useRef<HTMLButtonElement>(null)
   const [isOpen, setIsOpen] = useState(false)
-  const show = useCallback(() => setIsOpen(true), [])
-  const hide = useCallback(() => setIsOpen(false), [])
+  const handleOpen = useCallback(() => setIsOpen(true), [])
+  const handleClose = useCallback(() => setIsOpen(false), [])
 
   const handleChange = useCallback(
     (id: Id) => {
@@ -62,9 +54,8 @@ export function CardSelect<Id extends string = string>({
   return (
     <>
       <button
-        ref={rootRef}
         className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors"
-        onClick={show}
+        onClick={handleOpen}
       >
         {prefix ? <div className="flex-none">{prefix}</div> : null}
         <div className="flex-none">{label}</div>
@@ -75,12 +66,10 @@ export function CardSelect<Id extends string = string>({
       </button>
 
       <Card.Popup
-        anchorRef={rootRef}
-        className="-mt-2 pl-4 sm:pl-6 pb-8"
-        fullMaxWidth
+        popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
         isOpen={isOpen}
         position="below-right"
-        onClose={hide}
+        onClose={handleClose}
       >
         {options.map((option) => (
           <Fragment key={option.id}>
