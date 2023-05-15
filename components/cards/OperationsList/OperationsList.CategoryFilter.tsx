@@ -1,4 +1,4 @@
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon } from '@heroicons/react/20/solid'
 import { FC, MouseEvent, useCallback, useEffect, useMemo } from 'react'
 import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
 import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
@@ -61,12 +61,12 @@ export const CategoryFilter: FC<Props> = ({
         suffix={
           !!value && (
             <div
-              className="flex-none flex items-center justify-center h-12 w-12 -m-3 touch-none"
+              className="flex-none flex items-center justify-center h-8 w-8 -mx-1 rounded-full bg-zinc-200 shadow-sm hover:bg-zinc-600 hover:text-white transition-colors"
               tabIndex={0}
               role="button"
               onClick={handleReset}
             >
-              <XMarkIcon className="w-6 h-6" />
+              <XMarkIcon className="w-4 h-4" />
             </div>
           )
         }
