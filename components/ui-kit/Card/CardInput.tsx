@@ -99,7 +99,10 @@ export const CardInput: React.FC<CardInputProps> = ({
   return (
     <>
       <div
-        className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors"
+        className={twMerge(
+          'flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors',
+          isEditing && 'pointer-events-auto'
+        )}
         onClick={handleClick}
       >
         {prefix ? <div className="flex-none">{prefix}</div> : null}

@@ -44,11 +44,11 @@ export const Popup: React.FC<PopupProps> = ({
   const popupRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!isOpen || !onClose) return
+    if (!isOpen) return
 
     const handleClick = (event: MouseEvent) => {
       if (!popupRef.current?.contains(event.target as Node)) {
-        onClose()
+        onClose?.()
       }
     }
 
@@ -68,7 +68,7 @@ export const Popup: React.FC<PopupProps> = ({
           <motion.div
             ref={popupRef}
             className={twMerge(
-              'absolute [pointer-events:all]',
+              'absolute pointer-events-auto',
               position === 'above-left' && 'bottom-0 left-0',
               position === 'above-right' && 'bottom-0 right-0',
               position === 'below-left' && 'top-0 left-0',
