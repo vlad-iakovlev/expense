@@ -4,6 +4,7 @@ import {
   FC,
   FocusEvent,
   KeyboardEvent,
+  ReactNode,
   useCallback,
   useMemo,
   useRef,
@@ -13,6 +14,8 @@ import { Card } from './Card.tsx'
 
 export interface CardInputProps {
   className?: string
+  prefix?: ReactNode
+  suffix?: ReactNode
   label: string
   suggestions?: string[]
   value: string
@@ -21,6 +24,8 @@ export interface CardInputProps {
 
 export const CardInput: FC<CardInputProps> = ({
   className,
+  prefix,
+  suffix,
   label,
   suggestions = [],
   value,
@@ -100,6 +105,8 @@ export const CardInput: FC<CardInputProps> = ({
         className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors"
         onClick={handleClick}
       >
+        {prefix ? <div className="flex-none">{prefix}</div> : null}
+
         <div className="flex-none">{label}</div>
 
         <div className={clsx(className, 'flex-auto min-w-0 font-medium')}>
@@ -117,6 +124,8 @@ export const CardInput: FC<CardInputProps> = ({
             <div className="text-right truncate">{value}</div>
           )}
         </div>
+
+        {suffix ? <div className="flex-none">{suffix}</div> : null}
       </div>
 
       <Card.Popup

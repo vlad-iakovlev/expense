@@ -44,7 +44,7 @@ export const Wallet: FC<Props> = ({
           transition,
         }}
         label={wallet.name}
-        value={
+        suffix={
           <div
             className={clsx(
               'flex-none flex items-center justify-center h-12 w-12 -m-3 touch-none',

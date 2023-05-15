@@ -5,6 +5,7 @@ export interface CardButtonProps {
   className?: string
   disabled?: boolean
   prefix?: ReactNode
+  suffix?: ReactNode
   label?: ReactNode
   value?: ReactNode
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
@@ -15,6 +16,7 @@ export const CardButton: FC<CardButtonProps> = ({
   className,
   disabled,
   prefix,
+  suffix,
   label,
   value,
   onClick,
@@ -33,5 +35,6 @@ export const CardButton: FC<CardButtonProps> = ({
     {prefix ? <div className="flex-none">{prefix}</div> : null}
     <div className="flex-auto truncate">{label}</div>
     {value ? <div className="flex-none">{value}</div> : null}
+    {suffix ? <div className="flex-none">{suffix}</div> : null}
   </button>
 )

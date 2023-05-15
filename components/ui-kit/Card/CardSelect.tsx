@@ -25,6 +25,8 @@ export type CardSelectItem<Id extends string = string> =
   | CardSelectDivider<Id>
 
 export interface CardSelectProps<Id extends string = string> {
+  prefix?: ReactNode
+  suffix?: ReactNode
   label: string
   options: CardSelectItem<Id>[]
   value: CardSelectOption<Id>
@@ -32,6 +34,8 @@ export interface CardSelectProps<Id extends string = string> {
 }
 
 export function CardSelect<Id extends string = string>({
+  prefix,
+  suffix,
   label,
   options,
   value,
@@ -62,10 +66,12 @@ export function CardSelect<Id extends string = string>({
         className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors"
         onClick={show}
       >
+        {prefix ? <div className="flex-none">{prefix}</div> : null}
         <div className="flex-none">{label}</div>
         <div className="flex-auto text-right font-medium truncate">
           {value.label}
         </div>
+        {suffix ? <div className="flex-none">{suffix}</div> : null}
       </button>
 
       <Card.Popup
@@ -83,7 +89,7 @@ export function CardSelect<Id extends string = string>({
               <Card.Button
                 key={option.id}
                 label={option.label}
-                value={option.suffix}
+                suffix={option.suffix}
                 onClick={() => handleChange(option.id)}
               />
             )}

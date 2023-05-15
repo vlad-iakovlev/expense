@@ -31,7 +31,7 @@ export const GroupUsersCard: FC<Props> = ({ className, groupId }) => {
                   size="sm"
                 />
               }
-              value={
+              suffix={
                 groupUsers.length > 1 && (
                   <Delete groupId={groupId} userId={user.id} />
                 )

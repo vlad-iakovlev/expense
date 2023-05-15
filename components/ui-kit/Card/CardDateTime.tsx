@@ -2,6 +2,7 @@ import {
   ChangeEvent,
   FC,
   KeyboardEvent,
+  ReactNode,
   useCallback,
   useMemo,
   useState,
@@ -12,12 +13,16 @@ import {
 } from '../../../utils/formatDate.ts'
 
 export interface CardDateTimeProps {
+  prefix?: ReactNode
+  suffix?: ReactNode
   label: string
   value: Date
   onChange: (value: Date) => void
 }
 
 export const CardDateTime: FC<CardDateTimeProps> = ({
+  prefix,
+  suffix,
   label,
   value,
   onChange,
@@ -62,6 +67,8 @@ export const CardDateTime: FC<CardDateTimeProps> = ({
   return (
     <>
       <div className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors">
+        {prefix ? <div className="flex-none">{prefix}</div> : null}
+
         <div className="flex-auto">{label}</div>
 
         <div className="font-medium">
@@ -80,6 +87,8 @@ export const CardDateTime: FC<CardDateTimeProps> = ({
               {formatDateTime(value)}
             </div>
           )}
+
+          {suffix ? <div className="flex-none">{suffix}</div> : null}
         </div>
       </div>
     </>
