@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
+import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
 import { ClientOperationType } from '../../../types/client.ts'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
 

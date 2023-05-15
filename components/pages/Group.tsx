@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react'
 import { ROUTES } from '../../constants/routes.ts'
-import { useGroup } from '../../stores/RootStore/hooks/useGroup.ts'
+import { useGroup } from '../../contexts/RootStore/hooks/useGroup.ts'
 import { GroupInfoCard } from '../cards/GroupInfo/GroupInfo.tsx'
 import { GroupUsersCard } from '../cards/GroupUsers/GroupUsers.tsx'
 import { OperationsListCard } from '../cards/OperationsList/OperationsList.tsx'

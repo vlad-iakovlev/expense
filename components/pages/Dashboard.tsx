@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useGroups } from '../../stores/RootStore/hooks/useGroups.ts'
+import { useGroups } from '../../contexts/RootStore/hooks/useGroups.ts'
 import { GroupCreateCard } from '../cards/GroupCreate/GroupCreate.tsx'
 import { GroupOpenCard } from '../cards/GroupOpen/GroupOpen.tsx'
 import { NextHead } from '../next/Head.ts'

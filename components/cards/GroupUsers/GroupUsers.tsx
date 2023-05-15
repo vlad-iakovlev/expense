@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useGroupUsers } from '../../../stores/RootStore/hooks/useGroupUsers.ts'
+import { useGroupUsers } from '../../../contexts/RootStore/hooks/useGroupUsers.ts'
 import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Delete } from './GroupUsers.Delete.tsx'

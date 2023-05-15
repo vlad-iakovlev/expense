@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router.js'
 import { FC, useCallback } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
-import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
+import { useOperations } from '../../../contexts/RootStore/hooks/useOperations.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 
 interface Props {

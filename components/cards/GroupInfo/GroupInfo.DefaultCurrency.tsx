@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useGroup } from '../../../stores/RootStore/hooks/useGroup.ts'
+import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.ts'
 import { CurrencySelect } from '../../ui-kit/CurrencySelect/CurrencySelect.tsx'
 
 interface Props {

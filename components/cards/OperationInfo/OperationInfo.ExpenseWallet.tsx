@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { FC, useMemo } from 'react'
-import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
+import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
 import { WalletSelect } from '../../ui-kit/WalletSelect/WalletSelect.tsx'
 
 interface Props {

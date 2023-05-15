@@ -1,6 +1,6 @@
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
 import { FC, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
-import { useGroupedOperations } from '../../../stores/RootStore/hooks/useGroupedOperations.ts'
+import { useGroupedOperations } from '../../../contexts/RootStore/hooks/useGroupedOperations.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Add } from './OperationsList.Add.tsx'
 import { CategoryFilter } from './OperationsList.CategoryFilter.tsx'

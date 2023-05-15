@@ -1,7 +1,7 @@
 import * as fns from 'date-fns'
 import { FC } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { useSyncStatus } from '../../../stores/RootStore/hooks/useSyncStatus.ts'
+import { useSyncStatus } from '../../../contexts/RootStore/hooks/useSyncStatus.ts'
 
 interface Props {
   className?: string

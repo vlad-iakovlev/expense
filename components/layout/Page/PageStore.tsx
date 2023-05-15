@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import { useRootStore } from '../../../stores/RootStore/RootStore.tsx'
+import { useRootStore } from '../../../contexts/RootStore/RootStore.tsx'
 import { Loading } from '../../pages/Loading.tsx'
 
 interface Props {

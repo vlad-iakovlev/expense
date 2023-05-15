@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react'
 import { ROUTES } from '../../constants/routes.ts'
-import { useWallet } from '../../stores/RootStore/hooks/useWallet.ts'
+import { useWallet } from '../../contexts/RootStore/hooks/useWallet.ts'
 import { OperationsListCard } from '../cards/OperationsList/OperationsList.tsx'
 import { StatisticsCard } from '../cards/Statistics/Statistics.tsx'
 import { WalletInfoCard } from '../cards/WalletInfo/WalletInfo.tsx'

@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useWallet } from '../../../stores/RootStore/hooks/useWallet.ts'
+import { useWallet } from '../../../contexts/RootStore/hooks/useWallet.ts'
 import { CurrencySelect } from '../../ui-kit/CurrencySelect/CurrencySelect.tsx'
 
 interface Props {

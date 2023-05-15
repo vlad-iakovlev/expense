@@ -1,6 +1,6 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { FC, MouseEvent, useCallback, useEffect, useMemo } from 'react'
-import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
+import { useCategories } from '../../../contexts/RootStore/hooks/useCategories.ts'
 import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {

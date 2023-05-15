@@ -2,7 +2,7 @@ import { PlusIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router.js'
 import { FC, useCallback } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
-import { useGroups } from '../../../stores/RootStore/hooks/useGroups.ts'
+import { useGroups } from '../../../contexts/RootStore/hooks/useGroups.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
 export const GroupCreateCard: FC = () => {

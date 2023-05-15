@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
-import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
+import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { ExpenseOperation } from './OperationsList.ExpenseOperation.tsx'
 import { IncomeOperation } from './OperationsList.IncomeOperation.tsx'

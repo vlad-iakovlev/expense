@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { FC, useMemo } from 'react'
-import { useCurrencies } from '../../../stores/RootStore/hooks/useCurrencies.ts'
+import { useCurrencies } from '../../../contexts/RootStore/hooks/useCurrencies.ts'
 import { ClientCurrency } from '../../../types/client.ts'
 import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
 import { CurrencyBadge } from '../CurrencyBadge/CurrencyBadge.tsx'

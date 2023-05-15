@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router.js'
 import { FC, useCallback, useState } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
-import { useOperations } from '../../../stores/RootStore/hooks/useOperations.ts'
-import { useWallet } from '../../../stores/RootStore/hooks/useWallet.ts'
+import { useOperations } from '../../../contexts/RootStore/hooks/useOperations.ts'
+import { useWallet } from '../../../contexts/RootStore/hooks/useWallet.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { ConfirmDialog } from '../../ui-kit/ConfirmDialog/ConfirmDialog.tsx'
 

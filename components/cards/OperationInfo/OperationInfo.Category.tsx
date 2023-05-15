@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { FC, useMemo } from 'react'
-import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
-import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
+import { useCategories } from '../../../contexts/RootStore/hooks/useCategories.ts'
+import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {

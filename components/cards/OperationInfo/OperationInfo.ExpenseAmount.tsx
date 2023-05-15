@@ -1,5 +1,5 @@
 import { FC, useCallback } from 'react'
-import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
+import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
 import { formatAmount } from '../../../utils/formatAmount.ts'
 import { parseAmount } from '../../../utils/parseAmount.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'

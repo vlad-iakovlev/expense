@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { useWallet } from '../../../stores/RootStore/hooks/useWallet.ts'
-import { useWalletBalance } from '../../../stores/RootStore/hooks/useWalletBalance.ts'
+import { useWallet } from '../../../contexts/RootStore/hooks/useWallet.ts'
+import { useWalletBalance } from '../../../contexts/RootStore/hooks/useWalletBalance.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 

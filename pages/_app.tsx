@@ -10,7 +10,7 @@ import { PageTransition } from '../components/layout/PageTransition/PageTransiti
 import { ErrorBoundary } from '../components/misc/ErrorBoundary.tsx'
 import { NextHead } from '../components/next/Head.ts'
 import { Fallback } from '../components/pages/Fallback.tsx'
-import { RootStoreProvider } from '../stores/RootStore/RootStore.tsx'
+import { RootStoreProvider } from '../contexts/RootStore/RootStore.tsx'
 import '../styles/globals.css'
 
 const App: FC<AppProps<{ session: Session | null }>> = ({
