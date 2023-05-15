@@ -8,6 +8,7 @@ import {
   useMemo,
   useState,
 } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { Portal } from '../Portal/Portal.tsx'
 
 const variants: Variants = {
@@ -114,7 +115,7 @@ export const Popup: FC<PopupProps> = ({
           >
             <div className="absolute inset-0" onClick={onClose} />
 
-            <div className={className} style={popupStyle}>
+            <div className={twMerge('relative', className)} style={popupStyle}>
               {children}
             </div>
           </motion.div>
