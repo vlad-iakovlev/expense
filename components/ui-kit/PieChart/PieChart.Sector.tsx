@@ -59,7 +59,6 @@ export const Sector: React.FC<Props> = ({
 
   return (
     <path
-      className="[pointer-events:all]"
       d={getSector(animatedProps)}
       fill={color}
       onPointerEnter={onPointerEnter}
