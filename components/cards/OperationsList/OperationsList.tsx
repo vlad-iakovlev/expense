@@ -1,5 +1,6 @@
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
 import { FC, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
+import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
 import { useGroupedOperations } from '../../../contexts/RootStore/hooks/useGroupedOperations.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Add } from './OperationsList.Add.tsx'
@@ -19,7 +20,7 @@ export const OperationsListCard: FC<Props> = ({
   groupId,
   walletId,
 }) => {
-  const [category, setCategory] = useState<string>('')
+  const { category } = useCategoryFilter()
   const { groupedOperations } = useGroupedOperations({
     groupId,
     walletId,
@@ -77,12 +78,7 @@ export const OperationsListCard: FC<Props> = ({
     <Card className={className}>
       <Card.Title title="Operations" actions={<Add walletId={walletId} />} />
 
-      <CategoryFilter
-        groupId={groupId}
-        walletId={walletId}
-        value={category}
-        onChange={setCategory}
-      />
+      <CategoryFilter groupId={groupId} walletId={walletId} />
 
       {renderedOperations}
 

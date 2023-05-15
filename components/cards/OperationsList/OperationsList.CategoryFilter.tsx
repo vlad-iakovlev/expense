@@ -1,21 +1,16 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { FC, MouseEvent, useCallback, useEffect, useMemo } from 'react'
+import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
 import { useCategories } from '../../../contexts/RootStore/hooks/useCategories.ts'
 import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   groupId: string | undefined
   walletId: string | undefined
-  value: string
-  onChange: (value: string) => void
 }
 
-export const CategoryFilter: FC<Props> = ({
-  groupId,
-  walletId,
-  value,
-  onChange,
-}) => {
+export const CategoryFilter: FC<Props> = ({ groupId, walletId }) => {
+  const { category, setCategory, resetCategory } = useCategoryFilter()
   const { categories } = useCategories({ groupId, walletId })
 
   const options = useMemo<CardSelectItem[]>(() => {
@@ -27,24 +22,24 @@ export const CategoryFilter: FC<Props> = ({
 
   const valueForSelect = useMemo(() => {
     return {
-      id: value,
-      label: value || 'Show all',
+      id: category,
+      label: category || 'Show all',
     }
-  }, [value])
+  }, [category])
 
   const handleReset = useCallback(
     (event: MouseEvent) => {
       event.stopPropagation()
-      onChange('')
+      resetCategory()
     },
-    [onChange]
+    [resetCategory]
   )
 
   useEffect(() => {
     if (categories.length < 2) {
-      onChange('')
+      resetCategory()
     }
-  }, [categories.length, onChange])
+  }, [categories.length, resetCategory])
 
   if (categories.length < 2) {
     return null
@@ -57,9 +52,9 @@ export const CategoryFilter: FC<Props> = ({
         label="Category"
         options={options}
         value={valueForSelect}
-        onChange={onChange}
+        onChange={setCategory}
         suffix={
-          !!value && (
+          !!category && (
             <div
               className="flex-none flex items-center justify-center h-8 w-8 rounded-full shadow-inner bg-zinc-200 hover:bg-zinc-300 transition-colors"
               tabIndex={0}

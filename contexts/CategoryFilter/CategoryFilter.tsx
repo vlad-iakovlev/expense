@@ -4,6 +4,7 @@ import {
   FC,
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useState,
 } from 'react'
@@ -11,6 +12,7 @@ import {
 interface ContextValue {
   category: string
   setCategory: Dispatch<string>
+  resetCategory: () => void
 }
 
 export const CategoryFilterContext = createContext<ContextValue | undefined>(
@@ -25,8 +27,12 @@ interface ProviderProps {
 export const CategoryFilterProvider: FC<ProviderProps> = ({ children }) => {
   const [category, setCategory] = useState('')
 
+  const resetCategory = useCallback(() => setCategory(''), [])
+
   return (
-    <CategoryFilterContext.Provider value={{ category, setCategory }}>
+    <CategoryFilterContext.Provider
+      value={{ category, setCategory, resetCategory }}
+    >
       {children}
     </CategoryFilterContext.Provider>
   )
