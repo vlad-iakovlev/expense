@@ -61,7 +61,7 @@ export const CategoryFilter: FC<Props> = ({
         suffix={
           !!value && (
             <div
-              className="flex-none flex items-center justify-center h-8 w-8 -mx-1 rounded-full bg-zinc-200 shadow-sm hover:bg-zinc-600 hover:text-white transition-colors"
+              className="flex-none flex items-center justify-center h-8 w-8 rounded-full bg-zinc-200 shadow-sm hover:bg-zinc-600 hover:text-white transition-colors"
               tabIndex={0}
               role="button"
               onClick={handleReset}
