@@ -41,8 +41,9 @@ export const PeriodSelector: FC<Props> = ({
 }) => {
   return (
     <>
-      <Card.Block className="flex justify-between">
+      <Card.Block className="flex gap-3">
         <Button
+          className="flex-auto px-0"
           disabled={period === Period.ALL}
           theme={period === Period.ALL ? 'primary' : 'secondary'}
           size="sm"
@@ -52,6 +53,7 @@ export const PeriodSelector: FC<Props> = ({
         </Button>
 
         <Button
+          className="flex-auto px-0"
           disabled={period === Period.WEEK}
           theme={period === Period.WEEK ? 'primary' : 'secondary'}
           size="sm"
@@ -61,6 +63,7 @@ export const PeriodSelector: FC<Props> = ({
         </Button>
 
         <Button
+          className="flex-auto px-0"
           disabled={period === Period.MONTH}
           theme={period === Period.MONTH ? 'primary' : 'secondary'}
           size="sm"
@@ -70,6 +73,7 @@ export const PeriodSelector: FC<Props> = ({
         </Button>
 
         <Button
+          className="flex-auto px-0"
           disabled={period === Period.YEAR}
           theme={period === Period.YEAR ? 'primary' : 'secondary'}
           size="sm"
