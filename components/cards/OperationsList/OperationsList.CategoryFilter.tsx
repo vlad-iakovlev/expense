@@ -10,7 +10,8 @@ interface Props {
 }
 
 export const CategoryFilter: FC<Props> = ({ groupId, walletId }) => {
-  const { category, setCategory, resetCategory } = useCategoryFilter()
+  const { categoryFilter, setCategoryFilter, resetCategoryFilter } =
+    useCategoryFilter()
   const { categories } = useCategories({ groupId, walletId })
 
   const options = useMemo<CardSelectItem[]>(() => {
@@ -22,24 +23,24 @@ export const CategoryFilter: FC<Props> = ({ groupId, walletId }) => {
 
   const valueForSelect = useMemo(() => {
     return {
-      id: category,
-      label: category || 'Show all',
+      id: categoryFilter,
+      label: categoryFilter || 'Show all',
     }
-  }, [category])
+  }, [categoryFilter])
 
   const handleReset = useCallback(
     (event: MouseEvent) => {
       event.stopPropagation()
-      resetCategory()
+      resetCategoryFilter()
     },
-    [resetCategory]
+    [resetCategoryFilter]
   )
 
   useEffect(() => {
     if (categories.length < 2) {
-      resetCategory()
+      resetCategoryFilter()
     }
-  }, [categories.length, resetCategory])
+  }, [categories.length, resetCategoryFilter])
 
   if (categories.length < 2) {
     return null
@@ -52,9 +53,9 @@ export const CategoryFilter: FC<Props> = ({ groupId, walletId }) => {
         label="Category"
         options={options}
         value={valueForSelect}
-        onChange={setCategory}
+        onChange={setCategoryFilter}
         suffix={
-          !!category && (
+          !!categoryFilter && (
             <div
               className="flex-none flex items-center justify-center h-8 w-8 rounded-full shadow-inner bg-zinc-200 hover:bg-zinc-300 transition-colors"
               tabIndex={0}

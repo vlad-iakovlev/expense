@@ -20,15 +20,15 @@ export const OperationsListCard: FC<Props> = ({
   groupId,
   walletId,
 }) => {
-  const { category } = useCategoryFilter()
+  const { categoryFilter } = useCategoryFilter()
   const { groupedOperations } = useGroupedOperations({
     groupId,
     walletId,
-    category,
+    category: categoryFilter,
   })
 
   const [take, setTake] = useState(PAGE_SIZE)
-  useEffect(() => setTake(PAGE_SIZE), [category])
+  useEffect(() => setTake(PAGE_SIZE), [categoryFilter])
 
   const renderedOperations = useMemo(() => {
     if (!groupedOperations.length) return []
@@ -70,7 +70,7 @@ export const OperationsListCard: FC<Props> = ({
     setTake((prevTake) => prevTake + PAGE_SIZE)
   }, [])
 
-  if (!walletId && !category && !groupedOperations.length) {
+  if (!walletId && !categoryFilter && !groupedOperations.length) {
     return null
   }
 

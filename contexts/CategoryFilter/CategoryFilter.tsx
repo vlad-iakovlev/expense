@@ -10,9 +10,9 @@ import {
 } from 'react'
 
 interface ContextValue {
-  category: string
-  setCategory: Dispatch<string>
-  resetCategory: () => void
+  categoryFilter: string
+  setCategoryFilter: Dispatch<string>
+  resetCategoryFilter: () => void
 }
 
 export const CategoryFilterContext = createContext<ContextValue | undefined>(
@@ -25,13 +25,17 @@ interface ProviderProps {
 }
 
 export const CategoryFilterProvider: FC<ProviderProps> = ({ children }) => {
-  const [category, setCategory] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState('')
 
-  const resetCategory = useCallback(() => setCategory(''), [])
+  const resetCategoryFilter = useCallback(() => setCategoryFilter(''), [])
 
   return (
     <CategoryFilterContext.Provider
-      value={{ category, setCategory, resetCategory }}
+      value={{
+        categoryFilter,
+        setCategoryFilter,
+        resetCategoryFilter,
+      }}
     >
       {children}
     </CategoryFilterContext.Provider>
