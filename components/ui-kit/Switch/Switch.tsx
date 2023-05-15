@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react'
+import { FC, MouseEvent, useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface SwitchProps {
@@ -14,18 +14,23 @@ export const Switch: FC<SwitchProps> = ({
   value,
   onChange,
 }) => {
-  const handleClick = useCallback(() => {
-    onChange(!value)
-  }, [onChange, value])
+  const handleClick = useCallback(
+    (event: MouseEvent) => {
+      event.stopPropagation()
+      onChange(!value)
+    },
+    [onChange, value]
+  )
 
   return (
-    <button
+    <div
       className={twMerge(
         'flex items-center w-11 h-7 p-0.5 rounded-full transition-colors',
         value ? 'bg-green-700' : 'bg-zinc-300',
         className
       )}
-      type="button"
+      tabIndex={0}
+      role="button"
       style={{ backgroundColor: color }}
       onClick={handleClick}
     >
@@ -35,6 +40,6 @@ export const Switch: FC<SwitchProps> = ({
           value ? 'translate-x-4' : 'translate-x-0'
         )}
       />
-    </button>
+    </div>
   )
 }

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router.js'
 import { useState } from 'react'
 import { Page } from '../../components/layout/Page/Page.tsx'
 import { Wallet } from '../../components/pages/Wallet.tsx'
+import { CategoryFilterProvider } from '../../contexts/CategoryFilter/CategoryFilter.tsx'
 
 const WalletPage: NextPage = () => {
   const router = useRouter()
@@ -14,7 +15,9 @@ const WalletPage: NextPage = () => {
 
   return (
     <Page>
-      <Wallet walletId={walletId} />
+      <CategoryFilterProvider>
+        <Wallet walletId={walletId} />
+      </CategoryFilterProvider>
     </Page>
   )
 }

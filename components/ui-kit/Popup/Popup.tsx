@@ -1,14 +1,11 @@
-import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { AnimatePresence, MotionStyle, Variants, motion } from 'framer-motion'
 import {
   CSSProperties,
+  FC,
   ReactNode,
   RefObject,
-  forwardRef,
-  useCallback,
   useEffect,
-  useImperativeHandle,
   useMemo,
-  useRef,
   useState,
 } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -45,63 +42,47 @@ export interface PopupProps {
   onClose?: () => void
 }
 
-export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
-  {
-    anchorRef,
-    className,
-    fullMaxWidth,
-    fullWidth,
-    isOpen,
-    position,
-    children,
-    onClose,
-  },
-  ref
-) {
-  const rootRef = useRef<HTMLDivElement>(null)
+export const Popup: FC<PopupProps> = ({
+  anchorRef,
+  className,
+  fullMaxWidth,
+  fullWidth,
+  isOpen,
+  position,
+  children,
+  onClose,
+}) => {
   const [anchorRect, setAnchorRect] = useState<DOMRect>()
 
+  const isAbove = position === 'above-left' || position === 'above-right'
+  const isRight = position === 'above-right' || position === 'below-right'
+
   const popupStyle = useMemo<CSSProperties>(() => {
-    if (!anchorRect) return { top: 0, left: 0 }
+    if (!anchorRect) return {}
 
-    const scrollTop = document.documentElement.scrollTop
-    const scrollLeft = document.documentElement.scrollLeft
+    const translateX = isRight
+      ? `calc(${anchorRect.right}px - 100%)`
+      : `${anchorRect.left}px`
 
-    switch (position) {
-      case 'above-left':
-        return {
-          top: anchorRect.top + scrollTop,
-          left: anchorRect.left + scrollLeft,
-        }
+    const translateY = isAbove
+      ? `calc(${anchorRect.top}px - 100%)`
+      : `${anchorRect.bottom}px`
 
-      case 'above-right':
-        return {
-          top: anchorRect.top + scrollTop,
-          left: anchorRect.right + scrollLeft,
-        }
-
-      case 'below-left':
-        return {
-          top: anchorRect.bottom + scrollTop,
-          left: anchorRect.left + scrollLeft,
-        }
-
-      case 'below-right':
-        return {
-          top: anchorRect.bottom + scrollTop,
-          left: anchorRect.right + scrollLeft,
-        }
+    return {
+      transform: `translate(${translateX}, ${translateY})`,
+      ...(fullMaxWidth && { maxWidth: anchorRect.width }),
+      ...(fullWidth && { width: anchorRect.width }),
     }
-  }, [anchorRect, position])
+  }, [anchorRect, fullMaxWidth, fullWidth, isAbove, isRight])
 
-  const handleClick = useCallback(
-    (event: MouseEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) {
-        onClose?.()
-      }
-    },
-    [onClose]
-  )
+  const rootStyle = useMemo<MotionStyle>(() => {
+    if (!anchorRect) return {}
+
+    return {
+      originX: `${isRight ? anchorRect.right : anchorRect.left}px`,
+      originY: `${isAbove ? anchorRect.top : anchorRect.bottom}px`,
+    }
+  }, [anchorRect, isAbove, isRight])
 
   useEffect(() => {
     if (isOpen) {
@@ -111,52 +92,35 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
 
       updateRects()
       window.addEventListener('resize', updateRects, { passive: true })
-      return () => window.removeEventListener('resize', updateRects)
+      window.addEventListener('scroll', updateRects, { passive: true })
+
+      return () => {
+        window.removeEventListener('resize', updateRects)
+        window.removeEventListener('scroll', updateRects)
+      }
     }
   }, [anchorRef, isOpen])
 
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => document.addEventListener('click', handleClick), 0)
-      return () => document.removeEventListener('click', handleClick)
-    }
-  }, [handleClick, isOpen])
-
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  useImperativeHandle(ref, () => rootRef.current!)
-
   return (
     <Portal>
-      <div
-        ref={rootRef}
-        className="absolute z-10 top-0 left-0"
-        style={popupStyle}
-      >
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              className={twMerge(
-                'absolute',
-                position === 'above-left' && 'bottom-0 left-0',
-                position === 'above-right' && 'bottom-0 right-0',
-                position === 'below-left' && 'top-0 left-0',
-                position === 'below-right' && 'top-0 right-0',
-                className
-              )}
-              initial="closed"
-              animate="opened"
-              exit="closed"
-              variants={variants}
-              style={{
-                maxWidth: fullMaxWidth ? anchorRect?.width : undefined,
-                width: fullWidth ? anchorRect?.width : undefined,
-              }}
-            >
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed z-20 inset-0"
+            initial="closed"
+            animate="opened"
+            exit="closed"
+            variants={variants}
+            style={rootStyle}
+          >
+            <div className="absolute inset-0" onClick={onClose} />
+
+            <div className={twMerge('relative', className)} style={popupStyle}>
               {children}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Portal>
   )
-})
+}

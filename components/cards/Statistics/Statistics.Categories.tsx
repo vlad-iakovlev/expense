@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
 import {
   ClientCurrency,
   ClientStatisticsItem,
@@ -28,12 +29,14 @@ export const Categories: FC<Props> = ({
   isCategoryDisabled,
   setCategoryDisabled,
 }) => {
+  const { setCategoryFilter } = useCategoryFilter()
+
   return (
     <>
       {items
         .filter((item) => item.amount)
         .map((item) => (
-          <Card.Text
+          <Card.Button
             key={item.category}
             prefix={
               <Switch
@@ -53,6 +56,7 @@ export const Categories: FC<Props> = ({
                 type={AMOUNT_TYPE[type]}
               />
             }
+            onClick={() => setCategoryFilter(item.category)}
           />
         ))}
     </>

@@ -1,4 +1,4 @@
-import { ReactNode, RefObject, forwardRef } from 'react'
+import { FC, ReactNode, RefObject } from 'react'
 import { Popup, PopupPosition } from '../Popup/Popup.tsx'
 import { Scrollable } from '../Scrollable/Scrollable.tsx'
 
@@ -13,38 +13,32 @@ export interface CardPopupProps {
   onClose?: () => void
 }
 
-export const CardPopup = forwardRef<HTMLDivElement, CardPopupProps>(
-  function CardPopup(
-    {
-      anchorRef,
-      className,
-      fullMaxWidth,
-      fullWidth,
-      isOpen,
-      position,
-      children,
-      onClose,
-    },
-    ref
-  ) {
-    return (
-      <Popup
-        ref={ref}
-        anchorRef={anchorRef}
-        className={className}
-        fullMaxWidth={fullMaxWidth}
-        fullWidth={fullWidth}
-        isOpen={isOpen}
-        position={position}
-        onClose={onClose}
+export const CardPopup: FC<CardPopupProps> = ({
+  anchorRef,
+  className,
+  fullMaxWidth,
+  fullWidth,
+  isOpen,
+  position,
+  children,
+  onClose,
+}) => {
+  return (
+    <Popup
+      anchorRef={anchorRef}
+      className={className}
+      fullMaxWidth={fullMaxWidth}
+      fullWidth={fullWidth}
+      isOpen={isOpen}
+      position={position}
+      onClose={onClose}
+    >
+      <Scrollable
+        className="bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
+        contentClassName="max-h-64 py-2 -mx-px px-px"
       >
-        <Scrollable
-          className="bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
-          contentClassName="max-h-64 py-2 -mx-px px-px"
-        >
-          {children}
-        </Scrollable>
-      </Popup>
-    )
-  }
-)
+        {children}
+      </Scrollable>
+    </Popup>
+  )
+}

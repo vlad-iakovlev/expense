@@ -1,5 +1,6 @@
 import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { FC, useCallback, useMemo, useState } from 'react'
+import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
 import { useCategories } from '../../../contexts/RootStore/hooks/useCategories.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
+  const { resetCategoryFilter } = useCategoryFilter()
   const { categories, renameCategory } = useCategories({ groupId })
   const [oldName, setOldName] = useState('')
   const [newName, setNewName] = useState('')
@@ -36,12 +38,13 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
 
   const handleApplyClick = useCallback(() => {
     if (oldName !== newName) {
+      resetCategoryFilter()
       renameCategory(oldName, newName)
     }
 
     setOldName('')
     setNewName('')
-  }, [oldName, newName, renameCategory])
+  }, [oldName, newName, renameCategory, resetCategoryFilter])
 
   const handleCancelClick = useCallback(() => {
     setOldName('')
