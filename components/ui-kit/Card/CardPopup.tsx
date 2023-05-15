@@ -8,6 +8,7 @@ export interface CardPopupProps {
   position: PopupPosition
   children: React.ReactNode
   onClose?: () => void
+  onPointerDown?: (event: React.PointerEvent<HTMLDivElement>) => void
 }
 
 export const CardPopup: React.FC<CardPopupProps> = ({
@@ -17,6 +18,7 @@ export const CardPopup: React.FC<CardPopupProps> = ({
   position,
   children,
   onClose,
+  onPointerDown,
 }) => {
   return (
     <Popup
@@ -25,6 +27,7 @@ export const CardPopup: React.FC<CardPopupProps> = ({
       isOpen={isOpen}
       position={position}
       onClose={onClose}
+      onPointerDown={onPointerDown}
     >
       <Scrollable
         className="bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5"

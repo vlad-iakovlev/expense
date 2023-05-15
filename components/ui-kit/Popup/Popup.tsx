@@ -29,6 +29,7 @@ export interface PopupProps {
   position: PopupPosition
   children: React.ReactNode
   onClose?: () => void
+  onPointerDown?: (event: React.PointerEvent<HTMLDivElement>) => void
 }
 
 export const Popup: React.FC<PopupProps> = ({
@@ -38,6 +39,7 @@ export const Popup: React.FC<PopupProps> = ({
   position,
   children,
   onClose,
+  onPointerDown,
 }) => {
   const popupRef = useRef<HTMLDivElement>(null)
 
@@ -76,6 +78,7 @@ export const Popup: React.FC<PopupProps> = ({
             animate="opened"
             exit="closed"
             variants={variants}
+            onPointerDown={onPointerDown}
           >
             {children}
           </motion.div>

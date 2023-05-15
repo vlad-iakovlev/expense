@@ -79,6 +79,10 @@ export const CardInput: React.FC<CardInputProps> = ({
     setIsEditing(false)
   }, [inputValue, value, onChange])
 
+  const handlePopupPointerDown = useCallback((event: React.PointerEvent) => {
+    event.preventDefault()
+  }, [])
+
   const handleSelect = useCallback(
     (suggestion: string) => {
       if (suggestion === value) {
@@ -125,13 +129,13 @@ export const CardInput: React.FC<CardInputProps> = ({
         popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
         isOpen={isEditing && !!filteredSuggestions.length}
         position="below-right"
+        onPointerDown={handlePopupPointerDown}
       >
         {filteredSuggestions.map((suggestion) => (
           <Card.Button
             key={suggestion}
             label={suggestion}
             onClick={() => handleSelect(suggestion)}
-            onPointerDown={(event) => event.preventDefault()}
           />
         ))}
       </Card.Popup>

@@ -8,7 +8,6 @@ export interface CardButtonProps {
   label?: React.ReactNode
   value?: React.ReactNode
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
-  onPointerDown?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export const CardButton: React.FC<CardButtonProps> = ({
@@ -19,7 +18,6 @@ export const CardButton: React.FC<CardButtonProps> = ({
   label,
   value,
   onClick,
-  onPointerDown,
 }) => (
   <button
     className={twMerge(
@@ -29,7 +27,6 @@ export const CardButton: React.FC<CardButtonProps> = ({
     )}
     type="button"
     onClick={onClick}
-    onPointerDown={onPointerDown}
   >
     {prefix ? <div className="flex-none">{prefix}</div> : null}
     <div className="flex-auto truncate">{label}</div>
