@@ -1,4 +1,5 @@
-import { FC, useEffect, useMemo } from 'react'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import { FC, MouseEvent, useCallback, useEffect, useMemo } from 'react'
 import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
 import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
 
@@ -18,20 +19,11 @@ export const CategoryFilter: FC<Props> = ({
   const { categories } = useCategories({ groupId, walletId })
 
   const options = useMemo<CardSelectItem[]>(() => {
-    const options = categories.map<CardSelectItem>((category) => ({
+    return categories.map<CardSelectItem>((category) => ({
       id: category,
       label: category,
     }))
-
-    if (value) {
-      options.unshift(
-        { id: '', label: 'Reset filter' },
-        { type: 'divider', id: 'divider' }
-      )
-    }
-
-    return options
-  }, [categories, value])
+  }, [categories])
 
   const valueForSelect = useMemo(() => {
     return {
@@ -39,6 +31,14 @@ export const CategoryFilter: FC<Props> = ({
       label: value || 'Show all',
     }
   }, [value])
+
+  const handleReset = useCallback(
+    (event: MouseEvent) => {
+      event.stopPropagation()
+      onChange('')
+    },
+    [onChange]
+  )
 
   useEffect(() => {
     if (categories.length < 2) {
@@ -58,6 +58,18 @@ export const CategoryFilter: FC<Props> = ({
         options={options}
         value={valueForSelect}
         onChange={onChange}
+        suffix={
+          !!value && (
+            <div
+              className="flex-none flex items-center justify-center h-12 w-12 -m-3 touch-none"
+              tabIndex={0}
+              role="button"
+              onClick={handleReset}
+            >
+              <XMarkIcon className="w-6 h-6" />
+            </div>
+          )
+        }
       />
     </>
   )
