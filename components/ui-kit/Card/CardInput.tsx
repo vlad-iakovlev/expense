@@ -32,7 +32,6 @@ export const CardInput: FC<CardInputProps> = ({
   onChange,
 }) => {
   const rootRef = useRef<HTMLDivElement>(null)
-  const popupRef = useRef<HTMLDivElement>(null)
   const [isEditing, setIsEditing] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [suggestionsFilter, setSuggestionsFilter] = useState<string>('')
@@ -129,7 +128,6 @@ export const CardInput: FC<CardInputProps> = ({
       </div>
 
       <Card.Popup
-        ref={popupRef}
         anchorRef={rootRef}
         className="-mt-2 pl-4 sm:pl-6 pb-8"
         fullMaxWidth

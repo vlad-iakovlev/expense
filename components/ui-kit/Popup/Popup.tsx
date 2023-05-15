@@ -1,9 +1,9 @@
-import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { AnimatePresence, MotionStyle, Variants, motion } from 'framer-motion'
 import {
   CSSProperties,
+  FC,
   ReactNode,
   RefObject,
-  forwardRef,
   useEffect,
   useMemo,
   useState,
@@ -42,53 +42,39 @@ export interface PopupProps {
   onClose?: () => void
 }
 
-export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
-  {
-    anchorRef,
-    className,
-    fullMaxWidth,
-    fullWidth,
-    isOpen,
-    position,
-    children,
-    onClose,
-  },
-  ref
-) {
+export const Popup: FC<PopupProps> = ({
+  anchorRef,
+  className,
+  fullMaxWidth,
+  fullWidth,
+  isOpen,
+  position,
+  children,
+  onClose,
+}) => {
   const [anchorRect, setAnchorRect] = useState<DOMRect>()
+
+  const isAbove = position === 'above-left' || position === 'above-right'
+  const isRight = position === 'above-right' || position === 'below-right'
 
   const popupStyle = useMemo<CSSProperties>(() => {
     if (!anchorRect) return { top: 0, left: 0 }
 
-    const scrollTop = document.documentElement.scrollTop
-    const scrollLeft = document.documentElement.scrollLeft
-
-    switch (position) {
-      case 'above-left':
-        return {
-          top: anchorRect.top + scrollTop,
-          left: anchorRect.left + scrollLeft,
-        }
-
-      case 'above-right':
-        return {
-          top: anchorRect.top + scrollTop,
-          left: anchorRect.right + scrollLeft,
-        }
-
-      case 'below-left':
-        return {
-          top: anchorRect.bottom + scrollTop,
-          left: anchorRect.left + scrollLeft,
-        }
-
-      case 'below-right':
-        return {
-          top: anchorRect.bottom + scrollTop,
-          left: anchorRect.right + scrollLeft,
-        }
+    return {
+      top: isAbove ? anchorRect.top : anchorRect.bottom,
+      left: isRight ? anchorRect.right : anchorRect.left,
+      ...(fullMaxWidth && { maxWidth: anchorRect.width }),
+      ...(fullWidth && { width: anchorRect.width }),
     }
-  }, [anchorRect, position])
+  }, [anchorRect, fullMaxWidth, fullWidth, isAbove, isRight])
+
+  const rootStyle = useMemo<MotionStyle>(
+    () => ({
+      originX: `${popupStyle.left ?? 0}px`,
+      originY: `${popupStyle.top ?? 0}px`,
+    }),
+    [popupStyle]
+  )
 
   useEffect(() => {
     if (isOpen) {
@@ -109,37 +95,32 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
 
   return (
     <Portal>
-      <div ref={ref} className="absolute z-20 top-0 left-0" style={popupStyle}>
-        <AnimatePresence>
-          {isOpen && (
-            <>
-              <div className="fixed inset-0" onClick={onClose} />
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed z-20 inset-0"
+            initial="closed"
+            animate="opened"
+            exit="closed"
+            variants={variants}
+            style={rootStyle}
+          >
+            <div className="absolute inset-0" onClick={onClose} />
 
-              <motion.div
-                key="popup"
-                className={twMerge(
-                  'absolute',
-                  position === 'above-left' && 'bottom-0 left-0',
-                  position === 'above-right' && 'bottom-0 right-0',
-                  position === 'below-left' && 'top-0 left-0',
-                  position === 'below-right' && 'top-0 right-0',
-                  className
-                )}
-                initial="closed"
-                animate="opened"
-                exit="closed"
-                variants={variants}
-                style={{
-                  maxWidth: fullMaxWidth ? anchorRect?.width : undefined,
-                  width: fullWidth ? anchorRect?.width : undefined,
-                }}
-              >
-                {children}
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-      </div>
+            <div
+              className={twMerge(
+                'absolute transform',
+                isAbove && '-translate-y-full',
+                isRight && '-translate-x-full',
+                className
+              )}
+              style={popupStyle}
+            >
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Portal>
   )
-})
+}
