@@ -4,11 +4,8 @@ import {
   ReactNode,
   RefObject,
   forwardRef,
-  useCallback,
   useEffect,
-  useImperativeHandle,
   useMemo,
-  useRef,
   useState,
 } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -58,7 +55,6 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
   },
   ref
 ) {
-  const rootRef = useRef<HTMLDivElement>(null)
   const [anchorRect, setAnchorRect] = useState<DOMRect>()
 
   const popupStyle = useMemo<CSSProperties>(() => {
@@ -94,15 +90,6 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
     }
   }, [anchorRect, position])
 
-  const handleClick = useCallback(
-    (event: MouseEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) {
-        onClose?.()
-      }
-    },
-    [onClose]
-  )
-
   useEffect(() => {
     if (isOpen) {
       const updateRects = () => {
@@ -111,49 +98,45 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
 
       updateRects()
       window.addEventListener('resize', updateRects, { passive: true })
-      return () => window.removeEventListener('resize', updateRects)
+      window.addEventListener('scroll', updateRects, { passive: true })
+
+      return () => {
+        window.removeEventListener('resize', updateRects)
+        window.removeEventListener('scroll', updateRects)
+      }
     }
   }, [anchorRef, isOpen])
 
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => document.addEventListener('click', handleClick), 0)
-      return () => document.removeEventListener('click', handleClick)
-    }
-  }, [handleClick, isOpen])
-
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  useImperativeHandle(ref, () => rootRef.current!)
-
   return (
     <Portal>
-      <div
-        ref={rootRef}
-        className="absolute z-10 top-0 left-0"
-        style={popupStyle}
-      >
+      <div ref={ref} className="absolute z-20 top-0 left-0" style={popupStyle}>
         <AnimatePresence>
           {isOpen && (
-            <motion.div
-              className={twMerge(
-                'absolute',
-                position === 'above-left' && 'bottom-0 left-0',
-                position === 'above-right' && 'bottom-0 right-0',
-                position === 'below-left' && 'top-0 left-0',
-                position === 'below-right' && 'top-0 right-0',
-                className
-              )}
-              initial="closed"
-              animate="opened"
-              exit="closed"
-              variants={variants}
-              style={{
-                maxWidth: fullMaxWidth ? anchorRect?.width : undefined,
-                width: fullWidth ? anchorRect?.width : undefined,
-              }}
-            >
-              {children}
-            </motion.div>
+            <>
+              <div className="fixed inset-0" onClick={onClose} />
+
+              <motion.div
+                key="popup"
+                className={twMerge(
+                  'absolute',
+                  position === 'above-left' && 'bottom-0 left-0',
+                  position === 'above-right' && 'bottom-0 right-0',
+                  position === 'below-left' && 'top-0 left-0',
+                  position === 'below-right' && 'top-0 right-0',
+                  className
+                )}
+                initial="closed"
+                animate="opened"
+                exit="closed"
+                variants={variants}
+                style={{
+                  maxWidth: fullMaxWidth ? anchorRect?.width : undefined,
+                  width: fullWidth ? anchorRect?.width : undefined,
+                }}
+              >
+                {children}
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </div>
