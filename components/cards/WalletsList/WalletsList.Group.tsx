@@ -6,8 +6,8 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { clsx } from 'clsx'
 import { FC, useCallback } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { ClientCurrency } from '../../../types/client.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { DndIcon } from '../../ui-kit/DndIcon/DndIcon.tsx'
@@ -54,10 +54,10 @@ export const Group: FC<Props> = ({
   return (
     <div
       ref={setNodeRef}
-      className={clsx('relative transition-shadow bg-white', {
-        'shadow-none': !isDragging,
-        'z-10 shadow-dnd': isDragging,
-      })}
+      className={twMerge(
+        'relative transition-shadow bg-white',
+        isDragging ? 'z-10 shadow-dnd' : 'shadow-none'
+      )}
       style={{
         transform: CSS.Translate.toString(transform),
         transition,
@@ -69,9 +69,9 @@ export const Group: FC<Props> = ({
           canReorderGroups &&
           isReordering && (
             <div
-              className={clsx(
+              className={twMerge(
                 'flex-none flex items-center justify-center h-12 w-12 -m-3 touch-none',
-                { 'cursor-grab': !isDragging, 'cursor-grabbing': isDragging }
+                isDragging ? 'cursor-grabbing' : 'cursor-grab'
               )}
               {...attributes}
               {...listeners}

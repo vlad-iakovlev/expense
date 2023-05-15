@@ -1,5 +1,5 @@
-import { clsx } from 'clsx'
 import { CSSProperties, ReactNode, forwardRef } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 export interface CardBlockProps {
   className?: string
@@ -12,7 +12,7 @@ export const CardBlock = forwardRef<HTMLDivElement, CardBlockProps>(
     return (
       <div
         ref={ref}
-        className={clsx(className, 'min-h-12 px-4 sm:px-6 py-2 bg-white')}
+        className={twMerge('min-h-12 px-4 sm:px-6 py-2 bg-white', className)}
         style={style}
       >
         {children}

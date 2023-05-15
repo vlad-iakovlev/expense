@@ -1,5 +1,5 @@
-import { clsx } from 'clsx'
 import { FC, ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { NextImage } from '../../next/Image.ts'
 
 export const avatarColors = [
@@ -51,19 +51,21 @@ export const Avatar: FC<AvatarProps> = ({
 }) => {
   return (
     <div
-      className={clsx(className, 'rounded-full overflow-hidden', {
-        'w-8 h-8': size === 'sm',
-        'w-10 h-10': size === 'md',
-      })}
+      className={twMerge(
+        'rounded-full overflow-hidden',
+        size === 'sm' && 'w-8 h-8',
+        size === 'md' && 'w-10 h-10',
+        className
+      )}
     >
       {src ? (
         <NextImage src={src} alt={name} width={48} height={48} quality={100} />
       ) : (
         <div
-          className={clsx(
+          className={twMerge(
             'flex items-center justify-center w-full h-full font-medium text-white',
             `bg-${color}-700`,
-            { 'text-sm': size === 'sm' }
+            size === 'sm' && 'text-sm'
           )}
         >
           {slug}

@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import assert from 'assert'
-import { clsx } from 'clsx'
 import { FC } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { PopulatedClientOperation } from '../../../types/client.ts'
 import { formatTime } from '../../../utils/formatDate.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
@@ -33,10 +33,12 @@ export const TransferOperation: FC<Props> = ({ operation, walletId }) => {
           />
 
           <div
-            className={clsx('text-sm truncate', {
-              'font-medium': operation.expenseWallet.id === walletId,
-              'text-zinc-600': operation.expenseWallet.id !== walletId,
-            })}
+            className={twMerge(
+              'text-sm truncate',
+              operation.expenseWallet.id === walletId
+                ? 'font-medium'
+                : 'text-zinc-600'
+            )}
           >
             {operation.expenseWallet.name}
           </div>
@@ -53,10 +55,12 @@ export const TransferOperation: FC<Props> = ({ operation, walletId }) => {
           />
 
           <div
-            className={clsx('text-sm truncate', {
-              'font-medium': operation.incomeWallet.id === walletId,
-              'text-zinc-600': operation.incomeWallet.id !== walletId,
-            })}
+            className={twMerge(
+              'text-sm truncate',
+              operation.incomeWallet.id === walletId
+                ? 'font-medium'
+                : 'text-zinc-600'
+            )}
           >
             {operation.incomeWallet.name}
           </div>

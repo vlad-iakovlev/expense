@@ -1,5 +1,5 @@
-import { clsx } from 'clsx'
 import { CSSProperties, ReactNode, forwardRef } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { CardBlock } from './CardBlock.tsx'
 
 export interface CardTextProps {
@@ -16,7 +16,7 @@ export const CardText = forwardRef<HTMLDivElement, CardTextProps>(
     return (
       <CardBlock
         ref={ref}
-        className={clsx(className, 'flex items-center gap-3')}
+        className={twMerge('flex items-center gap-3', className)}
         style={style}
       >
         {prefix ? <div className="flex-none">{prefix}</div> : null}

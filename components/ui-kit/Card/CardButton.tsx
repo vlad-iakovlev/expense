@@ -1,5 +1,5 @@
-import { clsx } from 'clsx'
 import { FC, MouseEvent, ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 export interface CardButtonProps {
   className?: string
@@ -23,10 +23,10 @@ export const CardButton: FC<CardButtonProps> = ({
   onPointerDown,
 }) => (
   <button
-    className={clsx(
-      className,
+    className={twMerge(
       'flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors',
-      { 'pointer-events-none': disabled }
+      disabled && 'pointer-events-none',
+      className
     )}
     type="button"
     onClick={onClick}

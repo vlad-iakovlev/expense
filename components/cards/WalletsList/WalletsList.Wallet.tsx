@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { clsx } from 'clsx'
 import { FC } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useWallet } from '../../../stores/RootStore/hooks/useWallet.ts'
 import { useWalletBalance } from '../../../stores/RootStore/hooks/useWalletBalance.ts'
@@ -35,10 +35,10 @@ export const Wallet: FC<Props> = ({
     return (
       <Card.Text
         ref={setNodeRef}
-        className={clsx('relative transition-shadow', {
-          'shadow-none': !isDragging,
-          'z-10 shadow-dnd': isDragging,
-        })}
+        className={twMerge(
+          'relative transition-shadow',
+          isDragging ? 'z-10 shadow-dnd' : 'shadow-none'
+        )}
         style={{
           transform: CSS.Translate.toString(transform),
           transition,
@@ -46,9 +46,9 @@ export const Wallet: FC<Props> = ({
         label={wallet.name}
         suffix={
           <div
-            className={clsx(
+            className={twMerge(
               'flex-none flex items-center justify-center h-12 w-12 -m-3 touch-none',
-              { 'cursor-grab': !isDragging, 'cursor-grabbing': isDragging }
+              isDragging ? 'cursor-grabbing' : 'cursor-grab'
             )}
             {...attributes}
             {...listeners}

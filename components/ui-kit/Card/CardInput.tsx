@@ -1,4 +1,3 @@
-import { clsx } from 'clsx'
 import {
   ChangeEvent,
   FC,
@@ -10,6 +9,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { Card } from './Card.tsx'
 
 export interface CardInputProps {
@@ -109,7 +109,7 @@ export const CardInput: FC<CardInputProps> = ({
 
         <div className="flex-none">{label}</div>
 
-        <div className={clsx(className, 'flex-auto min-w-0 font-medium')}>
+        <div className={twMerge('flex-auto min-w-0 font-medium', className)}>
           {isEditing ? (
             <input
               className="w-full text-right bg-transparent focus:outline-none"

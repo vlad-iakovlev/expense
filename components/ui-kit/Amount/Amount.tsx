@@ -1,5 +1,5 @@
-import { clsx } from 'clsx'
 import { FC, useMemo } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { ClientCurrency } from '../../../types/client.ts'
 import { formatAmount } from '../../../utils/formatAmount.ts'
 
@@ -35,10 +35,11 @@ export const Amount: FC<AmountProps> = ({
 
   return (
     <div
-      className={clsx(className, {
-        'text-green-700': type === 'income',
-        'text-red-700': type === 'expense',
-      })}
+      className={twMerge(
+        type === 'income' && 'text-green-700',
+        type === 'expense' && 'text-red-700',
+        className
+      )}
     >
       {sign}
       {formatAmount(amount)}

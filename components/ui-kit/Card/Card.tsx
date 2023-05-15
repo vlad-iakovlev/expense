@@ -1,5 +1,5 @@
-import { clsx } from 'clsx'
 import { ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { CardBlock } from './CardBlock.tsx'
 import { CardButton } from './CardButton.tsx'
 import { CardDateTime } from './CardDateTime.tsx'
@@ -30,10 +30,10 @@ export const Card = ({
 
   return (
     <Component
-      className={clsx(
-        className,
+      className={twMerge(
         'py-2 bg-white rounded-md shadow-lg text-left ring-1 ring-black ring-opacity-5 transition-shadow',
-        { 'hover:shadow-2xl active:shadow-2xl cursor-pointer': clickable }
+        clickable && 'hover:shadow-2xl active:shadow-2xl cursor-pointer',
+        className
       )}
       type="button"
       onClick={onClick}

@@ -1,5 +1,5 @@
-import { clsx } from 'clsx'
 import { FC, ReactNode, useMemo, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { GetSectorProps } from '../../../utils/client/getSector.ts'
 import { Sector } from './PieChart.Sector.tsx'
 
@@ -54,7 +54,7 @@ export const PieChart: FC<PieChartProps> = ({
   }, [activeId, items, total])
 
   return (
-    <div className={clsx(className, 'relative aspect-square')}>
+    <div className={twMerge('relative aspect-square', className)}>
       <svg className="absolute inset-0" viewBox="0 0 100 100">
         {sectors}
         <circle cx="50" cy="50" r="40" fill="white" />

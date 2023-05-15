@@ -1,6 +1,6 @@
-import { clsx } from 'clsx'
 import { Variants, motion } from 'framer-motion'
 import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { Thumb, Track, getThumb, getTrack } from './utils.ts'
 
 const DEFAULT_TRACK: Track = {
@@ -102,17 +102,18 @@ export const Scrollable: FC<ScrollableProps> = ({
   }, [isVTrackVisible, isHTrackVisible, vTrack, hTrack, vThumb, hThumb])
 
   const thumbClassName = useMemo(() => {
-    return clsx('absolute rounded-full', {
-      'bg-black bg-opacity-[0.35]': theme === 'light',
-      'bg-white bg-opacity-50': theme === 'dark',
-    })
+    return twMerge(
+      'absolute rounded-full',
+      theme === 'light' && 'bg-black bg-opacity-[0.35]',
+      theme === 'dark' && 'bg-white bg-opacity-50'
+    )
   }, [theme])
 
   return (
-    <div className={clsx(className, 'relative overflow-hidden')}>
+    <div className={twMerge('relative overflow-hidden', className)}>
       <div
         ref={contentRef}
-        className={clsx(contentClassName, 'overflow-auto hide-scrollbars')}
+        className={twMerge('overflow-auto hide-scrollbars', contentClassName)}
       >
         {children}
       </div>
@@ -130,7 +131,7 @@ export const Scrollable: FC<ScrollableProps> = ({
         }}
       >
         <div
-          className={clsx(thumbClassName, 'w-full')}
+          className={twMerge(thumbClassName, 'w-full')}
           style={{ top: vThumb.offset, height: vThumb.length }}
         />
       </motion.div>
@@ -148,7 +149,7 @@ export const Scrollable: FC<ScrollableProps> = ({
         }}
       >
         <div
-          className={clsx(thumbClassName, 'h-full')}
+          className={twMerge(thumbClassName, 'h-full')}
           style={{ left: hThumb.offset, width: hThumb.length }}
         />
       </motion.div>

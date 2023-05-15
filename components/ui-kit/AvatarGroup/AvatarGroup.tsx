@@ -1,5 +1,5 @@
-import { clsx } from 'clsx'
 import { FC, useMemo } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { Avatar, AvatarProps } from '../Avatar/Avatar.tsx'
 
 export interface AvatarGroupProps {
@@ -23,25 +23,26 @@ export const AvatarGroup: FC<AvatarGroupProps> = ({
   }, [avatars, visibleCount])
 
   return (
-    <div className={clsx(className, 'flex items-center')}>
+    <div className={twMerge('flex items-center', className)}>
       {visibleAvatars.map((props, index) => (
         <Avatar
           {...props}
           key={props.src ?? index}
           size={size}
-          className={clsx(props.className, {
-            '-ml-5': index > 0 && size === 'sm',
-            '-ml-6': index > 0 && size === 'md',
-          })}
+          className={twMerge(
+            index > 0 && size === 'sm' && '-ml-5',
+            index > 0 && size === 'md' && '-ml-6',
+            props.className
+          )}
         />
       ))}
 
       {extraCount > 0 && (
         <Avatar
-          className={clsx({
-            '-ml-5': size === 'sm',
-            '-ml-6': size === 'md',
-          })}
+          className={twMerge(
+            size === 'sm' && '-ml-5',
+            size === 'md' && '-ml-6'
+          )}
           color="green"
           slug={`+${extraCount}`}
           size={size}

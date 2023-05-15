@@ -1,4 +1,3 @@
-import { clsx } from 'clsx'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 import {
   CSSProperties,
@@ -12,6 +11,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { Portal } from '../Portal/Portal.tsx'
 
 const variants: Variants = {
@@ -135,12 +135,14 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function Popup(
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className={clsx(className, 'absolute', {
-                'bottom-0 left-0': position === 'above-left',
-                'bottom-0 right-0': position === 'above-right',
-                'top-0 left-0': position === 'below-left',
-                'top-0 right-0': position === 'below-right',
-              })}
+              className={twMerge(
+                'absolute',
+                position === 'above-left' && 'bottom-0 left-0',
+                position === 'above-right' && 'bottom-0 right-0',
+                position === 'below-left' && 'top-0 left-0',
+                position === 'below-right' && 'top-0 right-0',
+                className
+              )}
               initial="closed"
               animate="opened"
               exit="closed"
