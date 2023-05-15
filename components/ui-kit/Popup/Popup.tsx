@@ -8,7 +8,6 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { twMerge } from 'tailwind-merge'
 import { Portal } from '../Portal/Portal.tsx'
 
 const variants: Variants = {
@@ -58,23 +57,31 @@ export const Popup: FC<PopupProps> = ({
   const isRight = position === 'above-right' || position === 'below-right'
 
   const popupStyle = useMemo<CSSProperties>(() => {
-    if (!anchorRect) return { top: 0, left: 0 }
+    if (!anchorRect) return {}
+
+    const translateX = isRight
+      ? `calc(${anchorRect.right}px - 100%)`
+      : `${anchorRect.left}px`
+
+    const translateY = isAbove
+      ? `calc(${anchorRect.top}px - 100%)`
+      : `${anchorRect.bottom}px`
 
     return {
-      top: isAbove ? anchorRect.top : anchorRect.bottom,
-      left: isRight ? anchorRect.right : anchorRect.left,
+      transform: `translate(${translateX}, ${translateY})`,
       ...(fullMaxWidth && { maxWidth: anchorRect.width }),
       ...(fullWidth && { width: anchorRect.width }),
     }
   }, [anchorRect, fullMaxWidth, fullWidth, isAbove, isRight])
 
-  const rootStyle = useMemo<MotionStyle>(
-    () => ({
-      originX: `${popupStyle.left ?? 0}px`,
-      originY: `${popupStyle.top ?? 0}px`,
-    }),
-    [popupStyle]
-  )
+  const rootStyle = useMemo<MotionStyle>(() => {
+    if (!anchorRect) return {}
+
+    return {
+      originX: `${isRight ? anchorRect.right : anchorRect.left}px`,
+      originY: `${isAbove ? anchorRect.top : anchorRect.bottom}px`,
+    }
+  }, [anchorRect, isAbove, isRight])
 
   useEffect(() => {
     if (isOpen) {
@@ -107,15 +114,7 @@ export const Popup: FC<PopupProps> = ({
           >
             <div className="absolute inset-0" onClick={onClose} />
 
-            <div
-              className={twMerge(
-                'absolute transform',
-                isAbove && '-translate-y-full',
-                isRight && '-translate-x-full',
-                className
-              )}
-              style={popupStyle}
-            >
+            <div className={className} style={popupStyle}>
               {children}
             </div>
           </motion.div>
