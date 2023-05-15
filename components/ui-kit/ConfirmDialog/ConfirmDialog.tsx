@@ -36,7 +36,7 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({
           }
         />
         <Card.Divider />
-        <Card.Block className="flex items-center">{description}</Card.Block>
+        <Card.Block>{description}</Card.Block>
         <Card.Divider />
         <Card.Footer>
           <Button theme="error" onClick={onConfirm}>

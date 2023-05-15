@@ -12,7 +12,10 @@ export const CardBlock = forwardRef<HTMLDivElement, CardBlockProps>(
     return (
       <div
         ref={ref}
-        className={twMerge('min-h-12 px-4 sm:px-6 py-2 bg-white', className)}
+        className={twMerge(
+          'flex items-center min-h-12 px-4 sm:px-6 py-2 gap-3 bg-white',
+          className
+        )}
         style={style}
       >
         {children}

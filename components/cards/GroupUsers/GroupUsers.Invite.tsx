@@ -60,14 +60,14 @@ export const Invite: FC<Props> = ({ groupId }) => {
             }
           />
           <Card.Divider />
-          <Card.Block className="flex items-center">
+          <Card.Block>
             <CopyField value={inviteLink} />
           </Card.Block>
-          <Card.Block className="flex items-center">
+          <Card.Block>
             Share this link with the person you&apos;d like to invite.
             Remember,&nbsp;each link is unique and for one-time use only.
           </Card.Block>
-          <Card.Block className="flex items-center">
+          <Card.Block>
             Will expire on {formatDateTime(expirationDate)}.
           </Card.Block>
           <Card.Divider />

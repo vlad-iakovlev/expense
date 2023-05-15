@@ -41,7 +41,7 @@ export const PeriodSelector: FC<Props> = ({
 }) => {
   return (
     <>
-      <Card.Block className="flex gap-3">
+      <Card.Block>
         <Button
           className="flex-auto px-0"
           disabled={period === Period.ALL}
@@ -92,7 +92,7 @@ export const PeriodSelector: FC<Props> = ({
             exit="closed"
             variants={variants}
           >
-            <Card.Block className="flex items-center gap-3">
+            <Card.Block>
               <Button
                 className="flex-none"
                 theme="secondary"
