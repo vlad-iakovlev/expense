@@ -48,6 +48,7 @@ export const Popup: React.FC<PopupProps> = ({
 
     const handleClick = (event: MouseEvent) => {
       if (!popupRef.current?.contains(event.target as Node)) {
+        event.preventDefault()
         event.stopPropagation()
         onClose()
       }
