@@ -48,15 +48,15 @@ export const Popup: React.FC<PopupProps> = ({
 
     const handleClick = (event: MouseEvent) => {
       if (!popupRef.current?.contains(event.target as Node)) {
-        event.preventDefault()
-        event.stopPropagation()
         onClose()
       }
     }
 
+    document.body.style.setProperty('pointer-events', 'none')
     document.addEventListener('click', handleClick, { capture: true })
 
     return () => {
+      document.body.style.removeProperty('pointer-events')
       document.removeEventListener('click', handleClick, { capture: true })
     }
   }, [isOpen, onClose])
@@ -68,7 +68,7 @@ export const Popup: React.FC<PopupProps> = ({
           <motion.div
             ref={popupRef}
             className={twMerge(
-              'absolute',
+              'absolute [pointer-events:all]',
               position === 'above-left' && 'bottom-0 left-0',
               position === 'above-right' && 'bottom-0 right-0',
               position === 'below-left' && 'top-0 left-0',
