@@ -28,7 +28,7 @@ export interface CardSelectProps<Id extends string = string> {
   label: string
   options: CardSelectItem<Id>[]
   value: CardSelectOption<Id>
-  onChange: (value: CardSelectOption<Id>) => void
+  onChange: (value: Id) => void
 }
 
 export function CardSelect<Id extends string = string>({
@@ -43,13 +43,13 @@ export function CardSelect<Id extends string = string>({
   const hide = useCallback(() => setIsOpen(false), [])
 
   const handleChange = useCallback(
-    (option: CardSelectOption<Id>) => {
-      if (option.id === value.id) {
+    (id: Id) => {
+      if (id === value.id) {
         setIsOpen(false)
         return
       }
 
-      onChange(option)
+      onChange(id)
       setIsOpen(false)
     },
     [onChange, value.id]
@@ -84,7 +84,7 @@ export function CardSelect<Id extends string = string>({
                 key={option.id}
                 label={option.label}
                 value={option.suffix}
-                onClick={() => handleChange(option)}
+                onClick={() => handleChange(option.id)}
               />
             )}
           </Fragment>

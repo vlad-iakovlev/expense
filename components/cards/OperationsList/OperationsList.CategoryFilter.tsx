@@ -1,10 +1,6 @@
-import { FC, useCallback, useMemo } from 'react'
+import { FC, useEffect, useMemo } from 'react'
 import { useCategories } from '../../../stores/RootStore/hooks/useCategories.ts'
-import {
-  Card,
-  CardSelectItem,
-  CardSelectOption,
-} from '../../ui-kit/Card/Card.tsx'
+import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
 
 interface Props {
   groupId: string | undefined
@@ -44,12 +40,11 @@ export const CategoryFilter: FC<Props> = ({
     }
   }, [value])
 
-  const handleChange = useCallback(
-    (option: CardSelectOption) => {
-      onChange(option.id)
-    },
-    [onChange]
-  )
+  useEffect(() => {
+    if (categories.length < 2) {
+      onChange('')
+    }
+  }, [categories.length, onChange])
 
   if (categories.length < 2) {
     return null
@@ -62,7 +57,7 @@ export const CategoryFilter: FC<Props> = ({
         label="Category"
         options={options}
         value={valueForSelect}
-        onChange={handleChange}
+        onChange={onChange}
       />
     </>
   )

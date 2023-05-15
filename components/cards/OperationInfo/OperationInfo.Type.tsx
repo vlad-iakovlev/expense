@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react'
+import { FC } from 'react'
 import { useOperation } from '../../../stores/RootStore/hooks/useOperation.ts'
 import { ClientOperationType } from '../../../types/client.ts'
 import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
@@ -30,19 +30,12 @@ interface Props {
 export const Type: FC<Props> = ({ operationId }) => {
   const { operation, setOperationType } = useOperation({ operationId })
 
-  const handleChange = useCallback(
-    (option: CardSelectOption<ClientOperationType>) => {
-      setOperationType(option.id)
-    },
-    [setOperationType]
-  )
-
   return (
     <Card.Select
       label="Type"
       options={options}
       value={OperationTypeOptionsMap[operation.type]}
-      onChange={handleChange}
+      onChange={setOperationType}
     />
   )
 }

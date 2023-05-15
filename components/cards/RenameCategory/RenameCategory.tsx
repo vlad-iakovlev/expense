@@ -11,7 +11,7 @@ interface Props {
 
 export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
   const { categories, renameCategory } = useCategories({ groupId })
-  const [category, setCategory] = useState('')
+  const [oldName, setOldName] = useState('')
   const [newName, setNewName] = useState('')
 
   const categoriesOptions = useMemo<CardSelectOption[]>(() => {
@@ -23,28 +23,28 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
 
   const categoryValue = useMemo(
     () => ({
-      id: category,
-      label: category || 'Select',
+      id: oldName,
+      label: oldName || 'Select',
     }),
-    [category]
+    [oldName]
   )
 
-  const handleSelectCategory = useCallback((option: CardSelectOption) => {
-    setCategory(option.id)
-    setNewName(option.id)
+  const handleSelectCategory = useCallback((category: string) => {
+    setOldName(category)
+    setNewName(category)
   }, [])
 
   const handleApplyClick = useCallback(() => {
-    if (category !== newName) {
-      renameCategory(category, newName)
+    if (oldName !== newName) {
+      renameCategory(oldName, newName)
     }
 
-    setCategory('')
+    setOldName('')
     setNewName('')
-  }, [category, newName, renameCategory])
+  }, [oldName, newName, renameCategory])
 
   const handleCancelClick = useCallback(() => {
-    setCategory('')
+    setOldName('')
     setNewName('')
   }, [])
 
@@ -57,7 +57,7 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
       <Card.Title
         title="Rename category"
         actions={
-          category && (
+          oldName && (
             <>
               <Button
                 rounded
@@ -86,7 +86,7 @@ export const RenameCategoryCard: FC<Props> = ({ className, groupId }) => {
         onChange={handleSelectCategory}
       />
 
-      {!!category && (
+      {!!oldName && (
         <Card.Input label="New name" value={newName} onChange={setNewName} />
       )}
     </Card>

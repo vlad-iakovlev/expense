@@ -1,13 +1,9 @@
-import { FC, useCallback, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import { useRootStore } from '../../../stores/RootStore/RootStore.tsx'
 import { getPopulatedWallet } from '../../../stores/RootStore/getters/wallets.ts'
 import { useGroupedWallets } from '../../../stores/RootStore/hooks/useGroupedWallets.ts'
 import { PopulatedClientWallet } from '../../../types/client.ts'
-import {
-  Card,
-  CardSelectItem,
-  CardSelectOption,
-} from '../../ui-kit/Card/Card.tsx'
+import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
 import { CurrencyBadge } from '../CurrencyBadge/CurrencyBadge.tsx'
 
 export interface WalletSelectProps {
@@ -55,17 +51,12 @@ export const WalletSelect: FC<WalletSelectProps> = ({
     [value.currency.symbol, value.id, value.name]
   )
 
-  const handleChange = useCallback(
-    (option: CardSelectOption) => onChange(option.id),
-    [onChange]
-  )
-
   return (
     <Card.Select
       label={label}
       options={walletsOptions}
       value={valueForSelect}
-      onChange={handleChange}
+      onChange={onChange}
     />
   )
 }

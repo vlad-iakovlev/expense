@@ -1,12 +1,8 @@
 import assert from 'assert'
-import { FC, useCallback, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import { useCurrencies } from '../../../stores/RootStore/hooks/useCurrencies.ts'
 import { ClientCurrency } from '../../../types/client.ts'
-import {
-  Card,
-  CardSelectItem,
-  CardSelectOption,
-} from '../../ui-kit/Card/Card.tsx'
+import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
 import { CurrencyBadge } from '../CurrencyBadge/CurrencyBadge.tsx'
 
 const PRIORITIZED_CURRENCIES = ['USD', 'EUR']
@@ -55,17 +51,12 @@ export const CurrencySelect: FC<CurrencySelectProps> = ({
     [value.id, value.symbol]
   )
 
-  const handleChange = useCallback(
-    (option: CardSelectOption) => onChange(option.id),
-    [onChange]
-  )
-
   return (
     <Card.Select
       label={label}
       options={options}
       value={valueForSelect}
-      onChange={handleChange}
+      onChange={onChange}
     />
   )
 }
