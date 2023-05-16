@@ -45,7 +45,13 @@ export const Invite: React.FC<Props> = ({ groupId }) => {
 
   return (
     <>
-      <Button disabled={isLoading} rounded size="sm" onClick={handleInvite}>
+      <Button
+        disabled={isLoading}
+        rounded
+        size="sm"
+        theme="green"
+        onClick={handleInvite}
+      >
         Invite
       </Button>
 
@@ -72,7 +78,9 @@ export const Invite: React.FC<Props> = ({ groupId }) => {
           </Card.Block>
           <Card.Divider />
           <Card.Footer fullWidth>
-            <Button onClick={handleClose}>Go back to group</Button>
+            <Button size="md" theme="green" onClick={handleClose}>
+              Go back to group
+            </Button>
           </Card.Footer>
         </Card>
       </Dialog>

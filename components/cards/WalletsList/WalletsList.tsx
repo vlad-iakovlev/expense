@@ -66,7 +66,7 @@ export const WalletsListCard: React.FC<Props> = ({ className, groupId }) => {
         title="Wallets"
         actions={
           isReordering ? (
-            <Button rounded size="sm" onClick={stopReordering}>
+            <Button rounded size="sm" theme="green" onClick={stopReordering}>
               Done
             </Button>
           ) : (

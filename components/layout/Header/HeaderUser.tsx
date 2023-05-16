@@ -49,7 +49,12 @@ export const HeaderUser: React.FC<Props> = ({ className }) => {
   return (
     <div className={className}>
       {session.status === 'unauthenticated' && (
-        <Button disabled={isLoading} onClick={handleSignIn}>
+        <Button
+          disabled={isLoading}
+          size="md"
+          theme="green"
+          onClick={handleSignIn}
+        >
           Sign In
         </Button>
       )}

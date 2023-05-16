@@ -23,7 +23,7 @@ export const Add: React.FC<Props> = ({ walletId }) => {
   }
 
   return (
-    <Button rounded size="sm" onClick={handleCreate}>
+    <Button rounded size="sm" theme="green" onClick={handleCreate}>
       Add
     </Button>
   )

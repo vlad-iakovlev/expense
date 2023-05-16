@@ -19,7 +19,7 @@ export const Add: React.FC<Props> = ({ groupId }) => {
   }, [createWallet, router])
 
   return (
-    <Button rounded size="sm" onClick={handleCreate}>
+    <Button rounded size="sm" theme="green" onClick={handleCreate}>
       Add
     </Button>
   )
