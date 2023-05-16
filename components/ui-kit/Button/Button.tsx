@@ -8,7 +8,7 @@ export interface ButtonProps {
   iconStart?: React.ReactNode
   rounded?: boolean
   size?: 'sm' | 'md' | 'lg'
-  theme?: 'primary' | 'secondary' | 'error'
+  theme?: 'green' | 'red' | 'white'
   type?: 'button' | 'submit' | 'reset'
   onClick?: (event: React.MouseEvent) => void
 }
@@ -21,7 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
   iconStart,
   rounded,
   size = 'md',
-  theme = 'primary',
+  theme = 'green',
   type = 'button',
   onClick,
 }) => (
@@ -32,12 +32,12 @@ export const Button: React.FC<ButtonProps> = ({
       size === 'sm' && 'min-w-8 h-8 px-2 text-sm',
       size === 'md' && 'min-w-10 h-10 px-2',
       size === 'lg' && 'min-w-12 h-12 px-3',
-      theme === 'primary' &&
+      theme === 'green' &&
         'bg-green-700 text-white hover:bg-green-800 active:bg-green-800 shadow-inner',
-      theme === 'secondary' &&
-        'bg-white text-black ring-1 ring-inset ring-zinc-300 hover:bg-zinc-50 active:bg-zinc-50',
-      theme === 'error' &&
+      theme === 'red' &&
         'bg-red-700 text-white hover:bg-red-800 active:bg-red-800 shadow-inner',
+      theme === 'white' &&
+        'bg-white text-black ring-1 ring-inset ring-zinc-300 hover:bg-zinc-50 active:bg-zinc-50',
       disabled && 'pointer-events-none',
       className
     )}

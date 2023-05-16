@@ -44,7 +44,7 @@ export const PeriodSelector: React.FC<Props> = ({
         <Button
           className="flex-auto px-0"
           disabled={period === Period.ALL}
-          theme={period === Period.ALL ? 'primary' : 'secondary'}
+          theme={period === Period.ALL ? 'green' : 'white'}
           size="sm"
           onClick={() => onChangePeriod(Period.ALL)}
         >
@@ -54,7 +54,7 @@ export const PeriodSelector: React.FC<Props> = ({
         <Button
           className="flex-auto px-0"
           disabled={period === Period.WEEK}
-          theme={period === Period.WEEK ? 'primary' : 'secondary'}
+          theme={period === Period.WEEK ? 'green' : 'white'}
           size="sm"
           onClick={() => onChangePeriod(Period.WEEK)}
         >
@@ -64,7 +64,7 @@ export const PeriodSelector: React.FC<Props> = ({
         <Button
           className="flex-auto px-0"
           disabled={period === Period.MONTH}
-          theme={period === Period.MONTH ? 'primary' : 'secondary'}
+          theme={period === Period.MONTH ? 'green' : 'white'}
           size="sm"
           onClick={() => onChangePeriod(Period.MONTH)}
         >
@@ -74,7 +74,7 @@ export const PeriodSelector: React.FC<Props> = ({
         <Button
           className="flex-auto px-0"
           disabled={period === Period.YEAR}
-          theme={period === Period.YEAR ? 'primary' : 'secondary'}
+          theme={period === Period.YEAR ? 'green' : 'white'}
           size="sm"
           onClick={() => onChangePeriod(Period.YEAR)}
         >
@@ -94,7 +94,7 @@ export const PeriodSelector: React.FC<Props> = ({
             <Card.Block>
               <Button
                 className="flex-none"
-                theme="secondary"
+                theme="white"
                 iconStart={<ChevronLeftIcon />}
                 onClick={onGoPrev}
               />
@@ -107,7 +107,7 @@ export const PeriodSelector: React.FC<Props> = ({
 
               <Button
                 className="flex-none"
-                theme="secondary"
+                theme="white"
                 iconStart={<ChevronRightIcon />}
                 onClick={onGoNext}
               />

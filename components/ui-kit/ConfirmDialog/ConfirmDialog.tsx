@@ -38,10 +38,10 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
         <Card.Block>{description}</Card.Block>
         <Card.Divider />
         <Card.Footer>
-          <Button theme="error" onClick={onConfirm}>
+          <Button theme="red" onClick={onConfirm}>
             {action}
           </Button>
-          <Button theme="secondary" onClick={onCancel}>
+          <Button theme="white" onClick={onCancel}>
             Cancel
           </Button>
         </Card.Footer>

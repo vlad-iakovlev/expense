@@ -62,7 +62,7 @@ export const Delete: React.FC<Props> = ({ groupId, userId }) => {
       <Button
         rounded
         size="sm"
-        theme="error"
+        theme="red"
         iconStart={<XMarkIcon />}
         onClick={handleDelete}
       />

@@ -36,7 +36,7 @@ export const Delete: React.FC<Props> = ({ groupId }) => {
   return (
     <>
       {!walletIds.length && (
-        <Button rounded size="sm" theme="error" onClick={handleDelete}>
+        <Button rounded size="sm" theme="red" onClick={handleDelete}>
           Delete
         </Button>
       )}

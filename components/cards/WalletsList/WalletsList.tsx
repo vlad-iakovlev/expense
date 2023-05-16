@@ -76,7 +76,7 @@ export const WalletsListCard: React.FC<Props> = ({ className, groupId }) => {
                 <Button
                   rounded
                   size="sm"
-                  theme="secondary"
+                  theme="white"
                   onClick={startReordering}
                 >
                   Edit

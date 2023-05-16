@@ -33,7 +33,7 @@ export const Delete: React.FC<Props> = ({ operationId }) => {
 
   return (
     <>
-      <Button rounded size="sm" theme="error" onClick={handleDelete}>
+      <Button rounded size="sm" theme="red" onClick={handleDelete}>
         Delete
       </Button>
 

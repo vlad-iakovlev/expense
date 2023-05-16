@@ -65,14 +65,14 @@ export const RenameCategoryCard: React.FC<Props> = ({ className, groupId }) => {
               <Button
                 rounded
                 size="sm"
-                theme="error"
+                theme="red"
                 iconStart={<XMarkIcon />}
                 onClick={handleCancelClick}
               />
               <Button
                 rounded
                 size="sm"
-                theme="primary"
+                theme="green"
                 iconStart={<CheckIcon />}
                 onClick={handleApplyClick}
               />

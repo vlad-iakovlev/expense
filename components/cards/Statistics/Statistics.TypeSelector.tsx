@@ -12,7 +12,7 @@ export const TypeSelector: React.FC<Props> = ({ value, onChange }) => {
       <Button
         disabled={value === ClientStatisticsType.EXPENSES}
         rounded
-        theme={value === ClientStatisticsType.EXPENSES ? 'error' : 'secondary'}
+        theme={value === ClientStatisticsType.EXPENSES ? 'red' : 'white'}
         size="sm"
         onClick={() => onChange(ClientStatisticsType.EXPENSES)}
       >
@@ -22,7 +22,7 @@ export const TypeSelector: React.FC<Props> = ({ value, onChange }) => {
       <Button
         disabled={value === ClientStatisticsType.INCOMES}
         rounded
-        theme={value === ClientStatisticsType.INCOMES ? 'primary' : 'secondary'}
+        theme={value === ClientStatisticsType.INCOMES ? 'green' : 'white'}
         size="sm"
         onClick={() => onChange(ClientStatisticsType.INCOMES)}
       >
