@@ -1,20 +1,17 @@
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '../../../types/utility.ts'
 
-export type ButtonProps<T extends React.ElementType> = Modify<
-  React.ComponentPropsWithoutRef<T>,
-  {
-    as?: T
-    className?: string
-    children?: React.ReactNode
-    disabled?: boolean
-    iconEnd?: React.ReactNode
-    iconStart?: React.ReactNode
-    rounded?: boolean
-    size: 'sm' | 'md' | 'lg'
-    theme: 'green' | 'red' | 'zinc' | 'white'
-  }
->
+export interface ButtonProps<T extends React.ElementType> {
+  as?: T
+  className?: string
+  children?: React.ReactNode
+  disabled?: boolean
+  iconEnd?: React.ReactNode
+  iconStart?: React.ReactNode
+  rounded?: boolean
+  size: 'sm' | 'md' | 'lg'
+  theme: 'green' | 'red' | 'zinc' | 'white'
+}
 
 export function Button<T extends React.ElementType = 'button'>({
   as,
@@ -27,7 +24,7 @@ export function Button<T extends React.ElementType = 'button'>({
   size,
   theme,
   ...restProps
-}: ButtonProps<T>) {
+}: Modify<React.ComponentPropsWithoutRef<T>, ButtonProps<T>>) {
   const Component = as ?? 'button'
 
   return (
