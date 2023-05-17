@@ -1,11 +1,10 @@
-import { createElement } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify, ReactTag } from '../../../types/utility.ts'
+import { Modify } from '../../../types/utility.ts'
 
-export type ButtonProps<Tag extends ReactTag> = Modify<
-  React.ComponentProps<Tag>,
+export type ButtonProps<T extends React.ElementType> = Modify<
+  React.ComponentPropsWithoutRef<T>,
   {
-    as?: Tag
+    as?: T
     className?: string
     children?: React.ReactNode
     disabled?: boolean
@@ -17,8 +16,8 @@ export type ButtonProps<Tag extends ReactTag> = Modify<
   }
 >
 
-export function Button<Tag extends ReactTag = 'button'>({
-  as: Component = 'button' as Tag,
+export function Button<T extends React.ElementType = 'button'>({
+  as,
   className,
   children,
   disabled,
@@ -28,14 +27,12 @@ export function Button<Tag extends ReactTag = 'button'>({
   size,
   theme,
   ...restProps
-}: ButtonProps<Tag>) {
-  return createElement(
-    Component,
-    {
-      ...(Component === 'button' && { type: 'button' }),
-      ...(Component === 'div' && { tabIndex: 0, role: 'button' }),
-      ...restProps,
-      className: twMerge(
+}: ButtonProps<T>) {
+  const Component = as ?? 'button'
+
+  return (
+    <Component
+      className={twMerge(
         'relative inline-flex items-center justify-center transition-colors font-medium',
         rounded ? 'rounded-full' : 'rounded-md',
         size === 'sm' && 'min-w-8 h-8 px-2 text-sm',
@@ -51,9 +48,11 @@ export function Button<Tag extends ReactTag = 'button'>({
           'bg-white text-black ring-1 ring-inset ring-zinc-300 hover:bg-zinc-50 active:bg-zinc-50',
         disabled && 'pointer-events-none',
         className
-      ),
-    },
-    <>
+      )}
+      {...(Component === 'button' && { type: 'button' })}
+      {...(Component === 'div' && { tabIndex: 0, role: 'button' })}
+      {...restProps}
+    >
       {iconStart ? (
         <div
           className={twMerge(
@@ -92,6 +91,6 @@ export function Button<Tag extends ReactTag = 'button'>({
           {iconEnd}
         </div>
       ) : null}
-    </>
+    </Component>
   )
 }
