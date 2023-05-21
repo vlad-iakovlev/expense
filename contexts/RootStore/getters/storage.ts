@@ -12,6 +12,7 @@ export const getBrowserStorageState = (
     groups: state.groups,
     wallets: state.wallets,
     operations: state.operations,
+    disabledCategories: state.disabledCategories,
     nextSyncTransaction: state.nextSyncTransaction,
     syncingTransaction: state.syncingTransaction,
     lastTransactionId: state.lastTransactionId,

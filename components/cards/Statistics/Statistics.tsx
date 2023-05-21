@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { useDisabledCategories } from '../../../contexts/RootStore/hooks/useDisabledCategories.ts'
 import { useOperations } from '../../../contexts/RootStore/hooks/useOperations.ts'
 import { useStatistics } from '../../../contexts/RootStore/hooks/useStatistics.ts'
 import { usePeriod } from '../../../hooks/usePeriod.ts'
@@ -8,7 +9,6 @@ import { Categories } from './Statistics.Categories.tsx'
 import { Charts } from './Statistics.Charts.tsx'
 import { PeriodSelector } from './Statistics.PeriodSelector.tsx'
 import { TypeSelector } from './Statistics.TypeSelector.tsx'
-import { useDisabledCategories } from './useDisabledCategories.ts'
 
 interface Props {
   className?: string
@@ -21,8 +21,6 @@ export const StatisticsCard: React.FC<Props> = ({
   groupId,
   walletId,
 }) => {
-  const { operationIds } = useOperations({ groupId, walletId })
-
   const [type, setType] = useState(ClientStatisticsType.EXPENSES)
   const { startDate, endDate, fromDate, period, setPeriod, goPrev, goNext } =
     usePeriod()
@@ -35,9 +33,15 @@ export const StatisticsCard: React.FC<Props> = ({
     type,
   })
 
-  const { chartItems, isCategoryDisabled, setCategoryDisabled } =
-    useDisabledCategories(statisticsItems)
+  const { disabledCategories } = useDisabledCategories()
+  const chartItems = useMemo(() => {
+    return statisticsItems.map((item) => ({
+      ...item,
+      amount: disabledCategories.includes(item.category) ? 0 : item.amount,
+    }))
+  }, [disabledCategories, statisticsItems])
 
+  const { operationIds } = useOperations({ groupId, walletId })
   if (!operationIds.length) {
     return null
   }
@@ -67,8 +71,6 @@ export const StatisticsCard: React.FC<Props> = ({
         currency={statisticsCurrency}
         items={statisticsItems}
         type={type}
-        isCategoryDisabled={isCategoryDisabled}
-        setCategoryDisabled={setCategoryDisabled}
       />
     </Card>
   )

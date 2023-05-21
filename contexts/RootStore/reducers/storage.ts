@@ -135,6 +135,7 @@ const setStateFromRemoteStorageReducer: React.Reducer<
     groups,
     wallets,
     operations,
+    disabledCategories: state.disabledCategories,
     nextSyncTransaction: state.nextSyncTransaction,
     syncingTransaction: getEmptyTransaction(),
     lastTransactionId,
@@ -165,6 +166,7 @@ const setStateFromBrowserStorageReducer: React.Reducer<
       ...operation,
       date: new Date(operation.date),
     })),
+    disabledCategories: storedState.disabledCategories ?? [],
     nextSyncTransaction: mergeTransactions(
       storedState.nextSyncTransaction,
       storedState.syncingTransaction

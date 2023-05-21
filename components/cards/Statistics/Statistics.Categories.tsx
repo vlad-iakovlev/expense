@@ -1,4 +1,6 @@
+import { useCallback } from 'react'
 import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
+import { useDisabledCategories } from '../../../contexts/RootStore/hooks/useDisabledCategories.ts'
 import {
   ClientCurrency,
   ClientStatisticsItem,
@@ -17,18 +19,16 @@ interface Props {
   currency: ClientCurrency
   items: ClientStatisticsItem[]
   type: ClientStatisticsType
-  isCategoryDisabled: (category: string) => boolean
-  setCategoryDisabled: (category: string, disabled: boolean) => void
 }
 
-export const Categories: React.FC<Props> = ({
-  currency,
-  items,
-  type,
-  isCategoryDisabled,
-  setCategoryDisabled,
-}) => {
+export const Categories: React.FC<Props> = ({ currency, items, type }) => {
   const { setCategoryFilter } = useCategoryFilter()
+  const { disabledCategories, toggleCategory } = useDisabledCategories()
+
+  const isEnabled = useCallback(
+    (category: string) => !disabledCategories.includes(category),
+    [disabledCategories]
+  )
 
   return (
     <>
@@ -39,11 +39,9 @@ export const Categories: React.FC<Props> = ({
             key={item.category}
             prefix={
               <Switch
-                value={!isCategoryDisabled(item.category)}
-                color={
-                  isCategoryDisabled(item.category) ? undefined : item.color
-                }
-                onChange={(value) => setCategoryDisabled(item.category, !value)}
+                value={isEnabled(item.category)}
+                color={isEnabled(item.category) ? item.color : undefined}
+                onChange={(value) => toggleCategory(item.category, value)}
               />
             }
             label={item.category}

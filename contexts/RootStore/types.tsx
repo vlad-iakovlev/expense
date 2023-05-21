@@ -16,6 +16,7 @@ export interface RootStoreState {
   groups: Modify<ClientGroup, { clientOnly?: true; clientRemoved?: true }>[]
   wallets: ClientWallet[]
   operations: ClientOperation[]
+  disabledCategories: string[]
   nextSyncTransaction: ClientTransaction
   syncingTransaction: ClientTransaction
   lastTransactionId: string | null
@@ -30,6 +31,7 @@ export interface BrowserStorageState {
   groups: Modify<ClientGroup, { clientOnly?: true; clientRemoved?: true }>[]
   wallets: Modify<ClientWallet, { createdAt: string | Date }>[]
   operations: Modify<ClientOperation, { date: string | Date }>[]
+  disabledCategories?: string[]
   nextSyncTransaction: ClientTransaction
   syncingTransaction: ClientTransaction
   lastTransactionId: string | null
@@ -76,4 +78,5 @@ export enum OperationsActionTypes {
 
 export enum CategoriesActionTypes {
   RENAME_CATEGORY = 'RENAME_CATEGORY',
+  TOGGLE_CATEGORY = 'TOGGLE_CATEGORY',
 }

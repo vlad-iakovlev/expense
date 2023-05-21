@@ -8,6 +8,7 @@ export const getEmptyState = (): RootStoreState => ({
   groups: [],
   wallets: [],
   operations: [],
+  disabledCategories: [],
   nextSyncTransaction: getEmptyTransaction(),
   syncingTransaction: getEmptyTransaction(),
   lastTransactionId: null,

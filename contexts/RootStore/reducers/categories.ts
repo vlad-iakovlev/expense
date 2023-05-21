@@ -21,7 +21,30 @@ const renameCategoryReducer: React.Reducer<
   })
 }
 
-export type CategoriesAction = React.ReducerAction<typeof renameCategoryReducer>
+const toggleCategoryReducer: React.Reducer<
+  RootStoreState,
+  {
+    type: CategoriesActionTypes.TOGGLE_CATEGORY
+    payload: {
+      name: string
+      enabled: boolean
+    }
+  }
+> = (state, action) => {
+  return produce(state, (draft) => {
+    draft.disabledCategories = draft.disabledCategories.filter(
+      (category) => category !== action.payload.name
+    )
+
+    if (!action.payload.enabled) {
+      draft.disabledCategories.push(action.payload.name)
+    }
+  })
+}
+
+export type CategoriesAction =
+  | React.ReducerAction<typeof renameCategoryReducer>
+  | React.ReducerAction<typeof toggleCategoryReducer>
 
 export const isCategoriesAction = (action: {
   type: string
@@ -39,5 +62,8 @@ export const categoriesReducer: React.Reducer<
   switch (action.type) {
     case CategoriesActionTypes.RENAME_CATEGORY:
       return renameCategoryReducer(state, action)
+
+    case CategoriesActionTypes.TOGGLE_CATEGORY:
+      return toggleCategoryReducer(state, action)
   }
 }
