@@ -6,7 +6,7 @@ import {
 } from '../../../types/client.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Switch } from '../../ui-kit/Switch/Switch.tsx'
+import { Switch } from './Statistics.Switch.tsx'
 
 const AMOUNT_TYPE = {
   [ClientStatisticsType.INCOMES]: 'income',
@@ -38,13 +38,18 @@ export const Categories: React.FC<Props> = ({
           <Card.Button
             key={item.category}
             prefix={
-              <Switch
-                value={!isCategoryDisabled(item.category)}
-                color={
-                  isCategoryDisabled(item.category) ? undefined : item.color
-                }
-                onChange={(value) => setCategoryDisabled(item.category, !value)}
-              />
+              <div className="flex items-center gap-3">
+                <Switch
+                  value={!isCategoryDisabled(item.category)}
+                  onChange={(value) =>
+                    setCategoryDisabled(item.category, !value)
+                  }
+                />
+                <div
+                  className="w-3 h-3 rounded-full"
+                  style={{ backgroundColor: item.color }}
+                />
+              </div>
             }
             label={item.category}
             value={
