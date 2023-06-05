@@ -2,7 +2,6 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base", ":semanticCommitTypeAll(chore)"],
   "rangeStrategy": "bump",
-  "assignees": ["vlad-yakovlev"],
-  "reviewers": ["vlad-yakovlev"],
-  "automerge": true
+  "automerge": true,
+  "reviewers": ["vlad-yakovlev"]
 }
