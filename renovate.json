@@ -4,5 +4,5 @@
   "rangeStrategy": "bump",
   "assignees": ["vlad-yakovlev"],
   "reviewers": ["vlad-yakovlev"],
-  "automerge" true
+  "automerge": true
 }
