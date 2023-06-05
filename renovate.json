@@ -7,5 +7,7 @@
     ":disableRateLimiting",
     ":assignAndReview(vlad-yakovlev)"
   ],
-  "rangeStrategy": "bump"
+  "rangeStrategy": "bump",
+  "automerge": true,
+  "assignAutomerge": true
 }
