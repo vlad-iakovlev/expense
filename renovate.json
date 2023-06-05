@@ -1,9 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", ":semanticCommitTypeAll(chore)"],
-  "rangeStrategy": "bump",
-  "automerge": true,
-  "assignAutomerge": true,
-  "assignees": ["vlad-yakovlev"],
-  "reviewers": ["vlad-yakovlev"]
+  "extends": [
+    "config:base",
+    ":semanticCommitTypeAll(chore)",
+    ":maintainLockFilesWeekly",
+    ":disableRateLimiting",
+    ":assignAndReview(vlad-yakovlev)"
+  ],
+  "rangeStrategy": "bump"
 }
