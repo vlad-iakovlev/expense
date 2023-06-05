@@ -3,6 +3,5 @@
   "extends": ["config:base", ":semanticCommitTypeAll(chore)"],
   "rangeStrategy": "bump",
   "assignees": ["vlad-yakovlev"],
-  "reviewers": ["vlad-yakovlev"],
-  "automerge": true
+  "reviewers": ["vlad-yakovlev"]
 }
