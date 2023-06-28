@@ -65,7 +65,7 @@
     "eslint-config-next": "^13.4.4",
     "eslint-config-prettier": "^8.8.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
+    "lint-staged": "^13.2.3",
     "prettier": "^2.8.8",
     "prisma": "^4.15.0",
     "typescript": "^5.1.3"
