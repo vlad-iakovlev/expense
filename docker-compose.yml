@@ -4,9 +4,12 @@ networks:
 
 services:
   expense:
+    image: ghcr.io/vlad-yakovlev/expense:latest
+    pull_policy: always
     build: .
     networks:
       - vlad-yakovlev-dev
+    env_file: .env
     environment:
       DATABASE_URL: mongodb://mongo:27017/expense
       VIRTUAL_HOST: expense.vlad-yakovlev.dev
