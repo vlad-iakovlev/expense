@@ -7,7 +7,7 @@ on:
 
 jobs:
   update-currency-rates:
-    if: github.repository == 'vlad-yakovlev/expense'
+    if: startsWith(github.repository, 'vlad-yakovlev/')
     runs-on: ubuntu-latest
     steps:
       - name: Call update-currency-rates script in Digital Ocean droplet

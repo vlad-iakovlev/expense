@@ -37,7 +37,7 @@ jobs:
 
   deploy:
     needs: checks
-    if: github.repository == 'vlad-yakovlev/expense' && github.ref == 'refs/heads/main'
+    if: startsWith(github.repository, 'vlad-yakovlev/') && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Digital Ocean droplet
