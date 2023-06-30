@@ -39,13 +39,10 @@ jobs:
     needs: checks
     if: startsWith(github.repository, 'vlad-yakovlev/') && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Extract metadata (tags, labels) for Docker
+      - name: Extract metadata for Docker
         id: meta
         uses: docker/metadata-action@v4
         with:
