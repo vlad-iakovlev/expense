@@ -8,12 +8,7 @@ export interface SwitchProps {
   onChange: (value: boolean) => void
 }
 
-export const Switch: React.FC<SwitchProps> = ({
-  className,
-  color,
-  value,
-  onChange,
-}) => {
+export const Switch = ({ className, color, value, onChange }: SwitchProps) => {
   const handleClick = useCallback(
     (event: React.MouseEvent) => {
       event.stopPropagation()

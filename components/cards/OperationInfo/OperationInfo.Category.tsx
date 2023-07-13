@@ -8,7 +8,7 @@ interface Props {
   operationId: string
 }
 
-export const Category: React.FC<Props> = ({ operationId }) => {
+export const Category = ({ operationId }: Props) => {
   const { operation, setOperationCategory } = useOperation({ operationId })
 
   const groupId = useMemo(() => {

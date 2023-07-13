@@ -5,10 +5,7 @@ export interface CardSubtitleProps {
   actions?: React.ReactNode
 }
 
-export const CardSubtitle: React.FC<CardSubtitleProps> = ({
-  subtitle,
-  actions,
-}) => (
+export const CardSubtitle = ({ subtitle, actions }: CardSubtitleProps) => (
   <CardBlock className="my-2 bg-zinc-100">
     <h2 className="flex-auto min-w-0 font-medium truncate">{subtitle}</h2>
     {actions ? (

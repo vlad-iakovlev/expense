@@ -5,7 +5,7 @@ interface Props {
   children: React.ReactNode
 }
 
-export const PageStore: React.FC<Props> = ({ children }) => {
+export const PageStore = ({ children }: Props) => {
   const { state } = useRootStore()
 
   return (

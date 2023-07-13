@@ -5,7 +5,7 @@ export interface CardTitleProps {
   actions?: React.ReactNode
 }
 
-export const CardTitle: React.FC<CardTitleProps> = ({ title, actions }) => (
+export const CardTitle = ({ title, actions }: CardTitleProps) => (
   <CardBlock>
     <h2 className="flex-auto min-w-0 text-xl leading-6 font-semibold text-zinc-900 truncate">
       {title}

@@ -16,9 +16,7 @@ interface ProviderProps {
   children: React.ReactNode
 }
 
-export const CategoryFilterProvider: React.FC<ProviderProps> = ({
-  children,
-}) => {
+export const CategoryFilterProvider = ({ children }: ProviderProps) => {
   const [categoryFilter, setCategoryFilter] = useState('')
 
   const resetCategoryFilter = useCallback(() => setCategoryFilter(''), [])

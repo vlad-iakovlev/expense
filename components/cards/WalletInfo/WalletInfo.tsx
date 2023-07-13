@@ -10,7 +10,7 @@ interface Props {
   walletId: string
 }
 
-export const WalletInfoCard: React.FC<Props> = ({ className, walletId }) => {
+export const WalletInfoCard = ({ className, walletId }: Props) => {
   return (
     <Card className={className}>
       <Card.Title title="Info" actions={<Delete walletId={walletId} />} />

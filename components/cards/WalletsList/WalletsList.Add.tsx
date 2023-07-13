@@ -8,7 +8,7 @@ interface Props {
   groupId: string
 }
 
-export const Add: React.FC<Props> = ({ groupId }) => {
+export const Add = ({ groupId }: Props) => {
   const router = useRouter()
   const { createWallet } = useWallets({ groupId })
 

@@ -5,7 +5,7 @@ interface Props {
   groupId: string
 }
 
-export const Name: React.FC<Props> = ({ groupId }) => {
+export const Name = ({ groupId }: Props) => {
   const { group, setGroupName } = useGroup({ groupId })
 
   return <Card.Input label="Name" value={group.name} onChange={setGroupName} />

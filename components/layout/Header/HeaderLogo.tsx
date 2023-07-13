@@ -4,7 +4,7 @@ interface Props {
   className?: string
 }
 
-export const HeaderLogo: React.FC<Props> = ({ className }) => {
+export const HeaderLogo = ({ className }: Props) => {
   return (
     <div className={className}>
       <NextLink

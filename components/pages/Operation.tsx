@@ -11,7 +11,7 @@ interface Props {
   operationId: string
 }
 
-export const Operation: React.FC<Props> = ({ operationId }) => {
+export const Operation = ({ operationId }: Props) => {
   const { operation } = useOperation({ operationId })
 
   const parents = useMemo(() => {

@@ -21,7 +21,7 @@ interface Props {
   type: ClientStatisticsType
 }
 
-export const Categories: React.FC<Props> = ({ currency, items, type }) => {
+export const Categories = ({ currency, items, type }: Props) => {
   const { setCategoryFilter } = useCategoryFilter()
   const { disabledCategories, toggleCategory } = useDisabledCategories()
 

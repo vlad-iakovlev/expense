@@ -26,7 +26,7 @@ interface Props {
   operationId: string
 }
 
-export const Type: React.FC<Props> = ({ operationId }) => {
+export const Type = ({ operationId }: Props) => {
   const { operation, setOperationType } = useOperation({ operationId })
 
   return (

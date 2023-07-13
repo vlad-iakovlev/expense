@@ -40,14 +40,14 @@ const getColorByName = (name: string) => {
   return avatarColors[(slug.charCodeAt(0) || 0) % avatarColors.length]
 }
 
-export const Avatar: React.FC<AvatarProps> = ({
+export const Avatar = ({
   className,
   name = 'Unknown',
   color = getColorByName(name),
   slug = getSlugByName(name),
   src,
   size = 'md',
-}) => {
+}: AvatarProps) => {
   return (
     <div
       className={twMerge(

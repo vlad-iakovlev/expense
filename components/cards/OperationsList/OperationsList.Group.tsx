@@ -8,7 +8,7 @@ interface Props {
   walletId: string | undefined
 }
 
-export const Group: React.FC<Props> = ({ date, operationIds, walletId }) => {
+export const Group = ({ date, operationIds, walletId }: Props) => {
   return (
     <div className="bg-white">
       <Card.Subtitle subtitle={formatDate(date)} />

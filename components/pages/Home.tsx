@@ -15,7 +15,7 @@ import { Card } from '../ui-kit/Card/Card.tsx'
 import { Columns } from '../ui-kit/Columns/Columns.tsx'
 import { Title } from '../ui-kit/Title/Title.tsx'
 
-export const Home: React.FC = () => {
+export const Home = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSignIn = useCallback(() => {

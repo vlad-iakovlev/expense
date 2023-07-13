@@ -11,13 +11,13 @@ export interface AmountProps {
   showSign?: 'non-zero' | 'negative' | 'never'
 }
 
-export const Amount: React.FC<AmountProps> = ({
+export const Amount = ({
   className,
   amount,
   currency,
   type = amount >= 0 ? 'income' : 'expense',
   showSign = 'never',
-}) => {
+}: AmountProps) => {
   const sign = useMemo(() => {
     switch (showSign) {
       case 'non-zero':

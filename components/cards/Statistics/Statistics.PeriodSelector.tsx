@@ -31,13 +31,13 @@ interface Props {
   onGoNext: () => void
 }
 
-export const PeriodSelector: React.FC<Props> = ({
+export const PeriodSelector = ({
   fromDate,
   period,
   onChangePeriod,
   onGoPrev,
   onGoNext,
-}) => {
+}: Props) => {
   return (
     <>
       <Card.Block>

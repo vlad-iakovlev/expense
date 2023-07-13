@@ -9,7 +9,7 @@ interface Props {
   groupId: string
 }
 
-export const GroupInfoCard: React.FC<Props> = ({ className, groupId }) => {
+export const GroupInfoCard = ({ className, groupId }: Props) => {
   return (
     <Card className={className}>
       <Card.Title title="Info" actions={<Delete groupId={groupId} />} />

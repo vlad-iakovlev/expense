@@ -21,13 +21,13 @@ interface Props {
   onReorder: (currencyId: string, walletIds: string[]) => void
 }
 
-export const Group: React.FC<Props> = ({
+export const Group = ({
   canReorderGroups,
   isReordering,
   currency,
   walletIds,
   onReorder,
-}) => {
+}: Props) => {
   const {
     attributes,
     listeners,

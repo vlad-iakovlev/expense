@@ -13,11 +13,11 @@ export interface CurrencySelectProps {
   onChange: (currencyId: string) => void
 }
 
-export const CurrencySelect: React.FC<CurrencySelectProps> = ({
+export const CurrencySelect = ({
   label,
   value,
   onChange,
-}) => {
+}: CurrencySelectProps) => {
   const { currencies } = useCurrencies()
 
   const options = useMemo<CardSelectItem[]>(() => {

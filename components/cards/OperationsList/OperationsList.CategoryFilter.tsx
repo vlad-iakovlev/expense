@@ -10,7 +10,7 @@ interface Props {
   walletId: string | undefined
 }
 
-export const CategoryFilter: React.FC<Props> = ({ groupId, walletId }) => {
+export const CategoryFilter = ({ groupId, walletId }: Props) => {
   const { categoryFilter, setCategoryFilter, resetCategoryFilter } =
     useCategoryFilter()
   const { categories } = useCategories({ groupId, walletId })

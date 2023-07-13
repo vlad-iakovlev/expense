@@ -8,7 +8,7 @@ interface Props {
   operationId: string
 }
 
-export const IncomeAmount: React.FC<Props> = ({ operationId }) => {
+export const IncomeAmount = ({ operationId }: Props) => {
   const { operation, setOperationIncomeAmount } = useOperation({ operationId })
 
   const handleChange = useCallback(

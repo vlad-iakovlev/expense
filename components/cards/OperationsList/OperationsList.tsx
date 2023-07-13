@@ -15,11 +15,7 @@ interface Props {
 
 const PAGE_SIZE = 10
 
-export const OperationsListCard: React.FC<Props> = ({
-  className,
-  groupId,
-  walletId,
-}) => {
+export const OperationsListCard = ({ className, groupId, walletId }: Props) => {
   const { categoryFilter } = useCategoryFilter()
   const { groupedOperations } = useGroupedOperations({
     groupId,

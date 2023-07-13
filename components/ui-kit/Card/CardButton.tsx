@@ -10,7 +10,7 @@ export interface CardButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const CardButton: React.FC<CardButtonProps> = ({
+export const CardButton = ({
   className,
   disabled,
   prefix,
@@ -18,7 +18,7 @@ export const CardButton: React.FC<CardButtonProps> = ({
   label,
   value,
   onClick,
-}) => (
+}: CardButtonProps) => (
   <button
     className={twMerge(
       'flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors',

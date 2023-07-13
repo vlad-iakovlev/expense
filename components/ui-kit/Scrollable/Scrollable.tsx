@@ -32,12 +32,12 @@ export interface ScrollableProps {
   children: React.ReactNode
 }
 
-export const Scrollable: React.FC<ScrollableProps> = ({
+export const Scrollable = ({
   className,
   contentClassName,
   theme = 'light',
   children,
-}) => {
+}: ScrollableProps) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const [isVTrackVisible, setIsVTrackVisible] = useState(false)
   const [isHTrackVisible, setIsHTrackVisible] = useState(false)

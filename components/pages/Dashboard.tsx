@@ -5,7 +5,7 @@ import { NextHead } from '../next/Head.ts'
 import { Columns } from '../ui-kit/Columns/Columns.tsx'
 import { Title } from '../ui-kit/Title/Title.tsx'
 
-export const Dashboard: React.FC = () => {
+export const Dashboard = () => {
   const { groupIds } = useGroups()
 
   return (

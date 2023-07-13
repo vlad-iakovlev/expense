@@ -10,7 +10,7 @@ interface Props {
   groupId: string
 }
 
-export const Delete: React.FC<Props> = ({ groupId }) => {
+export const Delete = ({ groupId }: Props) => {
   const router = useRouter()
   const { removeGroup } = useGroup({ groupId })
   const { walletIds } = useWallets({ groupId })

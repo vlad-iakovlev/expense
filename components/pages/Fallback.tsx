@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { NextHead } from '../next/Head.ts'
 import { Card } from '../ui-kit/Card/Card.tsx'
 
-export const Fallback: React.FC = () => {
+export const Fallback = () => {
   const handleRestart = useCallback(() => {
     window.location.href = '/'
   }, [])

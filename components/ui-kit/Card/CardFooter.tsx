@@ -6,10 +6,7 @@ export interface CardFooterProps {
   children?: React.ReactNode
 }
 
-export const CardFooter: React.FC<CardFooterProps> = ({
-  fullWidth,
-  children,
-}) => {
+export const CardFooter = ({ fullWidth, children }: CardFooterProps) => {
   return (
     <CardBlock
       className={twMerge(

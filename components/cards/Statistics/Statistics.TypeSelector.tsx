@@ -6,7 +6,7 @@ interface Props {
   onChange: (value: ClientStatisticsType) => void
 }
 
-export const TypeSelector: React.FC<Props> = ({ value, onChange }) => {
+export const TypeSelector = ({ value, onChange }: Props) => {
   return (
     <>
       <Button

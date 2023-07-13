@@ -14,7 +14,7 @@ interface Props {
   groupId: string
 }
 
-export const Invite: React.FC<Props> = ({ groupId }) => {
+export const Invite = ({ groupId }: Props) => {
   const isOnline = useIsOnline()
   const { group } = useGroup({ groupId })
   const [isLoading, setIsLoading] = useState(false)

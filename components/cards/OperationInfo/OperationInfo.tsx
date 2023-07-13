@@ -14,10 +14,7 @@ interface Props {
   operationId: string
 }
 
-export const OperationInfoCard: React.FC<Props> = ({
-  className,
-  operationId,
-}) => {
+export const OperationInfoCard = ({ className, operationId }: Props) => {
   return (
     <Card className={className}>
       <Card.Title title="Info" actions={<Delete operationId={operationId} />} />

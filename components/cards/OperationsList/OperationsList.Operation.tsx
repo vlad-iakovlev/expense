@@ -10,7 +10,7 @@ interface Props {
   walletId: string | undefined
 }
 
-export const Operation: React.FC<Props> = ({ operationId, walletId }) => {
+export const Operation = ({ operationId, walletId }: Props) => {
   const { operation } = useOperation({ operationId })
 
   return (

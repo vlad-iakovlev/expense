@@ -5,7 +5,7 @@ interface Props {
   walletId: string
 }
 
-export const Name: React.FC<Props> = ({ walletId }) => {
+export const Name = ({ walletId }: Props) => {
   const { wallet, setWalletName } = useWallet({ walletId })
 
   return (

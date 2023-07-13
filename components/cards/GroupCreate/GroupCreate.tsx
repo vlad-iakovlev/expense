@@ -5,7 +5,7 @@ import { ROUTES } from '../../../constants/routes.ts'
 import { useGroups } from '../../../contexts/RootStore/hooks/useGroups.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 
-export const GroupCreateCard: React.FC = () => {
+export const GroupCreateCard = () => {
   const router = useRouter()
   const { createGroup } = useGroups()
 

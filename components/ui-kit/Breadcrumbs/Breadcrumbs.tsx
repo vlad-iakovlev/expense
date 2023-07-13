@@ -12,10 +12,10 @@ export interface BreadcrumbsProps {
   mobileBack?: BreadCrumbsParent
 }
 
-export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
+export const Breadcrumbs = ({
   parents,
   mobileBack = parents?.at(-1),
-}) => {
+}: BreadcrumbsProps) => {
   return (
     <>
       {!!parents?.length && (

@@ -12,13 +12,13 @@ export interface CardDateTimeProps {
   onChange: (value: Date) => void
 }
 
-export const CardDateTime: React.FC<CardDateTimeProps> = ({
+export const CardDateTime = ({
   prefix,
   suffix,
   label,
   value,
   onChange,
-}) => {
+}: CardDateTimeProps) => {
   const [inputValue, setInputValue] = useState('')
   const [isEditing, setIsEditing] = useState(false)
 

@@ -6,7 +6,7 @@ interface Props {
   groupId: string
 }
 
-export const Balance: React.FC<Props> = ({ groupId }) => {
+export const Balance = ({ groupId }: Props) => {
   const { groupBalance } = useGroupBalance({ groupId })
 
   return (

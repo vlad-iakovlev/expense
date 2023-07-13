@@ -5,7 +5,7 @@ interface Props {
   operationId: string
 }
 
-export const Name: React.FC<Props> = ({ operationId }) => {
+export const Name = ({ operationId }: Props) => {
   const { operation, setOperationName } = useOperation({ operationId })
 
   return (

@@ -12,7 +12,7 @@ export interface CardInputProps {
   onChange: (value: string) => void
 }
 
-export const CardInput: React.FC<CardInputProps> = ({
+export const CardInput = ({
   className,
   prefix,
   suffix,
@@ -20,7 +20,7 @@ export const CardInput: React.FC<CardInputProps> = ({
   suggestions = [],
   value,
   onChange,
-}) => {
+}: CardInputProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [suggestionsFilter, setSuggestionsFilter] = useState<string>('')

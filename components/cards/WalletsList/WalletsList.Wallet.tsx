@@ -14,11 +14,11 @@ interface Props {
   walletId: string
 }
 
-export const Wallet: React.FC<Props> = ({
+export const Wallet = ({
   canReorderWallets,
   isReordering,
   walletId,
-}) => {
+}: Props) => {
   const {
     attributes,
     listeners,

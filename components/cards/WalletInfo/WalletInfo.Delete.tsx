@@ -10,7 +10,7 @@ interface Props {
   walletId: string
 }
 
-export const Delete: React.FC<Props> = ({ walletId }) => {
+export const Delete = ({ walletId }: Props) => {
   const router = useRouter()
   const { wallet, removeWallet } = useWallet({ walletId })
   const { operationIds } = useOperations({ walletId })

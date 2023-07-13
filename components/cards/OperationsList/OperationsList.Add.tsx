@@ -8,7 +8,7 @@ interface Props {
   walletId: string | undefined
 }
 
-export const Add: React.FC<Props> = ({ walletId }) => {
+export const Add = ({ walletId }: Props) => {
   const router = useRouter()
   const { createOperation } = useOperations({ walletId })
 

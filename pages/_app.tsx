@@ -13,10 +13,10 @@ import { Fallback } from '../components/pages/Fallback.tsx'
 import { RootStoreProvider } from '../contexts/RootStore/RootStore.tsx'
 import '../styles/globals.css'
 
-const App: React.FC<AppProps<{ session: Session | null }>> = ({
+const App = ({
   Component,
   pageProps: { session, ...pageProps },
-}) => {
+}: AppProps<{ session: Session | null }>) => {
   const router = useRouter()
 
   useEffect(() => {

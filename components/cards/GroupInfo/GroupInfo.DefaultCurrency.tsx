@@ -5,7 +5,7 @@ interface Props {
   groupId: string
 }
 
-export const DefaultCurrency: React.FC<Props> = ({ groupId }) => {
+export const DefaultCurrency = ({ groupId }: Props) => {
   const { group, setGroupDefaultCurrency } = useGroup({ groupId })
 
   return (

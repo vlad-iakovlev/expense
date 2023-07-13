@@ -13,7 +13,7 @@ interface Props {
   userId: string
 }
 
-export const Delete: React.FC<Props> = ({ groupId, userId }) => {
+export const Delete = ({ groupId, userId }: Props) => {
   const session = useSession()
   const router = useRouter()
   const { group, removeUserFromGroup, leaveGroup } = useGroup({ groupId })

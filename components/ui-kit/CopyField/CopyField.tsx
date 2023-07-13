@@ -5,7 +5,7 @@ interface CopyFieldProps {
   value: string
 }
 
-export const CopyField: React.FC<CopyFieldProps> = ({ value }) => {
+export const CopyField = ({ value }: CopyFieldProps) => {
   const [isCopied, setIsCopied] = useState(false)
 
   const handleCopy = useCallback(() => {

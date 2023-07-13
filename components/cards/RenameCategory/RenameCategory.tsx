@@ -10,7 +10,7 @@ interface Props {
   groupId: string
 }
 
-export const RenameCategoryCard: React.FC<Props> = ({ className, groupId }) => {
+export const RenameCategoryCard = ({ className, groupId }: Props) => {
   const { resetCategoryFilter } = useCategoryFilter()
   const { categories, renameCategory } = useCategories({ groupId })
   const [oldName, setOldName] = useState('')

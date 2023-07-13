@@ -32,7 +32,7 @@ export interface PopupProps {
   onPointerDown?: (event: React.PointerEvent<HTMLDivElement>) => void
 }
 
-export const Popup: React.FC<PopupProps> = ({
+export const Popup = ({
   className,
   popupClassName,
   isOpen,
@@ -40,7 +40,7 @@ export const Popup: React.FC<PopupProps> = ({
   children,
   onClose,
   onPointerDown,
-}) => {
+}: PopupProps) => {
   const popupRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

@@ -13,12 +13,12 @@ export interface WalletSelectProps {
   onChange: (walletId: string) => void
 }
 
-export const WalletSelect: React.FC<WalletSelectProps> = ({
+export const WalletSelect = ({
   label,
   groupId,
   value,
   onChange,
-}) => {
+}: WalletSelectProps) => {
   const { state } = useRootStore()
   const { groupedWallets } = useGroupedWallets({ groupId })
 

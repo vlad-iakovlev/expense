@@ -33,11 +33,7 @@ export interface DialogProps {
   onClose: () => void
 }
 
-export const Dialog: React.FC<DialogProps> = ({
-  isOpen,
-  children,
-  onClose,
-}) => {
+export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
   return (
     <Portal>
       <AnimatePresence>

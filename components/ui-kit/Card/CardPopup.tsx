@@ -11,7 +11,7 @@ export interface CardPopupProps {
   onPointerDown?: (event: React.PointerEvent<HTMLDivElement>) => void
 }
 
-export const CardPopup: React.FC<CardPopupProps> = ({
+export const CardPopup = ({
   className,
   popupClassName,
   isOpen,
@@ -19,7 +19,7 @@ export const CardPopup: React.FC<CardPopupProps> = ({
   children,
   onClose,
   onPointerDown,
-}) => {
+}: CardPopupProps) => {
   return (
     <Popup
       className={className}

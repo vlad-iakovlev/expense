@@ -15,11 +15,11 @@ export interface PieChartProps {
   renderTooltip: (itemId: string | null, total: number) => React.ReactNode
 }
 
-export const PieChart: React.FC<PieChartProps> = ({
+export const PieChart = ({
   className,
   items,
   renderTooltip,
-}) => {
+}: PieChartProps) => {
   const total = useMemo(
     () => items.reduce((acc, item) => acc + item.value, 0),
     [items]

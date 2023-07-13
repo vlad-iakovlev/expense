@@ -16,7 +16,7 @@ interface Props {
   groupId: string
 }
 
-export const Group: React.FC<Props> = ({ groupId }) => {
+export const Group = ({ groupId }: Props) => {
   const { group } = useGroup({ groupId })
 
   const parents = useMemo(() => {

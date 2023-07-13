@@ -6,7 +6,7 @@ interface Props {
   walletId: string
 }
 
-export const Balance: React.FC<Props> = ({ walletId }) => {
+export const Balance = ({ walletId }: Props) => {
   const { walletBalance } = useWalletBalance({ walletId })
 
   return (

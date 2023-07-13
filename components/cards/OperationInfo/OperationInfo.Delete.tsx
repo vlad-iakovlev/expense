@@ -9,7 +9,7 @@ interface Props {
   operationId: string
 }
 
-export const Delete: React.FC<Props> = ({ operationId }) => {
+export const Delete = ({ operationId }: Props) => {
   const router = useRouter()
   const { operation, removeOperation } = useOperation({ operationId })
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)

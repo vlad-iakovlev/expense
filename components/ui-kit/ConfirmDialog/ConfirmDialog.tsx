@@ -12,14 +12,14 @@ export interface ConfirmDialogProps {
   onCancel: () => void
 }
 
-export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
+export const ConfirmDialog = ({
   isOpen,
   title,
   description,
   action,
   onConfirm,
   onCancel,
-}) => {
+}: ConfirmDialogProps) => {
   return (
     <Dialog isOpen={isOpen} onClose={onCancel}>
       <Card>

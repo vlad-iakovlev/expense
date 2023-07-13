@@ -1,4 +1,4 @@
-export const ApplePWA: React.FC = () => {
+export const ApplePWA = () => {
   return (
     <>
       <meta name="apple-mobile-web-app-capable" content="yes" />

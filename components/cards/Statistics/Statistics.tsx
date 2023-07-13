@@ -16,11 +16,7 @@ interface Props {
   walletId?: string
 }
 
-export const StatisticsCard: React.FC<Props> = ({
-  className,
-  groupId,
-  walletId,
-}) => {
+export const StatisticsCard = ({ className, groupId, walletId }: Props) => {
   const [type, setType] = useState(ClientStatisticsType.EXPENSES)
   const { startDate, endDate, fromDate, period, setPeriod, goPrev, goNext } =
     usePeriod()

@@ -5,10 +5,7 @@ export interface ContainerProps {
   className?: string
 }
 
-export const Container: React.FC<ContainerProps> = ({
-  children,
-  className,
-}) => {
+export const Container = ({ children, className }: ContainerProps) => {
   return (
     <div
       className={twMerge(

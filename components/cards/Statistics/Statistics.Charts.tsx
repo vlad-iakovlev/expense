@@ -25,7 +25,7 @@ interface Props {
   type: ClientStatisticsType
 }
 
-export const Charts: React.FC<Props> = ({ currency, items, type }) => {
+export const Charts = ({ currency, items, type }: Props) => {
   const chartItems = useMemo<PieChartItem[]>(() => {
     return items.map((item) => ({
       id: item.category,

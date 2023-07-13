@@ -8,7 +8,7 @@ interface Props {
   walletId: string | undefined
 }
 
-export const ExpenseOperation: React.FC<Props> = ({ operation, walletId }) => {
+export const ExpenseOperation = ({ operation, walletId }: Props) => {
   assert(operation.expenseWallet, 'Expense wallet is not defined')
 
   return (

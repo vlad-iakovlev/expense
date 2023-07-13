@@ -8,7 +8,7 @@ interface Props {
   token: string
 }
 
-export const Invite: React.FC<Props> = ({ token }) => {
+export const Invite = ({ token }: Props) => {
   const router = useRouter()
 
   useEffect(() => {

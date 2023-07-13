@@ -9,7 +9,7 @@ interface Props {
   className?: string
 }
 
-export const HeaderUser: React.FC<Props> = ({ className }) => {
+export const HeaderUser = ({ className }: Props) => {
   const session = useSession()
 
   const [isOpen, setIsOpen] = useState(false)

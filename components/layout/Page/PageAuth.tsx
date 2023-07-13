@@ -6,7 +6,7 @@ interface Props {
   children: React.ReactNode
 }
 
-export const PageAuth: React.FC<Props> = ({ children }) => {
+export const PageAuth = ({ children }: Props) => {
   const session = useSession()
 
   return (

@@ -12,7 +12,7 @@ interface Props {
   groupId: string
 }
 
-export const GroupOpenCard: React.FC<Props> = ({ groupId }) => {
+export const GroupOpenCard = ({ groupId }: Props) => {
   const router = useRouter()
   const { group } = useGroup({ groupId })
   const { groupBalance } = useGroupBalance({ groupId })

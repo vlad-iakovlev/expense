@@ -6,7 +6,7 @@ interface Props {
   className?: string
 }
 
-export const HeaderSync: React.FC<Props> = ({ className }) => {
+export const HeaderSync = ({ className }: Props) => {
   const { isSyncing, syncedAt } = useSyncStatus()
 
   if (!syncedAt) {

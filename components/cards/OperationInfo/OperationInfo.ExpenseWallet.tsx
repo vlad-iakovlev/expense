@@ -7,7 +7,7 @@ interface Props {
   operationId: string
 }
 
-export const ExpenseWallet: React.FC<Props> = ({ operationId }) => {
+export const ExpenseWallet = ({ operationId }: Props) => {
   const { operation, setOperationExpenseWallet } = useOperation({ operationId })
 
   const groupId = useMemo(() => {

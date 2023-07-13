@@ -9,7 +9,7 @@ interface Props {
   groupId: string
 }
 
-export const GroupUsersCard: React.FC<Props> = ({ className, groupId }) => {
+export const GroupUsersCard = ({ className, groupId }: Props) => {
   const { groupUsers } = useGroupUsers({ groupId })
 
   return (

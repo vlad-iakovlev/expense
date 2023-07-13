@@ -16,7 +16,7 @@ interface Props {
   groupId: string
 }
 
-export const WalletsListCard: React.FC<Props> = ({ className, groupId }) => {
+export const WalletsListCard = ({ className, groupId }: Props) => {
   const { groupedWallets, reorderWallets } = useGroupedWallets({ groupId })
 
   const currencyIds = useMemo(

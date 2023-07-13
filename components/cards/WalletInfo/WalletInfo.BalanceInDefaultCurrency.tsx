@@ -7,7 +7,7 @@ interface Props {
   walletId: string
 }
 
-export const BalanceInDefaultCurrency: React.FC<Props> = ({ walletId }) => {
+export const BalanceInDefaultCurrency = ({ walletId }: Props) => {
   const { wallet } = useWallet({ walletId })
   const { walletBalance } = useWalletBalance({ walletId })
 

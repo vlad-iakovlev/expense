@@ -13,7 +13,7 @@ interface Props {
   walletId: string
 }
 
-export const Wallet: React.FC<Props> = ({ walletId }) => {
+export const Wallet = ({ walletId }: Props) => {
   const { wallet } = useWallet({ walletId })
 
   const walletName = `${wallet.name} ${wallet.currency.symbol}`

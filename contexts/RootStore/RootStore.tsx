@@ -59,7 +59,7 @@ interface ProviderProps {
   children: React.ReactNode
 }
 
-export const RootStoreProvider: React.FC<ProviderProps> = ({ children }) => {
+export const RootStoreProvider = ({ children }: ProviderProps) => {
   const [state, dispatch] = useReducer(reducer, getEmptyState())
 
   useStorage(state, dispatch)

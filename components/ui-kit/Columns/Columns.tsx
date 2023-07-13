@@ -5,7 +5,7 @@ export interface ColumnsProps {
   children: React.ReactNode
 }
 
-export const Columns: React.FC<ColumnsProps> = ({ className, children }) => {
+export const Columns = ({ className, children }: ColumnsProps) => {
   return (
     <div
       className={twMerge(

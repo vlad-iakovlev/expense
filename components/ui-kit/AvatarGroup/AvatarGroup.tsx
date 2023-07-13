@@ -9,12 +9,12 @@ export interface AvatarGroupProps {
   size?: 'sm' | 'md'
 }
 
-export const AvatarGroup: React.FC<AvatarGroupProps> = ({
+export const AvatarGroup = ({
   className,
   avatars,
   max,
   size = 'md',
-}) => {
+}: AvatarGroupProps) => {
   const visibleCount = max && avatars.length > max ? max - 1 : avatars.length
   const extraCount = avatars.length - visibleCount
 

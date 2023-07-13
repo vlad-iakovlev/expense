@@ -10,12 +10,12 @@ interface Props {
   onPointerLeave: () => void
 }
 
-export const Sector: React.FC<Props> = ({
+export const Sector = ({
   sectorProps,
   color,
   onPointerEnter,
   onPointerLeave,
-}) => {
+}: Props) => {
   const lastProps = useRef(sectorProps)
   const [animatedProps, setAnimatedProps] = useState(sectorProps)
 
