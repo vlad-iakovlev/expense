@@ -44,7 +44,7 @@ export function Button<T extends React.ElementType = 'button'>({
         theme === 'white' &&
           'bg-white text-black ring-1 ring-inset ring-zinc-300 hover:bg-zinc-50 active:bg-zinc-50',
         disabled && 'pointer-events-none',
-        className
+        className,
       )}
       {...(Component === 'button' && { type: 'button' })}
       {...(Component === 'div' && { tabIndex: 0, role: 'button' })}
@@ -56,7 +56,7 @@ export function Button<T extends React.ElementType = 'button'>({
             'flex-none',
             size === 'sm' && 'w-4 h-4',
             size === 'md' && 'w-5 h-5',
-            size === 'lg' && 'w-6 h-6'
+            size === 'lg' && 'w-6 h-6',
           )}
         >
           {iconStart}
@@ -69,7 +69,7 @@ export function Button<T extends React.ElementType = 'button'>({
             'truncate',
             size === 'sm' && 'px-2',
             size === 'md' && 'px-2',
-            size === 'lg' && 'px-3'
+            size === 'lg' && 'px-3',
           )}
         >
           {children}
@@ -82,7 +82,7 @@ export function Button<T extends React.ElementType = 'button'>({
             'flex-none',
             size === 'sm' && 'w-4 h-4',
             size === 'md' && 'w-5 h-5',
-            size === 'lg' && 'w-6 h-6'
+            size === 'lg' && 'w-6 h-6',
           )}
         >
           {iconEnd}

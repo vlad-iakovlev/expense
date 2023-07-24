@@ -9,7 +9,7 @@ import {
 export const createInvite = async (body: CreateInviteBody) => {
   const response = await request.put<CreateInviteBody, CreateInviteResponse>(
     '/api/invites/create',
-    body
+    body,
   )
 
   response.expiresAt = new Date(response.expiresAt)
@@ -20,6 +20,6 @@ export const createInvite = async (body: CreateInviteBody) => {
 export const acceptInvite = async (body: AcceptInviteBody) => {
   await request.put<AcceptInviteBody, AcceptInviteResponse>(
     '/api/invites/accept',
-    body
+    body,
   )
 }

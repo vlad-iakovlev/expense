@@ -40,7 +40,7 @@ export const useStatistics = ({
 
   const statisticsCurrency = useMemo(
     () => getDefaultCurrency(state, { groupId, walletId }),
-    [groupId, state, walletId]
+    [groupId, state, walletId],
   )
 
   const currenciesMap = useMemo(() => {
@@ -49,7 +49,7 @@ export const useStatistics = ({
         acc[currency.id] = currency
         return acc
       },
-      {}
+      {},
     )
   }, [state.currencies])
 
@@ -66,13 +66,13 @@ export const useStatistics = ({
 
         return acc
       },
-      {}
+      {},
     )
   }, [groupId, state.wallets, walletId])
 
   const statisticsItems = useMemo<ClientStatisticsItem[]>(() => {
     const categories = uniq(
-      state.operations.map((operation) => operation.category)
+      state.operations.map((operation) => operation.category),
     ).sort((a, b) => a.localeCompare(b))
 
     return categories.reduce<ClientStatisticsItem[]>((acc, category) => {

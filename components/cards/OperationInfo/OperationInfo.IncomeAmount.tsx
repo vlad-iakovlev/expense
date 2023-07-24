@@ -16,7 +16,7 @@ export const IncomeAmount = ({ operationId }: Props) => {
       const amount = parseAmount(amountString)
       if (!isNaN(amount)) setOperationIncomeAmount(amount)
     },
-    [setOperationIncomeAmount]
+    [setOperationIncomeAmount],
   )
 
   if (!operation.incomeWallet) {

@@ -33,7 +33,7 @@ const toggleCategoryReducer: React.Reducer<
 > = (state, action) => {
   return produce(state, (draft) => {
     draft.disabledCategories = draft.disabledCategories.filter(
-      (category) => category !== action.payload.name
+      (category) => category !== action.payload.name,
     )
 
     if (!action.payload.enabled) {
@@ -51,7 +51,7 @@ export const isCategoriesAction = (action: {
   payload?: unknown
 }): action is CategoriesAction => {
   return Object.values(CategoriesActionTypes).includes(
-    action.type as CategoriesActionTypes
+    action.type as CategoriesActionTypes,
   )
 }
 

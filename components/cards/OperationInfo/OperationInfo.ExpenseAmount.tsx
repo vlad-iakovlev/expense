@@ -16,7 +16,7 @@ export const ExpenseAmount = ({ operationId }: Props) => {
       const amount = parseAmount(amountString)
       if (!isNaN(amount)) setOperationExpenseAmount(amount)
     },
-    [setOperationExpenseAmount]
+    [setOperationExpenseAmount],
   )
 
   if (!operation.expenseWallet) {

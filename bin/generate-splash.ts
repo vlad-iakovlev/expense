@@ -54,7 +54,7 @@ const getSplashPath = (width: number, height: number): string => {
 const getXmlLine = (
   screenSize: ScreenSize,
   orientation: 'portrait' | 'landscape',
-  splashPath: string
+  splashPath: string,
 ): string => {
   const media = [
     `(device-width: ${screenSize.dpWidth}px)`,
@@ -72,12 +72,12 @@ const getXml = (screenSizes: ScreenSize[]): string => {
       getXmlLine(
         screenSize,
         'portrait',
-        getSplashPath(screenSize.pxWidth, screenSize.pxHeight)
+        getSplashPath(screenSize.pxWidth, screenSize.pxHeight),
       ),
       getXmlLine(
         screenSize,
         'landscape',
-        getSplashPath(screenSize.pxHeight, screenSize.pxWidth)
+        getSplashPath(screenSize.pxHeight, screenSize.pxWidth),
       ),
     ])
     .flat()
@@ -89,7 +89,7 @@ const generateSplash = async (width: number, height: number) => {
   const dstPath = path.join(
     process.cwd(),
     'public',
-    getSplashPath(width, height)
+    getSplashPath(width, height),
   )
 
   await fs.promises.mkdir(path.dirname(dstPath), { recursive: true })
@@ -130,8 +130,8 @@ void (async () => {
     console.log('')
     console.log(
       chalk.red.bold(
-        'Update components/ApplePWA/ApplePWA.tsx with the following:'
-      )
+        'Update components/ApplePWA/ApplePWA.tsx with the following:',
+      ),
     )
     console.log(getXml(screenSizes))
 

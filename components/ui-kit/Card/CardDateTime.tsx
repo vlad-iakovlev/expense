@@ -41,14 +41,14 @@ export const CardDateTime = ({
           break
       }
     },
-    []
+    [],
   )
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value)
     },
-    []
+    [],
   )
 
   const handleBlur = useCallback(() => {

@@ -25,7 +25,7 @@ export const PageTransition = forwardRef<
   useEffect(() => {
     const handleRouteChange = (
       url: string,
-      { shallow }: { shallow: boolean }
+      { shallow }: { shallow: boolean },
     ) => {
       if (url !== asPath && !shallow) {
         setMarginTop(-document.documentElement.scrollTop)

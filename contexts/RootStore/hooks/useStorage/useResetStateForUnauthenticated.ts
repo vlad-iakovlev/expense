@@ -6,7 +6,7 @@ import { getLocalStorageKey } from './constants.ts'
 
 export const useResetStateForUnauthenticated = (
   state: RootStoreState,
-  dispatch: React.Dispatch<StorageAction>
+  dispatch: React.Dispatch<StorageAction>,
 ) => {
   const session = useSession()
 

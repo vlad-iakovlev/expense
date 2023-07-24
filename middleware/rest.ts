@@ -5,7 +5,7 @@ type RestMiddlewareHandlers = Partial<
 >
 
 export const restHandler = (
-  handlers: RestMiddlewareHandlers
+  handlers: RestMiddlewareHandlers,
 ): NextApiHandler => {
   return async (req, res) => {
     const handler =

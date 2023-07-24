@@ -48,7 +48,7 @@ export function CardSelect<Id extends string = string>({
       onChange(id)
       setIsOpen(false)
     },
-    [onChange, value.id]
+    [onChange, value.id],
   )
 
   return (

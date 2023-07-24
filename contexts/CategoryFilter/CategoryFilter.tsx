@@ -8,7 +8,7 @@ interface ContextValue {
 }
 
 export const CategoryFilterContext = createContext<ContextValue | undefined>(
-  undefined
+  undefined,
 )
 CategoryFilterContext.displayName = 'CategoryFilterContext'
 
@@ -38,7 +38,7 @@ export const useCategoryFilter = () => {
   const context = useContext(CategoryFilterContext)
   assert(
     context,
-    'useCategoryFilter must be used within a CategoryFilterProvider'
+    'useCategoryFilter must be used within a CategoryFilterProvider',
   )
   return context
 }

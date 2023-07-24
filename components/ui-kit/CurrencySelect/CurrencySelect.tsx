@@ -48,7 +48,7 @@ export const CurrencySelect = ({
       id: value.id,
       label: value.symbol,
     }),
-    [value.id, value.symbol]
+    [value.id, value.symbol],
   )
 
   return (

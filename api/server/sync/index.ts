@@ -15,7 +15,7 @@ import {
 
 export const performSync: NextApiHandler<PerformSyncResponse> = async (
   req,
-  res
+  res,
 ) => {
   const body = performSyncBodySchema.parse(req.body)
 
@@ -32,7 +32,7 @@ export const performSync: NextApiHandler<PerformSyncResponse> = async (
 
 const applyUpdates = async (
   userId: string,
-  updates: PerformSyncBody['updates']
+  updates: PerformSyncBody['updates'],
 ): Promise<void> => {
   if (!updates) return
 
@@ -193,7 +193,7 @@ const findTransaction = async (transactionId: string) => {
 
 const collect = async (
   userId: string,
-  clientTransaction?: Modify<Transaction, { completedAt: Date }>
+  clientTransaction?: Modify<Transaction, { completedAt: Date }>,
 ): Promise<PerformSyncResponse> => {
   const findLastTransaction = prisma.transaction.findFirstOrThrow({
     where: { NOT: { completedAt: null } },

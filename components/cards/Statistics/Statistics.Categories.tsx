@@ -27,7 +27,7 @@ export const Categories = ({ currency, items, type }: Props) => {
 
   const isEnabled = useCallback(
     (category: string) => !disabledCategories.includes(category),
-    [disabledCategories]
+    [disabledCategories],
   )
 
   return (

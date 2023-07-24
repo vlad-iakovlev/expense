@@ -54,7 +54,7 @@ export const Avatar = ({
         'rounded-full overflow-hidden',
         size === 'sm' && 'w-8 h-8',
         size === 'md' && 'w-10 h-10',
-        className
+        className,
       )}
     >
       {src ? (
@@ -64,7 +64,7 @@ export const Avatar = ({
           className={twMerge(
             'flex items-center justify-center w-full h-full font-medium text-white',
             `bg-${color}-700`,
-            size === 'sm' && 'text-sm'
+            size === 'sm' && 'text-sm',
           )}
         >
           {slug}

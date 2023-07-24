@@ -32,7 +32,7 @@ export const Card = ({
       className={twMerge(
         'py-2 bg-white rounded-md shadow-lg text-left ring-1 ring-black ring-opacity-5 transition-shadow',
         clickable && 'hover:shadow-2xl active:shadow-2xl cursor-pointer',
-        className
+        className,
       )}
       type="button"
       onClick={onClick}

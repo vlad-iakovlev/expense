@@ -13,7 +13,7 @@ export const useWallet = ({ walletId }: Props) => {
 
   const wallet = useMemo<PopulatedClientWallet>(
     () => getPopulatedWallet(state, walletId),
-    [state, walletId]
+    [state, walletId],
   )
 
   const setWalletName = useCallback(
@@ -23,7 +23,7 @@ export const useWallet = ({ walletId }: Props) => {
         payload: { walletId, name },
       })
     },
-    [dispatch, walletId]
+    [dispatch, walletId],
   )
 
   const setWalletCurrency = useCallback(
@@ -33,7 +33,7 @@ export const useWallet = ({ walletId }: Props) => {
         payload: { walletId, currencyId },
       })
     },
-    [dispatch, walletId]
+    [dispatch, walletId],
   )
 
   const removeWallet = useCallback(() => {

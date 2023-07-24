@@ -12,7 +12,7 @@ import { getLocalStorageKey } from './constants.ts'
 export const useSyncStateWithServer = (
   state: RootStoreState,
   dispatch: React.Dispatch<StorageAction>,
-  isStateLoaded: boolean
+  isStateLoaded: boolean,
 ) => {
   const throwError = useThrowError()
   const isOnline = useIsOnline()
@@ -58,7 +58,7 @@ export const useSyncStateWithServer = (
 
     const timerId = setTimeout(
       () => void sync(),
-      isTransactionEmpty(state.nextSyncTransaction) ? 60000 : 2000
+      isTransactionEmpty(state.nextSyncTransaction) ? 60000 : 2000,
     )
     return () => clearTimeout(timerId)
   }, [

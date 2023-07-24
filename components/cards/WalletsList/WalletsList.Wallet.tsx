@@ -36,7 +36,7 @@ export const Wallet = ({
         ref={setNodeRef}
         className={twMerge(
           'relative transition-shadow',
-          isDragging ? 'z-10 shadow-dnd' : 'shadow-none'
+          isDragging ? 'z-10 shadow-dnd' : 'shadow-none',
         )}
         style={{
           transform: CSS.Translate.toString(transform),
@@ -47,7 +47,7 @@ export const Wallet = ({
           <div
             className={twMerge(
               'flex-none flex items-center justify-center h-12 w-12 -m-3 touch-none',
-              isDragging ? 'cursor-grabbing' : 'cursor-grab'
+              isDragging ? 'cursor-grabbing' : 'cursor-grab',
             )}
             {...attributes}
             {...listeners}

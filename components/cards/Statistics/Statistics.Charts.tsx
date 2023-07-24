@@ -55,7 +55,7 @@ export const Charts = ({ currency, items, type }: Props) => {
         </div>
       )
     },
-    [currency, items, type]
+    [currency, items, type],
   )
 
   return (

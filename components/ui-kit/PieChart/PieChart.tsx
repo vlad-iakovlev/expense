@@ -22,7 +22,7 @@ export const PieChart = ({
 }: PieChartProps) => {
   const total = useMemo(
     () => items.reduce((acc, item) => acc + item.value, 0),
-    [items]
+    [items],
   )
 
   const [activeId, setActiveId] = useState<string | null>(null)

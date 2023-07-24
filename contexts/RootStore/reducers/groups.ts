@@ -142,13 +142,13 @@ export const isGroupsAction = (action: {
   payload?: unknown
 }): action is GroupsAction => {
   return Object.values(GroupsActionTypes).includes(
-    action.type as GroupsActionTypes
+    action.type as GroupsActionTypes,
   )
 }
 
 export const groupsReducer: React.Reducer<RootStoreState, GroupsAction> = (
   state,
-  action
+  action,
 ) => {
   switch (action.type) {
     case GroupsActionTypes.CREATE_GROUP:

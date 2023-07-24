@@ -35,7 +35,7 @@ const abortSyncReducer: React.Reducer<
     ...state,
     nextSyncTransaction: mergeTransactions(
       state.nextSyncTransaction,
-      state.syncingTransaction
+      state.syncingTransaction,
     ),
     syncingTransaction: getEmptyTransaction(),
     isSyncing: false,
@@ -59,7 +59,7 @@ const setStateFromRemoteStorageReducer: React.Reducer<
       response: { updates, lastTransactionId },
       syncStartedAt,
     },
-  }
+  },
 ) => {
   const userGroups = uniqBy(
     [
@@ -68,7 +68,7 @@ const setStateFromRemoteStorageReducer: React.Reducer<
         return !state.nextSyncTransaction.userGroups.includes(userGroup.id)
       }),
     ],
-    (userGroup) => userGroup.id
+    (userGroup) => userGroup.id,
   ).filter((userGroup) => {
     return (
       !userGroup.removed ||
@@ -83,7 +83,7 @@ const setStateFromRemoteStorageReducer: React.Reducer<
         return !state.nextSyncTransaction.groups.includes(group.id)
       }) as typeof state.groups),
     ],
-    (group) => group.id
+    (group) => group.id,
   ).filter((group) => {
     return (
       ((!group.removed && !group.clientRemoved) ||
@@ -100,7 +100,7 @@ const setStateFromRemoteStorageReducer: React.Reducer<
         return !state.nextSyncTransaction.wallets.includes(wallet.id)
       }),
     ],
-    (wallet) => wallet.id
+    (wallet) => wallet.id,
   ).filter((wallet) => {
     return (
       (!wallet.removed ||
@@ -116,7 +116,7 @@ const setStateFromRemoteStorageReducer: React.Reducer<
         return !state.nextSyncTransaction.operations.includes(operation.id)
       }),
     ],
-    (operation) => operation.id
+    (operation) => operation.id,
   ).filter((operation) => {
     return (
       (!operation.removed ||
@@ -169,7 +169,7 @@ const setStateFromBrowserStorageReducer: React.Reducer<
     disabledCategories: storedState.disabledCategories ?? [],
     nextSyncTransaction: mergeTransactions(
       storedState.nextSyncTransaction,
-      storedState.syncingTransaction
+      storedState.syncingTransaction,
     ),
     syncingTransaction: getEmptyTransaction(),
     lastTransactionId: storedState.lastTransactionId,
@@ -195,13 +195,13 @@ export const isStorageAction = (action: {
   payload?: unknown
 }): action is StorageAction => {
   return Object.values(StorageActionType).includes(
-    action.type as StorageActionType
+    action.type as StorageActionType,
   )
 }
 
 export const storageReducer: React.Reducer<RootStoreState, StorageAction> = (
   state,
-  action
+  action,
 ) => {
   switch (action.type) {
     case StorageActionType.START_SYNC:

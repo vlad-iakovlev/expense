@@ -20,5 +20,5 @@ export const CardText = forwardRef<HTMLDivElement, CardTextProps>(
         {suffix ? <div className="flex-none">{suffix}</div> : null}
       </CardBlock>
     )
-  }
+  },
 )

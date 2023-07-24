@@ -16,7 +16,7 @@ export const useOperation = ({ operationId }: Props) => {
 
   const operation = useMemo<PopulatedClientOperation>(
     () => getPopulatedOperation(state, operationId),
-    [state, operationId]
+    [state, operationId],
   )
 
   const setOperationName = useCallback(
@@ -26,7 +26,7 @@ export const useOperation = ({ operationId }: Props) => {
         payload: { operationId, name },
       })
     },
-    [dispatch, operationId]
+    [dispatch, operationId],
   )
 
   const setOperationCategory = useCallback(
@@ -36,7 +36,7 @@ export const useOperation = ({ operationId }: Props) => {
         payload: { operationId, category },
       })
     },
-    [dispatch, operationId]
+    [dispatch, operationId],
   )
 
   const setOperationDate = useCallback(
@@ -46,7 +46,7 @@ export const useOperation = ({ operationId }: Props) => {
         payload: { operationId, date },
       })
     },
-    [dispatch, operationId]
+    [dispatch, operationId],
   )
 
   const setOperationType = useCallback(
@@ -56,7 +56,7 @@ export const useOperation = ({ operationId }: Props) => {
         payload: { operationId, type },
       })
     },
-    [dispatch, operationId]
+    [dispatch, operationId],
   )
 
   const setOperationIncomeAmount = useCallback(
@@ -66,7 +66,7 @@ export const useOperation = ({ operationId }: Props) => {
         payload: { operationId, incomeAmount },
       })
     },
-    [dispatch, operationId]
+    [dispatch, operationId],
   )
 
   const setOperationExpenseAmount = useCallback(
@@ -76,7 +76,7 @@ export const useOperation = ({ operationId }: Props) => {
         payload: { operationId, expenseAmount },
       })
     },
-    [dispatch, operationId]
+    [dispatch, operationId],
   )
 
   const setOperationIncomeWallet = useCallback(
@@ -86,7 +86,7 @@ export const useOperation = ({ operationId }: Props) => {
         payload: { operationId, incomeWalletId },
       })
     },
-    [dispatch, operationId]
+    [dispatch, operationId],
   )
 
   const setOperationExpenseWallet = useCallback(
@@ -96,7 +96,7 @@ export const useOperation = ({ operationId }: Props) => {
         payload: { operationId, expenseWalletId },
       })
     },
-    [dispatch, operationId]
+    [dispatch, operationId],
   )
 
   const removeOperation = useCallback(() => {

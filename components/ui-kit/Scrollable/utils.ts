@@ -60,11 +60,11 @@ export const getThumb = ({
 
   const baseLength = Math.max(
     (container / content) * trackLength,
-    Math.min(MIN_BASE_LENGTH, trackLength)
+    Math.min(MIN_BASE_LENGTH, trackLength),
   )
   const length = Math.max(
     baseLength - overScrollTop - overScrollBottom,
-    Math.min(MIN_COMPRESSED_LENGTH, trackLength)
+    Math.min(MIN_COMPRESSED_LENGTH, trackLength),
   )
 
   return {

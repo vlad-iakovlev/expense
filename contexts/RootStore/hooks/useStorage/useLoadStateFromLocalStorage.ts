@@ -6,7 +6,7 @@ import { useCanLoadState } from './useCanLoadState.ts'
 
 export const useLoadStateFromLocalStorage = (
   state: RootStoreState,
-  dispatch: React.Dispatch<StorageAction>
+  dispatch: React.Dispatch<StorageAction>,
 ) => {
   const canLoadState = useCanLoadState()
   const [isStateLoaded, setIsStateLoaded] = useState(false)

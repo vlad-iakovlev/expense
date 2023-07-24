@@ -4,10 +4,10 @@ import { RootStoreState } from '../types.tsx'
 
 export const getCurrency = (
   state: RootStoreState,
-  currencyId: string
+  currencyId: string,
 ): ClientCurrency => {
   const currency = state.currencies.find(
-    (currency) => currency.id === currencyId
+    (currency) => currency.id === currencyId,
   )
   assert(currency, 'Currency not found')
 
@@ -21,7 +21,7 @@ interface GetDefaultCurrencyParams {
 
 export const getDefaultCurrency = (
   state: RootStoreState,
-  { groupId, walletId }: GetDefaultCurrencyParams = {}
+  { groupId, walletId }: GetDefaultCurrencyParams = {},
 ): ClientCurrency => {
   if (walletId) {
     const wallet = state.wallets.find((wallet) => wallet.id === walletId)
@@ -36,7 +36,7 @@ export const getDefaultCurrency = (
   }
 
   const currency = state.currencies.find(
-    (currency) => currency.symbol === 'USD'
+    (currency) => currency.symbol === 'USD',
   )
   assert(currency, 'Currency not found')
   return currency

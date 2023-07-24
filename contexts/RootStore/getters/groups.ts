@@ -20,7 +20,7 @@ export const getOrderedGroups = (state: RootStoreState): ClientGroup[] => {
 
 export const getPopulatedGroup = (
   state: RootStoreState,
-  groupId: string
+  groupId: string,
 ): PopulatedClientGroup => {
   const group = state.groups.find((group) => group.id === groupId)
   assert(group, 'Group not found')
@@ -35,7 +35,7 @@ export const getPopulatedGroup = (
 
 export const getGroupBalance = (
   state: RootStoreState,
-  groupId: string
+  groupId: string,
 ): ClientBalance => {
   const group = state.groups.find((group) => group.id === groupId)
   assert(group, 'Group not found')
@@ -50,7 +50,7 @@ export const getGroupBalance = (
 
       return acc + walletBalanceInDefaultCurrency
     },
-    0
+    0,
   )
 
   return {
@@ -62,7 +62,7 @@ export const getGroupBalance = (
 export const getGroupUsers = (
   state: RootStoreState,
   groupId: string,
-  me: ClientUser
+  me: ClientUser,
 ): ClientUser[] => {
   const group = state.groups.find((group) => group.id === groupId)
   assert(group, 'Group not found')

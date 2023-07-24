@@ -16,7 +16,7 @@ export const apply = async (db: Db) => {
       .collection('Transaction')
       .updateOne(
         { _id: completedTransaction.transactionId },
-        { $set: { completedAt: completedTransaction.createdAt } }
+        { $set: { completedAt: completedTransaction.createdAt } },
       )
   }
 

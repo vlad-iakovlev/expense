@@ -8,7 +8,7 @@ import { useSyncStateWithServer } from './useSyncStateWithServer.ts'
 
 export const useStorage = (
   state: RootStoreState,
-  dispatch: React.Dispatch<StorageAction>
+  dispatch: React.Dispatch<StorageAction>,
 ) => {
   const isStateLoaded = useLoadStateFromLocalStorage(state, dispatch)
   useResetStateForUnauthenticated(state, dispatch)

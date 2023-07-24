@@ -14,7 +14,7 @@ export const useWallets = ({ groupId }: Props = {}) => {
 
   const walletIds = useMemo<string[]>(
     () => getOrderedWallets(state, { groupId }).map((wallet) => wallet.id),
-    [groupId, state]
+    [groupId, state],
   )
 
   const createWallet = useCallback(() => {

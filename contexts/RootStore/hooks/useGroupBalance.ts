@@ -12,7 +12,7 @@ export const useGroupBalance = ({ groupId }: Props) => {
 
   const groupBalance = useMemo<ClientBalance>(
     () => getGroupBalance(state, groupId),
-    [groupId, state]
+    [groupId, state],
   )
 
   return {

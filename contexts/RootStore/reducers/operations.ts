@@ -250,7 +250,7 @@ export const isOperationsAction = (action: {
   payload?: unknown
 }): action is OperationsAction => {
   return Object.values(OperationsActionTypes).includes(
-    action.type as OperationsActionTypes
+    action.type as OperationsActionTypes,
   )
 }
 

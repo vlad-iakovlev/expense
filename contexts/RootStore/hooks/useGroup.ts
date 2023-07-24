@@ -16,7 +16,7 @@ export const useGroup = ({ groupId }: Props) => {
 
   const group = useMemo<PopulatedClientGroup>(
     () => getPopulatedGroup(state, groupId),
-    [groupId, state]
+    [groupId, state],
   )
 
   const setGroupName = useCallback(
@@ -26,7 +26,7 @@ export const useGroup = ({ groupId }: Props) => {
         payload: { groupId, name },
       })
     },
-    [dispatch, groupId]
+    [dispatch, groupId],
   )
 
   const setGroupDefaultCurrency = useCallback(
@@ -36,7 +36,7 @@ export const useGroup = ({ groupId }: Props) => {
         payload: { groupId, defaultCurrencyId },
       })
     },
-    [dispatch, groupId]
+    [dispatch, groupId],
   )
 
   const removeGroup = useCallback(() => {
@@ -53,7 +53,7 @@ export const useGroup = ({ groupId }: Props) => {
         payload: { groupId, userId },
       })
     },
-    [dispatch, groupId]
+    [dispatch, groupId],
   )
 
   const leaveGroup = useCallback(() => {

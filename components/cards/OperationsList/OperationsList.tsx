@@ -47,7 +47,7 @@ export const OperationsListCard = ({ className, groupId, walletId }: Props) => {
           />,
         ]
       },
-      [<Card.Divider key="divider" />]
+      [<Card.Divider key="divider" />],
     )
   }, [groupedOperations, take, walletId])
 
@@ -56,7 +56,7 @@ export const OperationsListCard = ({ className, groupId, walletId }: Props) => {
       (acc, { operationIds }) => {
         return acc + operationIds.length
       },
-      0
+      0,
     )
 
     return take < operationsCount

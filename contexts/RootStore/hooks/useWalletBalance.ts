@@ -12,7 +12,7 @@ export const useWalletBalance = ({ walletId }: Props) => {
 
   const walletBalance = useMemo<ClientBalance>(
     () => getWalletBalance(state, walletId),
-    [state, walletId]
+    [state, walletId],
   )
 
   return {

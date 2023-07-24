@@ -25,7 +25,7 @@ export const getEmptyTransaction = (): ClientTransaction => ({
 
 export const mergeTransactions = (
   a: Partial<ClientTransaction>,
-  b: Partial<ClientTransaction>
+  b: Partial<ClientTransaction>,
 ): ClientTransaction => ({
   userGroups: [...(a.userGroups ?? []), ...(b.userGroups ?? [])],
   groups: [...(a.groups ?? []), ...(b.groups ?? [])],

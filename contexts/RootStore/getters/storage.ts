@@ -3,7 +3,7 @@ import { BrowserStorageState, RootStoreState } from '../types.tsx'
 import { isTransactionEmpty } from '../utils.ts'
 
 export const getBrowserStorageState = (
-  state: RootStoreState
+  state: RootStoreState,
 ): BrowserStorageState => {
   return {
     currencies: state.currencies,
@@ -21,7 +21,7 @@ export const getBrowserStorageState = (
 }
 
 export const getRemoteStorageBody = (
-  state: RootStoreState
+  state: RootStoreState,
 ): PerformSyncBody => {
   if (!state.lastTransactionId) {
     return {

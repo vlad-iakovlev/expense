@@ -73,7 +73,7 @@ export const Popup = ({
               position === 'above-right' && 'bottom-0 right-0',
               position === 'below-left' && 'top-0 left-0',
               position === 'below-right' && 'top-0 right-0',
-              popupClassName
+              popupClassName,
             )}
             initial="closed"
             animate="opened"

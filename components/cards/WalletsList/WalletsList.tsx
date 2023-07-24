@@ -21,13 +21,13 @@ export const WalletsListCard = ({ className, groupId }: Props) => {
 
   const currencyIds = useMemo(
     () => groupedWallets.map(({ currency }) => currency.id),
-    [groupedWallets]
+    [groupedWallets],
   )
 
   const canReorderGroups = groupedWallets.length > 1
   const canReorderWallets = useMemo(
     () => groupedWallets.some(({ walletIds }) => walletIds.length > 1),
-    [groupedWallets]
+    [groupedWallets],
   )
 
   const handleDragEnd = useCallback(
@@ -39,7 +39,7 @@ export const WalletsListCard = ({ className, groupId }: Props) => {
       const newGroupedWallets = arrayMove(groupedWallets, oldIndex, newIndex)
       reorderWallets(newGroupedWallets)
     },
-    [currencyIds, groupedWallets, reorderWallets]
+    [currencyIds, groupedWallets, reorderWallets],
   )
 
   const handleReorder = useCallback(
@@ -53,7 +53,7 @@ export const WalletsListCard = ({ className, groupId }: Props) => {
 
       reorderWallets(newGroupedWallets)
     },
-    [groupedWallets, reorderWallets]
+    [groupedWallets, reorderWallets],
   )
 
   const [isReordering, setIsReordering] = useState(false)

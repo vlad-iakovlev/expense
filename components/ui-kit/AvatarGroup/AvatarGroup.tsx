@@ -32,7 +32,7 @@ export const AvatarGroup = ({
           className={twMerge(
             index > 0 && size === 'sm' && '-ml-5',
             index > 0 && size === 'md' && '-ml-6',
-            props.className
+            props.className,
           )}
         />
       ))}
@@ -41,7 +41,7 @@ export const AvatarGroup = ({
         <Avatar
           className={twMerge(
             size === 'sm' && '-ml-5',
-            size === 'md' && '-ml-6'
+            size === 'md' && '-ml-6',
           )}
           color="green"
           slug={`+${extraCount}`}

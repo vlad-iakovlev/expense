@@ -34,7 +34,7 @@ export const CategoryFilter = ({ groupId, walletId }: Props) => {
       event.stopPropagation()
       resetCategoryFilter()
     },
-    [resetCategoryFilter]
+    [resetCategoryFilter],
   )
 
   useEffect(() => {

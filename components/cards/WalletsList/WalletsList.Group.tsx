@@ -48,7 +48,7 @@ export const Group = ({
       const newWalletIds = arrayMove(walletIds, oldIndex, newIndex)
       onReorder(currency.id, newWalletIds)
     },
-    [currency.id, onReorder, walletIds]
+    [currency.id, onReorder, walletIds],
   )
 
   return (
@@ -56,7 +56,7 @@ export const Group = ({
       ref={setNodeRef}
       className={twMerge(
         'relative transition-shadow bg-white',
-        isDragging ? 'z-10 shadow-dnd' : 'shadow-none'
+        isDragging ? 'z-10 shadow-dnd' : 'shadow-none',
       )}
       style={{
         transform: CSS.Translate.toString(transform),
@@ -71,7 +71,7 @@ export const Group = ({
             <div
               className={twMerge(
                 'flex-none flex items-center justify-center h-12 w-12 -m-3 touch-none',
-                isDragging ? 'cursor-grabbing' : 'cursor-grab'
+                isDragging ? 'cursor-grabbing' : 'cursor-grab',
               )}
               {...attributes}
               {...listeners}

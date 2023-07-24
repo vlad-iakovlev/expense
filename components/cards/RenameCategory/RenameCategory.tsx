@@ -28,7 +28,7 @@ export const RenameCategoryCard = ({ className, groupId }: Props) => {
       id: oldName,
       label: oldName || 'Select',
     }),
-    [oldName]
+    [oldName],
   )
 
   const handleSelectCategory = useCallback((category: string) => {

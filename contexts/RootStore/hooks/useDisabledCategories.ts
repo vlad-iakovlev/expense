@@ -12,7 +12,7 @@ export const useDisabledCategories = () => {
         payload: { name, enabled },
       })
     },
-    [dispatch]
+    [dispatch],
   )
 
   return {

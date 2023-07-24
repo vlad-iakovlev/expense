@@ -32,7 +32,7 @@ export const Delete = ({ groupId, userId }: Props) => {
         const href = ROUTES.DASHBOARD
         await router.push(
           { pathname: href, query: { animation: 'back' } },
-          href
+          href,
         )
         leaveGroup()
       } else {

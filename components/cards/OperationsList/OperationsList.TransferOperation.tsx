@@ -36,7 +36,7 @@ export const TransferOperation = ({ operation, walletId }: Props) => {
               'text-sm truncate',
               operation.expenseWallet.id === walletId
                 ? 'font-medium'
-                : 'text-zinc-600'
+                : 'text-zinc-600',
             )}
           >
             {operation.expenseWallet.name}
@@ -58,7 +58,7 @@ export const TransferOperation = ({ operation, walletId }: Props) => {
               'text-sm truncate',
               operation.incomeWallet.id === walletId
                 ? 'font-medium'
-                : 'text-zinc-600'
+                : 'text-zinc-600',
             )}
           >
             {operation.incomeWallet.name}

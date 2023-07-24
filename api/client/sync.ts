@@ -4,7 +4,7 @@ import { PerformSyncBody, PerformSyncResponse } from '../server/sync/types.ts'
 export const performSync = async (body: PerformSyncBody) => {
   const response = await request.post<PerformSyncBody, PerformSyncResponse>(
     '/api/sync',
-    body
+    body,
   )
 
   response.updates.wallets.forEach((wallet) => {

@@ -74,18 +74,18 @@ const applyAll = async () => {
   const migrations = await getMigrations()
   console.log(
     chalk.blue.bold('[migrations:apply-all]'),
-    `Found ${migrations.length} migrations`
+    `Found ${migrations.length} migrations`,
   )
 
   const appliedMigrations = await getAppliedMigrations()
   console.log(
     chalk.blue.bold('[migrations:apply-all]'),
-    `Found ${appliedMigrations.length} applied migrations`
+    `Found ${appliedMigrations.length} applied migrations`,
   )
 
   assert(
     migrations.length >= appliedMigrations.length,
-    'There are more applied migrations than files in the migrations folder'
+    'There are more applied migrations than files in the migrations folder',
   )
 
   for (let i = 0; i < migrations.length; i++) {
@@ -95,7 +95,7 @@ const applyAll = async () => {
 
     assert(
       !appliedMigration || name === appliedMigration,
-      `Migration does not match applied migration ${appliedMigration}`
+      `Migration does not match applied migration ${appliedMigration}`,
     )
 
     if (name === appliedMigration) {

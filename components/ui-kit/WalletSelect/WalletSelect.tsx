@@ -39,7 +39,7 @@ export const WalletSelect = ({
 
         return acc
       },
-      []
+      [],
     )
   }, [groupedWallets, state])
 
@@ -48,7 +48,7 @@ export const WalletSelect = ({
       id: value.id,
       label: `${value.name} ${value.currency.symbol}`,
     }),
-    [value.currency.symbol, value.id, value.name]
+    [value.currency.symbol, value.id, value.name],
   )
 
   return (

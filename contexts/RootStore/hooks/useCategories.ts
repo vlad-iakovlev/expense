@@ -25,7 +25,7 @@ export const useCategories = ({ groupId, walletId }: Props = {}) => {
         payload: { oldName, newName },
       })
     },
-    [dispatch]
+    [dispatch],
   )
 
   return {

@@ -14,7 +14,7 @@ export const Switch = ({ className, color, value, onChange }: SwitchProps) => {
       event.stopPropagation()
       onChange(!value)
     },
-    [onChange, value]
+    [onChange, value],
   )
 
   return (
@@ -22,7 +22,7 @@ export const Switch = ({ className, color, value, onChange }: SwitchProps) => {
       className={twMerge(
         'flex items-center w-11 h-7 p-0.5 rounded-full transition-colors',
         value ? 'bg-green-700' : 'bg-zinc-300',
-        className
+        className,
       )}
       tabIndex={0}
       role="button"
@@ -32,7 +32,7 @@ export const Switch = ({ className, color, value, onChange }: SwitchProps) => {
       <div
         className={twMerge(
           'w-6 h-6 bg-white rounded-full shadow-sm transform transition-transform',
-          value ? 'translate-x-4' : 'translate-x-0'
+          value ? 'translate-x-4' : 'translate-x-0',
         )}
       />
     </div>

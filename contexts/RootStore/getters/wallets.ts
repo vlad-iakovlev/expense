@@ -11,7 +11,7 @@ interface GetWalletsParams {
 
 export const getAvailableWallets = (
   state: RootStoreState,
-  { groupId }: GetWalletsParams = {}
+  { groupId }: GetWalletsParams = {},
 ): ClientWallet[] => {
   return state.wallets.filter((wallet) => {
     if (wallet.removed) return false
@@ -21,7 +21,7 @@ export const getAvailableWallets = (
 
 export const getOrderedWallets = (
   state: RootStoreState,
-  { groupId }: GetWalletsParams = {}
+  { groupId }: GetWalletsParams = {},
 ): ClientWallet[] => {
   const wallets = getAvailableWallets(state, { groupId })
   return wallets.sort((a, b) => {
@@ -34,7 +34,7 @@ export const getOrderedWallets = (
 
 export const getPopulatedWallet = (
   state: RootStoreState,
-  walletId: string
+  walletId: string,
 ): PopulatedClientWallet => {
   const wallet = state.wallets.find((wallet) => wallet.id === walletId)
   assert(wallet, 'Wallet not found')
@@ -49,7 +49,7 @@ export const getPopulatedWallet = (
 
 export const getWalletBalance = (
   state: RootStoreState,
-  walletId: string
+  walletId: string,
 ): ClientBalance => {
   const wallet = state.wallets.find((wallet) => wallet.id === walletId)
   assert(wallet, 'Wallet not found')

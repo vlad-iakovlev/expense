@@ -11,7 +11,7 @@ export const CardFooter = ({ fullWidth, children }: CardFooterProps) => {
     <CardBlock
       className={twMerge(
         'flex-col items-stretch',
-        !fullWidth && 'sm:flex-row-reverse'
+        !fullWidth && 'sm:flex-row-reverse',
       )}
     >
       {children}

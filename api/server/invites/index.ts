@@ -9,7 +9,7 @@ import { AcceptInviteResponse, CreateInviteResponse } from './types.ts'
 
 export const createInvite: NextApiHandler<CreateInviteResponse> = async (
   req,
-  res
+  res,
 ) => {
   const body = createInviteBodySchema.parse(req.body)
 
@@ -40,7 +40,7 @@ export const createInvite: NextApiHandler<CreateInviteResponse> = async (
 
 export const acceptInvite: NextApiHandler<AcceptInviteResponse> = async (
   req,
-  res
+  res,
 ) => {
   const body = acceptInviteBodySchema.parse(req.body)
 

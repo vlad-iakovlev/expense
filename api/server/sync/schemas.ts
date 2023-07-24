@@ -10,7 +10,7 @@ export const performSyncBodySchema = z.object({
         z.object({
           id: z.string().refine(isValidObjectId),
           removed: z.boolean(),
-        })
+        }),
       ),
 
       groups: z.array(
@@ -19,7 +19,7 @@ export const performSyncBodySchema = z.object({
           removed: z.boolean(),
           name: z.string().min(1),
           defaultCurrencyId: z.string().refine(isValidObjectId),
-        })
+        }),
       ),
 
       wallets: z.array(
@@ -31,7 +31,7 @@ export const performSyncBodySchema = z.object({
           currencyId: z.string().refine(isValidObjectId),
           // New value in groupId won't apply to existing wallets
           groupId: z.string().refine(isValidObjectId),
-        })
+        }),
       ),
 
       operations: z.array(
@@ -45,7 +45,7 @@ export const performSyncBodySchema = z.object({
           expenseAmount: z.number(),
           incomeWalletId: z.string().refine(isValidObjectId).nullable(),
           expenseWalletId: z.string().refine(isValidObjectId).nullable(),
-        })
+        }),
       ),
     })
     .nullable(),

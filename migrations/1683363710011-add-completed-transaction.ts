@@ -11,7 +11,7 @@ export const apply = async (db: Db) => {
       createdAt: transaction.updatedAt,
       updatedAt: transaction.updatedAt,
       transactionId: transaction._id,
-    }))
+    })),
   )
 
   await db.collection('Transaction').updateMany({}, { $unset: { draft: '' } })

@@ -105,7 +105,7 @@ export const Scrollable = ({
     return twMerge(
       'absolute rounded-full',
       theme === 'light' && 'bg-black bg-opacity-[0.35]',
-      theme === 'dark' && 'bg-white bg-opacity-50'
+      theme === 'dark' && 'bg-white bg-opacity-50',
     )
   }, [theme])
 

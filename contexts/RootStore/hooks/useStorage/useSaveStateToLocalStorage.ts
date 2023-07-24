@@ -7,13 +7,13 @@ import { getLocalStorageKey } from './constants.ts'
 export const useSaveStateToLocalStorage = (
   state: RootStoreState,
   dispatch: React.Dispatch<StorageAction>,
-  isStateLoaded: boolean
+  isStateLoaded: boolean,
 ) => {
   useEffect(() => {
     if (isStateLoaded) {
       window.localStorage.setItem(
         getLocalStorageKey(),
-        JSON.stringify(getBrowserStorageState(state))
+        JSON.stringify(getBrowserStorageState(state)),
       )
     }
   }, [isStateLoaded, state])

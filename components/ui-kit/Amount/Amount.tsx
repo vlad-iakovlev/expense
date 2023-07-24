@@ -38,7 +38,7 @@ export const Amount = ({
       className={twMerge(
         type === 'income' && 'text-green-700',
         type === 'expense' && 'text-red-700',
-        className
+        className,
       )}
     >
       {sign}

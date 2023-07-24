@@ -7,5 +7,5 @@ import { sessionMiddleware } from '../../middleware/session.ts'
 export default use([errorMiddleware, sessionMiddleware])(
   restHandler({
     post: performSync,
-  })
+  }),
 )

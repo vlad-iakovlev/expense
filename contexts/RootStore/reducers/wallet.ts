@@ -118,13 +118,13 @@ export const isWalletsAction = (action: {
   payload?: unknown
 }): action is WalletsAction => {
   return Object.values(WalletsActionTypes).includes(
-    action.type as WalletsActionTypes
+    action.type as WalletsActionTypes,
   )
 }
 
 export const walletsReducer: React.Reducer<RootStoreState, WalletsAction> = (
   state,
-  action
+  action,
 ) => {
   switch (action.type) {
     case WalletsActionTypes.CREATE_WALLET:

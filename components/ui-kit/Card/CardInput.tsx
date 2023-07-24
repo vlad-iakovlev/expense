@@ -27,7 +27,7 @@ export const CardInput = ({
 
   const filteredSuggestions = useMemo(() => {
     return suggestions.filter((suggestion) =>
-      suggestion.toLowerCase().includes(suggestionsFilter.toLowerCase())
+      suggestion.toLowerCase().includes(suggestionsFilter.toLowerCase()),
     )
   }, [suggestions, suggestionsFilter])
 
@@ -51,7 +51,7 @@ export const CardInput = ({
           break
       }
     },
-    []
+    [],
   )
 
   const handleChange = useCallback(
@@ -59,14 +59,14 @@ export const CardInput = ({
       setInputValue(event.target.value)
       setSuggestionsFilter(event.target.value)
     },
-    []
+    [],
   )
 
   const handleFocus = useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
       event.currentTarget.select()
     },
-    []
+    [],
   )
 
   const handleBlur = useCallback(() => {
@@ -93,7 +93,7 @@ export const CardInput = ({
       onChange(suggestion)
       setIsEditing(false)
     },
-    [onChange, value]
+    [onChange, value],
   )
 
   return (
@@ -101,7 +101,7 @@ export const CardInput = ({
       <div
         className={twMerge(
           'flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors',
-          isEditing && 'pointer-events-auto'
+          isEditing && 'pointer-events-auto',
         )}
         onClick={handleClick}
       >

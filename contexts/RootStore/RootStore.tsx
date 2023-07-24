@@ -51,7 +51,7 @@ const reducer: React.Reducer<RootStoreState, Action> = (state, action) => {
 }
 
 export const RootStoreContext = createContext<ContextValue | undefined>(
-  undefined
+  undefined,
 )
 RootStoreContext.displayName = 'RootStoreContext'
 

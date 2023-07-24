@@ -39,7 +39,7 @@ const generateIcon = async (icon: Icon) => {
 
   console.log(
     chalk.green.bold(`[${icon.srcPath} => ${icon.dstPath}]`),
-    'Generated'
+    'Generated',
   )
 }
 

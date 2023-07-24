@@ -11,7 +11,7 @@ export const apply = async (db: Db) => {
         removed: group.removed as boolean,
         userId,
         groupId: group._id,
-      }))
+      })),
     )
     .flat()
 

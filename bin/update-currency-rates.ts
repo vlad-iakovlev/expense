@@ -14,12 +14,12 @@ interface RatesResponse {
 const fetchRates = async () => {
   assert(
     process.env.EXCHANGE_RATES_API_KEY,
-    'EXCHANGE_RATES_API_KEY is not defined'
+    'EXCHANGE_RATES_API_KEY is not defined',
   )
 
   const ratesResponse = await fetch(
     'https://api.apilayer.com/exchangerates_data/latest?base=USD',
-    { headers: { apikey: process.env.EXCHANGE_RATES_API_KEY } }
+    { headers: { apikey: process.env.EXCHANGE_RATES_API_KEY } },
   )
 
   return (await ratesResponse.json()) as RatesResponse
@@ -34,7 +34,7 @@ const updateRates = async (rates: RatesResponse) => {
         update: { rate },
         select: { id: true },
       })
-    })
+    }),
   )
 }
 

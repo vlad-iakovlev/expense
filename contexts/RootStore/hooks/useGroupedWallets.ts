@@ -22,7 +22,7 @@ export const useGroupedWallets = ({ groupId }: Props = {}) => {
         acc[currency.id] = currency
         return acc
       },
-      {}
+      {},
     )
   }, [state.currencies])
 
@@ -37,7 +37,7 @@ export const useGroupedWallets = ({ groupId }: Props = {}) => {
 
       const walletIds = groupedWallets.reduce<string[]>(
         (acc, group) => [...acc, ...group.walletIds],
-        []
+        [],
       )
 
       dispatch({
@@ -45,7 +45,7 @@ export const useGroupedWallets = ({ groupId }: Props = {}) => {
         payload: { walletIds },
       })
     },
-    [dispatch, groupId]
+    [dispatch, groupId],
   )
 
   return {
@@ -56,7 +56,7 @@ export const useGroupedWallets = ({ groupId }: Props = {}) => {
 
 const groupWallets = (
   wallets: ClientWallet[],
-  currenciesMap: Record<string, ClientCurrency | undefined>
+  currenciesMap: Record<string, ClientCurrency | undefined>,
 ) => {
   return wallets.reduce<GroupedWallets[]>((acc, wallet) => {
     const currency = currenciesMap[wallet.currencyId]

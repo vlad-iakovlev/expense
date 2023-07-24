@@ -17,13 +17,13 @@ export const apply = async (db: Db) => {
       .collection(collectionName)
       .updateMany(
         { createdAt: { $eq: null } },
-        { $set: { createdAt: new Date() } }
+        { $set: { createdAt: new Date() } },
       )
     await db
       .collection(collectionName)
       .updateMany(
         { updatedAt: { $eq: null } },
-        { $set: { updatedAt: new Date() } }
+        { $set: { updatedAt: new Date() } },
       )
   }
 }

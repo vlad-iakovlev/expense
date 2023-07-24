@@ -9,7 +9,7 @@ export const useGroups = () => {
 
   const groupIds = useMemo<string[]>(
     () => getOrderedGroups(state).map((group) => group.id),
-    [state]
+    [state],
   )
 
   const createGroup = useCallback(() => {
