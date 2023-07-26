@@ -14,24 +14,18 @@ import { CardTitle } from './CardTitle.tsx'
 
 export interface CardProps {
   className?: string
-  clickable?: boolean
   children?: React.ReactNode
   onClick?: () => void
 }
 
-export const Card = ({
-  className,
-  clickable,
-  children,
-  onClick,
-}: CardProps) => {
-  const Component = clickable ? 'button' : 'div'
+export const Card = ({ className, children, onClick }: CardProps) => {
+  const Component = !!onClick ? 'button' : 'div'
 
   return (
     <Component
       className={twMerge(
         'py-2 bg-white rounded-md shadow-lg text-left ring-1 ring-black ring-opacity-5 transition-shadow',
-        clickable && 'hover:shadow-2xl active:shadow-2xl cursor-pointer',
+        !!onClick && 'hover:shadow-2xl active:shadow-2xl cursor-pointer',
         className,
       )}
       type="button"

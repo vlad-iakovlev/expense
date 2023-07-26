@@ -16,7 +16,7 @@ export const GroupCreateCard = () => {
   }, [createGroup, router])
 
   return (
-    <Card clickable onClick={handleCreate}>
+    <Card onClick={handleCreate}>
       <Card.Title title="New Group" />
       <Card.Divider />
       <Card.Text prefix={<PlusIcon className="w-6 h-6" />} label="Create" />

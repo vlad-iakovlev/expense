@@ -24,7 +24,7 @@ export const GroupOpenCard = ({ groupId }: Props) => {
   }, [groupId, router])
 
   return (
-    <Card clickable onClick={handleClick}>
+    <Card onClick={handleClick}>
       <Card.Title
         title={group.name}
         actions={
