@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.ts'
 import { useGroupBalance } from '../../../contexts/RootStore/hooks/useGroupBalance.ts'
-import { useGroupUsers } from '../../../contexts/RootStore/hooks/useGroupUsers.ts'
+import { useGroupMembers } from '../../../contexts/RootStore/hooks/useGroupMembers.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 import { AvatarGroup } from '../../ui-kit/AvatarGroup/AvatarGroup.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -16,7 +16,7 @@ export const GroupOpenCard = ({ groupId }: Props) => {
   const router = useRouter()
   const { group } = useGroup({ groupId })
   const { groupBalance } = useGroupBalance({ groupId })
-  const { groupUsers } = useGroupUsers({ groupId })
+  const { groupMembers } = useGroupMembers({ groupId })
 
   const handleClick = useCallback(() => {
     const href = ROUTES.GROUP(groupId)
@@ -30,7 +30,7 @@ export const GroupOpenCard = ({ groupId }: Props) => {
         actions={
           <AvatarGroup
             className="flex-none"
-            avatars={groupUsers.map((user) => ({
+            avatars={groupMembers.map((user) => ({
               name: user.name ?? undefined,
               src: user.image ?? undefined,
             }))}

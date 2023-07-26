@@ -1,25 +1,25 @@
-import { useGroupUsers } from '../../../contexts/RootStore/hooks/useGroupUsers.ts'
+import { useGroupMembers } from '../../../contexts/RootStore/hooks/useGroupMembers.ts'
 import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Delete } from './GroupUsers.Delete.tsx'
-import { Invite } from './GroupUsers.Invite.tsx'
+import { Delete } from './GroupMembers.Delete.tsx'
+import { Invite } from './GroupMembers.Invite.tsx'
 
 interface Props {
   className?: string
   groupId: string
 }
 
-export const GroupUsersCard = ({ className, groupId }: Props) => {
-  const { groupUsers } = useGroupUsers({ groupId })
+export const GroupMembersCard = ({ className, groupId }: Props) => {
+  const { groupMembers } = useGroupMembers({ groupId })
 
   return (
     <Card className={className}>
-      <Card.Title title="Users" actions={<Invite groupId={groupId} />} />
+      <Card.Title title="Members" actions={<Invite groupId={groupId} />} />
 
-      {!!groupUsers.length && (
+      {!!groupMembers.length && (
         <>
           <Card.Divider />
-          {groupUsers.map((user) => (
+          {groupMembers.map((user) => (
             <Card.Text
               key={user.id}
               label={user.name}
@@ -31,7 +31,7 @@ export const GroupUsersCard = ({ className, groupId }: Props) => {
                 />
               }
               suffix={
-                groupUsers.length > 1 && (
+                groupMembers.length > 1 && (
                   <Delete groupId={groupId} userId={user.id} />
                 )
               }

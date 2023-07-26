@@ -59,7 +59,7 @@ export const getGroupBalance = (
   }
 }
 
-export const getGroupUsers = (
+export const getGroupMembers = (
   state: RootStoreState,
   groupId: string,
   me: ClientUser,
