@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { generateObjectId } from '../../../utils/client/generateObjectId.ts'
+import { v4 as uuid } from 'uuid'
 import { useRootStore } from '../RootStore.tsx'
 import { getOrderedGroups } from '../getters/groups.ts'
 import { GroupsActionTypes } from '../types.tsx'
@@ -13,7 +13,7 @@ export const useGroups = () => {
   )
 
   const createGroup = useCallback(() => {
-    const groupId = generateObjectId()
+    const groupId = uuid()
 
     dispatch({
       type: GroupsActionTypes.CREATE_GROUP,

@@ -1,8 +1,7 @@
 import { z } from 'zod'
-import { isValidObjectId } from '../../../utils/isValidObjectId.ts'
 
 export const createInviteBodySchema = z.object({
-  groupId: z.string().refine(isValidObjectId),
+  groupId: z.string().uuid(),
 })
 
 export const acceptInviteBodySchema = z.object({

@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { useCallback, useMemo } from 'react'
-import { generateObjectId } from '../../../utils/client/generateObjectId.ts'
+import { v4 as uuid } from 'uuid'
 import { useRootStore } from '../RootStore.tsx'
 import { getOrderedOperations } from '../getters/operations.ts'
 import { OperationsActionTypes } from '../types.tsx'
@@ -25,7 +25,7 @@ export const useOperations = ({ groupId, walletId, category }: Props = {}) => {
 
   const createOperation = useCallback(() => {
     assert(walletId, 'walletId is not defined')
-    const operationId = generateObjectId()
+    const operationId = uuid()
 
     dispatch({
       type: OperationsActionTypes.CREATE_OPERATION,

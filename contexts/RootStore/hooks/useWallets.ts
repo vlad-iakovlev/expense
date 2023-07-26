@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { useCallback, useMemo } from 'react'
-import { generateObjectId } from '../../../utils/client/generateObjectId.ts'
+import { v4 as uuid } from 'uuid'
 import { useRootStore } from '../RootStore.tsx'
 import { getOrderedWallets } from '../getters/wallets.ts'
 import { WalletsActionTypes } from '../types.tsx'
@@ -19,7 +19,7 @@ export const useWallets = ({ groupId }: Props = {}) => {
 
   const createWallet = useCallback(() => {
     assert(groupId, 'groupId is not defined')
-    const walletId = generateObjectId()
+    const walletId = uuid()
 
     dispatch({
       type: WalletsActionTypes.CREATE_WALLET,

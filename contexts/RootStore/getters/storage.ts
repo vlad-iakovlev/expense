@@ -1,4 +1,5 @@
 import { PerformSyncBody } from '../../../api/server/sync/types.ts'
+import { formatAmount } from '../../../utils/formatAmount.ts'
 import { BrowserStorageState, RootStoreState } from '../types.tsx'
 import { isTransactionEmpty } from '../utils.ts'
 
@@ -49,9 +50,15 @@ export const getRemoteStorageBody = (
       wallets: state.wallets.filter((wallet) => {
         return state.nextSyncTransaction.wallets.includes(wallet.id)
       }),
-      operations: state.operations.filter((operation) => {
-        return state.nextSyncTransaction.operations.includes(operation.id)
-      }),
+      operations: state.operations
+        .filter((operation) => {
+          return state.nextSyncTransaction.operations.includes(operation.id)
+        })
+        .map((operation) => ({
+          ...operation,
+          incomeAmount: formatAmount(operation.incomeAmount),
+          expenseAmount: formatAmount(operation.expenseAmount),
+        })),
     },
   }
 }
