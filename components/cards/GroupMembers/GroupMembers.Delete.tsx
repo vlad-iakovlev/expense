@@ -16,7 +16,7 @@ interface Props {
 export const Delete = ({ groupId, userId }: Props) => {
   const session = useSession()
   const router = useRouter()
-  const { group, removeUserFromGroup, leaveGroup } = useGroup({ groupId })
+  const { group, removeMemberFromGroup, leaveGroup } = useGroup({ groupId })
 
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
 
@@ -36,13 +36,13 @@ export const Delete = ({ groupId, userId }: Props) => {
         )
         leaveGroup()
       } else {
-        removeUserFromGroup(userId)
+        removeMemberFromGroup(userId)
         setIsDeleteConfirmOpen(false)
       }
     })()
   }, [
     leaveGroup,
-    removeUserFromGroup,
+    removeMemberFromGroup,
     router,
     session.data?.user.id,
     session.status,
@@ -69,8 +69,8 @@ export const Delete = ({ groupId, userId }: Props) => {
 
       <ConfirmDialog
         isOpen={isDeleteConfirmOpen}
-        title="Delete user from group"
-        description="Are you sure you want to delete user from group? This action cannot be undone."
+        title="Delete member from group"
+        description="Are you sure you want to delete member from group? This action cannot be undone."
         action="Delete"
         onConfirm={handleDeleteConfirm}
         onCancel={handleDeleteCancel}

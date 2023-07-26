@@ -43,10 +43,10 @@ const removeGroupReducer: React.Reducer<
   })
 }
 
-const removeUserFromGroupReducer: React.Reducer<
+const removeMemberFromGroupReducer: React.Reducer<
   RootStoreState,
   {
-    type: GroupsActionTypes.REMOVE_USER_FROM_GROUP
+    type: GroupsActionTypes.REMOVE_MEMBER_FROM_GROUP
     payload: {
       groupId: string
       userId: string
@@ -132,7 +132,7 @@ const setGroupDefaultCurrencyReducer: React.Reducer<
 export type GroupsAction =
   | React.ReducerAction<typeof createGroupReducer>
   | React.ReducerAction<typeof removeGroupReducer>
-  | React.ReducerAction<typeof removeUserFromGroupReducer>
+  | React.ReducerAction<typeof removeMemberFromGroupReducer>
   | React.ReducerAction<typeof leaveGroupReducer>
   | React.ReducerAction<typeof setGroupNameReducer>
   | React.ReducerAction<typeof setGroupDefaultCurrencyReducer>
@@ -157,8 +157,8 @@ export const groupsReducer: React.Reducer<RootStoreState, GroupsAction> = (
     case GroupsActionTypes.REMOVE_GROUP:
       return removeGroupReducer(state, action)
 
-    case GroupsActionTypes.REMOVE_USER_FROM_GROUP:
-      return removeUserFromGroupReducer(state, action)
+    case GroupsActionTypes.REMOVE_MEMBER_FROM_GROUP:
+      return removeMemberFromGroupReducer(state, action)
 
     case GroupsActionTypes.LEAVE_GROUP:
       return leaveGroupReducer(state, action)

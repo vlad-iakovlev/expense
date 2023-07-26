@@ -46,10 +46,10 @@ export const useGroup = ({ groupId }: Props) => {
     })
   }, [dispatch, groupId])
 
-  const removeUserFromGroup = useCallback(
+  const removeMemberFromGroup = useCallback(
     (userId: string) => {
       dispatch({
-        type: GroupsActionTypes.REMOVE_USER_FROM_GROUP,
+        type: GroupsActionTypes.REMOVE_MEMBER_FROM_GROUP,
         payload: { groupId, userId },
       })
     },
@@ -70,7 +70,7 @@ export const useGroup = ({ groupId }: Props) => {
     setGroupName,
     setGroupDefaultCurrency,
     removeGroup,
-    removeUserFromGroup,
+    removeMemberFromGroup,
     leaveGroup,
   }
 }
