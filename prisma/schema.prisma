@@ -1,40 +1,28 @@
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["extendedWhereUnique"]
-}
-
-model Migration {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String @unique
+  provider = "prisma-client-js"
 }
 
 model Transaction {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   completedAt DateTime?
 
-  userGroups   UserGroup[] @relation(fields: [userGroupIds], references: [id])
-  userGroupIds String[]    @db.ObjectId
-
-  groups   Group[]  @relation(fields: [groupIds], references: [id])
-  groupIds String[] @db.ObjectId
-
-  wallets   Wallet[] @relation(fields: [walletIds], references: [id])
-  walletIds String[] @db.ObjectId
-
-  operations   Operation[] @relation(fields: [operationIds], references: [id])
-  operationIds String[]    @db.ObjectId
+  userGroups UserGroup[]
+  groups     Group[]
+  wallets    Wallet[]
+  operations Operation[]
 }
 
 model Account {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -50,13 +38,13 @@ model Account {
   session_state     String?
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String @db.ObjectId
+  userId String
 
   @@unique([provider, providerAccountId])
 }
 
 model Session {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -64,11 +52,11 @@ model Session {
   expires      DateTime
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String @db.ObjectId
+  userId String
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -83,7 +71,7 @@ model User {
 }
 
 model VerificationToken {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -95,7 +83,7 @@ model VerificationToken {
 }
 
 model Currency {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -108,25 +96,24 @@ model Currency {
 }
 
 model UserGroup {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   removed   Boolean  @default(false)
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Restrict)
-  userId String @db.ObjectId
+  userId String
 
   group   Group  @relation(fields: [groupId], references: [id], onDelete: Restrict)
-  groupId String @db.ObjectId
+  groupId String
 
-  transactions   Transaction[] @relation(fields: [transactionIds], references: [id])
-  transactionIds String[]      @db.ObjectId
+  transactions Transaction[]
 
   @@unique([userId, groupId])
 }
 
 model Invite {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -135,11 +122,11 @@ model Invite {
   accepted  Boolean  @default(false)
 
   group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  groupId String @db.ObjectId
+  groupId String
 }
 
 model Group {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   removed   Boolean  @default(false)
@@ -147,40 +134,38 @@ model Group {
   name String
 
   defaultCurrency   Currency @relation(fields: [defaultCurrencyId], references: [id], onDelete: Restrict)
-  defaultCurrencyId String   @db.ObjectId
+  defaultCurrencyId String
 
   userGroups UserGroup[]
   invites    Invite[]
   wallets    Wallet[]
 
-  transactions   Transaction[] @relation(fields: [transactionIds], references: [id])
-  transactionIds String[]      @db.ObjectId
+  transactions Transaction[]
 }
 
 model Wallet {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   removed   Boolean  @default(false)
 
   name  String
-  order Int?   @db.Long
+  order Int?
 
   currency   Currency @relation(fields: [currencyId], references: [id], onDelete: Restrict)
-  currencyId String   @db.ObjectId
+  currencyId String
 
   group   Group  @relation(fields: [groupId], references: [id], onDelete: Restrict)
-  groupId String @db.ObjectId
+  groupId String
 
   incomeOperations  Operation[] @relation("WalletOperationIncome")
   expenseOperations Operation[] @relation("WalletOperationExpense")
 
-  transactions   Transaction[] @relation(fields: [transactionIds], references: [id])
-  transactionIds String[]      @db.ObjectId
+  transactions Transaction[]
 }
 
 model Operation {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   removed   Boolean  @default(false)
@@ -188,15 +173,14 @@ model Operation {
   name          String
   category      String
   date          DateTime
-  incomeAmount  Int      @db.Long
-  expenseAmount Int      @db.Long
+  incomeAmount  String
+  expenseAmount String
 
   incomeWallet   Wallet? @relation(name: "WalletOperationIncome", fields: [incomeWalletId], references: [id], onDelete: Restrict)
-  incomeWalletId String? @db.ObjectId
+  incomeWalletId String?
 
   expenseWallet   Wallet? @relation(name: "WalletOperationExpense", fields: [expenseWalletId], references: [id], onDelete: Restrict)
-  expenseWalletId String? @db.ObjectId
+  expenseWalletId String?
 
-  transactions   Transaction[] @relation(fields: [transactionIds], references: [id])
-  transactionIds String[]      @db.ObjectId
+  transactions Transaction[]
 }

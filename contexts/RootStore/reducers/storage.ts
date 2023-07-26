@@ -1,5 +1,6 @@
 import assert from 'assert'
 import { PerformSyncResponse } from '../../../api/server/sync/types.ts'
+import { parseAmount } from '../../../utils/parseAmount.ts'
 import { uniqBy } from '../../../utils/uniqBy.ts'
 import {
   BrowserStorageState,
@@ -112,9 +113,15 @@ const setStateFromRemoteStorageReducer: React.Reducer<
   const operations = uniqBy(
     [
       ...state.operations,
-      ...updates.operations.filter((operation) => {
-        return !state.nextSyncTransaction.operations.includes(operation.id)
-      }),
+      ...updates.operations
+        .filter((operation) => {
+          return !state.nextSyncTransaction.operations.includes(operation.id)
+        })
+        .map((operation) => ({
+          ...operation,
+          incomeAmount: parseAmount(operation.incomeAmount),
+          expenseAmount: parseAmount(operation.expenseAmount),
+        })),
     ],
     (operation) => operation.id,
   ).filter((operation) => {
