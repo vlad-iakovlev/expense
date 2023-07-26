@@ -1,6 +1,7 @@
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Balance } from './GroupInfo.Balance.tsx'
 import { Members } from './GroupInfo.Members.tsx'
+import { Settings } from './GroupInfo.Settings.tsx'
 
 interface Props {
   className?: string
@@ -10,7 +11,7 @@ interface Props {
 export const GroupInfoCard = ({ className, groupId }: Props) => {
   return (
     <Card className={className}>
-      <Card.Title title="Info" />
+      <Card.Title title="Info" actions={<Settings groupId={groupId} />} />
       <Card.Divider />
       <Members groupId={groupId} />
       <Balance groupId={groupId} />
