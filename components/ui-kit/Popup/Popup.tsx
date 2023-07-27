@@ -66,7 +66,7 @@ export const Popup = ({
   }, [isOpen, onClose])
 
   return (
-    <div className={twMerge('relative z-10', className)} role="presentation">
+    <div className={twMerge('relative z-10', className)}>
       <AnimatePresence>
         {isOpen && (
           <motion.div

@@ -110,14 +110,10 @@ export const Scrollable = ({
   }, [theme])
 
   return (
-    <div
-      className={twMerge('relative overflow-hidden', className)}
-      role="presentation"
-    >
+    <div className={twMerge('relative overflow-hidden', className)}>
       <div
         ref={contentRef}
         className={twMerge('overflow-auto hide-scrollbars', contentClassName)}
-        role="presentation"
       >
         {children}
       </div>

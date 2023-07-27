@@ -79,12 +79,9 @@ export const PageTransition = forwardRef<
       exit="exitTo"
       transition={transition}
       variants={variants}
-      role="presentation"
       {...rest}
     >
-      <div style={{ marginTop }} role="presentation">
-        {children}
-      </div>
+      <div style={{ marginTop }}>{children}</div>
     </motion.div>
   )
 })
