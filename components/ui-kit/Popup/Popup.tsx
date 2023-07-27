@@ -1,6 +1,7 @@
 import { AnimatePresence, Variants, motion } from 'framer-motion'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { useMenuNavigation } from './useMenuNavigation.ts'
 
 const variants: Variants = {
   opened: {
@@ -31,7 +32,6 @@ export interface PopupProps {
   position: PopupPosition
   children: React.ReactNode
   onClose?: () => void
-  onPointerDown?: (event: React.PointerEvent<HTMLDivElement>) => void
 }
 
 export const Popup = ({
@@ -43,35 +43,14 @@ export const Popup = ({
   position,
   children,
   onClose,
-  onPointerDown,
 }: PopupProps) => {
   const popupRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (!isOpen) return
-
-    const handleClick = (event: MouseEvent) => {
-      if (!popupRef.current?.contains(event.target as Node)) {
-        onClose?.()
-      }
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose?.()
-      }
-    }
-
-    document.body.style.setProperty('pointer-events', 'none')
-    document.addEventListener('click', handleClick, { capture: true })
-    document.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      document.body.style.removeProperty('pointer-events')
-      document.removeEventListener('click', handleClick, { capture: true })
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [isOpen, onClose])
+  useMenuNavigation({
+    popupRef,
+    isOpen,
+    onClose,
+  })
 
   return (
     <div className={twMerge('relative z-10', className)}>
@@ -93,7 +72,6 @@ export const Popup = ({
             variants={variants}
             aria-label={popupAriaLabel}
             role={popupRole}
-            onPointerDown={onPointerDown}
           >
             {children}
           </motion.div>

@@ -13,7 +13,6 @@ export type CardDateTimeProps = Modify<
     value: Date
     onChange: (value: Date) => void
     onClick?: never
-    onKeyDown?: never
   }
 >
 
@@ -38,12 +37,10 @@ export const CardDateTime = ({
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       switch (event.key) {
         case 'Enter':
-          event.stopPropagation()
           event.currentTarget.blur()
           break
 
         case 'Escape':
-          event.stopPropagation()
           setIsEditing(false)
           break
       }

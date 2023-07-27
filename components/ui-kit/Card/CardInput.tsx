@@ -11,7 +11,6 @@ export type CardInputProps = Modify<
     value: string
     onChange: (value: string) => void
     onClick?: never
-    onKeyDown?: never
   }
 >
 
@@ -34,34 +33,51 @@ export const CardInput = ({
     )
   }, [suggestions, suggestionsFilter])
 
-  const handleClick = useCallback(() => {
-    setIsEditing(true)
-    setInputValue(value)
-    setSuggestionsFilter('')
-  }, [value])
+  const handleBlur = useCallback(
+    (event: React.FocusEvent<HTMLDivElement>) => {
+      const currentTarget = event.currentTarget
 
-  const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
-    if (event.key === ' ') {
-      event.preventDefault()
-    }
-  }, [])
+      requestAnimationFrame(() => {
+        if (!currentTarget.contains(document.activeElement)) {
+          const formattedValue = inputValue.trim().replace(/\s+/g, ' ')
 
-  const handleInputKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
+          if (formattedValue && formattedValue !== value) {
+            onChange(formattedValue)
+          }
+
+          setIsEditing(false)
+        }
+      })
+    },
+    [inputValue, value, onChange],
+  )
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
       switch (event.key) {
         case 'Enter':
-          event.stopPropagation()
           event.currentTarget.blur()
           break
 
         case 'Escape':
-          event.stopPropagation()
           setIsEditing(false)
+          break
+
+        case ' ':
+          if (!isEditing) {
+            event.preventDefault()
+          }
           break
       }
     },
-    [],
+    [isEditing],
   )
+
+  const handleButtonClick = useCallback(() => {
+    setIsEditing(true)
+    setInputValue(value)
+    setSuggestionsFilter('')
+  }, [value])
 
   const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,20 +94,6 @@ export const CardInput = ({
     [],
   )
 
-  const handleInputBlur = useCallback(() => {
-    const formattedValue = inputValue.trim().replace(/\s+/g, ' ')
-
-    if (formattedValue && formattedValue !== value) {
-      onChange(formattedValue)
-    }
-
-    setIsEditing(false)
-  }, [inputValue, value, onChange])
-
-  const handlePopupPointerDown = useCallback((event: React.PointerEvent) => {
-    event.preventDefault()
-  }, [])
-
   const handleSelect = useCallback(
     (suggestion: string) => {
       if (suggestion === value) {
@@ -106,7 +108,7 @@ export const CardInput = ({
   )
 
   return (
-    <>
+    <div onBlur={handleBlur} onKeyDown={handleKeyDown}>
       <CardItem
         className={twMerge(isEditing && 'pointer-events-auto', className)}
         labelClassName={twMerge('flex-none', labelClassName)}
@@ -120,26 +122,21 @@ export const CardInput = ({
               className="w-full text-right bg-transparent focus:outline-none"
               autoFocus
               value={inputValue}
-              onKeyDown={handleInputKeyDown}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
             />
           ) : (
             value
           )
         }
-        onClick={isEditing ? undefined : handleClick}
-        onKeyDown={isEditing ? undefined : handleKeyDown}
+        onClick={isEditing ? undefined : handleButtonClick}
         {...rest}
       />
 
-      {/* TODO: fix keyboard navigation in popup */}
       <CardPopup
         popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
         isOpen={isEditing && !!filteredSuggestions.length}
         position="below-right"
-        onPointerDown={handlePopupPointerDown}
       >
         {filteredSuggestions.map((suggestion) => (
           <CardItem
@@ -150,6 +147,6 @@ export const CardInput = ({
           />
         ))}
       </CardPopup>
-    </>
+    </div>
   )
 }
