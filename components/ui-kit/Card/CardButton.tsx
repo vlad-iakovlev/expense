@@ -26,6 +26,7 @@ export const CardButton = ({
       className,
     )}
     type="button"
+    role="menuitem"
     onClick={onClick}
   >
     {prefix ? <div className="flex-none">{prefix}</div> : null}

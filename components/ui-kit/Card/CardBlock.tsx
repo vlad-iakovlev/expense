@@ -4,11 +4,13 @@ import { twMerge } from 'tailwind-merge'
 export interface CardBlockProps {
   className?: string
   style?: React.CSSProperties
+  ariaLabel?: string
+  role?: string
   children?: React.ReactNode
 }
 
 export const CardBlock = forwardRef<HTMLDivElement, CardBlockProps>(
-  function CardBlock({ className, style, children }, ref) {
+  function CardBlock({ className, style, ariaLabel, role, children }, ref) {
     return (
       <div
         ref={ref}
@@ -17,6 +19,8 @@ export const CardBlock = forwardRef<HTMLDivElement, CardBlockProps>(
           className,
         )}
         style={style}
+        aria-label={ariaLabel}
+        role={role}
       >
         {children}
       </div>

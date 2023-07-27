@@ -110,10 +110,14 @@ export const Scrollable = ({
   }, [theme])
 
   return (
-    <div className={twMerge('relative overflow-hidden', className)}>
+    <div
+      className={twMerge('relative overflow-hidden', className)}
+      role="presentation"
+    >
       <div
         ref={contentRef}
         className={twMerge('overflow-auto hide-scrollbars', contentClassName)}
+        role="presentation"
       >
         {children}
       </div>
@@ -129,6 +133,7 @@ export const Scrollable = ({
           right: vTrack.edgeOffset,
           width: vTrack.thickness,
         }}
+        aria-hidden="true"
       >
         <div
           className={twMerge(thumbClassName, 'w-full')}
@@ -147,6 +152,7 @@ export const Scrollable = ({
           bottom: hTrack.edgeOffset,
           height: hTrack.thickness,
         }}
+        aria-hidden="true"
       >
         <div
           className={twMerge(thumbClassName, 'h-full')}

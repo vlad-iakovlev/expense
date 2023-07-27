@@ -19,6 +19,12 @@ export const HeaderSync = ({ className }: Props) => {
         'flex flex-col items-center justify-center w-28 h-10 px-2 font-medium bg-green-700 text-white rounded-md shadow-inner',
         className,
       )}
+      role="status"
+      aria-label={
+        isSyncing
+          ? 'Syncing now'
+          : fns.format(syncedAt, `'Synced on' MMMM do 'at' H:mm`)
+      }
     >
       {isSyncing ? (
         <span className="text-sm">Syncing...</span>

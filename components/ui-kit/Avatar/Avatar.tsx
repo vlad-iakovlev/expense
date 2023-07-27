@@ -58,7 +58,13 @@ export const Avatar = ({
       )}
     >
       {src ? (
-        <NextImage src={src} alt={name} width={48} height={48} quality={100} />
+        <NextImage
+          src={src}
+          alt={`Avatar of ${name}`}
+          width={48}
+          height={48}
+          quality={100}
+        />
       ) : (
         <div
           className={twMerge(

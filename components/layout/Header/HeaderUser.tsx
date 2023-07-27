@@ -64,6 +64,7 @@ export const HeaderUser = ({ className }: Props) => {
           <button
             className="block rounded-full"
             type="button"
+            aria-label="Open profile popup"
             onClick={handleProfileClick}
           >
             <Avatar
@@ -76,17 +77,21 @@ export const HeaderUser = ({ className }: Props) => {
             popupClassName="w-72 mt-2"
             isOpen={isOpen}
             position="below-right"
+            ariaLabel="Profile popup"
             onClose={handlePopupClose}
           >
             <Card.Text
               label={
                 <>
-                  <p className="text-xl truncate">{session.data.user.name}</p>
-                  <p className="text-zinc-600 truncate">
+                  <div className="text-xl truncate">
+                    {session.data.user.name}
+                  </div>
+                  <div className="text-zinc-600 truncate">
                     {session.data.user.email}
-                  </p>
+                  </div>
                 </>
               }
+              ariaLabel={`You are logged in as ${session.data.user.name} with email ${session.data.user.email}`}
             />
 
             <Card.Divider />

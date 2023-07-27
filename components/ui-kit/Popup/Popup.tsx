@@ -28,6 +28,8 @@ export interface PopupProps {
   isOpen: boolean
   position: PopupPosition
   children: React.ReactNode
+  ariaLabel?: string
+  role?: string
   onClose?: () => void
   onPointerDown?: (event: React.PointerEvent<HTMLDivElement>) => void
 }
@@ -38,6 +40,8 @@ export const Popup = ({
   isOpen,
   position,
   children,
+  ariaLabel,
+  role,
   onClose,
   onPointerDown,
 }: PopupProps) => {
@@ -62,7 +66,7 @@ export const Popup = ({
   }, [isOpen, onClose])
 
   return (
-    <div className={twMerge('relative z-10', className)}>
+    <div className={twMerge('relative z-10', className)} role="presentation">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -79,6 +83,8 @@ export const Popup = ({
             animate="opened"
             exit="closed"
             variants={variants}
+            aria-label={ariaLabel}
+            role={role}
             onPointerDown={onPointerDown}
           >
             {children}

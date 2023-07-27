@@ -7,6 +7,7 @@ export interface CardPopupProps {
   isOpen: boolean
   position: PopupPosition
   children: React.ReactNode
+  ariaLabel?: string
   onClose?: () => void
   onPointerDown?: (event: React.PointerEvent<HTMLDivElement>) => void
 }
@@ -17,6 +18,7 @@ export const CardPopup = ({
   isOpen,
   position,
   children,
+  ariaLabel,
   onClose,
   onPointerDown,
 }: CardPopupProps) => {
@@ -26,6 +28,8 @@ export const CardPopup = ({
       popupClassName={popupClassName}
       isOpen={isOpen}
       position={position}
+      ariaLabel={ariaLabel}
+      role="menu"
       onClose={onClose}
       onPointerDown={onPointerDown}
     >
