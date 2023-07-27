@@ -6,7 +6,7 @@ import { CardFooter } from './CardFooter.tsx'
 import { CardInput } from './CardInput.tsx'
 import { CardItem } from './CardItem.tsx'
 import { CardLink } from './CardLink.tsx'
-import { CardPopup } from './CardPopup.tsx'
+import { CardMenu } from './CardMenu.tsx'
 import { CardSelect } from './CardSelect.tsx'
 import { CardSubtitle } from './CardSubtitle.tsx'
 import { CardTitle } from './CardTitle.tsx'
@@ -49,8 +49,8 @@ Card.Item = CardItem
 export type * from './CardLink.tsx'
 Card.Link = CardLink
 
-export type * from './CardPopup.tsx'
-Card.Popup = CardPopup
+export type * from './CardMenu.tsx'
+Card.Menu = CardMenu
 
 export type * from './CardSelect.tsx'
 Card.Select = CardSelect

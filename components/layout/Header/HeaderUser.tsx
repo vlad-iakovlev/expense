@@ -73,7 +73,7 @@ export const HeaderUser = ({ className }: Props) => {
             />
           </button>
 
-          <Card.Popup
+          <Card.Menu
             popupClassName="w-72 mt-2"
             isOpen={isOpen}
             position="below-right"
@@ -104,7 +104,7 @@ export const HeaderUser = ({ className }: Props) => {
               role="menuitem"
               onClick={handleSignOut}
             />
-          </Card.Popup>
+          </Card.Menu>
         </>
       )}
     </div>

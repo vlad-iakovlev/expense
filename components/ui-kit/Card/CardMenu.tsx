@@ -1,9 +1,9 @@
 import { Popup, PopupProps } from '../Popup/Popup.tsx'
 import { Scrollable } from '../Scrollable/Scrollable.tsx'
 
-export type CardPopupProps = PopupProps
+export type CardMenuProps = PopupProps
 
-export const CardPopup = ({ children, ...rest }: CardPopupProps) => {
+export const CardMenu = ({ children, ...rest }: CardMenuProps) => {
   return (
     <Popup popupRole="menu" {...rest}>
       <Scrollable

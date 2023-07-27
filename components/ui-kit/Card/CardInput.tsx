@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '../../../types/utility.ts'
 import { CardItem, CardItemProps } from './CardItem.tsx'
-import { CardPopup } from './CardPopup.tsx'
+import { CardMenu } from './CardMenu.tsx'
 
 export type CardInputProps = Modify<
   CardItemProps,
@@ -133,7 +133,7 @@ export const CardInput = ({
         {...rest}
       />
 
-      <CardPopup
+      <CardMenu
         popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
         isOpen={isEditing && !!filteredSuggestions.length}
         position="below-right"
@@ -146,7 +146,7 @@ export const CardInput = ({
             onClick={() => handleSelect(suggestion)}
           />
         ))}
-      </CardPopup>
+      </CardMenu>
     </div>
   )
 }

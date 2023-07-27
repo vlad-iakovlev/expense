@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import { Modify } from '../../../types/utility.ts'
 import { CardDivider } from './CardDivider.tsx'
 import { CardItem, CardItemProps } from './CardItem.tsx'
-import { CardPopup } from './CardPopup.tsx'
+import { CardMenu } from './CardMenu.tsx'
 
 export interface CardSelectOption<Id extends string = string> {
   type?: 'option'
@@ -70,7 +70,7 @@ export function CardSelect<Id extends string = string>({
         {...rest}
       />
 
-      <CardPopup
+      <CardMenu
         popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
         isOpen={isOpen}
         position="below-right"
@@ -90,7 +90,7 @@ export function CardSelect<Id extends string = string>({
             )}
           </Fragment>
         ))}
-      </CardPopup>
+      </CardMenu>
     </>
   )
 }
