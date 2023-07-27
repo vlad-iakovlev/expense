@@ -81,7 +81,7 @@ export const OperationsListCard = ({ className, groupId, walletId }: Props) => {
       {canShowMore ? (
         <>
           <Card.Divider />
-          <Card.Button
+          <Card.Item
             prefix={<EllipsisHorizontalIcon className="w-6 h-6" />}
             label="Show more"
             onClick={handleShowMore}

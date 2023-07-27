@@ -10,7 +10,7 @@ export const Members = ({ groupId }: Props) => {
   const { groupMembers } = useGroupMembers({ groupId })
 
   return (
-    <Card.Text
+    <Card.Item
       label="Members"
       value={
         <AvatarGroup

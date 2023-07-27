@@ -35,7 +35,7 @@ export const Categories = ({ currency, items, type }: Props) => {
       {items
         .filter((item) => item.amount)
         .map((item) => (
-          <Card.Button
+          <Card.Item
             key={item.category}
             prefix={
               <Switch

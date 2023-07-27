@@ -1,11 +1,11 @@
 import { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '../../../types/utility.ts'
-import { CardButton, CardButtonProps } from './CardButton.tsx'
+import { CardItem, CardItemProps } from './CardItem.tsx'
 import { CardPopup } from './CardPopup.tsx'
 
 export type CardInputProps = Modify<
-  CardButtonProps,
+  CardItemProps,
   {
     suggestions?: string[]
     value: string
@@ -117,7 +117,7 @@ export const CardInput = ({
 
   return (
     <>
-      <CardButton
+      <CardItem
         className={twMerge(isEditing && 'pointer-events-auto', className)}
         labelClassName={twMerge('flex-none', labelClassName)}
         valueClassName={twMerge(
@@ -152,7 +152,7 @@ export const CardInput = ({
         onPointerDown={handlePopupPointerDown}
       >
         {filteredSuggestions.map((suggestion) => (
-          <CardButton
+          <CardItem
             key={suggestion}
             label={suggestion}
             role="menuitem"

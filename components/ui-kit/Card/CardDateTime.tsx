@@ -5,10 +5,10 @@ import {
   formatDateForInput,
   formatDateTime,
 } from '../../../utils/formatDate.ts'
-import { CardButton, CardButtonProps } from './CardButton.tsx'
+import { CardItem, CardItemProps } from './CardItem.tsx'
 
 export type CardDateTimeProps = Modify<
-  CardButtonProps,
+  CardItemProps,
   {
     value: Date
     onChange: (value: Date) => void
@@ -82,7 +82,7 @@ export const CardDateTime = ({
   }, [inputValue, dateForInput, onChange])
 
   return (
-    <CardButton
+    <CardItem
       labelClassName={twMerge('flex-none', labelClassName)}
       valueClassName={twMerge(
         'flex-auto min-w-0 text-right font-medium truncate',

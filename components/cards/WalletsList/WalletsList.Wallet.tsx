@@ -32,7 +32,7 @@ export const Wallet = ({
 
   if (canReorderWallets && isReordering) {
     return (
-      <Card.Text
+      <Card.Item
         ref={setNodeRef}
         className={twMerge(
           'relative transition-shadow',
@@ -60,7 +60,7 @@ export const Wallet = ({
   }
 
   if (isReordering) {
-    return <Card.Text label={wallet.name} />
+    return <Card.Item label={wallet.name} />
   }
 
   return (

@@ -1,8 +1,8 @@
 import { Fragment, useCallback, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '../../../types/utility.ts'
-import { CardButton, CardButtonProps } from './CardButton.tsx'
 import { CardDivider } from './CardDivider.tsx'
+import { CardItem, CardItemProps } from './CardItem.tsx'
 import { CardPopup } from './CardPopup.tsx'
 
 export interface CardSelectOption<Id extends string = string> {
@@ -22,7 +22,7 @@ export type CardSelectItem<Id extends string = string> =
   | CardSelectDivider<Id>
 
 export type CardSelectProps<Id extends string = string> = Modify<
-  CardButtonProps,
+  CardItemProps,
   {
     options: CardSelectItem<Id>[]
     value: CardSelectOption<Id>
@@ -71,7 +71,7 @@ export function CardSelect<Id extends string = string>({
 
   return (
     <>
-      <CardButton
+      <CardItem
         labelClassName={twMerge('flex-none', labelClassName)}
         valueClassName={twMerge(
           'flex-auto min-w-0 text-right font-medium truncate',
@@ -93,7 +93,7 @@ export function CardSelect<Id extends string = string>({
           <Fragment key={option.id}>
             {option.type === 'divider' && <CardDivider />}
             {(!option.type || option.type === 'option') && (
-              <CardButton
+              <CardItem
                 key={option.id}
                 label={option.label}
                 suffix={option.suffix}

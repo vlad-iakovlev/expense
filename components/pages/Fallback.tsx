@@ -18,7 +18,7 @@ export const Fallback = () => {
         <Card className="min-w-72">
           <Card.Title title="Oops!" />
           <Card.Divider />
-          <Card.Button
+          <Card.Item
             label="Restart Expense"
             prefix={<ArrowPathIcon className="w-6 h-6" />}
             onClick={handleRestart}

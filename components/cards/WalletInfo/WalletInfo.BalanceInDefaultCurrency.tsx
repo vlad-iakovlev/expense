@@ -16,7 +16,7 @@ export const BalanceInDefaultCurrency = ({ walletId }: Props) => {
   }
 
   return (
-    <Card.Text
+    <Card.Item
       label={`Balance in ${wallet.group.defaultCurrency.symbol}`}
       value={
         <Amount

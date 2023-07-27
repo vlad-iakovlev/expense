@@ -20,7 +20,7 @@ export const GroupMembersCard = ({ className, groupId }: Props) => {
         <>
           <Card.Divider />
           {groupMembers.map((user) => (
-            <Card.Text
+            <Card.Item
               key={user.id}
               label={user.name}
               prefix={

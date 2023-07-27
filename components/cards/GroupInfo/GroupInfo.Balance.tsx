@@ -10,7 +10,7 @@ export const Balance = ({ groupId }: Props) => {
   const { groupBalance } = useGroupBalance({ groupId })
 
   return (
-    <Card.Text
+    <Card.Item
       label="Balance"
       value={
         <Amount

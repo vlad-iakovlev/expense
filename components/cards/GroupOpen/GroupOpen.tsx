@@ -42,7 +42,7 @@ export const GroupOpenCard = ({ groupId }: Props) => {
 
       <Card.Divider />
 
-      <Card.Text
+      <Card.Item
         label="Balance"
         value={
           <Amount

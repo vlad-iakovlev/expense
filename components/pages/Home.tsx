@@ -41,11 +41,11 @@ export const Home = () => {
         <Card>
           <Card.Title title="Info" />
           <Card.Divider />
-          <Card.Text
+          <Card.Item
             label="Name"
             value={<div className="font-medium">Expense</div>}
           />
-          <Card.Text
+          <Card.Item
             label="Name"
             value={<div className="font-medium">Expense tracker</div>}
           />
@@ -59,27 +59,27 @@ export const Home = () => {
         <Card className="md:row-span-full">
           <Card.Title title="Features" />
           <Card.Divider />
-          <Card.Text
+          <Card.Item
             prefix={<ArrowPathIcon className="w-6 h-6" />}
             label="Built-in cross-device sync"
           />
-          <Card.Text
+          <Card.Item
             prefix={<SignalSlashIcon className="w-6 h-6" />}
             label="Available even offline"
           />
-          <Card.Text
+          <Card.Item
             prefix={<TagIcon className="w-6 h-6" />}
             label="Flexible categorization"
           />
-          <Card.Text
+          <Card.Item
             prefix={<UsersIcon className="w-6 h-6" />}
             label="Collaborative tracking"
           />
-          <Card.Text
+          <Card.Item
             prefix={<CurrencyDollarIcon className="w-6 h-6" />}
             label="Automatic currency conversion"
           />
-          <Card.Text
+          <Card.Item
             prefix={<ChartPieIcon className="w-6 h-6" />}
             label="Pie charts for week/month/year"
           />
@@ -88,7 +88,7 @@ export const Home = () => {
         <Card className="md:max-lg:col-[1] md:max-lg:row-[2]">
           <Card.Title title="What to do?" />
           <Card.Divider />
-          <Card.Button
+          <Card.Item
             disabled={isLoading}
             prefix={<ArrowLeftOnRectangleIcon className="w-6 h-6" />}
             label="Sign In with Google Account"

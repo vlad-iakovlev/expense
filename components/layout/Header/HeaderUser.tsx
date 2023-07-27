@@ -80,7 +80,7 @@ export const HeaderUser = ({ className }: Props) => {
             popupAriaLabel="Profile popup"
             onClose={handlePopupClose}
           >
-            <Card.Text
+            <Card.Item
               label={
                 <>
                   <div className="text-xl truncate">
@@ -97,7 +97,7 @@ export const HeaderUser = ({ className }: Props) => {
 
             <Card.Divider />
 
-            <Card.Button
+            <Card.Item
               disabled={isLoading}
               prefix={<ArrowRightOnRectangleIcon className="w-6 h-6" />}
               label="Sign Out"

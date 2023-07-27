@@ -19,7 +19,7 @@ export const GroupCreateCard = () => {
     <Card onClick={handleCreate}>
       <Card.Title title="New Group" />
       <Card.Divider />
-      <Card.Text prefix={<PlusIcon className="w-6 h-6" />} label="Create" />
+      <Card.Item prefix={<PlusIcon className="w-6 h-6" />} label="Create" />
     </Card>
   )
 }

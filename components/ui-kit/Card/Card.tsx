@@ -1,15 +1,14 @@
 import { twMerge } from 'tailwind-merge'
 import { CardBlock } from './CardBlock.tsx'
-import { CardButton } from './CardButton.tsx'
 import { CardDateTime } from './CardDateTime.tsx'
 import { CardDivider } from './CardDivider.tsx'
 import { CardFooter } from './CardFooter.tsx'
 import { CardInput } from './CardInput.tsx'
+import { CardItem } from './CardItem.tsx'
 import { CardLink } from './CardLink.tsx'
 import { CardPopup } from './CardPopup.tsx'
 import { CardSelect } from './CardSelect.tsx'
 import { CardSubtitle } from './CardSubtitle.tsx'
-import { CardText } from './CardText.tsx'
 import { CardTitle } from './CardTitle.tsx'
 
 export type CardProps = React.HTMLAttributes<HTMLDivElement>
@@ -33,9 +32,6 @@ export const Card = ({ className, children, onClick }: CardProps) => {
 export * from './CardBlock.tsx'
 Card.Block = CardBlock
 
-export type * from './CardButton.tsx'
-Card.Button = CardButton
-
 export type * from './CardDateTime.tsx'
 Card.DateTime = CardDateTime
 
@@ -46,6 +42,9 @@ Card.Footer = CardFooter
 
 export type * from './CardInput.tsx'
 Card.Input = CardInput
+
+export type * from './CardItem.tsx'
+Card.Item = CardItem
 
 export type * from './CardLink.tsx'
 Card.Link = CardLink
@@ -58,9 +57,6 @@ Card.Select = CardSelect
 
 export type * from './CardSubtitle.tsx'
 Card.Subtitle = CardSubtitle
-
-export type * from './CardText.tsx'
-Card.Text = CardText
 
 export type * from './CardTitle.tsx'
 Card.Title = CardTitle

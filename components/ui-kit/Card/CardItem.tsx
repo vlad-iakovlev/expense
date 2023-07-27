@@ -3,13 +3,14 @@ import { twMerge } from 'tailwind-merge'
 import { Modify } from '../../../types/utility.ts'
 import { CardBlock, CardBlockProps } from './CardBlock.tsx'
 
-export type CardTextProps = Modify<
+export type CardItemProps = Modify<
   CardBlockProps,
   {
     prefixClassName?: string
     suffixClassName?: string
     labelClassName?: string
     valueClassName?: string
+    disabled?: boolean
     prefix?: React.ReactNode
     suffix?: React.ReactNode
     label?: React.ReactNode
@@ -18,23 +19,36 @@ export type CardTextProps = Modify<
   }
 >
 
-export const CardText = forwardRef<HTMLDivElement, CardTextProps>(
-  function CardText(
+export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
+  function CardButton(
     {
+      className,
       prefixClassName,
       suffixClassName,
       labelClassName,
       valueClassName,
+      disabled,
       prefix,
       suffix,
       label,
       value,
+      onClick,
       ...rest
     },
     ref,
   ) {
     return (
-      <CardBlock ref={ref} aria-disabled="true" {...rest}>
+      <CardBlock
+        ref={ref}
+        className={twMerge(
+          !!onClick && 'hover:bg-zinc-100 active:bg-zinc-100 cursor-pointer',
+          disabled && 'pointer-events-none',
+          className,
+        )}
+        aria-disabled={!onClick || disabled ? 'true' : 'false'}
+        tabIndex={!onClick || disabled ? -1 : 0}
+        {...rest}
+      >
         {prefix ? (
           <div className={twMerge('flex-none', prefixClassName)}>{prefix}</div>
         ) : null}
