@@ -13,6 +13,7 @@ export const CardFooter = ({ fullWidth, children }: CardFooterProps) => {
         'flex-col items-stretch',
         !fullWidth && 'sm:flex-row-reverse',
       )}
+      role="group"
     >
       {children}
     </CardBlock>

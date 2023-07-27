@@ -1,34 +1,52 @@
 import { forwardRef } from 'react'
-import { CardBlock } from './CardBlock.tsx'
+import { twMerge } from 'tailwind-merge'
+import { Modify } from '../../../types/utility.ts'
+import { CardBlock, CardBlockProps } from './CardBlock.tsx'
 
-export interface CardTextProps {
-  className?: string
-  style?: React.CSSProperties
-  prefix?: React.ReactNode
-  suffix?: React.ReactNode
-  label?: React.ReactNode
-  value?: React.ReactNode
-  ariaLabel?: string
-  role?: string
-}
+export type CardTextProps = Modify<
+  CardBlockProps,
+  {
+    prefixClassName?: string
+    suffixClassName?: string
+    labelClassName?: string
+    valueClassName?: string
+    prefix?: React.ReactNode
+    suffix?: React.ReactNode
+    label?: React.ReactNode
+    value?: React.ReactNode
+    children?: never
+  }
+>
 
 export const CardText = forwardRef<HTMLDivElement, CardTextProps>(
   function CardText(
-    { className, style, prefix, suffix, label, value, ariaLabel, role },
+    {
+      prefixClassName,
+      suffixClassName,
+      labelClassName,
+      valueClassName,
+      prefix,
+      suffix,
+      label,
+      value,
+      ...rest
+    },
     ref,
   ) {
     return (
-      <CardBlock
-        ref={ref}
-        className={className}
-        style={style}
-        ariaLabel={ariaLabel}
-        role={role}
-      >
-        {prefix ? <div className="flex-none">{prefix}</div> : null}
-        <div className="flex-auto truncate">{label}</div>
-        {value ? <div className="flex-none">{value}</div> : null}
-        {suffix ? <div className="flex-none">{suffix}</div> : null}
+      <CardBlock ref={ref} aria-disabled="true" {...rest}>
+        {prefix ? (
+          <div className={twMerge('flex-none', prefixClassName)}>{prefix}</div>
+        ) : null}
+        <div className={twMerge('flex-auto truncate', labelClassName)}>
+          {label}
+        </div>
+        {value ? (
+          <div className={twMerge('flex-none', valueClassName)}>{value}</div>
+        ) : null}
+        {suffix ? (
+          <div className={twMerge('flex-none', suffixClassName)}>{suffix}</div>
+        ) : null}
       </CardBlock>
     )
   },

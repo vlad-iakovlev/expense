@@ -77,7 +77,7 @@ export const HeaderUser = ({ className }: Props) => {
             popupClassName="w-72 mt-2"
             isOpen={isOpen}
             position="below-right"
-            ariaLabel="Profile popup"
+            popupAriaLabel="Profile popup"
             onClose={handlePopupClose}
           >
             <Card.Text
@@ -91,7 +91,8 @@ export const HeaderUser = ({ className }: Props) => {
                   </div>
                 </>
               }
-              ariaLabel={`You are logged in as ${session.data.user.name} with email ${session.data.user.email}`}
+              role="menuitem"
+              aria-label={`You are logged in as ${session.data.user.name} with email ${session.data.user.email}`}
             />
 
             <Card.Divider />
@@ -100,6 +101,7 @@ export const HeaderUser = ({ className }: Props) => {
               disabled={isLoading}
               prefix={<ArrowRightOnRectangleIcon className="w-6 h-6" />}
               label="Sign Out"
+              role="menuitem"
               onClick={handleSignOut}
             />
           </Card.Popup>

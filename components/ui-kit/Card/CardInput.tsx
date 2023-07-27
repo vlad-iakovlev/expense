@@ -1,25 +1,28 @@
 import { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Card } from './Card.tsx'
+import { Modify } from '../../../types/utility.ts'
+import { CardButton, CardButtonProps } from './CardButton.tsx'
+import { CardPopup } from './CardPopup.tsx'
 
-export interface CardInputProps {
-  className?: string
-  prefix?: React.ReactNode
-  suffix?: React.ReactNode
-  label: string
-  suggestions?: string[]
-  value: string
-  onChange: (value: string) => void
-}
+export type CardInputProps = Modify<
+  CardButtonProps,
+  {
+    suggestions?: string[]
+    value: string
+    onChange: (value: string) => void
+    onClick?: never
+    onKeyDown?: never
+  }
+>
 
 export const CardInput = ({
   className,
-  prefix,
-  suffix,
-  label,
+  labelClassName,
+  valueClassName,
   suggestions = [],
   value,
   onChange,
+  ...rest
 }: CardInputProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const [inputValue, setInputValue] = useState('')
@@ -40,13 +43,29 @@ export const CardInput = ({
   }, [isEditing, value])
 
   const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        if (!isEditing) {
+          event.preventDefault()
+          setIsEditing(true)
+          setInputValue(value)
+          setSuggestionsFilter('')
+        }
+      }
+    },
+    [isEditing, value],
+  )
+
+  const handleInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       switch (event.key) {
         case 'Enter':
+          event.stopPropagation()
           event.currentTarget.blur()
           break
 
         case 'Escape':
+          event.stopPropagation()
           setIsEditing(false)
           break
       }
@@ -54,7 +73,7 @@ export const CardInput = ({
     [],
   )
 
-  const handleChange = useCallback(
+  const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value)
       setSuggestionsFilter(event.target.value)
@@ -62,14 +81,14 @@ export const CardInput = ({
     [],
   )
 
-  const handleFocus = useCallback(
+  const handleInputFocus = useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
       event.currentTarget.select()
     },
     [],
   )
 
-  const handleBlur = useCallback(() => {
+  const handleInputBlur = useCallback(() => {
     const formattedValue = inputValue.trim().replace(/\s+/g, ' ')
 
     if (formattedValue && formattedValue !== value) {
@@ -98,50 +117,49 @@ export const CardInput = ({
 
   return (
     <>
-      <div
-        className={twMerge(
-          'flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors',
-          isEditing && 'pointer-events-auto',
+      <CardButton
+        className={twMerge(isEditing && 'pointer-events-auto', className)}
+        labelClassName={twMerge('flex-none', labelClassName)}
+        valueClassName={twMerge(
+          'flex-auto min-w-0 text-right font-medium truncate',
+          valueClassName,
         )}
-        onClick={handleClick}
-      >
-        {prefix ? <div className="flex-none">{prefix}</div> : null}
-
-        <div className="flex-none">{label}</div>
-
-        <div className={twMerge('flex-auto min-w-0 font-medium', className)}>
-          {isEditing ? (
+        value={
+          isEditing ? (
             <input
               className="w-full text-right bg-transparent focus:outline-none"
               autoFocus
               value={inputValue}
-              onKeyDown={handleKeyDown}
-              onChange={handleChange}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
+              onKeyDown={handleInputKeyDown}
+              onChange={handleInputChange}
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
             />
           ) : (
-            <div className="text-right truncate">{value}</div>
-          )}
-        </div>
+            value
+          )
+        }
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        {...rest}
+      />
 
-        {suffix ? <div className="flex-none">{suffix}</div> : null}
-      </div>
-
-      <Card.Popup
+      {/* TODO: fix keyboard navigation in popup */}
+      <CardPopup
         popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
         isOpen={isEditing && !!filteredSuggestions.length}
         position="below-right"
         onPointerDown={handlePopupPointerDown}
       >
         {filteredSuggestions.map((suggestion) => (
-          <Card.Button
+          <CardButton
             key={suggestion}
             label={suggestion}
+            role="menuitem"
             onClick={() => handleSelect(suggestion)}
           />
         ))}
-      </Card.Popup>
+      </CardPopup>
     </>
   )
 }

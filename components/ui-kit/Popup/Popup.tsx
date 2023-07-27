@@ -25,11 +25,11 @@ export type PopupPosition =
 export interface PopupProps {
   className?: string
   popupClassName?: string
+  popupRole?: string
+  popupAriaLabel?: string
   isOpen: boolean
   position: PopupPosition
   children: React.ReactNode
-  ariaLabel?: string
-  role?: string
   onClose?: () => void
   onPointerDown?: (event: React.PointerEvent<HTMLDivElement>) => void
 }
@@ -37,11 +37,11 @@ export interface PopupProps {
 export const Popup = ({
   className,
   popupClassName,
+  popupRole,
+  popupAriaLabel,
   isOpen,
   position,
   children,
-  ariaLabel,
-  role,
   onClose,
   onPointerDown,
 }: PopupProps) => {
@@ -83,8 +83,8 @@ export const Popup = ({
             animate="opened"
             exit="closed"
             variants={variants}
-            aria-label={ariaLabel}
-            role={role}
+            aria-label={popupAriaLabel}
+            role={popupRole}
             onPointerDown={onPointerDown}
           >
             {children}

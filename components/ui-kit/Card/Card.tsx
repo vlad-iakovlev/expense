@@ -12,27 +12,21 @@ import { CardSubtitle } from './CardSubtitle.tsx'
 import { CardText } from './CardText.tsx'
 import { CardTitle } from './CardTitle.tsx'
 
-export interface CardProps {
-  className?: string
-  children?: React.ReactNode
-  onClick?: () => void
-}
+export type CardProps = React.HTMLAttributes<HTMLDivElement>
 
 export const Card = ({ className, children, onClick }: CardProps) => {
-  const Component = !!onClick ? 'button' : 'div'
-
   return (
-    <Component
+    <div
       className={twMerge(
         'py-2 bg-white rounded-md shadow-lg text-left ring-1 ring-black ring-opacity-5 transition-shadow',
         !!onClick && 'hover:shadow-2xl active:shadow-2xl cursor-pointer',
         className,
       )}
-      type="button"
+      role={onClick ? 'button' : 'list'}
       onClick={onClick}
     >
       {children}
-    </Component>
+    </div>
   )
 }
 
