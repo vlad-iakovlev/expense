@@ -56,12 +56,20 @@ export const Popup = ({
       }
     }
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose?.()
+      }
+    }
+
     document.body.style.setProperty('pointer-events', 'none')
     document.addEventListener('click', handleClick, { capture: true })
+    document.addEventListener('keydown', handleKeyDown)
 
     return () => {
       document.body.style.removeProperty('pointer-events')
       document.removeEventListener('click', handleClick, { capture: true })
+      document.removeEventListener('keydown', handleKeyDown)
     }
   }, [isOpen, onClose])
 
