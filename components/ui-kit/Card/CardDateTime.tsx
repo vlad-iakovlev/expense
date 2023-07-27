@@ -30,24 +30,9 @@ export const CardDateTime = ({
   const dateForInput = useMemo(() => formatDateForInput(value), [value])
 
   const handleClick = useCallback(() => {
-    if (!isEditing) {
-      setIsEditing(true)
-      setInputValue(dateForInput)
-    }
-  }, [dateForInput, isEditing])
-
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        if (!isEditing) {
-          event.preventDefault()
-          setIsEditing(true)
-          setInputValue(dateForInput)
-        }
-      }
-    },
-    [dateForInput, isEditing],
-  )
+    setIsEditing(true)
+    setInputValue(dateForInput)
+  }, [dateForInput])
 
   const handleInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -103,8 +88,7 @@ export const CardDateTime = ({
           formatDateTime(value)
         )
       }
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
+      onClick={isEditing ? undefined : handleClick}
       {...rest}
     />
   )

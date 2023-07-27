@@ -35,26 +35,16 @@ export const CardInput = ({
   }, [suggestions, suggestionsFilter])
 
   const handleClick = useCallback(() => {
-    if (!isEditing) {
-      setIsEditing(true)
-      setInputValue(value)
-      setSuggestionsFilter('')
-    }
-  }, [isEditing, value])
+    setIsEditing(true)
+    setInputValue(value)
+    setSuggestionsFilter('')
+  }, [value])
 
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        if (!isEditing) {
-          event.preventDefault()
-          setIsEditing(true)
-          setInputValue(value)
-          setSuggestionsFilter('')
-        }
-      }
-    },
-    [isEditing, value],
-  )
+  const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
+    if (event.key === ' ') {
+      event.preventDefault()
+    }
+  }, [])
 
   const handleInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -139,8 +129,8 @@ export const CardInput = ({
             value
           )
         }
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
+        onClick={isEditing ? undefined : handleClick}
+        onKeyDown={isEditing ? undefined : handleKeyDown}
         {...rest}
       />
 

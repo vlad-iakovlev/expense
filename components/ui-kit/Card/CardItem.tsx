@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '../../../types/utility.ts'
 import { CardBlock, CardBlockProps } from './CardBlock.tsx'
@@ -33,10 +33,22 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
       label,
       value,
       onClick,
+      onKeyDown,
       ...rest
     },
     ref,
   ) {
+    const handleKeyDown = useCallback(
+      (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.currentTarget.click()
+        }
+
+        onKeyDown?.(event)
+      },
+      [onKeyDown],
+    )
+
     return (
       <CardBlock
         ref={ref}
@@ -48,6 +60,7 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
         aria-disabled={!onClick || disabled ? 'true' : 'false'}
         tabIndex={!onClick || disabled ? -1 : 0}
         onClick={onClick}
+        onKeyDown={handleKeyDown}
         {...rest}
       >
         {prefix ? (

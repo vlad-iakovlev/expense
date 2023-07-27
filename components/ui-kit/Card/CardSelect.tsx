@@ -44,18 +44,6 @@ export function CardSelect<Id extends string = string>({
   const handleOpen = useCallback(() => setIsOpen(true), [])
   const handleClose = useCallback(() => setIsOpen(false), [])
 
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        if (!isOpen) {
-          event.preventDefault()
-          handleOpen()
-        }
-      }
-    },
-    [handleOpen, isOpen],
-  )
-
   const handleOptionClick = useCallback(
     (id: Id) => {
       if (id === value.id) {
@@ -78,8 +66,7 @@ export function CardSelect<Id extends string = string>({
           valueClassName,
         )}
         value={value.label}
-        onClick={handleOpen}
-        onKeyDown={handleKeyDown}
+        onClick={isOpen ? undefined : handleOpen}
         {...rest}
       />
 
