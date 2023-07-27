@@ -28,7 +28,6 @@ export type CardSelectProps<Id extends string = string> = Modify<
     value: CardSelectOption<Id>
     onChange: (value: Id) => void
     onClick?: never
-    onKeyDown?: never
   }
 >
 

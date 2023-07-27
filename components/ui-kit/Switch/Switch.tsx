@@ -1,20 +1,23 @@
 import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Modify } from '../../../types/utility.ts'
 
-export interface SwitchProps {
-  className?: string
-  color?: string
-  ariaLabel?: string
-  value: boolean
-  onChange: (value: boolean) => void
-}
+export type SwitchProps = Modify<
+  React.HTMLAttributes<HTMLDivElement>,
+  {
+    value: boolean
+    onChange: (value: boolean) => void
+    children?: never
+    onClick?: never
+  }
+>
 
 export const Switch = ({
   className,
-  color,
-  ariaLabel,
   value,
   onChange,
+  onKeyDown,
+  ...rest
 }: SwitchProps) => {
   const handleClick = useCallback(
     (event: React.MouseEvent) => {
@@ -25,14 +28,15 @@ export const Switch = ({
   )
 
   const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault()
-        event.stopPropagation()
-        onChange(!value)
+        event.currentTarget.click()
       }
+
+      onKeyDown?.(event)
     },
-    [onChange, value],
+    [onKeyDown],
   )
 
   return (
@@ -43,12 +47,11 @@ export const Switch = ({
         className,
       )}
       aria-checked={value}
-      aria-label={ariaLabel}
       role="switch"
       tabIndex={0}
-      style={{ backgroundColor: color }}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
+      {...rest}
     >
       <div
         className={twMerge(

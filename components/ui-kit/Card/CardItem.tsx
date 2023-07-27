@@ -41,6 +41,7 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
     const handleKeyDown = useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
           event.currentTarget.click()
         }
 
