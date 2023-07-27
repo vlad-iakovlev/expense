@@ -4,15 +4,33 @@ import { twMerge } from 'tailwind-merge'
 export interface SwitchProps {
   className?: string
   color?: string
+  ariaLabel?: string
   value: boolean
   onChange: (value: boolean) => void
 }
 
-export const Switch = ({ className, color, value, onChange }: SwitchProps) => {
+export const Switch = ({
+  className,
+  color,
+  ariaLabel,
+  value,
+  onChange,
+}: SwitchProps) => {
   const handleClick = useCallback(
     (event: React.MouseEvent) => {
       event.stopPropagation()
       onChange(!value)
+    },
+    [onChange, value],
+  )
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        event.stopPropagation()
+        onChange(!value)
+      }
     },
     [onChange, value],
   )
@@ -24,10 +42,13 @@ export const Switch = ({ className, color, value, onChange }: SwitchProps) => {
         value ? 'bg-green-700' : 'bg-zinc-300',
         className,
       )}
+      aria-checked={value}
+      aria-label={ariaLabel}
+      role="switch"
       tabIndex={0}
-      role="button"
       style={{ backgroundColor: color }}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
     >
       <div
         className={twMerge(

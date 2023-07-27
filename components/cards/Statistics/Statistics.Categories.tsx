@@ -39,6 +39,7 @@ export const Categories = ({ currency, items, type }: Props) => {
             key={item.category}
             prefix={
               <Switch
+                ariaLabel={`Toggle category ${item.category}`}
                 value={isEnabled(item.category)}
                 color={isEnabled(item.category) ? item.color : undefined}
                 onChange={(value) => toggleCategory(item.category, value)}
