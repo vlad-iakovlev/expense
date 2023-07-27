@@ -54,3 +54,7 @@ export const formatYear = (fromDate: Date) => {
 export const formatDateForInput = (date: Date) => {
   return fns.format(date, "yyyy-MM-dd'T'HH:mm")
 }
+
+export const formatDateTimeForAriaLabel = (date: Date) => {
+  return fns.format(date, 'MMMM do, yyyy, HH:mm')
+}

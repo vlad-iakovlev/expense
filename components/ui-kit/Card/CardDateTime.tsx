@@ -4,6 +4,7 @@ import { Modify } from '../../../types/utility.ts'
 import {
   formatDateForInput,
   formatDateTime,
+  formatDateTimeForAriaLabel,
 } from '../../../utils/formatDate.ts'
 import { CardItem, CardItemProps } from './CardItem.tsx'
 
@@ -82,7 +83,9 @@ export const CardDateTime = ({
             onBlur={handleInputBlur}
           />
         ) : (
-          formatDateTime(value)
+          <span aria-label={formatDateTimeForAriaLabel(value)}>
+            {formatDateTime(value)}
+          </span>
         )
       }
       onClick={isEditing ? undefined : handleClick}

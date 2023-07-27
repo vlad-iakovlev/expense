@@ -1,6 +1,7 @@
 import * as fns from 'date-fns'
 import { twMerge } from 'tailwind-merge'
 import { useSyncStatus } from '../../../contexts/RootStore/hooks/useSyncStatus.ts'
+import { formatDateTimeForAriaLabel } from '../../../utils/formatDate.ts'
 
 interface Props {
   className?: string
@@ -20,18 +21,18 @@ export const HeaderSync = ({ className }: Props) => {
         className,
       )}
       role="status"
-      aria-label={
-        isSyncing
-          ? 'Syncing now'
-          : fns.format(syncedAt, `'Synced on' MMMM do 'at' H:mm`)
-      }
     >
       {isSyncing ? (
         <span className="text-sm">Syncing...</span>
       ) : (
         <>
           <span className="text-xs">Synced</span>
-          <span className="text-xs">{fns.format(syncedAt, `d MMM, H:mm`)}</span>
+          <span
+            className="text-xs"
+            aria-label={formatDateTimeForAriaLabel(syncedAt)}
+          >
+            {fns.format(syncedAt, `d MMM, H:mm`)}
+          </span>
         </>
       )}
     </div>

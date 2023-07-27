@@ -4,7 +4,10 @@ import { createInvite } from '../../../api/client/invites.ts'
 import { ROUTES } from '../../../constants/routes.ts'
 import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.ts'
 import { useIsOnline } from '../../../hooks/useIsOnline.ts'
-import { formatDateTime } from '../../../utils/formatDate.ts'
+import {
+  formatDateTime,
+  formatDateTimeForAriaLabel,
+} from '../../../utils/formatDate.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { CopyField } from '../../ui-kit/CopyField/CopyField.tsx'
@@ -74,7 +77,11 @@ export const Invite = ({ groupId }: Props) => {
             Remember,&nbsp;each link is unique and for one-time use only.
           </Card.Block>
           <Card.Block>
-            Will expire on {formatDateTime(expirationDate)}.
+            Will expire on{' '}
+            <span aria-label={formatDateTimeForAriaLabel(expirationDate)}>
+              {formatDateTime(expirationDate)}
+            </span>
+            .
           </Card.Block>
           <Card.Divider />
           <Card.Footer fullWidth>
