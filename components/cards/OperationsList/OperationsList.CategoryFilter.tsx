@@ -58,7 +58,6 @@ export const CategoryFilter = ({ groupId, walletId }: Props) => {
         suffix={
           !!categoryFilter && (
             <Button
-              as="div"
               rounded
               size="sm"
               theme="zinc"

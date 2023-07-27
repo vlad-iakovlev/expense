@@ -1,20 +1,18 @@
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '../../../types/utility.ts'
 
-export interface ButtonProps<T extends React.ElementType> {
-  as?: T
-  className?: string
-  children?: React.ReactNode
-  disabled?: boolean
-  iconEnd?: React.ReactNode
-  iconStart?: React.ReactNode
-  rounded?: boolean
-  size: 'sm' | 'md' | 'lg'
-  theme: 'green' | 'red' | 'zinc' | 'white'
-}
+export type ButtonProps = Modify<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  {
+    iconEnd?: React.ReactNode
+    iconStart?: React.ReactNode
+    rounded?: boolean
+    size: 'sm' | 'md' | 'lg'
+    theme: 'green' | 'red' | 'zinc' | 'white'
+  }
+>
 
-export function Button<T extends React.ElementType = 'button'>({
-  as,
+export const Button = ({
   className,
   children,
   disabled,
@@ -23,12 +21,10 @@ export function Button<T extends React.ElementType = 'button'>({
   rounded,
   size,
   theme,
-  ...restProps
-}: Modify<React.ComponentPropsWithoutRef<T>, ButtonProps<T>>) {
-  const Component = as ?? 'button'
-
+  ...rest
+}: ButtonProps) => {
   return (
-    <Component
+    <button
       className={twMerge(
         'relative inline-flex items-center justify-center transition-colors font-medium',
         rounded ? 'rounded-full' : 'rounded-md',
@@ -46,9 +42,8 @@ export function Button<T extends React.ElementType = 'button'>({
         disabled && 'pointer-events-none',
         className,
       )}
-      {...(Component === 'button' && { type: 'button' })}
-      {...(Component === 'div' && { tabIndex: 0, role: 'button' })}
-      {...restProps}
+      type="button"
+      {...rest}
     >
       {iconStart ? (
         <div
@@ -88,6 +83,6 @@ export function Button<T extends React.ElementType = 'button'>({
           {iconEnd}
         </div>
       ) : null}
-    </Component>
+    </button>
   )
 }
