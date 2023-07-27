@@ -12,6 +12,7 @@ export const Container = ({ children, className }: ContainerProps) => {
         'mx-auto max-w-screen-2xl px-4 sm:px-6 md:px-8',
         className,
       )}
+      role="presentation"
     >
       {children}
     </div>
