@@ -47,6 +47,7 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
         )}
         aria-disabled={!onClick || disabled ? 'true' : 'false'}
         tabIndex={!onClick || disabled ? -1 : 0}
+        onClick={onClick}
         {...rest}
       >
         {prefix ? (
