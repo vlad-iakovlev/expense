@@ -26,8 +26,9 @@ export const Settings = ({ groupId }: Props) => {
       rounded
       size="sm"
       theme="white"
-      onClick={handleClick}
       iconStart={<Cog6ToothIcon />}
+      aria-label="Settings"
+      onClick={handleClick}
     />
   )
 }

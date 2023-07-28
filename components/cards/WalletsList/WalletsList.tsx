@@ -61,7 +61,7 @@ export const WalletsListCard = ({ className, groupId }: Props) => {
   const stopReordering = useCallback(() => setIsReordering(false), [])
 
   return (
-    <Card className={className}>
+    <Card className={className} aria-label="Wallets">
       <Card.Title
         title="Wallets"
         actions={

@@ -10,7 +10,7 @@ export const Members = ({ groupId }: Props) => {
   const { groupMembers } = useGroupMembers({ groupId })
 
   return (
-    <Card.Text
+    <Card.Item
       label="Members"
       value={
         <AvatarGroup
@@ -21,6 +21,7 @@ export const Members = ({ groupId }: Props) => {
           }))}
           max={10}
           size="sm"
+          aria-label={groupMembers.map((user) => user.name).join(', ')}
         />
       }
     />

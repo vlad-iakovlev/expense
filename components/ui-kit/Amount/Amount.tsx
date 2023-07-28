@@ -6,9 +6,10 @@ import { formatAmount } from '../../../utils/formatAmount.ts'
 export interface AmountProps {
   className?: string
   amount: number
-  currency?: ClientCurrency
+  currency: ClientCurrency
   type?: 'income' | 'expense'
   showSign?: 'non-zero' | 'negative' | 'never'
+  hideCurrency?: boolean
 }
 
 export const Amount = ({
@@ -17,6 +18,7 @@ export const Amount = ({
   currency,
   type = amount >= 0 ? 'income' : 'expense',
   showSign = 'never',
+  hideCurrency,
 }: AmountProps) => {
   const sign = useMemo(() => {
     switch (showSign) {
@@ -41,9 +43,14 @@ export const Amount = ({
         className,
       )}
     >
-      {sign}
-      {formatAmount(amount)}
-      {currency && <span className="opacity-60"> {currency.symbol}</span>}
+      <span>{sign}</span>
+      <span>{formatAmount(amount)}</span>
+      <span
+        className="opacity-60"
+        aria-label={currency.name ?? currency.symbol}
+      >
+        {hideCurrency ? '' : ` ${currency.symbol}`}
+      </span>
     </div>
   )
 }

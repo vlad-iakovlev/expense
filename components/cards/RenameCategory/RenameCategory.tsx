@@ -56,7 +56,7 @@ export const RenameCategoryCard = ({ className, groupId }: Props) => {
   }
 
   return (
-    <Card className={className}>
+    <Card className={className} aria-label="Rename category">
       <Card.Title
         title="Rename category"
         actions={

@@ -26,16 +26,20 @@ export const ConfirmDialog = ({
         <Card.Title
           title={title}
           actions={
-            <div className="flex-none flex items-center justify-center -my-1 w-10 h-10 rounded-full bg-red-100">
-              <ExclamationTriangleIcon
-                className="w-6 h-6 text-red-700"
-                aria-hidden="true"
-              />
+            <div
+              className="flex-none flex items-center justify-center -my-1 w-10 h-10 rounded-full bg-red-100"
+              aria-hidden="true"
+            >
+              <ExclamationTriangleIcon className="w-6 h-6 text-red-700" />
             </div>
           }
+          tabIndex={0}
+          aria-disabled="true"
         />
         <Card.Divider />
-        <Card.Block>{description}</Card.Block>
+        <Card.Block tabIndex={0} aria-disabled="true">
+          {description}
+        </Card.Block>
         <Card.Divider />
         <Card.Footer>
           <Button size="md" theme="red" onClick={onConfirm}>

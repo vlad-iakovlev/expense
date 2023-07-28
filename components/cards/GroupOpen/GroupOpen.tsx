@@ -24,7 +24,7 @@ export const GroupOpenCard = ({ groupId }: Props) => {
   }, [groupId, router])
 
   return (
-    <Card onClick={handleClick}>
+    <Card aria-label={`Group ${group.name}`} onClick={handleClick}>
       <Card.Title
         title={group.name}
         actions={
@@ -42,7 +42,7 @@ export const GroupOpenCard = ({ groupId }: Props) => {
 
       <Card.Divider />
 
-      <Card.Text
+      <Card.Item
         label="Balance"
         value={
           <Amount
@@ -52,6 +52,7 @@ export const GroupOpenCard = ({ groupId }: Props) => {
             showSign="negative"
           />
         }
+        tabIndex={-1}
       />
     </Card>
   )

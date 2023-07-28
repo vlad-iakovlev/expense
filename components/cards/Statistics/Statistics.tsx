@@ -6,7 +6,7 @@ import { usePeriod } from '../../../hooks/usePeriod.ts'
 import { ClientStatisticsType } from '../../../types/client.ts'
 import { Card } from '../../ui-kit/Card/Card.tsx'
 import { Categories } from './Statistics.Categories.tsx'
-import { Charts } from './Statistics.Charts.tsx'
+import { Chart } from './Statistics.Chart.tsx'
 import { PeriodSelector } from './Statistics.PeriodSelector.tsx'
 import { TypeSelector } from './Statistics.TypeSelector.tsx'
 
@@ -43,7 +43,7 @@ export const StatisticsCard = ({ className, groupId, walletId }: Props) => {
   }
 
   return (
-    <Card className={className}>
+    <Card className={className} aria-label="Statistics">
       <Card.Title
         title="Stats"
         actions={<TypeSelector value={type} onChange={setType} />}
@@ -61,7 +61,7 @@ export const StatisticsCard = ({ className, groupId, walletId }: Props) => {
 
       <Card.Divider />
 
-      <Charts currency={statisticsCurrency} items={chartItems} type={type} />
+      <Chart currency={statisticsCurrency} items={chartItems} type={type} />
 
       <Categories
         currency={statisticsCurrency}

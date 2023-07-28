@@ -1,5 +1,9 @@
 import { Fragment, useCallback, useState } from 'react'
-import { Card } from './Card.tsx'
+import { twMerge } from 'tailwind-merge'
+import { Modify } from '../../../types/utility.ts'
+import { CardDivider } from './CardDivider.tsx'
+import { CardItem, CardItemProps } from './CardItem.tsx'
+import { CardMenu } from './CardMenu.tsx'
 
 export interface CardSelectOption<Id extends string = string> {
   type?: 'option'
@@ -17,28 +21,29 @@ export type CardSelectItem<Id extends string = string> =
   | CardSelectOption<Id>
   | CardSelectDivider<Id>
 
-export interface CardSelectProps<Id extends string = string> {
-  prefix?: React.ReactNode
-  suffix?: React.ReactNode
-  label: string
-  options: CardSelectItem<Id>[]
-  value: CardSelectOption<Id>
-  onChange: (value: Id) => void
-}
+export type CardSelectProps<Id extends string = string> = Modify<
+  CardItemProps,
+  {
+    options: CardSelectItem<Id>[]
+    value: CardSelectOption<Id>
+    onChange: (value: Id) => void
+    onClick?: never
+  }
+>
 
 export function CardSelect<Id extends string = string>({
-  prefix,
-  suffix,
-  label,
+  labelClassName,
+  valueClassName,
   options,
   value,
   onChange,
+  ...rest
 }: CardSelectProps<Id>): React.ReactElement | null {
   const [isOpen, setIsOpen] = useState(false)
   const handleOpen = useCallback(() => setIsOpen(true), [])
   const handleClose = useCallback(() => setIsOpen(false), [])
 
-  const handleChange = useCallback(
+  const handleOptionClick = useCallback(
     (id: Id) => {
       if (id === value.id) {
         setIsOpen(false)
@@ -52,39 +57,41 @@ export function CardSelect<Id extends string = string>({
   )
 
   return (
-    <>
-      <button
-        className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors"
-        onClick={handleOpen}
-      >
-        {prefix ? <div className="flex-none">{prefix}</div> : null}
-        <div className="flex-none">{label}</div>
-        <div className="flex-auto text-right font-medium truncate">
-          {value.label}
-        </div>
-        {suffix ? <div className="flex-none">{suffix}</div> : null}
-      </button>
-
-      <Card.Popup
-        popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
-        isOpen={isOpen}
-        position="below-right"
-        onClose={handleClose}
-      >
-        {options.map((option) => (
-          <Fragment key={option.id}>
-            {option.type === 'divider' && <Card.Divider />}
-            {(!option.type || option.type === 'option') && (
-              <Card.Button
-                key={option.id}
-                label={option.label}
-                suffix={option.suffix}
-                onClick={() => handleChange(option.id)}
-              />
-            )}
-          </Fragment>
-        ))}
-      </Card.Popup>
-    </>
+    <CardItem
+      labelClassName={twMerge('flex-none', labelClassName)}
+      valueClassName={twMerge(
+        'flex-auto min-w-0 text-right font-medium truncate',
+        valueClassName,
+      )}
+      value={value.label}
+      menu={
+        <CardMenu
+          popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
+          isOpen={isOpen}
+          position="below-right"
+          onClose={handleClose}
+        >
+          {options.map((option) => (
+            <Fragment key={option.id}>
+              {option.type === 'divider' && <CardDivider />}
+              {(!option.type || option.type === 'option') && (
+                <CardItem
+                  key={option.id}
+                  label={option.label}
+                  suffix={option.suffix}
+                  role="menuitem"
+                  onClick={() => handleOptionClick(option.id)}
+                />
+              )}
+            </Fragment>
+          ))}
+        </CardMenu>
+      }
+      aria-haspopup="true"
+      aria-expanded={isOpen ? 'true' : 'false'}
+      aria-disabled="false"
+      onClick={isOpen ? undefined : handleOpen}
+      {...rest}
+    />
   )
 }

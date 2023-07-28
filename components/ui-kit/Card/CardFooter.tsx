@@ -1,20 +1,23 @@
 import { twMerge } from 'tailwind-merge'
-import { CardBlock } from './CardBlock.tsx'
+import { Modify } from '../../../types/utility.ts'
+import { CardBlock, CardBlockProps } from './CardBlock.tsx'
 
-export interface CardFooterProps {
-  fullWidth?: boolean
-  children?: React.ReactNode
-}
+export type CardFooterProps = Modify<
+  CardBlockProps,
+  {
+    fullWidth?: boolean
+  }
+>
 
-export const CardFooter = ({ fullWidth, children }: CardFooterProps) => {
+export const CardFooter = ({ fullWidth, ...rest }: CardFooterProps) => {
   return (
     <CardBlock
       className={twMerge(
         'flex-col items-stretch',
         !fullWidth && 'sm:flex-row-reverse',
       )}
-    >
-      {children}
-    </CardBlock>
+      role="presentation"
+      {...rest}
+    />
   )
 }

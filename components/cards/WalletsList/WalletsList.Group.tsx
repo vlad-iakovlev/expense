@@ -62,41 +62,47 @@ export const Group = ({
         transform: CSS.Translate.toString(transform),
         transition,
       }}
+      role="listitem"
     >
-      <Card.Subtitle
-        subtitle={currency.symbol}
-        actions={
-          canReorderGroups &&
-          isReordering && (
-            <div
-              className={twMerge(
-                'flex-none flex items-center justify-center h-12 w-12 -m-3 touch-none',
-                isDragging ? 'cursor-grabbing' : 'cursor-grab',
-              )}
-              {...attributes}
-              {...listeners}
-            >
-              <DndIcon className="w-6 h-6 text-zinc-400" />
-            </div>
-          )
-        }
-      />
+      <div role="list" aria-label={currency.name ?? currency.symbol}>
+        <Card.Subtitle
+          subtitle={currency.symbol}
+          actions={
+            canReorderGroups &&
+            isReordering && (
+              <div
+                className={twMerge(
+                  'flex-none flex items-center justify-center h-12 w-12 -m-3 touch-none',
+                  isDragging ? 'cursor-grabbing' : 'cursor-grab',
+                )}
+                {...attributes}
+                {...listeners}
+              >
+                <DndIcon className="w-6 h-6 text-zinc-400" />
+              </div>
+            )
+          }
+        />
 
-      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext
-          items={walletIds}
-          strategy={verticalListSortingStrategy}
+        <DndContext
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
         >
-          {walletIds.map((walletId) => (
-            <Wallet
-              key={walletId}
-              canReorderWallets={canReorderWallets}
-              isReordering={isReordering}
-              walletId={walletId}
-            />
-          ))}
-        </SortableContext>
-      </DndContext>
+          <SortableContext
+            items={walletIds}
+            strategy={verticalListSortingStrategy}
+          >
+            {walletIds.map((walletId) => (
+              <Wallet
+                key={walletId}
+                canReorderWallets={canReorderWallets}
+                isReordering={isReordering}
+                walletId={walletId}
+              />
+            ))}
+          </SortableContext>
+        </DndContext>
+      </div>
     </div>
   )
 }

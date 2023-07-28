@@ -29,7 +29,7 @@ export const CategoryFilter = ({ groupId, walletId }: Props) => {
     }
   }, [categoryFilter])
 
-  const handleReset = useCallback(
+  const handleResetClick = useCallback(
     (event: React.MouseEvent) => {
       event.stopPropagation()
       resetCategoryFilter()
@@ -58,15 +58,16 @@ export const CategoryFilter = ({ groupId, walletId }: Props) => {
         suffix={
           !!categoryFilter && (
             <Button
-              as="div"
               rounded
               size="sm"
               theme="zinc"
               iconStart={<XMarkIcon />}
-              onClick={handleReset}
+              aria-label="Reset filter"
+              onClick={handleResetClick}
             />
           )
         }
+        aria-label={`Category filter: ${categoryFilter || 'Show all'}`}
       />
     </>
   )

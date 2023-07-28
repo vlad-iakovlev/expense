@@ -10,7 +10,7 @@ interface Props {
 
 export const GroupSettingsGeneralCard = ({ className, groupId }: Props) => {
   return (
-    <Card className={className}>
+    <Card aria-label="General group settings" className={className}>
       <Card.Title title="General" actions={<Delete groupId={groupId} />} />
       <Card.Divider />
       <Name groupId={groupId} />

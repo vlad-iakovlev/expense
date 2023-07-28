@@ -10,13 +10,15 @@ export const Balance = ({ walletId }: Props) => {
   const { walletBalance } = useWalletBalance({ walletId })
 
   return (
-    <Card.Text
+    <Card.Item
       label="Balance"
       value={
         <Amount
           className="font-medium select-text"
           amount={walletBalance.balance}
+          currency={walletBalance.currency}
           showSign="negative"
+          hideCurrency
         />
       }
     />

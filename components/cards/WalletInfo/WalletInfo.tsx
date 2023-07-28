@@ -10,7 +10,7 @@ interface Props {
 
 export const WalletInfoCard = ({ className, walletId }: Props) => {
   return (
-    <Card className={className}>
+    <Card className={className} aria-label="Wallet info">
       <Card.Title title="Info" actions={<Settings walletId={walletId} />} />
       <Card.Divider />
       <Balance walletId={walletId} />

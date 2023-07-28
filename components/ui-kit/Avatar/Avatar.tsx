@@ -1,4 +1,5 @@
 import { twMerge } from 'tailwind-merge'
+import { Modify } from '../../../types/utility.ts'
 import { NextImage } from '../../next/Image.ts'
 
 export const avatarColors = [
@@ -21,14 +22,17 @@ export const avatarColors = [
   'rose',
 ] as const
 
-export interface AvatarProps {
-  className?: string
-  color?: string
-  name?: string
-  slug?: React.ReactNode
-  src?: string
-  size?: 'sm' | 'md'
-}
+export type AvatarProps = Modify<
+  React.HTMLAttributes<HTMLDivElement>,
+  {
+    color?: string
+    name?: string
+    slug?: React.ReactNode
+    src?: string
+    size?: 'sm' | 'md'
+    children?: never
+  }
+>
 
 const getSlugByName = (name: string) => {
   return name.slice(0, 1)
@@ -47,6 +51,7 @@ export const Avatar = ({
   slug = getSlugByName(name),
   src,
   size = 'md',
+  ...rest
 }: AvatarProps) => {
   return (
     <div
@@ -56,9 +61,16 @@ export const Avatar = ({
         size === 'md' && 'w-10 h-10',
         className,
       )}
+      {...rest}
     >
       {src ? (
-        <NextImage src={src} alt={name} width={48} height={48} quality={100} />
+        <NextImage
+          src={src}
+          alt={`Avatar of ${name}`}
+          width={48}
+          height={48}
+          quality={100}
+        />
       ) : (
         <div
           className={twMerge(

@@ -1,19 +1,24 @@
 import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Modify } from '../../../types/utility.ts'
 import { Avatar, AvatarProps } from '../Avatar/Avatar.tsx'
 
-export interface AvatarGroupProps {
-  className?: string
-  avatars: AvatarProps[]
-  max?: number
-  size?: 'sm' | 'md'
-}
+export type AvatarGroupProps = Modify<
+  React.HTMLAttributes<HTMLDivElement>,
+  {
+    avatars: AvatarProps[]
+    max?: number
+    size?: 'sm' | 'md'
+    children?: never
+  }
+>
 
 export const AvatarGroup = ({
   className,
   avatars,
   max,
   size = 'md',
+  ...rest
 }: AvatarGroupProps) => {
   const visibleCount = max && avatars.length > max ? max - 1 : avatars.length
   const extraCount = avatars.length - visibleCount
@@ -23,7 +28,7 @@ export const AvatarGroup = ({
   }, [avatars, visibleCount])
 
   return (
-    <div className={twMerge('flex items-center', className)}>
+    <div className={twMerge('flex items-center', className)} {...rest}>
       {visibleAvatars.map((props, index) => (
         <Avatar
           {...props}

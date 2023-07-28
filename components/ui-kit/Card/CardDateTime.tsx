@@ -1,35 +1,40 @@
 import { useCallback, useMemo, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
+import { Modify } from '../../../types/utility.ts'
 import {
   formatDateForInput,
   formatDateTime,
+  formatDateTimeForAriaLabel,
 } from '../../../utils/formatDate.ts'
+import { CardItem, CardItemProps } from './CardItem.tsx'
 
-export interface CardDateTimeProps {
-  prefix?: React.ReactNode
-  suffix?: React.ReactNode
-  label: string
-  value: Date
-  onChange: (value: Date) => void
-}
+export type CardDateTimeProps = Modify<
+  CardItemProps,
+  {
+    value: Date
+    onChange: (value: Date) => void
+    onClick?: never
+  }
+>
 
 export const CardDateTime = ({
-  prefix,
-  suffix,
-  label,
+  labelClassName,
+  valueClassName,
   value,
   onChange,
+  ...rest
 }: CardDateTimeProps) => {
   const [inputValue, setInputValue] = useState('')
   const [isEditing, setIsEditing] = useState(false)
 
   const dateForInput = useMemo(() => formatDateForInput(value), [value])
 
-  const handleTextClick = useCallback(() => {
-    setInputValue(dateForInput)
+  const handleClick = useCallback(() => {
     setIsEditing(true)
+    setInputValue(dateForInput)
   }, [dateForInput])
 
-  const handleKeyDown = useCallback(
+  const handleInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       switch (event.key) {
         case 'Enter':
@@ -44,14 +49,14 @@ export const CardDateTime = ({
     [],
   )
 
-  const handleChange = useCallback(
+  const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value)
     },
     [],
   )
 
-  const handleBlur = useCallback(() => {
+  const handleInputBlur = useCallback(() => {
     if (inputValue && inputValue !== dateForInput) {
       onChange(new Date(inputValue))
     }
@@ -60,32 +65,32 @@ export const CardDateTime = ({
   }, [inputValue, dateForInput, onChange])
 
   return (
-    <>
-      <div className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors">
-        {prefix ? <div className="flex-none">{prefix}</div> : null}
-
-        <div className="flex-auto">{label}</div>
-
-        <div className="font-medium">
-          {isEditing ? (
-            <input
-              className="w-full text-right bg-transparent focus:outline-none"
-              autoFocus
-              type="datetime-local"
-              value={inputValue}
-              onKeyDown={handleKeyDown}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          ) : (
-            <div className="text-right truncate" onClick={handleTextClick}>
-              {formatDateTime(value)}
-            </div>
-          )}
-
-          {suffix ? <div className="flex-none">{suffix}</div> : null}
-        </div>
-      </div>
-    </>
+    <CardItem
+      labelClassName={twMerge('flex-none', labelClassName)}
+      valueClassName={twMerge(
+        'flex-auto min-w-0 text-right font-medium truncate',
+        valueClassName,
+      )}
+      value={
+        isEditing ? (
+          <input
+            className="w-full text-right bg-transparent focus:outline-none"
+            autoFocus
+            type="datetime-local"
+            value={inputValue}
+            onKeyDown={handleInputKeyDown}
+            onChange={handleInputChange}
+            onBlur={handleInputBlur}
+          />
+        ) : (
+          <span aria-label={formatDateTimeForAriaLabel(value)}>
+            {formatDateTime(value)}
+          </span>
+        )
+      }
+      aria-expanded={isEditing ? 'true' : 'false'}
+      onClick={isEditing ? undefined : handleClick}
+      {...rest}
+    />
   )
 }

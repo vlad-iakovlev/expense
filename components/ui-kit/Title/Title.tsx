@@ -3,5 +3,9 @@ export interface TitleProps {
 }
 
 export const Title = ({ title }: TitleProps) => {
-  return <h1 className="my-8 text-4xl font-bold truncate">{title}</h1>
+  return (
+    <h1 className="my-8 text-4xl font-bold truncate" tabIndex={0}>
+      {title}
+    </h1>
+  )
 }

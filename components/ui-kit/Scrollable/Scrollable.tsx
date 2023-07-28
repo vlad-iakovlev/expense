@@ -129,6 +129,7 @@ export const Scrollable = ({
           right: vTrack.edgeOffset,
           width: vTrack.thickness,
         }}
+        aria-hidden="true"
       >
         <div
           className={twMerge(thumbClassName, 'w-full')}
@@ -147,6 +148,7 @@ export const Scrollable = ({
           bottom: hTrack.edgeOffset,
           height: hTrack.thickness,
         }}
+        aria-hidden="true"
       >
         <div
           className={twMerge(thumbClassName, 'h-full')}

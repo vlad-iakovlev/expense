@@ -60,10 +60,13 @@ export const HeaderUser = ({ className }: Props) => {
       )}
 
       {session.status === 'authenticated' && (
-        <>
+        <div>
           <button
             className="block rounded-full"
             type="button"
+            aria-label="Profile"
+            aria-haspopup="true"
+            aria-expanded={isOpen ? 'true' : 'false'}
             onClick={handleProfileClick}
           >
             <Avatar
@@ -72,33 +75,39 @@ export const HeaderUser = ({ className }: Props) => {
             />
           </button>
 
-          <Card.Popup
+          <Card.Menu
             popupClassName="w-72 mt-2"
             isOpen={isOpen}
             position="below-right"
+            popupAriaLabel="Profile popup"
             onClose={handlePopupClose}
           >
-            <Card.Text
+            <Card.Item
               label={
                 <>
-                  <p className="text-xl truncate">{session.data.user.name}</p>
-                  <p className="text-zinc-600 truncate">
+                  <div className="text-xl truncate">
+                    {session.data.user.name}
+                  </div>
+                  <div className="text-zinc-600 truncate">
                     {session.data.user.email}
-                  </p>
+                  </div>
                 </>
               }
+              role="menuitem"
+              aria-label={`You are logged in as ${session.data.user.name} with email ${session.data.user.email}`}
             />
 
             <Card.Divider />
 
-            <Card.Button
+            <Card.Item
               disabled={isLoading}
               prefix={<ArrowRightOnRectangleIcon className="w-6 h-6" />}
               label="Sign Out"
+              role="menuitem"
               onClick={handleSignOut}
             />
-          </Card.Popup>
-        </>
+          </Card.Menu>
+        </div>
       )}
     </div>
   )
