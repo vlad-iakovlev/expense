@@ -11,15 +11,13 @@ export type CardTitleProps = Modify<
 >
 
 export const CardTitle = ({ title, actions, ...rest }: CardTitleProps) => (
-  <CardBlock
-    role={actions ? 'listitem' : 'presentation'}
-    aria-label="List title"
-    {...rest}
-  >
+  <CardBlock role="presentation" {...rest}>
     <h2 className="flex-auto min-w-0 text-xl leading-6 font-semibold text-zinc-900 truncate">
       {title}
     </h2>
 
-    <div className="flex-none flex items-center gap-2">{actions}</div>
+    {!!actions && (
+      <div className="flex-none flex items-center gap-2">{actions}</div>
+    )}
   </CardBlock>
 )

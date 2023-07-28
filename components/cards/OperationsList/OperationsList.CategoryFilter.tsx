@@ -37,12 +37,6 @@ export const CategoryFilter = ({ groupId, walletId }: Props) => {
     [resetCategoryFilter],
   )
 
-  const handleResetKeyDown = useCallback((event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.stopPropagation()
-    }
-  }, [])
-
   useEffect(() => {
     if (categories.length < 2) {
       resetCategoryFilter()
@@ -70,7 +64,6 @@ export const CategoryFilter = ({ groupId, walletId }: Props) => {
               iconStart={<XMarkIcon />}
               aria-label="Reset filter"
               onClick={handleResetClick}
-              onKeyDown={handleResetKeyDown}
             />
           )
         }

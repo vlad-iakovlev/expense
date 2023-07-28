@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '../../../types/utility.ts'
 
@@ -21,8 +22,20 @@ export const Button = ({
   rounded,
   size,
   theme,
+  onKeyDown,
   ...rest
 }: ButtonProps) => {
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.stopPropagation()
+      }
+
+      onKeyDown?.(event)
+    },
+    [onKeyDown],
+  )
+
   return (
     <button
       className={twMerge(
@@ -44,6 +57,7 @@ export const Button = ({
       )}
       disabled={disabled}
       type="button"
+      onKeyDown={handleKeyDown}
       {...rest}
     >
       {iconStart ? (

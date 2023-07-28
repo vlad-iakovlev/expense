@@ -72,10 +72,9 @@ export const Invite = ({ groupId }: Props) => {
             }
             tabIndex={0}
             aria-disabled="true"
-            aria-label={undefined}
           />
           <Card.Divider />
-          <Card.Block>
+          <Card.Block aria-disabled="true">
             <CopyField value={inviteLink} />
           </Card.Block>
           <Card.Block tabIndex={0} aria-disabled="true">

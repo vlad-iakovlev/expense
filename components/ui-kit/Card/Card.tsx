@@ -23,7 +23,7 @@ export const Card = ({
 }: CardProps) => {
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (!!onClick && (event.key === 'Enter' || event.key === ' ')) {
+      if (onClick && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault()
         event.currentTarget.click()
       }
@@ -43,7 +43,7 @@ export const Card = ({
       role={onClick ? 'button' : 'list'}
       tabIndex={onClick ? 0 : -1}
       onClick={onClick}
-      onKeyDown={onClick ? handleKeyDown : onKeyDown}
+      onKeyDown={handleKeyDown}
       {...rest}
     >
       {children}

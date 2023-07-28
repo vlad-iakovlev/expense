@@ -31,8 +31,8 @@ export const Category = ({
 }: Props) => {
   const { categoryFilter, toggleCategoryFilter } = useCategoryFilter()
   const { disabledCategories, toggleCategory } = useDisabledCategories()
-  const isEnabled = !disabledCategories.includes(category)
 
+  const isEnabled = !disabledCategories.includes(category)
   const [isOpen, setIsOpen] = useState(false)
 
   const handleKeyDown = useCallback(
@@ -64,12 +64,6 @@ export const Category = ({
     toggleCategoryFilter(category)
   }, [category, toggleCategoryFilter])
 
-  const handleFilterKeyDown = useCallback((event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.stopPropagation()
-    }
-  }, [])
-
   return (
     <Card.Item
       prefix={
@@ -91,7 +85,6 @@ export const Category = ({
           aria-checked={categoryFilter === category ? 'true' : 'false'}
           aria-label="Filter operations by category"
           onClick={handleFilerClick}
-          onKeyDown={handleFilterKeyDown}
         />
       }
       label={category}

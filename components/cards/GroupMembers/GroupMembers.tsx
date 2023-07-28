@@ -1,8 +1,7 @@
 import { useGroupMembers } from '../../../contexts/RootStore/hooks/useGroupMembers.ts'
-import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Delete } from './GroupMembers.Delete.tsx'
 import { Invite } from './GroupMembers.Invite.tsx'
+import { Member } from './GroupMembers.Member.tsx'
 
 interface Props {
   className?: string
@@ -20,23 +19,12 @@ export const GroupMembersCard = ({ className, groupId }: Props) => {
         <>
           <Card.Divider />
           {groupMembers.map((user) => (
-            <Card.Item
+            <Member
               key={user.id}
-              label={user.name}
-              prefix={
-                <Avatar
-                  src={user.image ?? undefined}
-                  name={user.name ?? undefined}
-                  size="sm"
-                  aria-hidden="true"
-                />
-              }
-              suffix={
-                groupMembers.length > 1 && (
-                  <Delete groupId={groupId} userId={user.id} />
-                )
-              }
-              aria-label={user.name ?? undefined}
+              groupId={groupId}
+              userId={user.id}
+              name={user.name ?? undefined}
+              image={user.image ?? undefined}
             />
           ))}
         </>

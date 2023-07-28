@@ -95,7 +95,7 @@ export const PeriodSelector = ({
             exit="closed"
             variants={variants}
           >
-            <Card.Block>
+            <Card.Block role="presentation">
               <div
                 className="flex-auto order-2 font-medium text-center truncate"
                 tabIndex={0}

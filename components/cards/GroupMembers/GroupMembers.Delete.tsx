@@ -11,9 +11,10 @@ import { ConfirmDialog } from '../../ui-kit/ConfirmDialog/ConfirmDialog.tsx'
 interface Props {
   groupId: string
   userId: string
+  tabIndex?: number
 }
 
-export const Delete = ({ groupId, userId }: Props) => {
+export const Delete = ({ groupId, userId, tabIndex }: Props) => {
   const session = useSession()
   const router = useRouter()
   const { group, removeMemberFromGroup, leaveGroup } = useGroup({ groupId })
@@ -63,6 +64,7 @@ export const Delete = ({ groupId, userId }: Props) => {
         rounded
         size="sm"
         theme="red"
+        tabIndex={tabIndex}
         aria-label="Delete member"
         iconStart={<XMarkIcon />}
         onClick={handleDelete}

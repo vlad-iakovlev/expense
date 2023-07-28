@@ -35,7 +35,6 @@ export const ConfirmDialog = ({
           }
           tabIndex={0}
           aria-disabled="true"
-          aria-label={undefined}
         />
         <Card.Divider />
         <Card.Block tabIndex={0} aria-disabled="true">

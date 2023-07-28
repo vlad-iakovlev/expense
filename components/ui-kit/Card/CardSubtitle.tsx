@@ -17,8 +17,9 @@ export const CardSubtitle = ({
 }: CardSubtitleProps) => (
   <CardBlock className="my-2 bg-zinc-100" role="presentation" {...rest}>
     <h2 className="flex-auto min-w-0 font-medium truncate">{subtitle}</h2>
-    {actions ? (
+
+    {!!actions && (
       <div className="flex-none flex items-center gap-2">{actions}</div>
-    ) : null}
+    )}
   </CardBlock>
 )
