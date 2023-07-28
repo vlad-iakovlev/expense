@@ -40,7 +40,7 @@ export const CardInput = ({
   }, [value])
 
   const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
+    (event: React.KeyboardEvent) => {
       switch (event.key) {
         case 'Enter':
           if (event.target instanceof HTMLInputElement) event.target.blur()
@@ -59,7 +59,7 @@ export const CardInput = ({
   )
 
   const handleBlur = useCallback(
-    (event: React.FocusEvent<HTMLDivElement>) => {
+    (event: React.FocusEvent) => {
       void (async () => {
         const currentTarget = event.currentTarget
         await new Promise(requestAnimationFrame)
