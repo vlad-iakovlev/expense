@@ -16,7 +16,9 @@ export const Balance = ({ walletId }: Props) => {
         <Amount
           className="font-medium select-text"
           amount={walletBalance.balance}
+          currency={walletBalance.currency}
           showSign="negative"
+          hideCurrency
         />
       }
     />

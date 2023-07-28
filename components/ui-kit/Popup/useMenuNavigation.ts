@@ -15,21 +15,16 @@ export const useMenuNavigation = ({
     if (!isOpen) return
 
     const handleClick = (event: MouseEvent) => {
-      if (!popupRef.current?.contains(event.target as Node)) {
-        onClose?.()
-      }
+      if (!popupRef.current?.contains(event.target as Node)) onClose?.()
     }
 
-    const handleEscape = (event: KeyboardEvent) => {
-      event.stopPropagation()
+    const handleEscape = () => {
       onClose?.()
     }
 
     const handleTab = () => {
       requestAnimationFrame(() => {
-        if (!popupRef.current?.contains(document.activeElement)) {
-          onClose?.()
-        }
+        if (!popupRef.current?.contains(document.activeElement)) onClose?.()
       })
     }
 
@@ -66,7 +61,7 @@ export const useMenuNavigation = ({
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case 'Escape':
-          return handleEscape(event)
+          return handleEscape()
 
         case 'Tab':
           return handleTab()
@@ -79,12 +74,12 @@ export const useMenuNavigation = ({
 
     document.body.style.setProperty('pointer-events', 'none')
     document.addEventListener('click', handleClick, { capture: true })
-    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keydown', handleKeyDown, { capture: true })
 
     return () => {
       document.body.style.removeProperty('pointer-events')
       document.removeEventListener('click', handleClick, { capture: true })
-      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keydown', handleKeyDown, { capture: true })
     }
   }, [isOpen, onClose, popupRef])
 }

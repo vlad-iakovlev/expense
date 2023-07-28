@@ -77,11 +77,13 @@ export const Invite = ({ groupId }: Props) => {
             Remember,&nbsp;each link is unique and for one-time use only.
           </Card.Block>
           <Card.Block>
-            Will expire on{' '}
-            <span aria-label={formatDateTimeForAriaLabel(expirationDate)}>
-              {formatDateTime(expirationDate)}
+            <span>
+              Will expire on{' '}
+              <span aria-label={formatDateTimeForAriaLabel(expirationDate)}>
+                {formatDateTime(expirationDate)}
+              </span>
+              .
             </span>
-            .
           </Card.Block>
           <Card.Divider />
           <Card.Footer fullWidth>

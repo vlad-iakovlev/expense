@@ -16,7 +16,7 @@ interface Props {
 
 export const OperationInfoCard = ({ className, operationId }: Props) => {
   return (
-    <Card className={className}>
+    <Card className={className} aria-label="Operation info">
       <Card.Title title="Info" actions={<Delete operationId={operationId} />} />
       <Card.Divider />
       <Date operationId={operationId} />

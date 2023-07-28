@@ -24,7 +24,7 @@ export const GroupOpenCard = ({ groupId }: Props) => {
   }, [groupId, router])
 
   return (
-    <Card onClick={handleClick}>
+    <Card aria-label={`Group ${group.name}`} onClick={handleClick}>
       <Card.Title
         title={group.name}
         actions={

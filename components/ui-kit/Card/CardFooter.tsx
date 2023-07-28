@@ -16,7 +16,7 @@ export const CardFooter = ({ fullWidth, ...rest }: CardFooterProps) => {
         'flex-col items-stretch',
         !fullWidth && 'sm:flex-row-reverse',
       )}
-      role="group"
+      role="presentation"
       {...rest}
     />
   )

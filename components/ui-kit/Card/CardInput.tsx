@@ -56,7 +56,7 @@ export const CardInput = ({
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       switch (event.key) {
         case 'Enter':
-          event.currentTarget.blur()
+          if (event.target instanceof HTMLInputElement) event.target.blur()
           break
 
         case 'Escape':
@@ -64,9 +64,7 @@ export const CardInput = ({
           break
 
         case ' ':
-          if (!isEditing) {
-            event.preventDefault()
-          }
+          if (!isEditing) event.preventDefault()
           break
       }
     },
@@ -107,6 +105,8 @@ export const CardInput = ({
     [onChange, value],
   )
 
+  // TODO: Remove outer div for accessibility purposes
+
   return (
     <div onBlur={handleBlur} onKeyDown={handleKeyDown}>
       <CardItem
@@ -129,6 +129,8 @@ export const CardInput = ({
             value
           )
         }
+        aria-haspopup={!!filteredSuggestions.length ? 'true' : 'false'}
+        aria-expanded={isEditing ? 'true' : 'false'}
         onClick={isEditing ? undefined : handleButtonClick}
         {...rest}
       />

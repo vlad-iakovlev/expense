@@ -65,6 +65,9 @@ export function CardSelect<Id extends string = string>({
           valueClassName,
         )}
         value={value.label}
+        aria-haspopup="true"
+        aria-expanded={isOpen ? 'true' : 'false'}
+        aria-disabled="false"
         onClick={isOpen ? undefined : handleOpen}
         {...rest}
       />

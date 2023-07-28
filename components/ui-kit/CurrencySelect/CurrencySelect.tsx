@@ -56,6 +56,7 @@ export const CurrencySelect = ({
       label={label}
       options={options}
       value={valueForSelect}
+      aria-label={`${label}: ${value.name ?? value.symbol}`}
       onChange={onChange}
     />
   )

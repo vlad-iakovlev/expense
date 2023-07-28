@@ -71,7 +71,7 @@ export const OperationsListCard = ({ className, groupId, walletId }: Props) => {
   }
 
   return (
-    <Card className={className}>
+    <Card className={className} aria-label="Operations">
       <Card.Title title="Operations" actions={<Add walletId={walletId} />} />
 
       <CategoryFilter groupId={groupId} walletId={walletId} />

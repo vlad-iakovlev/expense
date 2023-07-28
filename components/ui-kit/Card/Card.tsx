@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { CardBlock } from './CardBlock.tsx'
 import { CardDateTime } from './CardDateTime.tsx'
@@ -13,7 +14,25 @@ import { CardTitle } from './CardTitle.tsx'
 
 export type CardProps = React.HTMLAttributes<HTMLDivElement>
 
-export const Card = ({ className, children, onClick }: CardProps) => {
+export const Card = ({
+  className,
+  children,
+  onClick,
+  onKeyDown,
+  ...rest
+}: CardProps) => {
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (!!onClick && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault()
+        event.currentTarget.click()
+      }
+
+      onKeyDown?.(event)
+    },
+    [onClick, onKeyDown],
+  )
+
   return (
     <div
       className={twMerge(
@@ -22,7 +41,10 @@ export const Card = ({ className, children, onClick }: CardProps) => {
         className,
       )}
       role={onClick ? 'button' : 'list'}
+      tabIndex={onClick ? 0 : -1}
       onClick={onClick}
+      onKeyDown={onClick ? handleKeyDown : onKeyDown}
+      {...rest}
     >
       {children}
     </div>

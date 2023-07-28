@@ -29,7 +29,7 @@ export const Breadcrumbs = ({
                 className="min-w-0 text-lg leading-6 font-medium text-cyan-900 truncate"
                 href={{ pathname: parent.href, query: { animation: 'back' } }}
                 as={parent.href}
-                aria-label={`Go back to ${parent.title}`}
+                aria-label={parent.title}
               >
                 {parent.title}
               </NextLink>
@@ -47,7 +47,7 @@ export const Breadcrumbs = ({
           className="md:hidden flex items-center gap-2 -mt-2 -mb-4 text-lg leading-6 font-medium text-cyan-900 truncate"
           href={{ pathname: mobileBack.href, query: { animation: 'back' } }}
           as={mobileBack.href}
-          aria-label={`Go back to ${mobileBack.title}`}
+          aria-label={mobileBack.title}
         >
           <ArrowUturnLeftIcon className="flex-none w-5 h-5" />
           {mobileBack.title}

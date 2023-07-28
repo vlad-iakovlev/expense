@@ -10,7 +10,7 @@ export const HeaderLogo = ({ className }: Props) => {
       <NextLink
         href={{ pathname: '/', query: { animation: 'back' } }}
         as="/"
-        aria-label="Go to home page"
+        aria-label="Home page"
       >
         <svg className="h-6" viewBox="0 0 164 28" aria-label="Expense logo">
           <path

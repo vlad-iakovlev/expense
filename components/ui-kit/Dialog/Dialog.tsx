@@ -1,4 +1,5 @@
 import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { useEffect } from 'react'
 import { Portal } from '../Portal/Portal.tsx'
 
 const rootVariants: Variants = {
@@ -34,6 +35,19 @@ export interface DialogProps {
 }
 
 export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
+  useEffect(() => {
+    if (!isOpen) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, onClose])
+
   return (
     <Portal>
       <AnimatePresence>
@@ -43,6 +57,7 @@ export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
             initial="closed"
             animate="opened"
             exit="closed"
+            role="dialog"
             variants={rootVariants}
           >
             <div

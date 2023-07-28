@@ -21,6 +21,7 @@ export const Members = ({ groupId }: Props) => {
           }))}
           max={10}
           size="sm"
+          aria-label={groupMembers.map((user) => user.name).join(', ')}
         />
       }
     />

@@ -2,6 +2,7 @@ import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import assert from 'assert'
 import { twMerge } from 'tailwind-merge'
 import { PopulatedClientOperation } from '../../../types/client.ts'
+import { formatAmount } from '../../../utils/formatAmount.ts'
 import { formatTime } from '../../../utils/formatDate.ts'
 import { Amount } from '../../ui-kit/Amount/Amount.tsx'
 
@@ -15,7 +16,22 @@ export const TransferOperation = ({ operation, walletId }: Props) => {
   assert(operation.expenseWallet, 'Expense wallet is not defined')
 
   return (
-    <>
+    <div
+      aria-label={[
+        'Transfer',
+        `at ${formatTime(operation.date)}`,
+        operation.category,
+        operation.name,
+        `${formatAmount(operation.expenseAmount)} ${
+          operation.expenseWallet.currency.name ??
+          operation.expenseWallet.currency.symbol
+        } from wallet ${operation.expenseWallet.name}`,
+        `${formatAmount(operation.incomeAmount)} ${
+          operation.incomeWallet.currency.name ??
+          operation.incomeWallet.currency.symbol
+        } to wallet ${operation.incomeWallet.name}`,
+      ].join(', ')}
+    >
       <div className="truncate">
         {operation.category} – {operation.name}
       </div>
@@ -65,6 +81,6 @@ export const TransferOperation = ({ operation, walletId }: Props) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

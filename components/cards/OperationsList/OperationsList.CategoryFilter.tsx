@@ -29,13 +29,19 @@ export const CategoryFilter = ({ groupId, walletId }: Props) => {
     }
   }, [categoryFilter])
 
-  const handleReset = useCallback(
+  const handleResetClick = useCallback(
     (event: React.MouseEvent) => {
       event.stopPropagation()
       resetCategoryFilter()
     },
     [resetCategoryFilter],
   )
+
+  const handleResetKeyDown = useCallback((event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.stopPropagation()
+    }
+  }, [])
 
   useEffect(() => {
     if (categories.length < 2) {
@@ -62,10 +68,13 @@ export const CategoryFilter = ({ groupId, walletId }: Props) => {
               size="sm"
               theme="zinc"
               iconStart={<XMarkIcon />}
-              onClick={handleReset}
+              aria-label="Reset filter"
+              onClick={handleResetClick}
+              onKeyDown={handleResetKeyDown}
             />
           )
         }
+        aria-label={`Category filter: ${categoryFilter || 'Show all'}`}
       />
     </>
   )

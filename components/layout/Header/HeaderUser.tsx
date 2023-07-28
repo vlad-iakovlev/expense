@@ -60,11 +60,13 @@ export const HeaderUser = ({ className }: Props) => {
       )}
 
       {session.status === 'authenticated' && (
-        <>
+        <div>
           <button
             className="block rounded-full"
             type="button"
-            aria-label="Open profile popup"
+            aria-label="Profile"
+            aria-haspopup="true"
+            aria-expanded={isOpen ? 'true' : 'false'}
             onClick={handleProfileClick}
           >
             <Avatar
@@ -105,7 +107,7 @@ export const HeaderUser = ({ className }: Props) => {
               onClick={handleSignOut}
             />
           </Card.Menu>
-        </>
+        </div>
       )}
     </div>
   )

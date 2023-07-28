@@ -38,7 +38,7 @@ export const Home = () => {
       <Title title="Home" />
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] lg:grid-rows-none">
-        <Card>
+        <Card aria-label="Info">
           <Card.Title title="Info" />
           <Card.Divider />
           <Card.Item
@@ -46,7 +46,7 @@ export const Home = () => {
             value={<div className="font-medium">Expense</div>}
           />
           <Card.Item
-            label="Name"
+            label="Description"
             value={<div className="font-medium">Expense tracker</div>}
           />
           <Card.Link
@@ -56,7 +56,7 @@ export const Home = () => {
           />
         </Card>
 
-        <Card className="md:row-span-full">
+        <Card aria-label="Features" className="md:row-span-full">
           <Card.Title title="Features" />
           <Card.Divider />
           <Card.Item
@@ -85,7 +85,10 @@ export const Home = () => {
           />
         </Card>
 
-        <Card className="md:max-lg:col-[1] md:max-lg:row-[2]">
+        <Card
+          aria-label="What to do?"
+          className="md:max-lg:col-[1] md:max-lg:row-[2]"
+        >
           <Card.Title title="What to do?" />
           <Card.Divider />
           <Card.Item

@@ -13,7 +13,7 @@ export const GroupMembersCard = ({ className, groupId }: Props) => {
   const { groupMembers } = useGroupMembers({ groupId })
 
   return (
-    <Card className={className}>
+    <Card className={className} aria-label="Group Members">
       <Card.Title title="Members" actions={<Invite groupId={groupId} />} />
 
       {!!groupMembers.length && (
@@ -28,6 +28,7 @@ export const GroupMembersCard = ({ className, groupId }: Props) => {
                   src={user.image ?? undefined}
                   name={user.name ?? undefined}
                   size="sm"
+                  aria-hidden="true"
                 />
               }
               suffix={
@@ -35,6 +36,7 @@ export const GroupMembersCard = ({ className, groupId }: Props) => {
                   <Delete groupId={groupId} userId={user.id} />
                 )
               }
+              aria-label={user.name ?? undefined}
             />
           ))}
         </>

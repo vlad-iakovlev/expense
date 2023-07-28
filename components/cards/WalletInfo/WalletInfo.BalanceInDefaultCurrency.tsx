@@ -17,7 +17,19 @@ export const BalanceInDefaultCurrency = ({ walletId }: Props) => {
 
   return (
     <Card.Item
-      label={`Balance in ${wallet.group.defaultCurrency.symbol}`}
+      label={
+        <span>
+          Balance in{' '}
+          <span
+            aria-label={
+              wallet.group.defaultCurrency.name ??
+              wallet.group.defaultCurrency.symbol
+            }
+          >
+            {wallet.group.defaultCurrency.symbol}
+          </span>
+        </span>
+      }
       value={
         <Amount
           className="font-medium select-text"
@@ -25,7 +37,9 @@ export const BalanceInDefaultCurrency = ({ walletId }: Props) => {
             walletBalance.balance *
             (wallet.group.defaultCurrency.rate / walletBalance.currency.rate)
           }
+          currency={wallet.group.defaultCurrency}
           showSign="negative"
+          hideCurrency
         />
       }
     />

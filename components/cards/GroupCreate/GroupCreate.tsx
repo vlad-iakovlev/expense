@@ -16,7 +16,7 @@ export const GroupCreateCard = () => {
   }, [createGroup, router])
 
   return (
-    <Card onClick={handleCreate}>
+    <Card aria-label="New group" onClick={handleCreate}>
       <Card.Title title="New Group" />
       <Card.Divider />
       <Card.Item prefix={<PlusIcon className="w-6 h-6" />} label="Create" />

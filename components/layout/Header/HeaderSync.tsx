@@ -21,12 +21,15 @@ export const HeaderSync = ({ className }: Props) => {
         className,
       )}
       role="status"
+      tabIndex={0}
     >
       {isSyncing ? (
         <span className="text-sm">Syncing...</span>
       ) : (
         <>
-          <span className="text-xs">Synced</span>
+          <span className="text-xs" aria-label="Synced on">
+            Synced
+          </span>
           <span
             className="text-xs"
             aria-label={formatDateTimeForAriaLabel(syncedAt)}

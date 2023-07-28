@@ -2,9 +2,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { Period } from '../../../hooks/usePeriod.ts'
 import {
-  formatMonth,
-  formatWeek,
-  formatYear,
+  formatPeriod,
+  formatPeriodForAriaLabel,
 } from '../../../utils/formatDate.ts'
 import { Button } from '../../ui-kit/Button/Button.tsx'
 import { Card } from '../../ui-kit/Card/Card.tsx'
@@ -39,13 +38,15 @@ export const PeriodSelector = ({
   onGoNext,
 }: Props) => {
   return (
-    <>
-      <Card.Block>
+    <div role="listitem" aria-label="Period">
+      <Card.Block role="radiogroup" aria-label="Period type">
         <Button
           className="flex-auto px-0"
-          disabled={period === Period.ALL}
           size="sm"
           theme={period === Period.ALL ? 'green' : 'white'}
+          role="radio"
+          aria-label="All time"
+          aria-checked={period === Period.ALL ? 'true' : 'false'}
           onClick={() => onChangePeriod(Period.ALL)}
         >
           All
@@ -53,9 +54,10 @@ export const PeriodSelector = ({
 
         <Button
           className="flex-auto px-0"
-          disabled={period === Period.WEEK}
           size="sm"
           theme={period === Period.WEEK ? 'green' : 'white'}
+          role="radio"
+          aria-checked={period === Period.WEEK ? 'true' : 'false'}
           onClick={() => onChangePeriod(Period.WEEK)}
         >
           Week
@@ -63,9 +65,10 @@ export const PeriodSelector = ({
 
         <Button
           className="flex-auto px-0"
-          disabled={period === Period.MONTH}
           size="sm"
           theme={period === Period.MONTH ? 'green' : 'white'}
+          role="radio"
+          aria-checked={period === Period.MONTH ? 'true' : 'false'}
           onClick={() => onChangePeriod(Period.MONTH)}
         >
           Month
@@ -73,9 +76,10 @@ export const PeriodSelector = ({
 
         <Button
           className="flex-auto px-0"
-          disabled={period === Period.YEAR}
           size="sm"
           theme={period === Period.YEAR ? 'green' : 'white'}
+          role="radio"
+          aria-checked={period === Period.YEAR ? 'true' : 'false'}
           onClick={() => onChangePeriod(Period.YEAR)}
         >
           Year
@@ -92,31 +96,36 @@ export const PeriodSelector = ({
             variants={variants}
           >
             <Card.Block>
-              <Button
-                className="flex-none"
-                size="md"
-                theme="white"
-                iconStart={<ChevronLeftIcon />}
-                onClick={onGoPrev}
-              />
-
-              <div className="flex-auto font-medium text-center truncate">
-                {period === Period.WEEK && formatWeek(fromDate)}
-                {period === Period.MONTH && formatMonth(fromDate)}
-                {period === Period.YEAR && formatYear(fromDate)}
+              <div
+                className="flex-auto order-2 font-medium text-center truncate"
+                tabIndex={0}
+                aria-label={formatPeriodForAriaLabel(period, fromDate)}
+                role="presentation"
+              >
+                {formatPeriod(period, fromDate)}
               </div>
 
               <Button
-                className="flex-none"
+                className="flex-none order-1"
+                size="md"
+                theme="white"
+                iconStart={<ChevronLeftIcon />}
+                aria-label="Previous period"
+                onClick={onGoPrev}
+              />
+
+              <Button
+                className="flex-none order-3"
                 size="md"
                 theme="white"
                 iconStart={<ChevronRightIcon />}
+                aria-label="Next period"
                 onClick={onGoNext}
               />
             </Card.Block>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   )
 }

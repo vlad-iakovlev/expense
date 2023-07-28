@@ -29,9 +29,14 @@ export const CardLink = ({
     role="listitem"
     {...rest}
   >
-    {prefix ? <div className="flex-none">{prefix}</div> : null}
-    <div className="flex-auto truncate">{label}</div>
-    {value ? <div className="flex-none">{value}</div> : null}
-    {suffix ? <div className="flex-none">{suffix}</div> : null}
+    {!!prefix && <div className="flex-none">{prefix}</div>}
+    <div className="flex-auto truncate">
+      {label}
+      {!!value && (
+        <span className="hidden" aria-label=":" aria-hidden="false" />
+      )}
+    </div>
+    {!!value && <div className="flex-none">{value}</div>}
+    {!!suffix && <div className="flex-none">{suffix}</div>}
   </NextLink>
 )

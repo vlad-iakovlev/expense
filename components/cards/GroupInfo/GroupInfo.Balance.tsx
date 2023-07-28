@@ -16,7 +16,9 @@ export const Balance = ({ groupId }: Props) => {
         <Amount
           className="font-medium select-text"
           amount={groupBalance.balance}
+          currency={groupBalance.currency}
           showSign="negative"
+          hideCurrency
         />
       }
     />

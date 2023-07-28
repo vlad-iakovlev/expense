@@ -42,6 +42,7 @@ export const Button = ({
         disabled && 'pointer-events-none',
         className,
       )}
+      disabled={disabled}
       type="button"
       {...rest}
     >

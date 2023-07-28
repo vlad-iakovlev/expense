@@ -63,6 +63,7 @@ export const Delete = ({ groupId, userId }: Props) => {
         rounded
         size="sm"
         theme="red"
+        aria-label="Delete member"
         iconStart={<XMarkIcon />}
         onClick={handleDelete}
       />

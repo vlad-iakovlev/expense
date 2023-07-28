@@ -40,14 +40,18 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
   ) {
     const handleKeyDown = useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (event.key === 'Enter' || event.key === ' ') {
+        if (
+          onClick &&
+          !disabled &&
+          (event.key === 'Enter' || event.key === ' ')
+        ) {
           event.preventDefault()
           event.currentTarget.click()
         }
 
         onKeyDown?.(event)
       },
-      [onKeyDown],
+      [disabled, onClick, onKeyDown],
     )
 
     return (
@@ -59,23 +63,26 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
           className,
         )}
         aria-disabled={!onClick || disabled ? 'true' : 'false'}
-        tabIndex={!onClick || disabled ? -1 : 0}
+        tabIndex={0}
         onClick={onClick}
         onKeyDown={handleKeyDown}
         {...rest}
       >
-        {prefix ? (
+        {!!prefix && (
           <div className={twMerge('flex-none', prefixClassName)}>{prefix}</div>
-        ) : null}
+        )}
         <div className={twMerge('flex-auto truncate', labelClassName)}>
           {label}
+          {!!value && (
+            <span className="hidden" aria-label=":" aria-hidden="false" />
+          )}
         </div>
-        {value ? (
+        {!!value && (
           <div className={twMerge('flex-none', valueClassName)}>{value}</div>
-        ) : null}
-        {suffix ? (
+        )}
+        {!!suffix && (
           <div className={twMerge('flex-none', suffixClassName)}>{suffix}</div>
-        ) : null}
+        )}
       </CardBlock>
     )
   },

@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useState } from 'react'
 interface ContextValue {
   categoryFilter: string
   setCategoryFilter: React.Dispatch<React.SetStateAction<string>>
+  toggleCategoryFilter: (category: string) => void
   resetCategoryFilter: () => void
 }
 
@@ -19,6 +20,14 @@ interface ProviderProps {
 export const CategoryFilterProvider = ({ children }: ProviderProps) => {
   const [categoryFilter, setCategoryFilter] = useState('')
 
+  const toggleCategoryFilter = useCallback(
+    (category: string) =>
+      setCategoryFilter((currentCategory) =>
+        currentCategory === category ? '' : category,
+      ),
+    [],
+  )
+
   const resetCategoryFilter = useCallback(() => setCategoryFilter(''), [])
 
   return (
@@ -26,6 +35,7 @@ export const CategoryFilterProvider = ({ children }: ProviderProps) => {
       value={{
         categoryFilter,
         setCategoryFilter,
+        toggleCategoryFilter,
         resetCategoryFilter,
       }}
     >

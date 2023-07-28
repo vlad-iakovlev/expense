@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import { Modify } from '../../../types/utility.ts'
 
 export type SwitchProps = Modify<
-  React.HTMLAttributes<HTMLDivElement>,
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
   {
     value: boolean
     onChange: (value: boolean) => void
@@ -28,10 +28,9 @@ export const Switch = ({
   )
 
   const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
+    (event: React.KeyboardEvent<HTMLButtonElement>) => {
       if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault()
-        event.currentTarget.click()
+        event.stopPropagation()
       }
 
       onKeyDown?.(event)
@@ -40,15 +39,16 @@ export const Switch = ({
   )
 
   return (
-    <div
+    <button
       className={twMerge(
         'flex items-center w-11 h-7 p-0.5 rounded-full transition-colors',
         value ? 'bg-green-700' : 'bg-zinc-300',
         className,
       )}
-      aria-checked={value}
-      role="switch"
+      type="button"
       tabIndex={0}
+      role="checkbox"
+      aria-checked={value ? 'true' : 'false'}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       {...rest}
@@ -58,7 +58,8 @@ export const Switch = ({
           'w-6 h-6 bg-white rounded-full shadow-sm transform transition-transform',
           value ? 'translate-x-4' : 'translate-x-0',
         )}
+        aria-hidden="true"
       />
-    </div>
+    </button>
   )
 }
