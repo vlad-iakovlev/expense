@@ -103,12 +103,11 @@ export const Category = ({
           type={AMOUNT_TYPE[type]}
         />
       }
-      tabIndex={0}
+      aria-disabled="false"
       aria-expanded={isOpen ? 'true' : 'false'}
       aria-label={`${category}: ${formatAmount(amount)} ${
         currency.name ?? currency.symbol
       }`}
-      aria-disabled="false"
       onKeyDown={handleKeyDown}
       onBlur={handleBlur}
     />

@@ -26,6 +26,7 @@ export const CopyField = ({ value }: CopyFieldProps) => {
     <button
       className="relative max-w-full h-9 mx-auto py-1.5 pl-3 pr-12 truncate cursor-pointer rounded-md bg-zinc-100 shadow-sm ring-1 ring-black ring-opacity-5"
       type="button"
+      aria-label="Copy to clipboard"
       onClick={handleCopy}
     >
       {value}

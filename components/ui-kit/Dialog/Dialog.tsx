@@ -1,3 +1,4 @@
+import FocusTrap from 'focus-trap-react'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { Portal } from '../Portal/Portal.tsx'
@@ -66,15 +67,17 @@ export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
             />
 
             <div className="flex min-h-full items-end sm:items-center justify-center overflow-y-auto pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]">
-              <motion.div
-                className="relative overflow-hidden w-full max-w-lg m-4 sm:my-8 rounded-lg bg-white shadow-xl"
-                initial="closed"
-                animate="opened"
-                exit="closed"
-                variants={dialogVariants}
-              >
-                {children}
-              </motion.div>
+              <FocusTrap>
+                <motion.div
+                  className="relative overflow-hidden w-full max-w-lg m-4 sm:my-8 rounded-lg bg-white shadow-xl"
+                  initial="closed"
+                  animate="opened"
+                  exit="closed"
+                  variants={dialogVariants}
+                >
+                  {children}
+                </motion.div>
+              </FocusTrap>
             </div>
           </motion.div>
         )}
