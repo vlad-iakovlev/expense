@@ -52,6 +52,7 @@ export const GroupOpenCard = ({ groupId }: Props) => {
             showSign="negative"
           />
         }
+        tabIndex={-1}
       />
     </Card>
   )

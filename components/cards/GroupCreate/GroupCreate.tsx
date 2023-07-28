@@ -19,7 +19,11 @@ export const GroupCreateCard = () => {
     <Card aria-label="New group" onClick={handleCreate}>
       <Card.Title title="New Group" />
       <Card.Divider />
-      <Card.Item prefix={<PlusIcon className="w-6 h-6" />} label="Create" />
+      <Card.Item
+        prefix={<PlusIcon className="w-6 h-6" />}
+        label="Create"
+        tabIndex={-1}
+      />
     </Card>
   )
 }
