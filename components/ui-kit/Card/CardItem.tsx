@@ -10,11 +10,13 @@ export type CardItemProps = Modify<
     suffixClassName?: string
     labelClassName?: string
     valueClassName?: string
+    menuClassName?: string
     disabled?: boolean
     prefix?: React.ReactNode
     suffix?: React.ReactNode
     label?: React.ReactNode
     value?: React.ReactNode
+    menu?: React.ReactNode
     children?: never
   }
 >
@@ -27,11 +29,13 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
       suffixClassName,
       labelClassName,
       valueClassName,
+      menuClassName,
       disabled,
       prefix,
       suffix,
       label,
       value,
+      menu,
       onClick,
       onKeyDown,
       ...rest
@@ -82,6 +86,11 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
         )}
         {!!suffix && (
           <div className={twMerge('flex-none', suffixClassName)}>{suffix}</div>
+        )}
+        {!!menu && (
+          <div className={twMerge('absolute inset-0 top-auto', menuClassName)}>
+            {menu}
+          </div>
         )}
       </CardBlock>
     )

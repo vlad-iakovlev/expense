@@ -33,24 +33,11 @@ export const CardInput = ({
     )
   }, [suggestions, suggestionsFilter])
 
-  const handleBlur = useCallback(
-    (event: React.FocusEvent<HTMLDivElement>) => {
-      const currentTarget = event.currentTarget
-
-      requestAnimationFrame(() => {
-        if (!currentTarget.contains(document.activeElement)) {
-          const formattedValue = inputValue.trim().replace(/\s+/g, ' ')
-
-          if (formattedValue && formattedValue !== value) {
-            onChange(formattedValue)
-          }
-
-          setIsEditing(false)
-        }
-      })
-    },
-    [inputValue, value, onChange],
-  )
+  const handleClick = useCallback(() => {
+    setIsEditing(true)
+    setInputValue(value)
+    setSuggestionsFilter('')
+  }, [value])
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -71,11 +58,20 @@ export const CardInput = ({
     [isEditing],
   )
 
-  const handleButtonClick = useCallback(() => {
-    setIsEditing(true)
-    setInputValue(value)
-    setSuggestionsFilter('')
-  }, [value])
+  const handleBlur = useCallback(
+    (event: React.FocusEvent<HTMLDivElement>) => {
+      void (async () => {
+        const currentTarget = event.currentTarget
+        await new Promise(requestAnimationFrame)
+        if (currentTarget.contains(document.activeElement)) return
+
+        const formattedValue = inputValue.trim().replace(/\s+/g, ' ')
+        if (formattedValue && formattedValue !== value) onChange(formattedValue)
+        setIsEditing(false)
+      })()
+    },
+    [inputValue, value, onChange],
+  )
 
   const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,61 +90,55 @@ export const CardInput = ({
 
   const handleSelect = useCallback(
     (suggestion: string) => {
-      if (suggestion === value) {
-        setIsEditing(false)
-        return
-      }
-
-      onChange(suggestion)
+      if (suggestion !== value) onChange(suggestion)
       setIsEditing(false)
     },
     [onChange, value],
   )
 
-  // TODO: Remove outer div for accessibility purposes
-
   return (
-    <div onBlur={handleBlur} onKeyDown={handleKeyDown}>
-      <CardItem
-        className={twMerge(isEditing && 'pointer-events-auto', className)}
-        labelClassName={twMerge('flex-none', labelClassName)}
-        valueClassName={twMerge(
-          'flex-auto min-w-0 text-right font-medium truncate',
-          valueClassName,
-        )}
-        value={
-          isEditing ? (
-            <input
-              className="w-full text-right bg-transparent focus:outline-none"
-              autoFocus
-              value={inputValue}
-              onChange={handleInputChange}
-              onFocus={handleInputFocus}
-            />
-          ) : (
-            value
-          )
-        }
-        aria-haspopup={!!filteredSuggestions.length ? 'true' : 'false'}
-        aria-expanded={isEditing ? 'true' : 'false'}
-        onClick={isEditing ? undefined : handleButtonClick}
-        {...rest}
-      />
-
-      <CardMenu
-        popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
-        isOpen={isEditing && !!filteredSuggestions.length}
-        position="below-right"
-      >
-        {filteredSuggestions.map((suggestion) => (
-          <CardItem
-            key={suggestion}
-            label={suggestion}
-            role="menuitem"
-            onClick={() => handleSelect(suggestion)}
+    <CardItem
+      className={twMerge(isEditing && 'pointer-events-auto', className)}
+      labelClassName={twMerge('flex-none', labelClassName)}
+      valueClassName={twMerge(
+        'flex-auto min-w-0 text-right font-medium truncate',
+        valueClassName,
+      )}
+      value={
+        isEditing ? (
+          <input
+            className="w-full text-right bg-transparent focus:outline-none"
+            autoFocus
+            value={inputValue}
+            onChange={handleInputChange}
+            onFocus={handleInputFocus}
           />
-        ))}
-      </CardMenu>
-    </div>
+        ) : (
+          value
+        )
+      }
+      menu={
+        <CardMenu
+          popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
+          isOpen={isEditing && !!filteredSuggestions.length}
+          position="below-right"
+        >
+          {filteredSuggestions.map((suggestion) => (
+            <CardItem
+              key={suggestion}
+              label={suggestion}
+              role="menuitem"
+              onClick={() => handleSelect(suggestion)}
+            />
+          ))}
+        </CardMenu>
+      }
+      aria-haspopup={!!filteredSuggestions.length ? 'true' : 'false'}
+      aria-expanded={isEditing ? 'true' : 'false'}
+      onClick={isEditing ? undefined : handleClick}
+      onKeyDown={handleKeyDown}
+      onBlur={handleBlur}
+      {...rest}
+    />
   )
 }

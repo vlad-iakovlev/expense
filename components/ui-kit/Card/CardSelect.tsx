@@ -57,42 +57,41 @@ export function CardSelect<Id extends string = string>({
   )
 
   return (
-    <>
-      <CardItem
-        labelClassName={twMerge('flex-none', labelClassName)}
-        valueClassName={twMerge(
-          'flex-auto min-w-0 text-right font-medium truncate',
-          valueClassName,
-        )}
-        value={value.label}
-        aria-haspopup="true"
-        aria-expanded={isOpen ? 'true' : 'false'}
-        aria-disabled="false"
-        onClick={isOpen ? undefined : handleOpen}
-        {...rest}
-      />
-
-      <CardMenu
-        popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
-        isOpen={isOpen}
-        position="below-right"
-        onClose={handleClose}
-      >
-        {options.map((option) => (
-          <Fragment key={option.id}>
-            {option.type === 'divider' && <CardDivider />}
-            {(!option.type || option.type === 'option') && (
-              <CardItem
-                key={option.id}
-                label={option.label}
-                suffix={option.suffix}
-                role="menuitem"
-                onClick={() => handleOptionClick(option.id)}
-              />
-            )}
-          </Fragment>
-        ))}
-      </CardMenu>
-    </>
+    <CardItem
+      labelClassName={twMerge('flex-none', labelClassName)}
+      valueClassName={twMerge(
+        'flex-auto min-w-0 text-right font-medium truncate',
+        valueClassName,
+      )}
+      value={value.label}
+      menu={
+        <CardMenu
+          popupClassName="max-w-full -mt-2 pl-4 sm:pl-6 pb-8"
+          isOpen={isOpen}
+          position="below-right"
+          onClose={handleClose}
+        >
+          {options.map((option) => (
+            <Fragment key={option.id}>
+              {option.type === 'divider' && <CardDivider />}
+              {(!option.type || option.type === 'option') && (
+                <CardItem
+                  key={option.id}
+                  label={option.label}
+                  suffix={option.suffix}
+                  role="menuitem"
+                  onClick={() => handleOptionClick(option.id)}
+                />
+              )}
+            </Fragment>
+          ))}
+        </CardMenu>
+      }
+      aria-haspopup="true"
+      aria-expanded={isOpen ? 'true' : 'false'}
+      aria-disabled="false"
+      onClick={isOpen ? undefined : handleOpen}
+      {...rest}
+    />
   )
 }
