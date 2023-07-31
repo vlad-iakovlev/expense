@@ -36,7 +36,7 @@
     "default-import": "^1.1.5",
     "dotenv": "^16.3.1",
     "focus-trap-react": "^10.2.1",
-    "framer-motion": "^10.13.1",
+    "framer-motion": "^10.15.0",
     "immer": "^10.0.2",
     "next": "^13.4.12",
     "next-api-middleware": "^2.0.1",
