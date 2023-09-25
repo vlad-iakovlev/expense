@@ -35,7 +35,7 @@
     "date-fns": "^2.30.0",
     "default-import": "^1.1.5",
     "dotenv": "^16.3.1",
-    "focus-trap-react": "^10.2.1",
+    "focus-trap-react": "^10.2.2",
     "framer-motion": "^10.16.4",
     "immer": "^10.0.2",
     "next": "^13.4.19",
