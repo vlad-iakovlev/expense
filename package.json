@@ -64,7 +64,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
-    "prisma": "^5.4.2",
+    "prisma": "^5.5.2",
     "typescript": "^5.2.2"
   },
   "eslintConfig": {
