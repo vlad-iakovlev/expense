@@ -13,5 +13,5 @@ jobs:
       - name: Call /api/cron/update-currency-rates endpoint
         run: |
           curl --request POST \
-          --url 'https://expense.vlad-yakovlev-dev.com/api/cron/update-currency-rates' \
+          --url 'https://expense.vlad-yakovlev.dev/api/cron/update-currency-rates' \
           --header 'Authorization: Bearer ${{secrets.CRON_SECRET}}'
