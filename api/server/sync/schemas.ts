@@ -28,7 +28,7 @@ export const performSyncBodySchema = z.object({
           name: z.string().min(1),
           order: z.number().nullable(),
           currencyId: z.string().uuid(),
-          // New value in groupId won't apply to existing wallets
+          // New value in groupId won't be applied to existing wallets
           groupId: z.string().uuid(),
         }),
       ),

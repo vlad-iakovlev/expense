@@ -12,7 +12,6 @@ assert(process.env.GOOGLE_CLIENT_ID, 'GOOGLE_CLIENT_ID is not defined')
 assert(process.env.GOOGLE_CLIENT_SECRET, 'GOOGLE_CLIENT_SECRET is not defined')
 
 export const authOptions: AuthOptions = {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
