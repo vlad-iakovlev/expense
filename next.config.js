@@ -7,7 +7,7 @@ const withPWA = nextPWA({
   reloadOnOnline: false,
 
   // Fix next-auth when offline
-  // TODO: Add link to PR in @ducanh2912/next-pwa
+  // PR in @ducanh2912/next-pwa: https://github.com/DuCanhGH/next-pwa/pull/115
   extendDefaultRuntimeCaching: true,
   workboxOptions: {
     runtimeCaching: [
