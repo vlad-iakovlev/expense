@@ -1,7 +1,7 @@
 import assert from 'assert'
-import chalk from 'chalk'
+import { NextApiHandler } from 'next'
 import fetch from 'node-fetch'
-import { prisma } from '../utils/server/prisma.ts'
+import { prisma } from '../../../utils/server/prisma.ts'
 
 interface RatesResponse {
   base: string
@@ -11,7 +11,10 @@ interface RatesResponse {
   timestamp: number
 }
 
-const fetchRates = async () => {
+export const updateCurrencyRates: NextApiHandler<{ success: boolean }> = async (
+  req,
+  res,
+) => {
   assert(
     process.env.EXCHANGE_RATES_API_KEY,
     'EXCHANGE_RATES_API_KEY is not defined',
@@ -21,11 +24,8 @@ const fetchRates = async () => {
     'https://api.apilayer.com/exchangerates_data/latest?base=USD',
     { headers: { apikey: process.env.EXCHANGE_RATES_API_KEY } },
   )
+  const rates = (await ratesResponse.json()) as RatesResponse
 
-  return (await ratesResponse.json()) as RatesResponse
-}
-
-const updateRates = async (rates: RatesResponse) => {
   await prisma.$transaction(
     Object.entries(rates.rates).map(([symbol, rate]) => {
       return prisma.currency.upsert({
@@ -36,21 +36,6 @@ const updateRates = async (rates: RatesResponse) => {
       })
     }),
   )
+
+  res.status(200).json({ success: true })
 }
-
-void (async () => {
-  try {
-    console.log(chalk.blue.bold('[update-rates]'), 'Fetching rates')
-    const rates = await fetchRates()
-    console.log(chalk.green.bold('[update-rates]'), 'Rates fetched')
-
-    console.log(chalk.blue.bold('[update-rates]'), 'Updating rates')
-    await updateRates(rates)
-    console.log(chalk.green.bold('[update-rates]'), 'Rates updated')
-
-    process.exit(0)
-  } catch (error) {
-    console.error(error)
-    process.exit(1)
-  }
-})()

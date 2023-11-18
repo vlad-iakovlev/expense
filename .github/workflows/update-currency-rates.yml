@@ -6,17 +6,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-currency-rates:
+  update-currency-names:
     if: startsWith(github.repository, 'vlad-yakovlev/')
     runs-on: ubuntu-latest
     steps:
-      - name: Call update-currency-rates script in Digital Ocean droplet
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          script_stop: true
-          script: |
-            cd Projects/expense
-            docker compose exec expense npm run update-currency-rates
+      - name: Call /api/cron/update-currency-rates endpoint
+        run: |
+          curl --request POST \
+          --url 'https://expense.vlad-yakovlev-dev.com/api/cron/update-currency-rates' \
+          --header 'Authorization: Bearer ${{secrets.CRON_SECRET}}'

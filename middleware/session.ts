@@ -4,10 +4,11 @@ import { authOptions } from '../pages/api/auth/[...nextauth].ts'
 
 export const sessionMiddleware: Middleware = async (req, res, next) => {
   const session = await getServerSession(req, res, authOptions)
-  if (session) {
-    req.session = session
-    await next()
-  } else {
+  if (!session) {
     res.status(401).end('Unauthorized')
+    return
   }
+
+  req.session = session
+  await next()
 }
