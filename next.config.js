@@ -52,9 +52,6 @@ const nextConfig = {
     ],
   },
   output: 'standalone',
-  experimental: {
-    turbotrace: {},
-  },
 }
 
 export default withPWA(nextConfig)
