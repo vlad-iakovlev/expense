@@ -76,6 +76,5 @@ jobs:
           script_stop: true
           script: |
             cd Projects/expense
-            git fetch --prune --prune-tags --verbose
-            git checkout $SHA
+            curl -OL https://raw.githubusercontent.com/vlad-yakovlev/expense/$SHA/docker-compose.yml
             docker compose up -d
