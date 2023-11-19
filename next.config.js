@@ -44,13 +44,16 @@ const withPWA = nextPWA({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
   images: {
     remotePatterns: [
       {
         hostname: 'lh3.googleusercontent.com',
       },
     ],
+  },
+  output: 'standalone',
+  experimental: {
+    turbotrace: {},
   },
 }
 
