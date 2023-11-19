@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-currency-names:
+  update-currency-rates:
     if: startsWith(github.repository, 'vlad-yakovlev/')
     runs-on: ubuntu-latest
     steps:
