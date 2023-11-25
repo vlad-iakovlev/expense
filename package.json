@@ -59,7 +59,7 @@
     "node-html-parser": "^6.1.11",
     "prettier": "^3.1.0",
     "prisma": "^5.6.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.2"
   },
   "eslintConfig": {
     "parserOptions": {
