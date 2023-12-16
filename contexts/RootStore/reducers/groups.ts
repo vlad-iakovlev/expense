@@ -1,7 +1,7 @@
 import { produce } from 'immer'
-import { ClientUser } from '../../../types/client.ts'
-import { getDefaultCurrency } from '../getters/currencies.ts'
-import { GroupsActionTypes, RootStoreState } from '../types.tsx'
+import { ClientUser } from '../../../types/client.js'
+import { getDefaultCurrency } from '../getters/currencies.js'
+import { GroupsActionTypes, RootStoreState } from '../types.jsx'
 
 const createGroupReducer: React.Reducer<
   RootStoreState,

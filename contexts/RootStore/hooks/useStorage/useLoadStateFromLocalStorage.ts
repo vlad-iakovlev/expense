@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { StorageAction } from '../../reducers/storage.ts'
-import { RootStoreState, StorageActionType } from '../../types.tsx'
-import { getLocalStorageKey } from './constants.ts'
-import { useCanLoadState } from './useCanLoadState.ts'
+import { StorageAction } from '../../reducers/storage.js'
+import { RootStoreState, StorageActionType } from '../../types.jsx'
+import { getLocalStorageKey } from './constants.js'
+import { useCanLoadState } from './useCanLoadState.js'
 
 export const useLoadStateFromLocalStorage = (
   state: RootStoreState,

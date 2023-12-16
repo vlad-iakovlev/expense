@@ -1,9 +1,9 @@
-import { ROUTES } from '../../../constants/routes.ts'
-import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { ExpenseOperation } from './OperationsList.ExpenseOperation.tsx'
-import { IncomeOperation } from './OperationsList.IncomeOperation.tsx'
-import { TransferOperation } from './OperationsList.TransferOperation.tsx'
+import { ROUTES } from '../../../constants/routes.js'
+import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.js'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { ExpenseOperation } from './OperationsList.ExpenseOperation.jsx'
+import { IncomeOperation } from './OperationsList.IncomeOperation.jsx'
+import { TransferOperation } from './OperationsList.TransferOperation.jsx'
 
 interface Props {
   operationId: string

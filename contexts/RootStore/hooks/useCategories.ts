@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from 'react'
-import { uniq } from '../../../utils/uniq.ts'
-import { useRootStore } from '../RootStore.tsx'
-import { getAvailableOperations } from '../getters/operations.ts'
-import { CategoriesActionTypes } from '../types.tsx'
+import { uniq } from '../../../utils/uniq.js'
+import { useRootStore } from '../RootStore.jsx'
+import { getAvailableOperations } from '../getters/operations.js'
+import { CategoriesActionTypes } from '../types.jsx'
 
 interface Props {
   groupId?: string

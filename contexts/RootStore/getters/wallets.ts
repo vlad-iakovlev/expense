@@ -1,9 +1,9 @@
 import assert from 'assert'
-import { ClientWallet, PopulatedClientWallet } from '../../../types/client.ts'
-import { ClientBalance } from '../../../types/client.ts'
-import { RootStoreState } from '../types.tsx'
-import { getCurrency } from './currencies.ts'
-import { getPopulatedGroup } from './groups.ts'
+import { ClientWallet, PopulatedClientWallet } from '../../../types/client.js'
+import { ClientBalance } from '../../../types/client.js'
+import { RootStoreState } from '../types.jsx'
+import { getCurrency } from './currencies.js'
+import { getPopulatedGroup } from './groups.js'
 
 interface GetWalletsParams {
   groupId?: string

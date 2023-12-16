@@ -1,5 +1,5 @@
-import { ClientTransaction } from '../../types/client.ts'
-import { RootStoreState } from './types.tsx'
+import { ClientTransaction } from '../../types/client.js'
+import { RootStoreState } from './types.jsx'
 
 export const getEmptyState = (): RootStoreState => ({
   currencies: [],

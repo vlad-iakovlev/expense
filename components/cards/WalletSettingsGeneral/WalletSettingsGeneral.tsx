@@ -1,7 +1,7 @@
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Currency } from './WalletSettingsGeneral.Currency.tsx'
-import { Delete } from './WalletSettingsGeneral.Delete.tsx'
-import { Name } from './WalletSettingsGeneral.Name.tsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Currency } from './WalletSettingsGeneral.Currency.jsx'
+import { Delete } from './WalletSettingsGeneral.Delete.jsx'
+import { Name } from './WalletSettingsGeneral.Name.jsx'
 
 interface Props {
   className?: string

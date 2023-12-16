@@ -1,5 +1,5 @@
-import { Modify } from '../../../types/utility.ts'
-import { CardBlock, CardBlockProps } from './CardBlock.tsx'
+import { Modify } from '../../../types/utility.js'
+import { CardBlock, CardBlockProps } from './CardBlock.jsx'
 
 export type CardSubtitleProps = Modify<
   CardBlockProps,
@@ -16,10 +16,10 @@ export const CardSubtitle = ({
   ...rest
 }: CardSubtitleProps) => (
   <CardBlock className="my-2 bg-zinc-100" role="presentation" {...rest}>
-    <h2 className="flex-auto min-w-0 font-medium truncate">{subtitle}</h2>
+    <h2 className="min-w-0 flex-auto truncate font-medium">{subtitle}</h2>
 
     {!!actions && (
-      <div className="flex-none flex items-center gap-2">{actions}</div>
+      <div className="flex flex-none items-center gap-2">{actions}</div>
     )}
   </CardBlock>
 )

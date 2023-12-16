@@ -10,10 +10,10 @@ import {
 } from '@heroicons/react/24/outline'
 import { signIn } from 'next-auth/react'
 import { useCallback, useState } from 'react'
-import { NextHead } from '../next/Head.ts'
-import { Card } from '../ui-kit/Card/Card.tsx'
-import { Columns } from '../ui-kit/Columns/Columns.tsx'
-import { Title } from '../ui-kit/Title/Title.tsx'
+import { NextHead } from '../next/Head.js'
+import { Card } from '../ui-kit/Card/Card.jsx'
+import { Columns } from '../ui-kit/Columns/Columns.jsx'
+import { Title } from '../ui-kit/Title/Title.jsx'
 
 export const Home = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -60,27 +60,27 @@ export const Home = () => {
           <Card.Title title="Features" />
           <Card.Divider />
           <Card.Item
-            prefix={<ArrowPathIcon className="w-6 h-6" />}
+            prefix={<ArrowPathIcon className="h-6 w-6" />}
             label="Built-in cross-device sync"
           />
           <Card.Item
-            prefix={<SignalSlashIcon className="w-6 h-6" />}
+            prefix={<SignalSlashIcon className="h-6 w-6" />}
             label="Available even offline"
           />
           <Card.Item
-            prefix={<TagIcon className="w-6 h-6" />}
+            prefix={<TagIcon className="h-6 w-6" />}
             label="Flexible categorization"
           />
           <Card.Item
-            prefix={<UsersIcon className="w-6 h-6" />}
+            prefix={<UsersIcon className="h-6 w-6" />}
             label="Collaborative tracking"
           />
           <Card.Item
-            prefix={<CurrencyDollarIcon className="w-6 h-6" />}
+            prefix={<CurrencyDollarIcon className="h-6 w-6" />}
             label="Automatic currency conversion"
           />
           <Card.Item
-            prefix={<ChartPieIcon className="w-6 h-6" />}
+            prefix={<ChartPieIcon className="h-6 w-6" />}
             label="Pie charts for week/month/year"
           />
         </Card>
@@ -93,12 +93,12 @@ export const Home = () => {
           <Card.Divider />
           <Card.Item
             disabled={isLoading}
-            prefix={<ArrowLeftOnRectangleIcon className="w-6 h-6" />}
+            prefix={<ArrowLeftOnRectangleIcon className="h-6 w-6" />}
             label="Sign In with Google Account"
             onClick={handleSignIn}
           />
           <Card.Link
-            prefix={<CodeBracketIcon className="w-6 h-6" />}
+            prefix={<CodeBracketIcon className="h-6 w-6" />}
             label="See the code on GitHub"
             href="https://github.com/vlad-yakovlev/expense"
           />

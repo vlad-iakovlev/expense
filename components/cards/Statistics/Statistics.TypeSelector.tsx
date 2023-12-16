@@ -1,5 +1,5 @@
-import { ClientStatisticsType } from '../../../types/client.ts'
-import { Button } from '../../ui-kit/Button/Button.tsx'
+import { ClientStatisticsType } from '../../../types/client.js'
+import { Button } from '../../ui-kit/Button/Button.jsx'
 
 interface Props {
   value: ClientStatisticsType
@@ -9,7 +9,7 @@ interface Props {
 export const TypeSelector = ({ value, onChange }: Props) => {
   return (
     <div
-      className="flex-none flex items-center gap-2"
+      className="flex flex-none items-center gap-2"
       role="radiogroup"
       aria-label="Statistics type"
     >

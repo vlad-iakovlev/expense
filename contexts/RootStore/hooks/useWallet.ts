@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from 'react'
-import { PopulatedClientWallet } from '../../../types/client.ts'
-import { useRootStore } from '../RootStore.tsx'
-import { getPopulatedWallet } from '../getters/wallets.ts'
-import { WalletsActionTypes } from '../types.tsx'
+import { PopulatedClientWallet } from '../../../types/client.js'
+import { useRootStore } from '../RootStore.jsx'
+import { getPopulatedWallet } from '../getters/wallets.js'
+import { WalletsActionTypes } from '../types.jsx'
 
 interface Props {
   walletId: string

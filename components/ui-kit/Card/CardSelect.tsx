@@ -1,9 +1,9 @@
 import { Fragment, useCallback, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.ts'
-import { CardDivider } from './CardDivider.tsx'
-import { CardItem, CardItemProps } from './CardItem.tsx'
-import { CardMenu } from './CardMenu.tsx'
+import { Modify } from '../../../types/utility.js'
+import { CardDivider } from './CardDivider.jsx'
+import { CardItem, CardItemProps } from './CardItem.jsx'
+import { CardMenu } from './CardMenu.jsx'
 
 export interface CardSelectOption<Id extends string = string> {
   type?: 'option'

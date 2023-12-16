@@ -1,5 +1,5 @@
 import { Middleware } from 'next-api-middleware'
-import { ERROR_TYPES } from '../constants/errors.ts'
+import { ERROR_TYPES } from '../constants/errors.js'
 
 export const errorMiddleware: Middleware = async (req, res, next) => {
   try {

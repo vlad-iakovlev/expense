@@ -1,11 +1,11 @@
 import * as fns from 'date-fns'
 import { NextApiHandler } from 'next'
 import { v4 as uuid } from 'uuid'
-import { ERROR_TYPES } from '../../../constants/errors.ts'
-import { getHandledError } from '../../../utils/server/getHandledError.ts'
-import { prisma } from '../../../utils/server/prisma.ts'
-import { acceptInviteBodySchema, createInviteBodySchema } from './schemas.ts'
-import { AcceptInviteResponse, CreateInviteResponse } from './types.ts'
+import { ERROR_TYPES } from '../../../constants/errors.js'
+import { getHandledError } from '../../../utils/server/getHandledError.js'
+import { prisma } from '../../../utils/server/prisma.js'
+import { acceptInviteBodySchema, createInviteBodySchema } from './schemas.js'
+import { AcceptInviteResponse, CreateInviteResponse } from './types.js'
 
 export const createInvite: NextApiHandler<CreateInviteResponse> = async (
   req,

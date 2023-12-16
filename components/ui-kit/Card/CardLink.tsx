@@ -1,5 +1,5 @@
-import { Modify } from '../../../types/utility.ts'
-import { NextLink } from '../../next/Link.ts'
+import { Modify } from '../../../types/utility.js'
+import { NextLink } from '../../next/Link.js'
 
 export type CardLinkProps = Modify<
   React.ComponentProps<typeof NextLink>,
@@ -23,7 +23,7 @@ export const CardLink = ({
   ...rest
 }: CardLinkProps) => (
   <NextLink
-    className="flex w-full items-center min-h-12 px-4 sm:px-6 py-2 gap-3 text-left bg-white hover:bg-zinc-100 active:bg-zinc-100 transition-colors"
+    className="flex min-h-12 w-full items-center gap-3 bg-white px-4 py-2 text-left transition-colors hover:bg-zinc-100 active:bg-zinc-100 sm:px-6"
     href={{ pathname: href, query: { animation: 'forward' } }}
     as={href}
     role="listitem"

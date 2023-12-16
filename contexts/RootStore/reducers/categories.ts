@@ -1,5 +1,5 @@
 import { produce } from 'immer'
-import { CategoriesActionTypes, RootStoreState } from '../types.tsx'
+import { CategoriesActionTypes, RootStoreState } from '../types.jsx'
 
 const renameCategoryReducer: React.Reducer<
   RootStoreState,

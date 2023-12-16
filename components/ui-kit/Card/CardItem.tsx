@@ -1,7 +1,7 @@
 import { forwardRef, useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.ts'
-import { CardBlock, CardBlockProps } from './CardBlock.tsx'
+import { Modify } from '../../../types/utility.js'
+import { CardBlock, CardBlockProps } from './CardBlock.jsx'
 
 export type CardItemProps = Modify<
   CardBlockProps,
@@ -58,7 +58,7 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
       <CardBlock
         ref={ref}
         className={twMerge(
-          !!onClick && 'hover:bg-zinc-100 active:bg-zinc-100 cursor-pointer',
+          !!onClick && 'cursor-pointer hover:bg-zinc-100 active:bg-zinc-100',
           disabled && 'pointer-events-none',
           className,
         )}

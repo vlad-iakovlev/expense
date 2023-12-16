@@ -1,6 +1,6 @@
 import { produce } from 'immer'
-import { getDefaultCurrency } from '../getters/currencies.ts'
-import { RootStoreState, WalletsActionTypes } from '../types.tsx'
+import { getDefaultCurrency } from '../getters/currencies.js'
+import { RootStoreState, WalletsActionTypes } from '../types.jsx'
 
 const createWalletReducer: React.Reducer<
   RootStoreState,

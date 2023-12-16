@@ -1,7 +1,7 @@
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Balance } from './GroupInfo.Balance.tsx'
-import { Members } from './GroupInfo.Members.tsx'
-import { Settings } from './GroupInfo.Settings.tsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Balance } from './GroupInfo.Balance.jsx'
+import { Members } from './GroupInfo.Members.jsx'
+import { Settings } from './GroupInfo.Settings.jsx'
 
 interface Props {
   className?: string

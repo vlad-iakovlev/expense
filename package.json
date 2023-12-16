@@ -43,7 +43,6 @@
     "sharp": "^0.33.0",
     "tailwind-merge": "^2.1.0",
     "tailwindcss": "^3.3.6",
-    "ts-node": "^10.9.2",
     "uuid": "^9.0.1",
     "zod": "^3.22.4"
   },
@@ -58,7 +57,9 @@
     "lint-staged": "^15.2.0",
     "node-html-parser": "^6.1.11",
     "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.9",
     "prisma": "^5.7.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "eslintConfig": {
@@ -75,7 +76,8 @@
   },
   "prettier": {
     "plugins": [
-      "@trivago/prettier-plugin-sort-imports"
+      "@trivago/prettier-plugin-sort-imports",
+      "prettier-plugin-tailwindcss"
     ],
     "semi": false,
     "singleQuote": true,

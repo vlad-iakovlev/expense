@@ -1,4 +1,4 @@
-import { ClientCurrency } from '../../../types/client.ts'
+import { ClientCurrency } from '../../../types/client.js'
 
 export interface CurrencyBadgeProps {
   currency: ClientCurrency
@@ -7,7 +7,7 @@ export interface CurrencyBadgeProps {
 export const CurrencyBadge = ({ currency }: CurrencyBadgeProps) => {
   return (
     <div
-      className="flex-none flex items-center justify-center w-14 px-2 py-1 text-sm text-zinc-700 bg-zinc-200 rounded-md"
+      className="flex w-14 flex-none items-center justify-center rounded-md bg-zinc-200 px-2 py-1 text-sm text-zinc-700"
       aria-hidden="true"
     >
       {currency.symbol}

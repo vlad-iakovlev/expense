@@ -3,9 +3,9 @@ import {
   ClientOperation,
   ClientOperationType,
   PopulatedClientOperation,
-} from '../../../types/client.ts'
-import { RootStoreState } from '../types.tsx'
-import { getPopulatedWallet } from './wallets.ts'
+} from '../../../types/client.js'
+import { RootStoreState } from '../types.jsx'
+import { getPopulatedWallet } from './wallets.js'
 
 interface GetOperationsParams {
   groupId?: string

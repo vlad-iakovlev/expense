@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.ts'
+import { Modify } from '../../../types/utility.js'
 
 export type SwitchProps = Modify<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -41,7 +41,7 @@ export const Switch = ({
   return (
     <button
       className={twMerge(
-        'flex items-center w-11 h-7 p-0.5 rounded-full transition-colors',
+        'flex h-7 w-11 items-center rounded-full p-0.5 transition-colors',
         value ? 'bg-green-700' : 'bg-zinc-300',
         className,
       )}
@@ -55,7 +55,7 @@ export const Switch = ({
     >
       <div
         className={twMerge(
-          'w-6 h-6 bg-white rounded-full shadow-sm transform transition-transform',
+          'h-6 w-6 transform rounded-full bg-white shadow-sm transition-transform',
           value ? 'translate-x-4' : 'translate-x-0',
         )}
         aria-hidden="true"

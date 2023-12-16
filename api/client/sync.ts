@@ -1,5 +1,5 @@
-import { request } from '../../utils/client/request.ts'
-import { PerformSyncBody, PerformSyncResponse } from '../server/sync/types.ts'
+import { request } from '../../utils/client/request.js'
+import { PerformSyncBody, PerformSyncResponse } from '../server/sync/types.js'
 
 export const performSync = async (body: PerformSyncBody) => {
   const response = await request.post<PerformSyncBody, PerformSyncResponse>(

@@ -1,8 +1,8 @@
 import assert from 'assert'
-import { PopulatedClientOperation } from '../../../types/client.ts'
-import { formatAmount } from '../../../utils/formatAmount.ts'
-import { formatTime } from '../../../utils/formatDate.ts'
-import { Amount } from '../../ui-kit/Amount/Amount.tsx'
+import { PopulatedClientOperation } from '../../../types/client.js'
+import { formatAmount } from '../../../utils/formatAmount.js'
+import { formatTime } from '../../../utils/formatDate.js'
+import { Amount } from '../../ui-kit/Amount/Amount.jsx'
 
 interface Props {
   operation: PopulatedClientOperation
@@ -42,7 +42,7 @@ export const ExpenseOperation = ({ operation, walletId }: Props) => {
       <div className="flex items-center gap-3 text-sm text-zinc-600">
         <div className="flex-none">{formatTime(operation.date)}</div>
         {!walletId && (
-          <div className="flex-auto min-w-0 text-right truncate">
+          <div className="min-w-0 flex-auto truncate text-right">
             {operation.expenseWallet.name}
           </div>
         )}

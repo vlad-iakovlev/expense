@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.ts'
-import { CardBlock, CardBlockProps } from './CardBlock.tsx'
+import { Modify } from '../../../types/utility.js'
+import { CardBlock, CardBlockProps } from './CardBlock.jsx'
 
 export type CardFooterProps = Modify<
   CardBlockProps,

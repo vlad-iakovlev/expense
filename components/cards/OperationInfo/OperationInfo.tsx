@@ -1,13 +1,13 @@
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Category } from './OperationInfo.Category.tsx'
-import { Date } from './OperationInfo.Date.tsx'
-import { Delete } from './OperationInfo.Delete.tsx'
-import { ExpenseAmount } from './OperationInfo.ExpenseAmount.tsx'
-import { ExpenseWallet } from './OperationInfo.ExpenseWallet.tsx'
-import { IncomeAmount } from './OperationInfo.IncomeAmount.tsx'
-import { IncomeWallet } from './OperationInfo.IncomeWallet.tsx'
-import { Name } from './OperationInfo.Name.tsx'
-import { Type } from './OperationInfo.Type.tsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Category } from './OperationInfo.Category.jsx'
+import { Date } from './OperationInfo.Date.jsx'
+import { Delete } from './OperationInfo.Delete.jsx'
+import { ExpenseAmount } from './OperationInfo.ExpenseAmount.jsx'
+import { ExpenseWallet } from './OperationInfo.ExpenseWallet.jsx'
+import { IncomeAmount } from './OperationInfo.IncomeAmount.jsx'
+import { IncomeWallet } from './OperationInfo.IncomeWallet.jsx'
+import { Name } from './OperationInfo.Name.jsx'
+import { Type } from './OperationInfo.Type.jsx'
 
 interface Props {
   className?: string

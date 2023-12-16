@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
-import { performSync } from '../../../../api/client/sync.ts'
-import { ERROR_TYPES } from '../../../../constants/errors.ts'
-import { useIsOnline } from '../../../../hooks/useIsOnline.ts'
-import { useThrowError } from '../../../../hooks/useThrowError.ts'
-import { getRemoteStorageBody } from '../../getters/storage.ts'
-import { StorageAction } from '../../reducers/storage.ts'
-import { RootStoreState, StorageActionType } from '../../types.tsx'
-import { isTransactionEmpty } from '../../utils.ts'
-import { getLocalStorageKey } from './constants.ts'
+import { performSync } from '../../../../api/client/sync.js'
+import { ERROR_TYPES } from '../../../../constants/errors.js'
+import { useIsOnline } from '../../../../hooks/useIsOnline.js'
+import { useThrowError } from '../../../../hooks/useThrowError.js'
+import { getRemoteStorageBody } from '../../getters/storage.js'
+import { StorageAction } from '../../reducers/storage.js'
+import { RootStoreState, StorageActionType } from '../../types.jsx'
+import { isTransactionEmpty } from '../../utils.js'
+import { getLocalStorageKey } from './constants.js'
 
 export const useSyncStateWithServer = (
   state: RootStoreState,

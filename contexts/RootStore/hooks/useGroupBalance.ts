@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { ClientBalance } from '../../../types/client.ts'
-import { useRootStore } from '../RootStore.tsx'
-import { getGroupBalance } from '../getters/groups.ts'
+import { ClientBalance } from '../../../types/client.js'
+import { useRootStore } from '../RootStore.jsx'
+import { getGroupBalance } from '../getters/groups.js'
 
 interface Props {
   groupId: string

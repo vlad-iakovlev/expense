@@ -1,7 +1,7 @@
-import { useWallet } from '../../../contexts/RootStore/hooks/useWallet.ts'
-import { useWalletBalance } from '../../../contexts/RootStore/hooks/useWalletBalance.ts'
-import { Amount } from '../../ui-kit/Amount/Amount.tsx'
-import { Card } from '../../ui-kit/Card/Card.tsx'
+import { useWallet } from '../../../contexts/RootStore/hooks/useWallet.js'
+import { useWalletBalance } from '../../../contexts/RootStore/hooks/useWalletBalance.js'
+import { Amount } from '../../ui-kit/Amount/Amount.jsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
 
 interface Props {
   walletId: string
@@ -32,7 +32,7 @@ export const BalanceInDefaultCurrency = ({ walletId }: Props) => {
       }
       value={
         <Amount
-          className="font-medium select-text"
+          className="select-text font-medium"
           amount={
             walletBalance.balance *
             (wallet.group.defaultCurrency.rate / walletBalance.currency.rate)

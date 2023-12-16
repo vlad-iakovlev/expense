@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { ClientBalance } from '../../../types/client.ts'
-import { useRootStore } from '../RootStore.tsx'
-import { getWalletBalance } from '../getters/wallets.ts'
+import { ClientBalance } from '../../../types/client.js'
+import { useRootStore } from '../RootStore.jsx'
+import { getWalletBalance } from '../getters/wallets.js'
 
 interface Props {
   walletId: string

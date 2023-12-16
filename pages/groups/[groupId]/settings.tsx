@@ -1,9 +1,9 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
 import { useState } from 'react'
-import { Page } from '../../../components/layout/Page/Page.tsx'
-import { GroupSettings } from '../../../components/pages/GroupSettings.tsx'
-import { CategoryFilterProvider } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
+import { Page } from '../../../components/layout/Page/Page.jsx'
+import { GroupSettings } from '../../../components/pages/GroupSettings.jsx'
+import { CategoryFilterProvider } from '../../../contexts/CategoryFilter/CategoryFilter.jsx'
 
 const GroupSettingsPage: NextPage = () => {
   const router = useRouter()

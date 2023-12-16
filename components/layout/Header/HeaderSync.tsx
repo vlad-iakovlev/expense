@@ -1,7 +1,7 @@
 import * as fns from 'date-fns'
 import { twMerge } from 'tailwind-merge'
-import { useSyncStatus } from '../../../contexts/RootStore/hooks/useSyncStatus.ts'
-import { formatDateTimeForAriaLabel } from '../../../utils/formatDate.ts'
+import { useSyncStatus } from '../../../contexts/RootStore/hooks/useSyncStatus.js'
+import { formatDateTimeForAriaLabel } from '../../../utils/formatDate.js'
 
 interface Props {
   className?: string
@@ -17,7 +17,7 @@ export const HeaderSync = ({ className }: Props) => {
   return (
     <div
       className={twMerge(
-        'flex flex-col items-center justify-center w-28 h-10 px-2 font-medium bg-green-700 text-white rounded-md shadow-inner',
+        'flex h-10 w-28 flex-col items-center justify-center rounded-md bg-green-700 px-2 font-medium text-white shadow-inner',
         className,
       )}
       role="status"

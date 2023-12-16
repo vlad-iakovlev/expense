@@ -1,11 +1,11 @@
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
-import { useGroupedOperations } from '../../../contexts/RootStore/hooks/useGroupedOperations.ts'
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Add } from './OperationsList.Add.tsx'
-import { CategoryFilter } from './OperationsList.CategoryFilter.tsx'
-import { Group } from './OperationsList.Group.tsx'
+import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.jsx'
+import { useGroupedOperations } from '../../../contexts/RootStore/hooks/useGroupedOperations.js'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Add } from './OperationsList.Add.jsx'
+import { CategoryFilter } from './OperationsList.CategoryFilter.jsx'
+import { Group } from './OperationsList.Group.jsx'
 
 interface Props {
   className?: string
@@ -82,7 +82,7 @@ export const OperationsListCard = ({ className, groupId, walletId }: Props) => {
         <>
           <Card.Divider />
           <Card.Item
-            prefix={<EllipsisHorizontalIcon className="w-6 h-6" />}
+            prefix={<EllipsisHorizontalIcon className="h-6 w-6" />}
             label="Show more"
             onClick={handleShowMore}
           />

@@ -1,17 +1,17 @@
 import { CheckIcon } from '@heroicons/react/24/solid'
 import { useCallback, useState } from 'react'
-import { createInvite } from '../../../api/client/invites.ts'
-import { ROUTES } from '../../../constants/routes.ts'
-import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.ts'
-import { useIsOnline } from '../../../hooks/useIsOnline.ts'
+import { createInvite } from '../../../api/client/invites.js'
+import { ROUTES } from '../../../constants/routes.js'
+import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.js'
+import { useIsOnline } from '../../../hooks/useIsOnline.js'
 import {
   formatDateTime,
   formatDateTimeForAriaLabel,
-} from '../../../utils/formatDate.ts'
-import { Button } from '../../ui-kit/Button/Button.tsx'
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { CopyField } from '../../ui-kit/CopyField/CopyField.tsx'
-import { Dialog } from '../../ui-kit/Dialog/Dialog.tsx'
+} from '../../../utils/formatDate.js'
+import { Button } from '../../ui-kit/Button/Button.jsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { CopyField } from '../../ui-kit/CopyField/CopyField.jsx'
+import { Dialog } from '../../ui-kit/Dialog/Dialog.jsx'
 
 interface Props {
   groupId: string
@@ -64,10 +64,10 @@ export const Invite = ({ groupId }: Props) => {
             title="Your invite link is ready"
             actions={
               <div
-                className="flex-none flex items-center justify-center -my-1 w-10 h-10 rounded-full bg-green-100"
+                className="-my-1 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-green-100"
                 aria-hidden="true"
               >
-                <CheckIcon className="w-6 h-6 text-green-700" />
+                <CheckIcon className="h-6 w-6 text-green-700" />
               </div>
             }
             tabIndex={0}

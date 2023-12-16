@@ -1,4 +1,4 @@
-import { NextLink } from '../../next/Link.ts'
+import { NextLink } from '../../next/Link.js'
 
 interface Props {
   className?: string

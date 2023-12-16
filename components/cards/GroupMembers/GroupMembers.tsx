@@ -1,7 +1,7 @@
-import { useGroupMembers } from '../../../contexts/RootStore/hooks/useGroupMembers.ts'
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Invite } from './GroupMembers.Invite.tsx'
-import { Member } from './GroupMembers.Member.tsx'
+import { useGroupMembers } from '../../../contexts/RootStore/hooks/useGroupMembers.js'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Invite } from './GroupMembers.Invite.jsx'
+import { Member } from './GroupMembers.Member.jsx'
 
 interface Props {
   className?: string

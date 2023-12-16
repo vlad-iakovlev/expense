@@ -1,7 +1,7 @@
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Balance } from './WalletInfo.Balance.tsx'
-import { BalanceInDefaultCurrency } from './WalletInfo.BalanceInDefaultCurrency.tsx'
-import { Settings } from './WalletInfo.Settings.tsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Balance } from './WalletInfo.Balance.jsx'
+import { BalanceInDefaultCurrency } from './WalletInfo.BalanceInDefaultCurrency.jsx'
+import { Settings } from './WalletInfo.Settings.jsx'
 
 interface Props {
   className?: string

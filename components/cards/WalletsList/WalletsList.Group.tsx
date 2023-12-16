@@ -8,10 +8,10 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ClientCurrency } from '../../../types/client.ts'
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { DndIcon } from '../../ui-kit/DndIcon/DndIcon.tsx'
-import { Wallet } from './WalletsList.Wallet.tsx'
+import { ClientCurrency } from '../../../types/client.js'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { DndIcon } from '../../ui-kit/DndIcon/DndIcon.jsx'
+import { Wallet } from './WalletsList.Wallet.jsx'
 
 interface Props {
   canReorderGroups: boolean
@@ -55,7 +55,7 @@ export const Group = ({
     <div
       ref={setNodeRef}
       className={twMerge(
-        'relative transition-shadow bg-white',
+        'relative bg-white transition-shadow',
         isDragging ? 'z-10 shadow-dnd' : 'shadow-none',
       )}
       style={{
@@ -72,13 +72,13 @@ export const Group = ({
             isReordering && (
               <div
                 className={twMerge(
-                  'flex-none flex items-center justify-center h-12 w-12 -m-3 touch-none',
+                  '-m-3 flex h-12 w-12 flex-none touch-none items-center justify-center',
                   isDragging ? 'cursor-grabbing' : 'cursor-grab',
                 )}
                 {...attributes}
                 {...listeners}
               >
-                <DndIcon className="w-6 h-6 text-zinc-400" />
+                <DndIcon className="h-6 w-6 text-zinc-400" />
               </div>
             )
           }

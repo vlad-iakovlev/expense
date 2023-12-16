@@ -1,9 +1,9 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
 import { useState } from 'react'
-import { Page } from '../../../components/layout/Page/Page.tsx'
-import { WalletSettings } from '../../../components/pages/WalletSettings.tsx'
-import { CategoryFilterProvider } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
+import { Page } from '../../../components/layout/Page/Page.jsx'
+import { WalletSettings } from '../../../components/pages/WalletSettings.jsx'
+import { CategoryFilterProvider } from '../../../contexts/CategoryFilter/CategoryFilter.jsx'
 
 const WalletSettingsPage: NextPage = () => {
   const router = useRouter()

@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.ts'
-import { CardItem, CardItemProps } from './CardItem.tsx'
-import { CardMenu } from './CardMenu.tsx'
+import { Modify } from '../../../types/utility.js'
+import { CardItem, CardItemProps } from './CardItem.jsx'
+import { CardMenu } from './CardMenu.jsx'
 
 export type CardInputProps = Modify<
   CardItemProps,
@@ -107,7 +107,7 @@ export const CardInput = ({
       value={
         isEditing ? (
           <input
-            className="w-full text-right bg-transparent focus:outline-none"
+            className="w-full bg-transparent text-right focus:outline-none"
             autoFocus
             value={inputValue}
             onChange={handleInputChange}

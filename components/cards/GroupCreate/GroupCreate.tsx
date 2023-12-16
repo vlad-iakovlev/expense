@@ -1,9 +1,9 @@
 import { PlusIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router.js'
 import { useCallback } from 'react'
-import { ROUTES } from '../../../constants/routes.ts'
-import { useGroups } from '../../../contexts/RootStore/hooks/useGroups.ts'
-import { Card } from '../../ui-kit/Card/Card.tsx'
+import { ROUTES } from '../../../constants/routes.js'
+import { useGroups } from '../../../contexts/RootStore/hooks/useGroups.js'
+import { Card } from '../../ui-kit/Card/Card.jsx'
 
 export const GroupCreateCard = () => {
   const router = useRouter()
@@ -20,7 +20,7 @@ export const GroupCreateCard = () => {
       <Card.Title title="New Group" />
       <Card.Divider />
       <Card.Item
-        prefix={<PlusIcon className="w-6 h-6" />}
+        prefix={<PlusIcon className="h-6 w-6" />}
         label="Create"
         tabIndex={-1}
       />

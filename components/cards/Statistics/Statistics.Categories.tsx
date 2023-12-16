@@ -2,8 +2,8 @@ import {
   ClientCurrency,
   ClientStatisticsItem,
   ClientStatisticsType,
-} from '../../../types/client.ts'
-import { Category } from './Statistics.Category.tsx'
+} from '../../../types/client.js'
+import { Category } from './Statistics.Category.jsx'
 
 interface Props {
   currency: ClientCurrency

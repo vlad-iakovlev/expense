@@ -1,21 +1,21 @@
-import { Container } from '../../ui-kit/Container/Container.tsx'
-import { HeaderLogo } from './HeaderLogo.tsx'
-import { HeaderSync } from './HeaderSync.tsx'
-import { HeaderUser } from './HeaderUser.tsx'
+import { Container } from '../../ui-kit/Container/Container.jsx'
+import { HeaderLogo } from './HeaderLogo.jsx'
+import { HeaderSync } from './HeaderSync.jsx'
+import { HeaderUser } from './HeaderUser.jsx'
 
 export const Header = () => {
   return (
     <header
-      className="fixed z-10 top-0 w-full pt-[env(safe-area-inset-top)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] bg-green-600"
+      className="fixed top-0 z-10 w-full bg-green-600 pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] pt-[env(safe-area-inset-top)]"
       aria-label="App header"
     >
-      <Container className="flex items-center h-[4.5rem]">
-        <HeaderLogo className="flex-1 min-w-0" />
+      <Container className="flex h-[4.5rem] items-center">
+        <HeaderLogo className="min-w-0 flex-1" />
         <div
-          className="flex-none h-[4.5rem] w-6 -ml-6 bg-gradient-to-l from-green-600 pointer-events-none"
+          className="pointer-events-none -ml-6 h-[4.5rem] w-6 flex-none bg-gradient-to-l from-green-600"
           aria-hidden="true"
         />
-        <HeaderSync className="flex-none mr-4 sm:mr-6" />
+        <HeaderSync className="mr-4 flex-none sm:mr-6" />
         <HeaderUser className="flex-none" />
       </Container>
     </header>

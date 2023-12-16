@@ -1,9 +1,9 @@
 import assert from 'assert'
 import { useCallback, useMemo } from 'react'
 import { v4 as uuid } from 'uuid'
-import { useRootStore } from '../RootStore.tsx'
-import { getOrderedWallets } from '../getters/wallets.ts'
-import { WalletsActionTypes } from '../types.tsx'
+import { useRootStore } from '../RootStore.jsx'
+import { getOrderedWallets } from '../getters/wallets.js'
+import { WalletsActionTypes } from '../types.jsx'
 
 interface Props {
   groupId?: string

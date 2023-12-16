@@ -1,16 +1,16 @@
 import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { CardBlock } from './CardBlock.tsx'
-import { CardDateTime } from './CardDateTime.tsx'
-import { CardDivider } from './CardDivider.tsx'
-import { CardFooter } from './CardFooter.tsx'
-import { CardInput } from './CardInput.tsx'
-import { CardItem } from './CardItem.tsx'
-import { CardLink } from './CardLink.tsx'
-import { CardMenu } from './CardMenu.tsx'
-import { CardSelect } from './CardSelect.tsx'
-import { CardSubtitle } from './CardSubtitle.tsx'
-import { CardTitle } from './CardTitle.tsx'
+import { CardBlock } from './CardBlock.jsx'
+import { CardDateTime } from './CardDateTime.jsx'
+import { CardDivider } from './CardDivider.jsx'
+import { CardFooter } from './CardFooter.jsx'
+import { CardInput } from './CardInput.jsx'
+import { CardItem } from './CardItem.jsx'
+import { CardLink } from './CardLink.jsx'
+import { CardMenu } from './CardMenu.jsx'
+import { CardSelect } from './CardSelect.jsx'
+import { CardSubtitle } from './CardSubtitle.jsx'
+import { CardTitle } from './CardTitle.jsx'
 
 export type CardProps = React.HTMLAttributes<HTMLDivElement>
 
@@ -36,8 +36,8 @@ export const Card = ({
   return (
     <div
       className={twMerge(
-        'py-2 bg-white rounded-md shadow-lg text-left ring-1 ring-black ring-opacity-5 transition-shadow',
-        !!onClick && 'hover:shadow-2xl active:shadow-2xl cursor-pointer',
+        'rounded-md bg-white py-2 text-left shadow-lg ring-1 ring-black ring-opacity-5 transition-shadow',
+        !!onClick && 'cursor-pointer hover:shadow-2xl active:shadow-2xl',
         className,
       )}
       role={onClick ? 'button' : 'list'}
@@ -51,34 +51,34 @@ export const Card = ({
   )
 }
 
-export * from './CardBlock.tsx'
+export * from './CardBlock.jsx'
 Card.Block = CardBlock
 
-export type * from './CardDateTime.tsx'
+export type * from './CardDateTime.jsx'
 Card.DateTime = CardDateTime
 
 Card.Divider = CardDivider
 
-export type * from './CardFooter.tsx'
+export type * from './CardFooter.jsx'
 Card.Footer = CardFooter
 
-export type * from './CardInput.tsx'
+export type * from './CardInput.jsx'
 Card.Input = CardInput
 
-export type * from './CardItem.tsx'
+export type * from './CardItem.jsx'
 Card.Item = CardItem
 
-export type * from './CardLink.tsx'
+export type * from './CardLink.jsx'
 Card.Link = CardLink
 
-export type * from './CardMenu.tsx'
+export type * from './CardMenu.jsx'
 Card.Menu = CardMenu
 
-export type * from './CardSelect.tsx'
+export type * from './CardSelect.jsx'
 Card.Select = CardSelect
 
-export type * from './CardSubtitle.tsx'
+export type * from './CardSubtitle.jsx'
 Card.Subtitle = CardSubtitle
 
-export type * from './CardTitle.tsx'
+export type * from './CardTitle.jsx'
 Card.Title = CardTitle

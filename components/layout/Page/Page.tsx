@@ -1,6 +1,6 @@
-import { Container } from '../../ui-kit/Container/Container.tsx'
-import { PageAuth } from './PageAuth.tsx'
-import { PageStore } from './PageStore.tsx'
+import { Container } from '../../ui-kit/Container/Container.jsx'
+import { PageAuth } from './PageAuth.jsx'
+import { PageStore } from './PageStore.jsx'
 
 interface Props {
   withStoreValidation?: boolean
@@ -9,7 +9,7 @@ interface Props {
 
 export const Page = ({ withStoreValidation = true, children }: Props) => {
   return (
-    <main className="min-h-screen pt-[calc(env(safe-area-inset-top)+4.5rem)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] bg-zinc-300">
+    <main className="min-h-screen bg-zinc-300 pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] pt-[calc(env(safe-area-inset-top)+4.5rem)]">
       <Container className="py-8">
         <PageAuth>
           {withStoreValidation ? <PageStore>{children}</PageStore> : children}

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
-import { useRootStore } from '../RootStore.tsx'
-import { CategoriesActionTypes } from '../types.tsx'
+import { useRootStore } from '../RootStore.jsx'
+import { CategoriesActionTypes } from '../types.jsx'
 
 export const useDisabledCategories = () => {
   const { state, dispatch } = useRootStore()

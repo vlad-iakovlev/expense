@@ -1,6 +1,6 @@
 import { Middleware } from 'next-api-middleware'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../pages/api/auth/[...nextauth].ts'
+import { authOptions } from '../pages/api/auth/[...nextauth].js'
 
 export const sessionMiddleware: Middleware = async (req, res, next) => {
   const session = await getServerSession(req, res, authOptions)

@@ -1,7 +1,7 @@
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid'
-import { Button } from '../Button/Button.tsx'
-import { Card } from '../Card/Card.tsx'
-import { Dialog } from '../Dialog/Dialog.tsx'
+import { Button } from '../Button/Button.jsx'
+import { Card } from '../Card/Card.jsx'
+import { Dialog } from '../Dialog/Dialog.jsx'
 
 export interface ConfirmDialogProps {
   isOpen: boolean
@@ -27,10 +27,10 @@ export const ConfirmDialog = ({
           title={title}
           actions={
             <div
-              className="flex-none flex items-center justify-center -my-1 w-10 h-10 rounded-full bg-red-100"
+              className="-my-1 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-red-100"
               aria-hidden="true"
             >
-              <ExclamationTriangleIcon className="w-6 h-6 text-red-700" />
+              <ExclamationTriangleIcon className="h-6 w-6 text-red-700" />
             </div>
           }
           tabIndex={0}

@@ -1,13 +1,13 @@
 import { FunnelIcon } from '@heroicons/react/20/solid'
 import { useCallback, useState } from 'react'
-import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
-import { useDisabledCategories } from '../../../contexts/RootStore/hooks/useDisabledCategories.ts'
-import { ClientCurrency, ClientStatisticsType } from '../../../types/client.ts'
-import { formatAmount } from '../../../utils/formatAmount.ts'
-import { Amount } from '../../ui-kit/Amount/Amount.tsx'
-import { Button } from '../../ui-kit/Button/Button.tsx'
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Switch } from '../../ui-kit/Switch/Switch.tsx'
+import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.jsx'
+import { useDisabledCategories } from '../../../contexts/RootStore/hooks/useDisabledCategories.js'
+import { ClientCurrency, ClientStatisticsType } from '../../../types/client.js'
+import { formatAmount } from '../../../utils/formatAmount.js'
+import { Amount } from '../../ui-kit/Amount/Amount.jsx'
+import { Button } from '../../ui-kit/Button/Button.jsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Switch } from '../../ui-kit/Switch/Switch.jsx'
 
 const AMOUNT_TYPE = {
   [ClientStatisticsType.INCOMES]: 'income',

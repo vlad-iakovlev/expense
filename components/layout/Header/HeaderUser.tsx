@@ -1,9 +1,9 @@
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { useCallback, useState } from 'react'
-import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
-import { Button } from '../../ui-kit/Button/Button.tsx'
-import { Card } from '../../ui-kit/Card/Card.tsx'
+import { Avatar } from '../../ui-kit/Avatar/Avatar.jsx'
+import { Button } from '../../ui-kit/Button/Button.jsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
 
 interface Props {
   className?: string
@@ -85,10 +85,10 @@ export const HeaderUser = ({ className }: Props) => {
             <Card.Item
               label={
                 <>
-                  <div className="text-xl truncate">
+                  <div className="truncate text-xl">
                     {session.data.user.name}
                   </div>
-                  <div className="text-zinc-600 truncate">
+                  <div className="truncate text-zinc-600">
                     {session.data.user.email}
                   </div>
                 </>
@@ -101,7 +101,7 @@ export const HeaderUser = ({ className }: Props) => {
 
             <Card.Item
               disabled={isLoading}
-              prefix={<ArrowRightOnRectangleIcon className="w-6 h-6" />}
+              prefix={<ArrowRightOnRectangleIcon className="h-6 w-6" />}
               label="Sign Out"
               role="menuitem"
               onClick={handleSignOut}

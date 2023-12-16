@@ -1,17 +1,17 @@
 import assert from 'assert'
-import { PerformSyncResponse } from '../../../api/server/sync/types.ts'
-import { parseAmount } from '../../../utils/parseAmount.ts'
-import { uniqBy } from '../../../utils/uniqBy.ts'
+import { PerformSyncResponse } from '../../../api/server/sync/types.js'
+import { parseAmount } from '../../../utils/parseAmount.js'
+import { uniqBy } from '../../../utils/uniqBy.js'
 import {
   BrowserStorageState,
   RootStoreState,
   StorageActionType,
-} from '../types.tsx'
+} from '../types.jsx'
 import {
   getEmptyState,
   getEmptyTransaction,
   mergeTransactions,
-} from '../utils.ts'
+} from '../utils.js'
 
 const startSyncReducer: React.Reducer<
   RootStoreState,

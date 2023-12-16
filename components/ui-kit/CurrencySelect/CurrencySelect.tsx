@@ -1,9 +1,9 @@
 import assert from 'assert'
 import { useMemo } from 'react'
-import { useCurrencies } from '../../../contexts/RootStore/hooks/useCurrencies.ts'
-import { ClientCurrency } from '../../../types/client.ts'
-import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
-import { CurrencyBadge } from '../CurrencyBadge/CurrencyBadge.tsx'
+import { useCurrencies } from '../../../contexts/RootStore/hooks/useCurrencies.js'
+import { ClientCurrency } from '../../../types/client.js'
+import { Card, CardSelectItem } from '../../ui-kit/Card/Card.jsx'
+import { CurrencyBadge } from '../CurrencyBadge/CurrencyBadge.jsx'
 
 const PRIORITIZED_CURRENCIES = ['USD', 'EUR']
 

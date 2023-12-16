@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { GetSectorProps } from '../../../utils/client/getSector.ts'
-import { Sector } from './PieChart.Sector.tsx'
+import { GetSectorProps } from '../../../utils/client/getSector.js'
+import { Sector } from './PieChart.Sector.jsx'
 
 export interface PieChartItem {
   id: string
@@ -60,7 +60,7 @@ export const PieChart = ({
         <circle cx="50" cy="50" r="40" fill="white" />
       </svg>
 
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         {renderTooltip(activeId, total)}
       </div>
     </div>

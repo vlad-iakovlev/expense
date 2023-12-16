@@ -2,10 +2,10 @@ import { useCallback, useMemo } from 'react'
 import {
   ClientOperationType,
   PopulatedClientOperation,
-} from '../../../types/client.ts'
-import { useRootStore } from '../RootStore.tsx'
-import { getPopulatedOperation } from '../getters/operations.ts'
-import { OperationsActionTypes } from '../types.tsx'
+} from '../../../types/client.js'
+import { useRootStore } from '../RootStore.jsx'
+import { getPopulatedOperation } from '../getters/operations.js'
+import { OperationsActionTypes } from '../types.jsx'
 
 interface Props {
   operationId: string

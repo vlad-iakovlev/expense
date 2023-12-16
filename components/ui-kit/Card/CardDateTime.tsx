@@ -1,12 +1,12 @@
 import { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.ts'
+import { Modify } from '../../../types/utility.js'
 import {
   formatDateForInput,
   formatDateTime,
   formatDateTimeForAriaLabel,
-} from '../../../utils/formatDate.ts'
-import { CardItem, CardItemProps } from './CardItem.tsx'
+} from '../../../utils/formatDate.js'
+import { CardItem, CardItemProps } from './CardItem.jsx'
 
 export type CardDateTimeProps = Modify<
   CardItemProps,
@@ -74,7 +74,7 @@ export const CardDateTime = ({
       value={
         isEditing ? (
           <input
-            className="w-full text-right bg-transparent focus:outline-none"
+            className="w-full bg-transparent text-right focus:outline-none"
             autoFocus
             type="datetime-local"
             value={inputValue}

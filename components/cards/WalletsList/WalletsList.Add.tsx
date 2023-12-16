@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router.js'
 import { useCallback } from 'react'
-import { ROUTES } from '../../../constants/routes.ts'
-import { useWallets } from '../../../contexts/RootStore/hooks/useWallets.ts'
-import { Button } from '../../ui-kit/Button/Button.tsx'
+import { ROUTES } from '../../../constants/routes.js'
+import { useWallets } from '../../../contexts/RootStore/hooks/useWallets.js'
+import { Button } from '../../ui-kit/Button/Button.jsx'
 
 interface Props {
   groupId: string

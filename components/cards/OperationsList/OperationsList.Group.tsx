@@ -1,9 +1,9 @@
 import {
   formatDate,
   formatDateForAriaLabel,
-} from '../../../utils/formatDate.ts'
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Operation } from './OperationsList.Operation.tsx'
+} from '../../../utils/formatDate.js'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Operation } from './OperationsList.Operation.jsx'
 
 interface Props {
   date: Date

@@ -1,7 +1,7 @@
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { DefaultCurrency } from './GroupSettingsGeneral.DefaultCurrency.tsx'
-import { Delete } from './GroupSettingsGeneral.Delete.tsx'
-import { Name } from './GroupSettingsGeneral.Name.tsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { DefaultCurrency } from './GroupSettingsGeneral.DefaultCurrency.jsx'
+import { Delete } from './GroupSettingsGeneral.Delete.jsx'
+import { Name } from './GroupSettingsGeneral.Name.jsx'
 
 interface Props {
   className?: string

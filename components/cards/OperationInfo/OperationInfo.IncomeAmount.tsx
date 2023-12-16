@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
-import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
-import { formatAmount } from '../../../utils/formatAmount.ts'
-import { parseAmount } from '../../../utils/parseAmount.ts'
-import { Card } from '../../ui-kit/Card/Card.tsx'
+import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.js'
+import { formatAmount } from '../../../utils/formatAmount.js'
+import { parseAmount } from '../../../utils/parseAmount.js'
+import { Card } from '../../ui-kit/Card/Card.jsx'
 
 interface Props {
   operationId: string

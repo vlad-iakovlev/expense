@@ -5,11 +5,11 @@ import {
   ClientStatisticsItem,
   ClientStatisticsType,
   ClientWallet,
-} from '../../../types/client.ts'
-import { stringToColor } from '../../../utils/stringToColor.ts'
-import { uniq } from '../../../utils/uniq.ts'
-import { useRootStore } from '../RootStore.tsx'
-import { getDefaultCurrency } from '../getters/currencies.ts'
+} from '../../../types/client.js'
+import { stringToColor } from '../../../utils/stringToColor.js'
+import { uniq } from '../../../utils/uniq.js'
+import { useRootStore } from '../RootStore.jsx'
+import { getDefaultCurrency } from '../getters/currencies.js'
 
 const WALLET_ID_FIELD = {
   [ClientStatisticsType.INCOMES]: 'incomeWalletId',

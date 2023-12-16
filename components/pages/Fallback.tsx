@@ -1,7 +1,7 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
 import { useCallback } from 'react'
-import { NextHead } from '../next/Head.ts'
-import { Card } from '../ui-kit/Card/Card.tsx'
+import { NextHead } from '../next/Head.js'
+import { Card } from '../ui-kit/Card/Card.jsx'
 
 export const Fallback = () => {
   const handleRestart = useCallback(() => {
@@ -20,7 +20,7 @@ export const Fallback = () => {
           <Card.Divider />
           <Card.Item
             label="Restart Expense"
-            prefix={<ArrowPathIcon className="w-6 h-6" />}
+            prefix={<ArrowPathIcon className="h-6 w-6" />}
             onClick={handleRestart}
           />
         </Card>

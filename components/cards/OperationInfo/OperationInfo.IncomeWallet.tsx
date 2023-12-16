@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { useMemo } from 'react'
-import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.ts'
-import { WalletSelect } from '../../ui-kit/WalletSelect/WalletSelect.tsx'
+import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.js'
+import { WalletSelect } from '../../ui-kit/WalletSelect/WalletSelect.jsx'
 
 interface Props {
   operationId: string

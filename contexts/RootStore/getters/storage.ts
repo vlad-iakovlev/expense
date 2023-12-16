@@ -1,7 +1,7 @@
-import { PerformSyncBody } from '../../../api/server/sync/types.ts'
-import { formatAmount } from '../../../utils/formatAmount.ts'
-import { BrowserStorageState, RootStoreState } from '../types.tsx'
-import { isTransactionEmpty } from '../utils.ts'
+import { PerformSyncBody } from '../../../api/server/sync/types.js'
+import { formatAmount } from '../../../utils/formatAmount.js'
+import { BrowserStorageState, RootStoreState } from '../types.jsx'
+import { isTransactionEmpty } from '../utils.js'
 
 export const getBrowserStorageState = (
   state: RootStoreState,

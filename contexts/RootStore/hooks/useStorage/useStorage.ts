@@ -1,10 +1,10 @@
-import { StorageAction } from '../../reducers/storage.ts'
-import { RootStoreState } from '../../types.tsx'
-import { useCleanupOldLocalStorageVersions } from './useCleanupOldLocalStorageVersions.ts'
-import { useLoadStateFromLocalStorage } from './useLoadStateFromLocalStorage.ts'
-import { useResetStateForUnauthenticated } from './useResetStateForUnauthenticated.ts'
-import { useSaveStateToLocalStorage } from './useSaveStateToLocalStorage.ts'
-import { useSyncStateWithServer } from './useSyncStateWithServer.ts'
+import { StorageAction } from '../../reducers/storage.js'
+import { RootStoreState } from '../../types.jsx'
+import { useCleanupOldLocalStorageVersions } from './useCleanupOldLocalStorageVersions.js'
+import { useLoadStateFromLocalStorage } from './useLoadStateFromLocalStorage.js'
+import { useResetStateForUnauthenticated } from './useResetStateForUnauthenticated.js'
+import { useSaveStateToLocalStorage } from './useSaveStateToLocalStorage.js'
+import { useSyncStateWithServer } from './useSyncStateWithServer.js'
 
 export const useStorage = (
   state: RootStoreState,

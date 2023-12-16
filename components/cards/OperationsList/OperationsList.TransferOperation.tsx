@@ -1,10 +1,10 @@
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import assert from 'assert'
 import { twMerge } from 'tailwind-merge'
-import { PopulatedClientOperation } from '../../../types/client.ts'
-import { formatAmount } from '../../../utils/formatAmount.ts'
-import { formatTime } from '../../../utils/formatDate.ts'
-import { Amount } from '../../ui-kit/Amount/Amount.tsx'
+import { PopulatedClientOperation } from '../../../types/client.js'
+import { formatAmount } from '../../../utils/formatAmount.js'
+import { formatTime } from '../../../utils/formatDate.js'
+import { Amount } from '../../ui-kit/Amount/Amount.jsx'
 
 interface Props {
   operation: PopulatedClientOperation
@@ -38,8 +38,8 @@ export const TransferOperation = ({ operation, walletId }: Props) => {
 
       <div className="text-sm text-zinc-600">{formatTime(operation.date)}</div>
 
-      <div className="flex items-center gap-3 mt-2">
-        <div className="flex-1 min-w-0">
+      <div className="mt-2 flex items-center gap-3">
+        <div className="min-w-0 flex-1">
           <Amount
             className="font-medium"
             amount={operation.expenseAmount}
@@ -49,7 +49,7 @@ export const TransferOperation = ({ operation, walletId }: Props) => {
 
           <div
             className={twMerge(
-              'text-sm truncate',
+              'truncate text-sm',
               operation.expenseWallet.id === walletId
                 ? 'font-medium'
                 : 'text-zinc-600',
@@ -59,9 +59,9 @@ export const TransferOperation = ({ operation, walletId }: Props) => {
           </div>
         </div>
 
-        <ArrowRightIcon className="flex-none w-5 h-5" />
+        <ArrowRightIcon className="h-5 w-5 flex-none" />
 
-        <div className="flex-1 min-w-0 text-right">
+        <div className="min-w-0 flex-1 text-right">
           <Amount
             className="font-medium"
             amount={operation.incomeAmount}
@@ -71,7 +71,7 @@ export const TransferOperation = ({ operation, walletId }: Props) => {
 
           <div
             className={twMerge(
-              'text-sm truncate',
+              'truncate text-sm',
               operation.incomeWallet.id === walletId
                 ? 'font-medium'
                 : 'text-zinc-600',

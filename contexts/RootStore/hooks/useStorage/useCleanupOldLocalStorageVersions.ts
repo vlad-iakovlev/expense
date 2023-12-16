@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { LOCAL_STORAGE_VERSION, getLocalStorageKey } from './constants.ts'
+import { LOCAL_STORAGE_VERSION, getLocalStorageKey } from './constants.js'
 
 export const useCleanupOldLocalStorageVersions = () => {
   useEffect(() => {

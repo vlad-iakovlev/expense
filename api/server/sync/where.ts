@@ -1,5 +1,5 @@
 import { Transaction } from '@prisma/client'
-import { Modify } from '../../../types/utility.ts'
+import { Modify } from '../../../types/utility.js'
 
 const getGroupAddedSinceLastSyncWhere = (params: {
   userId: string

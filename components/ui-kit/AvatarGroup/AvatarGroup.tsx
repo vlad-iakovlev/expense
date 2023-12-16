@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.ts'
-import { Avatar, AvatarProps } from '../Avatar/Avatar.tsx'
+import { Modify } from '../../../types/utility.js'
+import { Avatar, AvatarProps } from '../Avatar/Avatar.jsx'
 
 export type AvatarGroupProps = Modify<
   React.HTMLAttributes<HTMLDivElement>,

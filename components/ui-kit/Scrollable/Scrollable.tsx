@@ -1,7 +1,7 @@
 import { Variants, motion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Thumb, Track, getThumb, getTrack } from './utils.ts'
+import { Thumb, Track, getThumb, getTrack } from './utils.js'
 
 const DEFAULT_TRACK: Track = {
   startOffset: 0,
@@ -113,14 +113,14 @@ export const Scrollable = ({
     <div className={twMerge('relative overflow-hidden', className)}>
       <div
         ref={contentRef}
-        className={twMerge('overflow-auto hide-scrollbars', contentClassName)}
+        className={twMerge('hide-scrollbars overflow-auto', contentClassName)}
       >
         {children}
       </div>
 
       <motion.div
         key="v-track"
-        className="absolute pointer-events-none"
+        className="pointer-events-none absolute"
         animate={isVTrackVisible ? 'opened' : 'closed'}
         variants={variants}
         style={{
@@ -139,7 +139,7 @@ export const Scrollable = ({
 
       <motion.div
         key="h-track"
-        className="absolute pointer-events-none"
+        className="pointer-events-none absolute"
         animate={isHTrackVisible ? 'opened' : 'closed'}
         variants={variants}
         style={{

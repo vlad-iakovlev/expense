@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { NextApiHandler } from 'next'
 import fetch from 'node-fetch'
-import { prisma } from '../../../utils/server/prisma.ts'
+import { prisma } from '../../../utils/server/prisma.js'
 
 interface RatesResponse {
   base: string

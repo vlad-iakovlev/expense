@@ -3,7 +3,7 @@ import assert from 'assert'
 import { defaultImport } from 'default-import'
 import defaultNextAuth, { AuthOptions } from 'next-auth'
 import defaultGoogleProvider from 'next-auth/providers/google'
-import { prisma } from '../../../utils/server/prisma.ts'
+import { prisma } from '../../../utils/server/prisma.js'
 
 const NextAuth = defaultImport(defaultNextAuth)
 const GoogleProvider = defaultImport(defaultGoogleProvider)

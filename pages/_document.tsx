@@ -1,5 +1,5 @@
 import { Head, Html, Main, NextScript } from 'next/document.js'
-import { ApplePWA } from '../components/misc/ApplePWA.tsx'
+import { ApplePWA } from '../components/misc/ApplePWA.jsx'
 
 export const MyDocument = () => {
   return (
@@ -18,7 +18,7 @@ export const MyDocument = () => {
         <ApplePWA />
       </Head>
 
-      <body className="bg-zinc-300 overscroll-none select-none touch-pan-y [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]">
+      <body className="touch-pan-y select-none overscroll-none bg-zinc-300 [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]">
         <Main />
         <NextScript />
       </body>

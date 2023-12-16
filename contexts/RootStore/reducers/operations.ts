@@ -1,6 +1,6 @@
 import { produce } from 'immer'
-import { ClientOperationType } from '../../../types/client.ts'
-import { OperationsActionTypes, RootStoreState } from '../types.tsx'
+import { ClientOperationType } from '../../../types/client.js'
+import { OperationsActionTypes, RootStoreState } from '../types.jsx'
 
 const createOperationReducer: React.Reducer<
   RootStoreState,

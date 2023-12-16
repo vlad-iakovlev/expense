@@ -1,9 +1,9 @@
 import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { useCallback, useMemo, useState } from 'react'
-import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.tsx'
-import { useCategories } from '../../../contexts/RootStore/hooks/useCategories.ts'
-import { Button } from '../../ui-kit/Button/Button.tsx'
-import { Card, CardSelectOption } from '../../ui-kit/Card/Card.tsx'
+import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.jsx'
+import { useCategories } from '../../../contexts/RootStore/hooks/useCategories.js'
+import { Button } from '../../ui-kit/Button/Button.jsx'
+import { Card, CardSelectOption } from '../../ui-kit/Card/Card.jsx'
 
 interface Props {
   className?: string

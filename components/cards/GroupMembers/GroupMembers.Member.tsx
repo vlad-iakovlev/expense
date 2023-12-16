@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react'
-import { useGroupMembers } from '../../../contexts/RootStore/hooks/useGroupMembers.ts'
-import { Avatar } from '../../ui-kit/Avatar/Avatar.tsx'
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { Delete } from './GroupMembers.Delete.tsx'
+import { useGroupMembers } from '../../../contexts/RootStore/hooks/useGroupMembers.js'
+import { Avatar } from '../../ui-kit/Avatar/Avatar.jsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Delete } from './GroupMembers.Delete.jsx'
 
 interface Props {
   groupId: string

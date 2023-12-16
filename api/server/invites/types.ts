@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { acceptInviteBodySchema, createInviteBodySchema } from './schemas.ts'
+import { acceptInviteBodySchema, createInviteBodySchema } from './schemas.js'
 
 export type CreateInviteBody = z.infer<typeof createInviteBodySchema>
 

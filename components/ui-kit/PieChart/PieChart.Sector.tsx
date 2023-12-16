@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { GetSectorProps, getSector } from '../../../utils/client/getSector.ts'
+import { GetSectorProps, getSector } from '../../../utils/client/getSector.js'
 
 const DURATION = 200
 

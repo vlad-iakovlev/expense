@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
 import { useState } from 'react'
-import { Page } from '../../components/layout/Page/Page.tsx'
-import { Invite } from '../../components/pages/Invite.tsx'
+import { Page } from '../../components/layout/Page/Page.jsx'
+import { Invite } from '../../components/pages/Invite.jsx'
 
 const InvitePage: NextPage = () => {
   const router = useRouter()

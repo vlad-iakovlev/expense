@@ -1,8 +1,8 @@
 import * as fns from 'date-fns'
 import { useMemo } from 'react'
-import { ClientOperation, GroupedOperations } from '../../../types/client.ts'
-import { useRootStore } from '../RootStore.tsx'
-import { getOrderedOperations } from '../getters/operations.ts'
+import { ClientOperation, GroupedOperations } from '../../../types/client.js'
+import { useRootStore } from '../RootStore.jsx'
+import { getOrderedOperations } from '../getters/operations.js'
 
 interface Props {
   groupId?: string

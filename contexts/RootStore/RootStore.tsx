@@ -1,33 +1,33 @@
 import assert from 'assert'
 import { createContext, useContext, useReducer } from 'react'
-import { useStorage } from './hooks/useStorage/useStorage.ts'
+import { useStorage } from './hooks/useStorage/useStorage.js'
 import {
   CategoriesAction,
   categoriesReducer,
   isCategoriesAction,
-} from './reducers/categories.ts'
+} from './reducers/categories.js'
 import {
   GroupsAction,
   groupsReducer,
   isGroupsAction,
-} from './reducers/groups.ts'
+} from './reducers/groups.js'
 import {
   OperationsAction,
   isOperationsAction,
   operationsReducer,
-} from './reducers/operations.ts'
+} from './reducers/operations.js'
 import {
   StorageAction,
   isStorageAction,
   storageReducer,
-} from './reducers/storage.ts'
+} from './reducers/storage.js'
 import {
   WalletsAction,
   isWalletsAction,
   walletsReducer,
-} from './reducers/wallet.ts'
-import { RootStoreState } from './types.tsx'
-import { getEmptyState } from './utils.ts'
+} from './reducers/wallet.js'
+import { RootStoreState } from './types.jsx'
+import { getEmptyState } from './utils.js'
 
 type Action =
   | StorageAction

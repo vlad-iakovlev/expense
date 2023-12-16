@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { useRootStore } from '../../../contexts/RootStore/RootStore.tsx'
-import { getPopulatedWallet } from '../../../contexts/RootStore/getters/wallets.ts'
-import { useGroupedWallets } from '../../../contexts/RootStore/hooks/useGroupedWallets.ts'
-import { PopulatedClientWallet } from '../../../types/client.ts'
-import { Card, CardSelectItem } from '../../ui-kit/Card/Card.tsx'
-import { CurrencyBadge } from '../CurrencyBadge/CurrencyBadge.tsx'
+import { useRootStore } from '../../../contexts/RootStore/RootStore.jsx'
+import { getPopulatedWallet } from '../../../contexts/RootStore/getters/wallets.js'
+import { useGroupedWallets } from '../../../contexts/RootStore/hooks/useGroupedWallets.js'
+import { PopulatedClientWallet } from '../../../types/client.js'
+import { Card, CardSelectItem } from '../../ui-kit/Card/Card.jsx'
+import { CurrencyBadge } from '../CurrencyBadge/CurrencyBadge.jsx'
 
 export interface WalletSelectProps {
   label: string

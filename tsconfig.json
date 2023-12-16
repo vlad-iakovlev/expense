@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "allowImportingTsExtensions": true,
     "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "incremental": true,
     "isolatedModules": true,
@@ -16,7 +14,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
-    "types": ["node"]
+    "types": ["node", "next"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

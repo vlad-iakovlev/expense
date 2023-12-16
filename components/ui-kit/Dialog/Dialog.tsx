@@ -1,7 +1,7 @@
 import FocusTrap from 'focus-trap-react'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { useEffect } from 'react'
-import { Portal } from '../Portal/Portal.tsx'
+import { Portal } from '../Portal/Portal.jsx'
 
 const rootVariants: Variants = {
   opened: {
@@ -54,7 +54,7 @@ export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed z-40 inset-0"
+            className="fixed inset-0 z-40"
             initial="closed"
             animate="opened"
             exit="closed"
@@ -66,10 +66,10 @@ export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
               onClick={onClose}
             />
 
-            <div className="flex min-h-full items-end sm:items-center justify-center overflow-y-auto pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]">
+            <div className="flex min-h-full items-end justify-center overflow-y-auto pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] pt-[env(safe-area-inset-top)] sm:items-center">
               <FocusTrap>
                 <motion.div
-                  className="relative overflow-hidden w-full max-w-lg m-4 sm:my-8 rounded-lg bg-white shadow-xl"
+                  className="relative m-4 w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-xl sm:my-8"
                   initial="closed"
                   animate="opened"
                   exit="closed"

@@ -3,12 +3,12 @@ import {
   ClientCurrency,
   ClientStatisticsItem,
   ClientStatisticsType,
-} from '../../../types/client.ts'
-import { formatAmount } from '../../../utils/formatAmount.ts'
-import { formatPercent } from '../../../utils/formatPercent.ts'
-import { Amount } from '../../ui-kit/Amount/Amount.tsx'
-import { Card } from '../../ui-kit/Card/Card.tsx'
-import { PieChart, PieChartItem } from '../../ui-kit/PieChart/PieChart.tsx'
+} from '../../../types/client.js'
+import { formatAmount } from '../../../utils/formatAmount.js'
+import { formatPercent } from '../../../utils/formatPercent.js'
+import { Amount } from '../../ui-kit/Amount/Amount.jsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
+import { PieChart, PieChartItem } from '../../ui-kit/PieChart/PieChart.jsx'
 
 const TITLE = {
   [ClientStatisticsType.INCOMES]: 'Incomes',
@@ -47,11 +47,11 @@ export const Chart = ({ currency, items, type }: Props) => {
             currency.name ?? currency.symbol
           }`}
         >
-          <div className="text-gray-600 truncate">
+          <div className="truncate text-gray-600">
             {item ? item.category : TITLE[type]}
           </div>
           <Amount
-            className="text-lg font-medium truncate"
+            className="truncate text-lg font-medium"
             amount={item ? item.amount : total}
             currency={currency}
             type={AMOUNT_TYPE[type]}
@@ -72,7 +72,7 @@ export const Chart = ({ currency, items, type }: Props) => {
       aria-disabled="true"
     >
       <PieChart
-        className="flex-1 max-w-56"
+        className="max-w-56 flex-1"
         items={chartItems}
         renderTooltip={renderTooltip}
       />

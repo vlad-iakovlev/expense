@@ -6,8 +6,8 @@ import {
   ClientUser,
   ClientUserGroup,
   ClientWallet,
-} from '../../types/client.ts'
-import { Modify } from '../../types/utility.ts'
+} from '../../types/client.js'
+import { Modify } from '../../types/utility.js'
 
 export interface RootStoreState {
   currencies: ClientCurrency[]

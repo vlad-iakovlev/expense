@@ -1,12 +1,12 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
-import { Period } from '../../../hooks/usePeriod.ts'
+import { Period } from '../../../hooks/usePeriod.js'
 import {
   formatPeriod,
   formatPeriodForAriaLabel,
-} from '../../../utils/formatDate.ts'
-import { Button } from '../../ui-kit/Button/Button.tsx'
-import { Card } from '../../ui-kit/Card/Card.tsx'
+} from '../../../utils/formatDate.js'
+import { Button } from '../../ui-kit/Button/Button.jsx'
+import { Card } from '../../ui-kit/Card/Card.jsx'
 
 const variants: Variants = {
   opened: {
@@ -97,7 +97,7 @@ export const PeriodSelector = ({
           >
             <Card.Block role="presentation">
               <div
-                className="flex-auto order-2 font-medium text-center truncate"
+                className="order-2 flex-auto truncate text-center font-medium"
                 tabIndex={0}
                 aria-label={formatPeriodForAriaLabel(period, fromDate)}
                 role="presentation"
@@ -106,7 +106,7 @@ export const PeriodSelector = ({
               </div>
 
               <Button
-                className="flex-none order-1"
+                className="order-1 flex-none"
                 size="md"
                 theme="white"
                 iconStart={<ChevronLeftIcon />}
@@ -115,7 +115,7 @@ export const PeriodSelector = ({
               />
 
               <Button
-                className="flex-none order-3"
+                className="order-3 flex-none"
                 size="md"
                 theme="white"
                 iconStart={<ChevronRightIcon />}

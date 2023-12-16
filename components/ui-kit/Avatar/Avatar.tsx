@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.ts'
-import { NextImage } from '../../next/Image.ts'
+import { Modify } from '../../../types/utility.js'
+import { NextImage } from '../../next/Image.js'
 
 export const avatarColors = [
   'red',
@@ -56,9 +56,9 @@ export const Avatar = ({
   return (
     <div
       className={twMerge(
-        'rounded-full overflow-hidden',
-        size === 'sm' && 'w-8 h-8',
-        size === 'md' && 'w-10 h-10',
+        'overflow-hidden rounded-full',
+        size === 'sm' && 'h-8 w-8',
+        size === 'md' && 'h-10 w-10',
         className,
       )}
       {...rest}
@@ -74,7 +74,7 @@ export const Avatar = ({
       ) : (
         <div
           className={twMerge(
-            'flex items-center justify-center w-full h-full font-medium text-white',
+            'flex h-full w-full items-center justify-center font-medium text-white',
             `bg-${color}-700`,
             size === 'sm' && 'text-sm',
           )}

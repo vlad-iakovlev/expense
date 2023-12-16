@@ -1,7 +1,7 @@
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { useRef } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { useMenuNavigation } from './useMenuNavigation.ts'
+import { useMenuNavigation } from './useMenuNavigation.js'
 
 const variants: Variants = {
   opened: {
@@ -59,11 +59,11 @@ export const Popup = ({
           <motion.div
             ref={popupRef}
             className={twMerge(
-              'absolute pointer-events-auto',
+              'pointer-events-auto absolute',
               position === 'above-left' && 'bottom-0 left-0',
               position === 'above-right' && 'bottom-0 right-0',
-              position === 'below-left' && 'top-0 left-0',
-              position === 'below-right' && 'top-0 right-0',
+              position === 'below-left' && 'left-0 top-0',
+              position === 'below-right' && 'right-0 top-0',
               popupClassName,
             )}
             initial="closed"
