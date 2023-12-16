@@ -1,5 +1,5 @@
 import { Variants, motion } from 'framer-motion'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Thumb, Track, getThumb, getTrack } from './utils.js'
 
@@ -28,14 +28,12 @@ const variants: Variants = {
 export interface ScrollableProps {
   className?: string
   contentClassName?: string
-  theme?: 'light' | 'dark'
   children: React.ReactNode
 }
 
 export const Scrollable = ({
   className,
   contentClassName,
-  theme = 'light',
   children,
 }: ScrollableProps) => {
   const contentRef = useRef<HTMLDivElement>(null)
@@ -101,13 +99,8 @@ export const Scrollable = ({
     }
   }, [isVTrackVisible, isHTrackVisible, vTrack, hTrack, vThumb, hThumb])
 
-  const thumbClassName = useMemo(() => {
-    return twMerge(
-      'absolute rounded-full',
-      theme === 'light' && 'bg-black bg-opacity-[0.35]',
-      theme === 'dark' && 'bg-white bg-opacity-50',
-    )
-  }, [theme])
+  const thumbClassName =
+    'absolute rounded-full bg-black bg-opacity-[0.35] dark:bg-white dark:bg-opacity-50'
 
   return (
     <div className={twMerge('relative overflow-hidden', className)}>

@@ -9,7 +9,7 @@ interface Props {
 
 export const Page = ({ withStoreValidation = true, children }: Props) => {
   return (
-    <main className="min-h-screen bg-zinc-300 pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] pt-[calc(env(safe-area-inset-top)+4.5rem)]">
+    <main className="min-h-screen pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] pt-[calc(env(safe-area-inset-top)+4.5rem)]">
       <Container className="py-8">
         <PageAuth>
           {withStoreValidation ? <PageStore>{children}</PageStore> : children}

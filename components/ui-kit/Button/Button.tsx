@@ -49,9 +49,9 @@ export const Button = ({
         theme === 'red' &&
           'bg-red-700 text-white shadow-inner hover:bg-red-800 active:bg-red-800',
         theme === 'zinc' &&
-          'bg-zinc-200 text-black shadow-inner hover:bg-zinc-300 active:bg-zinc-300',
+          'hover:.bg-quinary active:.bg-quinary text-primary bg-quaternary shadow-inner',
         theme === 'white' &&
-          'bg-white text-black ring-1 ring-inset ring-zinc-300 hover:bg-zinc-50 active:bg-zinc-50',
+          'text-primary bg-secondary ring-1 ring-inset ring-zinc-300 hover:bg-tertiary active:bg-tertiary dark:ring-zinc-600',
         disabled && 'pointer-events-none',
         className,
       )}

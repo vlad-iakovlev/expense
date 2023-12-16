@@ -46,7 +46,7 @@ export const Amount = ({
       <span>{sign}</span>
       <span>{formatAmount(amount)}</span>
       <span
-        className="opacity-60"
+        className="opacity-75"
         aria-label={currency.name ?? currency.symbol}
       >
         {hideCurrency ? '' : ` ${currency.symbol}`}

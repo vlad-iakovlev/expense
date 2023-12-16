@@ -39,7 +39,7 @@ export const ExpenseOperation = ({ operation, walletId }: Props) => {
         />
       </div>
 
-      <div className="flex items-center gap-3 text-sm text-zinc-600">
+      <div className="text-tertiary flex items-center gap-3 text-sm">
         <div className="flex-none">{formatTime(operation.date)}</div>
         {!walletId && (
           <div className="min-w-0 flex-auto truncate text-right">

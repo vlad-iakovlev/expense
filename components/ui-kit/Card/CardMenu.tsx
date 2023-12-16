@@ -7,7 +7,7 @@ export const CardMenu = ({ children, ...rest }: CardMenuProps) => {
   return (
     <Popup popupRole="menu" {...rest}>
       <Scrollable
-        className="rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5"
+        className="bg-secondary rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
         contentClassName="max-h-64 py-2 -mx-px px-px"
       >
         {children}

@@ -27,7 +27,7 @@ export const ConfirmDialog = ({
           title={title}
           actions={
             <div
-              className="-my-1 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-red-100"
+              className="-my-1 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-red-100 dark:bg-opacity-75"
               aria-hidden="true"
             >
               <ExclamationTriangleIcon className="h-6 w-6 text-red-700" />

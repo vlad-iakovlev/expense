@@ -12,7 +12,7 @@ export type CardTitleProps = Modify<
 
 export const CardTitle = ({ title, actions, ...rest }: CardTitleProps) => (
   <CardBlock role="presentation" {...rest}>
-    <h2 className="min-w-0 flex-auto truncate text-xl font-semibold leading-6 text-zinc-900">
+    <h2 className="text-secondary min-w-0 flex-auto truncate text-xl font-semibold leading-6">
       {title}
     </h2>
 

@@ -58,7 +58,7 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
       <CardBlock
         ref={ref}
         className={twMerge(
-          !!onClick && 'cursor-pointer hover:bg-zinc-100 active:bg-zinc-100',
+          !!onClick && 'cursor-pointer hover:bg-tertiary active:bg-tertiary',
           disabled && 'pointer-events-none',
           className,
         )}

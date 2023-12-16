@@ -62,14 +62,14 @@ export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
             variants={rootVariants}
           >
             <div
-              className="absolute inset-0 bg-zinc-500 bg-opacity-75"
+              className="absolute inset-0 bg-zinc-500 bg-opacity-75 dark:bg-zinc-900 dark:bg-opacity-75"
               onClick={onClose}
             />
 
             <div className="flex min-h-full items-end justify-center overflow-y-auto pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] pt-[env(safe-area-inset-top)] sm:items-center">
               <FocusTrap>
                 <motion.div
-                  className="relative m-4 w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-xl sm:my-8"
+                  className="bg-secondary relative m-4 w-full max-w-lg overflow-hidden rounded-lg shadow-xl sm:my-8"
                   initial="closed"
                   animate="opened"
                   exit="closed"
