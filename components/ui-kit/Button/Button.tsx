@@ -9,7 +9,7 @@ export type ButtonProps = Modify<
     iconStart?: React.ReactNode
     rounded?: boolean
     size: 'sm' | 'md' | 'lg'
-    theme: 'green' | 'red' | 'zinc' | 'white'
+    theme?: 'green' | 'red' | 'zinc' | 'white'
   }
 >
 
