@@ -66,6 +66,7 @@ export const Category = ({
 
   return (
     <Card.Item
+      className={isEnabled ? undefined : 'text-quaternary'}
       prefix={
         <Switch
           style={{ backgroundColor: isEnabled ? color : undefined }}

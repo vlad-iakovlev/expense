@@ -42,7 +42,7 @@ export const Switch = ({
     <button
       className={twMerge(
         'flex h-7 w-11 items-center rounded-full p-0.5 transition-colors',
-        value ? 'bg-green-700' : 'bg-quinary',
+        value ? 'bg-green-700' : 'bg-quaternary',
         className,
       )}
       type="button"
