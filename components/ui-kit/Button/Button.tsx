@@ -45,9 +45,9 @@ export const Button = ({
         size === 'md' && 'h-10 min-w-10 px-2',
         size === 'lg' && 'h-12 min-w-12 px-3',
         theme === 'green' &&
-          'bg-green-700 text-white shadow-inner hover:bg-green-800 active:bg-green-800',
+          'bg-green-700 text-white shadow-inner hover:bg-green-800 active:bg-green-800 dark:bg-green-800 dark:hover:bg-green-700 dark:active:bg-green-700',
         theme === 'red' &&
-          'bg-red-700 text-white shadow-inner hover:bg-red-800 active:bg-red-800',
+          'bg-red-700 text-white shadow-inner hover:bg-red-800 active:bg-red-800 dark:bg-red-800 dark:hover:bg-red-700 dark:active:bg-red-700',
         theme === 'zinc' &&
           'text-primary bg-quaternary shadow-inner hover:bg-quinary active:bg-quinary',
         theme === 'white' &&

@@ -64,7 +64,7 @@ export const Invite = ({ groupId }: Props) => {
             title="Your invite link is ready"
             actions={
               <div
-                className="-my-1 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-green-100 dark:bg-green-700"
+                className="-my-1 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-green-100 dark:bg-green-800"
                 aria-hidden="true"
               >
                 <CheckIcon className="h-6 w-6 text-green-700 dark:text-zinc-100" />
