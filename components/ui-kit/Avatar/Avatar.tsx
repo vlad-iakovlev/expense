@@ -75,7 +75,7 @@ export const Avatar = ({
         <div
           className={twMerge(
             'flex h-full w-full items-center justify-center font-medium text-white',
-            `bg-${color}-700`,
+            `bg-${color}-800`,
             size === 'sm' && 'text-sm',
           )}
         >

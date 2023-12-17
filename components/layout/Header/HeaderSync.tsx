@@ -17,7 +17,7 @@ export const HeaderSync = ({ className }: Props) => {
   return (
     <div
       className={twMerge(
-        'flex h-10 w-28 flex-col items-center justify-center rounded-md bg-green-700 px-2 font-medium text-white shadow-inner',
+        'flex h-10 w-28 flex-col items-center justify-center rounded-md bg-green-800 px-2 font-medium text-white shadow-inner',
         className,
       )}
       role="status"

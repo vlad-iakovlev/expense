@@ -13,12 +13,12 @@ export const MyDocument = () => {
           href="/icons/favicon.png"
         />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#16a34a" />
+        <meta name="theme-color" content="#15803d" />
         <meta name="description" content="Expense Tracker" />
         <ApplePWA />
       </Head>
 
-      <body className="touch-pan-y select-none overscroll-none bg-zinc-300 [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]">
+      <body className="text-primary bg-primary touch-pan-y select-none overscroll-none [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]">
         <Main />
         <NextScript />
       </body>

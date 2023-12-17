@@ -6,7 +6,7 @@ export const ApplePWA = () => {
         name="apple-mobile-web-app-status-bar-style"
         content="black-translucent"
       />
-      <link rel="mask-icon" href="/icons/mask-icon.svg" color="#16a34a" />
+      <link rel="mask-icon" href="/icons/mask-icon.svg" color="#15803d" />
       <link
         rel="apple-touch-icon"
         sizes="180x180"

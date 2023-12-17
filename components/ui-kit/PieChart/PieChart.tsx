@@ -57,7 +57,13 @@ export const PieChart = ({
     <div className={twMerge('relative aspect-square', className)}>
       <svg className="absolute inset-0" viewBox="0 0 100 100">
         {sectors}
-        <circle cx="50" cy="50" r="40" fill="white" />
+        <circle
+          className="text-white dark:text-zinc-800"
+          cx="50"
+          cy="50"
+          r="40"
+          fill="currentColor"
+        />
       </svg>
 
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">

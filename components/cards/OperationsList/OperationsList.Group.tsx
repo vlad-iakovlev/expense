@@ -13,7 +13,7 @@ interface Props {
 
 export const Group = ({ date, operationIds, walletId }: Props) => {
   return (
-    <div className="bg-white" role="listitem">
+    <div className="bg-secondary" role="listitem">
       <div role="list" aria-label={formatDateForAriaLabel(date)}>
         <Card.Subtitle subtitle={formatDate(date)} />
 

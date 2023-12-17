@@ -14,7 +14,7 @@ export const Fallback = () => {
         <title>Expense</title>
       </NextHead>
 
-      <div className="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-300">
+      <div className="bg-primary fixed inset-0 z-[100] flex items-center justify-center">
         <Card className="min-w-72">
           <Card.Title title="Oops!" />
           <Card.Divider />

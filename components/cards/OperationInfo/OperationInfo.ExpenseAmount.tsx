@@ -25,7 +25,7 @@ export const ExpenseAmount = ({ operationId }: Props) => {
 
   return (
     <Card.Input
-      valueClassName="text-red-700"
+      valueClassName="text-red-700 dark:text-red-500"
       label="Amount"
       value={formatAmount(operation.expenseAmount)}
       onChange={handleChange}

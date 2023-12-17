@@ -7,7 +7,7 @@ export interface CurrencyBadgeProps {
 export const CurrencyBadge = ({ currency }: CurrencyBadgeProps) => {
   return (
     <div
-      className="flex w-14 flex-none items-center justify-center rounded-md bg-zinc-200 px-2 py-1 text-sm text-zinc-700"
+      className="text-tertiary bg-quaternary flex w-14 flex-none items-center justify-center rounded-md px-2 py-1 text-sm"
       aria-hidden="true"
     >
       {currency.symbol}

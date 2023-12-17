@@ -47,7 +47,7 @@ export const Chart = ({ currency, items, type }: Props) => {
             currency.name ?? currency.symbol
           }`}
         >
-          <div className="truncate text-gray-600">
+          <div className="text-tertiary truncate">
             {item ? item.category : TITLE[type]}
           </div>
           <Amount
@@ -56,7 +56,7 @@ export const Chart = ({ currency, items, type }: Props) => {
             currency={currency}
             type={AMOUNT_TYPE[type]}
           />
-          <div className="text-gray-600">
+          <div className="text-tertiary">
             {formatPercent(item ? item.amount / total : 1)}
           </div>
         </div>

@@ -55,7 +55,7 @@ export const Group = ({
     <div
       ref={setNodeRef}
       className={twMerge(
-        'relative bg-white transition-shadow',
+        'bg-secondary relative transition-shadow',
         isDragging ? 'z-10 shadow-dnd' : 'shadow-none',
       )}
       style={{
@@ -78,7 +78,7 @@ export const Group = ({
                 {...attributes}
                 {...listeners}
               >
-                <DndIcon className="h-6 w-6 text-zinc-400" />
+                <DndIcon className="h-6 w-6 text-zinc-400 dark:text-zinc-600" />
               </div>
             )
           }

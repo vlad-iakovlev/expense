@@ -50,6 +50,7 @@ export const HeaderUser = ({ className }: Props) => {
     <div className={className}>
       {session.status === 'unauthenticated' && (
         <Button
+          className="bg-green-800"
           disabled={isLoading}
           size="md"
           theme="green"
@@ -88,7 +89,7 @@ export const HeaderUser = ({ className }: Props) => {
                   <div className="truncate text-xl">
                     {session.data.user.name}
                   </div>
-                  <div className="truncate text-zinc-600">
+                  <div className="text-tertiary truncate">
                     {session.data.user.email}
                   </div>
                 </>

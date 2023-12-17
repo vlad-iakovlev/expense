@@ -36,7 +36,7 @@ export const TransferOperation = ({ operation, walletId }: Props) => {
         {operation.category} – {operation.name}
       </div>
 
-      <div className="text-sm text-zinc-600">{formatTime(operation.date)}</div>
+      <div className="text-tertiary text-sm">{formatTime(operation.date)}</div>
 
       <div className="mt-2 flex items-center gap-3">
         <div className="min-w-0 flex-1">
@@ -52,7 +52,7 @@ export const TransferOperation = ({ operation, walletId }: Props) => {
               'truncate text-sm',
               operation.expenseWallet.id === walletId
                 ? 'font-medium'
-                : 'text-zinc-600',
+                : 'text-tertiary',
             )}
           >
             {operation.expenseWallet.name}
@@ -74,7 +74,7 @@ export const TransferOperation = ({ operation, walletId }: Props) => {
               'truncate text-sm',
               operation.incomeWallet.id === walletId
                 ? 'font-medium'
-                : 'text-zinc-600',
+                : 'text-tertiary',
             )}
           >
             {operation.incomeWallet.name}
