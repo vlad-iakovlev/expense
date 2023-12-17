@@ -50,6 +50,7 @@ export const HeaderUser = ({ className }: Props) => {
     <div className={className}>
       {session.status === 'unauthenticated' && (
         <Button
+          className="bg-green-800"
           disabled={isLoading}
           size="md"
           theme="green"

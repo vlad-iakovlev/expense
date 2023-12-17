@@ -74,7 +74,7 @@ void (async () => {
       dstPath: 'icons/icon-192-maskable.png',
       srcSize: Math.floor(192 * 0.6),
       dstSize: 192,
-      background: '#16a34aff',
+      background: '#15803dff',
     })
 
     await generateIcon({
@@ -82,7 +82,7 @@ void (async () => {
       dstPath: 'icons/icon-512-maskable.png',
       srcSize: Math.floor(512 * 0.6),
       dstSize: 512,
-      background: '#16a34aff',
+      background: '#15803dff',
     })
 
     await generateIcon({
@@ -90,7 +90,7 @@ void (async () => {
       dstPath: 'icons/apple-touch-icon.png',
       srcSize: Math.floor(180 * 0.75),
       dstSize: 180,
-      background: '#16a34aff',
+      background: '#15803dff',
     })
 
     process.exit(0)

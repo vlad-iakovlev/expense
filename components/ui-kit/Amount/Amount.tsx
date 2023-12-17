@@ -38,8 +38,8 @@ export const Amount = ({
   return (
     <div
       className={twMerge(
-        type === 'income' && 'text-green-700',
-        type === 'expense' && 'text-red-700',
+        type === 'income' && 'text-green-700 dark:text-green-500',
+        type === 'expense' && 'text-red-700 dark:text-red-500',
         className,
       )}
     >

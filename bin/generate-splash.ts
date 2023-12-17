@@ -1,23 +1,7 @@
-import assert from 'assert'
 import chalk from 'chalk'
 import fs from 'fs'
-import fetch from 'node-fetch'
-import * as html from 'node-html-parser'
 import path from 'path'
 import sharp from 'sharp'
-
-const LAYOUT_DOCS_URL =
-  'https://developer.apple.com/design/human-interface-guidelines/foundations/layout/'
-
-const SCREEN_SIZES_SELECTOR =
-  '#device-screen-sizes-and-orientations + table tbody tr td:nth-child(2)'
-
-// Parses strings like '1024x1366 pt (2048x2732 px @2x)'
-const SCREEN_SIZE_REGEX = /(\d+)x(\d+) pt \((\d+)x(\d+) px @(\d+)x\)/
-
-const ICON_PATH = 'icons/icon-white.svg'
-const ICON_SIZE = Math.floor(512 * 0.6)
-const BG_COLOR = '#16a34aff'
 
 interface ScreenSize {
   dpWidth: number
@@ -27,61 +11,121 @@ interface ScreenSize {
   ratio: number
 }
 
-const getScreenSizes = async (): Promise<ScreenSize[]> => {
-  return html
-    .parse(await fetch(LAYOUT_DOCS_URL).then((res) => res.text()))
-    .querySelectorAll(SCREEN_SIZES_SELECTOR)
-    .map((el) => el.text)
-    .filter((item, index, array) => array.indexOf(item) === index)
-    .map<ScreenSize>((text) => {
-      const result = text.match(SCREEN_SIZE_REGEX)
-      assert(result?.length === 6, `Invalid screen size: ${text}`)
+// See https://developer.apple.com/design/human-interface-guidelines/layout
+const SCREEN_SIZES: ScreenSize[] = [
+  {
+    dpWidth: 1024,
+    dpHeight: 1366,
+    pxWidth: 2048,
+    pxHeight: 2732,
+    ratio: 2,
+  },
+  {
+    dpWidth: 834,
+    dpHeight: 1194,
+    pxWidth: 1668,
+    pxHeight: 2388,
+    ratio: 2,
+  },
+  {
+    dpWidth: 768,
+    dpHeight: 1024,
+    pxWidth: 1536,
+    pxHeight: 2048,
+    ratio: 2,
+  },
+  {
+    dpWidth: 834,
+    dpHeight: 1112,
+    pxWidth: 1668,
+    pxHeight: 2224,
+    ratio: 2,
+  },
+  {
+    dpWidth: 810,
+    dpHeight: 1080,
+    pxWidth: 1620,
+    pxHeight: 2160,
+    ratio: 2,
+  },
+  {
+    dpWidth: 430,
+    dpHeight: 932,
+    pxWidth: 1290,
+    pxHeight: 2796,
+    ratio: 3,
+  },
+  {
+    dpWidth: 393,
+    dpHeight: 852,
+    pxWidth: 1179,
+    pxHeight: 2556,
+    ratio: 3,
+  },
+  {
+    dpWidth: 428,
+    dpHeight: 926,
+    pxWidth: 1284,
+    pxHeight: 2778,
+    ratio: 3,
+  },
+  {
+    dpWidth: 390,
+    dpHeight: 844,
+    pxWidth: 1170,
+    pxHeight: 2532,
+    ratio: 3,
+  },
+  {
+    dpWidth: 375,
+    dpHeight: 812,
+    pxWidth: 1125,
+    pxHeight: 2436,
+    ratio: 3,
+  },
+  {
+    dpWidth: 414,
+    dpHeight: 896,
+    pxWidth: 1242,
+    pxHeight: 2688,
+    ratio: 3,
+  },
+  {
+    dpWidth: 414,
+    dpHeight: 896,
+    pxWidth: 828,
+    pxHeight: 1792,
+    ratio: 2,
+  },
+  {
+    dpWidth: 414,
+    dpHeight: 736,
+    pxWidth: 1080,
+    pxHeight: 1920,
+    ratio: 3,
+  },
+  {
+    dpWidth: 375,
+    dpHeight: 667,
+    pxWidth: 750,
+    pxHeight: 1334,
+    ratio: 2,
+  },
+  {
+    dpWidth: 320,
+    dpHeight: 568,
+    pxWidth: 640,
+    pxHeight: 1136,
+    ratio: 2,
+  },
+]
 
-      return {
-        dpWidth: Number(result[1]),
-        dpHeight: Number(result[2]),
-        pxWidth: Number(result[3]),
-        pxHeight: Number(result[4]),
-        ratio: Number(result[5]),
-      }
-    })
-}
+const ICON_PATH = 'icons/icon-white.svg'
+const ICON_SIZE = Math.floor(512 * 0.6)
+const BG_COLOR = '#15803dff'
 
 const getSplashPath = (width: number, height: number): string => {
   return `/splash/apple-splash-${width}-${height}.png`
-}
-
-const getXmlLine = (
-  screenSize: ScreenSize,
-  orientation: 'portrait' | 'landscape',
-  splashPath: string,
-): string => {
-  const media = [
-    `(device-width: ${screenSize.dpWidth}px)`,
-    `(device-height: ${screenSize.dpHeight}px)`,
-    `(-webkit-device-pixel-ratio: ${screenSize.ratio})`,
-    `(orientation: ${orientation})`,
-  ].join(' and ')
-
-  return `<link rel="apple-touch-startup-image" href="${splashPath}" media="${media}" />`
-}
-
-const getXml = (screenSizes: ScreenSize[]): string => {
-  return screenSizes
-    .map((screenSize) => [
-      getXmlLine(
-        screenSize,
-        'portrait',
-        getSplashPath(screenSize.pxWidth, screenSize.pxHeight),
-      ),
-      getXmlLine(
-        screenSize,
-        'landscape',
-        getSplashPath(screenSize.pxHeight, screenSize.pxWidth),
-      ),
-    ])
-    .flat()
-    .join('\n')
 }
 
 const generateSplash = async (width: number, height: number) => {
@@ -117,12 +161,42 @@ const generateSplash = async (width: number, height: number) => {
   console.log(chalk.green.bold(`[${dstPath}]`), 'Generated')
 }
 
+const getXmlLine = (
+  screenSize: ScreenSize,
+  orientation: 'portrait' | 'landscape',
+  splashPath: string,
+): string => {
+  const media = [
+    `(device-width: ${screenSize.dpWidth}px)`,
+    `(device-height: ${screenSize.dpHeight}px)`,
+    `(-webkit-device-pixel-ratio: ${screenSize.ratio})`,
+    `(orientation: ${orientation})`,
+  ].join(' and ')
+
+  return `<link rel="apple-touch-startup-image" href="${splashPath}" media="${media}" />`
+}
+
+const getXml = (screenSizes: ScreenSize[]): string => {
+  return screenSizes
+    .map((screenSize) => [
+      getXmlLine(
+        screenSize,
+        'portrait',
+        getSplashPath(screenSize.pxWidth, screenSize.pxHeight),
+      ),
+      getXmlLine(
+        screenSize,
+        'landscape',
+        getSplashPath(screenSize.pxHeight, screenSize.pxWidth),
+      ),
+    ])
+    .flat()
+    .join('\n')
+}
+
 void (async () => {
   try {
-    const screenSizes = await getScreenSizes()
-    console.log(screenSizes)
-
-    for (const screenSize of screenSizes) {
+    for (const screenSize of SCREEN_SIZES) {
       await generateSplash(screenSize.pxWidth, screenSize.pxHeight)
       await generateSplash(screenSize.pxHeight, screenSize.pxWidth)
     }
@@ -133,7 +207,7 @@ void (async () => {
         'Update components/ApplePWA/ApplePWA.tsx with the following:',
       ),
     )
-    console.log(getXml(screenSizes))
+    console.log(getXml(SCREEN_SIZES))
 
     process.exit(0)
   } catch (error) {

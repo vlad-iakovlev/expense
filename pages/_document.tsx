@@ -13,7 +13,7 @@ export const MyDocument = () => {
           href="/icons/favicon.png"
         />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#16a34a" />
+        <meta name="theme-color" content="#15803d" />
         <meta name="description" content="Expense Tracker" />
         <ApplePWA />
       </Head>
