@@ -1,5 +1,6 @@
 import { FunnelIcon } from '@heroicons/react/20/solid'
 import { useCallback, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.jsx'
 import { useDisabledCategories } from '../../../contexts/RootStore/hooks/useDisabledCategories.js'
 import { ClientCurrency, ClientStatisticsType } from '../../../types/client.js'
@@ -66,7 +67,14 @@ export const Category = ({
 
   return (
     <Card.Item
-      className={isEnabled ? undefined : 'text-quaternary'}
+      labelClassName={twMerge(
+        'transition-opacity',
+        isEnabled ? 'opacity-100' : 'opacity-50',
+      )}
+      valueClassName={twMerge(
+        'transition-opacity',
+        isEnabled ? 'opacity-100' : 'opacity-50',
+      )}
       prefix={
         <Switch
           style={{ backgroundColor: isEnabled ? color : undefined }}
