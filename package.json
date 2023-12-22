@@ -29,7 +29,7 @@
     "@types/react-dom": "^18.2.18",
     "@types/uuid": "^9.0.7",
     "autoprefixer": "^10.4.16",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.0.6",
     "default-import": "^1.1.5",
     "focus-trap-react": "^10.2.3",
     "framer-motion": "^10.16.16",
