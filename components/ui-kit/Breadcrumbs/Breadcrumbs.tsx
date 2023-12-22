@@ -44,7 +44,7 @@ export const Breadcrumbs = ({
 
       {mobileBack ? (
         <NextLink
-          className="-mb-4 -mt-2 flex items-center gap-2 truncate text-lg font-medium leading-6 text-sky-700 dark:text-sky-500 md:hidden"
+          className="-mb-4 -mt-2 flex items-center gap-2 truncate text-lg font-medium leading-6 text-sky-700 md:hidden dark:text-sky-500"
           href={{ pathname: mobileBack.href, query: { animation: 'back' } }}
           as={mobileBack.href}
           aria-label={mobileBack.title}
