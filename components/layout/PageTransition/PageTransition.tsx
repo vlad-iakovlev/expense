@@ -42,7 +42,6 @@ export const PageTransition = forwardRef<
       initial: {
         ...(animation === 'forward' && {
           transform: 'translateX(100%)',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
         }),
         ...(animation === 'back' && {
           transform: 'translateX(-25%)',
@@ -53,7 +52,6 @@ export const PageTransition = forwardRef<
       enterTo: {
         transform: 'translateX(0%)',
         transitionEnd: {
-          boxShadow: 'none',
           zIndex: 'auto',
         },
       },
@@ -64,7 +62,6 @@ export const PageTransition = forwardRef<
         }),
         ...(animation === 'back' && {
           transform: 'translateX(100%)',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
         }),
       }),
     }
