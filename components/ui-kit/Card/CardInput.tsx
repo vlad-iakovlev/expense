@@ -133,7 +133,7 @@ export const CardInput = ({
           ))}
         </CardMenu>
       }
-      aria-haspopup={!!filteredSuggestions.length ? 'true' : 'false'}
+      aria-haspopup={filteredSuggestions.length ? 'true' : 'false'}
       aria-expanded={isEditing ? 'true' : 'false'}
       onClick={isEditing ? undefined : handleClick}
       onKeyDown={handleKeyDown}

@@ -66,6 +66,7 @@
       "project": "./tsconfig.json"
     },
     "extends": [
+      "eslint:recommended",
       "next/core-web-vitals",
       "plugin:@typescript-eslint/recommended",
       "plugin:@typescript-eslint/recommended-requiring-type-checking",
