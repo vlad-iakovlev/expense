@@ -52,7 +52,7 @@ export const Home = () => {
           <Card.Link
             label="Created by"
             value={<div className="font-medium">Vlad Yakovlev</div>}
-            href="https://vlad-yakovlev.dev"
+            href="https://vlad-iakovlev.dev"
           />
         </Card>
 
@@ -100,7 +100,7 @@ export const Home = () => {
           <Card.Link
             prefix={<CodeBracketIcon className="h-6 w-6" />}
             label="See the code on GitHub"
-            href="https://github.com/vlad-yakovlev/expense"
+            href="https://github.com/vlad-iakovlev/expense"
           />
         </Card>
       </Columns>

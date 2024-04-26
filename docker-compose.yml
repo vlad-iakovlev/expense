@@ -4,7 +4,7 @@ networks:
 
 services:
   expense:
-    image: ghcr.io/vlad-yakovlev/expense:latest
+    image: ghcr.io/vlad-iakovlev/expense:latest
     pull_policy: always
     build: .
     networks:

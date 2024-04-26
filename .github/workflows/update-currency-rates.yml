@@ -7,7 +7,7 @@ on:
 
 jobs:
   update-currency-rates:
-    if: startsWith(github.repository, 'vlad-yakovlev/')
+    if: startsWith(github.repository, 'vlad-iakovlev/')
     runs-on: ubuntu-latest
     steps:
       - name: Call /api/cron/update-currency-rates endpoint

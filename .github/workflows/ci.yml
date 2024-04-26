@@ -32,7 +32,7 @@ jobs:
 
   build:
     needs: checks
-    if: startsWith(github.repository, 'vlad-yakovlev/') && github.ref == 'refs/heads/main'
+    if: startsWith(github.repository, 'vlad-iakovlev/') && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -61,7 +61,7 @@ jobs:
 
   deploy:
     needs: build
-    if: startsWith(github.repository, 'vlad-yakovlev/') && github.ref == 'refs/heads/main'
+    if: startsWith(github.repository, 'vlad-iakovlev/') && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Digital Ocean droplet
@@ -76,5 +76,5 @@ jobs:
           script_stop: true
           script: |
             cd Projects/expense
-            curl -OL https://raw.githubusercontent.com/vlad-yakovlev/expense/$SHA/docker-compose.yml
+            curl -OL https://raw.githubusercontent.com/vlad-iakovlev/expense/$SHA/docker-compose.yml
             docker compose up -d
