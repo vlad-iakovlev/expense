@@ -51,7 +51,7 @@ export const Home = () => {
           />
           <Card.Link
             label="Created by"
-            value={<div className="font-medium">Vlad Yakovlev</div>}
+            value={<div className="font-medium">Vlad Iakovlev</div>}
             href="https://vlad-iakovlev.dev"
           />
         </Card>
