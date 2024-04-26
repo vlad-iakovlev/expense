@@ -1,6 +1,6 @@
 networks:
-  vlad-yakovlev-dev:
-    name: vlad-yakovlev-dev
+  vlad-iakovlev-dev:
+    name: vlad-iakovlev-dev
 
 services:
   expense:
@@ -8,7 +8,7 @@ services:
     pull_policy: always
     build: .
     networks:
-      - vlad-yakovlev-dev
+      - vlad-iakovlev-dev
     env_file: .env
     environment:
       VIRTUAL_HOST: expense.vlad-yakovlev.dev
