@@ -11,7 +11,7 @@ jobs:
       - name: Call /api/cron/update-currency-names endpoint
         uses: tyrrrz/action-http-request@master
         with:
-          url: https://expense.vlad-yakovlev.dev/api/cron/update-currency-names
+          url: https://expense.vlad-iakovlev.dev/api/cron/update-currency-names
           method: POST
           headers: |
             Authorization: Bearer ${{ secrets.CRON_SECRET }}

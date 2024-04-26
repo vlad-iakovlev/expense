@@ -11,7 +11,7 @@ services:
       - vlad-iakovlev-dev
     env_file: .env
     environment:
-      VIRTUAL_HOST: expense.vlad-yakovlev.dev
+      VIRTUAL_HOST: expense.vlad-iakovlev.dev
       VIRTUAL_PORT: 3000
-      LETSENCRYPT_HOST: expense.vlad-yakovlev.dev
+      LETSENCRYPT_HOST: expense.vlad-iakovlev.dev
     restart: always

@@ -13,7 +13,7 @@ jobs:
       - name: Call /api/cron/update-currency-rates endpoint
         uses: tyrrrz/action-http-request@master
         with:
-          url: https://expense.vlad-yakovlev.dev/api/cron/update-currency-rates
+          url: https://expense.vlad-iakovlev.dev/api/cron/update-currency-rates
           method: POST
           headers: |
             Authorization: Bearer ${{ secrets.CRON_SECRET }}

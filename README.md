@@ -1,4 +1,4 @@
-# [Expense](https://expense.vlad-yakovlev.dev)
+# [Expense](https://expense.vlad-iakovlev.dev)
 
 Expense is a user-friendly expense tracking web-application designed to help you take control of your personal and shared finances. With cross-device syncing, offline accessibility, and advanced features, managing your expenses has never been easier.
 
@@ -18,7 +18,7 @@ Expense is a user-friendly expense tracking web-application designed to help you
 
 ## Getting Started
 
-To start using Expense, sign up with you Google Account at [https://expense.vlad-yakovlev.dev](https://expense.vlad-yakovlev.dev).
+To start using Expense, sign up with you Google Account at [https://expense.vlad-iakovlev.dev](https://expense.vlad-iakovlev.dev).
 
 ## License
 
