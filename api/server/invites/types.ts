@@ -1,15 +1,15 @@
 import { z } from 'zod'
-import { acceptInviteBodySchema, createInviteBodySchema } from './schemas.js'
+import {
+  acceptInviteBodySchema,
+  acceptInviteResponseSchema,
+  createInviteBodySchema,
+  createInviteResponseSchema,
+} from './schemas.js'
 
 export type CreateInviteBody = z.infer<typeof createInviteBodySchema>
 
-export interface CreateInviteResponse {
-  token: string
-  expiresAt: Date
-}
+export type CreateInviteResponse = z.infer<typeof createInviteResponseSchema>
 
 export type AcceptInviteBody = z.infer<typeof acceptInviteBodySchema>
 
-export interface AcceptInviteResponse {
-  ok: true
-}
+export type AcceptInviteResponse = z.infer<typeof acceptInviteResponseSchema>

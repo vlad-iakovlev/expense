@@ -6,6 +6,6 @@ import { sessionMiddleware } from '../../../middleware/session.js'
 
 export default use([errorMiddleware, sessionMiddleware])(
   restHandler({
-    put: createInvite,
+    post: createInvite,
   }),
 )

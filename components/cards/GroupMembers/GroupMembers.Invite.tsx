@@ -30,7 +30,7 @@ export const Invite = ({ groupId }: Props) => {
       try {
         const { token, expiresAt } = await createInvite({ groupId })
         setInviteLink(`${window.location.origin}${ROUTES.INVITE(token)}`)
-        setExpirationDate(expiresAt)
+        setExpirationDate(new Date(expiresAt))
         setIsOpen(true)
       } finally {
         setIsLoading(false)

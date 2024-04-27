@@ -7,18 +7,14 @@ import {
 } from '../server/invites/types.js'
 
 export const createInvite = async (body: CreateInviteBody) => {
-  const response = await request.put<CreateInviteBody, CreateInviteResponse>(
+  return await request.post<CreateInviteBody, CreateInviteResponse>(
     '/api/invites/create',
     body,
   )
-
-  response.expiresAt = new Date(response.expiresAt)
-
-  return response
 }
 
 export const acceptInvite = async (body: AcceptInviteBody) => {
-  await request.put<AcceptInviteBody, AcceptInviteResponse>(
+  return await request.post<AcceptInviteBody, AcceptInviteResponse>(
     '/api/invites/accept',
     body,
   )

@@ -35,7 +35,7 @@ export const createInvite: NextApiHandler<CreateInviteResponse> = async (
 
   res.status(200).json({
     token: invite.token,
-    expiresAt: invite.expiresAt,
+    expiresAt: invite.expiresAt.toISOString(),
   })
 }
 
