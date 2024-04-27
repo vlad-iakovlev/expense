@@ -1,10 +1,9 @@
-import { Transaction } from '@prisma/client'
+import { PrismaClient, Transaction } from '@prisma/client'
 import assert from 'assert'
 import { NextApiHandler } from 'next'
 import { ERROR_TYPES } from '../../../constants/errors.js'
 import { Modify } from '../../../types/utility.js'
 import { getHandledError } from '../../../utils/server/getHandledError.js'
-import { prisma } from '../../../utils/server/prisma.js'
 import { performSyncBodySchema } from './schemas.js'
 import { PerformSyncBody, PerformSyncResponse } from './types.js'
 import {
@@ -13,6 +12,8 @@ import {
   getUserGroupWhere,
   getWalletWhere,
 } from './where.js'
+
+const prisma = new PrismaClient()
 
 export const performSync: NextApiHandler<PerformSyncResponse> = async (
   req,

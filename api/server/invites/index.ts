@@ -1,12 +1,14 @@
+import { PrismaClient } from '@prisma/client'
 import assert from 'assert'
 import * as fns from 'date-fns'
 import { NextApiHandler } from 'next'
 import { v4 as uuid } from 'uuid'
 import { ERROR_TYPES } from '../../../constants/errors.js'
 import { getHandledError } from '../../../utils/server/getHandledError.js'
-import { prisma } from '../../../utils/server/prisma.js'
 import { acceptInviteBodySchema, createInviteBodySchema } from './schemas.js'
 import { AcceptInviteResponse, CreateInviteResponse } from './types.js'
+
+const prisma = new PrismaClient()
 
 export const createInvite: NextApiHandler<CreateInviteResponse> = async (
   req,
