@@ -11,7 +11,7 @@ interface RatesResponse {
   timestamp: number
 }
 
-export const updateCurrencyRates: NextApiHandler<{ success: boolean }> = async (
+export const updateCurrencyRates: NextApiHandler<{ ok: boolean }> = async (
   req,
   res,
 ) => {
@@ -37,5 +37,5 @@ export const updateCurrencyRates: NextApiHandler<{ success: boolean }> = async (
     }),
   )
 
-  res.status(200).json({ success: true })
+  res.status(200).json({ ok: true })
 }

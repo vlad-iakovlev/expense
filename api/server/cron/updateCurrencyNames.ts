@@ -8,7 +8,7 @@ interface SymbolsResponse {
   success: boolean
 }
 
-export const updateCurrencyNames: NextApiHandler<{ success: boolean }> = async (
+export const updateCurrencyNames: NextApiHandler<{ ok: boolean }> = async (
   req,
   res,
 ) => {
@@ -32,5 +32,5 @@ export const updateCurrencyNames: NextApiHandler<{ success: boolean }> = async (
     }),
   )
 
-  res.status(200).json({ success: true })
+  res.status(200).json({ ok: true })
 }
