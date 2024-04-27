@@ -9,7 +9,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   callbacks: {
     session({ session, user }) {
       return produce(session, (draft) => {
-        if (session.user) {
+        if (draft.user) {
           draft.user.id = user.id
         }
       })
