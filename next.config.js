@@ -1,10 +1,11 @@
 // @ts-check
-import nextPWA from '@ducanh2912/next-pwa'
+import withSerwistInit from '@serwist/next'
 
-const withPWA = nextPWA({
-  dest: 'public',
+const withSerwist = withSerwistInit({
   disable: process.env.NODE_ENV === 'development',
   reloadOnOnline: false,
+  swDest: 'public/sw.js',
+  swSrc: 'app/sw.ts',
 })
 
 /** @type {import('next').NextConfig} */
@@ -27,4 +28,4 @@ const nextConfig = {
   transpilePackages: ['next-auth'],
 }
 
-export default withPWA(nextConfig)
+export default withSerwist(nextConfig)
