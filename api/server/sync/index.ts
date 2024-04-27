@@ -305,8 +305,14 @@ const collect = async (
       users,
       userGroups,
       groups,
-      wallets,
-      operations,
+      wallets: wallets.map((wallet) => ({
+        ...wallet,
+        createdAt: wallet.createdAt.toISOString(),
+      })),
+      operations: operations.map((operation) => ({
+        ...operation,
+        date: operation.date.toISOString(),
+      })),
     },
   }
 }

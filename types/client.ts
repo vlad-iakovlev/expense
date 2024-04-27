@@ -28,6 +28,8 @@ export interface ClientUserGroup {
 export interface ClientGroup {
   id: string
   removed: boolean
+  clientOnly: boolean
+  clientRemoved: boolean
   name: string
   defaultCurrencyId: string
 }

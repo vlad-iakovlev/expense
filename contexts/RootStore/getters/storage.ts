@@ -1,5 +1,4 @@
 import { PerformSyncBody } from '../../../api/server/sync/types.js'
-import { formatAmount } from '../../../utils/formatAmount.js'
 import { BrowserStorageState, RootStoreState } from '../types.jsx'
 import { isTransactionEmpty } from '../utils.js'
 
@@ -11,13 +10,19 @@ export const getBrowserStorageState = (
     users: state.users,
     userGroups: state.userGroups,
     groups: state.groups,
-    wallets: state.wallets,
-    operations: state.operations,
+    wallets: state.wallets.map((wallet) => ({
+      ...wallet,
+      createdAt: wallet.createdAt.toISOString(),
+    })),
+    operations: state.operations.map((operation) => ({
+      ...operation,
+      date: operation.date.toISOString(),
+    })),
     disabledCategories: state.disabledCategories,
     nextSyncTransaction: state.nextSyncTransaction,
     syncingTransaction: state.syncingTransaction,
     lastTransactionId: state.lastTransactionId,
-    syncedAt: state.syncedAt,
+    syncedAt: state.syncedAt ? state.syncedAt.toISOString() : null,
   }
 }
 
@@ -56,8 +61,9 @@ export const getRemoteStorageBody = (
         })
         .map((operation) => ({
           ...operation,
-          incomeAmount: formatAmount(operation.incomeAmount),
-          expenseAmount: formatAmount(operation.expenseAmount),
+          date: operation.date.toISOString(),
+          incomeAmount: String(operation.incomeAmount),
+          expenseAmount: String(operation.expenseAmount),
         })),
     },
   }

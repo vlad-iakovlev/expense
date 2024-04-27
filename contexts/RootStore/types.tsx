@@ -13,7 +13,7 @@ export interface RootStoreState {
   currencies: ClientCurrency[]
   users: ClientUser[]
   userGroups: ClientUserGroup[]
-  groups: Modify<ClientGroup, { clientOnly?: true; clientRemoved?: true }>[]
+  groups: ClientGroup[]
   wallets: ClientWallet[]
   operations: ClientOperation[]
   disabledCategories: string[]
@@ -28,14 +28,14 @@ export interface BrowserStorageState {
   currencies: ClientCurrency[]
   users: ClientUser[]
   userGroups: ClientUserGroup[]
-  groups: Modify<ClientGroup, { clientOnly?: true; clientRemoved?: true }>[]
-  wallets: Modify<ClientWallet, { createdAt: string | Date }>[]
-  operations: Modify<ClientOperation, { date: string | Date }>[]
+  groups: ClientGroup[]
+  wallets: Modify<ClientWallet, { createdAt: string }>[]
+  operations: Modify<ClientOperation, { date: string }>[]
   disabledCategories?: string[]
   nextSyncTransaction: ClientTransaction
   syncingTransaction: ClientTransaction
   lastTransactionId: string | null
-  syncedAt: string | Date | null
+  syncedAt: string | null
 }
 
 export enum StorageActionType {

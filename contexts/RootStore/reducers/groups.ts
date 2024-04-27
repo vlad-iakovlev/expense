@@ -17,6 +17,7 @@ const createGroupReducer: React.Reducer<
       id: groupId,
       removed: false,
       clientOnly: true,
+      clientRemoved: false,
       name: 'Untitled',
       defaultCurrencyId: getDefaultCurrency(state).id,
     })

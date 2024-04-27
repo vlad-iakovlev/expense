@@ -1,6 +1,5 @@
 import assert from 'assert'
 import { PerformSyncResponse } from '../../../api/server/sync/types.js'
-import { parseAmount } from '../../../utils/parseAmount.js'
 import { uniqBy } from '../../../utils/uniqBy.js'
 import {
   BrowserStorageState,
@@ -97,9 +96,14 @@ const setStateFromRemoteStorageReducer: React.Reducer<
   const wallets = uniqBy(
     [
       ...state.wallets,
-      ...updates.wallets.filter((wallet) => {
-        return !state.nextSyncTransaction.wallets.includes(wallet.id)
-      }),
+      ...updates.wallets
+        .filter((wallet) => {
+          return !state.nextSyncTransaction.wallets.includes(wallet.id)
+        })
+        .map((wallet) => ({
+          ...wallet,
+          createdAt: new Date(wallet.createdAt),
+        })),
     ],
     (wallet) => wallet.id,
   ).filter((wallet) => {
@@ -119,8 +123,9 @@ const setStateFromRemoteStorageReducer: React.Reducer<
         })
         .map((operation) => ({
           ...operation,
-          incomeAmount: parseAmount(operation.incomeAmount),
-          expenseAmount: parseAmount(operation.expenseAmount),
+          date: new Date(operation.date),
+          incomeAmount: Number(operation.incomeAmount),
+          expenseAmount: Number(operation.expenseAmount),
         })),
     ],
     (operation) => operation.id,
