@@ -58,12 +58,19 @@ export const useGroup = ({ groupId }: Props) => {
 
   const leaveGroup = useCallback(() => {
     assert(session.status === 'authenticated', 'User not authenticated')
+    assert(session.data.user?.id, 'User id is required')
 
     dispatch({
       type: GroupsActionTypes.LEAVE_GROUP,
-      payload: { groupId, me: session.data.user },
+      payload: {
+        groupId,
+        me: {
+          ...session.data.user,
+          id: session.data.user.id,
+        },
+      },
     })
-  }, [dispatch, groupId, session.data?.user, session.status])
+  }, [dispatch, groupId, session])
 
   return {
     group,

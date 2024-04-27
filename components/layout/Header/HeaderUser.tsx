@@ -1,4 +1,4 @@
-import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
+import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { useCallback, useState } from 'react'
 import { Avatar } from '../../ui-kit/Avatar/Avatar.jsx'
@@ -70,8 +70,8 @@ export const HeaderUser = ({ className }: Props) => {
             onClick={handleProfileClick}
           >
             <Avatar
-              src={session.data.user.image ?? undefined}
-              name={session.data.user.name ?? undefined}
+              src={session.data.user?.image ?? undefined}
+              name={session.data.user?.name ?? undefined}
             />
           </button>
 
@@ -86,22 +86,22 @@ export const HeaderUser = ({ className }: Props) => {
               label={
                 <>
                   <div className="truncate text-xl">
-                    {session.data.user.name}
+                    {session.data.user?.name}
                   </div>
                   <div className="text-tertiary truncate">
-                    {session.data.user.email}
+                    {session.data.user?.email}
                   </div>
                 </>
               }
               role="menuitem"
-              aria-label={`You are logged in as ${session.data.user.name} with email ${session.data.user.email}`}
+              aria-label={`You are logged in as ${session.data.user?.name} with email ${session.data.user?.email}`}
             />
 
             <Card.Divider />
 
             <Card.Item
               disabled={isLoading}
-              prefix={<ArrowRightOnRectangleIcon className="h-6 w-6" />}
+              prefix={<ArrowRightStartOnRectangleIcon className="h-6 w-6" />}
               label="Sign Out"
               role="menuitem"
               onClick={handleSignOut}

@@ -22,7 +22,6 @@ model Transaction {
 }
 
 model Account {
-  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -40,11 +39,10 @@ model Account {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
-  @@unique([provider, providerAccountId])
+  @@id([provider, providerAccountId])
 }
 
 model Session {
-  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -61,7 +59,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   name          String?
-  email         String?   @unique
+  email         String    @unique
   emailVerified DateTime?
   image         String?
 
@@ -71,15 +69,11 @@ model User {
 }
 
 model VerificationToken {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
   identifier String
-  token      String   @unique
+  token      String
   expires    DateTime
 
-  @@unique([identifier, token])
+  @@id([identifier, token])
 }
 
 model Currency {

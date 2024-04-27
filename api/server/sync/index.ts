@@ -1,4 +1,5 @@
 import { Transaction } from '@prisma/client'
+import assert from 'assert'
 import { NextApiHandler } from 'next'
 import { ERROR_TYPES } from '../../../constants/errors.js'
 import { Modify } from '../../../types/utility.js'
@@ -17,6 +18,8 @@ export const performSync: NextApiHandler<PerformSyncResponse> = async (
   req,
   res,
 ) => {
+  assert(req.session.user?.id, 'User id is required')
+
   const body = performSyncBodySchema.parse(req.body)
 
   await applyUpdates(req.session.user.id, body.updates)

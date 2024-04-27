@@ -1,3 +1,4 @@
+import assert from 'assert'
 import * as fns from 'date-fns'
 import { NextApiHandler } from 'next'
 import { v4 as uuid } from 'uuid'
@@ -24,7 +25,7 @@ export const createInvite: NextApiHandler<CreateInviteResponse> = async (
           userGroups: {
             some: {
               removed: false,
-              userId: req.session.user.id,
+              userId: req.session.user?.id,
             },
           },
         },
@@ -42,6 +43,8 @@ export const acceptInvite: NextApiHandler<AcceptInviteResponse> = async (
   req,
   res,
 ) => {
+  assert(req.session.user?.id, 'User id is required')
+
   const body = acceptInviteBodySchema.parse(req.body)
 
   const invite = await getInviteByToken(body.token)

@@ -15,7 +15,6 @@ const nextConfig = {
       '.jsx': ['.tsx', '.jsx'],
     },
   },
-  reactStrictMode: true,
   images: {
     remotePatterns: [
       {
@@ -24,6 +23,8 @@ const nextConfig = {
     ],
   },
   output: 'standalone',
+  reactStrictMode: true,
+  transpilePackages: ['next-auth'],
 }
 
 export default withPWA(nextConfig)

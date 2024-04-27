@@ -15,8 +15,13 @@ export const useGroupMembers = ({ groupId }: Props) => {
 
   const groupMembers = useMemo<ClientUser[]>(() => {
     assert(session.status === 'authenticated', 'User not authenticated')
-    return getGroupMembers(state, groupId, session.data.user)
-  }, [groupId, session.data?.user, session.status, state])
+    assert(session.data.user?.id, 'User id is required')
+
+    return getGroupMembers(state, groupId, {
+      ...session.data.user,
+      id: session.data.user.id,
+    })
+  }, [groupId, session, state])
 
   return {
     groupMembers,

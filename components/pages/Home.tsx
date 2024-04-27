@@ -1,5 +1,5 @@
 import {
-  ArrowLeftOnRectangleIcon,
+  ArrowLeftEndOnRectangleIcon,
   ArrowPathIcon,
   ChartPieIcon,
   CodeBracketIcon,
@@ -93,7 +93,7 @@ export const Home = () => {
           <Card.Divider />
           <Card.Item
             disabled={isLoading}
-            prefix={<ArrowLeftOnRectangleIcon className="h-6 w-6" />}
+            prefix={<ArrowLeftEndOnRectangleIcon className="h-6 w-6" />}
             label="Sign In with Google Account"
             onClick={handleSignIn}
           />

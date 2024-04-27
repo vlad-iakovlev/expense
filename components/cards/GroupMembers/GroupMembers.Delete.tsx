@@ -28,6 +28,7 @@ export const Delete = ({ groupId, userId, tabIndex }: Props) => {
   const handleDeleteConfirm = useCallback(() => {
     void (async () => {
       assert(session.status === 'authenticated', 'User is not authenticated')
+      assert(session.data.user?.id, 'User id is required')
 
       if (session.data.user.id === userId) {
         const href = ROUTES.DASHBOARD
@@ -41,14 +42,7 @@ export const Delete = ({ groupId, userId, tabIndex }: Props) => {
         setIsDeleteConfirmOpen(false)
       }
     })()
-  }, [
-    leaveGroup,
-    removeMemberFromGroup,
-    router,
-    session.data?.user.id,
-    session.status,
-    userId,
-  ])
+  }, [leaveGroup, removeMemberFromGroup, router, session, userId])
 
   const handleDeleteCancel = useCallback(() => {
     setIsDeleteConfirmOpen(false)
