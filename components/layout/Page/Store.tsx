@@ -1,5 +1,5 @@
-import { Loading } from '@/components/pages/Loading.jsx'
 import { useRootStore } from '@/contexts/RootStore/index.jsx'
+import { Loading } from '../Loading.jsx'
 
 interface Props {
   children: React.ReactNode

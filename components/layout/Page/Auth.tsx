@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
 import { Home } from '@/components/pages/Home.jsx'
-import { Loading } from '@/components/pages/Loading.jsx'
+import { Loading } from '../Loading.jsx'
 
 interface Props {
   children: React.ReactNode
