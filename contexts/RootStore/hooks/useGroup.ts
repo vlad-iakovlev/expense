@@ -2,8 +2,8 @@ import assert from 'assert'
 import { useSession } from 'next-auth/react'
 import { useCallback, useMemo } from 'react'
 import { PopulatedClientGroup } from '@/types/client.js'
-import { useRootStore } from '../RootStore.jsx'
 import { getPopulatedGroup } from '../getters/groups.js'
+import { useRootStore } from '../index.jsx'
 import { GroupsActionTypes } from '../types.jsx'
 
 interface Props {

@@ -1,8 +1,8 @@
 import assert from 'assert'
 import { useCallback, useMemo } from 'react'
 import { v4 as uuid } from 'uuid'
-import { useRootStore } from '../RootStore.jsx'
 import { getOrderedWallets } from '../getters/wallets.js'
+import { useRootStore } from '../index.jsx'
 import { WalletsActionTypes } from '../types.jsx'
 
 interface Props {

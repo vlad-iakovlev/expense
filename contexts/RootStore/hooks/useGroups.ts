@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { v4 as uuid } from 'uuid'
-import { useRootStore } from '../RootStore.jsx'
 import { getOrderedGroups } from '../getters/groups.js'
+import { useRootStore } from '../index.jsx'
 import { GroupsActionTypes } from '../types.jsx'
 
 export const useGroups = () => {

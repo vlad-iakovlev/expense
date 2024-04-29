@@ -1,4 +1,4 @@
-import { useRootStore } from '../RootStore.jsx'
+import { useRootStore } from '../index.jsx'
 
 export const useSyncStatus = () => {
   const { state } = useRootStore()

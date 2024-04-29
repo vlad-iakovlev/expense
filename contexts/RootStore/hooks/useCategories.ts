@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { uniq } from '@/utils/uniq.js'
-import { useRootStore } from '../RootStore.jsx'
 import { getAvailableOperations } from '../getters/operations.js'
+import { useRootStore } from '../index.jsx'
 import { CategoriesActionTypes } from '../types.jsx'
 
 interface Props {

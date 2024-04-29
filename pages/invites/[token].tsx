@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
 import { useState } from 'react'
-import { Page } from '@/components/layout/Page/Page.jsx'
+import { Page } from '@/components/layout/Page/index.jsx'
 import { Invite } from '@/components/pages/Invite.jsx'
 
 const InvitePage: NextPage = () => {

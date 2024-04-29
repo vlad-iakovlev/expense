@@ -3,8 +3,8 @@ import {
   ClientOperationType,
   PopulatedClientOperation,
 } from '@/types/client.js'
-import { useRootStore } from '../RootStore.jsx'
 import { getPopulatedOperation } from '../getters/operations.js'
+import { useRootStore } from '../index.jsx'
 import { OperationsActionTypes } from '../types.jsx'
 
 interface Props {

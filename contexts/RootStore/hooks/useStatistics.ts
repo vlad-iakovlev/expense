@@ -8,8 +8,8 @@ import {
 } from '@/types/client.js'
 import { stringToColor } from '@/utils/stringToColor.js'
 import { uniq } from '@/utils/uniq.js'
-import { useRootStore } from '../RootStore.jsx'
 import { getDefaultCurrency } from '../getters/currencies.js'
+import { useRootStore } from '../index.jsx'
 
 const WALLET_ID_FIELD = {
   [ClientStatisticsType.INCOMES]: 'incomeWalletId',

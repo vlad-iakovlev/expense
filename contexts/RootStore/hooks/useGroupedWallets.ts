@@ -1,8 +1,8 @@
 import assert from 'assert'
 import { useCallback, useMemo } from 'react'
 import { ClientCurrency, ClientWallet, GroupedWallets } from '@/types/client.js'
-import { useRootStore } from '../RootStore.jsx'
 import { getOrderedWallets } from '../getters/wallets.js'
+import { useRootStore } from '../index.jsx'
 import { WalletsActionTypes } from '../types.jsx'
 
 interface Props {

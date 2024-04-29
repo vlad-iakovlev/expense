@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { PopulatedClientWallet } from '@/types/client.js'
-import { useRootStore } from '../RootStore.jsx'
 import { getPopulatedWallet } from '../getters/wallets.js'
+import { useRootStore } from '../index.jsx'
 import { WalletsActionTypes } from '../types.jsx'
 
 interface Props {

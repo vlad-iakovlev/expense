@@ -1,8 +1,8 @@
-import { GroupCreateCard } from '@/components/cards/GroupCreate/GroupCreate.jsx'
-import { GroupOpenCard } from '@/components/cards/GroupOpen/GroupOpen.jsx'
+import { GroupCreateCard } from '@/components/cards/GroupCreate/index.jsx'
+import { GroupOpenCard } from '@/components/cards/GroupOpen/index.jsx'
+import { Columns } from '@/components/common/Columns.jsx'
+import { Title } from '@/components/common/Title.jsx'
 import { NextHead } from '@/components/next/Head.js'
-import { Columns } from '@/components/ui-kit/Columns/Columns.jsx'
-import { Title } from '@/components/ui-kit/Title/Title.jsx'
 import { useGroups } from '@/contexts/RootStore/hooks/useGroups.js'
 
 export const Dashboard = () => {

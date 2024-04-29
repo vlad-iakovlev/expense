@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
-import { OperationInfoCard } from '@/components/cards/OperationInfo/OperationInfo.jsx'
+import { OperationInfoCard } from '@/components/cards/OperationInfo/index.jsx'
+import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
+import { Columns } from '@/components/common/Columns.jsx'
+import { Title } from '@/components/common/Title.jsx'
 import { NextHead } from '@/components/next/Head.js'
-import { Breadcrumbs } from '@/components/ui-kit/Breadcrumbs/Breadcrumbs.jsx'
-import { Columns } from '@/components/ui-kit/Columns/Columns.jsx'
-import { Title } from '@/components/ui-kit/Title/Title.jsx'
 import { ROUTES } from '@/constants/routes.js'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 
