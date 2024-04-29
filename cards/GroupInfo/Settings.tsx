@@ -11,13 +11,14 @@ export const Settings = ({ groupId }: SettingsProps) => (
   <NextLink
     href={`${ROUTES.GROUP_SETTINGS(groupId)}?animation=forward`}
     as={ROUTES.GROUP_SETTINGS(groupId)}
+    aria-label="Settings"
   >
     <Button
       rounded
       size="sm"
       theme="white"
       iconStart={<Cog6ToothIcon />}
-      aria-label="Settings"
+      tabIndex={-1}
     />
   </NextLink>
 )
