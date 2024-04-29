@@ -202,7 +202,7 @@ void (async () => {
     console.log('')
     console.log(
       chalk.red.bold(
-        'Update components/ApplePWA/ApplePWA.tsx with the following:',
+        'Update components/layout/ApplePWA.tsx with the following:',
       ),
     )
     console.log(getXml(SCREEN_SIZES))

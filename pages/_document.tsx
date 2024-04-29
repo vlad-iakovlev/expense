@@ -1,5 +1,5 @@
 import { Head, Html, Main, NextScript } from 'next/document.js'
-import { ApplePWA } from '@/components/misc/ApplePWA.jsx'
+import { ApplePWA } from '@/components/layout/ApplePWA.jsx'
 
 export const MyDocument = () => (
   <Html lang="en">
