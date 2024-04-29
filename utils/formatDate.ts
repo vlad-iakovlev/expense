@@ -1,5 +1,5 @@
 import * as fns from 'date-fns'
-import { Period } from '@/hooks/usePeriod.js'
+import { PeriodType } from '@/hooks/usePeriod.js'
 
 export const formatDateTime = (date: Date) =>
   fns.format(date, "d MMM yyyy 'at' HH:mm")
@@ -41,8 +41,8 @@ export const formatDateForAriaLabel = (date: Date) => {
 
 export const formatTime = (date: Date) => fns.format(date, 'HH:mm')
 
-export const formatPeriod = (period: Period, firstDate: Date) => {
-  if (period === Period.WEEK) {
+export const formatPeriod = (periodType: PeriodType, firstDate: Date) => {
+  if (periodType === PeriodType.WEEK) {
     const lastDate = fns.addDays(firstDate, 6)
     const formattedLastDate = fns.format(lastDate, `d MMM yyyy`)
 
@@ -57,19 +57,22 @@ export const formatPeriod = (period: Period, firstDate: Date) => {
     return `${fns.format(firstDate, `d MMM yyyy`)} – ${formattedLastDate}`
   }
 
-  if (period === Period.MONTH) {
+  if (periodType === PeriodType.MONTH) {
     return fns.format(firstDate, `MMM yyyy`)
   }
 
-  if (period === Period.YEAR) {
+  if (periodType === PeriodType.YEAR) {
     return fns.format(firstDate, `yyyy`)
   }
 
   return 'All time'
 }
 
-export const formatPeriodForAriaLabel = (period: Period, firstDate: Date) => {
-  if (period === Period.WEEK) {
+export const formatPeriodForAriaLabel = (
+  periodType: PeriodType,
+  firstDate: Date,
+) => {
+  if (periodType === PeriodType.WEEK) {
     const lastDate = fns.addDays(firstDate, 6)
     const formattedLastDate = fns.format(lastDate, `d MMMM yyyy`)
 
@@ -84,11 +87,11 @@ export const formatPeriodForAriaLabel = (period: Period, firstDate: Date) => {
     return `${fns.format(firstDate, `d MMMM yyyy`)} to ${formattedLastDate}`
   }
 
-  if (period === Period.MONTH) {
+  if (periodType === PeriodType.MONTH) {
     return fns.format(firstDate, `MMMM yyyy`)
   }
 
-  if (period === Period.YEAR) {
+  if (periodType === PeriodType.YEAR) {
     return fns.format(firstDate, `yyyy`)
   }
 

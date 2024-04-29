@@ -2,7 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { Button } from '@/components/common/Button.jsx'
 import { Card } from '@/components/common/Card/index.jsx'
-import { Period } from '@/hooks/usePeriod.js'
+import { PeriodType } from '@/hooks/usePeriod.js'
 import { formatPeriod, formatPeriodForAriaLabel } from '@/utils/formatDate.js'
 
 const variants: Variants = {
@@ -21,16 +21,16 @@ const variants: Variants = {
 
 interface Props {
   fromDate: Date
-  period: Period
-  onChangePeriod: (period: Period) => void
+  periodType: PeriodType
+  onChangePeriodType: (period: PeriodType) => void
   onGoPrev: () => void
   onGoNext: () => void
 }
 
 export const PeriodSelector = ({
   fromDate,
-  period,
-  onChangePeriod,
+  periodType,
+  onChangePeriodType,
   onGoPrev,
   onGoNext,
 }: Props) => (
@@ -39,11 +39,11 @@ export const PeriodSelector = ({
       <Button
         className="flex-auto px-0"
         size="sm"
-        theme={period === Period.ALL ? 'green' : 'white'}
+        theme={periodType === PeriodType.ALL ? 'green' : 'white'}
         role="radio"
         aria-label="All time"
-        aria-checked={period === Period.ALL ? 'true' : 'false'}
-        onClick={() => onChangePeriod(Period.ALL)}
+        aria-checked={periodType === PeriodType.ALL ? 'true' : 'false'}
+        onClick={() => onChangePeriodType(PeriodType.ALL)}
       >
         All
       </Button>
@@ -51,10 +51,10 @@ export const PeriodSelector = ({
       <Button
         className="flex-auto px-0"
         size="sm"
-        theme={period === Period.WEEK ? 'green' : 'white'}
+        theme={periodType === PeriodType.WEEK ? 'green' : 'white'}
         role="radio"
-        aria-checked={period === Period.WEEK ? 'true' : 'false'}
-        onClick={() => onChangePeriod(Period.WEEK)}
+        aria-checked={periodType === PeriodType.WEEK ? 'true' : 'false'}
+        onClick={() => onChangePeriodType(PeriodType.WEEK)}
       >
         Week
       </Button>
@@ -62,10 +62,10 @@ export const PeriodSelector = ({
       <Button
         className="flex-auto px-0"
         size="sm"
-        theme={period === Period.MONTH ? 'green' : 'white'}
+        theme={periodType === PeriodType.MONTH ? 'green' : 'white'}
         role="radio"
-        aria-checked={period === Period.MONTH ? 'true' : 'false'}
-        onClick={() => onChangePeriod(Period.MONTH)}
+        aria-checked={periodType === PeriodType.MONTH ? 'true' : 'false'}
+        onClick={() => onChangePeriodType(PeriodType.MONTH)}
       >
         Month
       </Button>
@@ -73,17 +73,17 @@ export const PeriodSelector = ({
       <Button
         className="flex-auto px-0"
         size="sm"
-        theme={period === Period.YEAR ? 'green' : 'white'}
+        theme={periodType === PeriodType.YEAR ? 'green' : 'white'}
         role="radio"
-        aria-checked={period === Period.YEAR ? 'true' : 'false'}
-        onClick={() => onChangePeriod(Period.YEAR)}
+        aria-checked={periodType === PeriodType.YEAR ? 'true' : 'false'}
+        onClick={() => onChangePeriodType(PeriodType.YEAR)}
       >
         Year
       </Button>
     </Card.Block>
 
     <AnimatePresence>
-      {period !== Period.ALL && (
+      {periodType !== PeriodType.ALL && (
         <motion.div
           className="overflow-hidden"
           initial="closed"
@@ -95,10 +95,10 @@ export const PeriodSelector = ({
             <div
               className="order-2 flex-auto truncate text-center font-medium"
               tabIndex={0}
-              aria-label={formatPeriodForAriaLabel(period, fromDate)}
+              aria-label={formatPeriodForAriaLabel(periodType, fromDate)}
               role="presentation"
             >
-              {formatPeriod(period, fromDate)}
+              {formatPeriod(periodType, fromDate)}
             </div>
 
             <Button

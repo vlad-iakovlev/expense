@@ -18,8 +18,15 @@ interface Props {
 
 export const StatisticsCard = ({ className, groupId, walletId }: Props) => {
   const [type, setType] = React.useState(ClientStatisticsType.EXPENSES)
-  const { startDate, endDate, fromDate, period, setPeriod, goPrev, goNext } =
-    usePeriod()
+  const {
+    startDate,
+    endDate,
+    fromDate,
+    periodType,
+    setPeriodType,
+    goPrev,
+    goNext,
+  } = usePeriod()
 
   const { statisticsItems, statisticsCurrency } = useStatistics({
     groupId,
@@ -55,8 +62,8 @@ export const StatisticsCard = ({ className, groupId, walletId }: Props) => {
 
       <PeriodSelector
         fromDate={fromDate}
-        period={period}
-        onChangePeriod={setPeriod}
+        periodType={periodType}
+        onChangePeriodType={setPeriodType}
         onGoPrev={goPrev}
         onGoNext={goNext}
       />
