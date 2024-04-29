@@ -1,5 +1,5 @@
 import { PlusIcon } from '@heroicons/react/24/outline'
-import { useRouter } from 'next/router.js'
+import { useRouter } from 'next/navigation.js'
 import React from 'react'
 import { Card } from '@/components/common/Card/index.jsx'
 import { ROUTES } from '@/constants/routes.js'
@@ -11,10 +11,7 @@ export const GroupCreateCard = () => {
 
   const handleCreate = React.useCallback(() => {
     const groupId = createGroup()
-    void router.push(
-      `${ROUTES.GROUP(groupId)}?animation=forward`,
-      ROUTES.GROUP(groupId),
-    )
+    router.push(ROUTES.GROUP(groupId))
   }, [createGroup, router])
 
   return (

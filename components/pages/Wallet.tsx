@@ -5,9 +5,9 @@ import { WalletInfoCard } from '@/cards/WalletInfo/index.jsx'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
 import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
 import { ROUTES } from '@/constants/routes.js'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
+import { useTitle } from '@/hooks/useTitle.js'
 
 interface WalletProps {
   walletId: string
@@ -17,6 +17,8 @@ export const Wallet = ({ walletId }: WalletProps) => {
   const { wallet } = useWallet({ walletId })
 
   const walletName = `${wallet.name} ${wallet.currency.symbol}`
+
+  useTitle(`Expense > ${walletName}`)
 
   const parents = React.useMemo(
     () => [
@@ -34,10 +36,6 @@ export const Wallet = ({ walletId }: WalletProps) => {
 
   return (
     <>
-      <NextHead>
-        <title>{`Expense > ${walletName}`}</title>
-      </NextHead>
-
       <Breadcrumbs parents={parents} />
       <Title title={walletName} />
 

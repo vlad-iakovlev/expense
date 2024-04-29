@@ -3,9 +3,9 @@ import { OperationInfoCard } from '@/cards/OperationInfo/index.jsx'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
 import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
 import { ROUTES } from '@/constants/routes.js'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
+import { useTitle } from '@/hooks/useTitle.js'
 
 interface OperationProps {
   operationId: string
@@ -13,6 +13,8 @@ interface OperationProps {
 
 export const Operation = ({ operationId }: OperationProps) => {
   const { operation } = useOperation({ operationId })
+
+  useTitle(`Expense > ${operation.category} – ${operation.name}`)
 
   const parents = React.useMemo(() => {
     const wallet = operation.expenseWallet ?? operation.incomeWallet
@@ -37,10 +39,6 @@ export const Operation = ({ operationId }: OperationProps) => {
 
   return (
     <>
-      <NextHead>
-        <title>{`Expense > ${operation.category} – ${operation.name}`}</title>
-      </NextHead>
-
       <Breadcrumbs parents={parents} />
       <Title title={operation.name} />
 

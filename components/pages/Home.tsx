@@ -13,10 +13,12 @@ import React from 'react'
 import { Card } from '@/components/common/Card/index.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
 import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
+import { useTitle } from '@/hooks/useTitle.js'
 import { ExternalLink } from '../common/ExternalLink.jsx'
 
 export const Home = () => {
+  useTitle('Expense')
+
   const [isLoading, setIsLoading] = React.useState(false)
 
   const handleSignIn = React.useCallback(() => {
@@ -32,10 +34,6 @@ export const Home = () => {
 
   return (
     <>
-      <NextHead>
-        <title>Expense</title>
-      </NextHead>
-
       <Title title="Home" />
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] lg:grid-rows-none">

@@ -10,8 +10,7 @@ interface SettingsProps {
 export const Settings = ({ groupId }: SettingsProps) => (
   <NextLink
     className="rounded-full"
-    href={`${ROUTES.GROUP_SETTINGS(groupId)}?animation=forward`}
-    as={ROUTES.GROUP_SETTINGS(groupId)}
+    href={ROUTES.GROUP_SETTINGS(groupId)}
     aria-label="Settings"
   >
     <Button

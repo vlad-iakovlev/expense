@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router.js'
+import { useRouter } from 'next/navigation.js'
 import React from 'react'
 import { Button } from '@/components/common/Button.jsx'
 import { ROUTES } from '@/constants/routes.js'
@@ -14,10 +14,7 @@ export const Add = ({ walletId }: AddProps) => {
 
   const handleCreate = React.useCallback(() => {
     const operationId = createOperation()
-    void router.push(
-      `${ROUTES.OPERATION(operationId)}?animation=forward`,
-      ROUTES.OPERATION(operationId),
-    )
+    router.push(ROUTES.OPERATION(operationId))
   }, [createOperation, router])
 
   if (!walletId) {

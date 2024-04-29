@@ -6,9 +6,9 @@ import { WalletsListCard } from '@/cards/WalletsList/index.jsx'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
 import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
 import { ROUTES } from '@/constants/routes.js'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
+import { useTitle } from '@/hooks/useTitle.js'
 
 interface GroupProps {
   groupId: string
@@ -16,6 +16,8 @@ interface GroupProps {
 
 export const Group = ({ groupId }: GroupProps) => {
   const { group } = useGroup({ groupId })
+
+  useTitle(`Expense > ${group.name}`)
 
   const parents = React.useMemo(
     () => [
@@ -29,10 +31,6 @@ export const Group = ({ groupId }: GroupProps) => {
 
   return (
     <>
-      <NextHead>
-        <title>{`Expense > ${group.name}`}</title>
-      </NextHead>
-
       <Breadcrumbs parents={parents} />
       <Title title={group.name} />
 

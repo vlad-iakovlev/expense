@@ -3,9 +3,9 @@ import { WalletSettingsGeneralCard } from '@/cards/WalletSettingsGeneral/index.j
 import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
 import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
 import { ROUTES } from '@/constants/routes.js'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
+import { useTitle } from '@/hooks/useTitle.js'
 
 interface WalletSettingsProps {
   walletId: string
@@ -15,6 +15,8 @@ export const WalletSettings = ({ walletId }: WalletSettingsProps) => {
   const { wallet } = useWallet({ walletId })
 
   const walletName = `${wallet.name} ${wallet.currency.symbol}`
+
+  useTitle(`Expense > ${walletName} > Settings`)
 
   const parents = React.useMemo(
     () => [
@@ -42,10 +44,6 @@ export const WalletSettings = ({ walletId }: WalletSettingsProps) => {
 
   return (
     <>
-      <NextHead>
-        <title>{`Expense > ${walletName} > Settings`}</title>
-      </NextHead>
-
       <Breadcrumbs parents={parents} />
       <Title title="Settings" />
 

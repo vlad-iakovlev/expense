@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router.js'
+import { useRouter } from 'next/navigation.js'
 import React from 'react'
 import { acceptInvite } from '@/api/client/invites.js'
 import { Loading } from '@/components/layout/Loading.jsx'
@@ -16,7 +16,7 @@ export const Invite = ({ token }: InviteProps) => {
       try {
         await acceptInvite({ token })
       } finally {
-        await router.push(ROUTES.DASHBOARD)
+        router.push(ROUTES.DASHBOARD)
       }
     })()
   }, [router, token])

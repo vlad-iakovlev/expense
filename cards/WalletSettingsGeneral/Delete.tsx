@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router.js'
+import { useRouter } from 'next/navigation.js'
 import React from 'react'
 import { Button } from '@/components/common/Button.jsx'
 import { ConfirmDialog } from '@/components/common/ConfirmDialog.jsx'
@@ -22,13 +22,8 @@ export const Delete = ({ walletId }: DeleteProps) => {
   }, [])
 
   const handleDeleteConfirm = React.useCallback(() => {
-    void (async () => {
-      await router.push(
-        `${ROUTES.GROUP(wallet.group.id)}?animation=back`,
-        ROUTES.GROUP(wallet.group.id),
-      )
-      removeWallet()
-    })()
+    router.push(ROUTES.GROUP(wallet.group.id))
+    removeWallet()
   }, [removeWallet, router, wallet.group.id])
 
   const handleDeleteCancel = React.useCallback(() => {

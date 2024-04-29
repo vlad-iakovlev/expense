@@ -1,7 +1,6 @@
-import { NextHead } from '@/components/next/Head.js'
+import { useTitle } from '@/hooks/useTitle.js'
 
-export const Loading = () => (
-  <NextHead>
-    <title>Expense loading...</title>
-  </NextHead>
-)
+export const Loading = () => {
+  useTitle('Expense loading...')
+  return null
+}

@@ -5,9 +5,9 @@ import { RenameCategoryCard } from '@/cards/RenameCategory/index.jsx'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
 import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
 import { ROUTES } from '@/constants/routes.js'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
+import { useTitle } from '@/hooks/useTitle.js'
 
 interface GroupSettingsProps {
   groupId: string
@@ -15,6 +15,8 @@ interface GroupSettingsProps {
 
 export const GroupSettings = ({ groupId }: GroupSettingsProps) => {
   const { group } = useGroup({ groupId })
+
+  useTitle(`Expense > ${group.name} > Settings`)
 
   const parents = React.useMemo(
     () => [
@@ -32,10 +34,6 @@ export const GroupSettings = ({ groupId }: GroupSettingsProps) => {
 
   return (
     <>
-      <NextHead>
-        <title>{`Expense > ${group.name} > Settings`}</title>
-      </NextHead>
-
       <Breadcrumbs parents={parents} />
       <Title title="Settings" />
 

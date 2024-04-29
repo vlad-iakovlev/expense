@@ -1,5 +1,5 @@
-import { Popup, PopupProps } from '../Popup/index.jsx'
-import { Scrollable } from '../Scrollable/index.jsx'
+import { Popup, PopupProps } from '@/components/common/Popup/index.jsx'
+import { Scrollable } from '@/components/common/Scrollable/index.jsx'
 
 export type CardMenuProps = PopupProps
 
