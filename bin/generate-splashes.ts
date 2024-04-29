@@ -160,37 +160,37 @@ const generateSplash = async (width: number, height: number) => {
   console.log(chalk.green.bold(`[${dstPath}]`), 'Generated')
 }
 
-const getXmlLine = (
+const getSplashMedia = (
   screenSize: ScreenSize,
   orientation: 'portrait' | 'landscape',
-  splashPath: string,
-): string => {
-  const media = [
+): string =>
+  [
     `(device-width: ${screenSize.dpWidth}px)`,
     `(device-height: ${screenSize.dpHeight}px)`,
     `(-webkit-device-pixel-ratio: ${screenSize.ratio})`,
     `(orientation: ${orientation})`,
   ].join(' and ')
 
-  return `<link rel="apple-touch-startup-image" href="${splashPath}" media="${media}" />`
-}
+const generateSplashesJson = async (screenSizes: ScreenSize[]) => {
+  const dstPath = path.join(process.cwd(), 'splashes.json')
 
-const getXml = (screenSizes: ScreenSize[]): string =>
-  screenSizes
+  const splashesJson = screenSizes
     .map((screenSize) => [
-      getXmlLine(
-        screenSize,
-        'portrait',
-        getSplashPath(screenSize.pxWidth, screenSize.pxHeight),
-      ),
-      getXmlLine(
-        screenSize,
-        'landscape',
-        getSplashPath(screenSize.pxHeight, screenSize.pxWidth),
-      ),
+      {
+        url: getSplashPath(screenSize.pxWidth, screenSize.pxHeight),
+        media: getSplashMedia(screenSize, 'portrait'),
+      },
+      {
+        url: getSplashPath(screenSize.pxHeight, screenSize.pxWidth),
+        media: getSplashMedia(screenSize, 'landscape'),
+      },
     ])
     .flat()
-    .join('\n')
+
+  await fs.promises.writeFile(dstPath, JSON.stringify(splashesJson, null, 2))
+
+  console.log(chalk.green.bold(`[${dstPath}]`), 'Generated')
+}
 
 void (async () => {
   try {
@@ -199,13 +199,7 @@ void (async () => {
       await generateSplash(screenSize.pxHeight, screenSize.pxWidth)
     }
 
-    console.log('')
-    console.log(
-      chalk.red.bold(
-        'Update components/layout/ApplePWA.tsx with the following:',
-      ),
-    )
-    console.log(getXml(SCREEN_SIZES))
+    await generateSplashesJson(SCREEN_SIZES)
 
     process.exit(0)
   } catch (error) {

@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "generate-icons": "node --loader ts-node/esm bin/generate-icons.ts",
-    "generate-splash": "node --loader ts-node/esm bin/generate-splash.ts",
+    "generate-splashes": "node --loader ts-node/esm bin/generate-splashes.ts",
     "compile": "tsc",
     "lint": "eslint .",
     "lint:ci": "DEBUG=eslint:cli-engine eslint .",
