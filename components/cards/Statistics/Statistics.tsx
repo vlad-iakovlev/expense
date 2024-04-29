@@ -30,12 +30,14 @@ export const StatisticsCard = ({ className, groupId, walletId }: Props) => {
   })
 
   const { disabledCategories } = useDisabledCategories()
-  const chartItems = useMemo(() => {
-    return statisticsItems.map((item) => ({
-      ...item,
-      amount: disabledCategories.includes(item.category) ? 0 : item.amount,
-    }))
-  }, [disabledCategories, statisticsItems])
+  const chartItems = useMemo(
+    () =>
+      statisticsItems.map((item) => ({
+        ...item,
+        amount: disabledCategories.includes(item.category) ? 0 : item.amount,
+      })),
+    [disabledCategories, statisticsItems],
+  )
 
   const { operationIds } = useOperations({ groupId, walletId })
   if (!operationIds.length) {

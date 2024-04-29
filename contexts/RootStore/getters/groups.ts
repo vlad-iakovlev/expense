@@ -9,9 +9,8 @@ import { RootStoreState } from '../types.jsx'
 import { getCurrency } from './currencies.js'
 import { getAvailableWallets, getWalletBalance } from './wallets.js'
 
-export const getAvailableGroups = (state: RootStoreState): ClientGroup[] => {
-  return state.groups.filter((group) => !group.removed && !group.clientRemoved)
-}
+export const getAvailableGroups = (state: RootStoreState): ClientGroup[] =>
+  state.groups.filter((group) => !group.removed && !group.clientRemoved)
 
 export const getOrderedGroups = (state: RootStoreState): ClientGroup[] => {
   const groups = getAvailableGroups(state)

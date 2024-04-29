@@ -11,8 +11,8 @@ const createGroupReducer: React.Reducer<
       groupId: string
     }
   }
-> = (state, { payload: { groupId } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { groupId } }) =>
+  produce(state, (draft) => {
     draft.groups.push({
       id: groupId,
       removed: false,
@@ -23,7 +23,6 @@ const createGroupReducer: React.Reducer<
     })
     draft.nextSyncTransaction.groups.push(groupId)
   })
-}
 
 const removeGroupReducer: React.Reducer<
   RootStoreState,
@@ -33,8 +32,8 @@ const removeGroupReducer: React.Reducer<
       groupId: string
     }
   }
-> = (state, { payload: { groupId } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { groupId } }) =>
+  produce(state, (draft) => {
     draft.groups.forEach((groups) => {
       if (groups.id === groupId) {
         groups.removed = true
@@ -42,7 +41,6 @@ const removeGroupReducer: React.Reducer<
       }
     })
   })
-}
 
 const removeMemberFromGroupReducer: React.Reducer<
   RootStoreState,
@@ -53,8 +51,8 @@ const removeMemberFromGroupReducer: React.Reducer<
       userId: string
     }
   }
-> = (state, { payload: { groupId, userId } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { groupId, userId } }) =>
+  produce(state, (draft) => {
     draft.userGroups.forEach((userGroup) => {
       if (userGroup.groupId === groupId && userGroup.userId === userId) {
         userGroup.removed = true
@@ -62,7 +60,6 @@ const removeMemberFromGroupReducer: React.Reducer<
       }
     })
   })
-}
 
 const leaveGroupReducer: React.Reducer<
   RootStoreState,
@@ -73,8 +70,8 @@ const leaveGroupReducer: React.Reducer<
       me: ClientUser
     }
   }
-> = (state, { payload: { groupId, me } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { groupId, me } }) =>
+  produce(state, (draft) => {
     draft.userGroups.forEach((userGroup) => {
       if (userGroup.groupId === groupId && userGroup.userId === me.id) {
         userGroup.removed = true
@@ -88,7 +85,6 @@ const leaveGroupReducer: React.Reducer<
       }
     })
   })
-}
 
 const setGroupNameReducer: React.Reducer<
   RootStoreState,
@@ -99,8 +95,8 @@ const setGroupNameReducer: React.Reducer<
       name: string
     }
   }
-> = (state, { payload: { groupId, name } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { groupId, name } }) =>
+  produce(state, (draft) => {
     draft.groups.forEach((group) => {
       if (group.id === groupId) {
         group.name = name
@@ -108,7 +104,6 @@ const setGroupNameReducer: React.Reducer<
       }
     })
   })
-}
 
 const setGroupDefaultCurrencyReducer: React.Reducer<
   RootStoreState,
@@ -119,8 +114,8 @@ const setGroupDefaultCurrencyReducer: React.Reducer<
       defaultCurrencyId: string
     }
   }
-> = (state, { payload: { groupId, defaultCurrencyId } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { groupId, defaultCurrencyId } }) =>
+  produce(state, (draft) => {
     draft.groups.forEach((group) => {
       if (group.id === groupId) {
         group.defaultCurrencyId = defaultCurrencyId
@@ -128,7 +123,6 @@ const setGroupDefaultCurrencyReducer: React.Reducer<
       }
     })
   })
-}
 
 export type GroupsAction =
   | React.ReducerAction<typeof createGroupReducer>
@@ -141,11 +135,8 @@ export type GroupsAction =
 export const isGroupsAction = (action: {
   type: string
   payload?: unknown
-}): action is GroupsAction => {
-  return Object.values(GroupsActionTypes).includes(
-    action.type as GroupsActionTypes,
-  )
-}
+}): action is GroupsAction =>
+  Object.values(GroupsActionTypes).includes(action.type as GroupsActionTypes)
 
 export const groupsReducer: React.Reducer<RootStoreState, GroupsAction> = (
   state,

@@ -72,6 +72,4 @@ const animate = <K extends string, T extends Record<K, number>>(
   from: T,
   to: T,
   progress: number,
-) => {
-  return from[key] - (from[key] - to[key]) * progress
-}
+) => from[key] - (from[key] - to[key]) * progress

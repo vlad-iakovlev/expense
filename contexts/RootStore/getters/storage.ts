@@ -4,27 +4,25 @@ import { isTransactionEmpty } from '../utils.js'
 
 export const getBrowserStorageState = (
   state: RootStoreState,
-): BrowserStorageState => {
-  return {
-    currencies: state.currencies,
-    users: state.users,
-    userGroups: state.userGroups,
-    groups: state.groups,
-    wallets: state.wallets.map((wallet) => ({
-      ...wallet,
-      createdAt: wallet.createdAt.toISOString(),
-    })),
-    operations: state.operations.map((operation) => ({
-      ...operation,
-      date: operation.date.toISOString(),
-    })),
-    disabledCategories: state.disabledCategories,
-    nextSyncTransaction: state.nextSyncTransaction,
-    syncingTransaction: state.syncingTransaction,
-    lastTransactionId: state.lastTransactionId,
-    syncedAt: state.syncedAt ? state.syncedAt.toISOString() : null,
-  }
-}
+): BrowserStorageState => ({
+  currencies: state.currencies,
+  users: state.users,
+  userGroups: state.userGroups,
+  groups: state.groups,
+  wallets: state.wallets.map((wallet) => ({
+    ...wallet,
+    createdAt: wallet.createdAt.toISOString(),
+  })),
+  operations: state.operations.map((operation) => ({
+    ...operation,
+    date: operation.date.toISOString(),
+  })),
+  disabledCategories: state.disabledCategories,
+  nextSyncTransaction: state.nextSyncTransaction,
+  syncingTransaction: state.syncingTransaction,
+  lastTransactionId: state.lastTransactionId,
+  syncedAt: state.syncedAt ? state.syncedAt.toISOString() : null,
+})
 
 export const getRemoteStorageBody = (
   state: RootStoreState,
@@ -46,19 +44,19 @@ export const getRemoteStorageBody = (
   return {
     lastTransactionId: state.lastTransactionId,
     updates: {
-      userGroups: state.userGroups.filter((userGroup) => {
-        return state.nextSyncTransaction.userGroups.includes(userGroup.id)
-      }),
-      groups: state.groups.filter((group) => {
-        return state.nextSyncTransaction.groups.includes(group.id)
-      }),
-      wallets: state.wallets.filter((wallet) => {
-        return state.nextSyncTransaction.wallets.includes(wallet.id)
-      }),
+      userGroups: state.userGroups.filter((userGroup) =>
+        state.nextSyncTransaction.userGroups.includes(userGroup.id),
+      ),
+      groups: state.groups.filter((group) =>
+        state.nextSyncTransaction.groups.includes(group.id),
+      ),
+      wallets: state.wallets.filter((wallet) =>
+        state.nextSyncTransaction.wallets.includes(wallet.id),
+      ),
       operations: state.operations
-        .filter((operation) => {
-          return state.nextSyncTransaction.operations.includes(operation.id)
-        })
+        .filter((operation) =>
+          state.nextSyncTransaction.operations.includes(operation.id),
+        )
         .map((operation) => ({
           ...operation,
           date: operation.date.toISOString(),

@@ -7,11 +7,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "generate-icons": "ts-node --esm bin/generate-icons.ts",
-    "generate-splash": "ts-node --esm bin/generate-splash.ts",
+    "generate-icons": "node --loader ts-node/esm bin/generate-icons.ts",
+    "generate-splash": "node --loader ts-node/esm bin/generate-splash.ts",
     "compile": "tsc",
-    "lint": "next lint",
-    "lint:ci": "DEBUG=eslint:cli-engine next lint",
+    "lint": "eslint .",
+    "lint:ci": "DEBUG=eslint:cli-engine eslint .",
     "prettier": "prettier --write '**/*.(js|ts|tsx|md|json)'",
     "prettier:ci": "prettier --check '**/*.(js|ts|tsx|md|json)'"
   },
@@ -70,7 +70,13 @@
       "plugin:@typescript-eslint/recommended-requiring-type-checking",
       "plugin:@typescript-eslint/strict",
       "prettier"
-    ]
+    ],
+    "rules": {
+      "arrow-body-style": [
+        "error",
+        "as-needed"
+      ]
+    }
   },
   "prettier": {
     "plugins": [

@@ -18,8 +18,8 @@ export const Wallet = ({ walletId }: Props) => {
 
   const walletName = `${wallet.name} ${wallet.currency.symbol}`
 
-  const parents = useMemo(() => {
-    return [
+  const parents = useMemo(
+    () => [
       {
         href: ROUTES.DASHBOARD,
         title: 'Dashboard',
@@ -28,8 +28,9 @@ export const Wallet = ({ walletId }: Props) => {
         href: ROUTES.GROUP(wallet.group.id),
         title: wallet.group.name,
       },
-    ]
-  }, [wallet.group.id, wallet.group.name])
+    ],
+    [wallet.group.id, wallet.group.name],
+  )
 
   return (
     <>

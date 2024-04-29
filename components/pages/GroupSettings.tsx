@@ -16,8 +16,8 @@ interface Props {
 export const GroupSettings = ({ groupId }: Props) => {
   const { group } = useGroup({ groupId })
 
-  const parents = useMemo(() => {
-    return [
+  const parents = useMemo(
+    () => [
       {
         href: ROUTES.DASHBOARD,
         title: 'Dashboard',
@@ -26,8 +26,9 @@ export const GroupSettings = ({ groupId }: Props) => {
         href: ROUTES.GROUP(groupId),
         title: group.name,
       },
-    ]
-  }, [group.name, groupId])
+    ],
+    [group.name, groupId],
+  )
 
   return (
     <>

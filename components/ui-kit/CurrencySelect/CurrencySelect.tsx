@@ -20,8 +20,8 @@ export const CurrencySelect = ({
 }: CurrencySelectProps) => {
   const { currencies } = useCurrencies()
 
-  const options = useMemo<CardSelectItem[]>(() => {
-    return [
+  const options = useMemo<CardSelectItem[]>(
+    () => [
       ...PRIORITIZED_CURRENCIES.map((symbol) => {
         const currency = currencies.find((item) => item.symbol === symbol)
         assert(currency, `Currency ${symbol} not found`)
@@ -40,8 +40,9 @@ export const CurrencySelect = ({
           label: currency.name ?? '',
           suffix: <CurrencyBadge currency={currency} />,
         })),
-    ]
-  }, [currencies])
+    ],
+    [currencies],
+  )
 
   const valueForSelect = useMemo(
     () => ({

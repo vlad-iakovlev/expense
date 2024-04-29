@@ -33,11 +33,8 @@ export const mergeTransactions = (
   operations: [...(a.operations ?? []), ...(b.operations ?? [])],
 })
 
-export const isTransactionEmpty = (transaction: ClientTransaction) => {
-  return (
-    transaction.userGroups.length === 0 &&
-    transaction.groups.length === 0 &&
-    transaction.wallets.length === 0 &&
-    transaction.operations.length === 0
-  )
-}
+export const isTransactionEmpty = (transaction: ClientTransaction) =>
+  transaction.userGroups.length === 0 &&
+  transaction.groups.length === 0 &&
+  transaction.wallets.length === 0 &&
+  transaction.operations.length === 0

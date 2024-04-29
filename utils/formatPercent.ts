@@ -1,3 +1,2 @@
-export const formatPercent = (value: number) => {
-  return `${(value * 100).toFixed(2).replace(/\.?0+$/, '')}%`
-}
+export const formatPercent = (value: number) =>
+  `${(value * 100).toFixed(2).replace(/\.?0+$/, '')}%`

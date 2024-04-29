@@ -34,9 +34,7 @@ export type AvatarProps = Modify<
   }
 >
 
-const getSlugByName = (name: string) => {
-  return name.slice(0, 1)
-}
+const getSlugByName = (name: string) => name.slice(0, 1)
 
 const getColorByName = (name: string) => {
   const slug = getSlugByName(name)
@@ -52,36 +50,34 @@ export const Avatar = ({
   src,
   size = 'md',
   ...rest
-}: AvatarProps) => {
-  return (
-    <div
-      className={twMerge(
-        'overflow-hidden rounded-full',
-        size === 'sm' && 'h-8 w-8',
-        size === 'md' && 'h-10 w-10',
-        className,
-      )}
-      {...rest}
-    >
-      {src ? (
-        <NextImage
-          src={src}
-          alt={`Avatar of ${name}`}
-          width={48}
-          height={48}
-          quality={100}
-        />
-      ) : (
-        <div
-          className={twMerge(
-            'flex h-full w-full items-center justify-center font-medium text-white',
-            `bg-${color}-800`,
-            size === 'sm' && 'text-sm',
-          )}
-        >
-          {slug}
-        </div>
-      )}
-    </div>
-  )
-}
+}: AvatarProps) => (
+  <div
+    className={twMerge(
+      'overflow-hidden rounded-full',
+      size === 'sm' && 'h-8 w-8',
+      size === 'md' && 'h-10 w-10',
+      className,
+    )}
+    {...rest}
+  >
+    {src ? (
+      <NextImage
+        src={src}
+        alt={`Avatar of ${name}`}
+        width={48}
+        height={48}
+        quality={100}
+      />
+    ) : (
+      <div
+        className={twMerge(
+          'flex h-full w-full items-center justify-center font-medium text-white',
+          `bg-${color}-800`,
+          size === 'sm' && 'text-sm',
+        )}
+      >
+        {slug}
+      </div>
+    )}
+  </div>
+)

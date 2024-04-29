@@ -37,8 +37,8 @@ export const PageTransition = forwardRef<
     return () => router.events.off('routeChangeStart', handleRouteChange)
   }, [asPath, router.events])
 
-  const variants: Variants = useMemo(() => {
-    return {
+  const variants: Variants = useMemo(
+    () => ({
       initial: {
         ...(animation === 'forward' && {
           transform: 'translateX(100%)',
@@ -64,8 +64,9 @@ export const PageTransition = forwardRef<
           transform: 'translateX(100%)',
         }),
       }),
-    }
-  }, [animation])
+    }),
+    [animation],
+  )
 
   return (
     <motion.div

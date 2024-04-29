@@ -29,14 +29,14 @@ export const updateCurrencyRates: NextApiHandler<{ ok: boolean }> = async (
   const rates = (await ratesResponse.json()) as RatesResponse
 
   await prisma.$transaction(
-    Object.entries(rates.rates).map(([symbol, rate]) => {
-      return prisma.currency.upsert({
+    Object.entries(rates.rates).map(([symbol, rate]) =>
+      prisma.currency.upsert({
         where: { symbol },
         create: { symbol, rate },
         update: { rate },
         select: { id: true },
-      })
-    }),
+      }),
+    ),
   )
 
   res.status(200).json({ ok: true })
@@ -63,12 +63,12 @@ export const updateCurrencyNames: NextApiHandler<{ ok: boolean }> = async (
   const symbols = (await ratesResponse.json()) as SymbolsResponse
 
   await prisma.$transaction(
-    Object.entries(symbols.symbols).map(([symbol, name]) => {
-      return prisma.currency.updateMany({
+    Object.entries(symbols.symbols).map(([symbol, name]) =>
+      prisma.currency.updateMany({
         where: { symbol },
         data: { name },
-      })
-    }),
+      }),
+    ),
   )
 
   res.status(200).json({ ok: true })

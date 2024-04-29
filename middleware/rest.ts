@@ -4,10 +4,9 @@ type RestMiddlewareHandlers = Partial<
   Record<'post' | 'get' | 'put' | 'patch' | 'delete', NextApiHandler>
 >
 
-export const restHandler = (
-  handlers: RestMiddlewareHandlers,
-): NextApiHandler => {
-  return async (req, res) => {
+export const restHandler =
+  (handlers: RestMiddlewareHandlers): NextApiHandler =>
+  async (req, res) => {
     const handler =
       handlers[req.method?.toLowerCase() as keyof RestMiddlewareHandlers]
 
@@ -17,4 +16,3 @@ export const restHandler = (
       res.status(405).end('Method Not Allowed')
     }
   }
-}

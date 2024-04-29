@@ -16,15 +16,17 @@ interface Props {
 export const useGroupedWallets = ({ groupId }: Props = {}) => {
   const { state, dispatch } = useRootStore()
 
-  const currenciesMap = useMemo(() => {
-    return state.currencies.reduce<Record<string, ClientCurrency | undefined>>(
-      (acc, currency) => {
-        acc[currency.id] = currency
-        return acc
-      },
-      {},
-    )
-  }, [state.currencies])
+  const currenciesMap = useMemo(
+    () =>
+      state.currencies.reduce<Record<string, ClientCurrency | undefined>>(
+        (acc, currency) => {
+          acc[currency.id] = currency
+          return acc
+        },
+        {},
+      ),
+    [state.currencies],
+  )
 
   const groupedWallets = useMemo<GroupedWallets[]>(() => {
     const wallets = getOrderedWallets(state, { groupId })
@@ -57,8 +59,8 @@ export const useGroupedWallets = ({ groupId }: Props = {}) => {
 const groupWallets = (
   wallets: ClientWallet[],
   currenciesMap: Record<string, ClientCurrency | undefined>,
-) => {
-  return wallets.reduce<GroupedWallets[]>((acc, wallet) => {
+) =>
+  wallets.reduce<GroupedWallets[]>((acc, wallet) => {
     const currency = currenciesMap[wallet.currencyId]
     assert(currency, 'Currency not found')
 
@@ -72,4 +74,3 @@ const groupWallets = (
 
     return acc
   }, [])
-}

@@ -16,8 +16,8 @@ interface GetOperationsParams {
 export const getAvailableOperations = (
   state: RootStoreState,
   { groupId, walletId, category }: GetOperationsParams = {},
-): ClientOperation[] => {
-  return state.operations.filter((operation) => {
+): ClientOperation[] =>
+  state.operations.filter((operation) => {
     if (
       operation.removed ||
       (category && operation.category !== category) ||
@@ -44,7 +44,6 @@ export const getAvailableOperations = (
 
     return groups.some((group) => group.id === groupId)
   })
-}
 
 export const getOrderedOperations = (
   state: RootStoreState,

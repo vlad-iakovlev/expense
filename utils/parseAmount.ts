@@ -1,3 +1,2 @@
-export const parseAmount = (amount: string) => {
-  return Math.abs(Math.round(Number(amount.replace(',', '.')) * 1e2))
-}
+export const parseAmount = (amount: string) =>
+  Math.abs(Math.round(Number(amount.replace(',', '.')) * 1e2))

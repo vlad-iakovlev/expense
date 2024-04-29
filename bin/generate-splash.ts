@@ -124,9 +124,8 @@ const ICON_PATH = 'icons/icon-white.svg'
 const ICON_SIZE = Math.floor(512 * 0.6)
 const BG_COLOR = '#15803dff'
 
-const getSplashPath = (width: number, height: number): string => {
-  return `/splash/apple-splash-${width}-${height}.png`
-}
+const getSplashPath = (width: number, height: number): string =>
+  `/splash/apple-splash-${width}-${height}.png`
 
 const generateSplash = async (width: number, height: number) => {
   const srcPath = path.join(process.cwd(), ICON_PATH)
@@ -176,8 +175,8 @@ const getXmlLine = (
   return `<link rel="apple-touch-startup-image" href="${splashPath}" media="${media}" />`
 }
 
-const getXml = (screenSizes: ScreenSize[]): string => {
-  return screenSizes
+const getXml = (screenSizes: ScreenSize[]): string =>
+  screenSizes
     .map((screenSize) => [
       getXmlLine(
         screenSize,
@@ -192,7 +191,6 @@ const getXml = (screenSizes: ScreenSize[]): string => {
     ])
     .flat()
     .join('\n')
-}
 
 void (async () => {
   try {

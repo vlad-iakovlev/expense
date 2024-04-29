@@ -15,19 +15,22 @@ export const CategoryFilter = ({ groupId, walletId }: Props) => {
     useCategoryFilter()
   const { categories } = useCategories({ groupId, walletId })
 
-  const options = useMemo<CardSelectItem[]>(() => {
-    return categories.map<CardSelectItem>((category) => ({
-      id: category,
-      label: category,
-    }))
-  }, [categories])
+  const options = useMemo<CardSelectItem[]>(
+    () =>
+      categories.map<CardSelectItem>((category) => ({
+        id: category,
+        label: category,
+      })),
+    [categories],
+  )
 
-  const valueForSelect = useMemo(() => {
-    return {
+  const valueForSelect = useMemo(
+    () => ({
       id: categoryFilter,
       label: categoryFilter || 'Show all',
-    }
-  }, [categoryFilter])
+    }),
+    [categoryFilter],
+  )
 
   const handleResetClick = useCallback(
     (event: React.MouseEvent) => {

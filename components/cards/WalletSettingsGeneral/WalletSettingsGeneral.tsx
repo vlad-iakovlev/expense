@@ -8,13 +8,11 @@ interface Props {
   walletId: string
 }
 
-export const WalletSettingsGeneralCard = ({ className, walletId }: Props) => {
-  return (
-    <Card className={className} aria-label="General wallet settings">
-      <Card.Title title="General" actions={<Delete walletId={walletId} />} />
-      <Card.Divider />
-      <Name walletId={walletId} />
-      <Currency walletId={walletId} />
-    </Card>
-  )
-}
+export const WalletSettingsGeneralCard = ({ className, walletId }: Props) => (
+  <Card className={className} aria-label="General wallet settings">
+    <Card.Title title="General" actions={<Delete walletId={walletId} />} />
+    <Card.Divider />
+    <Name walletId={walletId} />
+    <Currency walletId={walletId} />
+  </Card>
+)

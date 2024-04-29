@@ -16,12 +16,14 @@ export const RenameCategoryCard = ({ className, groupId }: Props) => {
   const [oldName, setOldName] = useState('')
   const [newName, setNewName] = useState('')
 
-  const categoriesOptions = useMemo<CardSelectOption[]>(() => {
-    return categories.map((category) => ({
-      id: category,
-      label: category,
-    }))
-  }, [categories])
+  const categoriesOptions = useMemo<CardSelectOption[]>(
+    () =>
+      categories.map((category) => ({
+        id: category,
+        label: category,
+      })),
+    [categories],
+  )
 
   const categoryValue = useMemo(
     () => ({

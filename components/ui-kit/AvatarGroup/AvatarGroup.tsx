@@ -23,9 +23,10 @@ export const AvatarGroup = ({
   const visibleCount = max && avatars.length > max ? max - 1 : avatars.length
   const extraCount = avatars.length - visibleCount
 
-  const visibleAvatars = useMemo(() => {
-    return avatars.slice(0, visibleCount)
-  }, [avatars, visibleCount])
+  const visibleAvatars = useMemo(
+    () => avatars.slice(0, visibleCount),
+    [avatars, visibleCount],
+  )
 
   return (
     <div className={twMerge('flex items-center', className)} {...rest}>

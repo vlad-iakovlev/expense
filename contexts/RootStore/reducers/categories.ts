@@ -10,8 +10,8 @@ const renameCategoryReducer: React.Reducer<
       newName: string
     }
   }
-> = (state, action) => {
-  return produce(state, (draft) => {
+> = (state, action) =>
+  produce(state, (draft) => {
     draft.operations.forEach((operation) => {
       if (operation.category === action.payload.oldName) {
         operation.category = action.payload.newName
@@ -19,7 +19,6 @@ const renameCategoryReducer: React.Reducer<
       }
     })
   })
-}
 
 const toggleCategoryReducer: React.Reducer<
   RootStoreState,
@@ -30,8 +29,8 @@ const toggleCategoryReducer: React.Reducer<
       enabled: boolean
     }
   }
-> = (state, action) => {
-  return produce(state, (draft) => {
+> = (state, action) =>
+  produce(state, (draft) => {
     draft.disabledCategories = draft.disabledCategories.filter(
       (category) => category !== action.payload.name,
     )
@@ -40,7 +39,6 @@ const toggleCategoryReducer: React.Reducer<
       draft.disabledCategories.push(action.payload.name)
     }
   })
-}
 
 export type CategoriesAction =
   | React.ReducerAction<typeof renameCategoryReducer>
@@ -49,11 +47,10 @@ export type CategoriesAction =
 export const isCategoriesAction = (action: {
   type: string
   payload?: unknown
-}): action is CategoriesAction => {
-  return Object.values(CategoriesActionTypes).includes(
+}): action is CategoriesAction =>
+  Object.values(CategoriesActionTypes).includes(
     action.type as CategoriesActionTypes,
   )
-}
 
 export const categoriesReducer: React.Reducer<
   RootStoreState,

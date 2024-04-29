@@ -8,13 +8,11 @@ interface Props {
   groupId: string
 }
 
-export const GroupInfoCard = ({ className, groupId }: Props) => {
-  return (
-    <Card className={className} aria-label="Group info">
-      <Card.Title title="Info" actions={<Settings groupId={groupId} />} />
-      <Card.Divider />
-      <Members groupId={groupId} />
-      <Balance groupId={groupId} />
-    </Card>
-  )
-}
+export const GroupInfoCard = ({ className, groupId }: Props) => (
+  <Card className={className} aria-label="Group info">
+    <Card.Title title="Info" actions={<Settings groupId={groupId} />} />
+    <Card.Divider />
+    <Members groupId={groupId} />
+    <Balance groupId={groupId} />
+  </Card>
+)

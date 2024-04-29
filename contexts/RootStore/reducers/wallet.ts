@@ -11,8 +11,8 @@ const createWalletReducer: React.Reducer<
       groupId: string
     }
   }
-> = (state, { payload: { walletId, groupId } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { walletId, groupId } }) =>
+  produce(state, (draft) => {
     draft.wallets.push({
       id: walletId,
       createdAt: new Date(),
@@ -24,7 +24,6 @@ const createWalletReducer: React.Reducer<
     })
     draft.nextSyncTransaction.wallets.push(walletId)
   })
-}
 
 const removeWalletReducer: React.Reducer<
   RootStoreState,
@@ -34,8 +33,8 @@ const removeWalletReducer: React.Reducer<
       walletId: string
     }
   }
-> = (state, { payload: { walletId } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { walletId } }) =>
+  produce(state, (draft) => {
     draft.wallets.forEach((wallet) => {
       if (wallet.id === walletId) {
         wallet.removed = true
@@ -43,7 +42,6 @@ const removeWalletReducer: React.Reducer<
       }
     })
   })
-}
 
 const setWalletNameReducer: React.Reducer<
   RootStoreState,
@@ -54,8 +52,8 @@ const setWalletNameReducer: React.Reducer<
       name: string
     }
   }
-> = (state, { payload: { walletId, name } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { walletId, name } }) =>
+  produce(state, (draft) => {
     draft.wallets.forEach((wallet) => {
       if (wallet.id === walletId) {
         wallet.name = name
@@ -63,7 +61,6 @@ const setWalletNameReducer: React.Reducer<
       }
     })
   })
-}
 
 const setWalletCurrencyReducer: React.Reducer<
   RootStoreState,
@@ -74,8 +71,8 @@ const setWalletCurrencyReducer: React.Reducer<
       currencyId: string
     }
   }
-> = (state, { payload: { walletId, currencyId } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { walletId, currencyId } }) =>
+  produce(state, (draft) => {
     draft.wallets.forEach((wallet) => {
       if (wallet.id === walletId) {
         wallet.currencyId = currencyId
@@ -83,7 +80,6 @@ const setWalletCurrencyReducer: React.Reducer<
       }
     })
   })
-}
 
 const reorderWalletsReducer: React.Reducer<
   RootStoreState,
@@ -93,8 +89,8 @@ const reorderWalletsReducer: React.Reducer<
       walletIds: string[]
     }
   }
-> = (state, { payload: { walletIds } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { walletIds } }) =>
+  produce(state, (draft) => {
     walletIds.forEach((walletId, order) => {
       draft.wallets.forEach((wallet) => {
         if (wallet.id === walletId) {
@@ -104,7 +100,6 @@ const reorderWalletsReducer: React.Reducer<
       })
     })
   })
-}
 
 export type WalletsAction =
   | React.ReducerAction<typeof createWalletReducer>
@@ -116,11 +111,8 @@ export type WalletsAction =
 export const isWalletsAction = (action: {
   type: string
   payload?: unknown
-}): action is WalletsAction => {
-  return Object.values(WalletsActionTypes).includes(
-    action.type as WalletsActionTypes,
-  )
-}
+}): action is WalletsAction =>
+  Object.values(WalletsActionTypes).includes(action.type as WalletsActionTypes)
 
 export const walletsReducer: React.Reducer<RootStoreState, WalletsAction> = (
   state,

@@ -27,13 +27,15 @@ interface Props {
 }
 
 export const Chart = ({ currency, items, type }: Props) => {
-  const chartItems = useMemo<PieChartItem[]>(() => {
-    return items.map((item) => ({
-      id: item.category,
-      color: item.color,
-      value: item.amount,
-    }))
-  }, [items])
+  const chartItems = useMemo<PieChartItem[]>(
+    () =>
+      items.map((item) => ({
+        id: item.category,
+        color: item.color,
+        value: item.amount,
+      })),
+    [items],
+  )
 
   const renderTooltip = useCallback(
     (itemId: string | null, total: number) => {

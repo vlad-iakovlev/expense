@@ -17,14 +17,15 @@ interface Props {
 export const Group = ({ groupId }: Props) => {
   const { group } = useGroup({ groupId })
 
-  const parents = useMemo(() => {
-    return [
+  const parents = useMemo(
+    () => [
       {
         href: ROUTES.DASHBOARD,
         title: 'Dashboard',
       },
-    ]
-  }, [])
+    ],
+    [],
+  )
 
   return (
     <>

@@ -30,18 +30,16 @@ const startSyncReducer: React.Reducer<
 const abortSyncReducer: React.Reducer<
   RootStoreState,
   { type: StorageActionType.ABORT_SYNC }
-> = (state) => {
-  return {
-    ...state,
-    nextSyncTransaction: mergeTransactions(
-      state.nextSyncTransaction,
-      state.syncingTransaction,
-    ),
-    syncingTransaction: getEmptyTransaction(),
-    isSyncing: false,
-    shouldSync: true,
-  }
-}
+> = (state) => ({
+  ...state,
+  nextSyncTransaction: mergeTransactions(
+    state.nextSyncTransaction,
+    state.syncingTransaction,
+  ),
+  syncingTransaction: getEmptyTransaction(),
+  isSyncing: false,
+  shouldSync: true,
+})
 
 const setStateFromRemoteStorageReducer: React.Reducer<
   RootStoreState,
@@ -64,63 +62,62 @@ const setStateFromRemoteStorageReducer: React.Reducer<
   const userGroups = uniqBy(
     [
       ...state.userGroups,
-      ...updates.userGroups.filter((userGroup) => {
-        return !state.nextSyncTransaction.userGroups.includes(userGroup.id)
-      }),
+      ...updates.userGroups.filter(
+        (userGroup) =>
+          !state.nextSyncTransaction.userGroups.includes(userGroup.id),
+      ),
     ],
     (userGroup) => userGroup.id,
-  ).filter((userGroup) => {
-    return (
+  ).filter(
+    (userGroup) =>
       !userGroup.removed ||
-      state.nextSyncTransaction.userGroups.includes(userGroup.id)
-    )
-  })
+      state.nextSyncTransaction.userGroups.includes(userGroup.id),
+  )
 
   const groups = uniqBy(
     [
       ...state.groups,
-      ...(updates.groups.filter((group) => {
-        return !state.nextSyncTransaction.groups.includes(group.id)
-      }) as typeof state.groups),
+      ...(updates.groups.filter(
+        (group) => !state.nextSyncTransaction.groups.includes(group.id),
+      ) as typeof state.groups),
     ],
     (group) => group.id,
-  ).filter((group) => {
-    return (
+  ).filter(
+    (group) =>
       ((!group.removed && !group.clientRemoved) ||
         state.nextSyncTransaction.groups.includes(group.id)) &&
       (group.clientOnly ||
-        userGroups.find((userGroup) => userGroup.groupId === group.id))
-    )
-  })
+        userGroups.find((userGroup) => userGroup.groupId === group.id)),
+  )
 
   const wallets = uniqBy(
     [
       ...state.wallets,
       ...updates.wallets
-        .filter((wallet) => {
-          return !state.nextSyncTransaction.wallets.includes(wallet.id)
-        })
+        .filter(
+          (wallet) => !state.nextSyncTransaction.wallets.includes(wallet.id),
+        )
         .map((wallet) => ({
           ...wallet,
           createdAt: new Date(wallet.createdAt),
         })),
     ],
     (wallet) => wallet.id,
-  ).filter((wallet) => {
-    return (
+  ).filter(
+    (wallet) =>
       (!wallet.removed ||
         state.nextSyncTransaction.wallets.includes(wallet.id)) &&
-      groups.find((group) => group.id === wallet.groupId)
-    )
-  })
+      groups.find((group) => group.id === wallet.groupId),
+  )
 
   const operations = uniqBy(
     [
       ...state.operations,
       ...updates.operations
-        .filter((operation) => {
-          return !state.nextSyncTransaction.operations.includes(operation.id)
-        })
+        .filter(
+          (operation) =>
+            !state.nextSyncTransaction.operations.includes(operation.id),
+        )
         .map((operation) => ({
           ...operation,
           date: new Date(operation.date),
@@ -129,16 +126,15 @@ const setStateFromRemoteStorageReducer: React.Reducer<
         })),
     ],
     (operation) => operation.id,
-  ).filter((operation) => {
-    return (
+  ).filter(
+    (operation) =>
       (!operation.removed ||
         state.nextSyncTransaction.operations.includes(operation.id)) &&
       (!operation.incomeWalletId ||
         wallets.find((wallet) => wallet.id === operation.incomeWalletId)) &&
       (!operation.expenseWalletId ||
-        wallets.find((wallet) => wallet.id === operation.expenseWalletId))
-    )
-  })
+        wallets.find((wallet) => wallet.id === operation.expenseWalletId)),
+  )
 
   return {
     currencies: updates.currencies,
@@ -205,11 +201,8 @@ export type StorageAction =
 export const isStorageAction = (action: {
   type: string
   payload?: unknown
-}): action is StorageAction => {
-  return Object.values(StorageActionType).includes(
-    action.type as StorageActionType,
-  )
-}
+}): action is StorageAction =>
+  Object.values(StorageActionType).includes(action.type as StorageActionType)
 
 export const storageReducer: React.Reducer<RootStoreState, StorageAction> = (
   state,

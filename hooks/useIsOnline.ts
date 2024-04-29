@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react'
 
-const getIsOnline = () => {
-  return (
-    typeof window === 'undefined' ||
-    typeof navigator === 'undefined' ||
-    !!window.navigator.onLine
-  )
-}
+const getIsOnline = () =>
+  typeof window === 'undefined' ||
+  typeof navigator === 'undefined' ||
+  !!window.navigator.onLine
 
 export const useIsOnline = () => {
   const [isOnline, setIsOnline] = useState(getIsOnline())

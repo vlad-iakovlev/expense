@@ -27,11 +27,13 @@ export const CardInput = ({
   const [inputValue, setInputValue] = useState('')
   const [suggestionsFilter, setSuggestionsFilter] = useState<string>('')
 
-  const filteredSuggestions = useMemo(() => {
-    return suggestions.filter((suggestion) =>
-      suggestion.toLowerCase().includes(suggestionsFilter.toLowerCase()),
-    )
-  }, [suggestions, suggestionsFilter])
+  const filteredSuggestions = useMemo(
+    () =>
+      suggestions.filter((suggestion) =>
+        suggestion.toLowerCase().includes(suggestionsFilter.toLowerCase()),
+      ),
+    [suggestions, suggestionsFilter],
+  )
 
   const handleClick = useCallback(() => {
     setIsEditing(true)

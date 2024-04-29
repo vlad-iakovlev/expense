@@ -53,9 +53,7 @@ export const OperationsListCard = ({ className, groupId, walletId }: Props) => {
 
   const canShowMore = useMemo(() => {
     const operationsCount = groupedOperations.reduce(
-      (acc, { operationIds }) => {
-        return acc + operationIds.length
-      },
+      (acc, { operationIds }) => acc + operationIds.length,
       0,
     )
 

@@ -12,12 +12,11 @@ interface GetWalletsParams {
 export const getAvailableWallets = (
   state: RootStoreState,
   { groupId }: GetWalletsParams = {},
-): ClientWallet[] => {
-  return state.wallets.filter((wallet) => {
+): ClientWallet[] =>
+  state.wallets.filter((wallet) => {
     if (wallet.removed) return false
     return !groupId || wallet.groupId === groupId
   })
-}
 
 export const getOrderedWallets = (
   state: RootStoreState,

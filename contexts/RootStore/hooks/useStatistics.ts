@@ -43,32 +43,36 @@ export const useStatistics = ({
     [groupId, state, walletId],
   )
 
-  const currenciesMap = useMemo(() => {
-    return state.currencies.reduce<Record<string, ClientCurrency | undefined>>(
-      (acc, currency) => {
-        acc[currency.id] = currency
-        return acc
-      },
-      {},
-    )
-  }, [state.currencies])
+  const currenciesMap = useMemo(
+    () =>
+      state.currencies.reduce<Record<string, ClientCurrency | undefined>>(
+        (acc, currency) => {
+          acc[currency.id] = currency
+          return acc
+        },
+        {},
+      ),
+    [state.currencies],
+  )
 
-  const walletsMap = useMemo(() => {
-    return state.wallets.reduce<Record<string, ClientWallet | undefined>>(
-      (acc, wallet) => {
-        if (
-          !wallet.removed &&
-          (!groupId || wallet.groupId === groupId) &&
-          (!walletId || wallet.id === walletId)
-        ) {
-          acc[wallet.id] = wallet
-        }
+  const walletsMap = useMemo(
+    () =>
+      state.wallets.reduce<Record<string, ClientWallet | undefined>>(
+        (acc, wallet) => {
+          if (
+            !wallet.removed &&
+            (!groupId || wallet.groupId === groupId) &&
+            (!walletId || wallet.id === walletId)
+          ) {
+            acc[wallet.id] = wallet
+          }
 
-        return acc
-      },
-      {},
-    )
-  }, [groupId, state.wallets, walletId])
+          return acc
+        },
+        {},
+      ),
+    [groupId, state.wallets, walletId],
+  )
 
   const statisticsItems = useMemo<ClientStatisticsItem[]>(() => {
     const categories = uniq(
@@ -76,15 +80,14 @@ export const useStatistics = ({
     ).sort((a, b) => a.localeCompare(b))
 
     return categories.reduce<ClientStatisticsItem[]>((acc, category) => {
-      const operations = state.operations.filter((operation) => {
-        return (
+      const operations = state.operations.filter(
+        (operation) =>
           !operation.removed &&
           operation.category === category &&
           walletsMap[operation[WALLET_ID_FIELD[type]] ?? ''] &&
           (!startDate || operation.date >= startDate) &&
-          (!endDate || operation.date < endDate)
-        )
-      })
+          (!endDate || operation.date < endDate),
+      )
 
       const amount = operations.reduce<number>((acc, operation) => {
         const wallet = walletsMap[operation[WALLET_ID_FIELD[type]] ?? '']

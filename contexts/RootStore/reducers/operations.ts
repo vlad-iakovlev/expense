@@ -11,8 +11,8 @@ const createOperationReducer: React.Reducer<
       walletId: string
     }
   }
-> = (state, { payload: { operationId, walletId } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { operationId, walletId } }) =>
+  produce(state, (draft) => {
     draft.operations.push({
       id: operationId,
       removed: false,
@@ -26,7 +26,6 @@ const createOperationReducer: React.Reducer<
     })
     draft.nextSyncTransaction.operations.push(operationId)
   })
-}
 
 const removeOperationReducer: React.Reducer<
   RootStoreState,
@@ -36,8 +35,8 @@ const removeOperationReducer: React.Reducer<
       operationId: string
     }
   }
-> = (state, { payload: { operationId } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { operationId } }) =>
+  produce(state, (draft) => {
     draft.operations.forEach((operation) => {
       if (operation.id === operationId) {
         operation.removed = true
@@ -45,7 +44,6 @@ const removeOperationReducer: React.Reducer<
       }
     })
   })
-}
 
 const setOperationNameReducer: React.Reducer<
   RootStoreState,
@@ -56,8 +54,8 @@ const setOperationNameReducer: React.Reducer<
       name: string
     }
   }
-> = (state, { payload: { operationId, name } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { operationId, name } }) =>
+  produce(state, (draft) => {
     draft.operations.forEach((operation) => {
       if (operation.id === operationId) {
         operation.name = name
@@ -65,7 +63,6 @@ const setOperationNameReducer: React.Reducer<
       }
     })
   })
-}
 
 const setOperationCategoryReducer: React.Reducer<
   RootStoreState,
@@ -76,8 +73,8 @@ const setOperationCategoryReducer: React.Reducer<
       category: string
     }
   }
-> = (state, { payload: { operationId, category } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { operationId, category } }) =>
+  produce(state, (draft) => {
     draft.operations.forEach((operation) => {
       if (operation.id === operationId) {
         operation.category = category
@@ -85,7 +82,6 @@ const setOperationCategoryReducer: React.Reducer<
       }
     })
   })
-}
 
 const setOperationDateReducer: React.Reducer<
   RootStoreState,
@@ -96,8 +92,8 @@ const setOperationDateReducer: React.Reducer<
       date: Date
     }
   }
-> = (state, { payload: { operationId, date } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { operationId, date } }) =>
+  produce(state, (draft) => {
     draft.operations.forEach((operation) => {
       if (operation.id === operationId) {
         operation.date = date
@@ -105,7 +101,6 @@ const setOperationDateReducer: React.Reducer<
       }
     })
   })
-}
 
 const setOperationTypeReducer: React.Reducer<
   RootStoreState,
@@ -116,8 +111,8 @@ const setOperationTypeReducer: React.Reducer<
       type: ClientOperationType
     }
   }
-> = (state, { payload: { operationId, type } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { operationId, type } }) =>
+  produce(state, (draft) => {
     draft.operations.forEach((operation) => {
       if (operation.id === operationId) {
         const amount = operation.expenseAmount || operation.incomeAmount
@@ -151,7 +146,6 @@ const setOperationTypeReducer: React.Reducer<
       }
     })
   })
-}
 
 const setOperationIncomeAmountReducer: React.Reducer<
   RootStoreState,
@@ -162,8 +156,8 @@ const setOperationIncomeAmountReducer: React.Reducer<
       incomeAmount: number
     }
   }
-> = (state, { payload: { operationId, incomeAmount } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { operationId, incomeAmount } }) =>
+  produce(state, (draft) => {
     draft.operations.forEach((operation) => {
       if (operation.id === operationId) {
         operation.incomeAmount = incomeAmount
@@ -171,7 +165,6 @@ const setOperationIncomeAmountReducer: React.Reducer<
       }
     })
   })
-}
 
 const setOperationExpenseAmountReducer: React.Reducer<
   RootStoreState,
@@ -182,8 +175,8 @@ const setOperationExpenseAmountReducer: React.Reducer<
       expenseAmount: number
     }
   }
-> = (state, { payload: { operationId, expenseAmount } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { operationId, expenseAmount } }) =>
+  produce(state, (draft) => {
     draft.operations.forEach((operation) => {
       if (operation.id === operationId) {
         operation.expenseAmount = expenseAmount
@@ -191,7 +184,6 @@ const setOperationExpenseAmountReducer: React.Reducer<
       }
     })
   })
-}
 
 const setOperationIncomeWalletReducer: React.Reducer<
   RootStoreState,
@@ -202,8 +194,8 @@ const setOperationIncomeWalletReducer: React.Reducer<
       incomeWalletId: string
     }
   }
-> = (state, { payload: { operationId, incomeWalletId } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { operationId, incomeWalletId } }) =>
+  produce(state, (draft) => {
     draft.operations.forEach((operation) => {
       if (operation.id === operationId) {
         operation.incomeWalletId = incomeWalletId
@@ -211,7 +203,6 @@ const setOperationIncomeWalletReducer: React.Reducer<
       }
     })
   })
-}
 
 const setOperationExpenseWalletReducer: React.Reducer<
   RootStoreState,
@@ -222,8 +213,8 @@ const setOperationExpenseWalletReducer: React.Reducer<
       expenseWalletId: string
     }
   }
-> = (state, { payload: { operationId, expenseWalletId } }) => {
-  return produce(state, (draft) => {
+> = (state, { payload: { operationId, expenseWalletId } }) =>
+  produce(state, (draft) => {
     draft.operations.forEach((operation) => {
       if (operation.id === operationId) {
         operation.expenseWalletId = expenseWalletId
@@ -231,7 +222,6 @@ const setOperationExpenseWalletReducer: React.Reducer<
       }
     })
   })
-}
 
 export type OperationsAction =
   | React.ReducerAction<typeof createOperationReducer>
@@ -248,11 +238,10 @@ export type OperationsAction =
 export const isOperationsAction = (action: {
   type: string
   payload?: unknown
-}): action is OperationsAction => {
-  return Object.values(OperationsActionTypes).includes(
+}): action is OperationsAction =>
+  Object.values(OperationsActionTypes).includes(
     action.type as OperationsActionTypes,
   )
-}
 
 export const operationsReducer: React.Reducer<
   RootStoreState,

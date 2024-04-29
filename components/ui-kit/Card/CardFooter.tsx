@@ -9,15 +9,13 @@ export type CardFooterProps = Modify<
   }
 >
 
-export const CardFooter = ({ fullWidth, ...rest }: CardFooterProps) => {
-  return (
-    <CardBlock
-      className={twMerge(
-        'flex-col items-stretch',
-        !fullWidth && 'sm:flex-row-reverse',
-      )}
-      role="presentation"
-      {...rest}
-    />
-  )
-}
+export const CardFooter = ({ fullWidth, ...rest }: CardFooterProps) => (
+  <CardBlock
+    className={twMerge(
+      'flex-col items-stretch',
+      !fullWidth && 'sm:flex-row-reverse',
+    )}
+    role="presentation"
+    {...rest}
+  />
+)

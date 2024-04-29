@@ -52,14 +52,13 @@ interface GetFullSectorProps {
   radius: number
 }
 
-const getFullSector = ({ x, y, radius }: GetFullSectorProps) => {
-  return [
+const getFullSector = ({ x, y, radius }: GetFullSectorProps) =>
+  [
     `M ${x - radius} ${y}`,
     `A ${radius} ${radius} 0 1 1 ${x + radius} ${y}`,
     `A ${radius} ${radius} 1 1 1 ${x - radius} ${y}`,
     'Z',
   ].join(' ')
-}
 
 const deg2rad = (deg: number) => (deg / 180) * Math.PI
 

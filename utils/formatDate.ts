@@ -1,13 +1,11 @@
 import * as fns from 'date-fns'
 import { Period } from '../hooks/usePeriod.js'
 
-export const formatDateTime = (date: Date) => {
-  return fns.format(date, "d MMM yyyy 'at' HH:mm")
-}
+export const formatDateTime = (date: Date) =>
+  fns.format(date, "d MMM yyyy 'at' HH:mm")
 
-export const formatDateTimeForAriaLabel = (date: Date) => {
-  return fns.format(date, "MMMM do yyyy 'at' HH:mm")
-}
+export const formatDateTimeForAriaLabel = (date: Date) =>
+  fns.format(date, "MMMM do yyyy 'at' HH:mm")
 
 export const formatDate = (date: Date) => {
   if (fns.isToday(date)) {
@@ -41,9 +39,7 @@ export const formatDateForAriaLabel = (date: Date) => {
   return fns.format(date, 'MMMM do yyyy')
 }
 
-export const formatTime = (date: Date) => {
-  return fns.format(date, 'HH:mm')
-}
+export const formatTime = (date: Date) => fns.format(date, 'HH:mm')
 
 export const formatPeriod = (period: Period, firstDate: Date) => {
   if (period === Period.WEEK) {
@@ -99,6 +95,5 @@ export const formatPeriodForAriaLabel = (period: Period, firstDate: Date) => {
   return 'All time'
 }
 
-export const formatDateForInput = (date: Date) => {
-  return fns.format(date, "yyyy-MM-dd'T'HH:mm")
-}
+export const formatDateForInput = (date: Date) =>
+  fns.format(date, "yyyy-MM-dd'T'HH:mm")

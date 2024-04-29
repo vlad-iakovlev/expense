@@ -8,13 +8,11 @@ interface Props {
   groupId: string
 }
 
-export const GroupSettingsGeneralCard = ({ className, groupId }: Props) => {
-  return (
-    <Card aria-label="General group settings" className={className}>
-      <Card.Title title="General" actions={<Delete groupId={groupId} />} />
-      <Card.Divider />
-      <Name groupId={groupId} />
-      <DefaultCurrency groupId={groupId} />
-    </Card>
-  )
-}
+export const GroupSettingsGeneralCard = ({ className, groupId }: Props) => (
+  <Card aria-label="General group settings" className={className}>
+    <Card.Title title="General" actions={<Delete groupId={groupId} />} />
+    <Card.Divider />
+    <Name groupId={groupId} />
+    <DefaultCurrency groupId={groupId} />
+  </Card>
+)
