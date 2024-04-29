@@ -4,12 +4,12 @@ import { getAvailableOperations } from '../getters/operations.js'
 import { useRootStore } from '../index.jsx'
 import { CategoriesActionTypes } from '../types.jsx'
 
-interface Props {
+interface UseCategoriesProps {
   groupId?: string
   walletId?: string
 }
 
-export const useCategories = ({ groupId, walletId }: Props = {}) => {
+export const useCategories = ({ groupId, walletId }: UseCategoriesProps) => {
   const { state, dispatch } = useRootStore()
 
   const categories = React.useMemo<string[]>(() => {

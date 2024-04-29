@@ -21,7 +21,7 @@ const AMOUNT_FIELD = {
   [ClientStatisticsType.EXPENSES]: 'expenseAmount',
 } as const
 
-interface Props {
+interface UseStatisticsProps {
   groupId?: string
   walletId?: string
   startDate?: Date
@@ -35,7 +35,7 @@ export const useStatistics = ({
   startDate,
   endDate,
   type,
-}: Props) => {
+}: UseStatisticsProps) => {
   const { state } = useRootStore()
 
   const statisticsCurrency = React.useMemo(

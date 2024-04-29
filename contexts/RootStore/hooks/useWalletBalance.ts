@@ -3,11 +3,11 @@ import { ClientBalance } from '@/types/client.js'
 import { getWalletBalance } from '../getters/wallets.js'
 import { useRootStore } from '../index.jsx'
 
-interface Props {
+interface UseWalletBalanceProps {
   walletId: string
 }
 
-export const useWalletBalance = ({ walletId }: Props) => {
+export const useWalletBalance = ({ walletId }: UseWalletBalanceProps) => {
   const { state } = useRootStore()
 
   const walletBalance = React.useMemo<ClientBalance>(

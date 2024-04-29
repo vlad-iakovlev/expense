@@ -5,12 +5,12 @@ import { ExpenseOperation } from './ExpenseOperation.jsx'
 import { IncomeOperation } from './IncomeOperation.jsx'
 import { TransferOperation } from './TransferOperation.jsx'
 
-interface Props {
+interface OperationProps {
   operationId: string
   walletId: string | undefined
 }
 
-export const Operation = ({ operationId, walletId }: Props) => {
+export const Operation = ({ operationId, walletId }: OperationProps) => {
   const { operation } = useOperation({ operationId })
 
   return (

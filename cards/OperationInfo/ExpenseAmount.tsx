@@ -4,11 +4,11 @@ import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 import { formatAmount } from '@/utils/formatAmount.js'
 import { parseAmount } from '@/utils/parseAmount.js'
 
-interface Props {
+interface ExpenseAmountProps {
   operationId: string
 }
 
-export const ExpenseAmount = ({ operationId }: Props) => {
+export const ExpenseAmount = ({ operationId }: ExpenseAmountProps) => {
   const { operation, setOperationExpenseAmount } = useOperation({ operationId })
 
   const handleChange = React.useCallback(

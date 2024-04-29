@@ -2,11 +2,11 @@ import { AvatarGroup } from '@/components/common/AvatarGroup.jsx'
 import { Card } from '@/components/common/Card/index.jsx'
 import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
 
-interface Props {
+interface MembersProps {
   groupId: string
 }
 
-export const Members = ({ groupId }: Props) => {
+export const Members = ({ groupId }: MembersProps) => {
   const { groupMembers } = useGroupMembers({ groupId })
 
   return (

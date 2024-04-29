@@ -19,7 +19,7 @@ const variants: Variants = {
   },
 }
 
-interface Props {
+interface PeriodSelectorProps {
   fromDate: Date
   periodType: PeriodType
   onChangePeriodType: (period: PeriodType) => void
@@ -33,7 +33,7 @@ export const PeriodSelector = ({
   onChangePeriodType,
   onGoPrev,
   onGoNext,
-}: Props) => (
+}: PeriodSelectorProps) => (
   <div role="listitem" aria-label="Period">
     <Card.Block role="radiogroup" aria-label="Period type">
       <Button

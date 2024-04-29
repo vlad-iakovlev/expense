@@ -5,12 +5,15 @@ import { Card, CardSelectOption } from '@/components/common/Card/index.jsx'
 import { useCategoryFilter } from '@/contexts/CategoryFilter.jsx'
 import { useCategories } from '@/contexts/RootStore/hooks/useCategories.js'
 
-interface Props {
+interface RenameCategoryCardProps {
   className?: string
   groupId: string
 }
 
-export const RenameCategoryCard = ({ className, groupId }: Props) => {
+export const RenameCategoryCard = ({
+  className,
+  groupId,
+}: RenameCategoryCardProps) => {
   const { resetCategoryFilter } = useCategoryFilter()
   const { categories, renameCategory } = useCategories({ groupId })
   const [oldName, setOldName] = React.useState('')

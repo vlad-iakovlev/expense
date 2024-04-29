@@ -5,12 +5,12 @@ import { Card, CardSelectItem } from '@/components/common/Card/index.jsx'
 import { useCategoryFilter } from '@/contexts/CategoryFilter.jsx'
 import { useCategories } from '@/contexts/RootStore/hooks/useCategories.js'
 
-interface Props {
+interface CategoryFilterProps {
   groupId: string | undefined
   walletId: string | undefined
 }
 
-export const CategoryFilter = ({ groupId, walletId }: Props) => {
+export const CategoryFilter = ({ groupId, walletId }: CategoryFilterProps) => {
   const { categoryFilter, setCategoryFilter, resetCategoryFilter } =
     useCategoryFilter()
   const { categories } = useCategories({ groupId, walletId })

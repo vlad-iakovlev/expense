@@ -8,7 +8,7 @@ import { ROUTES } from '@/constants/routes.js'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
 import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance.js'
 
-interface Props {
+interface WalletProps {
   canReorderWallets: boolean
   isReordering: boolean
   walletId: string
@@ -18,7 +18,7 @@ export const Wallet = ({
   canReorderWallets,
   isReordering,
   walletId,
-}: Props) => {
+}: WalletProps) => {
   const {
     attributes,
     listeners,

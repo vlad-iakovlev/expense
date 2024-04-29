@@ -3,12 +3,15 @@ import { DefaultCurrency } from './DefaultCurrency.jsx'
 import { Delete } from './Delete.jsx'
 import { Name } from './Name.jsx'
 
-interface Props {
+interface GroupSettingsGeneralCardProps {
   className?: string
   groupId: string
 }
 
-export const GroupSettingsGeneralCard = ({ className, groupId }: Props) => (
+export const GroupSettingsGeneralCard = ({
+  className,
+  groupId,
+}: GroupSettingsGeneralCardProps) => (
   <Card aria-label="General group settings" className={className}>
     <Card.Title title="General" actions={<Delete groupId={groupId} />} />
     <Card.Divider />

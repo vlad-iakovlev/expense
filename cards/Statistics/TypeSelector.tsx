@@ -1,12 +1,12 @@
 import { Button } from '@/components/common/Button.jsx'
 import { ClientStatisticsType } from '@/types/client.js'
 
-interface Props {
+interface TypeSelectorProps {
   value: ClientStatisticsType
   onChange: (value: ClientStatisticsType) => void
 }
 
-export const TypeSelector = ({ value, onChange }: Props) => (
+export const TypeSelector = ({ value, onChange }: TypeSelectorProps) => (
   <div
     className="flex flex-none items-center gap-2"
     role="radiogroup"

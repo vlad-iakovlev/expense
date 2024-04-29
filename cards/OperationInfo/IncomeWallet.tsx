@@ -3,11 +3,11 @@ import React from 'react'
 import { WalletSelect } from '@/components/common/WalletSelect.jsx'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 
-interface Props {
+interface IncomeWalletProps {
   operationId: string
 }
 
-export const IncomeWallet = ({ operationId }: Props) => {
+export const IncomeWallet = ({ operationId }: IncomeWalletProps) => {
   const { operation, setOperationIncomeWallet } = useOperation({ operationId })
 
   const groupId = React.useMemo(() => {

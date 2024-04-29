@@ -2,11 +2,11 @@ import { useSession } from 'next-auth/react'
 import { Home } from '@/components/pages/Home.jsx'
 import { Loading } from '../Loading.jsx'
 
-interface Props {
+interface PageAuthProps {
   children: React.ReactNode
 }
 
-export const PageAuth = ({ children }: Props) => {
+export const PageAuth = ({ children }: PageAuthProps) => {
   const session = useSession()
 
   return (

@@ -4,7 +4,7 @@ import { ClientOperation, GroupedOperations } from '@/types/client.js'
 import { getOrderedOperations } from '../getters/operations.js'
 import { useRootStore } from '../index.jsx'
 
-interface Props {
+interface UseGroupedOperationsProps {
   groupId?: string
   walletId?: string
   category?: string
@@ -14,7 +14,7 @@ export const useGroupedOperations = ({
   groupId,
   walletId,
   category,
-}: Props = {}) => {
+}: UseGroupedOperationsProps) => {
   const { state } = useRootStore()
 
   const groupedOperations = React.useMemo<GroupedOperations[]>(() => {

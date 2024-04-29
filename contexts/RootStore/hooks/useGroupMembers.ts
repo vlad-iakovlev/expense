@@ -5,11 +5,11 @@ import { ClientUser } from '@/types/client.js'
 import { getGroupMembers } from '../getters/groups.js'
 import { useRootStore } from '../index.jsx'
 
-interface Props {
+interface UseGroupMembersProps {
   groupId: string
 }
 
-export const useGroupMembers = ({ groupId }: Props) => {
+export const useGroupMembers = ({ groupId }: UseGroupMembersProps) => {
   const session = useSession()
   const { state } = useRootStore()
 

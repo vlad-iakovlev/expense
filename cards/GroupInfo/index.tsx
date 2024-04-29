@@ -3,12 +3,12 @@ import { Balance } from './Balance.jsx'
 import { Members } from './Members.jsx'
 import { Settings } from './Settings.jsx'
 
-interface Props {
+interface GroupInfoCardProps {
   className?: string
   groupId: string
 }
 
-export const GroupInfoCard = ({ className, groupId }: Props) => (
+export const GroupInfoCard = ({ className, groupId }: GroupInfoCardProps) => (
   <Card className={className} aria-label="Group info">
     <Card.Title title="Info" actions={<Settings groupId={groupId} />} />
     <Card.Divider />

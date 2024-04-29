@@ -7,11 +7,11 @@ import { getPopulatedOperation } from '../getters/operations.js'
 import { useRootStore } from '../index.jsx'
 import { OperationsActionTypes } from '../types.jsx'
 
-interface Props {
+interface UseOperationProps {
   operationId: string
 }
 
-export const useOperation = ({ operationId }: Props) => {
+export const useOperation = ({ operationId }: UseOperationProps) => {
   const { state, dispatch } = useRootStore()
 
   const operation = React.useMemo<PopulatedClientOperation>(

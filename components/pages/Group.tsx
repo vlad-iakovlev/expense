@@ -10,11 +10,11 @@ import { NextHead } from '@/components/next/Head.js'
 import { ROUTES } from '@/constants/routes.js'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
 
-interface Props {
+interface GroupProps {
   groupId: string
 }
 
-export const Group = ({ groupId }: Props) => {
+export const Group = ({ groupId }: GroupProps) => {
   const { group } = useGroup({ groupId })
 
   const parents = React.useMemo(

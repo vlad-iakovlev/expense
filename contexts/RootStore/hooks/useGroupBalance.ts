@@ -3,11 +3,11 @@ import { ClientBalance } from '@/types/client.js'
 import { getGroupBalance } from '../getters/groups.js'
 import { useRootStore } from '../index.jsx'
 
-interface Props {
+interface UseGroupBalanceProps {
   groupId: string
 }
 
-export const useGroupBalance = ({ groupId }: Props) => {
+export const useGroupBalance = ({ groupId }: UseGroupBalanceProps) => {
   const { state } = useRootStore()
 
   const groupBalance = React.useMemo<ClientBalance>(

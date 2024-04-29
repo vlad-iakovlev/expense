@@ -5,13 +5,17 @@ import { getOrderedOperations } from '../getters/operations.js'
 import { useRootStore } from '../index.jsx'
 import { OperationsActionTypes } from '../types.jsx'
 
-interface Props {
+interface UseOperationsProps {
   groupId?: string
   walletId?: string
   category?: string
 }
 
-export const useOperations = ({ groupId, walletId, category }: Props = {}) => {
+export const useOperations = ({
+  groupId,
+  walletId,
+  category,
+}: UseOperationsProps) => {
   const { state, dispatch } = useRootStore()
 
   const operationIds = React.useMemo<string[]>(() => {

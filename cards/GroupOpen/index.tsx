@@ -8,11 +8,11 @@ import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
 import { useGroupBalance } from '@/contexts/RootStore/hooks/useGroupBalance.js'
 import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
 
-interface Props {
+interface GroupOpenCardProps {
   groupId: string
 }
 
-export const GroupOpenCard = ({ groupId }: Props) => {
+export const GroupOpenCard = ({ groupId }: GroupOpenCardProps) => {
   const router = useRouter()
   const { group } = useGroup({ groupId })
   const { groupBalance } = useGroupBalance({ groupId })

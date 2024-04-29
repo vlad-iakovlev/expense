@@ -22,11 +22,11 @@ const OperationTypeOptionsMap: Record<
 
 const options = Object.values(OperationTypeOptionsMap)
 
-interface Props {
+interface TypeProps {
   operationId: string
 }
 
-export const Type = ({ operationId }: Props) => {
+export const Type = ({ operationId }: TypeProps) => {
   const { operation, setOperationType } = useOperation({ operationId })
 
   return (

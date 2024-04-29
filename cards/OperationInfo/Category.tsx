@@ -4,11 +4,11 @@ import { Card } from '@/components/common/Card/index.jsx'
 import { useCategories } from '@/contexts/RootStore/hooks/useCategories.js'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 
-interface Props {
+interface CategoryProps {
   operationId: string
 }
 
-export const Category = ({ operationId }: Props) => {
+export const Category = ({ operationId }: CategoryProps) => {
   const { operation, setOperationCategory } = useOperation({ operationId })
 
   const groupId = React.useMemo(() => {

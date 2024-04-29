@@ -7,7 +7,7 @@ import { Add } from './Add.jsx'
 import { CategoryFilter } from './CategoryFilter.jsx'
 import { Group } from './Group.jsx'
 
-interface Props {
+interface OperationsListCardProps {
   className?: string
   groupId?: string
   walletId?: string
@@ -15,7 +15,11 @@ interface Props {
 
 const PAGE_SIZE = 10
 
-export const OperationsListCard = ({ className, groupId, walletId }: Props) => {
+export const OperationsListCard = ({
+  className,
+  groupId,
+  walletId,
+}: OperationsListCardProps) => {
   const { categoryFilter } = useCategoryFilter()
   const { groupedOperations } = useGroupedOperations({
     groupId,

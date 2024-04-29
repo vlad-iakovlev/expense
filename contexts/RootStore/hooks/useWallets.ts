@@ -5,11 +5,11 @@ import { getOrderedWallets } from '../getters/wallets.js'
 import { useRootStore } from '../index.jsx'
 import { WalletsActionTypes } from '../types.jsx'
 
-interface Props {
+interface UseWalletsProps {
   groupId?: string
 }
 
-export const useWallets = ({ groupId }: Props = {}) => {
+export const useWallets = ({ groupId }: UseWalletsProps) => {
   const { state, dispatch } = useRootStore()
 
   const walletIds = React.useMemo<string[]>(

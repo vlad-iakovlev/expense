@@ -4,14 +4,14 @@ import { Card } from '@/components/common/Card/index.jsx'
 import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
 import { Delete } from './Delete.jsx'
 
-interface Props {
+interface MemberProps {
   groupId: string
   userId: string
   name?: string
   image?: string
 }
 
-export const Member = ({ groupId, userId, name, image }: Props) => {
+export const Member = ({ groupId, userId, name, image }: MemberProps) => {
   const { groupMembers } = useGroupMembers({ groupId })
 
   const [isOpen, setIsOpen] = React.useState(false)

@@ -3,12 +3,15 @@ import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
 import { Invite } from './Invite.jsx'
 import { Member } from './Member.jsx'
 
-interface Props {
+interface GroupMembersCardProps {
   className?: string
   groupId: string
 }
 
-export const GroupMembersCard = ({ className, groupId }: Props) => {
+export const GroupMembersCard = ({
+  className,
+  groupId,
+}: GroupMembersCardProps) => {
   const { groupMembers } = useGroupMembers({ groupId })
 
   return (

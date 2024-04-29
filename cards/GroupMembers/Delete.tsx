@@ -8,13 +8,13 @@ import { ConfirmDialog } from '@/components/common/ConfirmDialog.jsx'
 import { ROUTES } from '@/constants/routes.js'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
 
-interface Props {
+interface DeleteProps {
   groupId: string
   userId: string
   tabIndex?: number
 }
 
-export const Delete = ({ groupId, userId, tabIndex }: Props) => {
+export const Delete = ({ groupId, userId, tabIndex }: DeleteProps) => {
   const session = useSession()
   const router = useRouter()
   const { group, removeMemberFromGroup, leaveGroup } = useGroup({ groupId })

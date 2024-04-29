@@ -5,13 +5,13 @@ import {
 } from '@/types/client.js'
 import { Category } from './Category.jsx'
 
-interface Props {
+interface CategoriesProps {
   currency: ClientCurrency
   items: ClientStatisticsItem[]
   type: ClientStatisticsType
 }
 
-export const Categories = ({ currency, items, type }: Props) => (
+export const Categories = ({ currency, items, type }: CategoriesProps) => (
   <div role="listitem">
     <div role="list" aria-label="Categories">
       {items

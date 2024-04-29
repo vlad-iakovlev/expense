@@ -13,7 +13,7 @@ import { DndIcon } from '@/components/icons/DndIcon.jsx'
 import { ClientCurrency } from '@/types/client.js'
 import { Wallet } from './Wallet.jsx'
 
-interface Props {
+interface GroupProps {
   canReorderGroups: boolean
   isReordering: boolean
   currency: ClientCurrency
@@ -27,7 +27,7 @@ export const Group = ({
   currency,
   walletIds,
   onReorder,
-}: Props) => {
+}: GroupProps) => {
   const {
     attributes,
     listeners,

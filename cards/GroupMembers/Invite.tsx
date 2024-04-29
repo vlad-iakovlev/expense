@@ -13,11 +13,11 @@ import {
   formatDateTimeForAriaLabel,
 } from '@/utils/formatDate.js'
 
-interface Props {
+interface InviteProps {
   groupId: string
 }
 
-export const Invite = ({ groupId }: Props) => {
+export const Invite = ({ groupId }: InviteProps) => {
   const isOnline = useIsOnline()
   const { group } = useGroup({ groupId })
   const [isLoading, setIsLoading] = React.useState(false)

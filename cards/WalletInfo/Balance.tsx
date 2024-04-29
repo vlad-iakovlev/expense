@@ -2,11 +2,11 @@ import { Amount } from '@/components/common/Amount.jsx'
 import { Card } from '@/components/common/Card/index.jsx'
 import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance.js'
 
-interface Props {
+interface BalanceProps {
   walletId: string
 }
 
-export const Balance = ({ walletId }: Props) => {
+export const Balance = ({ walletId }: BalanceProps) => {
   const { walletBalance } = useWalletBalance({ walletId })
 
   return (

@@ -4,11 +4,11 @@ import { getPopulatedWallet } from '../getters/wallets.js'
 import { useRootStore } from '../index.jsx'
 import { WalletsActionTypes } from '../types.jsx'
 
-interface Props {
+interface UseWalletProps {
   walletId: string
 }
 
-export const useWallet = ({ walletId }: Props) => {
+export const useWallet = ({ walletId }: UseWalletProps) => {
   const { state, dispatch } = useRootStore()
 
   const wallet = React.useMemo<PopulatedClientWallet>(

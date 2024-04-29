@@ -4,12 +4,15 @@ import { PopulatedClientOperation } from '@/types/client.js'
 import { formatAmount } from '@/utils/formatAmount.js'
 import { formatTime } from '@/utils/formatDate.js'
 
-interface Props {
+interface ExpenseOperationProps {
   operation: PopulatedClientOperation
   walletId: string | undefined
 }
 
-export const ExpenseOperation = ({ operation, walletId }: Props) => {
+export const ExpenseOperation = ({
+  operation,
+  walletId,
+}: ExpenseOperationProps) => {
   assert(operation.expenseWallet, 'Expense wallet is not defined')
 
   return (

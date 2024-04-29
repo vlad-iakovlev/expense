@@ -7,11 +7,11 @@ import { NextHead } from '@/components/next/Head.js'
 import { ROUTES } from '@/constants/routes.js'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 
-interface Props {
+interface OperationProps {
   operationId: string
 }
 
-export const Operation = ({ operationId }: Props) => {
+export const Operation = ({ operationId }: OperationProps) => {
   const { operation } = useOperation({ operationId })
 
   const parents = React.useMemo(() => {

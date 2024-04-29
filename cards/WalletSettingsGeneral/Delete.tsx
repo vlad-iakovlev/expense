@@ -6,11 +6,11 @@ import { ROUTES } from '@/constants/routes.js'
 import { useOperations } from '@/contexts/RootStore/hooks/useOperations.js'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
 
-interface Props {
+interface DeleteProps {
   walletId: string
 }
 
-export const Delete = ({ walletId }: Props) => {
+export const Delete = ({ walletId }: DeleteProps) => {
   const router = useRouter()
   const { wallet, removeWallet } = useWallet({ walletId })
   const { operationIds } = useOperations({ walletId })

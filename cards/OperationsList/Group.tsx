@@ -2,13 +2,13 @@ import { Card } from '@/components/common/Card/index.jsx'
 import { formatDate, formatDateForAriaLabel } from '@/utils/formatDate.js'
 import { Operation } from './Operation.jsx'
 
-interface Props {
+interface GroupProps {
   date: Date
   operationIds: string[]
   walletId: string | undefined
 }
 
-export const Group = ({ date, operationIds, walletId }: Props) => (
+export const Group = ({ date, operationIds, walletId }: GroupProps) => (
   <div className="bg-secondary" role="listitem">
     <div role="list" aria-label={formatDateForAriaLabel(date)}>
       <Card.Subtitle subtitle={formatDate(date)} />

@@ -5,11 +5,11 @@ import { ConfirmDialog } from '@/components/common/ConfirmDialog.jsx'
 import { ROUTES } from '@/constants/routes.js'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 
-interface Props {
+interface DeleteProps {
   operationId: string
 }
 
-export const Delete = ({ operationId }: Props) => {
+export const Delete = ({ operationId }: DeleteProps) => {
   const router = useRouter()
   const { operation, removeOperation } = useOperation({ operationId })
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = React.useState(false)

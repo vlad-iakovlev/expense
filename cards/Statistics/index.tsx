@@ -10,13 +10,17 @@ import { Chart } from './Chart.jsx'
 import { PeriodSelector } from './PeriodSelector.jsx'
 import { TypeSelector } from './TypeSelector.jsx'
 
-interface Props {
+interface StatisticsCardProps {
   className?: string
   groupId?: string
   walletId?: string
 }
 
-export const StatisticsCard = ({ className, groupId, walletId }: Props) => {
+export const StatisticsCard = ({
+  className,
+  groupId,
+  walletId,
+}: StatisticsCardProps) => {
   const [type, setType] = React.useState(ClientStatisticsType.EXPENSES)
   const {
     startDate,

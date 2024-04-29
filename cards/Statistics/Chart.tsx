@@ -20,13 +20,13 @@ const AMOUNT_TYPE = {
   [ClientStatisticsType.EXPENSES]: 'expense',
 } as const
 
-interface Props {
+interface ChartProps {
   currency: ClientCurrency
   items: ClientStatisticsItem[]
   type: ClientStatisticsType
 }
 
-export const Chart = ({ currency, items, type }: Props) => {
+export const Chart = ({ currency, items, type }: ChartProps) => {
   const chartItems = React.useMemo<PieChartItem[]>(
     () =>
       items.map((item) => ({

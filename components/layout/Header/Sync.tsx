@@ -3,11 +3,11 @@ import { twMerge } from 'tailwind-merge'
 import { useSyncStatus } from '@/contexts/RootStore/hooks/useSyncStatus.js'
 import { formatDateTimeForAriaLabel } from '@/utils/formatDate.js'
 
-interface Props {
+interface HeaderSyncProps {
   className?: string
 }
 
-export const HeaderSync = ({ className }: Props) => {
+export const HeaderSync = ({ className }: HeaderSyncProps) => {
   const { isSyncing, syncedAt } = useSyncStatus()
 
   if (!syncedAt) {

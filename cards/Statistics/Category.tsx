@@ -15,7 +15,7 @@ const AMOUNT_TYPE = {
   [ClientStatisticsType.EXPENSES]: 'expense',
 } as const
 
-interface Props {
+interface CategoryProps {
   category: string
   color: string
   amount: number
@@ -29,7 +29,7 @@ export const Category = ({
   amount,
   currency,
   type,
-}: Props) => {
+}: CategoryProps) => {
   const { categoryFilter, toggleCategoryFilter } = useCategoryFilter()
   const { disabledCategories, toggleCategory } = useDisabledCategories()
 

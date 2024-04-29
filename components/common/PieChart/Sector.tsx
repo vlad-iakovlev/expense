@@ -3,7 +3,7 @@ import { GetSectorProps, getSector } from '@/utils/client/getSector.js'
 
 const DURATION = 200
 
-interface Props {
+interface SectorProps {
   sectorProps: GetSectorProps
   color: string
   onPointerEnter: () => void
@@ -15,7 +15,7 @@ export const Sector = ({
   color,
   onPointerEnter,
   onPointerLeave,
-}: Props) => {
+}: SectorProps) => {
   const lastProps = React.useRef(sectorProps)
   const [animatedProps, setAnimatedProps] = React.useState(sectorProps)
 

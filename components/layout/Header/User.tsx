@@ -5,11 +5,11 @@ import { Avatar } from '@/components/common/Avatar.jsx'
 import { Button } from '@/components/common/Button.jsx'
 import { Card } from '@/components/common/Card/index.jsx'
 
-interface Props {
+interface HeaderUserProps {
   className?: string
 }
 
-export const HeaderUser = ({ className }: Props) => {
+export const HeaderUser = ({ className }: HeaderUserProps) => {
   const session = useSession()
 
   const [isOpen, setIsOpen] = React.useState(false)

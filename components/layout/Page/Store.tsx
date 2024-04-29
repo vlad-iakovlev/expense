@@ -1,11 +1,11 @@
 import { useRootStore } from '@/contexts/RootStore/index.jsx'
 import { Loading } from '../Loading.jsx'
 
-interface Props {
+interface PageStoreProps {
   children: React.ReactNode
 }
 
-export const PageStore = ({ children }: Props) => {
+export const PageStore = ({ children }: PageStoreProps) => {
   const { state } = useRootStore()
 
   return (

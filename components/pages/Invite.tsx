@@ -4,11 +4,11 @@ import { acceptInvite } from '@/api/client/invites.js'
 import { Loading } from '@/components/layout/Loading.jsx'
 import { ROUTES } from '@/constants/routes.js'
 
-interface Props {
+interface InviteProps {
   token: string
 }
 
-export const Invite = ({ token }: Props) => {
+export const Invite = ({ token }: InviteProps) => {
   const router = useRouter()
 
   React.useEffect(() => {

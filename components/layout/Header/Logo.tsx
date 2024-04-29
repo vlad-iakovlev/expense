@@ -1,10 +1,10 @@
 import { NextLink } from '@/components/next/Link.js'
 
-interface Props {
+interface HeaderLogoProps {
   className?: string
 }
 
-export const HeaderLogo = ({ className }: Props) => (
+export const HeaderLogo = ({ className }: HeaderLogoProps) => (
   <div className={className}>
     <NextLink
       href={{ pathname: '/', query: { animation: 'back' } }}

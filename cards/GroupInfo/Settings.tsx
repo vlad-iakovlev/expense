@@ -4,11 +4,11 @@ import React from 'react'
 import { Button } from '@/components/common/Button.jsx'
 import { ROUTES } from '@/constants/routes.js'
 
-interface Props {
+interface SettingsProps {
   groupId: string
 }
 
-export const Settings = ({ groupId }: Props) => {
+export const Settings = ({ groupId }: SettingsProps) => {
   const router = useRouter()
 
   const handleClick = React.useCallback(() => {

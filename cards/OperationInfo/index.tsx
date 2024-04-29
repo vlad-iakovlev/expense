@@ -9,12 +9,15 @@ import { IncomeWallet } from './IncomeWallet.jsx'
 import { Name } from './Name.jsx'
 import { Type } from './Type.jsx'
 
-interface Props {
+interface OperationInfoCardProps {
   className?: string
   operationId: string
 }
 
-export const OperationInfoCard = ({ className, operationId }: Props) => (
+export const OperationInfoCard = ({
+  className,
+  operationId,
+}: OperationInfoCardProps) => (
   <Card className={className} aria-label="Operation info">
     <Card.Title title="Info" actions={<Delete operationId={operationId} />} />
     <Card.Divider />

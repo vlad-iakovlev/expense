@@ -6,11 +6,11 @@ import { getPopulatedGroup } from '../getters/groups.js'
 import { useRootStore } from '../index.jsx'
 import { GroupsActionTypes } from '../types.jsx'
 
-interface Props {
+interface UseGroupProps {
   groupId: string
 }
 
-export const useGroup = ({ groupId }: Props) => {
+export const useGroup = ({ groupId }: UseGroupProps) => {
   const session = useSession()
   const { state, dispatch } = useRootStore()
 

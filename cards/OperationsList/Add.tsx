@@ -4,11 +4,11 @@ import { Button } from '@/components/common/Button.jsx'
 import { ROUTES } from '@/constants/routes.js'
 import { useOperations } from '@/contexts/RootStore/hooks/useOperations.js'
 
-interface Props {
+interface AddProps {
   walletId: string | undefined
 }
 
-export const Add = ({ walletId }: Props) => {
+export const Add = ({ walletId }: AddProps) => {
   const router = useRouter()
   const { createOperation } = useOperations({ walletId })
 

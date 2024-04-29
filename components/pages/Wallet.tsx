@@ -9,11 +9,11 @@ import { NextHead } from '@/components/next/Head.js'
 import { ROUTES } from '@/constants/routes.js'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
 
-interface Props {
+interface WalletProps {
   walletId: string
 }
 
-export const Wallet = ({ walletId }: Props) => {
+export const Wallet = ({ walletId }: WalletProps) => {
   const { wallet } = useWallet({ walletId })
 
   const walletName = `${wallet.name} ${wallet.currency.symbol}`

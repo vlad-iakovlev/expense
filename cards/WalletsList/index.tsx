@@ -11,12 +11,15 @@ import { useGroupedWallets } from '@/contexts/RootStore/hooks/useGroupedWallets.
 import { Add } from './Add.jsx'
 import { Group } from './Group.jsx'
 
-interface Props {
+interface WalletsListCardProps {
   className?: string
   groupId: string
 }
 
-export const WalletsListCard = ({ className, groupId }: Props) => {
+export const WalletsListCard = ({
+  className,
+  groupId,
+}: WalletsListCardProps) => {
   const { groupedWallets, reorderWallets } = useGroupedWallets({ groupId })
 
   const currencyIds = React.useMemo(
