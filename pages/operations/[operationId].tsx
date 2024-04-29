@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
 import { useState } from 'react'
-import { Page } from '../../components/layout/Page/Page.jsx'
-import { Operation } from '../../components/pages/Operation.jsx'
+import { Page } from '@/components/layout/Page/Page.jsx'
+import { Operation } from '@/components/pages/Operation.jsx'
 
 const OperationPage: NextPage = () => {
   const router = useRouter()

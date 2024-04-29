@@ -86,6 +86,7 @@
     "semi": false,
     "singleQuote": true,
     "importOrder": [
+      "^@/",
       "^\\.\\./",
       "^\\./"
     ],

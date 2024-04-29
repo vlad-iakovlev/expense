@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
-import { ROUTES } from '../../constants/routes.js'
-import { useOperation } from '../../contexts/RootStore/hooks/useOperation.js'
-import { OperationInfoCard } from '../cards/OperationInfo/OperationInfo.jsx'
-import { NextHead } from '../next/Head.js'
-import { Breadcrumbs } from '../ui-kit/Breadcrumbs/Breadcrumbs.jsx'
-import { Columns } from '../ui-kit/Columns/Columns.jsx'
-import { Title } from '../ui-kit/Title/Title.jsx'
+import { OperationInfoCard } from '@/components/cards/OperationInfo/OperationInfo.jsx'
+import { NextHead } from '@/components/next/Head.js'
+import { Breadcrumbs } from '@/components/ui-kit/Breadcrumbs/Breadcrumbs.jsx'
+import { Columns } from '@/components/ui-kit/Columns/Columns.jsx'
+import { Title } from '@/components/ui-kit/Title/Title.jsx'
+import { ROUTES } from '@/constants/routes.js'
+import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 
 interface Props {
   operationId: string

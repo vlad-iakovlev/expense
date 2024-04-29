@@ -1,5 +1,5 @@
-import { ClientStatisticsType } from '../../../types/client.js'
-import { Button } from '../../ui-kit/Button/Button.jsx'
+import { Button } from '@/components/ui-kit/Button/Button.jsx'
+import { ClientStatisticsType } from '@/types/client.js'
 
 interface Props {
   value: ClientStatisticsType

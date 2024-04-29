@@ -1,4 +1,4 @@
-import { ClientTransaction } from '../../types/client.js'
+import { ClientTransaction } from '@/types/client.js'
 import { RootStoreState } from './types.jsx'
 
 export const getEmptyState = (): RootStoreState => ({

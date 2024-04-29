@@ -1,7 +1,7 @@
 import { HTMLMotionProps, Variants, motion } from 'framer-motion'
 import { useRouter } from 'next/router.js'
 import { forwardRef, useEffect, useMemo, useState } from 'react'
-import { Modify } from '../../../types/utility.js'
+import { Modify } from '@/types/utility.js'
 
 const transition = { ease: 'easeInOut', duration: 0.3 }
 

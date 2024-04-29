@@ -1,14 +1,17 @@
 import { useCallback, useMemo } from 'react'
+import { Amount } from '@/components/ui-kit/Amount/Amount.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import {
+  PieChart,
+  PieChartItem,
+} from '@/components/ui-kit/PieChart/PieChart.jsx'
 import {
   ClientCurrency,
   ClientStatisticsItem,
   ClientStatisticsType,
-} from '../../../types/client.js'
-import { formatAmount } from '../../../utils/formatAmount.js'
-import { formatPercent } from '../../../utils/formatPercent.js'
-import { Amount } from '../../ui-kit/Amount/Amount.jsx'
-import { Card } from '../../ui-kit/Card/Card.jsx'
-import { PieChart, PieChartItem } from '../../ui-kit/PieChart/PieChart.jsx'
+} from '@/types/client.js'
+import { formatAmount } from '@/utils/formatAmount.js'
+import { formatPercent } from '@/utils/formatPercent.js'
 
 const TITLE = {
   [ClientStatisticsType.INCOMES]: 'Incomes',

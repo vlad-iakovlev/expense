@@ -1,7 +1,7 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
 import { useCallback } from 'react'
-import { NextHead } from '../next/Head.js'
-import { Card } from '../ui-kit/Card/Card.jsx'
+import { NextHead } from '@/components/next/Head.js'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
 
 export const Fallback = () => {
   const handleRestart = useCallback(() => {

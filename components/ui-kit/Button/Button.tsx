@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.js'
+import { Modify } from '@/types/utility.js'
 
 export type ButtonProps = Modify<
   React.ButtonHTMLAttributes<HTMLButtonElement>,

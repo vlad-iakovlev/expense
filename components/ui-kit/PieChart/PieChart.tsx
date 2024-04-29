@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { GetSectorProps } from '../../../utils/client/getSector.js'
+import { GetSectorProps } from '@/utils/client/getSector.js'
 import { Sector } from './PieChart.Sector.jsx'
 
 export interface PieChartItem {

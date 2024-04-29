@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
-import { ROUTES } from '../../constants/routes.js'
-import { useGroup } from '../../contexts/RootStore/hooks/useGroup.js'
-import { GroupMembersCard } from '../cards/GroupMembers/GroupMembers.jsx'
-import { GroupSettingsGeneralCard } from '../cards/GroupSettingsGeneral/GroupSettingsGeneral.jsx'
-import { RenameCategoryCard } from '../cards/RenameCategory/RenameCategory.jsx'
-import { NextHead } from '../next/Head.js'
-import { Breadcrumbs } from '../ui-kit/Breadcrumbs/Breadcrumbs.jsx'
-import { Columns } from '../ui-kit/Columns/Columns.jsx'
-import { Title } from '../ui-kit/Title/Title.jsx'
+import { GroupMembersCard } from '@/components/cards/GroupMembers/GroupMembers.jsx'
+import { GroupSettingsGeneralCard } from '@/components/cards/GroupSettingsGeneral/GroupSettingsGeneral.jsx'
+import { RenameCategoryCard } from '@/components/cards/RenameCategory/RenameCategory.jsx'
+import { NextHead } from '@/components/next/Head.js'
+import { Breadcrumbs } from '@/components/ui-kit/Breadcrumbs/Breadcrumbs.jsx'
+import { Columns } from '@/components/ui-kit/Columns/Columns.jsx'
+import { Title } from '@/components/ui-kit/Title/Title.jsx'
+import { ROUTES } from '@/constants/routes.js'
+import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
 
 interface Props {
   groupId: string

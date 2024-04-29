@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router.js'
 import { useCallback, useState } from 'react'
-import { ROUTES } from '../../../constants/routes.js'
-import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.js'
-import { Button } from '../../ui-kit/Button/Button.jsx'
-import { ConfirmDialog } from '../../ui-kit/ConfirmDialog/ConfirmDialog.jsx'
+import { Button } from '@/components/ui-kit/Button/Button.jsx'
+import { ConfirmDialog } from '@/components/ui-kit/ConfirmDialog/ConfirmDialog.jsx'
+import { ROUTES } from '@/constants/routes.js'
+import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 
 interface Props {
   operationId: string

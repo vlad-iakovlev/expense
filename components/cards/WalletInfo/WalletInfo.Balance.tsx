@@ -1,6 +1,6 @@
-import { useWalletBalance } from '../../../contexts/RootStore/hooks/useWalletBalance.js'
-import { Amount } from '../../ui-kit/Amount/Amount.jsx'
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Amount } from '@/components/ui-kit/Amount/Amount.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance.js'
 
 interface Props {
   walletId: string

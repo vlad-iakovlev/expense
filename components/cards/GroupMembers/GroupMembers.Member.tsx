@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
-import { useGroupMembers } from '../../../contexts/RootStore/hooks/useGroupMembers.js'
-import { Avatar } from '../../ui-kit/Avatar/Avatar.jsx'
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Avatar } from '@/components/ui-kit/Avatar/Avatar.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
 import { Delete } from './GroupMembers.Delete.jsx'
 
 interface Props {

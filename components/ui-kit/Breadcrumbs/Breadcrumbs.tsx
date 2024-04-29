@@ -1,6 +1,6 @@
 import { ArrowUturnLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
 import { Fragment } from 'react'
-import { NextLink } from '../../next/Link.js'
+import { NextLink } from '@/components/next/Link.js'
 
 export interface BreadCrumbsParent {
   href: string

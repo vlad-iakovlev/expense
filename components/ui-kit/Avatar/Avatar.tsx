@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.js'
-import { NextImage } from '../../next/Image.js'
+import { NextImage } from '@/components/next/Image.js'
+import { Modify } from '@/types/utility.js'
 
 export const avatarColors = [
   'red',

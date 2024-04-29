@@ -4,7 +4,7 @@ import {
   ClientGroup,
   ClientUser,
   PopulatedClientGroup,
-} from '../../../types/client.js'
+} from '@/types/client.js'
 import { RootStoreState } from '../types.jsx'
 import { getCurrency } from './currencies.js'
 import { getAvailableWallets, getWalletBalance } from './wallets.js'

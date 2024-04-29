@@ -1,10 +1,10 @@
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import assert from 'assert'
 import { twMerge } from 'tailwind-merge'
-import { PopulatedClientOperation } from '../../../types/client.js'
-import { formatAmount } from '../../../utils/formatAmount.js'
-import { formatTime } from '../../../utils/formatDate.js'
-import { Amount } from '../../ui-kit/Amount/Amount.jsx'
+import { Amount } from '@/components/ui-kit/Amount/Amount.jsx'
+import { PopulatedClientOperation } from '@/types/client.js'
+import { formatAmount } from '@/utils/formatAmount.js'
+import { formatTime } from '@/utils/formatDate.js'
 
 interface Props {
   operation: PopulatedClientOperation

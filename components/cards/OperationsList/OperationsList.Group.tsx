@@ -1,8 +1,5 @@
-import {
-  formatDate,
-  formatDateForAriaLabel,
-} from '../../../utils/formatDate.js'
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { formatDate, formatDateForAriaLabel } from '@/utils/formatDate.js'
 import { Operation } from './OperationsList.Operation.jsx'
 
 interface Props {

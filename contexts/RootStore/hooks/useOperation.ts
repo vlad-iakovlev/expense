@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react'
 import {
   ClientOperationType,
   PopulatedClientOperation,
-} from '../../../types/client.js'
+} from '@/types/client.js'
 import { useRootStore } from '../RootStore.jsx'
 import { getPopulatedOperation } from '../getters/operations.js'
 import { OperationsActionTypes } from '../types.jsx'

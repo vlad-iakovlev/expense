@@ -1,5 +1,5 @@
-import { useGroupMembers } from '../../../contexts/RootStore/hooks/useGroupMembers.js'
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
 import { Invite } from './GroupMembers.Invite.jsx'
 import { Member } from './GroupMembers.Member.jsx'
 

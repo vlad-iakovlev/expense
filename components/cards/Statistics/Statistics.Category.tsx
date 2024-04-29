@@ -1,14 +1,14 @@
 import { FunnelIcon } from '@heroicons/react/20/solid'
 import { useCallback, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { useCategoryFilter } from '../../../contexts/CategoryFilter/CategoryFilter.jsx'
-import { useDisabledCategories } from '../../../contexts/RootStore/hooks/useDisabledCategories.js'
-import { ClientCurrency, ClientStatisticsType } from '../../../types/client.js'
-import { formatAmount } from '../../../utils/formatAmount.js'
-import { Amount } from '../../ui-kit/Amount/Amount.jsx'
-import { Button } from '../../ui-kit/Button/Button.jsx'
-import { Card } from '../../ui-kit/Card/Card.jsx'
-import { Switch } from '../../ui-kit/Switch/Switch.jsx'
+import { Amount } from '@/components/ui-kit/Amount/Amount.jsx'
+import { Button } from '@/components/ui-kit/Button/Button.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { Switch } from '@/components/ui-kit/Switch/Switch.jsx'
+import { useCategoryFilter } from '@/contexts/CategoryFilter/CategoryFilter.jsx'
+import { useDisabledCategories } from '@/contexts/RootStore/hooks/useDisabledCategories.js'
+import { ClientCurrency, ClientStatisticsType } from '@/types/client.js'
+import { formatAmount } from '@/utils/formatAmount.js'
 
 const AMOUNT_TYPE = {
   [ClientStatisticsType.INCOMES]: 'income',

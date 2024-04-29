@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router.js'
 import { useCallback } from 'react'
-import { ROUTES } from '../../../constants/routes.js'
-import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.js'
-import { useGroupBalance } from '../../../contexts/RootStore/hooks/useGroupBalance.js'
-import { useGroupMembers } from '../../../contexts/RootStore/hooks/useGroupMembers.js'
-import { Amount } from '../../ui-kit/Amount/Amount.jsx'
-import { AvatarGroup } from '../../ui-kit/AvatarGroup/AvatarGroup.jsx'
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Amount } from '@/components/ui-kit/Amount/Amount.jsx'
+import { AvatarGroup } from '@/components/ui-kit/AvatarGroup/AvatarGroup.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { ROUTES } from '@/constants/routes.js'
+import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
+import { useGroupBalance } from '@/contexts/RootStore/hooks/useGroupBalance.js'
+import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
 
 interface Props {
   groupId: string

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router.js'
 import { useEffect } from 'react'
-import { acceptInvite } from '../../api/client/invites.js'
-import { ROUTES } from '../../constants/routes.js'
+import { acceptInvite } from '@/api/client/invites.js'
+import { ROUTES } from '@/constants/routes.js'
 import { Loading } from './Loading.jsx'
 
 interface Props {

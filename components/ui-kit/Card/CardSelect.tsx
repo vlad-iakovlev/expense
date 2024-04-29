@@ -1,6 +1,6 @@
 import { Fragment, useCallback, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.js'
+import { Modify } from '@/types/utility.js'
 import { CardDivider } from './CardDivider.jsx'
 import { CardItem, CardItemProps } from './CardItem.jsx'
 import { CardMenu } from './CardMenu.jsx'

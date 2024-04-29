@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
-import { useRootStore } from '../../../contexts/RootStore/RootStore.jsx'
-import { getPopulatedWallet } from '../../../contexts/RootStore/getters/wallets.js'
-import { useGroupedWallets } from '../../../contexts/RootStore/hooks/useGroupedWallets.js'
-import { PopulatedClientWallet } from '../../../types/client.js'
-import { Card, CardSelectItem } from '../../ui-kit/Card/Card.jsx'
+import { Card, CardSelectItem } from '@/components/ui-kit/Card/Card.jsx'
+import { useRootStore } from '@/contexts/RootStore/RootStore.jsx'
+import { getPopulatedWallet } from '@/contexts/RootStore/getters/wallets.js'
+import { useGroupedWallets } from '@/contexts/RootStore/hooks/useGroupedWallets.js'
+import { PopulatedClientWallet } from '@/types/client.js'
 import { CurrencyBadge } from '../CurrencyBadge/CurrencyBadge.jsx'
 
 export interface WalletSelectProps {

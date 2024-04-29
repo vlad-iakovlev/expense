@@ -1,4 +1,4 @@
-import { NextHead } from '../next/Head.js'
+import { NextHead } from '@/components/next/Head.js'
 
 export const Loading = () => (
   <NextHead>

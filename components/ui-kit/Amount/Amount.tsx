@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ClientCurrency } from '../../../types/client.js'
-import { formatAmount } from '../../../utils/formatAmount.js'
+import { ClientCurrency } from '@/types/client.js'
+import { formatAmount } from '@/utils/formatAmount.js'
 
 export interface AmountProps {
   className?: string

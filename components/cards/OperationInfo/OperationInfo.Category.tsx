@@ -1,8 +1,8 @@
 import assert from 'assert'
 import { useMemo } from 'react'
-import { useCategories } from '../../../contexts/RootStore/hooks/useCategories.js'
-import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.js'
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { useCategories } from '@/contexts/RootStore/hooks/useCategories.js'
+import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 
 interface Props {
   operationId: string

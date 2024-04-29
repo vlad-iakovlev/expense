@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { uniq } from '../../../utils/uniq.js'
+import { uniq } from '@/utils/uniq.js'
 import { useRootStore } from '../RootStore.jsx'
 import { getAvailableOperations } from '../getters/operations.js'
 import { CategoriesActionTypes } from '../types.jsx'

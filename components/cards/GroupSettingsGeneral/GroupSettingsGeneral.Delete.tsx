@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router.js'
 import { useCallback, useState } from 'react'
-import { ROUTES } from '../../../constants/routes.js'
-import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.js'
-import { useWallets } from '../../../contexts/RootStore/hooks/useWallets.js'
-import { Button } from '../../ui-kit/Button/Button.jsx'
-import { ConfirmDialog } from '../../ui-kit/ConfirmDialog/ConfirmDialog.jsx'
+import { Button } from '@/components/ui-kit/Button/Button.jsx'
+import { ConfirmDialog } from '@/components/ui-kit/ConfirmDialog/ConfirmDialog.jsx'
+import { ROUTES } from '@/constants/routes.js'
+import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
+import { useWallets } from '@/contexts/RootStore/hooks/useWallets.js'
 
 interface Props {
   groupId: string

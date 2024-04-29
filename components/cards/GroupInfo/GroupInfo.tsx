@@ -1,4 +1,4 @@
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
 import { Balance } from './GroupInfo.Balance.jsx'
 import { Members } from './GroupInfo.Members.jsx'
 import { Settings } from './GroupInfo.Settings.jsx'

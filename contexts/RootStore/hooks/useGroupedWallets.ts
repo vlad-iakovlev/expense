@@ -1,10 +1,6 @@
 import assert from 'assert'
 import { useCallback, useMemo } from 'react'
-import {
-  ClientCurrency,
-  ClientWallet,
-  GroupedWallets,
-} from '../../../types/client.js'
+import { ClientCurrency, ClientWallet, GroupedWallets } from '@/types/client.js'
 import { useRootStore } from '../RootStore.jsx'
 import { getOrderedWallets } from '../getters/wallets.js'
 import { WalletsActionTypes } from '../types.jsx'

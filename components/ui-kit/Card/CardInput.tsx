@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.js'
+import { Modify } from '@/types/utility.js'
 import { CardItem, CardItemProps } from './CardItem.jsx'
 import { CardMenu } from './CardMenu.jsx'
 

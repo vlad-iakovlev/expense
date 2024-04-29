@@ -1,9 +1,9 @@
-import { useGroups } from '../../contexts/RootStore/hooks/useGroups.js'
-import { GroupCreateCard } from '../cards/GroupCreate/GroupCreate.jsx'
-import { GroupOpenCard } from '../cards/GroupOpen/GroupOpen.jsx'
-import { NextHead } from '../next/Head.js'
-import { Columns } from '../ui-kit/Columns/Columns.jsx'
-import { Title } from '../ui-kit/Title/Title.jsx'
+import { GroupCreateCard } from '@/components/cards/GroupCreate/GroupCreate.jsx'
+import { GroupOpenCard } from '@/components/cards/GroupOpen/GroupOpen.jsx'
+import { NextHead } from '@/components/next/Head.js'
+import { Columns } from '@/components/ui-kit/Columns/Columns.jsx'
+import { Title } from '@/components/ui-kit/Title/Title.jsx'
+import { useGroups } from '@/contexts/RootStore/hooks/useGroups.js'
 
 export const Dashboard = () => {
   const { groupIds } = useGroups()

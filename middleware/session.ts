@@ -1,5 +1,5 @@
 import { Middleware } from 'next-api-middleware'
-import { auth } from '../auth.js'
+import { auth } from '@/auth.js'
 
 export const sessionMiddleware: Middleware = async (req, res, next) => {
   const session = await auth(req, res)

@@ -10,10 +10,10 @@ import {
 } from '@heroicons/react/24/outline'
 import { signIn } from 'next-auth/react'
 import { useCallback, useState } from 'react'
-import { NextHead } from '../next/Head.js'
-import { Card } from '../ui-kit/Card/Card.jsx'
-import { Columns } from '../ui-kit/Columns/Columns.jsx'
-import { Title } from '../ui-kit/Title/Title.jsx'
+import { NextHead } from '@/components/next/Head.js'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { Columns } from '@/components/ui-kit/Columns/Columns.jsx'
+import { Title } from '@/components/ui-kit/Title/Title.jsx'
 
 export const Home = () => {
   const [isLoading, setIsLoading] = useState(false)

@@ -1,5 +1,5 @@
 import * as fns from 'date-fns'
-import { Period } from '../hooks/usePeriod.js'
+import { Period } from '@/hooks/usePeriod.js'
 
 export const formatDateTime = (date: Date) =>
   fns.format(date, "d MMM yyyy 'at' HH:mm")

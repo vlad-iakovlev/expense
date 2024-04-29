@@ -8,9 +8,9 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ClientCurrency } from '../../../types/client.js'
-import { Card } from '../../ui-kit/Card/Card.jsx'
-import { DndIcon } from '../../ui-kit/DndIcon/DndIcon.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { DndIcon } from '@/components/ui-kit/DndIcon/DndIcon.jsx'
+import { ClientCurrency } from '@/types/client.js'
 import { Wallet } from './WalletsList.Wallet.jsx'
 
 interface Props {

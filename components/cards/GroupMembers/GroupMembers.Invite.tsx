@@ -1,17 +1,17 @@
 import { CheckIcon } from '@heroicons/react/24/solid'
 import { useCallback, useState } from 'react'
-import { createInvite } from '../../../api/client/invites.js'
-import { ROUTES } from '../../../constants/routes.js'
-import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.js'
-import { useIsOnline } from '../../../hooks/useIsOnline.js'
+import { createInvite } from '@/api/client/invites.js'
+import { Button } from '@/components/ui-kit/Button/Button.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { CopyField } from '@/components/ui-kit/CopyField/CopyField.jsx'
+import { Dialog } from '@/components/ui-kit/Dialog/Dialog.jsx'
+import { ROUTES } from '@/constants/routes.js'
+import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
+import { useIsOnline } from '@/hooks/useIsOnline.js'
 import {
   formatDateTime,
   formatDateTimeForAriaLabel,
-} from '../../../utils/formatDate.js'
-import { Button } from '../../ui-kit/Button/Button.jsx'
-import { Card } from '../../ui-kit/Card/Card.jsx'
-import { CopyField } from '../../ui-kit/CopyField/CopyField.jsx'
-import { Dialog } from '../../ui-kit/Dialog/Dialog.jsx'
+} from '@/utils/formatDate.js'
 
 interface Props {
   groupId: string

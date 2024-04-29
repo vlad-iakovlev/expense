@@ -1,4 +1,4 @@
-import { PerformSyncBody } from '../../../api/server/sync/types.js'
+import { PerformSyncBody } from '@/api/server/sync/types.js'
 import { BrowserStorageState, RootStoreState } from '../types.jsx'
 import { isTransactionEmpty } from '../utils.js'
 

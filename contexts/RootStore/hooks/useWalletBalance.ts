@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { ClientBalance } from '../../../types/client.js'
+import { ClientBalance } from '@/types/client.js'
 import { useRootStore } from '../RootStore.jsx'
 import { getWalletBalance } from '../getters/wallets.js'
 

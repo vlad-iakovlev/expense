@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.js'
+import { Modify } from '@/types/utility.js'
 import { CardBlock, CardBlockProps } from './CardBlock.jsx'
 
 export type CardFooterProps = Modify<

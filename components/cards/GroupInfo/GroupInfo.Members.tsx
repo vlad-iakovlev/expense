@@ -1,6 +1,6 @@
-import { useGroupMembers } from '../../../contexts/RootStore/hooks/useGroupMembers.js'
-import { AvatarGroup } from '../../ui-kit/AvatarGroup/AvatarGroup.jsx'
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { AvatarGroup } from '@/components/ui-kit/AvatarGroup/AvatarGroup.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
 
 interface Props {
   groupId: string

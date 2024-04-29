@@ -2,7 +2,7 @@ import {
   ClientCurrency,
   ClientStatisticsItem,
   ClientStatisticsType,
-} from '../../../types/client.js'
+} from '@/types/client.js'
 import { Category } from './Statistics.Category.jsx'
 
 interface Props {

@@ -1,6 +1,6 @@
 import assert from 'assert'
-import { PerformSyncResponse } from '../../../api/server/sync/types.js'
-import { uniqBy } from '../../../utils/uniqBy.js'
+import { PerformSyncResponse } from '@/api/server/sync/types.js'
+import { uniqBy } from '@/utils/uniqBy.js'
 import {
   BrowserStorageState,
   RootStoreState,

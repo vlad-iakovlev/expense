@@ -1,4 +1,4 @@
-import { Container } from '../../ui-kit/Container/Container.jsx'
+import { Container } from '@/components/ui-kit/Container/Container.jsx'
 import { PageAuth } from './PageAuth.jsx'
 import { PageStore } from './PageStore.jsx'
 

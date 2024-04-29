@@ -1,6 +1,6 @@
-import { useOperation } from '../../../contexts/RootStore/hooks/useOperation.js'
-import { ClientOperationType } from '../../../types/client.js'
-import { Card, CardSelectOption } from '../../ui-kit/Card/Card.jsx'
+import { Card, CardSelectOption } from '@/components/ui-kit/Card/Card.jsx'
+import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
+import { ClientOperationType } from '@/types/client.js'
 
 const OperationTypeOptionsMap: Record<
   ClientOperationType,

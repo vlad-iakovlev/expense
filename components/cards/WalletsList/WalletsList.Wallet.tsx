@@ -1,12 +1,12 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { twMerge } from 'tailwind-merge'
-import { ROUTES } from '../../../constants/routes.js'
-import { useWallet } from '../../../contexts/RootStore/hooks/useWallet.js'
-import { useWalletBalance } from '../../../contexts/RootStore/hooks/useWalletBalance.js'
-import { Amount } from '../../ui-kit/Amount/Amount.jsx'
-import { Card } from '../../ui-kit/Card/Card.jsx'
-import { DndIcon } from '../../ui-kit/DndIcon/DndIcon.jsx'
+import { Amount } from '@/components/ui-kit/Amount/Amount.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { DndIcon } from '@/components/ui-kit/DndIcon/DndIcon.jsx'
+import { ROUTES } from '@/constants/routes.js'
+import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
+import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance.js'
 
 interface Props {
   canReorderWallets: boolean

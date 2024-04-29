@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { useSession } from 'next-auth/react'
 import { useCallback, useMemo } from 'react'
-import { PopulatedClientGroup } from '../../../types/client.js'
+import { PopulatedClientGroup } from '@/types/client.js'
 import { useRootStore } from '../RootStore.jsx'
 import { getPopulatedGroup } from '../getters/groups.js'
 import { GroupsActionTypes } from '../types.jsx'

@@ -5,9 +5,9 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { useCallback, useMemo, useState } from 'react'
-import { useGroupedWallets } from '../../../contexts/RootStore/hooks/useGroupedWallets.js'
-import { Button } from '../../ui-kit/Button/Button.jsx'
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Button } from '@/components/ui-kit/Button/Button.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { useGroupedWallets } from '@/contexts/RootStore/hooks/useGroupedWallets.js'
 import { Add } from './WalletsList.Add.jsx'
 import { Group } from './WalletsList.Group.jsx'
 

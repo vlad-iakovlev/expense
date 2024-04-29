@@ -1,5 +1,5 @@
-import { useGroup } from '../../../contexts/RootStore/hooks/useGroup.js'
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
 
 interface Props {
   groupId: string

@@ -1,5 +1,5 @@
 import { produce } from 'immer'
-import { ClientUser } from '../../../types/client.js'
+import { ClientUser } from '@/types/client.js'
 import { getDefaultCurrency } from '../getters/currencies.js'
 import { GroupsActionTypes, RootStoreState } from '../types.jsx'
 

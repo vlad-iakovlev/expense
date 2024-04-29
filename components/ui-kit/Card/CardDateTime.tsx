@@ -1,11 +1,11 @@
 import { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '../../../types/utility.js'
+import { Modify } from '@/types/utility.js'
 import {
   formatDateForInput,
   formatDateTime,
   formatDateTimeForAriaLabel,
-} from '../../../utils/formatDate.js'
+} from '@/utils/formatDate.js'
 import { CardItem, CardItemProps } from './CardItem.jsx'
 
 export type CardDateTimeProps = Modify<

@@ -1,5 +1,5 @@
-import { Modify } from '../../../types/utility.js'
-import { NextLink } from '../../next/Link.js'
+import { NextLink } from '@/components/next/Link.js'
+import { Modify } from '@/types/utility.js'
 
 export type CardLinkProps = Modify<
   React.ComponentProps<typeof NextLink>,

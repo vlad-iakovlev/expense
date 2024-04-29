@@ -1,4 +1,4 @@
-import { Container } from '../../ui-kit/Container/Container.jsx'
+import { Container } from '@/components/ui-kit/Container/Container.jsx'
 import { HeaderLogo } from './HeaderLogo.jsx'
 import { HeaderSync } from './HeaderSync.jsx'
 import { HeaderUser } from './HeaderUser.jsx'

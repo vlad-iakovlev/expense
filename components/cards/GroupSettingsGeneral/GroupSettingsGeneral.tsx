@@ -1,4 +1,4 @@
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
 import { DefaultCurrency } from './GroupSettingsGeneral.DefaultCurrency.jsx'
 import { Delete } from './GroupSettingsGeneral.Delete.jsx'
 import { Name } from './GroupSettingsGeneral.Name.jsx'

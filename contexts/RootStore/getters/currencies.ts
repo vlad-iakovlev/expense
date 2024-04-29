@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { ClientCurrency } from '../../../types/client.js'
+import { ClientCurrency } from '@/types/client.js'
 import { RootStoreState } from '../types.jsx'
 
 export const getCurrency = (

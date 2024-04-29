@@ -1,8 +1,8 @@
 import { Cog6ToothIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/router.js'
 import { useCallback } from 'react'
-import { ROUTES } from '../../../constants/routes.js'
-import { Button } from '../../ui-kit/Button/Button.jsx'
+import { Button } from '@/components/ui-kit/Button/Button.jsx'
+import { ROUTES } from '@/constants/routes.js'
 
 interface Props {
   walletId: string

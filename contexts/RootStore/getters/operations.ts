@@ -3,7 +3,7 @@ import {
   ClientOperation,
   ClientOperationType,
   PopulatedClientOperation,
-} from '../../../types/client.js'
+} from '@/types/client.js'
 import { RootStoreState } from '../types.jsx'
 import { getPopulatedWallet } from './wallets.js'
 

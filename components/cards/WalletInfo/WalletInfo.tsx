@@ -1,4 +1,4 @@
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
 import { Balance } from './WalletInfo.Balance.jsx'
 import { BalanceInDefaultCurrency } from './WalletInfo.BalanceInDefaultCurrency.jsx'
 import { Settings } from './WalletInfo.Settings.jsx'

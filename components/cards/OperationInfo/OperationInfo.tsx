@@ -1,4 +1,4 @@
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
 import { Category } from './OperationInfo.Category.jsx'
 import { Date } from './OperationInfo.Date.jsx'
 import { Delete } from './OperationInfo.Delete.jsx'

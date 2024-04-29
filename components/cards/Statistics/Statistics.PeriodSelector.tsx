@@ -1,12 +1,9 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
-import { Period } from '../../../hooks/usePeriod.js'
-import {
-  formatPeriod,
-  formatPeriodForAriaLabel,
-} from '../../../utils/formatDate.js'
-import { Button } from '../../ui-kit/Button/Button.jsx'
-import { Card } from '../../ui-kit/Card/Card.jsx'
+import { Button } from '@/components/ui-kit/Button/Button.jsx'
+import { Card } from '@/components/ui-kit/Card/Card.jsx'
+import { Period } from '@/hooks/usePeriod.js'
+import { formatPeriod, formatPeriodForAriaLabel } from '@/utils/formatDate.js'
 
 const variants: Variants = {
   opened: {

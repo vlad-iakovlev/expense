@@ -1,6 +1,6 @@
 import assert from 'assert'
-import { ClientWallet, PopulatedClientWallet } from '../../../types/client.js'
-import { ClientBalance } from '../../../types/client.js'
+import { ClientWallet, PopulatedClientWallet } from '@/types/client.js'
+import { ClientBalance } from '@/types/client.js'
 import { RootStoreState } from '../types.jsx'
 import { getCurrency } from './currencies.js'
 import { getPopulatedGroup } from './groups.js'
