@@ -31,10 +31,9 @@ export const Delete = ({ groupId, userId, tabIndex }: DeleteProps) => {
       assert(session.data.user?.id, 'User id is required')
 
       if (session.data.user.id === userId) {
-        const href = ROUTES.DASHBOARD
         await router.push(
-          { pathname: href, query: { animation: 'back' } },
-          href,
+          `${ROUTES.DASHBOARD}?animation=back`,
+          ROUTES.DASHBOARD,
         )
         leaveGroup()
       } else {

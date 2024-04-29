@@ -1,4 +1,5 @@
 import { NextLink } from '@/components/next/Link.js'
+import { ROUTES } from '@/constants/routes.js'
 
 interface HeaderLogoProps {
   className?: string
@@ -7,8 +8,8 @@ interface HeaderLogoProps {
 export const HeaderLogo = ({ className }: HeaderLogoProps) => (
   <div className={className}>
     <NextLink
-      href={{ pathname: '/', query: { animation: 'back' } }}
-      as="/"
+      href={`${ROUTES.DASHBOARD}?animation=back`}
+      as={ROUTES.DASHBOARD}
       aria-label="Home page"
     >
       <svg className="h-6" viewBox="0 0 164 28" aria-label="Expense logo">

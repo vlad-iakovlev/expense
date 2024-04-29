@@ -26,7 +26,7 @@ export const Breadcrumbs = ({
           <React.Fragment key={parent.href}>
             <NextLink
               className="min-w-0 truncate text-lg font-medium leading-6 text-sky-700 dark:text-sky-500"
-              href={{ pathname: parent.href, query: { animation: 'back' } }}
+              href={`${parent.href}?animation=back`}
               as={parent.href}
               aria-label={parent.title}
             >
@@ -44,7 +44,7 @@ export const Breadcrumbs = ({
     {mobileBack ? (
       <NextLink
         className="-mb-4 -mt-2 flex items-center gap-2 truncate text-lg font-medium leading-6 text-sky-700 md:hidden dark:text-sky-500"
-        href={{ pathname: mobileBack.href, query: { animation: 'back' } }}
+        href={`${mobileBack.href}?animation=back`}
         as={mobileBack.href}
         aria-label={mobileBack.title}
       >

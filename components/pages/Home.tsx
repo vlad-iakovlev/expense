@@ -14,6 +14,7 @@ import { Card } from '@/components/common/Card/index.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
 import { Title } from '@/components/common/Title.jsx'
 import { NextHead } from '@/components/next/Head.js'
+import { ExternalLink } from '../common/ExternalLink.jsx'
 
 export const Home = () => {
   const [isLoading, setIsLoading] = React.useState(false)
@@ -49,11 +50,13 @@ export const Home = () => {
             label="Description"
             value={<div className="font-medium">Expense tracker</div>}
           />
-          <Card.Link
-            label="Created by"
-            value={<div className="font-medium">Vladislav Iakovlev</div>}
-            href="https://vlad-iakovlev.dev"
-          />
+          <ExternalLink href="https://vlad-iakovlev.dev">
+            <Card.Item
+              label="Created by"
+              value={<div className="font-medium">Vladislav Iakovlev</div>}
+              tabIndex={-1}
+            />
+          </ExternalLink>
         </Card>
 
         <Card aria-label="Features" className="md:row-span-full">
@@ -97,11 +100,13 @@ export const Home = () => {
             label="Sign In with Google Account"
             onClick={handleSignIn}
           />
-          <Card.Link
-            prefix={<CodeBracketIcon className="h-6 w-6" />}
-            label="See the code on GitHub"
-            href="https://github.com/vlad-iakovlev/expense"
-          />
+          <ExternalLink href="https://github.com/vlad-iakovlev/expense">
+            <Card.Item
+              prefix={<CodeBracketIcon className="h-6 w-6" />}
+              label="See the code on GitHub"
+              tabIndex={-1}
+            />
+          </ExternalLink>
         </Card>
       </Columns>
     </>

@@ -12,6 +12,7 @@ export type CardItemProps = Modify<
     valueClassName?: string
     menuClassName?: string
     disabled?: boolean
+    clickable?: boolean
     prefix?: React.ReactNode
     suffix?: React.ReactNode
     label?: React.ReactNode
@@ -22,7 +23,7 @@ export type CardItemProps = Modify<
 >
 
 export const CardItem = React.forwardRef<HTMLDivElement, CardItemProps>(
-  function CardButton(
+  function CardItem(
     {
       className,
       prefixClassName,
@@ -31,6 +32,7 @@ export const CardItem = React.forwardRef<HTMLDivElement, CardItemProps>(
       valueClassName,
       menuClassName,
       disabled,
+      clickable,
       prefix,
       suffix,
       label,
@@ -44,21 +46,25 @@ export const CardItem = React.forwardRef<HTMLDivElement, CardItemProps>(
   ) {
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (onClick && (event.key === 'Enter' || event.key === ' ')) {
+        if (
+          (clickable || onClick) &&
+          (event.key === 'Enter' || event.key === ' ')
+        ) {
           event.preventDefault()
           event.currentTarget.click()
         }
 
         onKeyDown?.(event)
       },
-      [onClick, onKeyDown],
+      [clickable, onClick, onKeyDown],
     )
 
     return (
       <CardBlock
         ref={ref}
         className={twMerge(
-          !!onClick && 'cursor-pointer hover:bg-tertiary active:bg-tertiary',
+          (clickable || onClick) &&
+            'cursor-pointer hover:bg-tertiary active:bg-tertiary',
           disabled && 'pointer-events-none',
           className,
         )}

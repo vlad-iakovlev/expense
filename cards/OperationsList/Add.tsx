@@ -14,8 +14,10 @@ export const Add = ({ walletId }: AddProps) => {
 
   const handleCreate = React.useCallback(() => {
     const operationId = createOperation()
-    const href = ROUTES.OPERATION(operationId)
-    void router.push({ pathname: href, query: { animation: 'forward' } }, href)
+    void router.push(
+      `${ROUTES.OPERATION(operationId)}?animation=forward`,
+      ROUTES.OPERATION(operationId),
+    )
   }, [createOperation, router])
 
   if (!walletId) {

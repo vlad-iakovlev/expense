@@ -11,8 +11,10 @@ export const GroupCreateCard = () => {
 
   const handleCreate = React.useCallback(() => {
     const groupId = createGroup()
-    const href = ROUTES.GROUP(groupId)
-    void router.push({ pathname: href, query: { animation: 'forward' } }, href)
+    void router.push(
+      `${ROUTES.GROUP(groupId)}?animation=forward`,
+      ROUTES.GROUP(groupId),
+    )
   }, [createGroup, router])
 
   return (

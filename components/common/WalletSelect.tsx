@@ -1,9 +1,9 @@
 import React from 'react'
-import { Card, CardSelectItem } from '@/components/common/Card/index.jsx'
 import { getPopulatedWallet } from '@/contexts/RootStore/getters/wallets.js'
 import { useGroupedWallets } from '@/contexts/RootStore/hooks/useGroupedWallets.js'
 import { useRootStore } from '@/contexts/RootStore/index.jsx'
 import { PopulatedClientWallet } from '@/types/client.js'
+import { Card, CardSelectItem } from './Card/index.jsx'
 import { CurrencyBadge } from './CurrencyBadge.jsx'
 
 export interface WalletSelectProps {

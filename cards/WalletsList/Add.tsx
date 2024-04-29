@@ -14,8 +14,10 @@ export const Add = ({ groupId }: AddProps) => {
 
   const handleCreate = React.useCallback(() => {
     const walletId = createWallet()
-    const href = ROUTES.WALLET(walletId)
-    void router.push({ pathname: href, query: { animation: 'forward' } }, href)
+    void router.push(
+      `${ROUTES.WALLET(walletId)}?animation=forward`,
+      ROUTES.WALLET(walletId),
+    )
   }, [createWallet, router])
 
   return (

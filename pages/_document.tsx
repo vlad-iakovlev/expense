@@ -27,8 +27,8 @@ export const MyDocument = () => (
       />
       {splashes.map((splash) => (
         <link
-          rel="apple-touch-startup-image"
           key={splash.url}
+          rel="apple-touch-startup-image"
           href={splash.url}
           media={splash.media}
         />

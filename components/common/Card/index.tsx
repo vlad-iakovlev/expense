@@ -1,22 +1,28 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Modify } from '@/types/utility.js'
 import { CardBlock } from './Block.jsx'
 import { CardDateTime } from './DateTime.jsx'
 import { CardDivider } from './Divider.jsx'
 import { CardFooter } from './Footer.jsx'
 import { CardInput } from './Input.jsx'
 import { CardItem } from './Item.jsx'
-import { CardLink } from './Link.jsx'
 import { CardMenu } from './Menu.jsx'
 import { CardSelect } from './Select.jsx'
 import { CardSubtitle } from './Subtitle.jsx'
 import { CardTitle } from './Title.jsx'
 
-export type CardProps = React.HTMLAttributes<HTMLDivElement>
+export type CardProps = Modify<
+  React.HTMLAttributes<HTMLDivElement>,
+  {
+    clickable?: boolean
+  }
+>
 
 export const Card = ({
   className,
   children,
+  clickable,
   onClick,
   onKeyDown,
   ...rest
@@ -37,7 +43,8 @@ export const Card = ({
     <div
       className={twMerge(
         'bg-secondary rounded-md py-2 text-left shadow-lg ring-1 ring-black ring-opacity-5 transition-shadow dark:ring-0',
-        !!onClick && 'cursor-pointer hover:shadow-2xl active:shadow-2xl',
+        (clickable || onClick) &&
+          'cursor-pointer hover:shadow-2xl active:shadow-2xl',
         className,
       )}
       role={onClick ? 'button' : 'list'}
@@ -67,9 +74,6 @@ Card.Input = CardInput
 
 export type * from './Item.jsx'
 Card.Item = CardItem
-
-export type * from './Link.jsx'
-Card.Link = CardLink
 
 export type * from './Menu.jsx'
 Card.Menu = CardMenu

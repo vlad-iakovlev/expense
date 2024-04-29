@@ -4,6 +4,7 @@ import { twMerge } from 'tailwind-merge'
 import { Amount } from '@/components/common/Amount.jsx'
 import { Card } from '@/components/common/Card/index.jsx'
 import { DndIcon } from '@/components/icons/DndIcon.jsx'
+import { NextLink } from '@/components/next/Link.js'
 import { ROUTES } from '@/constants/routes.js'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
 import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance.js'
@@ -64,17 +65,22 @@ export const Wallet = ({
   }
 
   return (
-    <Card.Link
-      href={ROUTES.WALLET(wallet.id)}
-      label={wallet.name}
-      value={
-        <Amount
-          className="font-medium"
-          amount={walletBalance.balance}
-          currency={walletBalance.currency}
-          showSign="negative"
-        />
-      }
-    />
+    <NextLink
+      href={`${ROUTES.WALLET(wallet.id)}?animation=forward`}
+      as={ROUTES.WALLET(wallet.id)}
+    >
+      <Card.Item
+        label={wallet.name}
+        value={
+          <Amount
+            className="font-medium"
+            amount={walletBalance.balance}
+            currency={walletBalance.currency}
+            showSign="negative"
+          />
+        }
+        tabIndex={-1}
+      />
+    </NextLink>
   )
 }

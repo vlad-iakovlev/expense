@@ -23,8 +23,7 @@ export const Delete = ({ groupId }: DeleteProps) => {
 
   const handleDeleteConfirm = React.useCallback(() => {
     void (async () => {
-      const href = ROUTES.DASHBOARD
-      await router.push({ pathname: href, query: { animation: 'back' } }, href)
+      await router.push(`${ROUTES.DASHBOARD}?animation=back`, ROUTES.DASHBOARD)
       removeGroup()
     })()
   }, [removeGroup, router])

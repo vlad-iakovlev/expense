@@ -1,4 +1,5 @@
 import { Card } from '@/components/common/Card/index.jsx'
+import { NextLink } from '@/components/next/Link.js'
 import { ROUTES } from '@/constants/routes.js'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 import { ExpenseOperation } from './ExpenseOperation.jsx'
@@ -14,21 +15,26 @@ export const Operation = ({ operationId, walletId }: OperationProps) => {
   const { operation } = useOperation({ operationId })
 
   return (
-    <Card.Link
-      href={ROUTES.OPERATION(operation.id)}
-      label={
-        <>
-          {operation.incomeWallet && operation.expenseWallet ? (
-            <TransferOperation operation={operation} walletId={walletId} />
-          ) : null}
-          {operation.incomeWallet && !operation.expenseWallet ? (
-            <IncomeOperation operation={operation} walletId={walletId} />
-          ) : null}
-          {!operation.incomeWallet && operation.expenseWallet ? (
-            <ExpenseOperation operation={operation} walletId={walletId} />
-          ) : null}
-        </>
-      }
-    />
+    <NextLink
+      href={`${ROUTES.OPERATION(operation.id)}?animation=forward`}
+      as={ROUTES.OPERATION(operation.id)}
+    >
+      <Card.Item
+        label={
+          <>
+            {operation.incomeWallet && operation.expenseWallet ? (
+              <TransferOperation operation={operation} walletId={walletId} />
+            ) : null}
+            {operation.incomeWallet && !operation.expenseWallet ? (
+              <IncomeOperation operation={operation} walletId={walletId} />
+            ) : null}
+            {!operation.incomeWallet && operation.expenseWallet ? (
+              <ExpenseOperation operation={operation} walletId={walletId} />
+            ) : null}
+          </>
+        }
+        tabIndex={-1}
+      />
+    </NextLink>
   )
 }

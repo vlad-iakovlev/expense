@@ -23,8 +23,10 @@ export const Delete = ({ walletId }: DeleteProps) => {
 
   const handleDeleteConfirm = React.useCallback(() => {
     void (async () => {
-      const href = ROUTES.GROUP(wallet.group.id)
-      await router.push({ pathname: href, query: { animation: 'back' } }, href)
+      await router.push(
+        `${ROUTES.GROUP(wallet.group.id)}?animation=back`,
+        ROUTES.GROUP(wallet.group.id),
+      )
       removeWallet()
     })()
   }, [removeWallet, router, wallet.group.id])
