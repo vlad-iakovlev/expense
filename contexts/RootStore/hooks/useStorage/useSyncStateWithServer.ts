@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import { performSync } from '@/api/client/sync.js'
 import { ERROR_TYPES } from '@/constants/errors.js'
 import { useIsOnline } from '@/hooks/useIsOnline.js'
@@ -16,9 +16,9 @@ export const useSyncStateWithServer = (
 ) => {
   const throwError = useThrowError()
   const isOnline = useIsOnline()
-  const [shouldSyncAsap, setShouldSyncAsap] = useState(true)
+  const [shouldSyncAsap, setShouldSyncAsap] = React.useState(true)
 
-  const sync = useCallback(async () => {
+  const sync = React.useCallback(async () => {
     try {
       setShouldSyncAsap(false)
 
@@ -51,7 +51,7 @@ export const useSyncStateWithServer = (
     }
   }, [dispatch, state, throwError])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (state.isSyncing) return
     if (!isStateLoaded || !isOnline) return setShouldSyncAsap(true)
     if (shouldSyncAsap) return void sync()

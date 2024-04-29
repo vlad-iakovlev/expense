@@ -1,4 +1,4 @@
-import { forwardRef, useCallback } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility.js'
 import { CardBlock, CardBlockProps } from './Block.jsx'
@@ -21,7 +21,7 @@ export type CardItemProps = Modify<
   }
 >
 
-export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
+export const CardItem = React.forwardRef<HTMLDivElement, CardItemProps>(
   function CardButton(
     {
       className,
@@ -42,7 +42,7 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
     },
     ref,
   ) {
-    const handleKeyDown = useCallback(
+    const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (onClick && (event.key === 'Enter' || event.key === ' ')) {
           event.preventDefault()

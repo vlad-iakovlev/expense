@@ -1,6 +1,6 @@
 import FocusTrap from 'focus-trap-react'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
-import { useEffect } from 'react'
+import React from 'react'
 import { Portal } from './Portal.jsx'
 
 const rootVariants: Variants = {
@@ -36,7 +36,7 @@ export interface DialogProps {
 }
 
 export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
-  useEffect(() => {
+  React.useEffect(() => {
     if (!isOpen) return
 
     const handleKeyDown = (event: KeyboardEvent) => {

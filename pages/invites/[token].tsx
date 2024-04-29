@@ -1,12 +1,12 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
-import { useState } from 'react'
+import React from 'react'
 import { Page } from '@/components/layout/Page/index.jsx'
 import { Invite } from '@/components/pages/Invite.jsx'
 
 const InvitePage: NextPage = () => {
   const router = useRouter()
-  const [token] = useState(router.query.token)
+  const [token] = React.useState(router.query.token)
 
   if (typeof token !== 'string') {
     return null

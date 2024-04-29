@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { useMemo } from 'react'
+import React from 'react'
 import { Card, CardSelectItem } from '@/components/common/Card/index.jsx'
 import { useCurrencies } from '@/contexts/RootStore/hooks/useCurrencies.js'
 import { ClientCurrency } from '@/types/client.js'
@@ -20,7 +20,7 @@ export const CurrencySelect = ({
 }: CurrencySelectProps) => {
   const { currencies } = useCurrencies()
 
-  const options = useMemo<CardSelectItem[]>(
+  const options = React.useMemo<CardSelectItem[]>(
     () => [
       ...PRIORITIZED_CURRENCIES.map((symbol) => {
         const currency = currencies.find((item) => item.symbol === symbol)
@@ -44,7 +44,7 @@ export const CurrencySelect = ({
     [currencies],
   )
 
-  const valueForSelect = useMemo(
+  const valueForSelect = React.useMemo(
     () => ({
       id: value.id,
       label: value.symbol,

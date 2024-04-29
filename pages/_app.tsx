@@ -4,7 +4,7 @@ import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app.js'
 import { useRouter } from 'next/router.js'
-import { useEffect } from 'react'
+import React from 'react'
 import { ErrorBoundary } from '@/components/common/ErrorBoundary.jsx'
 import { Header } from '@/components/layout/Header/index.jsx'
 import { PageTransition } from '@/components/layout/PageTransition.jsx'
@@ -19,11 +19,11 @@ const App = ({
 }: AppProps<{ session: Session | null }>) => {
   const router = useRouter()
 
-  useEffect(() => {
+  React.useEffect(() => {
     fns.setDefaultOptions({ weekStartsOn: 1 })
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const visualViewport = window.visualViewport
     if (!visualViewport) return
 

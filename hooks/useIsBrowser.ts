@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import React from 'react'
 
 export const useIsBrowser = () => {
-  const [isBrowser, setIsBrowser] = useState(false)
+  const [isBrowser, setIsBrowser] = React.useState(false)
 
-  useEffect(() => {
+  React.useEffect(() => {
     setIsBrowser(true)
   }, [])
 

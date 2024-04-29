@@ -1,5 +1,5 @@
 import { CheckIcon } from '@heroicons/react/24/solid'
-import { useCallback, useState } from 'react'
+import React from 'react'
 import { createInvite } from '@/api/client/invites.js'
 import { Button } from '@/components/common/Button.jsx'
 import { Card } from '@/components/common/Card/index.jsx'
@@ -20,12 +20,12 @@ interface Props {
 export const Invite = ({ groupId }: Props) => {
   const isOnline = useIsOnline()
   const { group } = useGroup({ groupId })
-  const [isLoading, setIsLoading] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const [inviteLink, setInviteLink] = useState('')
-  const [expirationDate, setExpirationDate] = useState(new Date(0))
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(false)
+  const [inviteLink, setInviteLink] = React.useState('')
+  const [expirationDate, setExpirationDate] = React.useState(new Date(0))
 
-  const handleInvite = useCallback(() => {
+  const handleInvite = React.useCallback(() => {
     void (async () => {
       try {
         const { token, expiresAt } = await createInvite({ groupId })
@@ -38,7 +38,7 @@ export const Invite = ({ groupId }: Props) => {
     })()
   }, [groupId])
 
-  const handleClose = useCallback(() => {
+  const handleClose = React.useCallback(() => {
     setIsOpen(false)
   }, [])
 

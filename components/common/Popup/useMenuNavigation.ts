@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React from 'react'
 
 interface UseMenuNavigationProps {
   popupRef: React.RefObject<HTMLElement>
@@ -11,7 +11,7 @@ export const useMenuNavigation = ({
   isOpen,
   onClose,
 }: UseMenuNavigationProps) => {
-  useEffect(() => {
+  React.useEffect(() => {
     if (!isOpen) return
 
     const handleClick = (event: MouseEvent) => {

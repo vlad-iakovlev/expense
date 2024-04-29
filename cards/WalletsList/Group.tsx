@@ -6,7 +6,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { useCallback } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Card } from '@/components/common/Card/index.jsx'
 import { DndIcon } from '@/components/icons/DndIcon.jsx'
@@ -39,7 +39,7 @@ export const Group = ({
 
   const canReorderWallets = walletIds.length > 1
 
-  const handleDragEnd = useCallback(
+  const handleDragEnd = React.useCallback(
     (event: DragEndEvent) => {
       const oldIndex = walletIds.indexOf(String(event.active.id))
       const newIndex = walletIds.indexOf(String(event.over?.id))

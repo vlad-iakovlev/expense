@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React from 'react'
 import { Card, CardSelectItem } from '@/components/common/Card/index.jsx'
 import { getPopulatedWallet } from '@/contexts/RootStore/getters/wallets.js'
 import { useGroupedWallets } from '@/contexts/RootStore/hooks/useGroupedWallets.js'
@@ -22,7 +22,7 @@ export const WalletSelect = ({
   const { state } = useRootStore()
   const { groupedWallets } = useGroupedWallets({ groupId })
 
-  const walletsOptions = useMemo<CardSelectItem[]>(
+  const walletsOptions = React.useMemo<CardSelectItem[]>(
     () =>
       groupedWallets.reduce<CardSelectItem[]>(
         (acc, { currency, walletIds }, index) => {
@@ -45,7 +45,7 @@ export const WalletSelect = ({
     [groupedWallets, state],
   )
 
-  const valueForSelect = useMemo(
+  const valueForSelect = React.useMemo(
     () => ({
       id: value.id,
       label: `${value.name} ${value.currency.symbol}`,

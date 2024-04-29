@@ -1,13 +1,13 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router.js'
-import { useState } from 'react'
+import React from 'react'
 import { Page } from '@/components/layout/Page/index.jsx'
 import { WalletSettings } from '@/components/pages/WalletSettings.jsx'
 import { CategoryFilterProvider } from '@/contexts/CategoryFilter.jsx'
 
 const WalletSettingsPage: NextPage = () => {
   const router = useRouter()
-  const [walletId] = useState(router.query.walletId)
+  const [walletId] = React.useState(router.query.walletId)
 
   if (typeof walletId !== 'string') {
     return null

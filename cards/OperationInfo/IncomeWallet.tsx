@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { useMemo } from 'react'
+import React from 'react'
 import { WalletSelect } from '@/components/common/WalletSelect.jsx'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 
@@ -10,7 +10,7 @@ interface Props {
 export const IncomeWallet = ({ operationId }: Props) => {
   const { operation, setOperationIncomeWallet } = useOperation({ operationId })
 
-  const groupId = useMemo(() => {
+  const groupId = React.useMemo(() => {
     const wallet = operation.expenseWallet ?? operation.incomeWallet
     assert(wallet, 'Wallet not found')
     return wallet.group.id

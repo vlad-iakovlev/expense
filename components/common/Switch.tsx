@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility.js'
 
@@ -19,7 +19,7 @@ export const Switch = ({
   onKeyDown,
   ...rest
 }: SwitchProps) => {
-  const handleClick = useCallback(
+  const handleClick = React.useCallback(
     (event: React.MouseEvent) => {
       event.stopPropagation()
       onChange(!value)
@@ -27,7 +27,7 @@ export const Switch = ({
     [onChange, value],
   )
 
-  const handleKeyDown = useCallback(
+  const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLButtonElement>) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.stopPropagation()

@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility.js'
 
@@ -25,7 +25,7 @@ export const Button = ({
   onKeyDown,
   ...rest
 }: ButtonProps) => {
-  const handleKeyDown = useCallback(
+  const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLButtonElement>) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.stopPropagation()

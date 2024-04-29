@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import React from 'react'
 import { Card } from '@/components/common/Card/index.jsx'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
 import { formatAmount } from '@/utils/formatAmount.js'
@@ -11,7 +11,7 @@ interface Props {
 export const ExpenseAmount = ({ operationId }: Props) => {
   const { operation, setOperationExpenseAmount } = useOperation({ operationId })
 
-  const handleChange = useCallback(
+  const handleChange = React.useCallback(
     (amountString: string) => {
       const amount = parseAmount(amountString)
       if (!isNaN(amount)) setOperationExpenseAmount(amount)

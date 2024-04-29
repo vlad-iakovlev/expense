@@ -9,16 +9,16 @@ import {
   UsersIcon,
 } from '@heroicons/react/24/outline'
 import { signIn } from 'next-auth/react'
-import { useCallback, useState } from 'react'
+import React from 'react'
 import { Card } from '@/components/common/Card/index.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
 import { Title } from '@/components/common/Title.jsx'
 import { NextHead } from '@/components/next/Head.js'
 
 export const Home = () => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
 
-  const handleSignIn = useCallback(() => {
+  const handleSignIn = React.useCallback(() => {
     void (async () => {
       try {
         setIsLoading(true)

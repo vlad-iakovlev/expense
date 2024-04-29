@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { CardBlock } from './Block.jsx'
 import { CardDateTime } from './DateTime.jsx'
@@ -21,7 +21,7 @@ export const Card = ({
   onKeyDown,
   ...rest
 }: CardProps) => {
-  const handleKeyDown = useCallback(
+  const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (onClick && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault()

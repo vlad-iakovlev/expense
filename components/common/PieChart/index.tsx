@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { GetSectorProps } from '@/utils/client/getSector.js'
 import { Sector } from './Sector.jsx'
@@ -20,14 +20,14 @@ export const PieChart = ({
   items,
   renderTooltip,
 }: PieChartProps) => {
-  const total = useMemo(
+  const total = React.useMemo(
     () => items.reduce((acc, item) => acc + item.value, 0),
     [items],
   )
 
-  const [activeId, setActiveId] = useState<string | null>(null)
+  const [activeId, setActiveId] = React.useState<string | null>(null)
 
-  const sectors = useMemo(() => {
+  const sectors = React.useMemo(() => {
     let lastAngle = 0
 
     return items.map((item) => {

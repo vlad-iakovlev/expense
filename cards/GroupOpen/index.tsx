@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router.js'
-import { useCallback } from 'react'
+import React from 'react'
 import { Amount } from '@/components/common/Amount.jsx'
 import { AvatarGroup } from '@/components/common/AvatarGroup.jsx'
 import { Card } from '@/components/common/Card/index.jsx'
@@ -18,7 +18,7 @@ export const GroupOpenCard = ({ groupId }: Props) => {
   const { groupBalance } = useGroupBalance({ groupId })
   const { groupMembers } = useGroupMembers({ groupId })
 
-  const handleClick = useCallback(() => {
+  const handleClick = React.useCallback(() => {
     const href = ROUTES.GROUP(groupId)
     void router.push({ pathname: href, query: { animation: 'forward' } }, href)
   }, [groupId, router])

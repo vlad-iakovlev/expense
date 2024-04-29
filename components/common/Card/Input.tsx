@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility.js'
 import { CardItem, CardItemProps } from './Item.jsx'
@@ -23,11 +23,11 @@ export const CardInput = ({
   onChange,
   ...rest
 }: CardInputProps) => {
-  const [isEditing, setIsEditing] = useState(false)
-  const [inputValue, setInputValue] = useState('')
-  const [suggestionsFilter, setSuggestionsFilter] = useState<string>('')
+  const [isEditing, setIsEditing] = React.useState(false)
+  const [inputValue, setInputValue] = React.useState('')
+  const [suggestionsFilter, setSuggestionsFilter] = React.useState<string>('')
 
-  const filteredSuggestions = useMemo(
+  const filteredSuggestions = React.useMemo(
     () =>
       suggestions.filter((suggestion) =>
         suggestion.toLowerCase().includes(suggestionsFilter.toLowerCase()),
@@ -35,13 +35,13 @@ export const CardInput = ({
     [suggestions, suggestionsFilter],
   )
 
-  const handleClick = useCallback(() => {
+  const handleClick = React.useCallback(() => {
     setIsEditing(true)
     setInputValue(value)
     setSuggestionsFilter('')
   }, [value])
 
-  const handleKeyDown = useCallback(
+  const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent) => {
       switch (event.key) {
         case 'Enter':
@@ -60,7 +60,7 @@ export const CardInput = ({
     [isEditing],
   )
 
-  const handleBlur = useCallback(
+  const handleBlur = React.useCallback(
     (event: React.FocusEvent) => {
       void (async () => {
         const currentTarget = event.currentTarget
@@ -75,7 +75,7 @@ export const CardInput = ({
     [inputValue, value, onChange],
   )
 
-  const handleInputChange = useCallback(
+  const handleInputChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value)
       setSuggestionsFilter(event.target.value)
@@ -83,14 +83,14 @@ export const CardInput = ({
     [],
   )
 
-  const handleInputFocus = useCallback(
+  const handleInputFocus = React.useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
       event.currentTarget.select()
     },
     [],
   )
 
-  const handleSelect = useCallback(
+  const handleSelect = React.useCallback(
     (suggestion: string) => {
       if (suggestion !== value) onChange(suggestion)
       setIsEditing(false)

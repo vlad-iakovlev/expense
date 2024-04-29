@@ -1,11 +1,11 @@
-import { useCallback } from 'react'
+import React from 'react'
 import { useRootStore } from '../index.jsx'
 import { CategoriesActionTypes } from '../types.jsx'
 
 export const useDisabledCategories = () => {
   const { state, dispatch } = useRootStore()
 
-  const toggleCategory = useCallback(
+  const toggleCategory = React.useCallback(
     (name: string, enabled: boolean) => {
       dispatch({
         type: CategoriesActionTypes.TOGGLE_CATEGORY,

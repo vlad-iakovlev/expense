@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { GetSectorProps, getSector } from '@/utils/client/getSector.js'
 
 const DURATION = 200
@@ -16,10 +16,10 @@ export const Sector = ({
   onPointerEnter,
   onPointerLeave,
 }: Props) => {
-  const lastProps = useRef(sectorProps)
-  const [animatedProps, setAnimatedProps] = useState(sectorProps)
+  const lastProps = React.useRef(sectorProps)
+  const [animatedProps, setAnimatedProps] = React.useState(sectorProps)
 
-  useEffect(() => {
+  React.useEffect(() => {
     const startedAt = Date.now()
     let frameTimerId: number
 

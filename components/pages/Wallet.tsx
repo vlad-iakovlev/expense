@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React from 'react'
 import { OperationsListCard } from '@/cards/OperationsList/index.jsx'
 import { StatisticsCard } from '@/cards/Statistics/index.jsx'
 import { WalletInfoCard } from '@/cards/WalletInfo/index.jsx'
@@ -18,7 +18,7 @@ export const Wallet = ({ walletId }: Props) => {
 
   const walletName = `${wallet.name} ${wallet.currency.symbol}`
 
-  const parents = useMemo(
+  const parents = React.useMemo(
     () => [
       {
         href: ROUTES.DASHBOARD,

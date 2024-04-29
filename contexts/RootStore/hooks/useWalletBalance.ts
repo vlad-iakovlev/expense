@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React from 'react'
 import { ClientBalance } from '@/types/client.js'
 import { getWalletBalance } from '../getters/wallets.js'
 import { useRootStore } from '../index.jsx'
@@ -10,7 +10,7 @@ interface Props {
 export const useWalletBalance = ({ walletId }: Props) => {
   const { state } = useRootStore()
 
-  const walletBalance = useMemo<ClientBalance>(
+  const walletBalance = React.useMemo<ClientBalance>(
     () => getWalletBalance(state, walletId),
     [state, walletId],
   )

@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useState } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility.js'
 import { CardDivider } from './Divider.jsx'
@@ -39,11 +39,11 @@ export function CardSelect<Id extends string = string>({
   onChange,
   ...rest
 }: CardSelectProps<Id>): React.ReactElement | null {
-  const [isOpen, setIsOpen] = useState(false)
-  const handleOpen = useCallback(() => setIsOpen(true), [])
-  const handleClose = useCallback(() => setIsOpen(false), [])
+  const [isOpen, setIsOpen] = React.useState(false)
+  const handleOpen = React.useCallback(() => setIsOpen(true), [])
+  const handleClose = React.useCallback(() => setIsOpen(false), [])
 
-  const handleOptionClick = useCallback(
+  const handleOptionClick = React.useCallback(
     (id: Id) => {
       if (id === value.id) {
         setIsOpen(false)
@@ -72,7 +72,7 @@ export function CardSelect<Id extends string = string>({
           onClose={handleClose}
         >
           {options.map((option) => (
-            <Fragment key={option.id}>
+            <React.Fragment key={option.id}>
               {option.type === 'divider' && <CardDivider />}
               {(!option.type || option.type === 'option') && (
                 <CardItem
@@ -83,7 +83,7 @@ export function CardSelect<Id extends string = string>({
                   onClick={() => handleOptionClick(option.id)}
                 />
               )}
-            </Fragment>
+            </React.Fragment>
           ))}
         </CardMenu>
       }

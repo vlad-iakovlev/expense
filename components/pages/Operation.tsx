@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React from 'react'
 import { OperationInfoCard } from '@/cards/OperationInfo/index.jsx'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
@@ -14,7 +14,7 @@ interface Props {
 export const Operation = ({ operationId }: Props) => {
   const { operation } = useOperation({ operationId })
 
-  const parents = useMemo(() => {
+  const parents = React.useMemo(() => {
     const wallet = operation.expenseWallet ?? operation.incomeWallet
 
     if (!wallet) return undefined

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router.js'
-import { useCallback } from 'react'
+import React from 'react'
 import { Button } from '@/components/common/Button.jsx'
 import { ROUTES } from '@/constants/routes.js'
 import { useOperations } from '@/contexts/RootStore/hooks/useOperations.js'
@@ -12,7 +12,7 @@ export const Add = ({ walletId }: Props) => {
   const router = useRouter()
   const { createOperation } = useOperations({ walletId })
 
-  const handleCreate = useCallback(() => {
+  const handleCreate = React.useCallback(() => {
     const operationId = createOperation()
     const href = ROUTES.OPERATION(operationId)
     void router.push({ pathname: href, query: { animation: 'forward' } }, href)

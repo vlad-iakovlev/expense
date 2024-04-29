@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router.js'
-import { useEffect } from 'react'
+import React from 'react'
 import { acceptInvite } from '@/api/client/invites.js'
 import { Loading } from '@/components/layout/Loading.jsx'
 import { ROUTES } from '@/constants/routes.js'
@@ -11,7 +11,7 @@ interface Props {
 export const Invite = ({ token }: Props) => {
   const router = useRouter()
 
-  useEffect(() => {
+  React.useEffect(() => {
     void (async () => {
       try {
         await acceptInvite({ token })

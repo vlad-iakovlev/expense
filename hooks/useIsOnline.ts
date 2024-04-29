@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React from 'react'
 
 const getIsOnline = () =>
   typeof window === 'undefined' ||
@@ -6,9 +6,9 @@ const getIsOnline = () =>
   !!window.navigator.onLine
 
 export const useIsOnline = () => {
-  const [isOnline, setIsOnline] = useState(getIsOnline())
+  const [isOnline, setIsOnline] = React.useState(getIsOnline())
 
-  useEffect(() => {
+  React.useEffect(() => {
     const update = () => setIsOnline(getIsOnline())
 
     window.addEventListener('online', update)

@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import React from 'react'
 import { uniq } from '@/utils/uniq.js'
 import { getAvailableOperations } from '../getters/operations.js'
 import { useRootStore } from '../index.jsx'
@@ -12,13 +12,13 @@ interface Props {
 export const useCategories = ({ groupId, walletId }: Props = {}) => {
   const { state, dispatch } = useRootStore()
 
-  const categories = useMemo<string[]>(() => {
+  const categories = React.useMemo<string[]>(() => {
     const operations = getAvailableOperations(state, { groupId, walletId })
     const categories = uniq(operations.map((operation) => operation.category))
     return categories.sort((a, b) => a.localeCompare(b))
   }, [groupId, state, walletId])
 
-  const renameCategory = useCallback(
+  const renameCategory = React.useCallback(
     (oldName: string, newName: string) => {
       dispatch({
         type: CategoriesActionTypes.RENAME_CATEGORY,

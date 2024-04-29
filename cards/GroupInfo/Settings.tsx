@@ -1,6 +1,6 @@
 import { Cog6ToothIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/router.js'
-import { useCallback } from 'react'
+import React from 'react'
 import { Button } from '@/components/common/Button.jsx'
 import { ROUTES } from '@/constants/routes.js'
 
@@ -11,7 +11,7 @@ interface Props {
 export const Settings = ({ groupId }: Props) => {
   const router = useRouter()
 
-  const handleClick = useCallback(() => {
+  const handleClick = React.useCallback(() => {
     void (async () => {
       const href = ROUTES.GROUP_SETTINGS(groupId)
       await router.push(

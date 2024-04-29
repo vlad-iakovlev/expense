@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { useSession } from 'next-auth/react'
-import { useCallback, useMemo } from 'react'
+import React from 'react'
 import { PopulatedClientGroup } from '@/types/client.js'
 import { getPopulatedGroup } from '../getters/groups.js'
 import { useRootStore } from '../index.jsx'
@@ -14,12 +14,12 @@ export const useGroup = ({ groupId }: Props) => {
   const session = useSession()
   const { state, dispatch } = useRootStore()
 
-  const group = useMemo<PopulatedClientGroup>(
+  const group = React.useMemo<PopulatedClientGroup>(
     () => getPopulatedGroup(state, groupId),
     [groupId, state],
   )
 
-  const setGroupName = useCallback(
+  const setGroupName = React.useCallback(
     (name: string) => {
       dispatch({
         type: GroupsActionTypes.SET_GROUP_NAME,
@@ -29,7 +29,7 @@ export const useGroup = ({ groupId }: Props) => {
     [dispatch, groupId],
   )
 
-  const setGroupDefaultCurrency = useCallback(
+  const setGroupDefaultCurrency = React.useCallback(
     (defaultCurrencyId: string) => {
       dispatch({
         type: GroupsActionTypes.SET_GROUP_DEFAULT_CURRENCY,
@@ -39,14 +39,14 @@ export const useGroup = ({ groupId }: Props) => {
     [dispatch, groupId],
   )
 
-  const removeGroup = useCallback(() => {
+  const removeGroup = React.useCallback(() => {
     dispatch({
       type: GroupsActionTypes.REMOVE_GROUP,
       payload: { groupId },
     })
   }, [dispatch, groupId])
 
-  const removeMemberFromGroup = useCallback(
+  const removeMemberFromGroup = React.useCallback(
     (userId: string) => {
       dispatch({
         type: GroupsActionTypes.REMOVE_MEMBER_FROM_GROUP,
@@ -56,7 +56,7 @@ export const useGroup = ({ groupId }: Props) => {
     [dispatch, groupId],
   )
 
-  const leaveGroup = useCallback(() => {
+  const leaveGroup = React.useCallback(() => {
     assert(session.status === 'authenticated', 'User not authenticated')
     assert(session.data.user?.id, 'User id is required')
 

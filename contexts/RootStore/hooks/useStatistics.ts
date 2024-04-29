@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { useMemo } from 'react'
+import React from 'react'
 import {
   ClientCurrency,
   ClientStatisticsItem,
@@ -38,12 +38,12 @@ export const useStatistics = ({
 }: Props) => {
   const { state } = useRootStore()
 
-  const statisticsCurrency = useMemo(
+  const statisticsCurrency = React.useMemo(
     () => getDefaultCurrency(state, { groupId, walletId }),
     [groupId, state, walletId],
   )
 
-  const currenciesMap = useMemo(
+  const currenciesMap = React.useMemo(
     () =>
       state.currencies.reduce<Record<string, ClientCurrency | undefined>>(
         (acc, currency) => {
@@ -55,7 +55,7 @@ export const useStatistics = ({
     [state.currencies],
   )
 
-  const walletsMap = useMemo(
+  const walletsMap = React.useMemo(
     () =>
       state.wallets.reduce<Record<string, ClientWallet | undefined>>(
         (acc, wallet) => {
@@ -74,7 +74,7 @@ export const useStatistics = ({
     [groupId, state.wallets, walletId],
   )
 
-  const statisticsItems = useMemo<ClientStatisticsItem[]>(() => {
+  const statisticsItems = React.useMemo<ClientStatisticsItem[]>(() => {
     const categories = uniq(
       state.operations.map((operation) => operation.category),
     ).sort((a, b) => a.localeCompare(b))

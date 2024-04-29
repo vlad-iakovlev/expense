@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { useCallback, useMemo } from 'react'
+import React from 'react'
 import { v4 as uuid } from 'uuid'
 import { getOrderedWallets } from '../getters/wallets.js'
 import { useRootStore } from '../index.jsx'
@@ -12,12 +12,12 @@ interface Props {
 export const useWallets = ({ groupId }: Props = {}) => {
   const { state, dispatch } = useRootStore()
 
-  const walletIds = useMemo<string[]>(
+  const walletIds = React.useMemo<string[]>(
     () => getOrderedWallets(state, { groupId }).map((wallet) => wallet.id),
     [groupId, state],
   )
 
-  const createWallet = useCallback(() => {
+  const createWallet = React.useCallback(() => {
     assert(groupId, 'groupId is not defined')
     const walletId = uuid()
 

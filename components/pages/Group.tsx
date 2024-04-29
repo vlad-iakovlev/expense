@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React from 'react'
 import { GroupInfoCard } from '@/cards/GroupInfo/index.jsx'
 import { OperationsListCard } from '@/cards/OperationsList/index.jsx'
 import { StatisticsCard } from '@/cards/Statistics/index.jsx'
@@ -17,7 +17,7 @@ interface Props {
 export const Group = ({ groupId }: Props) => {
   const { group } = useGroup({ groupId })
 
-  const parents = useMemo(
+  const parents = React.useMemo(
     () => [
       {
         href: ROUTES.DASHBOARD,

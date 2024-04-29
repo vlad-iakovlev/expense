@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { useCallback, useMemo } from 'react'
+import React from 'react'
 import { ClientCurrency, ClientWallet, GroupedWallets } from '@/types/client.js'
 import { getOrderedWallets } from '../getters/wallets.js'
 import { useRootStore } from '../index.jsx'
@@ -12,7 +12,7 @@ interface Props {
 export const useGroupedWallets = ({ groupId }: Props = {}) => {
   const { state, dispatch } = useRootStore()
 
-  const currenciesMap = useMemo(
+  const currenciesMap = React.useMemo(
     () =>
       state.currencies.reduce<Record<string, ClientCurrency | undefined>>(
         (acc, currency) => {
@@ -24,12 +24,12 @@ export const useGroupedWallets = ({ groupId }: Props = {}) => {
     [state.currencies],
   )
 
-  const groupedWallets = useMemo<GroupedWallets[]>(() => {
+  const groupedWallets = React.useMemo<GroupedWallets[]>(() => {
     const wallets = getOrderedWallets(state, { groupId })
     return groupWallets(wallets, currenciesMap)
   }, [currenciesMap, groupId, state])
 
-  const reorderWallets = useCallback(
+  const reorderWallets = React.useCallback(
     (groupedWallets: GroupedWallets[]) => {
       assert(groupId, 'groupId is not defined')
 

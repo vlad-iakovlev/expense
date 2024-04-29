@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ClientCurrency } from '@/types/client.js'
 import { formatAmount } from '@/utils/formatAmount.js'
@@ -20,7 +20,7 @@ export const Amount = ({
   showSign = 'never',
   hideCurrency,
 }: AmountProps) => {
-  const sign = useMemo(() => {
+  const sign = React.useMemo(() => {
     switch (showSign) {
       case 'non-zero':
         if (!amount) return ''

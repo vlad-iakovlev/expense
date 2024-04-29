@@ -1,28 +1,28 @@
 import { HTMLMotionProps, Variants, motion } from 'framer-motion'
 import { useRouter } from 'next/router.js'
-import { forwardRef, useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import { Modify } from '@/types/utility.js'
 
 const transition = { ease: 'easeInOut', duration: 0.3 }
 
-export const PageTransition = forwardRef<
+export const PageTransition = React.forwardRef<
   HTMLDivElement,
   Modify<HTMLMotionProps<'div'>, { children: React.ReactNode }>
 >(function PageTransition({ children, ...rest }, ref) {
   const router = useRouter()
-  const [asPath] = useState(router.asPath)
-  const [animation] = useState(router.query.animation)
+  const [asPath] = React.useState(router.asPath)
+  const [animation] = React.useState(router.query.animation)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (router.asPath === asPath && router.query.animation) {
       // Update route to prevent animation on refresh or browser back
       void router.replace(router.asPath, undefined, { shallow: true })
     }
   }, [asPath, router])
 
-  const [marginTop, setMarginTop] = useState(0)
+  const [marginTop, setMarginTop] = React.useState(0)
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleRouteChange = (
       url: string,
       { shallow }: { shallow: boolean },
@@ -37,7 +37,7 @@ export const PageTransition = forwardRef<
     return () => router.events.off('routeChangeStart', handleRouteChange)
   }, [asPath, router.events])
 
-  const variants: Variants = useMemo(
+  const variants: Variants = React.useMemo(
     () => ({
       initial: {
         ...(animation === 'forward' && {

@@ -2,7 +2,7 @@ import { XMarkIcon } from '@heroicons/react/20/solid'
 import assert from 'assert'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router.js'
-import { useCallback, useState } from 'react'
+import React from 'react'
 import { Button } from '@/components/common/Button.jsx'
 import { ConfirmDialog } from '@/components/common/ConfirmDialog.jsx'
 import { ROUTES } from '@/constants/routes.js'
@@ -19,13 +19,13 @@ export const Delete = ({ groupId, userId, tabIndex }: Props) => {
   const router = useRouter()
   const { group, removeMemberFromGroup, leaveGroup } = useGroup({ groupId })
 
-  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = React.useState(false)
 
-  const handleDelete = useCallback(() => {
+  const handleDelete = React.useCallback(() => {
     setIsDeleteConfirmOpen(true)
   }, [])
 
-  const handleDeleteConfirm = useCallback(() => {
+  const handleDeleteConfirm = React.useCallback(() => {
     void (async () => {
       assert(session.status === 'authenticated', 'User is not authenticated')
       assert(session.data.user?.id, 'User id is required')
@@ -44,7 +44,7 @@ export const Delete = ({ groupId, userId, tabIndex }: Props) => {
     })()
   }, [leaveGroup, removeMemberFromGroup, router, session, userId])
 
-  const handleDeleteCancel = useCallback(() => {
+  const handleDeleteCancel = React.useCallback(() => {
     setIsDeleteConfirmOpen(false)
   }, [])
 

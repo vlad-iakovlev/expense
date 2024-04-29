@@ -1,9 +1,9 @@
-import { forwardRef } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export type CardBlockProps = React.HTMLAttributes<HTMLDivElement>
 
-export const CardBlock = forwardRef<HTMLDivElement, CardBlockProps>(
+export const CardBlock = React.forwardRef<HTMLDivElement, CardBlockProps>(
   function CardBlock({ className, ...rest }, ref) {
     return (
       <div

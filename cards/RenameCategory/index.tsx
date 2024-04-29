@@ -1,5 +1,5 @@
 import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
-import { useCallback, useMemo, useState } from 'react'
+import React from 'react'
 import { Button } from '@/components/common/Button.jsx'
 import { Card, CardSelectOption } from '@/components/common/Card/index.jsx'
 import { useCategoryFilter } from '@/contexts/CategoryFilter.jsx'
@@ -13,10 +13,10 @@ interface Props {
 export const RenameCategoryCard = ({ className, groupId }: Props) => {
   const { resetCategoryFilter } = useCategoryFilter()
   const { categories, renameCategory } = useCategories({ groupId })
-  const [oldName, setOldName] = useState('')
-  const [newName, setNewName] = useState('')
+  const [oldName, setOldName] = React.useState('')
+  const [newName, setNewName] = React.useState('')
 
-  const categoriesOptions = useMemo<CardSelectOption[]>(
+  const categoriesOptions = React.useMemo<CardSelectOption[]>(
     () =>
       categories.map((category) => ({
         id: category,
@@ -25,7 +25,7 @@ export const RenameCategoryCard = ({ className, groupId }: Props) => {
     [categories],
   )
 
-  const categoryValue = useMemo(
+  const categoryValue = React.useMemo(
     () => ({
       id: oldName,
       label: oldName || 'Select',
@@ -33,12 +33,12 @@ export const RenameCategoryCard = ({ className, groupId }: Props) => {
     [oldName],
   )
 
-  const handleSelectCategory = useCallback((category: string) => {
+  const handleSelectCategory = React.useCallback((category: string) => {
     setOldName(category)
     setNewName(category)
   }, [])
 
-  const handleApplyClick = useCallback(() => {
+  const handleApplyClick = React.useCallback(() => {
     if (oldName !== newName) {
       resetCategoryFilter()
       renameCategory(oldName, newName)
@@ -48,7 +48,7 @@ export const RenameCategoryCard = ({ className, groupId }: Props) => {
     setNewName('')
   }, [oldName, newName, renameCategory, resetCategoryFilter])
 
-  const handleCancelClick = useCallback(() => {
+  const handleCancelClick = React.useCallback(() => {
     setOldName('')
     setNewName('')
   }, [])

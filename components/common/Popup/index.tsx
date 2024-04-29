@@ -1,5 +1,5 @@
 import { AnimatePresence, Variants, motion } from 'framer-motion'
-import { useRef } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useMenuNavigation } from './useMenuNavigation.js'
 
@@ -44,7 +44,7 @@ export const Popup = ({
   children,
   onClose,
 }: PopupProps) => {
-  const popupRef = useRef<HTMLDivElement>(null)
+  const popupRef = React.useRef<HTMLDivElement>(null)
 
   useMenuNavigation({
     popupRef,

@@ -1,5 +1,5 @@
 import { ArrowUturnLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
-import { Fragment } from 'react'
+import React from 'react'
 import { NextLink } from '@/components/next/Link.js'
 
 export interface BreadCrumbsParent {
@@ -23,7 +23,7 @@ export const Breadcrumbs = ({
         aria-label="Breadcrumbs"
       >
         {parents.map((parent) => (
-          <Fragment key={parent.href}>
+          <React.Fragment key={parent.href}>
             <NextLink
               className="min-w-0 truncate text-lg font-medium leading-6 text-sky-700 dark:text-sky-500"
               href={{ pathname: parent.href, query: { animation: 'back' } }}
@@ -36,7 +36,7 @@ export const Breadcrumbs = ({
               className="h-5 w-5 flex-none"
               aria-hidden="true"
             />
-          </Fragment>
+          </React.Fragment>
         ))}
       </nav>
     )}

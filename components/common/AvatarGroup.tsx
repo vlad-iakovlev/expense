@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility.js'
 import { Avatar, AvatarProps } from './Avatar.jsx'
@@ -23,7 +23,7 @@ export const AvatarGroup = ({
   const visibleCount = max && avatars.length > max ? max - 1 : avatars.length
   const extraCount = avatars.length - visibleCount
 
-  const visibleAvatars = useMemo(
+  const visibleAvatars = React.useMemo(
     () => avatars.slice(0, visibleCount),
     [avatars, visibleCount],
   )

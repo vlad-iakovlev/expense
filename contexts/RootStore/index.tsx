@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { createContext, useContext, useReducer } from 'react'
+import React from 'react'
 import { useStorage } from './hooks/useStorage/index.js'
 import {
   CategoriesAction,
@@ -50,7 +50,7 @@ const reducer: React.Reducer<RootStoreState, Action> = (state, action) => {
   return state
 }
 
-export const RootStoreContext = createContext<ContextValue | undefined>(
+export const RootStoreContext = React.createContext<ContextValue | undefined>(
   undefined,
 )
 RootStoreContext.displayName = 'RootStoreContext'
@@ -60,7 +60,7 @@ interface ProviderProps {
 }
 
 export const RootStoreProvider = ({ children }: ProviderProps) => {
-  const [state, dispatch] = useReducer(reducer, getEmptyState())
+  const [state, dispatch] = React.useReducer(reducer, getEmptyState())
 
   useStorage(state, dispatch)
 
@@ -72,7 +72,7 @@ export const RootStoreProvider = ({ children }: ProviderProps) => {
 }
 
 export const useRootStore = () => {
-  const context = useContext(RootStoreContext)
+  const context = React.useContext(RootStoreContext)
   assert(context, 'useRootStore must be used within a RootStoreProvider')
   return context
 }

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import React from 'react'
 import { Avatar } from '@/components/common/Avatar.jsx'
 import { Card } from '@/components/common/Card/index.jsx'
 import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
@@ -14,9 +14,9 @@ interface Props {
 export const Member = ({ groupId, userId, name, image }: Props) => {
   const { groupMembers } = useGroupMembers({ groupId })
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = React.useState(false)
 
-  const handleKeyDown = useCallback(
+  const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault()
@@ -26,7 +26,7 @@ export const Member = ({ groupId, userId, name, image }: Props) => {
     [setIsOpen],
   )
 
-  const handleBlur = useCallback((event: React.FocusEvent) => {
+  const handleBlur = React.useCallback((event: React.FocusEvent) => {
     void (async () => {
       const currentTarget = event.currentTarget
       await new Promise(requestAnimationFrame)

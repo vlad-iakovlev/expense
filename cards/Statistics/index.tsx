@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import React from 'react'
 import { Card } from '@/components/common/Card/index.jsx'
 import { useDisabledCategories } from '@/contexts/RootStore/hooks/useDisabledCategories.js'
 import { useOperations } from '@/contexts/RootStore/hooks/useOperations.js'
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const StatisticsCard = ({ className, groupId, walletId }: Props) => {
-  const [type, setType] = useState(ClientStatisticsType.EXPENSES)
+  const [type, setType] = React.useState(ClientStatisticsType.EXPENSES)
   const { startDate, endDate, fromDate, period, setPeriod, goPrev, goNext } =
     usePeriod()
 
@@ -30,7 +30,7 @@ export const StatisticsCard = ({ className, groupId, walletId }: Props) => {
   })
 
   const { disabledCategories } = useDisabledCategories()
-  const chartItems = useMemo(
+  const chartItems = React.useMemo(
     () =>
       statisticsItems.map((item) => ({
         ...item,

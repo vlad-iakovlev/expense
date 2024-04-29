@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router.js'
-import { useCallback, useState } from 'react'
+import React from 'react'
 import { Button } from '@/components/common/Button.jsx'
 import { ConfirmDialog } from '@/components/common/ConfirmDialog.jsx'
 import { ROUTES } from '@/constants/routes.js'
@@ -12,13 +12,13 @@ interface Props {
 export const Delete = ({ operationId }: Props) => {
   const router = useRouter()
   const { operation, removeOperation } = useOperation({ operationId })
-  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = React.useState(false)
 
-  const handleDelete = useCallback(() => {
+  const handleDelete = React.useCallback(() => {
     setIsDeleteConfirmOpen(true)
   }, [])
 
-  const handleDeleteConfirm = useCallback(() => {
+  const handleDeleteConfirm = React.useCallback(() => {
     void (async () => {
       const wallet = operation.expenseWallet ?? operation.incomeWallet
       const href = wallet ? ROUTES.WALLET(wallet.id) : ROUTES.DASHBOARD
@@ -27,7 +27,7 @@ export const Delete = ({ operationId }: Props) => {
     })()
   }, [operation.expenseWallet, operation.incomeWallet, removeOperation, router])
 
-  const handleDeleteCancel = useCallback(() => {
+  const handleDeleteCancel = React.useCallback(() => {
     setIsDeleteConfirmOpen(false)
   }, [])
 

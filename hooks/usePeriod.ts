@@ -1,5 +1,5 @@
 import * as fns from 'date-fns'
-import { useCallback, useMemo, useState } from 'react'
+import React from 'react'
 
 export enum Period {
   ALL = 'ALL',
@@ -9,16 +9,30 @@ export enum Period {
 }
 
 export const usePeriod = () => {
-  const [period, _setPeriod] = useState<Period>(Period.WEEK)
-  const [fromDate, _setFromDate] = useState<Date>(fns.startOfWeek(new Date()))
+  const [period, setPeriod] = React.useState<Period>(Period.WEEK)
+  const [fromDate, setFromDate] = React.useState<Date>(
+    fns.startOfWeek(new Date()),
+  )
 
-  const startDate = useMemo(() => {
-    if (period !== Period.ALL) {
-      return fromDate
+  React.useEffect(() => {
+    switch (period) {
+      case Period.WEEK:
+        setFromDate(fns.startOfWeek(new Date()))
+        break
+
+      case Period.MONTH:
+        setFromDate(fns.startOfMonth(new Date()))
+        break
+
+      case Period.YEAR:
+        setFromDate(fns.startOfYear(new Date()))
+        break
     }
-  }, [fromDate, period])
+  }, [period])
 
-  const endDate = useMemo(() => {
+  const startDate = period === Period.ALL ? undefined : fromDate
+
+  const endDate = React.useMemo(() => {
     switch (period) {
       case Period.WEEK:
         return fns.addWeeks(fromDate, 1)
@@ -31,52 +45,34 @@ export const usePeriod = () => {
     }
   }, [fromDate, period])
 
-  const setPeriod = useCallback((period: Period) => {
-    _setPeriod(period)
-
+  const goPrev = React.useCallback(() => {
     switch (period) {
       case Period.WEEK:
-        _setFromDate(fns.startOfWeek(new Date()))
+        setFromDate((fromDate) => fns.subWeeks(fromDate, 1))
         break
 
       case Period.MONTH:
-        _setFromDate(fns.startOfMonth(new Date()))
+        setFromDate((fromDate) => fns.subMonths(fromDate, 1))
         break
 
       case Period.YEAR:
-        _setFromDate(fns.startOfYear(new Date()))
-        break
-    }
-  }, [])
-
-  const goPrev = useCallback(() => {
-    switch (period) {
-      case Period.WEEK:
-        _setFromDate((fromDate) => fns.subWeeks(fromDate, 1))
-        break
-
-      case Period.MONTH:
-        _setFromDate((fromDate) => fns.subMonths(fromDate, 1))
-        break
-
-      case Period.YEAR:
-        _setFromDate((fromDate) => fns.subYears(fromDate, 1))
+        setFromDate((fromDate) => fns.subYears(fromDate, 1))
         break
     }
   }, [period])
 
-  const goNext = useCallback(() => {
+  const goNext = React.useCallback(() => {
     switch (period) {
       case Period.WEEK:
-        _setFromDate((fromDate) => fns.addWeeks(fromDate, 1))
+        setFromDate((fromDate) => fns.addWeeks(fromDate, 1))
         break
 
       case Period.MONTH:
-        _setFromDate((fromDate) => fns.addMonths(fromDate, 1))
+        setFromDate((fromDate) => fns.addMonths(fromDate, 1))
         break
 
       case Period.YEAR:
-        _setFromDate((fromDate) => fns.addYears(fromDate, 1))
+        setFromDate((fromDate) => fns.addYears(fromDate, 1))
         break
     }
   }, [period])
