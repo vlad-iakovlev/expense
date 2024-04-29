@@ -1,5 +1,5 @@
-import { GroupCreateCard } from '@/components/cards/GroupCreate/index.jsx'
-import { GroupOpenCard } from '@/components/cards/GroupOpen/index.jsx'
+import { GroupCreateCard } from '@/cards/GroupCreate/index.jsx'
+import { GroupOpenCard } from '@/cards/GroupOpen/index.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
 import { Title } from '@/components/common/Title.jsx'
 import { NextHead } from '@/components/next/Head.js'

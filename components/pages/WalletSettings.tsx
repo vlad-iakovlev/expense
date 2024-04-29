@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { WalletSettingsGeneralCard } from '@/components/cards/WalletSettingsGeneral/index.jsx'
+import { WalletSettingsGeneralCard } from '@/cards/WalletSettingsGeneral/index.jsx'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
 import { Title } from '@/components/common/Title.jsx'

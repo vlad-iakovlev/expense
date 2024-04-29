@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { OperationInfoCard } from '@/components/cards/OperationInfo/index.jsx'
+import { OperationInfoCard } from '@/cards/OperationInfo/index.jsx'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
 import { Columns } from '@/components/common/Columns.jsx'
 import { Title } from '@/components/common/Title.jsx'
