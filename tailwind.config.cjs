@@ -1,6 +1,5 @@
 // @ts-check
 
-const defaultTheme = require('tailwindcss/defaultTheme')
 const plugin = require('tailwindcss/plugin')
 
 /** @type {import('tailwindcss').Config} */
@@ -11,11 +10,11 @@ module.exports = {
   },
   theme: {
     screens: {
-      sm: '448px',
-      md: '768px',
-      lg: '1136px',
-      xl: '1504px',
-      '2xl': '1872px',
+      sm: '28rem',
+      md: '48rem',
+      lg: '71rem',
+      xl: '94rem',
+      '2xl': '117rem',
     },
     extend: {
       boxShadow: {
