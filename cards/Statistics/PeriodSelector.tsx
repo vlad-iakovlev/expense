@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { AnimatePresence, Variants, easeInOut, motion } from 'framer-motion'
 import { Button } from '@/components/common/Button.jsx'
 import { Card } from '@/components/common/Card/index.jsx'
 import { PeriodType } from '@/hooks/usePeriod.js'
@@ -9,13 +9,13 @@ const variants: Variants = {
   opened: {
     height: 'auto',
     opacity: 1,
-    transition: { duration: 0.2 },
+    transition: { duration: 0.15, ease: easeInOut },
   },
 
   closed: {
     height: 0,
     opacity: 0,
-    transition: { duration: 0.2 },
+    transition: { duration: 0.15, ease: easeInOut },
   },
 }
 

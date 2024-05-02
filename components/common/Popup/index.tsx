@@ -1,4 +1,4 @@
-import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { AnimatePresence, Variants, easeInOut, motion } from 'framer-motion'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useMenuNavigation } from './useMenuNavigation.js'
@@ -7,13 +7,13 @@ const variants: Variants = {
   opened: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.15 },
+    transition: { duration: 0.15, ease: easeInOut },
   },
 
   closed: {
     opacity: 0,
     scale: 0.95,
-    transition: { duration: 0.1 },
+    transition: { duration: 0.1, ease: easeInOut },
   },
 }
 

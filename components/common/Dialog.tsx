@@ -1,17 +1,17 @@
 import FocusTrap from 'focus-trap-react'
-import { AnimatePresence, Variants, motion } from 'framer-motion'
+import { AnimatePresence, Variants, easeInOut, motion } from 'framer-motion'
 import React from 'react'
 import { Portal } from './Portal.jsx'
 
 const rootVariants: Variants = {
   opened: {
     opacity: 1,
-    transition: { duration: 0.3 },
+    transition: { duration: 0.3, ease: easeInOut },
   },
 
   closed: {
     opacity: 0,
-    transition: { duration: 0.2 },
+    transition: { duration: 0.2, ease: easeInOut },
   },
 }
 
@@ -19,13 +19,13 @@ const dialogVariants: Variants = {
   opened: {
     y: 0,
     scale: 1,
-    transition: { duration: 0.3 },
+    transition: { duration: 0.3, ease: easeInOut },
   },
 
   closed: {
     y: 16,
     scale: 0.95,
-    transition: { duration: 0.2 },
+    transition: { duration: 0.2, ease: easeInOut },
   },
 }
 

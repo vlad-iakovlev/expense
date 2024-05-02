@@ -1,9 +1,9 @@
-import { HTMLMotionProps, Variants, motion } from 'framer-motion'
+import { HTMLMotionProps, Variants, easeInOut, motion } from 'framer-motion'
 import { useRouter } from 'next/router.js'
 import React from 'react'
 import { Modify } from '@/types/utility.js'
 
-const transition = { ease: 'easeInOut', duration: 0.3 }
+const transition = { duration: 0.3, ease: easeInOut }
 
 export const PageTransition = React.forwardRef<
   HTMLDivElement,

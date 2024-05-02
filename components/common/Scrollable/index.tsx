@@ -1,4 +1,4 @@
-import { Variants, motion } from 'framer-motion'
+import { Variants, easeInOut, motion } from 'framer-motion'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Thumb, Track, getThumb, getTrack } from './utils.js'
@@ -16,12 +16,12 @@ const DEFAULT_THUMB: Thumb = { offset: 0, length: 0 }
 const variants: Variants = {
   opened: {
     opacity: 1,
-    transition: { duration: 0.075 },
+    transition: { duration: 0.075, ease: easeInOut },
   },
 
   closed: {
     opacity: 0,
-    transition: { duration: 0.2 },
+    transition: { duration: 0.2, ease: easeInOut },
   },
 }
 
