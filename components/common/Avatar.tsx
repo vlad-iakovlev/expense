@@ -62,7 +62,7 @@ export const Avatar = ({
   >
     {src ? (
       <NextImage
-        className="h-full w-full"
+        className="w-full"
         src={src}
         alt={`Avatar of ${name}`}
         width={48}
