@@ -78,6 +78,14 @@ module.exports = {
         '.bg-quinary': {
           '@apply bg-zinc-300 dark:bg-zinc-500': {},
         },
+
+        '.border-primary': {
+          '@apply border-zinc-300 dark:border-zinc-600': {},
+        },
+
+        '.ring-primary': {
+          '@apply ring-zinc-300 dark:ring-zinc-600': {},
+        },
       })
     }),
   ],
