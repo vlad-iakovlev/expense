@@ -6,8 +6,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext", "webworker"],
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "noEmit": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
