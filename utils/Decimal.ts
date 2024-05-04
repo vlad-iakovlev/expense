@@ -24,7 +24,7 @@ export class Decimal {
     const decimal = atomics / 10n ** BigInt(fractionalDigits)
     const fractional = atomics % 10n ** BigInt(fractionalDigits)
 
-    return `${decimal}.${BigMath.abs(fractional)}`
+    return `${decimal}.${BigMath.abs(fractional).toString().padStart(fractionalDigits, '0')}`
   }
 
   private static align(a: Decimal, b: Decimal): [bigint, bigint, number] {
