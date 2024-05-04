@@ -29,8 +29,20 @@ export interface BrowserStorageState {
   users: ClientUser[]
   userGroups: ClientUserGroup[]
   groups: ClientGroup[]
-  wallets: Modify<ClientWallet, { createdAt: string }>[]
-  operations: Modify<ClientOperation, { date: string }>[]
+  wallets: Modify<
+    ClientWallet,
+    {
+      createdAt: string
+    }
+  >[]
+  operations: Modify<
+    ClientOperation,
+    {
+      date: string
+      incomeAmount: string
+      expenseAmount: string
+    }
+  >[]
   disabledCategories?: string[]
   nextSyncTransaction: ClientTransaction
   syncingTransaction: ClientTransaction
