@@ -173,8 +173,6 @@ const setStateFromBrowserStorageReducer: React.Reducer<
     operations: storedState.operations.map((operation) => ({
       ...operation,
       date: new Date(operation.date),
-      incomeAmount: Number(operation.incomeAmount),
-      expenseAmount: Number(operation.expenseAmount),
     })),
     disabledCategories: storedState.disabledCategories ?? [],
     nextSyncTransaction: mergeTransactions(

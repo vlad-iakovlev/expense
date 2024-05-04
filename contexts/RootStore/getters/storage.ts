@@ -16,8 +16,6 @@ export const getBrowserStorageState = (
   operations: state.operations.map((operation) => ({
     ...operation,
     date: operation.date.toISOString(),
-    incomeAmount: String(operation.incomeAmount),
-    expenseAmount: String(operation.expenseAmount),
   })),
   disabledCategories: state.disabledCategories,
   nextSyncTransaction: state.nextSyncTransaction,
