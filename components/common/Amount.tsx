@@ -44,7 +44,7 @@ export const Amount = ({
       )}
     >
       <span>{sign}</span>
-      <span>{amount.toFixed(2)}</span>
+      <span>{amount.abs().toFixed(2)}</span>
       <span
         className="opacity-75"
         aria-label={currency.name ?? currency.symbol}
