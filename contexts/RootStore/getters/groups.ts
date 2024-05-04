@@ -45,8 +45,9 @@ export const getGroupBalance = (
   const balance = getAvailableWallets(state, { groupId }).reduce(
     (acc, wallet) => {
       const walletBalance = getWalletBalance(state, wallet.id)
-      const walletBalanceInDefaultCurrency = walletBalance.balance.mul(
-        Decimal.fromNumber(currency.rate / walletBalance.currency.rate),
+      const walletBalanceInDefaultCurrency = Decimal.fromNumber(
+        walletBalance.balance.toNumber() *
+          (currency.rate / walletBalance.currency.rate),
       )
 
       return acc.add(walletBalanceInDefaultCurrency)

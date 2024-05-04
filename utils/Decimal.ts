@@ -116,11 +116,6 @@ export class Decimal {
     return new Decimal(a - b, fractionalDigits)
   }
 
-  mul(other: Decimal): Decimal {
-    const [a, b, fractionalDigits] = Decimal.align(this, other)
-    return new Decimal(a * b, fractionalDigits)
-  }
-
   abs(): Decimal {
     return new Decimal(BigMath.abs(this.atomics), this.fractionalDigits)
   }
