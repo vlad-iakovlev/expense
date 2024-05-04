@@ -33,7 +33,7 @@ const getPartSector = ({ x, y, radius, start, end }: GetPartSectorProps) => {
     point(x, y, radius, start),
     point(x, y, radius, end),
     { x, y },
-  ]
+  ] as const
   const flag = end - start > Math.PI ? '1' : '0'
 
   return [

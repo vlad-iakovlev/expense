@@ -31,25 +31,17 @@ export const useGroupedOperations = ({
   }
 }
 
-const groupOperations = (operations: ClientOperation[]) => {
-  if (!operations.length) return []
+const groupOperations = (operations: ClientOperation[]) =>
+  Object.entries(
+    operations.reduce<Record<string, string[]>>((acc, operation) => {
+      const date = fns.startOfDay(operation.date).toISOString()
 
-  const result: GroupedOperations[] = []
-
-  let date = fns.startOfDay(operations[0].date)
-  let operationIds = [operations[0].id]
-
-  for (let i = 1; i < operations.length; i++) {
-    if (fns.isSameDay(date, operations[i].date)) {
-      operationIds.push(operations[i].id)
-    } else {
-      result.push({ date, operationIds })
-      date = fns.startOfDay(operations[i].date)
-      operationIds = [operations[i].id]
-    }
-  }
-
-  result.push({ date, operationIds })
-
-  return result
-}
+      return {
+        ...acc,
+        [date]: [...(acc[date] ?? []), operation.id],
+      }
+    }, {}),
+  ).map<GroupedOperations>(([date, operationIds]) => ({
+    date: new Date(date),
+    operationIds,
+  }))
