@@ -6,6 +6,7 @@ import {
   ClientStatisticsType,
   ClientWallet,
 } from '@/types/client.js'
+import { Decimal } from '@/utils/Decimal.js'
 import { stringToColor } from '@/utils/stringToColor.js'
 import { uniq } from '@/utils/uniq.js'
 import { getDefaultCurrency } from '../getters/currencies.js'
@@ -89,18 +90,18 @@ export const useStatistics = ({
           (!endDate || operation.date < endDate),
       )
 
-      const amount = operations.reduce<number>((acc, operation) => {
+      const amount = operations.reduce((acc, operation) => {
         const wallet = walletsMap[operation[WALLET_ID_FIELD[type]] ?? '']
         assert(wallet, 'Wallet not found')
         const currency = currenciesMap[wallet.currencyId]
         assert(currency, 'Currency not found')
 
-        const amount =
-          operation[AMOUNT_FIELD[type]] *
-          (statisticsCurrency.rate / currency.rate)
+        const amount = operation[AMOUNT_FIELD[type]].mul(
+          Decimal.fromNumber(statisticsCurrency.rate / currency.rate),
+        )
 
-        return acc + amount
-      }, 0)
+        return acc.add(amount)
+      }, Decimal.ZERO)
 
       acc.push({
         category,

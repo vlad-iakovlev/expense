@@ -1,7 +1,6 @@
 import assert from 'assert'
 import { Amount } from '@/components/common/Amount.jsx'
 import { PopulatedClientOperation } from '@/types/client.js'
-import { formatAmount } from '@/utils/formatAmount.js'
 import { formatTime } from '@/utils/formatDate.js'
 
 interface ExpenseOperationProps {
@@ -22,7 +21,7 @@ export const ExpenseOperation = ({
         `at ${formatTime(operation.date)}`,
         operation.category,
         operation.name,
-        `${formatAmount(operation.expenseAmount)} ${
+        `${operation.expenseAmount.toFixed(2)} ${
           operation.expenseWallet.currency.name ??
           operation.expenseWallet.currency.symbol
         }`,

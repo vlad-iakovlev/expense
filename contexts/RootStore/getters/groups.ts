@@ -5,6 +5,7 @@ import {
   ClientUser,
   PopulatedClientGroup,
 } from '@/types/client.js'
+import { Decimal } from '@/utils/Decimal.js'
 import { RootStoreState } from '../types.jsx'
 import { getCurrency } from './currencies.js'
 import { getAvailableWallets, getWalletBalance } from './wallets.js'
@@ -41,15 +42,16 @@ export const getGroupBalance = (
 
   const currency = getCurrency(state, group.defaultCurrencyId)
 
-  const balance = getAvailableWallets(state, { groupId }).reduce<number>(
+  const balance = getAvailableWallets(state, { groupId }).reduce(
     (acc, wallet) => {
       const walletBalance = getWalletBalance(state, wallet.id)
-      const walletBalanceInDefaultCurrency =
-        walletBalance.balance * (currency.rate / walletBalance.currency.rate)
+      const walletBalanceInDefaultCurrency = walletBalance.balance.mul(
+        Decimal.fromNumber(currency.rate / walletBalance.currency.rate),
+      )
 
-      return acc + walletBalanceInDefaultCurrency
+      return acc.add(walletBalanceInDefaultCurrency)
     },
-    0,
+    Decimal.ZERO,
   )
 
   return {

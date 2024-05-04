@@ -2,6 +2,7 @@ import { Amount } from '@/components/common/Amount.jsx'
 import { Card } from '@/components/common/Card/index.jsx'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
 import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance.js'
+import { Decimal } from '@/utils/Decimal.js'
 
 interface BalanceInDefaultCurrencyProps {
   walletId: string
@@ -35,10 +36,11 @@ export const BalanceInDefaultCurrency = ({
       value={
         <Amount
           className="select-text font-medium"
-          amount={
-            walletBalance.balance *
-            (wallet.group.defaultCurrency.rate / walletBalance.currency.rate)
-          }
+          amount={walletBalance.balance.mul(
+            Decimal.fromNumber(
+              wallet.group.defaultCurrency.rate / walletBalance.currency.rate,
+            ),
+          )}
           currency={wallet.group.defaultCurrency}
           showSign="negative"
           hideCurrency

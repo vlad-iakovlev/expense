@@ -16,6 +16,8 @@ export const getBrowserStorageState = (
   operations: state.operations.map((operation) => ({
     ...operation,
     date: operation.date.toISOString(),
+    incomeAmount: operation.incomeAmount.toString(),
+    expenseAmount: operation.expenseAmount.toString(),
   })),
   disabledCategories: state.disabledCategories,
   nextSyncTransaction: state.nextSyncTransaction,
@@ -60,8 +62,8 @@ export const getRemoteStorageBody = (
         .map((operation) => ({
           ...operation,
           date: operation.date.toISOString(),
-          incomeAmount: String(operation.incomeAmount),
-          expenseAmount: String(operation.expenseAmount),
+          incomeAmount: operation.incomeAmount.toString(),
+          expenseAmount: operation.expenseAmount.toString(),
         })),
     },
   }

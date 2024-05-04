@@ -3,7 +3,6 @@ import assert from 'assert'
 import { twMerge } from 'tailwind-merge'
 import { Amount } from '@/components/common/Amount.jsx'
 import { PopulatedClientOperation } from '@/types/client.js'
-import { formatAmount } from '@/utils/formatAmount.js'
 import { formatTime } from '@/utils/formatDate.js'
 
 interface TransferOperationProps {
@@ -25,11 +24,11 @@ export const TransferOperation = ({
         `at ${formatTime(operation.date)}`,
         operation.category,
         operation.name,
-        `${formatAmount(operation.expenseAmount)} ${
+        `${operation.expenseAmount.toFixed(2)} ${
           operation.expenseWallet.currency.name ??
           operation.expenseWallet.currency.symbol
         } from wallet ${operation.expenseWallet.name}`,
-        `${formatAmount(operation.incomeAmount)} ${
+        `${operation.incomeAmount.toFixed(2)} ${
           operation.incomeWallet.currency.name ??
           operation.incomeWallet.currency.symbol
         } to wallet ${operation.incomeWallet.name}`,

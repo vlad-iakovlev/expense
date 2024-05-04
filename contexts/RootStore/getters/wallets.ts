@@ -1,6 +1,7 @@
 import assert from 'assert'
 import { ClientWallet, PopulatedClientWallet } from '@/types/client.js'
 import { ClientBalance } from '@/types/client.js'
+import { Decimal } from '@/utils/Decimal.js'
 import { RootStoreState } from '../types.jsx'
 import { getCurrency } from './currencies.js'
 import { getPopulatedGroup } from './groups.js'
@@ -55,12 +56,17 @@ export const getWalletBalance = (
 
   const currency = getCurrency(state, wallet.currencyId)
 
-  const balance = state.operations.reduce<number>((acc, operation) => {
-    if (operation.removed) return acc
-    if (operation.incomeWalletId === walletId) acc += operation.incomeAmount
-    if (operation.expenseWalletId === walletId) acc -= operation.expenseAmount
+  const balance = state.operations.reduce((acc, operation) => {
+    if (!operation.removed && operation.incomeWalletId === walletId) {
+      return acc.add(operation.incomeAmount)
+    }
+
+    if (!operation.removed && operation.expenseWalletId === walletId) {
+      return acc.sub(operation.expenseAmount)
+    }
+
     return acc
-  }, 0)
+  }, Decimal.ZERO)
 
   return {
     balance,

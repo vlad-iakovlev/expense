@@ -8,7 +8,7 @@ import { Switch } from '@/components/common/Switch.jsx'
 import { useCategoryFilter } from '@/contexts/CategoryFilter.jsx'
 import { useDisabledCategories } from '@/contexts/RootStore/hooks/useDisabledCategories.js'
 import { ClientCurrency, ClientStatisticsType } from '@/types/client.js'
-import { formatAmount } from '@/utils/formatAmount.js'
+import { Decimal } from '@/utils/Decimal.js'
 
 const AMOUNT_TYPE = {
   [ClientStatisticsType.INCOMES]: 'income',
@@ -18,7 +18,7 @@ const AMOUNT_TYPE = {
 interface CategoryProps {
   category: string
   color: string
-  amount: number
+  amount: Decimal
   currency: ClientCurrency
   type: ClientStatisticsType
 }
@@ -107,7 +107,7 @@ export const Category = ({
       }
       aria-disabled="false"
       aria-expanded={isOpen ? 'true' : 'false'}
-      aria-label={`${category}: ${formatAmount(amount)} ${
+      aria-label={`${category}: ${amount.toFixed(2)} ${
         currency.name ?? currency.symbol
       }`}
       onKeyDown={handleKeyDown}

@@ -1,5 +1,6 @@
 import assert from 'assert'
 import { PerformSyncResponse } from '@/api/server/sync/types.js'
+import { Decimal } from '@/utils/Decimal.js'
 import { uniqBy } from '@/utils/uniqBy.js'
 import {
   BrowserStorageState,
@@ -121,8 +122,8 @@ const setStateFromRemoteStorageReducer: React.Reducer<
         .map((operation) => ({
           ...operation,
           date: new Date(operation.date),
-          incomeAmount: Number(operation.incomeAmount),
-          expenseAmount: Number(operation.expenseAmount),
+          incomeAmount: Decimal.fromString(operation.incomeAmount),
+          expenseAmount: Decimal.fromString(operation.expenseAmount),
         })),
     ],
     (operation) => operation.id,
@@ -173,6 +174,8 @@ const setStateFromBrowserStorageReducer: React.Reducer<
     operations: storedState.operations.map((operation) => ({
       ...operation,
       date: new Date(operation.date),
+      incomeAmount: Decimal.fromString(operation.incomeAmount),
+      expenseAmount: Decimal.fromString(operation.expenseAmount),
     })),
     disabledCategories: storedState.disabledCategories ?? [],
     nextSyncTransaction: mergeTransactions(

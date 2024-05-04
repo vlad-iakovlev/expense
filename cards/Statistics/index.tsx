@@ -4,7 +4,8 @@ import { useDisabledCategories } from '@/contexts/RootStore/hooks/useDisabledCat
 import { useOperations } from '@/contexts/RootStore/hooks/useOperations.js'
 import { useStatistics } from '@/contexts/RootStore/hooks/useStatistics.js'
 import { usePeriod } from '@/hooks/usePeriod.js'
-import { ClientStatisticsType } from '@/types/client.js'
+import { ClientStatisticsItem, ClientStatisticsType } from '@/types/client.js'
+import { Decimal } from '@/utils/Decimal.js'
 import { Categories } from './Categories.jsx'
 import { Chart } from './Chart.jsx'
 import { PeriodSelector } from './PeriodSelector.jsx'
@@ -41,16 +42,20 @@ export const StatisticsCard = ({
   })
 
   const { disabledCategories } = useDisabledCategories()
-  const chartItems = React.useMemo(
+
+  const chartItems = React.useMemo<ClientStatisticsItem[]>(
     () =>
       statisticsItems.map((item) => ({
         ...item,
-        amount: disabledCategories.includes(item.category) ? 0 : item.amount,
+        amount: disabledCategories.includes(item.category)
+          ? Decimal.ZERO
+          : item.amount,
       })),
     [disabledCategories, statisticsItems],
   )
 
   const { operationIds } = useOperations({ groupId, walletId })
+
   if (!operationIds.length) {
     return null
   }

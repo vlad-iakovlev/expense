@@ -7,7 +7,7 @@ import {
   ClientStatisticsItem,
   ClientStatisticsType,
 } from '@/types/client.js'
-import { formatAmount } from '@/utils/formatAmount.js'
+import { Decimal } from '@/utils/Decimal.js'
 import { formatPercent } from '@/utils/formatPercent.js'
 
 const TITLE = {
@@ -38,14 +38,14 @@ export const Chart = ({ currency, items, type }: ChartProps) => {
   )
 
   const renderTooltip = React.useCallback(
-    (itemId: string | null, total: number) => {
+    (itemId: string | null, total: Decimal) => {
       const item = items.find((item) => item.category === itemId)
 
       return (
         <div
           className="max-w-[65%] pt-1 text-center"
           tabIndex={0}
-          aria-label={`Total: ${formatAmount(total)} ${
+          aria-label={`Total: ${total.toFixed(2)} ${
             currency.name ?? currency.symbol
           }`}
         >
@@ -59,7 +59,9 @@ export const Chart = ({ currency, items, type }: ChartProps) => {
             type={AMOUNT_TYPE[type]}
           />
           <div className="text-tertiary">
-            {formatPercent(item ? item.amount / total : 1)}
+            {formatPercent(
+              item ? item.amount.toNumber() / total.toNumber() : 1,
+            )}
           </div>
         </div>
       )

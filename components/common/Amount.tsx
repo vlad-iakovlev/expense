@@ -1,11 +1,11 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ClientCurrency } from '@/types/client.js'
-import { formatAmount } from '@/utils/formatAmount.js'
+import { Decimal } from '@/utils/Decimal.js'
 
 export interface AmountProps {
   className?: string
-  amount: number
+  amount: Decimal
   currency: ClientCurrency
   type?: 'income' | 'expense'
   showSign?: 'non-zero' | 'negative' | 'never'
@@ -16,7 +16,7 @@ export const Amount = ({
   className,
   amount,
   currency,
-  type = amount >= 0 ? 'income' : 'expense',
+  type = amount.gte(Decimal.ZERO) ? 'income' : 'expense',
   showSign = 'never',
   hideCurrency,
 }: AmountProps) => {
@@ -44,7 +44,7 @@ export const Amount = ({
       )}
     >
       <span>{sign}</span>
-      <span>{formatAmount(amount)}</span>
+      <span>{amount.toFixed(2)}</span>
       <span
         className="opacity-75"
         aria-label={currency.name ?? currency.symbol}

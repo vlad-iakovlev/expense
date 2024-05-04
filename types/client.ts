@@ -1,3 +1,5 @@
+import { Decimal } from '@/utils/Decimal.js'
+
 export interface ClientTransaction {
   userGroups: string[]
   groups: string[]
@@ -69,8 +71,8 @@ export interface ClientOperation {
   name: string
   category: string
   date: Date
-  incomeAmount: number
-  expenseAmount: number
+  incomeAmount: Decimal
+  expenseAmount: Decimal
   incomeWalletId: string | null
   expenseWalletId: string | null
 }
@@ -87,8 +89,8 @@ export interface PopulatedClientOperation {
   category: string
   date: Date
   type: ClientOperationType
-  incomeAmount: number
-  expenseAmount: number
+  incomeAmount: Decimal
+  expenseAmount: Decimal
   incomeWallet: PopulatedClientWallet | null
   expenseWallet: PopulatedClientWallet | null
 }
@@ -99,14 +101,14 @@ export interface GroupedOperations {
 }
 
 export interface ClientBalance {
-  balance: number
+  balance: Decimal
   currency: ClientCurrency
 }
 
 export interface ClientStatisticsItem {
   category: string
   color: string
-  amount: number
+  amount: Decimal
 }
 
 export enum ClientStatisticsType {

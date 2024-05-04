@@ -1,18 +1,19 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Decimal } from '@/utils/Decimal.js'
 import { GetSectorProps } from '@/utils/client/getSector.js'
 import { Sector } from './Sector.jsx'
 
 export interface PieChartItem {
   id: string
   color: string
-  value: number
+  value: Decimal
 }
 
 export interface PieChartProps {
   className?: string
   items: PieChartItem[]
-  renderTooltip: (itemId: string | null, total: number) => React.ReactNode
+  renderTooltip: (itemId: string | null, total: Decimal) => React.ReactNode
 }
 
 export const PieChart = ({
@@ -21,7 +22,7 @@ export const PieChart = ({
   renderTooltip,
 }: PieChartProps) => {
   const total = React.useMemo(
-    () => items.reduce((acc, item) => acc + item.value, 0),
+    () => items.reduce((acc, item) => acc.add(item.value), Decimal.ZERO),
     [items],
   )
 
@@ -36,7 +37,9 @@ export const PieChart = ({
         y: 50,
         radius: item.id === activeId ? 50 : 48,
         start: lastAngle,
-        end: total ? lastAngle + (item.value / total) * 360 : lastAngle,
+        end: total
+          ? lastAngle + (item.value.toNumber() / total.toNumber()) * 360
+          : lastAngle,
       }
 
       lastAngle = sectorProps.end

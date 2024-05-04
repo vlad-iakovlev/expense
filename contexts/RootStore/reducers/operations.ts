@@ -1,5 +1,6 @@
 import { produce } from 'immer'
 import { ClientOperationType } from '@/types/client.js'
+import { Decimal } from '@/utils/Decimal.js'
 import { OperationsActionTypes, RootStoreState } from '../types.jsx'
 
 const createOperationReducer: React.Reducer<
@@ -19,8 +20,8 @@ const createOperationReducer: React.Reducer<
       name: 'Untitled',
       category: 'No category',
       date: new Date(),
-      incomeAmount: 0,
-      expenseAmount: 0,
+      incomeAmount: Decimal.ZERO,
+      expenseAmount: Decimal.ZERO,
       incomeWalletId: null,
       expenseWalletId: walletId,
     })
@@ -115,20 +116,22 @@ const setOperationTypeReducer: React.Reducer<
   produce(state, (draft) => {
     draft.operations.forEach((operation) => {
       if (operation.id === operationId) {
-        const amount = operation.expenseAmount || operation.incomeAmount
+        const amount = operation.expenseAmount.neq(Decimal.ZERO)
+          ? operation.expenseAmount
+          : operation.incomeAmount
         const walletId = operation.expenseWalletId ?? operation.incomeWalletId
 
         switch (type) {
           case ClientOperationType.INCOME:
             operation.incomeAmount = amount
-            operation.expenseAmount = 0
+            operation.expenseAmount = Decimal.ZERO
             operation.incomeWalletId = walletId
             operation.expenseWalletId = null
             draft.nextSyncTransaction.operations.push(operationId)
             break
 
           case ClientOperationType.EXPENSE:
-            operation.incomeAmount = 0
+            operation.incomeAmount = Decimal.ZERO
             operation.expenseAmount = amount
             operation.incomeWalletId = null
             operation.expenseWalletId = walletId
@@ -153,7 +156,7 @@ const setOperationIncomeAmountReducer: React.Reducer<
     type: OperationsActionTypes.SET_OPERATION_INCOME_AMOUNT
     payload: {
       operationId: string
-      incomeAmount: number
+      incomeAmount: Decimal
     }
   }
 > = (state, { payload: { operationId, incomeAmount } }) =>
@@ -172,7 +175,7 @@ const setOperationExpenseAmountReducer: React.Reducer<
     type: OperationsActionTypes.SET_OPERATION_EXPENSE_AMOUNT
     payload: {
       operationId: string
-      expenseAmount: number
+      expenseAmount: Decimal
     }
   }
 > = (state, { payload: { operationId, expenseAmount } }) =>

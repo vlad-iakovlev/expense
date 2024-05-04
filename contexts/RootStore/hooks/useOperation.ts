@@ -3,6 +3,7 @@ import {
   ClientOperationType,
   PopulatedClientOperation,
 } from '@/types/client.js'
+import { Decimal } from '@/utils/Decimal.js'
 import { getPopulatedOperation } from '../getters/operations.js'
 import { useRootStore } from '../index.jsx'
 import { OperationsActionTypes } from '../types.jsx'
@@ -60,7 +61,7 @@ export const useOperation = ({ operationId }: UseOperationProps) => {
   )
 
   const setOperationIncomeAmount = React.useCallback(
-    (incomeAmount: number) => {
+    (incomeAmount: Decimal) => {
       dispatch({
         type: OperationsActionTypes.SET_OPERATION_INCOME_AMOUNT,
         payload: { operationId, incomeAmount },
@@ -70,7 +71,7 @@ export const useOperation = ({ operationId }: UseOperationProps) => {
   )
 
   const setOperationExpenseAmount = React.useCallback(
-    (expenseAmount: number) => {
+    (expenseAmount: Decimal) => {
       dispatch({
         type: OperationsActionTypes.SET_OPERATION_EXPENSE_AMOUNT,
         payload: { operationId, expenseAmount },

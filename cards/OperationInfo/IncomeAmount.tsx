@@ -1,8 +1,7 @@
 import React from 'react'
 import { Card } from '@/components/common/Card/index.jsx'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
-import { formatAmount } from '@/utils/formatAmount.js'
-import { parseAmount } from '@/utils/parseAmount.js'
+import { Decimal } from '@/utils/Decimal.js'
 
 interface IncomeAmountProps {
   operationId: string
@@ -12,9 +11,8 @@ export const IncomeAmount = ({ operationId }: IncomeAmountProps) => {
   const { operation, setOperationIncomeAmount } = useOperation({ operationId })
 
   const handleChange = React.useCallback(
-    (amountString: string) => {
-      const amount = parseAmount(amountString)
-      if (!isNaN(amount)) setOperationIncomeAmount(amount)
+    (value: string) => {
+      setOperationIncomeAmount(Decimal.fromString(value).abs())
     },
     [setOperationIncomeAmount],
   )
@@ -27,7 +25,7 @@ export const IncomeAmount = ({ operationId }: IncomeAmountProps) => {
     <Card.Input
       valueClassName="text-green-700 dark:text-green-500"
       label="Amount"
-      value={formatAmount(operation.incomeAmount)}
+      value={operation.incomeAmount.toFixed(2)}
       onChange={handleChange}
     />
   )
