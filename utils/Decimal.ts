@@ -117,8 +117,10 @@ export class Decimal {
   }
 
   mul(other: Decimal): Decimal {
-    const [a, b, fractionalDigits] = Decimal.align(this, other)
-    return new Decimal(a * b, fractionalDigits)
+    return new Decimal(
+      this.atomics * other.atomics,
+      this.fractionalDigits + other.fractionalDigits,
+    )
   }
 
   abs(): Decimal {
