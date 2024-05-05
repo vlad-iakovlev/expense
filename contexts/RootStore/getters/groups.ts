@@ -7,7 +7,7 @@ import {
 } from '@/types/client.js'
 import { Decimal } from '@/utils/Decimal.js'
 import { RootStoreState } from '../types.jsx'
-import { getCurrency } from './currencies.js'
+import { getPopulatedCurrency } from './currencies.js'
 import { getAvailableWallets, getWalletBalance } from './wallets.js'
 
 export const getAvailableGroups = (state: RootStoreState): ClientGroup[] =>
@@ -29,7 +29,7 @@ export const getPopulatedGroup = (
     id: group.id,
     clientOnly: !!group.clientOnly,
     name: group.name,
-    defaultCurrency: getCurrency(state, group.defaultCurrencyId),
+    defaultCurrency: getPopulatedCurrency(state, group.defaultCurrencyId),
   }
 }
 
@@ -40,7 +40,7 @@ export const getGroupBalance = (
   const group = state.groups.find((group) => group.id === groupId)
   assert(group, 'Group not found')
 
-  const currency = getCurrency(state, group.defaultCurrencyId)
+  const currency = getPopulatedCurrency(state, group.defaultCurrencyId)
 
   const balance = getAvailableWallets(state, { groupId }).reduce(
     (acc, wallet) => {

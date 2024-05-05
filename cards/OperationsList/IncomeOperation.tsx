@@ -21,10 +21,7 @@ export const IncomeOperation = ({
         `at ${formatTime(operation.date)}`,
         operation.category,
         operation.name,
-        `${operation.incomeAmount.toFixed(2)} ${
-          operation.incomeWallet.currency.name ??
-          operation.incomeWallet.currency.symbol
-        }`,
+        `${operation.incomeAmount.toFixed(operation.incomeWallet.currency.fractionalDigits)} ${operation.incomeWallet.currency.name}`,
         walletId ? '' : `wallet ${operation.incomeWallet.name}`,
       ].join(', ')}
     >
@@ -32,6 +29,7 @@ export const IncomeOperation = ({
         <div className="flex-auto truncate">
           {operation.category} – {operation.name}
         </div>
+
         <Amount
           className="flex-none font-medium"
           amount={operation.incomeAmount}
@@ -43,6 +41,7 @@ export const IncomeOperation = ({
 
       <div className="text-tertiary flex items-center gap-3 text-sm">
         <div className="flex-none">{formatTime(operation.date)}</div>
+
         {!walletId && (
           <div className="min-w-0 flex-auto truncate text-right">
             {operation.incomeWallet.name}

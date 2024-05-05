@@ -23,12 +23,7 @@ export const BalanceInDefaultCurrency = ({
       label={
         <span>
           Balance in{' '}
-          <span
-            aria-label={
-              wallet.group.defaultCurrency.name ??
-              wallet.group.defaultCurrency.symbol
-            }
-          >
+          <span aria-label={wallet.group.defaultCurrency.name}>
             {wallet.group.defaultCurrency.symbol}
           </span>
         </span>

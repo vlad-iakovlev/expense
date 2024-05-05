@@ -1,6 +1,10 @@
 import assert from 'assert'
 import React from 'react'
-import { ClientCurrency, ClientWallet, GroupedWallets } from '@/types/client.js'
+import {
+  ClientWallet,
+  GroupedWallets,
+  PopulatedClientCurrency,
+} from '@/types/client.js'
 import { getOrderedWallets } from '../getters/wallets.js'
 import { useRootStore } from '../index.jsx'
 import { WalletsActionTypes } from '../types.jsx'
@@ -14,14 +18,13 @@ export const useGroupedWallets = ({ groupId }: UseGroupedWalletsProps) => {
 
   const currenciesMap = React.useMemo(
     () =>
-      state.currencies.reduce<Record<string, ClientCurrency | undefined>>(
-        (acc, currency) => {
-          acc[currency.id] = currency
-          return acc
-        },
-        {},
-      ),
-    [state.currencies],
+      state.populatedCurrencies.reduce<
+        Record<string, PopulatedClientCurrency | undefined>
+      >((acc, currency) => {
+        acc[currency.id] = currency
+        return acc
+      }, {}),
+    [state.populatedCurrencies],
   )
 
   const groupedWallets = React.useMemo<GroupedWallets[]>(() => {
@@ -54,7 +57,7 @@ export const useGroupedWallets = ({ groupId }: UseGroupedWalletsProps) => {
 
 const groupWallets = (
   wallets: ClientWallet[],
-  currenciesMap: Record<string, ClientCurrency | undefined>,
+  currenciesMap: Record<string, PopulatedClientCurrency | undefined>,
 ) =>
   wallets.reduce<GroupedWallets[]>((acc, wallet) => {
     const currency = currenciesMap[wallet.currencyId]

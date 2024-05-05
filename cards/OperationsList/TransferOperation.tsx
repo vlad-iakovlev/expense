@@ -24,14 +24,8 @@ export const TransferOperation = ({
         `at ${formatTime(operation.date)}`,
         operation.category,
         operation.name,
-        `${operation.expenseAmount.toFixed(2)} ${
-          operation.expenseWallet.currency.name ??
-          operation.expenseWallet.currency.symbol
-        } from wallet ${operation.expenseWallet.name}`,
-        `${operation.incomeAmount.toFixed(2)} ${
-          operation.incomeWallet.currency.name ??
-          operation.incomeWallet.currency.symbol
-        } to wallet ${operation.incomeWallet.name}`,
+        `${operation.expenseAmount.toFixed(operation.expenseWallet.currency.fractionalDigits)} ${operation.expenseWallet.currency.name} from wallet ${operation.expenseWallet.name}`,
+        `${operation.incomeAmount.toFixed(operation.incomeWallet.currency.fractionalDigits)} ${operation.incomeWallet.currency.name} to wallet ${operation.incomeWallet.name}`,
       ].join(', ')}
     >
       <div className="truncate">

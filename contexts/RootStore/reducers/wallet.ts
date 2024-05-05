@@ -1,5 +1,5 @@
 import { produce } from 'immer'
-import { getDefaultCurrency } from '../getters/currencies.js'
+import { getDefaultCurrencyId } from '../getters/currencies.js'
 import { RootStoreState, WalletsActionTypes } from '../types.jsx'
 
 const createWalletReducer: React.Reducer<
@@ -19,7 +19,7 @@ const createWalletReducer: React.Reducer<
       removed: false,
       name: 'Untitled',
       order: null,
-      currencyId: getDefaultCurrency(state, { groupId }).id,
+      currencyId: getDefaultCurrencyId(state, { groupId }),
       groupId: groupId,
     })
     draft.nextSyncTransaction.wallets.push(walletId)

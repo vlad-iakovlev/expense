@@ -1,15 +1,18 @@
 import assert from 'assert'
 import React from 'react'
 import {
-  ClientCurrency,
   ClientStatisticsItem,
   ClientStatisticsType,
   ClientWallet,
+  PopulatedClientCurrency,
 } from '@/types/client.js'
 import { Decimal } from '@/utils/Decimal.js'
 import { stringToColor } from '@/utils/stringToColor.js'
 import { uniq } from '@/utils/uniq.js'
-import { getDefaultCurrency } from '../getters/currencies.js'
+import {
+  getDefaultCurrencyId,
+  getPopulatedCurrency,
+} from '../getters/currencies.js'
 import { useRootStore } from '../index.jsx'
 
 const WALLET_ID_FIELD = {
@@ -40,20 +43,23 @@ export const useStatistics = ({
   const { state } = useRootStore()
 
   const statisticsCurrency = React.useMemo(
-    () => getDefaultCurrency(state, { groupId, walletId }),
+    () =>
+      getPopulatedCurrency(
+        state,
+        getDefaultCurrencyId(state, { groupId, walletId }),
+      ),
     [groupId, state, walletId],
   )
 
   const currenciesMap = React.useMemo(
     () =>
-      state.currencies.reduce<Record<string, ClientCurrency | undefined>>(
-        (acc, currency) => {
-          acc[currency.id] = currency
-          return acc
-        },
-        {},
-      ),
-    [state.currencies],
+      state.populatedCurrencies.reduce<
+        Record<string, PopulatedClientCurrency | undefined>
+      >((acc, currency) => {
+        acc[currency.id] = currency
+        return acc
+      }, {}),
+    [state.populatedCurrencies],
   )
 
   const walletsMap = React.useMemo(

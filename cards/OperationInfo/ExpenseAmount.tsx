@@ -25,7 +25,9 @@ export const ExpenseAmount = ({ operationId }: ExpenseAmountProps) => {
     <Card.Input
       valueClassName="text-red-700 dark:text-red-500"
       label="Amount"
-      value={operation.expenseAmount.toFixed(2)}
+      value={operation.expenseAmount.toFixed(
+        operation.expenseWallet.currency.fractionalDigits,
+      )}
       onChange={handleChange}
     />
   )

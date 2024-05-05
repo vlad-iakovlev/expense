@@ -1,8 +1,14 @@
-import { ClientTransaction } from '@/types/client.js'
+import currenciesInfo from '@/constants/currencies.json'
+import {
+  ClientCurrency,
+  ClientTransaction,
+  PopulatedClientCurrency,
+} from '@/types/client.js'
 import { RootStoreState } from './types.jsx'
 
 export const getEmptyState = (): RootStoreState => ({
   currencies: [],
+  populatedCurrencies: [],
   users: [],
   userGroups: [],
   groups: [],
@@ -38,3 +44,19 @@ export const isTransactionEmpty = (transaction: ClientTransaction) =>
   transaction.groups.length === 0 &&
   transaction.wallets.length === 0 &&
   transaction.operations.length === 0
+
+export const populateCurrency = (
+  currency: ClientCurrency,
+): PopulatedClientCurrency => {
+  const currencyInfo = currenciesInfo.find(
+    (currencyInfo) => currencyInfo.symbol === currency.symbol,
+  )
+
+  return {
+    id: currency.id,
+    symbol: currency.symbol,
+    name: currencyInfo?.name ?? currency.symbol,
+    fractionalDigits: currencyInfo?.fractionalDigits,
+    rate: currency.rate,
+  }
+}

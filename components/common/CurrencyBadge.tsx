@@ -1,7 +1,7 @@
-import { ClientCurrency } from '@/types/client.js'
+import { PopulatedClientCurrency } from '@/types/client.js'
 
 export interface CurrencyBadgeProps {
-  currency: ClientCurrency
+  currency: PopulatedClientCurrency
 }
 
 export const CurrencyBadge = ({ currency }: CurrencyBadgeProps) => (

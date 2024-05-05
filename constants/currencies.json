@@ -1,0 +1,887 @@
+[
+  {
+    "symbol": "AFN",
+    "name": "Afghani",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "EUR",
+    "name": "Euro",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "ALL",
+    "name": "Lek",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "DZD",
+    "name": "Algerian Dinar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "USD",
+    "name": "US Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "AOA",
+    "name": "Kwanza",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "XCD",
+    "name": "East Caribbean Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "name": "No universal currency"
+  },
+  {
+    "symbol": "ARS",
+    "name": "Argentine Peso",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "AMD",
+    "name": "Armenian Dram",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "AWG",
+    "name": "Aruban Florin",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "AUD",
+    "name": "Australian Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "AZN",
+    "name": "Azerbaijan Manat",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BSD",
+    "name": "Bahamian Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BHD",
+    "name": "Bahraini Dinar",
+    "fractionalDigits": 3
+  },
+  {
+    "symbol": "BDT",
+    "name": "Taka",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BBD",
+    "name": "Barbados Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BYN",
+    "name": "Belarusian Ruble",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BZD",
+    "name": "Belize Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "XOF",
+    "name": "CFA Franc BCEAO",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "BMD",
+    "name": "Bermudian Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "INR",
+    "name": "Indian Rupee",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BTN",
+    "name": "Ngultrum",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BOB",
+    "name": "Boliviano",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BOV",
+    "name": "Mvdol",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BAM",
+    "name": "Convertible Mark",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BWP",
+    "name": "Pula",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "NOK",
+    "name": "Norwegian Krone",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BRL",
+    "name": "Brazilian Real",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BND",
+    "name": "Brunei Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BGN",
+    "name": "Bulgarian Lev",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "BIF",
+    "name": "Burundi Franc",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "CVE",
+    "name": "Cabo Verde Escudo",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "KHR",
+    "name": "Riel",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "XAF",
+    "name": "CFA Franc BEAC",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "CAD",
+    "name": "Canadian Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "KYD",
+    "name": "Cayman Islands Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "CLP",
+    "name": "Chilean Peso",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "CLF",
+    "name": "Unidad de Fomento",
+    "fractionalDigits": 4
+  },
+  {
+    "symbol": "CNY",
+    "name": "Yuan Renminbi",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "COP",
+    "name": "Colombian Peso",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "COU",
+    "name": "Unidad de Valor Real",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "KMF",
+    "name": "Comorian Franc",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "CDF",
+    "name": "Congolese Franc",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "NZD",
+    "name": "New Zealand Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "CRC",
+    "name": "Costa Rican Colon",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "CUP",
+    "name": "Cuban Peso",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "CUC",
+    "name": "Peso Convertible",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "ANG",
+    "name": "Netherlands Antillean Guilder",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "CZK",
+    "name": "Czech Koruna",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "DKK",
+    "name": "Danish Krone",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "DJF",
+    "name": "Djibouti Franc",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "DOP",
+    "name": "Dominican Peso",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "EGP",
+    "name": "Egyptian Pound",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SVC",
+    "name": "El Salvador Colon",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "ERN",
+    "name": "Nakfa",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SZL",
+    "name": "Lilangeni",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "ETB",
+    "name": "Ethiopian Birr",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "FKP",
+    "name": "Falkland Islands Pound",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "FJD",
+    "name": "Fiji Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "XPF",
+    "name": "CFP Franc",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "GMD",
+    "name": "Dalasi",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "GEL",
+    "name": "Lari",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "GHS",
+    "name": "Ghana Cedi",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "GIP",
+    "name": "Gibraltar Pound",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "GTQ",
+    "name": "Quetzal",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "GBP",
+    "name": "Pound Sterling",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "GNF",
+    "name": "Guinean Franc",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "GYD",
+    "name": "Guyana Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "HTG",
+    "name": "Gourde",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "HNL",
+    "name": "Lempira",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "HKD",
+    "name": "Hong Kong Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "HUF",
+    "name": "Forint",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "ISK",
+    "name": "Iceland Krona",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "IDR",
+    "name": "Rupiah",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "XDR",
+    "name": "SDR (Special Drawing Right)"
+  },
+  {
+    "symbol": "IRR",
+    "name": "Iranian Rial",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "IQD",
+    "name": "Iraqi Dinar",
+    "fractionalDigits": 3
+  },
+  {
+    "symbol": "ILS",
+    "name": "New Israeli Sheqel",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "JMD",
+    "name": "Jamaican Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "JPY",
+    "name": "Yen",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "JOD",
+    "name": "Jordanian Dinar",
+    "fractionalDigits": 3
+  },
+  {
+    "symbol": "KZT",
+    "name": "Tenge",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "KES",
+    "name": "Kenyan Shilling",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "KPW",
+    "name": "North Korean Won",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "KRW",
+    "name": "Won",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "KWD",
+    "name": "Kuwaiti Dinar",
+    "fractionalDigits": 3
+  },
+  {
+    "symbol": "KGS",
+    "name": "Som",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "LAK",
+    "name": "Lao Kip",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "LBP",
+    "name": "Lebanese Pound",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "LSL",
+    "name": "Loti",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "ZAR",
+    "name": "Rand",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "LRD",
+    "name": "Liberian Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "LYD",
+    "name": "Libyan Dinar",
+    "fractionalDigits": 3
+  },
+  {
+    "symbol": "CHF",
+    "name": "Swiss Franc",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MOP",
+    "name": "Pataca",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MKD",
+    "name": "Denar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MGA",
+    "name": "Malagasy Ariary",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MWK",
+    "name": "Malawi Kwacha",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MYR",
+    "name": "Malaysian Ringgit",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MVR",
+    "name": "Rufiyaa",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MRU",
+    "name": "Ouguiya",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MUR",
+    "name": "Mauritius Rupee",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "XUA",
+    "name": "ADB Unit of Account"
+  },
+  {
+    "symbol": "MXN",
+    "name": "Mexican Peso",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MXV",
+    "name": "Mexican Unidad de Inversion (UDI)",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MDL",
+    "name": "Moldovan Leu",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MNT",
+    "name": "Tugrik",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MAD",
+    "name": "Moroccan Dirham",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MZN",
+    "name": "Mozambique Metical",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "MMK",
+    "name": "Kyat",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "NAD",
+    "name": "Namibia Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "NPR",
+    "name": "Nepalese Rupee",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "NIO",
+    "name": "Cordoba Oro",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "NGN",
+    "name": "Naira",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "OMR",
+    "name": "Rial Omani",
+    "fractionalDigits": 3
+  },
+  {
+    "symbol": "PKR",
+    "name": "Pakistan Rupee",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "PAB",
+    "name": "Balboa",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "PGK",
+    "name": "Kina",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "PYG",
+    "name": "Guarani",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "PEN",
+    "name": "Sol",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "PHP",
+    "name": "Philippine Peso",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "PLN",
+    "name": "Zloty",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "QAR",
+    "name": "Qatari Rial",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "RON",
+    "name": "Romanian Leu",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "RUB",
+    "name": "Russian Ruble",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "RWF",
+    "name": "Rwanda Franc",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "SHP",
+    "name": "Saint Helena Pound",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "WST",
+    "name": "Tala",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "STN",
+    "name": "Dobra",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SAR",
+    "name": "Saudi Riyal",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "RSD",
+    "name": "Serbian Dinar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SCR",
+    "name": "Seychelles Rupee",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SLE",
+    "name": "Leone",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SGD",
+    "name": "Singapore Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "XSU",
+    "name": "Sucre"
+  },
+  {
+    "symbol": "SBD",
+    "name": "Solomon Islands Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SOS",
+    "name": "Somali Shilling",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SSP",
+    "name": "South Sudanese Pound",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "LKR",
+    "name": "Sri Lanka Rupee",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SDG",
+    "name": "Sudanese Pound",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SRD",
+    "name": "Surinam Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SEK",
+    "name": "Swedish Krona",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "CHE",
+    "name": "WIR Euro",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "CHW",
+    "name": "WIR Franc",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "SYP",
+    "name": "Syrian Pound",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "TWD",
+    "name": "New Taiwan Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "TJS",
+    "name": "Somoni",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "TZS",
+    "name": "Tanzanian Shilling",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "THB",
+    "name": "Baht",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "TOP",
+    "name": "Pa’anga",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "TTD",
+    "name": "Trinidad and Tobago Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "TND",
+    "name": "Tunisian Dinar",
+    "fractionalDigits": 3
+  },
+  {
+    "symbol": "TRY",
+    "name": "Turkish Lira",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "TMT",
+    "name": "Turkmenistan New Manat",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "UGX",
+    "name": "Uganda Shilling",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "UAH",
+    "name": "Hryvnia",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "AED",
+    "name": "UAE Dirham",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "USN",
+    "name": "US Dollar (Next day)",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "UYU",
+    "name": "Peso Uruguayo",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "UYI",
+    "name": "Uruguay Peso en Unidades Indexadas (UI)",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "UYW",
+    "name": "Unidad Previsional",
+    "fractionalDigits": 4
+  },
+  {
+    "symbol": "UZS",
+    "name": "Uzbekistan Sum",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "VUV",
+    "name": "Vatu",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "VES",
+    "name": "Bolívar Soberano",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "VED",
+    "name": "Bolívar Soberano",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "VND",
+    "name": "Dong",
+    "fractionalDigits": 0
+  },
+  {
+    "symbol": "YER",
+    "name": "Yemeni Rial",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "ZMW",
+    "name": "Zambian Kwacha",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "ZWL",
+    "name": "Zimbabwe Dollar",
+    "fractionalDigits": 2
+  },
+  {
+    "symbol": "XBA",
+    "name": "Bond Markets Unit European Composite Unit (EURCO)"
+  },
+  {
+    "symbol": "XBB",
+    "name": "Bond Markets Unit European Monetary Unit (E.M.U.-6)"
+  },
+  {
+    "symbol": "XBC",
+    "name": "Bond Markets Unit European Unit of Account 9 (E.U.A.-9)"
+  },
+  {
+    "symbol": "XBD",
+    "name": "Bond Markets Unit European Unit of Account 17 (E.U.A.-17)"
+  },
+  {
+    "symbol": "XTS",
+    "name": "Codes specifically reserved for testing purposes"
+  },
+  {
+    "symbol": "XXX",
+    "name": "The codes assigned for transactions where no currency is involved"
+  },
+  {
+    "symbol": "XAU",
+    "name": "Gold"
+  },
+  {
+    "symbol": "XPD",
+    "name": "Palladium"
+  },
+  {
+    "symbol": "XPT",
+    "name": "Platinum"
+  },
+  {
+    "symbol": "XAG",
+    "name": "Silver"
+  }
+]

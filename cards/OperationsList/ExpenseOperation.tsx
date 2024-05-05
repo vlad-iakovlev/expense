@@ -21,10 +21,7 @@ export const ExpenseOperation = ({
         `at ${formatTime(operation.date)}`,
         operation.category,
         operation.name,
-        `${operation.expenseAmount.toFixed(2)} ${
-          operation.expenseWallet.currency.name ??
-          operation.expenseWallet.currency.symbol
-        }`,
+        `${operation.expenseAmount.toFixed(operation.expenseWallet.currency.fractionalDigits)} ${operation.expenseWallet.currency.name}`,
         walletId ? '' : `wallet ${operation.expenseWallet.name}`,
       ].join(', ')}
     >
@@ -32,6 +29,7 @@ export const ExpenseOperation = ({
         <div className="flex-auto truncate">
           {operation.category} – {operation.name}
         </div>
+
         <Amount
           className="flex-none font-medium"
           amount={operation.expenseAmount}
@@ -43,6 +41,7 @@ export const ExpenseOperation = ({
 
       <div className="text-tertiary flex items-center gap-3 text-sm">
         <div className="flex-none">{formatTime(operation.date)}</div>
+
         {!walletId && (
           <div className="min-w-0 flex-auto truncate text-right">
             {operation.expenseWallet.name}

@@ -1,12 +1,12 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { ClientCurrency } from '@/types/client.js'
+import { PopulatedClientCurrency } from '@/types/client.js'
 import { Decimal } from '@/utils/Decimal.js'
 
 export interface AmountProps {
   className?: string
   amount: Decimal
-  currency: ClientCurrency
+  currency: PopulatedClientCurrency
   type?: 'income' | 'expense'
   showSign?: 'non-zero' | 'negative' | 'never'
   hideCurrency?: boolean
@@ -44,11 +44,8 @@ export const Amount = ({
       )}
     >
       <span>{sign}</span>
-      <span>{amount.abs().toFixed(2)}</span>
-      <span
-        className="opacity-75"
-        aria-label={currency.name ?? currency.symbol}
-      >
+      <span>{amount.abs().toFixed(currency.fractionalDigits)}</span>
+      <span className="opacity-75" aria-label={currency.name}>
         {hideCurrency ? '' : ` ${currency.symbol}`}
       </span>
     </div>

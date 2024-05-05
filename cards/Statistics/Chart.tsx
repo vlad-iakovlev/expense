@@ -3,9 +3,9 @@ import { Amount } from '@/components/common/Amount.jsx'
 import { Card } from '@/components/common/Card/index.jsx'
 import { PieChart, PieChartItem } from '@/components/common/PieChart/index.jsx'
 import {
-  ClientCurrency,
   ClientStatisticsItem,
   ClientStatisticsType,
+  PopulatedClientCurrency,
 } from '@/types/client.js'
 import { Decimal } from '@/utils/Decimal.js'
 import { formatPercent } from '@/utils/formatPercent.js'
@@ -21,7 +21,7 @@ const AMOUNT_TYPE = {
 } as const
 
 interface ChartProps {
-  currency: ClientCurrency
+  currency: PopulatedClientCurrency
   items: ClientStatisticsItem[]
   type: ClientStatisticsType
 }
@@ -45,9 +45,7 @@ export const Chart = ({ currency, items, type }: ChartProps) => {
         <div
           className="max-w-[65%] pt-1 text-center"
           tabIndex={0}
-          aria-label={`Total: ${total.toFixed(2)} ${
-            currency.name ?? currency.symbol
-          }`}
+          aria-label={`Total: ${total.toFixed(currency.fractionalDigits)} ${currency.name}`}
         >
           <div className="text-tertiary truncate">
             {item ? item.category : TITLE[type]}

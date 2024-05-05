@@ -10,13 +10,13 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Card } from '@/components/common/Card/index.jsx'
 import { DndIcon } from '@/components/icons/DndIcon.jsx'
-import { ClientCurrency } from '@/types/client.js'
+import { PopulatedClientCurrency } from '@/types/client.js'
 import { Wallet } from './Wallet.jsx'
 
 interface GroupProps {
   canReorderGroups: boolean
   isReordering: boolean
-  currency: ClientCurrency
+  currency: PopulatedClientCurrency
   walletIds: string[]
   onReorder: (currencyId: string, walletIds: string[]) => void
 }
@@ -64,7 +64,7 @@ export const Group = ({
       }}
       role="listitem"
     >
-      <div role="list" aria-label={currency.name ?? currency.symbol}>
+      <div role="list" aria-label={currency.name}>
         <Card.Subtitle
           subtitle={currency.symbol}
           actions={

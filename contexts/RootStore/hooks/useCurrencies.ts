@@ -4,6 +4,6 @@ export const useCurrencies = () => {
   const { state } = useRootStore()
 
   return {
-    currencies: state.currencies,
+    currencies: state.populatedCurrencies,
   }
 }

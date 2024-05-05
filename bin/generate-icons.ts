@@ -1,6 +1,6 @@
 import chalk from 'chalk'
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import sharp from 'sharp'
 
 interface Icon {
@@ -43,59 +43,50 @@ const generateIcon = async (icon: Icon) => {
   )
 }
 
-void (async () => {
-  try {
-    await generateIcon({
-      srcPath: 'icons/icon-green.svg',
-      dstPath: 'icons/favicon.png',
-      srcSize: 32,
-      dstSize: 32,
-      background: '#00000000',
-    })
+await generateIcon({
+  srcPath: 'icons/icon-green.svg',
+  dstPath: 'icons/favicon.png',
+  srcSize: 32,
+  dstSize: 32,
+  background: '#00000000',
+})
 
-    await generateIcon({
-      srcPath: 'icons/icon-green.svg',
-      dstPath: 'icons/icon-192.png',
-      srcSize: 192,
-      dstSize: 192,
-      background: '#00000000',
-    })
+await generateIcon({
+  srcPath: 'icons/icon-green.svg',
+  dstPath: 'icons/icon-192.png',
+  srcSize: 192,
+  dstSize: 192,
+  background: '#00000000',
+})
 
-    await generateIcon({
-      srcPath: 'icons/icon-green.svg',
-      dstPath: 'icons/icon-512.png',
-      srcSize: 512,
-      dstSize: 512,
-      background: '#00000000',
-    })
+await generateIcon({
+  srcPath: 'icons/icon-green.svg',
+  dstPath: 'icons/icon-512.png',
+  srcSize: 512,
+  dstSize: 512,
+  background: '#00000000',
+})
 
-    await generateIcon({
-      srcPath: 'icons/icon-white.svg',
-      dstPath: 'icons/icon-192-maskable.png',
-      srcSize: Math.floor(192 * 0.6),
-      dstSize: 192,
-      background: '#15803dff',
-    })
+await generateIcon({
+  srcPath: 'icons/icon-white.svg',
+  dstPath: 'icons/icon-192-maskable.png',
+  srcSize: Math.floor(192 * 0.6),
+  dstSize: 192,
+  background: '#15803dff',
+})
 
-    await generateIcon({
-      srcPath: 'icons/icon-white.svg',
-      dstPath: 'icons/icon-512-maskable.png',
-      srcSize: Math.floor(512 * 0.6),
-      dstSize: 512,
-      background: '#15803dff',
-    })
+await generateIcon({
+  srcPath: 'icons/icon-white.svg',
+  dstPath: 'icons/icon-512-maskable.png',
+  srcSize: Math.floor(512 * 0.6),
+  dstSize: 512,
+  background: '#15803dff',
+})
 
-    await generateIcon({
-      srcPath: 'icons/icon-white.svg',
-      dstPath: 'icons/apple-touch-icon.png',
-      srcSize: Math.floor(180 * 0.75),
-      dstSize: 180,
-      background: '#15803dff',
-    })
-
-    process.exit(0)
-  } catch (error) {
-    console.error(error)
-    process.exit(1)
-  }
-})()
+await generateIcon({
+  srcPath: 'icons/icon-white.svg',
+  dstPath: 'icons/apple-touch-icon.png',
+  srcSize: Math.floor(180 * 0.75),
+  dstSize: 180,
+  background: '#15803dff',
+})

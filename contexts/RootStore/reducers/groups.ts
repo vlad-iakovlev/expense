@@ -1,6 +1,6 @@
 import { produce } from 'immer'
 import { ClientUser } from '@/types/client.js'
-import { getDefaultCurrency } from '../getters/currencies.js'
+import { getDefaultCurrencyId } from '../getters/currencies.js'
 import { GroupsActionTypes, RootStoreState } from '../types.jsx'
 
 const createGroupReducer: React.Reducer<
@@ -19,7 +19,7 @@ const createGroupReducer: React.Reducer<
       clientOnly: true,
       clientRemoved: false,
       name: 'Untitled',
-      defaultCurrencyId: getDefaultCurrency(state).id,
+      defaultCurrencyId: getDefaultCurrencyId(state),
     })
     draft.nextSyncTransaction.groups.push(groupId)
   })

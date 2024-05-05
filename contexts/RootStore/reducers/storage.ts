@@ -11,6 +11,7 @@ import {
   getEmptyState,
   getEmptyTransaction,
   mergeTransactions,
+  populateCurrency,
 } from '../utils.js'
 
 const startSyncReducer: React.Reducer<
@@ -139,6 +140,7 @@ const setStateFromRemoteStorageReducer: React.Reducer<
 
   return {
     currencies: updates.currencies,
+    populatedCurrencies: updates.currencies.map(populateCurrency),
     users: updates.users,
     userGroups,
     groups,
@@ -164,6 +166,7 @@ const setStateFromBrowserStorageReducer: React.Reducer<
 
   return {
     currencies: storedState.currencies,
+    populatedCurrencies: storedState.currencies.map(populateCurrency),
     users: storedState.users,
     userGroups: storedState.userGroups,
     groups: storedState.groups,

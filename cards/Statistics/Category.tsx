@@ -7,7 +7,10 @@ import { Card } from '@/components/common/Card/index.jsx'
 import { Switch } from '@/components/common/Switch.jsx'
 import { useCategoryFilter } from '@/contexts/CategoryFilter.jsx'
 import { useDisabledCategories } from '@/contexts/RootStore/hooks/useDisabledCategories.js'
-import { ClientCurrency, ClientStatisticsType } from '@/types/client.js'
+import {
+  ClientStatisticsType,
+  PopulatedClientCurrency,
+} from '@/types/client.js'
 import { Decimal } from '@/utils/Decimal.js'
 
 const AMOUNT_TYPE = {
@@ -19,7 +22,7 @@ interface CategoryProps {
   category: string
   color: string
   amount: Decimal
-  currency: ClientCurrency
+  currency: PopulatedClientCurrency
   type: ClientStatisticsType
 }
 
@@ -107,9 +110,7 @@ export const Category = ({
       }
       aria-disabled="false"
       aria-expanded={isOpen ? 'true' : 'false'}
-      aria-label={`${category}: ${amount.toFixed(2)} ${
-        currency.name ?? currency.symbol
-      }`}
+      aria-label={`${category}: ${amount.toFixed(currency.fractionalDigits)} ${currency.name}`}
       onKeyDown={handleKeyDown}
       onBlur={handleBlur}
     />

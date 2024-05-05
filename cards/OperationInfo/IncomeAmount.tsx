@@ -25,7 +25,9 @@ export const IncomeAmount = ({ operationId }: IncomeAmountProps) => {
     <Card.Input
       valueClassName="text-green-700 dark:text-green-500"
       label="Amount"
-      value={operation.incomeAmount.toFixed(2)}
+      value={operation.incomeAmount.toFixed(
+        operation.incomeWallet.currency.fractionalDigits,
+      )}
       onChange={handleChange}
     />
   )

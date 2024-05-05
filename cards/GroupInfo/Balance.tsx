@@ -18,7 +18,6 @@ export const Balance = ({ groupId }: BalanceProps) => {
           amount={groupBalance.balance}
           currency={groupBalance.currency}
           showSign="negative"
-          hideCurrency
         />
       }
     />

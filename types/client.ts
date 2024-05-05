@@ -10,7 +10,14 @@ export interface ClientTransaction {
 export interface ClientCurrency {
   id: string
   symbol: string
-  name?: string | null
+  rate: number
+}
+
+export interface PopulatedClientCurrency {
+  id: string
+  symbol: string
+  name?: string
+  fractionalDigits?: number
   rate: number
 }
 
@@ -40,7 +47,7 @@ export interface PopulatedClientGroup {
   id: string
   clientOnly: boolean
   name: string
-  defaultCurrency: ClientCurrency
+  defaultCurrency: PopulatedClientCurrency
 }
 
 export interface ClientWallet {
@@ -56,12 +63,12 @@ export interface ClientWallet {
 export interface PopulatedClientWallet {
   id: string
   name: string
-  currency: ClientCurrency
+  currency: PopulatedClientCurrency
   group: PopulatedClientGroup
 }
 
 export interface GroupedWallets {
-  currency: ClientCurrency
+  currency: PopulatedClientCurrency
   walletIds: string[]
 }
 
@@ -102,7 +109,7 @@ export interface GroupedOperations {
 
 export interface ClientBalance {
   balance: Decimal
-  currency: ClientCurrency
+  currency: PopulatedClientCurrency
 }
 
 export interface ClientStatisticsItem {

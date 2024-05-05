@@ -1,6 +1,6 @@
 import chalk from 'chalk'
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import sharp from 'sharp'
 
 interface ScreenSize {
@@ -192,18 +192,9 @@ const generateSplashesJson = async (screenSizes: ScreenSize[]) => {
   console.log(chalk.green.bold(`[${dstPath}]`), 'Generated')
 }
 
-void (async () => {
-  try {
-    for (const screenSize of SCREEN_SIZES) {
-      await generateSplash(screenSize.pxWidth, screenSize.pxHeight)
-      await generateSplash(screenSize.pxHeight, screenSize.pxWidth)
-    }
+for (const screenSize of SCREEN_SIZES) {
+  await generateSplash(screenSize.pxWidth, screenSize.pxHeight)
+  await generateSplash(screenSize.pxHeight, screenSize.pxWidth)
+}
 
-    await generateSplashesJson(SCREEN_SIZES)
-
-    process.exit(0)
-  } catch (error) {
-    console.error(error)
-    process.exit(1)
-  }
-})()
+await generateSplashesJson(SCREEN_SIZES)

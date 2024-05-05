@@ -1,12 +1,12 @@
 import assert from 'assert'
-import { ClientCurrency } from '@/types/client.js'
+import { PopulatedClientCurrency } from '@/types/client.js'
 import { RootStoreState } from '../types.jsx'
 
-export const getCurrency = (
+export const getPopulatedCurrency = (
   state: RootStoreState,
   currencyId: string,
-): ClientCurrency => {
-  const currency = state.currencies.find(
+): PopulatedClientCurrency => {
+  const currency = state.populatedCurrencies.find(
     (currency) => currency.id === currencyId,
   )
   assert(currency, 'Currency not found')
@@ -14,30 +14,30 @@ export const getCurrency = (
   return currency
 }
 
-interface GetDefaultCurrencyParams {
+interface GetDefaultCurrencyIdParams {
   groupId?: string
   walletId?: string
 }
 
-export const getDefaultCurrency = (
+export const getDefaultCurrencyId = (
   state: RootStoreState,
-  { groupId, walletId }: GetDefaultCurrencyParams = {},
-): ClientCurrency => {
+  { groupId, walletId }: GetDefaultCurrencyIdParams = {},
+): string => {
   if (walletId) {
     const wallet = state.wallets.find((wallet) => wallet.id === walletId)
     assert(wallet, 'Wallet not found')
-    return getCurrency(state, wallet.currencyId)
+    return wallet.currencyId
   }
 
   if (groupId) {
     const group = state.groups.find((group) => group.id === groupId)
     assert(group, 'Group not found')
-    return getCurrency(state, group.defaultCurrencyId)
+    return group.defaultCurrencyId
   }
 
   const currency = state.currencies.find(
     (currency) => currency.symbol === 'USD',
   )
   assert(currency, 'Currency not found')
-  return currency
+  return currency.id
 }

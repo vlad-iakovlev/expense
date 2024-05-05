@@ -64,7 +64,7 @@ export class Decimal {
     return Number(this.toString())
   }
 
-  toFixed(fractionalDigits: number): string {
+  toFixed(fractionalDigits = this.fractionalDigits): string {
     const atomics =
       (this.atomics * 10n ** BigInt(fractionalDigits)) /
       10n ** BigInt(this.fractionalDigits)

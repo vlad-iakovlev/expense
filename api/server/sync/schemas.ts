@@ -58,7 +58,6 @@ export const performSyncResponseSchema = z.object({
       z.object({
         id: z.string(),
         symbol: z.string(),
-        name: z.string().nullable(),
         rate: z.number(),
       }),
     ),

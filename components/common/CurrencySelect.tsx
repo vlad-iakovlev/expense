@@ -1,7 +1,7 @@
 import assert from 'assert'
 import React from 'react'
 import { useCurrencies } from '@/contexts/RootStore/hooks/useCurrencies.js'
-import { ClientCurrency } from '@/types/client.js'
+import { PopulatedClientCurrency } from '@/types/client.js'
 import { Card, CardSelectItem } from './Card/index.jsx'
 import { CurrencyBadge } from './CurrencyBadge.jsx'
 
@@ -9,7 +9,7 @@ const PRIORITIZED_CURRENCIES = ['USD', 'EUR']
 
 export interface CurrencySelectProps {
   label: string
-  value: ClientCurrency
+  value: PopulatedClientCurrency
   onChange: (currencyId: string) => void
 }
 
@@ -28,7 +28,7 @@ export const CurrencySelect = ({
 
         return {
           id: currency.id,
-          label: currency.name ?? '',
+          label: currency.name,
           suffix: <CurrencyBadge currency={currency} />,
         }
       }),
@@ -37,7 +37,7 @@ export const CurrencySelect = ({
         .filter((currency) => !PRIORITIZED_CURRENCIES.includes(currency.symbol))
         .map((currency) => ({
           id: currency.id,
-          label: currency.name ?? '',
+          label: currency.name,
           suffix: <CurrencyBadge currency={currency} />,
         })),
     ],
@@ -57,7 +57,7 @@ export const CurrencySelect = ({
       label={label}
       options={options}
       value={valueForSelect}
-      aria-label={`${label}: ${value.name ?? value.symbol}`}
+      aria-label={`${label}: ${value.name}`}
       onChange={onChange}
     />
   )

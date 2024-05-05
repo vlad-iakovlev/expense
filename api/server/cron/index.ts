@@ -22,51 +22,18 @@ export const updateCurrencyRates: NextApiHandler<{ ok: boolean }> = async (
     'EXCHANGE_RATES_API_KEY is not defined',
   )
 
-  const ratesResponse = await fetch(
+  const response = (await fetch(
     'https://api.apilayer.com/exchangerates_data/latest?base=USD',
     { headers: { apikey: process.env.EXCHANGE_RATES_API_KEY } },
-  )
-  const rates = (await ratesResponse.json()) as RatesResponse
+  ).then((response) => response.text())) as RatesResponse
 
   await prisma.$transaction(
-    Object.entries(rates.rates).map(([symbol, rate]) =>
+    Object.entries(response.rates).map(([symbol, rate]) =>
       prisma.currency.upsert({
         where: { symbol },
         create: { symbol, rate },
         update: { rate },
         select: { id: true },
-      }),
-    ),
-  )
-
-  res.status(200).json({ ok: true })
-}
-
-interface SymbolsResponse {
-  symbols: Record<string, string>
-  success: boolean
-}
-
-export const updateCurrencyNames: NextApiHandler<{ ok: boolean }> = async (
-  req,
-  res,
-) => {
-  assert(
-    process.env.EXCHANGE_RATES_API_KEY,
-    'EXCHANGE_RATES_API_KEY is not defined',
-  )
-
-  const ratesResponse = await fetch(
-    'https://api.apilayer.com/exchangerates_data/symbols',
-    { headers: { apikey: process.env.EXCHANGE_RATES_API_KEY } },
-  )
-  const symbols = (await ratesResponse.json()) as SymbolsResponse
-
-  await prisma.$transaction(
-    Object.entries(symbols.symbols).map(([symbol, name]) =>
-      prisma.currency.updateMany({
-        where: { symbol },
-        data: { name },
       }),
     ),
   )

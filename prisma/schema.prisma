@@ -81,8 +81,7 @@ model Currency {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  symbol String  @unique
-  name   String?
+  symbol String @unique
   rate   Float
 
   wallets Wallet[]

@@ -6,11 +6,13 @@ import {
   ClientUser,
   ClientUserGroup,
   ClientWallet,
+  PopulatedClientCurrency,
 } from '@/types/client.js'
 import { Modify } from '@/types/utility.js'
 
 export interface RootStoreState {
   currencies: ClientCurrency[]
+  populatedCurrencies: PopulatedClientCurrency[]
   users: ClientUser[]
   userGroups: ClientUserGroup[]
   groups: ClientGroup[]

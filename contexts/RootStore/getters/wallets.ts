@@ -3,7 +3,7 @@ import { ClientWallet, PopulatedClientWallet } from '@/types/client.js'
 import { ClientBalance } from '@/types/client.js'
 import { Decimal } from '@/utils/Decimal.js'
 import { RootStoreState } from '../types.jsx'
-import { getCurrency } from './currencies.js'
+import { getPopulatedCurrency } from './currencies.js'
 import { getPopulatedGroup } from './groups.js'
 
 interface GetWalletsParams {
@@ -42,7 +42,7 @@ export const getPopulatedWallet = (
   return {
     id: wallet.id,
     name: wallet.name,
-    currency: getCurrency(state, wallet.currencyId),
+    currency: getPopulatedCurrency(state, wallet.currencyId),
     group: getPopulatedGroup(state, wallet.groupId),
   }
 }
@@ -54,7 +54,7 @@ export const getWalletBalance = (
   const wallet = state.wallets.find((wallet) => wallet.id === walletId)
   assert(wallet, 'Wallet not found')
 
-  const currency = getCurrency(state, wallet.currencyId)
+  const currency = getPopulatedCurrency(state, wallet.currencyId)
 
   const balance = state.operations.reduce((acc, operation) => {
     if (!operation.removed && operation.incomeWalletId === walletId) {

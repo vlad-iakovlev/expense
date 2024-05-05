@@ -1,13 +1,13 @@
 import {
-  ClientCurrency,
   ClientStatisticsItem,
   ClientStatisticsType,
+  PopulatedClientCurrency,
 } from '@/types/client.js'
 import { Decimal } from '@/utils/Decimal.js'
 import { Category } from './Category.jsx'
 
 interface CategoriesProps {
-  currency: ClientCurrency
+  currency: PopulatedClientCurrency
   items: ClientStatisticsItem[]
   type: ClientStatisticsType
 }
