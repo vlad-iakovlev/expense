@@ -23,11 +23,11 @@ export const Amount = ({
   const sign = React.useMemo(() => {
     switch (showSign) {
       case 'non-zero':
-        if (!amount) return ''
+        if (amount.eq(Decimal.ZERO)) return ''
         return type === 'income' ? '+' : '-'
 
       case 'negative':
-        if (!amount) return ''
+        if (amount.eq(Decimal.ZERO)) return ''
         return type === 'income' ? '' : '-'
 
       case 'never':

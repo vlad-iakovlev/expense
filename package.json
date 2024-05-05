@@ -73,6 +73,7 @@
     ],
     "rules": {
       "@typescript-eslint/no-extraneous-class": "off",
+      "@typescript-eslint/no-unnecessary-condition": "error",
       "arrow-body-style": [
         "error",
         "as-needed"

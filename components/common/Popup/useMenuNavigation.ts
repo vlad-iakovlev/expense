@@ -45,7 +45,7 @@ export const useMenuNavigation = ({
       )
 
       let nextFocusIndex: number
-      if (currentFocusIndex < 0) {
+      if (currentFocusIndex === -1) {
         nextFocusIndex =
           event.key === 'ArrowDown' ? 0 : focusableElements.length - 1
       } else {
@@ -55,7 +55,7 @@ export const useMenuNavigation = ({
           focusableElements.length
       }
 
-      ;(focusableElements[nextFocusIndex] as HTMLElement)?.focus()
+      ;(focusableElements[nextFocusIndex] as HTMLElement | undefined)?.focus()
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
