@@ -16,8 +16,8 @@ export interface ClientCurrency {
 export interface PopulatedClientCurrency {
   id: string
   symbol: string
-  name?: string
-  fractionalDigits?: number
+  name: string
+  fractionalDigits: number
   rate: number
 }
 

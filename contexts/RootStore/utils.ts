@@ -56,7 +56,8 @@ export const populateCurrency = (
     id: currency.id,
     symbol: currency.symbol,
     name: currencyInfo?.name ?? currency.symbol,
-    fractionalDigits: currencyInfo?.fractionalDigits,
+    // TODO: Replace 6 with something that makes sense
+    fractionalDigits: currencyInfo?.fractionalDigits ?? 6,
     rate: currency.rate,
   }
 }

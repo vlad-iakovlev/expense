@@ -51,7 +51,7 @@ export class Decimal {
   }
 
   static fromNumber(value: number): Decimal {
-    return Decimal.fromString(value.toString())
+    return Decimal.fromString(value.toFixed(100))
   }
 
   // Formatting
@@ -64,7 +64,7 @@ export class Decimal {
     return Number(this.toString())
   }
 
-  toFixed(fractionalDigits = this.fractionalDigits): string {
+  toFixed(fractionalDigits: number): string {
     const atomics =
       (this.atomics * 10n ** BigInt(fractionalDigits)) /
       10n ** BigInt(this.fractionalDigits)
