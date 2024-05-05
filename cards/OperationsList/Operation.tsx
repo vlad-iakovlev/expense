@@ -33,6 +33,7 @@ export const Operation = ({ operationId, walletId }: OperationProps) => {
             ) : null}
           </>
         }
+        clickable
         tabIndex={-1}
       />
     </NextLink>

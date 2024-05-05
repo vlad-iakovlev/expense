@@ -18,6 +18,7 @@ export const GroupOpenCard = ({ groupId }: GroupOpenCardProps) => {
 
   return (
     <NextLink
+      className="rounded-md"
       href={`${ROUTES.GROUP(groupId)}?animation=forward`}
       as={ROUTES.GROUP(groupId)}
     >

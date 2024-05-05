@@ -79,6 +79,7 @@ export const Wallet = ({
             showSign="negative"
           />
         }
+        clickable
         tabIndex={-1}
       />
     </NextLink>
