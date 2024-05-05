@@ -37,7 +37,7 @@ export const PieChart = ({
         y: 50,
         radius: item.id === activeId ? 50 : 48,
         start: lastAngle,
-        end: total
+        end: total.neq(Decimal.ZERO)
           ? lastAngle + (item.value.toNumber() / total.toNumber()) * 360
           : lastAngle,
       }
