@@ -36,9 +36,10 @@ export const BalanceInDefaultCurrency = ({
       value={
         <Amount
           className="select-text font-medium"
-          amount={Decimal.fromNumber(
-            walletBalance.balance.toNumber() *
-              (wallet.group.defaultCurrency.rate / walletBalance.currency.rate),
+          amount={walletBalance.balance.mul(
+            Decimal.fromNumber(
+              wallet.group.defaultCurrency.rate / walletBalance.currency.rate,
+            ),
           )}
           currency={wallet.group.defaultCurrency}
           showSign="negative"

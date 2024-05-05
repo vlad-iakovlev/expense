@@ -96,9 +96,8 @@ export const useStatistics = ({
         const currency = currenciesMap[wallet.currencyId]
         assert(currency, 'Currency not found')
 
-        const amount = Decimal.fromNumber(
-          operation[AMOUNT_FIELD[type]].toNumber() *
-            (statisticsCurrency.rate / currency.rate),
+        const amount = operation[AMOUNT_FIELD[type]].mul(
+          Decimal.fromNumber(statisticsCurrency.rate / currency.rate),
         )
 
         return acc.add(amount)
