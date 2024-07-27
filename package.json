@@ -32,7 +32,7 @@
     "date-fns": "^3.6.0",
     "default-import": "^1.1.5",
     "focus-trap-react": "^10.2.3",
-    "framer-motion": "^11.3.19",
+    "framer-motion": "11.3.8",
     "immer": "^10.1.1",
     "next": "^14.2.5",
     "next-api-middleware": "^3.0.0",
