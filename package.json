@@ -36,7 +36,7 @@
     "immer": "^10.1.1",
     "next": "^14.2.5",
     "next-api-middleware": "^3.0.0",
-    "next-auth": "^5.0.0-beta.19",
+    "next-auth": "^5.0.0-beta.20",
     "node-fetch": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
