@@ -1,13 +1,10 @@
 import * as fns from 'date-fns'
-import { AnimatePresence } from 'framer-motion'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app.js'
-import { useRouter } from 'next/router.js'
 import React from 'react'
 import { ErrorBoundary } from '@/components/common/ErrorBoundary.jsx'
 import { Header } from '@/components/layout/Header/index.jsx'
-import { PageTransition } from '@/components/layout/PageTransition.jsx'
 import { NextHead } from '@/components/next/Head.js'
 import { Fallback } from '@/components/pages/Fallback.jsx'
 import { RootStoreProvider } from '@/contexts/RootStore/index.jsx'
@@ -17,8 +14,6 @@ const App = ({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session | null }>) => {
-  const router = useRouter()
-
   React.useEffect(() => {
     fns.setDefaultOptions({ weekStartsOn: 1 })
   }, [])
@@ -51,15 +46,7 @@ const App = ({
       >
         <RootStoreProvider>
           <Header />
-          <AnimatePresence
-            initial={false}
-            mode="popLayout"
-            custom={router.query.animation}
-          >
-            <PageTransition key={router.asPath}>
-              <Component {...pageProps} />
-            </PageTransition>
-          </AnimatePresence>
+          <Component {...pageProps} />
         </RootStoreProvider>
       </SessionProvider>
     </ErrorBoundary>
