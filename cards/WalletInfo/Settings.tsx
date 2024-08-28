@@ -10,8 +10,7 @@ interface SettingsProps {
 export const Settings = ({ walletId }: SettingsProps) => (
   <NextLink
     className="rounded-full"
-    href={`${ROUTES.WALLET_SETTINGS(walletId)}?animation=forward`}
-    as={ROUTES.WALLET_SETTINGS(walletId)}
+    href={ROUTES.WALLET_SETTINGS(walletId)}
     aria-label="Settings"
   >
     <Button

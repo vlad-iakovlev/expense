@@ -21,10 +21,7 @@ export const Delete = ({ operationId }: DeleteProps) => {
   const handleDeleteConfirm = React.useCallback(() => {
     void (async () => {
       const wallet = operation.expenseWallet ?? operation.incomeWallet
-      await router.push(
-        `${wallet ? ROUTES.WALLET(wallet.id) : ROUTES.DASHBOARD}?animation=back`,
-        wallet ? ROUTES.WALLET(wallet.id) : ROUTES.DASHBOARD,
-      )
+      await router.push(wallet ? ROUTES.WALLET(wallet.id) : ROUTES.DASHBOARD)
       removeOperation()
     })()
   }, [operation.expenseWallet, operation.incomeWallet, removeOperation, router])

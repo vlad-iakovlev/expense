@@ -17,11 +17,7 @@ export const GroupOpenCard = ({ groupId }: GroupOpenCardProps) => {
   const { groupMembers } = useGroupMembers({ groupId })
 
   return (
-    <NextLink
-      className="rounded-md"
-      href={`${ROUTES.GROUP(groupId)}?animation=forward`}
-      as={ROUTES.GROUP(groupId)}
-    >
+    <NextLink className="rounded-md" href={ROUTES.GROUP(groupId)}>
       <Card aria-label={`Group ${group.name}`} clickable>
         <Card.Title
           title={group.name}

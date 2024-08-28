@@ -31,10 +31,7 @@ export const Delete = ({ groupId, userId, tabIndex }: DeleteProps) => {
       assert(session.data.user?.id, 'User id is required')
 
       if (session.data.user.id === userId) {
-        await router.push(
-          `${ROUTES.DASHBOARD}?animation=back`,
-          ROUTES.DASHBOARD,
-        )
+        await router.push(ROUTES.DASHBOARD)
         leaveGroup()
       } else {
         removeMemberFromGroup(userId)

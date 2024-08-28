@@ -65,10 +65,7 @@ export const Wallet = ({
   }
 
   return (
-    <NextLink
-      href={`${ROUTES.WALLET(wallet.id)}?animation=forward`}
-      as={ROUTES.WALLET(wallet.id)}
-    >
+    <NextLink href={ROUTES.WALLET(wallet.id)}>
       <Card.Item
         label={wallet.name}
         value={

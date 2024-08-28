@@ -15,10 +15,7 @@ export const Operation = ({ operationId, walletId }: OperationProps) => {
   const { operation } = useOperation({ operationId })
 
   return (
-    <NextLink
-      href={`${ROUTES.OPERATION(operation.id)}?animation=forward`}
-      as={ROUTES.OPERATION(operation.id)}
-    >
+    <NextLink href={ROUTES.OPERATION(operation.id)}>
       <Card.Item
         label={
           <>
