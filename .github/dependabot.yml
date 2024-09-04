@@ -11,6 +11,9 @@ updates:
       - dependency-name: '@types/node'
         update-types:
           - 'version-update:semver-major'
+      - dependency-name: 'default-import'
+        update-types:
+          - 'version-update:semver-major'
       - dependency-name: 'eslint'
         update-types:
           - 'version-update:semver-major'
