@@ -54,7 +54,7 @@
     "eslint-config-next": "^14.2.7",
     "eslint-config-prettier": "^9.1.0",
     "fast-xml-parser": "^4.4.1",
-    "lefthook": "^1.7.14",
+    "lefthook": "^1.7.15",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
     "prisma": "^5.19.0",
