@@ -25,7 +25,7 @@ export const updateCurrencyRates: NextApiHandler<{ ok: boolean }> = async (
   const response = (await fetch(
     'https://api.apilayer.com/exchangerates_data/latest?base=USD',
     { headers: { apikey: process.env.EXCHANGE_RATES_API_KEY } },
-  ).then((response) => response.text())) as RatesResponse
+  ).then((response) => response.json())) as RatesResponse
 
   await prisma.$transaction(
     Object.entries(response.rates).map(([symbol, rate]) =>
