@@ -34,7 +34,7 @@
     "focus-trap-react": "^10.2.3",
     "framer-motion": "^11.5.4",
     "immer": "^10.1.1",
-    "next": "^14.2.8",
+    "next": "^14.2.11",
     "next-api-middleware": "^3.0.0",
     "next-auth": "^5.0.0-beta.20",
     "node-fetch": "^3.3.2",
@@ -42,16 +42,16 @@
     "react-dom": "^18.3.1",
     "sharp": "^0.33.5",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss": "^3.4.10",
+    "tailwindcss": "^3.4.11",
     "uuid": "^10.0.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@typescript-eslint/eslint-plugin": "^8.4.0",
+    "@typescript-eslint/eslint-plugin": "^8.5.0",
     "chalk": "^5.3.0",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.8",
+    "eslint-config-next": "^14.2.11",
     "eslint-config-prettier": "^9.1.0",
     "fast-xml-parser": "^4.5.0",
     "lefthook": "^1.7.15",
@@ -59,7 +59,7 @@
     "prettier-plugin-tailwindcss": "^0.6.6",
     "prisma": "^5.19.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   },
   "eslintConfig": {
     "parserOptions": {
