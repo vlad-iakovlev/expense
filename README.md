@@ -20,10 +20,6 @@ Expense is a user-friendly expense tracking web-application designed to help you
 
 To start using Expense, sign up with you Google Account at [https://expense.vlad-iakovlev.dev](https://expense.vlad-iakovlev.dev).
 
-## License
-
-This project is open source and available under the [AGPL License](LICENSE).
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request or open an Issue.
