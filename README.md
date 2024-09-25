@@ -22,7 +22,7 @@ To start using Expense, sign up with you Google Account at [https://expense.vlad
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and available under the [AGPL License](LICENSE).
 
 ## Contributing
 
