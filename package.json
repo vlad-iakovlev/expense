@@ -24,7 +24,7 @@
     "@heroicons/react": "^2.1.5",
     "@prisma/client": "^5.22.0",
     "@serwist/next": "^9.0.10",
-    "@types/node": "^18.19.64",
+    "@types/node": "^18.19.65",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
