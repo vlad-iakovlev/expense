@@ -1,11 +1,10 @@
-FROM node:18-alpine AS base
+# See https://github.com/nodejs/docker-node/issues/2175
+FROM node:18-alpine3.20 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
 # See https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine
 RUN apk add --no-cache libc6-compat
-# See https://github.com/nodejs/docker-node/issues/2175
-RUN ln -s /usr/lib/libssl.so.3 /lib/libssl.so.3
 WORKDIR /app
 
 # Install dependencies
