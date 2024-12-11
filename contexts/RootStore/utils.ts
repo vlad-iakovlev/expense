@@ -1,4 +1,4 @@
-import currenciesInfo from '@/constants/currencies.json'
+import currenciesInfo from '@/constants/currencies.json' with { type: 'json' }
 import {
   ClientCurrency,
   ClientTransaction,
