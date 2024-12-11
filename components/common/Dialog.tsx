@@ -1,4 +1,4 @@
-import FocusTrap from 'focus-trap-react'
+import { FocusTrap } from 'focus-trap-react'
 import { AnimatePresence, Variants, easeInOut, motion } from 'framer-motion'
 import React from 'react'
 import { Portal } from './Portal.jsx'
