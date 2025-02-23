@@ -35,5 +35,11 @@ updates:
       - dependency-name: 'react-dom'
         update-types:
           - 'version-update:semver-major'
+      - dependency-name: 'tailwindcss'
+        update-types:
+          - 'version-update:semver-major'
+      - dependency-name: 'tailwind-merge'
+        update-types:
+          - 'version-update:semver-major'
     reviewers:
       - vlad-iakovlev
