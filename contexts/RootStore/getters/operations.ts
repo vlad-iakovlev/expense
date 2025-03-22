@@ -54,7 +54,7 @@ export const getOrderedOperations = (
     walletId,
     category,
   })
-  return operations.sort((a, b) => Number(b.date) - Number(a.date))
+  return operations.reverse().sort((a, b) => Number(b.date) - Number(a.date))
 }
 
 export const getOperationType = (
