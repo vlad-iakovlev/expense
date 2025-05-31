@@ -41,5 +41,3 @@ updates:
       - dependency-name: 'tailwind-merge'
         update-types:
           - 'version-update:semver-major'
-    reviewers:
-      - vlad-iakovlev
