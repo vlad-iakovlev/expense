@@ -39,7 +39,7 @@ export const IncomeOperation = ({
         />
       </div>
 
-      <div className="text-tertiary flex items-center gap-3 text-sm">
+      <div className="flex items-center gap-3 text-sm text-tertiary-foreground">
         <div className="flex-none">{formatTime(operation.date)}</div>
 
         {!walletId && (

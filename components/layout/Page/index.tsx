@@ -8,7 +8,7 @@ interface PageProps {
 }
 
 export const Page = ({ withStoreValidation = true, children }: PageProps) => (
-  <main className="bg-primary min-h-screen pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] pt-[calc(env(safe-area-inset-top)+4.5rem)]">
+  <main className="min-h-screen bg-primary-background pt-[calc(env(safe-area-inset-top)+4.5rem)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)]">
     <Container className="py-8">
       <PageAuth>
         {withStoreValidation ? <PageStore>{children}</PageStore> : children}

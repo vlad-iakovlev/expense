@@ -42,7 +42,7 @@ export const Switch = ({
     <button
       className={twMerge(
         'flex h-7 w-11 items-center rounded-full p-0.5 transition-colors',
-        value ? 'bg-green-700' : 'bg-quaternary',
+        value ? 'bg-green-700' : 'bg-quaternary-background',
         className,
       )}
       type="button"
@@ -55,7 +55,7 @@ export const Switch = ({
     >
       <div
         className={twMerge(
-          'bg-secondary h-6 w-6 transform rounded-full shadow-sm transition-transform',
+          'h-6 w-6 transform rounded-full bg-secondary-background shadow-xs transition-transform',
           value ? 'translate-x-4' : 'translate-x-0',
         )}
         aria-hidden="true"

@@ -35,7 +35,7 @@ export const MyDocument = () => (
       ))}
     </Head>
 
-    <body className="text-primary bg-primary touch-pan-y select-none overscroll-none [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]">
+    <body className="touch-pan-y overscroll-none bg-primary-background text-primary-foreground select-none [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none]">
       <Main />
       <NextScript />
     </body>

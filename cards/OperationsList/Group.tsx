@@ -9,7 +9,7 @@ interface GroupProps {
 }
 
 export const Group = ({ date, operationIds, walletId }: GroupProps) => (
-  <div className="bg-secondary" role="listitem">
+  <div className="bg-secondary-background" role="listitem">
     <div role="list" aria-label={formatDateForAriaLabel(date)}>
       <Card.Subtitle subtitle={formatDate(date)} />
 

@@ -99,9 +99,6 @@ export const Scrollable = ({
     }
   }, [isVTrackVisible, isHTrackVisible, vTrack, hTrack, vThumb, hThumb])
 
-  const thumbClassName =
-    'absolute rounded-full bg-black bg-opacity-[0.35] dark:bg-white dark:bg-opacity-50'
-
   return (
     <div className={twMerge('relative overflow-hidden', className)}>
       <div
@@ -125,7 +122,7 @@ export const Scrollable = ({
         aria-hidden="true"
       >
         <div
-          className={twMerge(thumbClassName, 'w-full')}
+          className="absolute w-full rounded-full bg-black/35 dark:bg-white/50"
           style={{ top: vThumb.offset, height: vThumb.length }}
         />
       </motion.div>
@@ -144,7 +141,7 @@ export const Scrollable = ({
         aria-hidden="true"
       >
         <div
-          className={twMerge(thumbClassName, 'h-full')}
+          className="absolute h-full rounded-full bg-black/35 dark:bg-white/50"
           style={{ left: hThumb.offset, width: hThumb.length }}
         />
       </motion.div>

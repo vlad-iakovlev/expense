@@ -90,7 +90,7 @@ export const Home = () => {
 
         <Card
           aria-label="What to do?"
-          className="md:max-lg:col-[1] md:max-lg:row-[2]"
+          className="md:max-lg:col-1 md:max-lg:row-2"
         >
           <Card.Title title="What to do?" />
           <Card.Divider />

@@ -55,7 +55,7 @@ export const Group = ({
     <div
       ref={setNodeRef}
       className={twMerge(
-        'bg-secondary relative transition-shadow',
+        'relative bg-secondary-background transition-shadow',
         isDragging ? 'z-10 shadow-dnd' : 'shadow-none',
       )}
       style={{

@@ -64,7 +64,7 @@ export const CardItem = React.forwardRef<HTMLDivElement, CardItemProps>(
         ref={ref}
         className={twMerge(
           (clickable || onClick) &&
-            'cursor-pointer hover:bg-tertiary active:bg-tertiary',
+            'cursor-pointer hover:bg-tertiary-background active:bg-tertiary-background',
           disabled && 'pointer-events-none',
           className,
         )}

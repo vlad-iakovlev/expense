@@ -1,22 +1,68 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --breakpoint-sm: 28rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 71rem;
+  --breakpoint-xl: 94rem;
+  --breakpoint-2xl: 117rem;
+
+  --shadow-dnd: 0 5px 15px rgb(0 0 0 / 0.25);
+}
 
 :root {
-  color-scheme: light dark;
+  --primary-foreground: var(--color-black);
+  --secondary-foreground: var(--color-zinc-900);
+  --tertiary-foreground: var(--color-zinc-600);
+
+  --primary-background: var(--color-zinc-300);
+  --secondary-background: var(--color-white);
+  --tertiary-background: var(--color-zinc-100);
+  --quaternary-background: var(--color-zinc-200);
+  --quinary-background: var(--color-zinc-300);
+
+  --primary-border: var(--color-zinc-300);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-foreground: var(--color-zinc-100);
+    --secondary-foreground: var(--color-zinc-200);
+    --tertiary-foreground: var(--color-zinc-300);
+
+    --primary-background: var(--color-zinc-900);
+    --secondary-background: var(--color-zinc-800);
+    --tertiary-background: var(--color-zinc-700);
+    --quaternary-background: var(--color-zinc-600);
+    --quinary-background: var(--zinc-500);
+
+    --primary-border: var(--color-zinc-600);
+  }
+}
+
+@theme inline {
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-tertiary-foreground: var(--tertiary-foreground);
+
+  --color-primary-background: var(--primary-background);
+  --color-secondary-background: var(--secondary-background);
+  --color-tertiary-background: var(--tertiary-background);
+  --color-quaternary-background: var(--quaternary-background);
+  --color-quinary-background: var(--quinary-background);
+
+  --color-primary-border: var(--primary-border);
 }
 
 nextjs-portal {
   user-select: text;
 }
 
-@layer utilities {
-  .hide-scrollbars {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
+@utility hide-scrollbars {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
-  .hide-scrollbars::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 }

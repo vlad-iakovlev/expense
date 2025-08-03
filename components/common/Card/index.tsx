@@ -42,7 +42,7 @@ export const Card = ({
   return (
     <div
       className={twMerge(
-        'bg-secondary rounded-md py-2 text-left shadow-lg ring-1 ring-black ring-opacity-5 transition-shadow',
+        'rounded-md bg-secondary-background py-2 text-left shadow-lg ring-1 ring-black/5 transition-shadow',
         (clickable || onClick) &&
           'cursor-pointer hover:shadow-2xl active:shadow-2xl',
         className,

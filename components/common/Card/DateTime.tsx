@@ -74,7 +74,7 @@ export const CardDateTime = ({
       value={
         isEditing ? (
           <input
-            className="w-full bg-transparent text-right focus:outline-none"
+            className="w-full bg-transparent text-right focus:outline-hidden"
             autoFocus
             type="datetime-local"
             value={inputValue}

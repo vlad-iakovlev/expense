@@ -88,7 +88,7 @@ export const HeaderUser = ({ className }: HeaderUserProps) => {
                   <div className="truncate text-xl">
                     {session.data.user?.name}
                   </div>
-                  <div className="text-tertiary truncate">
+                  <div className="truncate text-tertiary-foreground">
                     {session.data.user?.email}
                   </div>
                 </>

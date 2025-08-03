@@ -32,7 +32,9 @@ export const TransferOperation = ({
         {operation.category} – {operation.name}
       </div>
 
-      <div className="text-tertiary text-sm">{formatTime(operation.date)}</div>
+      <div className="text-sm text-tertiary-foreground">
+        {formatTime(operation.date)}
+      </div>
 
       <div className="mt-2 flex items-center gap-3">
         <div className="min-w-0 flex-1">
@@ -48,7 +50,7 @@ export const TransferOperation = ({
               'truncate text-sm',
               operation.expenseWallet.id === walletId
                 ? 'font-medium'
-                : 'text-tertiary',
+                : 'text-tertiary-foreground',
             )}
           >
             {operation.expenseWallet.name}
@@ -70,7 +72,7 @@ export const TransferOperation = ({
               'truncate text-sm',
               operation.incomeWallet.id === walletId
                 ? 'font-medium'
-                : 'text-tertiary',
+                : 'text-tertiary-foreground',
             )}
           >
             {operation.incomeWallet.name}

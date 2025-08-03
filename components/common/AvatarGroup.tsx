@@ -49,7 +49,7 @@ export const AvatarGroup = ({
             size === 'sm' && '-ml-5',
             size === 'md' && '-ml-6',
           )}
-          color="green"
+          colorClassName="bg-green-800"
           slug={`+${extraCount}`}
           size={size}
         />

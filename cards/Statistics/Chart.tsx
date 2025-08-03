@@ -47,7 +47,7 @@ export const Chart = ({ currency, items, type }: ChartProps) => {
           tabIndex={0}
           aria-label={`Total: ${total.toFixed(currency.fractionalDigits)} ${currency.name}`}
         >
-          <div className="text-tertiary truncate">
+          <div className="truncate text-tertiary-foreground">
             {item ? item.category : TITLE[type]}
           </div>
           <Amount
@@ -56,7 +56,7 @@ export const Chart = ({ currency, items, type }: ChartProps) => {
             currency={currency}
             type={AMOUNT_TYPE[type]}
           />
-          <div className="text-tertiary">
+          <div className="text-tertiary-foreground">
             {formatPercent(
               item ? item.amount.toNumber() / total.toNumber() : 1,
             )}
