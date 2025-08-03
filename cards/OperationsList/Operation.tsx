@@ -1,10 +1,10 @@
-import { Card } from '@/components/common/Card/index.jsx'
-import { NextLink } from '@/components/next/Link.js'
-import { ROUTES } from '@/constants/routes.js'
-import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
-import { ExpenseOperation } from './ExpenseOperation.jsx'
-import { IncomeOperation } from './IncomeOperation.jsx'
-import { TransferOperation } from './TransferOperation.jsx'
+import Link from 'next/link'
+import { Card } from '@/components/common/Card/index'
+import { ROUTES } from '@/constants/routes'
+import { useOperation } from '@/contexts/RootStore/hooks/useOperation'
+import { ExpenseOperation } from './ExpenseOperation'
+import { IncomeOperation } from './IncomeOperation'
+import { TransferOperation } from './TransferOperation'
 
 interface OperationProps {
   operationId: string
@@ -15,7 +15,7 @@ export const Operation = ({ operationId, walletId }: OperationProps) => {
   const { operation } = useOperation({ operationId })
 
   return (
-    <NextLink href={ROUTES.OPERATION(operation.id)}>
+    <Link href={ROUTES.OPERATION(operation.id)}>
       <Card.Item
         label={
           <>
@@ -33,6 +33,6 @@ export const Operation = ({ operationId, walletId }: OperationProps) => {
         clickable
         tabIndex={-1}
       />
-    </NextLink>
+    </Link>
   )
 }

@@ -1,7 +1,7 @@
 import { AnimatePresence, Variants, easeInOut, motion } from 'framer-motion'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { useMenuNavigation } from './useMenuNavigation.js'
+import { useMenuNavigation } from './useMenuNavigation'
 
 const variants: Variants = {
   opened: {
@@ -61,9 +61,9 @@ export const Popup = ({
             className={twMerge(
               'pointer-events-auto absolute',
               position === 'above-left' && 'bottom-0 left-0',
-              position === 'above-right' && 'bottom-0 right-0',
-              position === 'below-left' && 'left-0 top-0',
-              position === 'below-right' && 'right-0 top-0',
+              position === 'above-right' && 'right-0 bottom-0',
+              position === 'below-left' && 'top-0 left-0',
+              position === 'below-right' && 'top-0 right-0',
               popupClassName,
             )}
             initial="closed"

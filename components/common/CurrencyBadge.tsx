@@ -1,4 +1,4 @@
-import { PopulatedClientCurrency } from '@/types/client.js'
+import { PopulatedClientCurrency } from '@/types/client'
 
 export interface CurrencyBadgeProps {
   currency: PopulatedClientCurrency

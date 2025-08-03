@@ -1,9 +1,9 @@
 import assert from 'assert'
 import React from 'react'
-import { useCurrencies } from '@/contexts/RootStore/hooks/useCurrencies.js'
-import { PopulatedClientCurrency } from '@/types/client.js'
-import { Card, CardSelectItem } from './Card/index.jsx'
-import { CurrencyBadge } from './CurrencyBadge.jsx'
+import { useCurrencies } from '@/contexts/RootStore/hooks/useCurrencies'
+import { PopulatedClientCurrency } from '@/types/client'
+import { Card, CardSelectItem } from './Card/index'
+import { CurrencyBadge } from './CurrencyBadge'
 
 const PRIORITIZED_CURRENCIES = ['USD', 'EUR']
 

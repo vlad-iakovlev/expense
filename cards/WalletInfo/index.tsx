@@ -1,7 +1,7 @@
-import { Card } from '@/components/common/Card/index.jsx'
-import { Balance } from './Balance.jsx'
-import { BalanceInDefaultCurrency } from './BalanceInDefaultCurrency.jsx'
-import { Settings } from './Settings.jsx'
+import { Card } from '@/components/common/Card/index'
+import { Balance } from './Balance'
+import { BalanceInDefaultCurrency } from './BalanceInDefaultCurrency'
+import { Settings } from './Settings'
 
 interface WalletInfoCardProps {
   className?: string

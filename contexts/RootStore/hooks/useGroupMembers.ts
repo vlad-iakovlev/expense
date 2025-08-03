@@ -1,9 +1,9 @@
 import assert from 'assert'
 import { useSession } from 'next-auth/react'
 import React from 'react'
-import { ClientUser } from '@/types/client.js'
-import { getGroupMembers } from '../getters/groups.js'
-import { useRootStore } from '../index.jsx'
+import { ClientUser } from '@/types/client'
+import { getGroupMembers } from '../getters/groups'
+import { useRootStore } from '../index'
 
 interface UseGroupMembersProps {
   groupId: string

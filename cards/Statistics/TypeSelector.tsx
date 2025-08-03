@@ -1,5 +1,5 @@
-import { Button } from '@/components/common/Button.jsx'
-import { ClientStatisticsType } from '@/types/client.js'
+import { Button } from '@/components/common/Button'
+import { ClientStatisticsType } from '@/types/client'
 
 interface TypeSelectorProps {
   value: ClientStatisticsType

@@ -1,13 +1,13 @@
 import * as fns from 'date-fns'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
-import { AppProps } from 'next/app.js'
+import { AppProps } from 'next/app'
+import Head from 'next/head'
 import React from 'react'
-import { ErrorBoundary } from '@/components/common/ErrorBoundary.jsx'
-import { Header } from '@/components/layout/Header/index.jsx'
-import { NextHead } from '@/components/next/Head.js'
-import { Fallback } from '@/components/pages/Fallback.jsx'
-import { RootStoreProvider } from '@/contexts/RootStore/index.jsx'
+import { ErrorBoundary } from '@/components/common/ErrorBoundary'
+import { Header } from '@/components/layout/Header/index'
+import { Fallback } from '@/components/pages/Fallback'
+import { RootStoreProvider } from '@/contexts/RootStore/index'
 import '@/styles/globals.css'
 
 const App = ({
@@ -32,12 +32,12 @@ const App = ({
 
   return (
     <ErrorBoundary fallback={<Fallback />}>
-      <NextHead>
+      <Head>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
         />
-      </NextHead>
+      </Head>
 
       <SessionProvider
         session={session}

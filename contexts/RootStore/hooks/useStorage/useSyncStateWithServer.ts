@@ -1,13 +1,13 @@
 import React from 'react'
-import { performSync } from '@/api/client/sync.js'
-import { ERROR_TYPES } from '@/constants/errors.js'
-import { useIsOnline } from '@/hooks/useIsOnline.js'
-import { useThrowError } from '@/hooks/useThrowError.js'
-import { getRemoteStorageBody } from '../../getters/storage.js'
-import { StorageAction } from '../../reducers/storage.js'
-import { RootStoreState, StorageActionType } from '../../types.jsx'
-import { isTransactionEmpty } from '../../utils.js'
-import { getLocalStorageKey } from './constants.js'
+import { performSync } from '@/api/client/sync'
+import { ERROR_TYPES } from '@/constants/errors'
+import { useIsOnline } from '@/hooks/useIsOnline'
+import { useThrowError } from '@/hooks/useThrowError'
+import { getRemoteStorageBody } from '../../getters/storage'
+import { StorageAction } from '../../reducers/storage'
+import { RootStoreState, StorageActionType } from '../../types'
+import { isTransactionEmpty } from '../../utils'
+import { getLocalStorageKey } from './constants'
 
 export const useSyncStateWithServer = (
   state: RootStoreState,

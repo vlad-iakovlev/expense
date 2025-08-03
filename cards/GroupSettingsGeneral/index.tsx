@@ -1,7 +1,7 @@
-import { Card } from '@/components/common/Card/index.jsx'
-import { DefaultCurrency } from './DefaultCurrency.jsx'
-import { Delete } from './Delete.jsx'
-import { Name } from './Name.jsx'
+import { Card } from '@/components/common/Card/index'
+import { DefaultCurrency } from './DefaultCurrency'
+import { Delete } from './Delete'
+import { Name } from './Name'
 
 interface GroupSettingsGeneralCardProps {
   className?: string

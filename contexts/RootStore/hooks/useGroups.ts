@@ -1,8 +1,8 @@
 import React from 'react'
 import { v4 as uuid } from 'uuid'
-import { getOrderedGroups } from '../getters/groups.js'
-import { useRootStore } from '../index.jsx'
-import { GroupsActionTypes } from '../types.jsx'
+import { getOrderedGroups } from '../getters/groups'
+import { useRootStore } from '../index'
+import { GroupsActionTypes } from '../types'
 
 export const useGroups = () => {
   const { state, dispatch } = useRootStore()

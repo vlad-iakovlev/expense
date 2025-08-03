@@ -1,7 +1,7 @@
 import assert from 'assert'
-import { Amount } from '@/components/common/Amount.jsx'
-import { PopulatedClientOperation } from '@/types/client.js'
-import { formatTime } from '@/utils/formatDate.js'
+import { Amount } from '@/components/common/Amount'
+import { PopulatedClientOperation } from '@/types/client'
+import { formatTime } from '@/utils/formatDate'
 
 interface IncomeOperationProps {
   operation: PopulatedClientOperation

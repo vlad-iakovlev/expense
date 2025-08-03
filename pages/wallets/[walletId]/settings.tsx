@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
-import { useRouter } from 'next/router.js'
-import { Page } from '@/components/layout/Page/index.jsx'
-import { WalletSettings } from '@/components/pages/WalletSettings.jsx'
-import { CategoryFilterProvider } from '@/contexts/CategoryFilter.jsx'
+import { useRouter } from 'next/router'
+import { Page } from '@/components/layout/Page/index'
+import { WalletSettings } from '@/components/pages/WalletSettings'
+import { CategoryFilterProvider } from '@/contexts/CategoryFilter'
 
 const WalletSettingsPage: NextPage = () => {
   const router = useRouter()

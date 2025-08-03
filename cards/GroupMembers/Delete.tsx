@@ -1,12 +1,12 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import assert from 'assert'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router.js'
+import { useRouter } from 'next/router'
 import React from 'react'
-import { Button } from '@/components/common/Button.jsx'
-import { ConfirmDialog } from '@/components/common/ConfirmDialog.jsx'
-import { ROUTES } from '@/constants/routes.js'
-import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
+import { Button } from '@/components/common/Button'
+import { ConfirmDialog } from '@/components/common/ConfirmDialog'
+import { ROUTES } from '@/constants/routes'
+import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 
 interface DeleteProps {
   groupId: string

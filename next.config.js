@@ -10,12 +10,6 @@ const withSerwist = withSerwistInit({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    extensionAlias: {
-      '.js': ['.ts', '.js'],
-      '.jsx': ['.tsx', '.jsx'],
-    },
-  },
   images: {
     remotePatterns: [
       {

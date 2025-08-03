@@ -1,9 +1,9 @@
 import assert from 'assert'
 import React from 'react'
 import { v4 as uuid } from 'uuid'
-import { getOrderedWallets } from '../getters/wallets.js'
-import { useRootStore } from '../index.jsx'
-import { WalletsActionTypes } from '../types.jsx'
+import { getOrderedWallets } from '../getters/wallets'
+import { useRootStore } from '../index'
+import { WalletsActionTypes } from '../types'
 
 interface UseWalletsProps {
   groupId?: string

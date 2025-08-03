@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router.js'
-import { ROUTES } from '@/constants/routes.js'
-import { useIsTabVisible } from '@/hooks/useIsTabVisible.js'
+import { useRouter } from 'next/router'
+import { ROUTES } from '@/constants/routes'
+import { useIsTabVisible } from '@/hooks/useIsTabVisible'
 
 export const useCanLoadState = () => {
   const session = useSession()

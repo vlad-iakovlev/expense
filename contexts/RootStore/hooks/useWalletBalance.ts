@@ -1,7 +1,7 @@
 import React from 'react'
-import { ClientBalance } from '@/types/client.js'
-import { getWalletBalance } from '../getters/wallets.js'
-import { useRootStore } from '../index.jsx'
+import { ClientBalance } from '@/types/client'
+import { getWalletBalance } from '../getters/wallets'
+import { useRootStore } from '../index'
 
 interface UseWalletBalanceProps {
   walletId: string

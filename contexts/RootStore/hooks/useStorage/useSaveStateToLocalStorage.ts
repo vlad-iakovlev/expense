@@ -1,8 +1,8 @@
 import React from 'react'
-import { getBrowserStorageState } from '../../getters/storage.js'
-import { StorageAction } from '../../reducers/storage.js'
-import { RootStoreState } from '../../types.jsx'
-import { getLocalStorageKey } from './constants.js'
+import { getBrowserStorageState } from '../../getters/storage'
+import { StorageAction } from '../../reducers/storage'
+import { RootStoreState } from '../../types'
+import { getLocalStorageKey } from './constants'
 
 export const useSaveStateToLocalStorage = (
   state: RootStoreState,

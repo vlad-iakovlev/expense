@@ -1,18 +1,18 @@
 import assert from 'assert'
-import { PerformSyncResponse } from '@/api/server/sync/types.js'
-import { Decimal } from '@/utils/Decimal.js'
-import { uniqBy } from '@/utils/uniqBy.js'
+import { PerformSyncResponse } from '@/api/server/sync/types'
+import { Decimal } from '@/utils/Decimal'
+import { uniqBy } from '@/utils/uniqBy'
 import {
   BrowserStorageState,
   RootStoreState,
   StorageActionType,
-} from '../types.jsx'
+} from '../types'
 import {
   getEmptyState,
   getEmptyTransaction,
   mergeTransactions,
   populateCurrency,
-} from '../utils.js'
+} from '../utils'
 
 const startSyncReducer: React.Reducer<
   RootStoreState,
@@ -198,11 +198,11 @@ const resetStateReducer: React.Reducer<
 > = () => getEmptyState()
 
 export type StorageAction =
-  | React.ReducerAction<typeof startSyncReducer>
-  | React.ReducerAction<typeof abortSyncReducer>
-  | React.ReducerAction<typeof setStateFromRemoteStorageReducer>
-  | React.ReducerAction<typeof setStateFromBrowserStorageReducer>
-  | React.ReducerAction<typeof resetStateReducer>
+  | Parameters<typeof startSyncReducer>[1]
+  | Parameters<typeof abortSyncReducer>[1]
+  | Parameters<typeof setStateFromRemoteStorageReducer>[1]
+  | Parameters<typeof setStateFromBrowserStorageReducer>[1]
+  | Parameters<typeof resetStateReducer>[1]
 
 export const isStorageAction = (action: {
   type: string

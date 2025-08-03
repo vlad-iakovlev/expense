@@ -4,10 +4,10 @@ import {
   ClientWallet,
   GroupedWallets,
   PopulatedClientCurrency,
-} from '@/types/client.js'
-import { getOrderedWallets } from '../getters/wallets.js'
-import { useRootStore } from '../index.jsx'
-import { WalletsActionTypes } from '../types.jsx'
+} from '@/types/client'
+import { getOrderedWallets } from '../getters/wallets'
+import { useRootStore } from '../index'
+import { WalletsActionTypes } from '../types'
 
 interface UseGroupedWalletsProps {
   groupId?: string

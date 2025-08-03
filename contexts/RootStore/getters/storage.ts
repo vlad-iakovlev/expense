@@ -1,6 +1,6 @@
-import { PerformSyncBody } from '@/api/server/sync/types.js'
-import { BrowserStorageState, RootStoreState } from '../types.jsx'
-import { isTransactionEmpty } from '../utils.js'
+import { PerformSyncBody } from '@/api/server/sync/types'
+import { BrowserStorageState, RootStoreState } from '../types'
+import { isTransactionEmpty } from '../utils'
 
 export const getBrowserStorageState = (
   state: RootStoreState,

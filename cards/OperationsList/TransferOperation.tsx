@@ -1,9 +1,9 @@
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import assert from 'assert'
 import { twMerge } from 'tailwind-merge'
-import { Amount } from '@/components/common/Amount.jsx'
-import { PopulatedClientOperation } from '@/types/client.js'
-import { formatTime } from '@/utils/formatDate.js'
+import { Amount } from '@/components/common/Amount'
+import { PopulatedClientOperation } from '@/types/client'
+import { formatTime } from '@/utils/formatDate'
 
 interface TransferOperationProps {
   operation: PopulatedClientOperation

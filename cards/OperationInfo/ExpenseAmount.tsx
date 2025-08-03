@@ -1,7 +1,7 @@
 import React from 'react'
-import { Card } from '@/components/common/Card/index.jsx'
-import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
-import { Decimal } from '@/utils/Decimal.js'
+import { Card } from '@/components/common/Card/index'
+import { useOperation } from '@/contexts/RootStore/hooks/useOperation'
+import { Decimal } from '@/utils/Decimal'
 
 interface ExpenseAmountProps {
   operationId: string

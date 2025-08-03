@@ -9,12 +9,12 @@ import {
   UsersIcon,
 } from '@heroicons/react/24/outline'
 import { signIn } from 'next-auth/react'
+import Head from 'next/head'
 import React from 'react'
-import { Card } from '@/components/common/Card/index.jsx'
-import { Columns } from '@/components/common/Columns.jsx'
-import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
-import { ExternalLink } from '../common/ExternalLink.jsx'
+import { Card } from '@/components/common/Card/index'
+import { Columns } from '@/components/common/Columns'
+import { Title } from '@/components/common/Title'
+import { ExternalLink } from '../common/ExternalLink'
 
 export const Home = () => {
   const [isLoading, setIsLoading] = React.useState(false)
@@ -32,9 +32,9 @@ export const Home = () => {
 
   return (
     <>
-      <NextHead>
+      <Head>
         <title>Expense</title>
-      </NextHead>
+      </Head>
 
       <Title title="Home" />
 

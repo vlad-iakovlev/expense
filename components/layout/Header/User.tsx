@@ -1,9 +1,9 @@
 import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import React from 'react'
-import { Avatar } from '@/components/common/Avatar.jsx'
-import { Button } from '@/components/common/Button.jsx'
-import { Card } from '@/components/common/Card/index.jsx'
+import { Avatar } from '@/components/common/Avatar'
+import { Button } from '@/components/common/Button'
+import { Card } from '@/components/common/Card/index'
 
 interface HeaderUserProps {
   className?: string

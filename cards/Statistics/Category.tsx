@@ -1,17 +1,14 @@
 import { FunnelIcon } from '@heroicons/react/20/solid'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Amount } from '@/components/common/Amount.jsx'
-import { Button } from '@/components/common/Button.jsx'
-import { Card } from '@/components/common/Card/index.jsx'
-import { Switch } from '@/components/common/Switch.jsx'
-import { useCategoryFilter } from '@/contexts/CategoryFilter.jsx'
-import { useDisabledCategories } from '@/contexts/RootStore/hooks/useDisabledCategories.js'
-import {
-  ClientStatisticsType,
-  PopulatedClientCurrency,
-} from '@/types/client.js'
-import { Decimal } from '@/utils/Decimal.js'
+import { Amount } from '@/components/common/Amount'
+import { Button } from '@/components/common/Button'
+import { Card } from '@/components/common/Card/index'
+import { Switch } from '@/components/common/Switch'
+import { useCategoryFilter } from '@/contexts/CategoryFilter'
+import { useDisabledCategories } from '@/contexts/RootStore/hooks/useDisabledCategories'
+import { ClientStatisticsType, PopulatedClientCurrency } from '@/types/client'
+import { Decimal } from '@/utils/Decimal'
 
 const AMOUNT_TYPE = {
   [ClientStatisticsType.INCOMES]: 'income',

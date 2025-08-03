@@ -1,5 +1,5 @@
-import { CurrencySelect } from '@/components/common/CurrencySelect.jsx'
-import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
+import { CurrencySelect } from '@/components/common/CurrencySelect'
+import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
 
 interface CurrencyProps {
   walletId: string

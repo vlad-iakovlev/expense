@@ -1,7 +1,7 @@
-import { Card } from '@/components/common/Card/index.jsx'
-import { Balance } from './Balance.jsx'
-import { Members } from './Members.jsx'
-import { Settings } from './Settings.jsx'
+import { Card } from '@/components/common/Card/index'
+import { Balance } from './Balance'
+import { Members } from './Members'
+import { Settings } from './Settings'
 
 interface GroupInfoCardProps {
   className?: string

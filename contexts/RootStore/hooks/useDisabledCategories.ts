@@ -1,6 +1,6 @@
 import React from 'react'
-import { useRootStore } from '../index.jsx'
-import { CategoriesActionTypes } from '../types.jsx'
+import { useRootStore } from '../index'
+import { CategoriesActionTypes } from '../types'
 
 export const useDisabledCategories = () => {
   const { state, dispatch } = useRootStore()

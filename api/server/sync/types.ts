@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { performSyncBodySchema, performSyncResponseSchema } from './schemas.js'
+import { performSyncBodySchema, performSyncResponseSchema } from './schemas'
 
 export type PerformSyncBody = z.infer<typeof performSyncBodySchema>
 

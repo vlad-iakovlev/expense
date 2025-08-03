@@ -1,9 +1,9 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '@/types/utility.js'
-import { CardDivider } from './Divider.jsx'
-import { CardItem, CardItemProps } from './Item.jsx'
-import { CardMenu } from './Menu.jsx'
+import { Modify } from '@/types/utility'
+import { CardDivider } from './Divider'
+import { CardItem, CardItemProps } from './Item'
+import { CardMenu } from './Menu'
 
 export interface CardSelectOption<Id extends string = string> {
   type?: 'option'
@@ -38,7 +38,7 @@ export function CardSelect<Id extends string = string>({
   value,
   onChange,
   ...rest
-}: CardSelectProps<Id>): React.ReactElement | null {
+}: CardSelectProps<Id>) {
   const [isOpen, setIsOpen] = React.useState(false)
   const handleOpen = React.useCallback(() => setIsOpen(true), [])
   const handleClose = React.useCallback(() => setIsOpen(false), [])

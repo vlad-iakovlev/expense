@@ -1,14 +1,14 @@
 import React from 'react'
-import { Amount } from '@/components/common/Amount.jsx'
-import { Card } from '@/components/common/Card/index.jsx'
-import { PieChart, PieChartItem } from '@/components/common/PieChart/index.jsx'
+import { Amount } from '@/components/common/Amount'
+import { Card } from '@/components/common/Card/index'
+import { PieChart, PieChartItem } from '@/components/common/PieChart/index'
 import {
   ClientStatisticsItem,
   ClientStatisticsType,
   PopulatedClientCurrency,
-} from '@/types/client.js'
-import { Decimal } from '@/utils/Decimal.js'
-import { formatPercent } from '@/utils/formatPercent.js'
+} from '@/types/client'
+import { Decimal } from '@/utils/Decimal'
+import { formatPercent } from '@/utils/formatPercent'
 
 const TITLE = {
   [ClientStatisticsType.INCOMES]: 'Incomes',

@@ -1,5 +1,5 @@
-import { Card } from '@/components/common/Card/index.jsx'
-import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
+import { Card } from '@/components/common/Card/index'
+import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 
 interface NameProps {
   groupId: string

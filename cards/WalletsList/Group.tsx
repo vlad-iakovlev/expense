@@ -8,10 +8,10 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Card } from '@/components/common/Card/index.jsx'
-import { DndIcon } from '@/components/icons/DndIcon.jsx'
-import { PopulatedClientCurrency } from '@/types/client.js'
-import { Wallet } from './Wallet.jsx'
+import { Card } from '@/components/common/Card/index'
+import { DndIcon } from '@/components/icons/DndIcon'
+import { PopulatedClientCurrency } from '@/types/client'
+import { Wallet } from './Wallet'
 
 interface GroupProps {
   canReorderGroups: boolean

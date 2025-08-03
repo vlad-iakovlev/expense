@@ -1,11 +1,12 @@
-import { use } from 'next-api-middleware'
-import { performSync } from '@/api/server/sync/index.js'
-import { errorMiddleware } from '@/middleware/error.js'
-import { restHandler } from '@/middleware/rest.js'
-import { sessionMiddleware } from '@/middleware/session.js'
+import { performSync } from '@/api/server/sync/index'
+import { errorMiddleware } from '@/middleware/error'
+import { restHandler } from '@/middleware/rest'
+import { sessionMiddleware } from '@/middleware/session'
 
-export default use([errorMiddleware, sessionMiddleware])(
-  restHandler({
-    post: performSync,
-  }),
+export default errorMiddleware(
+  sessionMiddleware(
+    restHandler({
+      post: performSync,
+    }),
+  ),
 )

@@ -1,11 +1,12 @@
-import { use } from 'next-api-middleware'
-import { createInvite } from '@/api/server/invites/index.js'
-import { errorMiddleware } from '@/middleware/error.js'
-import { restHandler } from '@/middleware/rest.js'
-import { sessionMiddleware } from '@/middleware/session.js'
+import { createInvite } from '@/api/server/invites/index'
+import { errorMiddleware } from '@/middleware/error'
+import { restHandler } from '@/middleware/rest'
+import { sessionMiddleware } from '@/middleware/session'
 
-export default use([errorMiddleware, sessionMiddleware])(
-  restHandler({
-    post: createInvite,
-  }),
+export default errorMiddleware(
+  sessionMiddleware(
+    restHandler({
+      post: createInvite,
+    }),
+  ),
 )

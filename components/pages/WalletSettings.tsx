@@ -1,11 +1,11 @@
+import Head from 'next/head'
 import React from 'react'
-import { WalletSettingsGeneralCard } from '@/cards/WalletSettingsGeneral/index.jsx'
-import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
-import { Columns } from '@/components/common/Columns.jsx'
-import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
-import { ROUTES } from '@/constants/routes.js'
-import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
+import { WalletSettingsGeneralCard } from '@/cards/WalletSettingsGeneral/index'
+import { Breadcrumbs } from '@/components/common/Breadcrumbs'
+import { Columns } from '@/components/common/Columns'
+import { Title } from '@/components/common/Title'
+import { ROUTES } from '@/constants/routes'
+import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
 
 interface WalletSettingsProps {
   walletId: string
@@ -42,9 +42,9 @@ export const WalletSettings = ({ walletId }: WalletSettingsProps) => {
 
   return (
     <>
-      <NextHead>
+      <Head>
         <title>{`Expense > ${walletName} > Settings`}</title>
-      </NextHead>
+      </Head>
 
       <Breadcrumbs parents={parents} />
       <Title title="Settings" />

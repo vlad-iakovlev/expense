@@ -1,7 +1,7 @@
 import assert from 'assert'
 import React from 'react'
-import { WalletSelect } from '@/components/common/WalletSelect.jsx'
-import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
+import { WalletSelect } from '@/components/common/WalletSelect'
+import { useOperation } from '@/contexts/RootStore/hooks/useOperation'
 
 interface IncomeWalletProps {
   operationId: string

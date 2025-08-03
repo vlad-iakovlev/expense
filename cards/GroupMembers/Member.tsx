@@ -1,8 +1,8 @@
 import React from 'react'
-import { Avatar } from '@/components/common/Avatar.jsx'
-import { Card } from '@/components/common/Card/index.jsx'
-import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
-import { Delete } from './Delete.jsx'
+import { Avatar } from '@/components/common/Avatar'
+import { Card } from '@/components/common/Card/index'
+import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers'
+import { Delete } from './Delete'
 
 interface MemberProps {
   groupId: string

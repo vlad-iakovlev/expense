@@ -1,7 +1,7 @@
 import { produce } from 'immer'
-import { ClientUser } from '@/types/client.js'
-import { getDefaultCurrencyId } from '../getters/currencies.js'
-import { GroupsActionTypes, RootStoreState } from '../types.jsx'
+import { ClientUser } from '@/types/client'
+import { getDefaultCurrencyId } from '../getters/currencies'
+import { GroupsActionTypes, RootStoreState } from '../types'
 
 const createGroupReducer: React.Reducer<
   RootStoreState,
@@ -125,12 +125,12 @@ const setGroupDefaultCurrencyReducer: React.Reducer<
   })
 
 export type GroupsAction =
-  | React.ReducerAction<typeof createGroupReducer>
-  | React.ReducerAction<typeof removeGroupReducer>
-  | React.ReducerAction<typeof removeMemberFromGroupReducer>
-  | React.ReducerAction<typeof leaveGroupReducer>
-  | React.ReducerAction<typeof setGroupNameReducer>
-  | React.ReducerAction<typeof setGroupDefaultCurrencyReducer>
+  | Parameters<typeof createGroupReducer>[1]
+  | Parameters<typeof removeGroupReducer>[1]
+  | Parameters<typeof removeMemberFromGroupReducer>[1]
+  | Parameters<typeof leaveGroupReducer>[1]
+  | Parameters<typeof setGroupNameReducer>[1]
+  | Parameters<typeof setGroupDefaultCurrencyReducer>[1]
 
 export const isGroupsAction = (action: {
   type: string

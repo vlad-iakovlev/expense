@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface UseMenuNavigationProps {
-  popupRef: React.RefObject<HTMLElement>
+  popupRef: React.RefObject<HTMLElement | null>
   isOpen: boolean
   onClose?: () => void
 }

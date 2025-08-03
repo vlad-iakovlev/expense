@@ -1,6 +1,6 @@
 import assert from 'assert'
-import { PopulatedClientCurrency } from '@/types/client.js'
-import { RootStoreState } from '../types.jsx'
+import { PopulatedClientCurrency } from '@/types/client'
+import { RootStoreState } from '../types'
 
 export const getPopulatedCurrency = (
   state: RootStoreState,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '@/types/utility.js'
-import { Avatar, AvatarProps } from './Avatar.jsx'
+import { Modify } from '@/types/utility'
+import { Avatar, AvatarProps } from './Avatar'
 
 export type AvatarGroupProps = Modify<
   React.HTMLAttributes<HTMLDivElement>,

@@ -1,8 +1,8 @@
 import React from 'react'
-import { PopulatedClientWallet } from '@/types/client.js'
-import { getPopulatedWallet } from '../getters/wallets.js'
-import { useRootStore } from '../index.jsx'
-import { WalletsActionTypes } from '../types.jsx'
+import { PopulatedClientWallet } from '@/types/client'
+import { getPopulatedWallet } from '../getters/wallets'
+import { useRootStore } from '../index'
+import { WalletsActionTypes } from '../types'
 
 interface UseWalletProps {
   walletId: string

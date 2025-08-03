@@ -1,9 +1,9 @@
 import { PlusIcon } from '@heroicons/react/24/outline'
-import { useRouter } from 'next/router.js'
+import { useRouter } from 'next/router'
 import React from 'react'
-import { Card } from '@/components/common/Card/index.jsx'
-import { ROUTES } from '@/constants/routes.js'
-import { useGroups } from '@/contexts/RootStore/hooks/useGroups.js'
+import { Card } from '@/components/common/Card/index'
+import { ROUTES } from '@/constants/routes'
+import { useGroups } from '@/contexts/RootStore/hooks/useGroups'
 
 export const GroupCreateCard = () => {
   const router = useRouter()

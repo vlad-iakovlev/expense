@@ -1,7 +1,7 @@
 import { produce } from 'immer'
-import { ClientOperationType } from '@/types/client.js'
-import { Decimal } from '@/utils/Decimal.js'
-import { OperationsActionTypes, RootStoreState } from '../types.jsx'
+import { ClientOperationType } from '@/types/client'
+import { Decimal } from '@/utils/Decimal'
+import { OperationsActionTypes, RootStoreState } from '../types'
 
 const createOperationReducer: React.Reducer<
   RootStoreState,
@@ -227,16 +227,16 @@ const setOperationExpenseWalletReducer: React.Reducer<
   })
 
 export type OperationsAction =
-  | React.ReducerAction<typeof createOperationReducer>
-  | React.ReducerAction<typeof removeOperationReducer>
-  | React.ReducerAction<typeof setOperationNameReducer>
-  | React.ReducerAction<typeof setOperationCategoryReducer>
-  | React.ReducerAction<typeof setOperationDateReducer>
-  | React.ReducerAction<typeof setOperationTypeReducer>
-  | React.ReducerAction<typeof setOperationIncomeAmountReducer>
-  | React.ReducerAction<typeof setOperationExpenseAmountReducer>
-  | React.ReducerAction<typeof setOperationIncomeWalletReducer>
-  | React.ReducerAction<typeof setOperationExpenseWalletReducer>
+  | Parameters<typeof createOperationReducer>[1]
+  | Parameters<typeof removeOperationReducer>[1]
+  | Parameters<typeof setOperationNameReducer>[1]
+  | Parameters<typeof setOperationCategoryReducer>[1]
+  | Parameters<typeof setOperationDateReducer>[1]
+  | Parameters<typeof setOperationTypeReducer>[1]
+  | Parameters<typeof setOperationIncomeAmountReducer>[1]
+  | Parameters<typeof setOperationExpenseAmountReducer>[1]
+  | Parameters<typeof setOperationIncomeWalletReducer>[1]
+  | Parameters<typeof setOperationExpenseWalletReducer>[1]
 
 export const isOperationsAction = (action: {
   type: string

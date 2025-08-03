@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router.js'
+import { useRouter } from 'next/router'
 import React from 'react'
-import { acceptInvite } from '@/api/client/invites.js'
-import { Loading } from '@/components/layout/Loading.jsx'
-import { ROUTES } from '@/constants/routes.js'
+import { acceptInvite } from '@/api/client/invites'
+import { Loading } from '@/components/layout/Loading'
+import { ROUTES } from '@/constants/routes'
 
 interface InviteProps {
   token: string

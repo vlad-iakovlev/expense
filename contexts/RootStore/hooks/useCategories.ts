@@ -1,8 +1,8 @@
 import React from 'react'
-import { uniq } from '@/utils/uniq.js'
-import { getAvailableOperations } from '../getters/operations.js'
-import { useRootStore } from '../index.jsx'
-import { CategoriesActionTypes } from '../types.jsx'
+import { uniq } from '@/utils/uniq'
+import { getAvailableOperations } from '../getters/operations'
+import { useRootStore } from '../index'
+import { CategoriesActionTypes } from '../types'
 
 interface UseCategoriesProps {
   groupId?: string

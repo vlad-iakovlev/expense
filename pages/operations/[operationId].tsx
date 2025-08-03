@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
-import { useRouter } from 'next/router.js'
-import { Page } from '@/components/layout/Page/index.jsx'
-import { Operation } from '@/components/pages/Operation.jsx'
+import { useRouter } from 'next/router'
+import { Page } from '@/components/layout/Page/index'
+import { Operation } from '@/components/pages/Operation'
 
 const OperationPage: NextPage = () => {
   const router = useRouter()

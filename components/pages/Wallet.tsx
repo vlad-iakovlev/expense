@@ -1,13 +1,13 @@
+import Head from 'next/head'
 import React from 'react'
-import { OperationsListCard } from '@/cards/OperationsList/index.jsx'
-import { StatisticsCard } from '@/cards/Statistics/index.jsx'
-import { WalletInfoCard } from '@/cards/WalletInfo/index.jsx'
-import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
-import { Columns } from '@/components/common/Columns.jsx'
-import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
-import { ROUTES } from '@/constants/routes.js'
-import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
+import { OperationsListCard } from '@/cards/OperationsList/index'
+import { StatisticsCard } from '@/cards/Statistics/index'
+import { WalletInfoCard } from '@/cards/WalletInfo/index'
+import { Breadcrumbs } from '@/components/common/Breadcrumbs'
+import { Columns } from '@/components/common/Columns'
+import { Title } from '@/components/common/Title'
+import { ROUTES } from '@/constants/routes'
+import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
 
 interface WalletProps {
   walletId: string
@@ -34,9 +34,9 @@ export const Wallet = ({ walletId }: WalletProps) => {
 
   return (
     <>
-      <NextHead>
+      <Head>
         <title>{`Expense > ${walletName}`}</title>
-      </NextHead>
+      </Head>
 
       <Breadcrumbs parents={parents} />
       <Title title={walletName} />

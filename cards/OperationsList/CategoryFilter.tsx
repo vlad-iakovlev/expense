@@ -1,9 +1,9 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import React from 'react'
-import { Button } from '@/components/common/Button.jsx'
-import { Card, CardSelectItem } from '@/components/common/Card/index.jsx'
-import { useCategoryFilter } from '@/contexts/CategoryFilter.jsx'
-import { useCategories } from '@/contexts/RootStore/hooks/useCategories.js'
+import { Button } from '@/components/common/Button'
+import { Card, CardSelectItem } from '@/components/common/Card/index'
+import { useCategoryFilter } from '@/contexts/CategoryFilter'
+import { useCategories } from '@/contexts/RootStore/hooks/useCategories'
 
 interface CategoryFilterProps {
   groupId: string | undefined

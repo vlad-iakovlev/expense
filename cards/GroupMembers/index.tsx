@@ -1,7 +1,7 @@
-import { Card } from '@/components/common/Card/index.jsx'
-import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
-import { Invite } from './Invite.jsx'
-import { Member } from './Member.jsx'
+import { Card } from '@/components/common/Card/index'
+import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers'
+import { Invite } from './Invite'
+import { Member } from './Member'
 
 interface GroupMembersCardProps {
   className?: string

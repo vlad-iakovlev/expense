@@ -1,5 +1,5 @@
 import { produce } from 'immer'
-import { CategoriesActionTypes, RootStoreState } from '../types.jsx'
+import { CategoriesActionTypes, RootStoreState } from '../types'
 
 const renameCategoryReducer: React.Reducer<
   RootStoreState,
@@ -41,8 +41,8 @@ const toggleCategoryReducer: React.Reducer<
   })
 
 export type CategoriesAction =
-  | React.ReducerAction<typeof renameCategoryReducer>
-  | React.ReducerAction<typeof toggleCategoryReducer>
+  | Parameters<typeof renameCategoryReducer>[1]
+  | Parameters<typeof toggleCategoryReducer>[1]
 
 export const isCategoriesAction = (action: {
   type: string

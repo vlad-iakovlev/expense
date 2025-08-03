@@ -1,5 +1,5 @@
-import { useRootStore } from '@/contexts/RootStore/index.jsx'
-import { Loading } from '../Loading.jsx'
+import { useRootStore } from '@/contexts/RootStore/index'
+import { Loading } from '../Loading'
 
 interface PageStoreProps {
   children: React.ReactNode

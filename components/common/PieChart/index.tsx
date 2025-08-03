@@ -1,8 +1,8 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Decimal } from '@/utils/Decimal.js'
-import { GetSectorProps } from '@/utils/client/getSector.js'
-import { Sector } from './Sector.jsx'
+import { Decimal } from '@/utils/Decimal'
+import { GetSectorProps } from '@/utils/client/getSector'
+import { Sector } from './Sector'
 
 export interface PieChartItem {
   id: string

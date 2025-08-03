@@ -1,12 +1,9 @@
 import React from 'react'
-import {
-  ClientOperationType,
-  PopulatedClientOperation,
-} from '@/types/client.js'
-import { Decimal } from '@/utils/Decimal.js'
-import { getPopulatedOperation } from '../getters/operations.js'
-import { useRootStore } from '../index.jsx'
-import { OperationsActionTypes } from '../types.jsx'
+import { ClientOperationType, PopulatedClientOperation } from '@/types/client'
+import { Decimal } from '@/utils/Decimal'
+import { getPopulatedOperation } from '../getters/operations'
+import { useRootStore } from '../index'
+import { OperationsActionTypes } from '../types'
 
 interface UseOperationProps {
   operationId: string

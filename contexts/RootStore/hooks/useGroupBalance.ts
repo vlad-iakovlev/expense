@@ -1,7 +1,7 @@
 import React from 'react'
-import { ClientBalance } from '@/types/client.js'
-import { getGroupBalance } from '../getters/groups.js'
-import { useRootStore } from '../index.jsx'
+import { ClientBalance } from '@/types/client'
+import { getGroupBalance } from '../getters/groups'
+import { useRootStore } from '../index'
 
 interface UseGroupBalanceProps {
   groupId: string

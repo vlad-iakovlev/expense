@@ -1,10 +1,10 @@
 import assert from 'assert'
-import { ClientWallet, PopulatedClientWallet } from '@/types/client.js'
-import { ClientBalance } from '@/types/client.js'
-import { Decimal } from '@/utils/Decimal.js'
-import { RootStoreState } from '../types.jsx'
-import { getPopulatedCurrency } from './currencies.js'
-import { getPopulatedGroup } from './groups.js'
+import { ClientWallet, PopulatedClientWallet } from '@/types/client'
+import { ClientBalance } from '@/types/client'
+import { Decimal } from '@/utils/Decimal'
+import { RootStoreState } from '../types'
+import { getPopulatedCurrency } from './currencies'
+import { getPopulatedGroup } from './groups'
 
 interface GetWalletsParams {
   groupId?: string

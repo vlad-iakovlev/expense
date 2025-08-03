@@ -1,4 +1,4 @@
-import { useRootStore } from '../index.jsx'
+import { useRootStore } from '../index'
 
 export const useCurrencies = () => {
   const { state } = useRootStore()

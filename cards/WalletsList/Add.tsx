@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router.js'
+import { useRouter } from 'next/router'
 import React from 'react'
-import { Button } from '@/components/common/Button.jsx'
-import { ROUTES } from '@/constants/routes.js'
-import { useWallets } from '@/contexts/RootStore/hooks/useWallets.js'
+import { Button } from '@/components/common/Button'
+import { ROUTES } from '@/constants/routes'
+import { useWallets } from '@/contexts/RootStore/hooks/useWallets'
 
 interface AddProps {
   groupId: string

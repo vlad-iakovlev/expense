@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom'
-import { useIsBrowser } from '@/hooks/useIsBrowser.js'
+import { useIsBrowser } from '@/hooks/useIsBrowser'
 
 export interface PortalProps {
   children: React.ReactNode

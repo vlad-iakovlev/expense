@@ -4,11 +4,11 @@ import {
   ClientGroup,
   ClientUser,
   PopulatedClientGroup,
-} from '@/types/client.js'
-import { Decimal } from '@/utils/Decimal.js'
-import { RootStoreState } from '../types.jsx'
-import { getPopulatedCurrency } from './currencies.js'
-import { getAvailableWallets, getWalletBalance } from './wallets.js'
+} from '@/types/client'
+import { Decimal } from '@/utils/Decimal'
+import { RootStoreState } from '../types'
+import { getPopulatedCurrency } from './currencies'
+import { getAvailableWallets, getWalletBalance } from './wallets'
 
 export const getAvailableGroups = (state: RootStoreState): ClientGroup[] =>
   state.groups.filter((group) => !group.removed && !group.clientRemoved)

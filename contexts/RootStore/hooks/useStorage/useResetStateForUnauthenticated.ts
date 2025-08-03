@@ -1,8 +1,8 @@
 import { useSession } from 'next-auth/react'
 import React from 'react'
-import { StorageAction } from '../../reducers/storage.js'
-import { RootStoreState, StorageActionType } from '../../types.jsx'
-import { getLocalStorageKey } from './constants.js'
+import { StorageAction } from '../../reducers/storage'
+import { RootStoreState, StorageActionType } from '../../types'
+import { getLocalStorageKey } from './constants'
 
 export const useResetStateForUnauthenticated = (
   state: RootStoreState,

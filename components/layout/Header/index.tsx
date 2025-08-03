@@ -1,7 +1,7 @@
-import { Container } from '@/components/common/Container.jsx'
-import { HeaderLogo } from './Logo.jsx'
-import { HeaderSync } from './Sync.jsx'
-import { HeaderUser } from './User.jsx'
+import { Container } from '@/components/common/Container'
+import { HeaderLogo } from './Logo'
+import { HeaderSync } from './Sync'
+import { HeaderUser } from './User'
 
 export const Header = () => (
   <header

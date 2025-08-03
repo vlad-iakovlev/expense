@@ -1,13 +1,13 @@
-import { Card } from '@/components/common/Card/index.jsx'
-import { Category } from './Category.jsx'
-import { Date } from './Date.jsx'
-import { Delete } from './Delete.jsx'
-import { ExpenseAmount } from './ExpenseAmount.jsx'
-import { ExpenseWallet } from './ExpenseWallet.jsx'
-import { IncomeAmount } from './IncomeAmount.jsx'
-import { IncomeWallet } from './IncomeWallet.jsx'
-import { Name } from './Name.jsx'
-import { Type } from './Type.jsx'
+import { Card } from '@/components/common/Card/index'
+import { Category } from './Category'
+import { Date } from './Date'
+import { Delete } from './Delete'
+import { ExpenseAmount } from './ExpenseAmount'
+import { ExpenseWallet } from './ExpenseWallet'
+import { IncomeAmount } from './IncomeAmount'
+import { IncomeWallet } from './IncomeWallet'
+import { Name } from './Name'
+import { Type } from './Type'
 
 interface OperationInfoCardProps {
   className?: string

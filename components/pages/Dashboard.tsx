@@ -1,18 +1,18 @@
-import { GroupCreateCard } from '@/cards/GroupCreate/index.jsx'
-import { GroupOpenCard } from '@/cards/GroupOpen/index.jsx'
-import { Columns } from '@/components/common/Columns.jsx'
-import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
-import { useGroups } from '@/contexts/RootStore/hooks/useGroups.js'
+import Head from 'next/head'
+import { GroupCreateCard } from '@/cards/GroupCreate/index'
+import { GroupOpenCard } from '@/cards/GroupOpen/index'
+import { Columns } from '@/components/common/Columns'
+import { Title } from '@/components/common/Title'
+import { useGroups } from '@/contexts/RootStore/hooks/useGroups'
 
 export const Dashboard = () => {
   const { groupIds } = useGroups()
 
   return (
     <>
-      <NextHead>
+      <Head>
         <title>Expense</title>
-      </NextHead>
+      </Head>
 
       <Title title="Dashboard" />
 

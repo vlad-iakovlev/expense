@@ -1,11 +1,11 @@
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
 import React from 'react'
-import { Card } from '@/components/common/Card/index.jsx'
-import { useCategoryFilter } from '@/contexts/CategoryFilter.jsx'
-import { useGroupedOperations } from '@/contexts/RootStore/hooks/useGroupedOperations.js'
-import { Add } from './Add.jsx'
-import { CategoryFilter } from './CategoryFilter.jsx'
-import { Group } from './Group.jsx'
+import { Card } from '@/components/common/Card/index'
+import { useCategoryFilter } from '@/contexts/CategoryFilter'
+import { useGroupedOperations } from '@/contexts/RootStore/hooks/useGroupedOperations'
+import { Add } from './Add'
+import { CategoryFilter } from './CategoryFilter'
+import { Group } from './Group'
 
 interface OperationsListCardProps {
   className?: string

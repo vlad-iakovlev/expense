@@ -1,8 +1,8 @@
 import assert from 'assert'
 import React from 'react'
-import { Card } from '@/components/common/Card/index.jsx'
-import { useCategories } from '@/contexts/RootStore/hooks/useCategories.js'
-import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
+import { Card } from '@/components/common/Card/index'
+import { useCategories } from '@/contexts/RootStore/hooks/useCategories'
+import { useOperation } from '@/contexts/RootStore/hooks/useOperation'
 
 interface CategoryProps {
   operationId: string

@@ -1,4 +1,4 @@
-import { BigMath } from './BigMath.js'
+import { BigMath } from './BigMath'
 
 const cleanupString = (value: string) => {
   const sign = /^[^.\d]*-/.test(value) ? '-' : ''

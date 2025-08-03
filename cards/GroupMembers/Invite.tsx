@@ -1,17 +1,14 @@
 import { CheckIcon } from '@heroicons/react/24/solid'
 import React from 'react'
-import { createInvite } from '@/api/client/invites.js'
-import { Button } from '@/components/common/Button.jsx'
-import { Card } from '@/components/common/Card/index.jsx'
-import { CopyField } from '@/components/common/CopyField.jsx'
-import { Dialog } from '@/components/common/Dialog.jsx'
-import { ROUTES } from '@/constants/routes.js'
-import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
-import { useIsOnline } from '@/hooks/useIsOnline.js'
-import {
-  formatDateTime,
-  formatDateTimeForAriaLabel,
-} from '@/utils/formatDate.js'
+import { createInvite } from '@/api/client/invites'
+import { Button } from '@/components/common/Button'
+import { Card } from '@/components/common/Card/index'
+import { CopyField } from '@/components/common/CopyField'
+import { Dialog } from '@/components/common/Dialog'
+import { ROUTES } from '@/constants/routes'
+import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
+import { useIsOnline } from '@/hooks/useIsOnline'
+import { formatDateTime, formatDateTimeForAriaLabel } from '@/utils/formatDate'
 
 interface InviteProps {
   groupId: string

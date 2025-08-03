@@ -1,7 +1,7 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { PopulatedClientCurrency } from '@/types/client.js'
-import { Decimal } from '@/utils/Decimal.js'
+import { PopulatedClientCurrency } from '@/types/client'
+import { Decimal } from '@/utils/Decimal'
 
 export interface AmountProps {
   className?: string

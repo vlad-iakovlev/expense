@@ -1,11 +1,11 @@
+import Head from 'next/head'
 import React from 'react'
-import { OperationInfoCard } from '@/cards/OperationInfo/index.jsx'
-import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
-import { Columns } from '@/components/common/Columns.jsx'
-import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
-import { ROUTES } from '@/constants/routes.js'
-import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
+import { OperationInfoCard } from '@/cards/OperationInfo/index'
+import { Breadcrumbs } from '@/components/common/Breadcrumbs'
+import { Columns } from '@/components/common/Columns'
+import { Title } from '@/components/common/Title'
+import { ROUTES } from '@/constants/routes'
+import { useOperation } from '@/contexts/RootStore/hooks/useOperation'
 
 interface OperationProps {
   operationId: string
@@ -37,9 +37,9 @@ export const Operation = ({ operationId }: OperationProps) => {
 
   return (
     <>
-      <NextHead>
+      <Head>
         <title>{`Expense > ${operation.category} – ${operation.name}`}</title>
-      </NextHead>
+      </Head>
 
       <Breadcrumbs parents={parents} />
       <Title title={operation.name} />

@@ -1,7 +1,7 @@
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modify } from '@/types/utility.js'
-import { CardBlock, CardBlockProps } from './Block.jsx'
+import { Modify } from '@/types/utility'
+import { CardBlock, CardBlockProps } from './Block'
 
 export type CardItemProps = Modify<
   CardBlockProps,

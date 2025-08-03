@@ -1,6 +1,6 @@
-import { Container } from '@/components/common/Container.jsx'
-import { PageAuth } from './Auth.jsx'
-import { PageStore } from './Store.jsx'
+import { Container } from '@/components/common/Container'
+import { PageAuth } from './Auth'
+import { PageStore } from './Store'
 
 interface PageProps {
   withStoreValidation?: boolean

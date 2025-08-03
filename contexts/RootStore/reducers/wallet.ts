@@ -1,6 +1,6 @@
 import { produce } from 'immer'
-import { getDefaultCurrencyId } from '../getters/currencies.js'
-import { RootStoreState, WalletsActionTypes } from '../types.jsx'
+import { getDefaultCurrencyId } from '../getters/currencies'
+import { RootStoreState, WalletsActionTypes } from '../types'
 
 const createWalletReducer: React.Reducer<
   RootStoreState,
@@ -102,11 +102,11 @@ const reorderWalletsReducer: React.Reducer<
   })
 
 export type WalletsAction =
-  | React.ReducerAction<typeof createWalletReducer>
-  | React.ReducerAction<typeof removeWalletReducer>
-  | React.ReducerAction<typeof setWalletNameReducer>
-  | React.ReducerAction<typeof setWalletCurrencyReducer>
-  | React.ReducerAction<typeof reorderWalletsReducer>
+  | Parameters<typeof createWalletReducer>[1]
+  | Parameters<typeof removeWalletReducer>[1]
+  | Parameters<typeof setWalletNameReducer>[1]
+  | Parameters<typeof setWalletCurrencyReducer>[1]
+  | Parameters<typeof reorderWalletsReducer>[1]
 
 export const isWalletsAction = (action: {
   type: string

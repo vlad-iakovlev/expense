@@ -1,10 +1,10 @@
 import assert from 'assert'
 import { useSession } from 'next-auth/react'
 import React from 'react'
-import { PopulatedClientGroup } from '@/types/client.js'
-import { getPopulatedGroup } from '../getters/groups.js'
-import { useRootStore } from '../index.jsx'
-import { GroupsActionTypes } from '../types.jsx'
+import { PopulatedClientGroup } from '@/types/client'
+import { getPopulatedGroup } from '../getters/groups'
+import { useRootStore } from '../index'
+import { GroupsActionTypes } from '../types'
 
 interface UseGroupProps {
   groupId: string

@@ -1,13 +1,13 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import Link from 'next/link'
 import { twMerge } from 'tailwind-merge'
-import { Amount } from '@/components/common/Amount.jsx'
-import { Card } from '@/components/common/Card/index.jsx'
-import { DndIcon } from '@/components/icons/DndIcon.jsx'
-import { NextLink } from '@/components/next/Link.js'
-import { ROUTES } from '@/constants/routes.js'
-import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
-import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance.js'
+import { Amount } from '@/components/common/Amount'
+import { Card } from '@/components/common/Card/index'
+import { DndIcon } from '@/components/icons/DndIcon'
+import { ROUTES } from '@/constants/routes'
+import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
+import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance'
 
 interface WalletProps {
   canReorderWallets: boolean
@@ -65,7 +65,7 @@ export const Wallet = ({
   }
 
   return (
-    <NextLink href={ROUTES.WALLET(wallet.id)}>
+    <Link href={ROUTES.WALLET(wallet.id)}>
       <Card.Item
         label={wallet.name}
         value={
@@ -79,6 +79,6 @@ export const Wallet = ({
         clickable
         tabIndex={-1}
       />
-    </NextLink>
+    </Link>
   )
 }

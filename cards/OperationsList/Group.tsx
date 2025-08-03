@@ -1,6 +1,6 @@
-import { Card } from '@/components/common/Card/index.jsx'
-import { formatDate, formatDateForAriaLabel } from '@/utils/formatDate.js'
-import { Operation } from './Operation.jsx'
+import { Card } from '@/components/common/Card/index'
+import { formatDate, formatDateForAriaLabel } from '@/utils/formatDate'
+import { Operation } from './Operation'
 
 interface GroupProps {
   date: Date

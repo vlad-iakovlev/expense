@@ -1,7 +1,7 @@
 import { Variants, easeInOut, motion } from 'framer-motion'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Thumb, Track, getThumb, getTrack } from './utils.js'
+import { Thumb, Track, getThumb, getTrack } from './utils'
 
 const DEFAULT_TRACK: Track = {
   startOffset: 0,

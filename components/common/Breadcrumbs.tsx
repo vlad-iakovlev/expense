@@ -1,6 +1,6 @@
 import { ArrowUturnLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
+import Link from 'next/link'
 import React from 'react'
-import { NextLink } from '@/components/next/Link.js'
 
 export interface BreadCrumbsParent {
   href: string
@@ -19,18 +19,18 @@ export const Breadcrumbs = ({
   <>
     {!!parents?.length && (
       <nav
-        className="-mb-4 -mt-2 flex items-center gap-2 max-md:hidden"
+        className="-mt-2 -mb-4 flex items-center gap-2 max-md:hidden"
         aria-label="Breadcrumbs"
       >
         {parents.map((parent) => (
           <React.Fragment key={parent.href}>
-            <NextLink
-              className="min-w-0 truncate text-lg font-medium leading-6 text-sky-700 dark:text-sky-500"
+            <Link
+              className="min-w-0 truncate text-lg leading-6 font-medium text-sky-700 dark:text-sky-500"
               href={parent.href}
               aria-label={parent.title}
             >
               {parent.title}
-            </NextLink>
+            </Link>
             <ChevronRightIcon
               className="h-5 w-5 flex-none"
               aria-hidden="true"
@@ -41,14 +41,14 @@ export const Breadcrumbs = ({
     )}
 
     {mobileBack ? (
-      <NextLink
-        className="-mb-4 -mt-2 flex items-center gap-2 truncate text-lg font-medium leading-6 text-sky-700 md:hidden dark:text-sky-500"
+      <Link
+        className="-mt-2 -mb-4 flex items-center gap-2 truncate text-lg leading-6 font-medium text-sky-700 md:hidden dark:text-sky-500"
         href={mobileBack.href}
         aria-label={mobileBack.title}
       >
         <ArrowUturnLeftIcon className="h-5 w-5 flex-none" />
         {mobileBack.title}
-      </NextLink>
+      </Link>
     ) : null}
   </>
 )

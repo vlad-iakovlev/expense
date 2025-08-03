@@ -1,6 +1,6 @@
-import { Amount } from '@/components/common/Amount.jsx'
-import { Card } from '@/components/common/Card/index.jsx'
-import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance.js'
+import { Amount } from '@/components/common/Amount'
+import { Card } from '@/components/common/Card/index'
+import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance'
 
 interface BalanceProps {
   walletId: string
@@ -14,7 +14,7 @@ export const Balance = ({ walletId }: BalanceProps) => {
       label="Balance"
       value={
         <Amount
-          className="select-text font-medium"
+          className="font-medium select-text"
           amount={walletBalance.balance}
           currency={walletBalance.currency}
           showSign="negative"

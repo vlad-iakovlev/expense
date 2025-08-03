@@ -1,4 +1,4 @@
-import { clamp } from '@/utils/clamp.js'
+import { clamp } from '@/utils/clamp'
 
 const THICKNESS = 3
 const OFFSET = 3

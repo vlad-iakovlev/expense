@@ -5,11 +5,11 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import React from 'react'
-import { Button } from '@/components/common/Button.jsx'
-import { Card } from '@/components/common/Card/index.jsx'
-import { useGroupedWallets } from '@/contexts/RootStore/hooks/useGroupedWallets.js'
-import { Add } from './Add.jsx'
-import { Group } from './Group.jsx'
+import { Button } from '@/components/common/Button'
+import { Card } from '@/components/common/Card/index'
+import { useGroupedWallets } from '@/contexts/RootStore/hooks/useGroupedWallets'
+import { Add } from './Add'
+import { Group } from './Group'
 
 interface WalletsListCardProps {
   className?: string

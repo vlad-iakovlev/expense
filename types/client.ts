@@ -1,4 +1,4 @@
-import { Decimal } from '@/utils/Decimal.js'
+import { Decimal } from '@/utils/Decimal'
 
 export interface ClientTransaction {
   userGroups: string[]

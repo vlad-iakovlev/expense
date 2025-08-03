@@ -3,8 +3,8 @@ import {
   AcceptInviteResponse,
   CreateInviteBody,
   CreateInviteResponse,
-} from '@/api/server/invites/types.js'
-import { request } from '@/utils/client/request.js'
+} from '@/api/server/invites/types'
+import { request } from '@/utils/client/request'
 
 export const createInvite = async (body: CreateInviteBody) =>
   await request.post<CreateInviteBody, CreateInviteResponse>(

@@ -2,9 +2,9 @@ import {
   ClientStatisticsItem,
   ClientStatisticsType,
   PopulatedClientCurrency,
-} from '@/types/client.js'
-import { Decimal } from '@/utils/Decimal.js'
-import { Category } from './Category.jsx'
+} from '@/types/client'
+import { Decimal } from '@/utils/Decimal'
+import { Category } from './Category'
 
 interface CategoriesProps {
   currency: PopulatedClientCurrency

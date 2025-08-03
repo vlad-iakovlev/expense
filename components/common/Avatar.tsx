@@ -1,6 +1,6 @@
+import Image from 'next/image'
 import { twMerge } from 'tailwind-merge'
-import { NextImage } from '@/components/next/Image.js'
-import { Modify } from '@/types/utility.js'
+import { Modify } from '@/types/utility'
 
 export const avatarColorClassNames = [
   'bg-red-800',
@@ -63,7 +63,7 @@ export const Avatar = ({
     {...rest}
   >
     {src ? (
-      <NextImage
+      <Image
         className="w-full"
         src={src}
         alt={`Avatar of ${name}`}

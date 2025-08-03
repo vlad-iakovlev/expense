@@ -1,14 +1,14 @@
+import Head from 'next/head'
 import React from 'react'
-import { GroupInfoCard } from '@/cards/GroupInfo/index.jsx'
-import { OperationsListCard } from '@/cards/OperationsList/index.jsx'
-import { StatisticsCard } from '@/cards/Statistics/index.jsx'
-import { WalletsListCard } from '@/cards/WalletsList/index.jsx'
-import { Breadcrumbs } from '@/components/common/Breadcrumbs.jsx'
-import { Columns } from '@/components/common/Columns.jsx'
-import { Title } from '@/components/common/Title.jsx'
-import { NextHead } from '@/components/next/Head.js'
-import { ROUTES } from '@/constants/routes.js'
-import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
+import { GroupInfoCard } from '@/cards/GroupInfo/index'
+import { OperationsListCard } from '@/cards/OperationsList/index'
+import { StatisticsCard } from '@/cards/Statistics/index'
+import { WalletsListCard } from '@/cards/WalletsList/index'
+import { Breadcrumbs } from '@/components/common/Breadcrumbs'
+import { Columns } from '@/components/common/Columns'
+import { Title } from '@/components/common/Title'
+import { ROUTES } from '@/constants/routes'
+import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 
 interface GroupProps {
   groupId: string
@@ -29,9 +29,9 @@ export const Group = ({ groupId }: GroupProps) => {
 
   return (
     <>
-      <NextHead>
+      <Head>
         <title>{`Expense > ${group.name}`}</title>
-      </NextHead>
+      </Head>
 
       <Breadcrumbs parents={parents} />
       <Title title={group.name} />

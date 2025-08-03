@@ -1,5 +1,5 @@
-import { Head, Html, Main, NextScript } from 'next/document.js'
-import splashes from '@/splashes.json' with { type: 'json' }
+import { Head, Html, Main, NextScript } from 'next/document'
+import splashes from '@/splashes.json'
 
 export const MyDocument = () => (
   <Html lang="en">

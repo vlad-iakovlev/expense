@@ -1,13 +1,15 @@
-import { Middleware } from 'next-api-middleware'
-import { auth } from '@/auth.js'
+import { NextApiHandler } from 'next'
+import { auth } from '@/auth'
 
-export const sessionMiddleware: Middleware = async (req, res, next) => {
-  const session = await auth(req, res)
-  if (!session) {
-    res.status(401).end('Unauthorized')
-    return
+export const sessionMiddleware =
+  (next: NextApiHandler): NextApiHandler =>
+  async (req, res) => {
+    const session = await auth(req, res)
+    if (!session) {
+      res.status(401).end('Unauthorized')
+      return
+    }
+
+    req.session = session
+    await next(req, res)
   }
-
-  req.session = session
-  await next()
-}

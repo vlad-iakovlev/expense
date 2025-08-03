@@ -1,11 +1,12 @@
-import { use } from 'next-api-middleware'
-import { updateCurrencyRates } from '@/api/server/cron/index.js'
-import { cronMiddleware } from '@/middleware/cron.js'
-import { errorMiddleware } from '@/middleware/error.js'
-import { restHandler } from '@/middleware/rest.js'
+import { updateCurrencyRates } from '@/api/server/cron/index'
+import { cronMiddleware } from '@/middleware/cron'
+import { errorMiddleware } from '@/middleware/error'
+import { restHandler } from '@/middleware/rest'
 
-export default use([errorMiddleware, cronMiddleware])(
-  restHandler({
-    post: updateCurrencyRates,
-  }),
+export default errorMiddleware(
+  cronMiddleware(
+    restHandler({
+      post: updateCurrencyRates,
+    }),
+  ),
 )

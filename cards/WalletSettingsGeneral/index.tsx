@@ -1,7 +1,7 @@
-import { Card } from '@/components/common/Card/index.jsx'
-import { Currency } from './Currency.jsx'
-import { Delete } from './Delete.jsx'
-import { Name } from './Name.jsx'
+import { Card } from '@/components/common/Card/index'
+import { Currency } from './Currency'
+import { Delete } from './Delete'
+import { Name } from './Name'
 
 interface WalletSettingsGeneralCardProps {
   className?: string

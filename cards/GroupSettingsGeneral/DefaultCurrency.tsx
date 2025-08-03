@@ -1,5 +1,5 @@
-import { CurrencySelect } from '@/components/common/CurrencySelect.jsx'
-import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
+import { CurrencySelect } from '@/components/common/CurrencySelect'
+import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 
 interface DefaultCurrencyProps {
   groupId: string

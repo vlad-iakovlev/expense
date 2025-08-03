@@ -4,7 +4,7 @@ import {
   acceptInviteResponseSchema,
   createInviteBodySchema,
   createInviteResponseSchema,
-} from './schemas.js'
+} from './schemas'
 
 export type CreateInviteBody = z.infer<typeof createInviteBodySchema>
 

@@ -1,8 +1,8 @@
 import * as fns from 'date-fns'
 import React from 'react'
-import { ClientOperation, GroupedOperations } from '@/types/client.js'
-import { getOrderedOperations } from '../getters/operations.js'
-import { useRootStore } from '../index.jsx'
+import { ClientOperation, GroupedOperations } from '@/types/client'
+import { getOrderedOperations } from '../getters/operations'
+import { useRootStore } from '../index'
 
 interface UseGroupedOperationsProps {
   groupId?: string

@@ -1,9 +1,9 @@
 import assert from 'assert'
 import React from 'react'
 import { v4 as uuid } from 'uuid'
-import { getOrderedOperations } from '../getters/operations.js'
-import { useRootStore } from '../index.jsx'
-import { OperationsActionTypes } from '../types.jsx'
+import { getOrderedOperations } from '../getters/operations'
+import { useRootStore } from '../index'
+import { OperationsActionTypes } from '../types'
 
 interface UseOperationsProps {
   groupId?: string

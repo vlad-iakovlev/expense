@@ -5,15 +5,15 @@ import {
   ClientStatisticsType,
   ClientWallet,
   PopulatedClientCurrency,
-} from '@/types/client.js'
-import { Decimal } from '@/utils/Decimal.js'
-import { stringToColor } from '@/utils/stringToColor.js'
-import { uniq } from '@/utils/uniq.js'
+} from '@/types/client'
+import { Decimal } from '@/utils/Decimal'
+import { stringToColor } from '@/utils/stringToColor'
+import { uniq } from '@/utils/uniq'
 import {
   getDefaultCurrencyId,
   getPopulatedCurrency,
-} from '../getters/currencies.js'
-import { useRootStore } from '../index.jsx'
+} from '../getters/currencies'
+import { useRootStore } from '../index'
 
 const WALLET_ID_FIELD = {
   [ClientStatisticsType.INCOMES]: 'incomeWalletId',

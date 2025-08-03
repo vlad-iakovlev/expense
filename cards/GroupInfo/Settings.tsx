@@ -1,14 +1,14 @@
 import { Cog6ToothIcon } from '@heroicons/react/20/solid'
-import { Button } from '@/components/common/Button.jsx'
-import { NextLink } from '@/components/next/Link.js'
-import { ROUTES } from '@/constants/routes.js'
+import Link from 'next/link'
+import { Button } from '@/components/common/Button'
+import { ROUTES } from '@/constants/routes'
 
 interface SettingsProps {
   groupId: string
 }
 
 export const Settings = ({ groupId }: SettingsProps) => (
-  <NextLink
+  <Link
     className="rounded-full"
     href={ROUTES.GROUP_SETTINGS(groupId)}
     aria-label="Settings"
@@ -20,5 +20,5 @@ export const Settings = ({ groupId }: SettingsProps) => (
       iconStart={<Cog6ToothIcon />}
       tabIndex={-1}
     />
-  </NextLink>
+  </Link>
 )

@@ -1,5 +1,5 @@
-import { Card } from '@/components/common/Card/index.jsx'
-import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
+import { Card } from '@/components/common/Card/index'
+import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
 
 interface NameProps {
   walletId: string

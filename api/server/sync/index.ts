@@ -1,17 +1,17 @@
 import { PrismaClient, Transaction } from '@prisma/client'
 import assert from 'assert'
 import { NextApiHandler } from 'next'
-import { ERROR_TYPES } from '@/constants/errors.js'
-import { Modify } from '@/types/utility.js'
-import { getHandledError } from '@/utils/server/getHandledError.js'
-import { performSyncBodySchema } from './schemas.js'
-import { PerformSyncBody, PerformSyncResponse } from './types.js'
+import { ERROR_TYPES } from '@/constants/errors'
+import { Modify } from '@/types/utility'
+import { getHandledError } from '@/utils/server/getHandledError'
+import { performSyncBodySchema } from './schemas'
+import { PerformSyncBody, PerformSyncResponse } from './types'
 import {
   getGroupWhere,
   getOperationWhere,
   getUserGroupWhere,
   getWalletWhere,
-} from './where.js'
+} from './where'
 
 const prisma = new PrismaClient()
 

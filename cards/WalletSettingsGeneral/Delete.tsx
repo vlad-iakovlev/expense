@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router.js'
+import { useRouter } from 'next/router'
 import React from 'react'
-import { Button } from '@/components/common/Button.jsx'
-import { ConfirmDialog } from '@/components/common/ConfirmDialog.jsx'
-import { ROUTES } from '@/constants/routes.js'
-import { useOperations } from '@/contexts/RootStore/hooks/useOperations.js'
-import { useWallet } from '@/contexts/RootStore/hooks/useWallet.js'
+import { Button } from '@/components/common/Button'
+import { ConfirmDialog } from '@/components/common/ConfirmDialog'
+import { ROUTES } from '@/constants/routes'
+import { useOperations } from '@/contexts/RootStore/hooks/useOperations'
+import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
 
 interface DeleteProps {
   walletId: string

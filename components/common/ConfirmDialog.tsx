@@ -1,7 +1,7 @@
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid'
-import { Button } from './Button.jsx'
-import { Card } from './Card/index.jsx'
-import { Dialog } from './Dialog.jsx'
+import { Button } from './Button'
+import { Card } from './Card/index'
+import { Dialog } from './Dialog'
 
 export interface ConfirmDialogProps {
   isOpen: boolean

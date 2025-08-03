@@ -1,7 +1,7 @@
-import { NextHead } from '@/components/next/Head.js'
+import Head from 'next/head'
 
 export const Loading = () => (
-  <NextHead>
+  <Head>
     <title>Expense loading...</title>
-  </NextHead>
+  </Head>
 )

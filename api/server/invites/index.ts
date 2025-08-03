@@ -3,10 +3,10 @@ import assert from 'assert'
 import * as fns from 'date-fns'
 import { NextApiHandler } from 'next'
 import { v4 as uuid } from 'uuid'
-import { ERROR_TYPES } from '@/constants/errors.js'
-import { getHandledError } from '@/utils/server/getHandledError.js'
-import { acceptInviteBodySchema, createInviteBodySchema } from './schemas.js'
-import { AcceptInviteResponse, CreateInviteResponse } from './types.js'
+import { ERROR_TYPES } from '@/constants/errors'
+import { getHandledError } from '@/utils/server/getHandledError'
+import { acceptInviteBodySchema, createInviteBodySchema } from './schemas'
+import { AcceptInviteResponse, CreateInviteResponse } from './types'
 
 const prisma = new PrismaClient()
 

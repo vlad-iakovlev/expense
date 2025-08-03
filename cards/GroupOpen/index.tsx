@@ -1,11 +1,11 @@
-import { Amount } from '@/components/common/Amount.jsx'
-import { AvatarGroup } from '@/components/common/AvatarGroup.jsx'
-import { Card } from '@/components/common/Card/index.jsx'
-import { NextLink } from '@/components/next/Link.js'
-import { ROUTES } from '@/constants/routes.js'
-import { useGroup } from '@/contexts/RootStore/hooks/useGroup.js'
-import { useGroupBalance } from '@/contexts/RootStore/hooks/useGroupBalance.js'
-import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers.js'
+import Link from 'next/link'
+import { Amount } from '@/components/common/Amount'
+import { AvatarGroup } from '@/components/common/AvatarGroup'
+import { Card } from '@/components/common/Card/index'
+import { ROUTES } from '@/constants/routes'
+import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
+import { useGroupBalance } from '@/contexts/RootStore/hooks/useGroupBalance'
+import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers'
 
 interface GroupOpenCardProps {
   groupId: string
@@ -17,7 +17,7 @@ export const GroupOpenCard = ({ groupId }: GroupOpenCardProps) => {
   const { groupMembers } = useGroupMembers({ groupId })
 
   return (
-    <NextLink className="rounded-md" href={ROUTES.GROUP(groupId)}>
+    <Link className="rounded-md" href={ROUTES.GROUP(groupId)}>
       <Card aria-label={`Group ${group.name}`} clickable>
         <Card.Title
           title={group.name}
@@ -40,7 +40,7 @@ export const GroupOpenCard = ({ groupId }: GroupOpenCardProps) => {
           label="Balance"
           value={
             <Amount
-              className="select-text font-medium"
+              className="font-medium select-text"
               amount={groupBalance.balance}
               currency={groupBalance.currency}
               showSign="negative"
@@ -49,6 +49,6 @@ export const GroupOpenCard = ({ groupId }: GroupOpenCardProps) => {
           tabIndex={-1}
         />
       </Card>
-    </NextLink>
+    </Link>
   )
 }

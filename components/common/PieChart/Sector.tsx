@@ -1,5 +1,5 @@
 import React from 'react'
-import { GetSectorProps, getSector } from '@/utils/client/getSector.js'
+import { GetSectorProps, getSector } from '@/utils/client/getSector'
 
 const DURATION = 200
 

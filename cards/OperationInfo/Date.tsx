@@ -1,5 +1,5 @@
-import { Card } from '@/components/common/Card/index.jsx'
-import { useOperation } from '@/contexts/RootStore/hooks/useOperation.js'
+import { Card } from '@/components/common/Card/index'
+import { useOperation } from '@/contexts/RootStore/hooks/useOperation'
 
 interface DateProps {
   operationId: string
