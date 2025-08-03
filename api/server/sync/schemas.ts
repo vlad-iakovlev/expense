@@ -1,49 +1,49 @@
 import { z } from 'zod'
 
 export const performSyncBodySchema = z.object({
-  lastTransactionId: z.string().uuid().nullable(),
+  lastTransactionId: z.uuid().nullable(),
 
   updates: z
     .object({
       userGroups: z.array(
         z.object({
-          id: z.string().uuid(),
+          id: z.uuid(),
           removed: z.boolean(),
         }),
       ),
 
       groups: z.array(
         z.object({
-          id: z.string().uuid(),
+          id: z.uuid(),
           removed: z.boolean(),
           name: z.string().min(1),
-          defaultCurrencyId: z.string().uuid(),
+          defaultCurrencyId: z.uuid(),
         }),
       ),
 
       wallets: z.array(
         z.object({
-          id: z.string().uuid(),
+          id: z.uuid(),
           removed: z.boolean(),
           name: z.string().min(1),
           order: z.number().nullable(),
-          currencyId: z.string().uuid(),
+          currencyId: z.uuid(),
           // New value in groupId won't be applied to existing wallets
-          groupId: z.string().uuid(),
+          groupId: z.uuid(),
         }),
       ),
 
       operations: z.array(
         z.object({
-          id: z.string().uuid(),
+          id: z.uuid(),
           removed: z.boolean(),
           name: z.string().min(1),
           category: z.string().min(1),
-          date: z.string().datetime(),
+          date: z.iso.datetime(),
           incomeAmount: z.string().regex(/^\d+(\.\d+)?$/),
           expenseAmount: z.string().regex(/^\d+(\.\d+)?$/),
-          incomeWalletId: z.string().uuid().nullable(),
-          expenseWalletId: z.string().uuid().nullable(),
+          incomeWalletId: z.uuid().nullable(),
+          expenseWalletId: z.uuid().nullable(),
         }),
       ),
     })

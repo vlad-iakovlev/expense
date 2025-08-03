@@ -1,16 +1,16 @@
 import { z } from 'zod'
 
 export const createInviteBodySchema = z.object({
-  groupId: z.string().uuid(),
+  groupId: z.uuid(),
 })
 
 export const createInviteResponseSchema = z.object({
   token: z.string(),
-  expiresAt: z.string().datetime(),
+  expiresAt: z.iso.datetime(),
 })
 
 export const acceptInviteBodySchema = z.object({
-  token: z.string().uuid(),
+  token: z.uuid(),
 })
 
 export const acceptInviteResponseSchema = z.object({
