@@ -19,7 +19,7 @@ const eslintConfig = [
       '.prettierrc.mjs',
       'eslint.config.mjs',
       'next.config.js',
-      'postcss.config.cjs',
+      'postcss.config.js',
     ],
   },
   {
