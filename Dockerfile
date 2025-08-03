@@ -1,4 +1,3 @@
-# See https://github.com/nodejs/docker-node/issues/2175
 FROM node:22-alpine3.22 AS base
 
 # Install dependencies only when needed
