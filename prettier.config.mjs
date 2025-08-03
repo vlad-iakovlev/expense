@@ -1,6 +1,4 @@
-/**
- * @type {import("prettier").Config}
- */
+/** @type {import("prettier").Config} */
 const prettierConfig = {
   plugins: [
     '@trivago/prettier-plugin-sort-imports',
