@@ -16,7 +16,7 @@ const eslintConfig = [
       'next-env.d.ts',
       'public/sw.js',
       'public/sw.js.map',
-      '.prettierrc.mjs',
+      'prettier.config.mjs',
       'eslint.config.mjs',
       'next.config.js',
       'postcss.config.js',
