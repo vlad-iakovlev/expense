@@ -9,7 +9,7 @@ import { ROUTES } from '@/constants/routes'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
 import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance'
 
-interface WalletProps {
+type WalletProps = {
   canReorderWallets: boolean
   isReordering: boolean
   walletId: string

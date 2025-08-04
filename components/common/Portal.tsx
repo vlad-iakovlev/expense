@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom'
 import { useIsBrowser } from '@/hooks/useIsBrowser'
 
-export interface PortalProps {
+export type PortalProps = {
   children: React.ReactNode
 }
 

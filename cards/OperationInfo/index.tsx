@@ -9,7 +9,7 @@ import { IncomeWallet } from './IncomeWallet'
 import { Name } from './Name'
 import { Type } from './Type'
 
-interface OperationInfoCardProps {
+type OperationInfoCardProps = {
   className?: string
   operationId: string
 }

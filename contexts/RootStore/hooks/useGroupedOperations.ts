@@ -1,10 +1,10 @@
 import * as fns from 'date-fns'
-import React from 'react'
+import { useMemo } from 'react'
 import { ClientOperation, GroupedOperations } from '@/types/client'
 import { getOrderedOperations } from '../getters/operations'
 import { useRootStore } from '../index'
 
-interface UseGroupedOperationsProps {
+type UseGroupedOperationsProps = {
   groupId?: string
   walletId?: string
   category?: string
@@ -17,7 +17,7 @@ export const useGroupedOperations = ({
 }: UseGroupedOperationsProps) => {
   const { state } = useRootStore()
 
-  const groupedOperations = React.useMemo<GroupedOperations[]>(() => {
+  const groupedOperations = useMemo<GroupedOperations[]>(() => {
     const operations = getOrderedOperations(state, {
       groupId,
       walletId,

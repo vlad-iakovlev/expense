@@ -2,7 +2,7 @@ import { AvatarGroup } from '@/components/common/AvatarGroup'
 import { Card } from '@/components/common/Card/index'
 import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers'
 
-interface MembersProps {
+type MembersProps = {
   groupId: string
 }
 

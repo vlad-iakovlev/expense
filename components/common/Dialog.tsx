@@ -1,6 +1,6 @@
 import { FocusTrap } from 'focus-trap-react'
 import { AnimatePresence, Variants, easeInOut, motion } from 'framer-motion'
-import React from 'react'
+import { useEffect } from 'react'
 import { Portal } from './Portal'
 
 const rootVariants: Variants = {
@@ -29,14 +29,14 @@ const dialogVariants: Variants = {
   },
 }
 
-export interface DialogProps {
+export type DialogProps = {
   isOpen: boolean
   children: React.ReactNode
   onClose: () => void
 }
 
 export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isOpen) return
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -46,7 +46,9 @@ export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
     }
 
     document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
   }, [isOpen, onClose])
 
   return (

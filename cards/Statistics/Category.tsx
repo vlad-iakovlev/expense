@@ -1,5 +1,5 @@
 import { FunnelIcon } from '@heroicons/react/20/solid'
-import React from 'react'
+import { useCallback, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Amount } from '@/components/common/Amount'
 import { Button } from '@/components/common/Button'
@@ -15,7 +15,7 @@ const AMOUNT_TYPE = {
   [ClientStatisticsType.EXPENSES]: 'expense',
 } as const
 
-interface CategoryProps {
+type CategoryProps = {
   category: string
   color: string
   amount: Decimal
@@ -34,9 +34,9 @@ export const Category = ({
   const { disabledCategories, toggleCategory } = useDisabledCategories()
 
   const isEnabled = !disabledCategories.includes(category)
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
-  const handleKeyDown = React.useCallback(
+  const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault()
@@ -46,7 +46,7 @@ export const Category = ({
     [setIsOpen],
   )
 
-  const handleBlur = React.useCallback((event: React.FocusEvent) => {
+  const handleBlur = useCallback((event: React.FocusEvent) => {
     void (async () => {
       const currentTarget = event.currentTarget
       await new Promise(requestAnimationFrame)
@@ -54,14 +54,14 @@ export const Category = ({
     })()
   }, [])
 
-  const handleEnableCategoryChange = React.useCallback(
+  const handleEnableCategoryChange = useCallback(
     (value: boolean) => {
       toggleCategory(category, value)
     },
     [category, toggleCategory],
   )
 
-  const handleFilerClick = React.useCallback(() => {
+  const handleFilerClick = useCallback(() => {
     toggleCategoryFilter(category)
   }, [category, toggleCategoryFilter])
 

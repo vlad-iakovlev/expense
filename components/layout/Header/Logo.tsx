@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ROUTES } from '@/constants/routes'
 
-interface HeaderLogoProps {
+type HeaderLogoProps = {
   className?: string
 }
 

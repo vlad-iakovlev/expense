@@ -1,19 +1,19 @@
 import { Decimal } from '@/utils/Decimal'
 
-export interface ClientTransaction {
+export type ClientTransaction = {
   userGroups: string[]
   groups: string[]
   wallets: string[]
   operations: string[]
 }
 
-export interface ClientCurrency {
+export type ClientCurrency = {
   id: string
   symbol: string
   rate: number
 }
 
-export interface PopulatedClientCurrency {
+export type PopulatedClientCurrency = {
   id: string
   symbol: string
   name: string
@@ -21,20 +21,20 @@ export interface PopulatedClientCurrency {
   rate: number
 }
 
-export interface ClientUser {
+export type ClientUser = {
   id: string
   name?: string | null
   image?: string | null
 }
 
-export interface ClientUserGroup {
+export type ClientUserGroup = {
   id: string
   removed: boolean
   userId: string
   groupId: string
 }
 
-export interface ClientGroup {
+export type ClientGroup = {
   id: string
   removed: boolean
   clientOnly: boolean
@@ -43,14 +43,14 @@ export interface ClientGroup {
   defaultCurrencyId: string
 }
 
-export interface PopulatedClientGroup {
+export type PopulatedClientGroup = {
   id: string
   clientOnly: boolean
   name: string
   defaultCurrency: PopulatedClientCurrency
 }
 
-export interface ClientWallet {
+export type ClientWallet = {
   id: string
   createdAt: Date
   removed: boolean
@@ -60,19 +60,19 @@ export interface ClientWallet {
   groupId: string
 }
 
-export interface PopulatedClientWallet {
+export type PopulatedClientWallet = {
   id: string
   name: string
   currency: PopulatedClientCurrency
   group: PopulatedClientGroup
 }
 
-export interface GroupedWallets {
+export type GroupedWallets = {
   currency: PopulatedClientCurrency
   walletIds: string[]
 }
 
-export interface ClientOperation {
+export type ClientOperation = {
   id: string
   removed: boolean
   name: string
@@ -90,7 +90,7 @@ export enum ClientOperationType {
   TRANSFER = 'TRANSFER',
 }
 
-export interface PopulatedClientOperation {
+export type PopulatedClientOperation = {
   id: string
   name: string
   category: string
@@ -102,17 +102,17 @@ export interface PopulatedClientOperation {
   expenseWallet: PopulatedClientWallet | null
 }
 
-export interface GroupedOperations {
+export type GroupedOperations = {
   date: Date
   operationIds: string[]
 }
 
-export interface ClientBalance {
+export type ClientBalance = {
   balance: Decimal
   currency: PopulatedClientCurrency
 }
 
-export interface ClientStatisticsItem {
+export type ClientStatisticsItem = {
   category: string
   color: string
   amount: Decimal

@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { getBrowserStorageState } from '../../getters/storage'
 import { StorageAction } from '../../reducers/storage'
 import { RootStoreState } from '../../types'
@@ -9,7 +9,7 @@ export const useSaveStateToLocalStorage = (
   dispatch: React.Dispatch<StorageAction>,
   isStateLoaded: boolean,
 ) => {
-  React.useEffect(() => {
+  useEffect(() => {
     if (isStateLoaded) {
       window.localStorage.setItem(
         getLocalStorageKey(),

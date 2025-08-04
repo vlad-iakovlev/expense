@@ -1,16 +1,16 @@
-import React from 'react'
+import { useCallback } from 'react'
 import { Card } from '@/components/common/Card/index'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation'
 import { Decimal } from '@/utils/Decimal'
 
-interface IncomeAmountProps {
+type IncomeAmountProps = {
   operationId: string
 }
 
 export const IncomeAmount = ({ operationId }: IncomeAmountProps) => {
   const { operation, setOperationIncomeAmount } = useOperation({ operationId })
 
-  const handleChange = React.useCallback(
+  const handleChange = useCallback(
     (value: string) => {
       setOperationIncomeAmount(Decimal.fromString(value).abs())
     },

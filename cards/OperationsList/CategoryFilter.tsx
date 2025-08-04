@@ -1,11 +1,11 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import React from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { Button } from '@/components/common/Button'
 import { Card, CardSelectItem } from '@/components/common/Card/index'
 import { useCategoryFilter } from '@/contexts/CategoryFilter'
 import { useCategories } from '@/contexts/RootStore/hooks/useCategories'
 
-interface CategoryFilterProps {
+type CategoryFilterProps = {
   groupId: string | undefined
   walletId: string | undefined
 }
@@ -15,7 +15,7 @@ export const CategoryFilter = ({ groupId, walletId }: CategoryFilterProps) => {
     useCategoryFilter()
   const { categories } = useCategories({ groupId, walletId })
 
-  const options = React.useMemo<CardSelectItem[]>(
+  const options = useMemo<CardSelectItem[]>(
     () =>
       categories.map<CardSelectItem>((category) => ({
         id: category,
@@ -24,7 +24,7 @@ export const CategoryFilter = ({ groupId, walletId }: CategoryFilterProps) => {
     [categories],
   )
 
-  const valueForSelect = React.useMemo(
+  const valueForSelect = useMemo(
     () => ({
       id: categoryFilter,
       label: categoryFilter || 'Show all',
@@ -32,7 +32,7 @@ export const CategoryFilter = ({ groupId, walletId }: CategoryFilterProps) => {
     [categoryFilter],
   )
 
-  const handleResetClick = React.useCallback(
+  const handleResetClick = useCallback(
     (event: React.MouseEvent) => {
       event.stopPropagation()
       resetCategoryFilter()
@@ -40,7 +40,7 @@ export const CategoryFilter = ({ groupId, walletId }: CategoryFilterProps) => {
     [resetCategoryFilter],
   )
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (categories.length < 2) {
       resetCategoryFilter()
     }

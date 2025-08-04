@@ -2,7 +2,7 @@ import { Amount } from '@/components/common/Amount'
 import { Card } from '@/components/common/Card/index'
 import { useGroupBalance } from '@/contexts/RootStore/hooks/useGroupBalance'
 
-interface BalanceProps {
+type BalanceProps = {
   groupId: string
 }
 

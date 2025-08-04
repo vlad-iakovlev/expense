@@ -1,5 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { AnimatePresence, Variants, easeInOut, motion } from 'framer-motion'
+import { useCallback } from 'react'
 import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card/index'
 import { PeriodType } from '@/hooks/usePeriod'
@@ -19,7 +20,7 @@ const variants: Variants = {
   },
 }
 
-interface PeriodSelectorProps {
+type PeriodSelectorProps = {
   fromDate: Date
   periodType: PeriodType
   onChangePeriodType: (period: PeriodType) => void
@@ -33,94 +34,112 @@ export const PeriodSelector = ({
   onChangePeriodType,
   onGoPrev,
   onGoNext,
-}: PeriodSelectorProps) => (
-  <div role="listitem" aria-label="Period">
-    <Card.Block role="radiogroup" aria-label="Period type">
-      <Button
-        className="flex-auto px-0"
-        size="sm"
-        theme={periodType === PeriodType.ALL ? 'green' : 'white'}
-        role="radio"
-        aria-label="All time"
-        aria-checked={periodType === PeriodType.ALL ? 'true' : 'false'}
-        onClick={() => onChangePeriodType(PeriodType.ALL)}
-      >
-        All
-      </Button>
+}: PeriodSelectorProps) => {
+  const handleAllClick = useCallback(() => {
+    onChangePeriodType(PeriodType.ALL)
+  }, [onChangePeriodType])
 
-      <Button
-        className="flex-auto px-0"
-        size="sm"
-        theme={periodType === PeriodType.WEEK ? 'green' : 'white'}
-        role="radio"
-        aria-checked={periodType === PeriodType.WEEK ? 'true' : 'false'}
-        onClick={() => onChangePeriodType(PeriodType.WEEK)}
-      >
-        Week
-      </Button>
+  const handleWeekClick = useCallback(() => {
+    onChangePeriodType(PeriodType.WEEK)
+  }, [onChangePeriodType])
 
-      <Button
-        className="flex-auto px-0"
-        size="sm"
-        theme={periodType === PeriodType.MONTH ? 'green' : 'white'}
-        role="radio"
-        aria-checked={periodType === PeriodType.MONTH ? 'true' : 'false'}
-        onClick={() => onChangePeriodType(PeriodType.MONTH)}
-      >
-        Month
-      </Button>
+  const handleMonthClick = useCallback(() => {
+    onChangePeriodType(PeriodType.MONTH)
+  }, [onChangePeriodType])
 
-      <Button
-        className="flex-auto px-0"
-        size="sm"
-        theme={periodType === PeriodType.YEAR ? 'green' : 'white'}
-        role="radio"
-        aria-checked={periodType === PeriodType.YEAR ? 'true' : 'false'}
-        onClick={() => onChangePeriodType(PeriodType.YEAR)}
-      >
-        Year
-      </Button>
-    </Card.Block>
+  const handleYearClick = useCallback(() => {
+    onChangePeriodType(PeriodType.YEAR)
+  }, [onChangePeriodType])
 
-    <AnimatePresence>
-      {periodType !== PeriodType.ALL && (
-        <motion.div
-          className="overflow-hidden"
-          initial="closed"
-          animate="opened"
-          exit="closed"
-          variants={variants}
+  return (
+    <div role="listitem" aria-label="Period">
+      <Card.Block role="radiogroup" aria-label="Period type">
+        <Button
+          className="flex-auto px-0"
+          size="sm"
+          theme={periodType === PeriodType.ALL ? 'green' : 'white'}
+          role="radio"
+          aria-label="All time"
+          aria-checked={periodType === PeriodType.ALL ? 'true' : 'false'}
+          onClick={handleAllClick}
         >
-          <Card.Block role="presentation">
-            <div
-              className="order-2 flex-auto truncate text-center font-medium"
-              tabIndex={0}
-              aria-label={formatPeriodForAriaLabel(periodType, fromDate)}
-              role="presentation"
-            >
-              {formatPeriod(periodType, fromDate)}
-            </div>
+          All
+        </Button>
 
-            <Button
-              className="order-1 flex-none"
-              size="md"
-              theme="white"
-              iconStart={<ChevronLeftIcon />}
-              aria-label="Previous period"
-              onClick={onGoPrev}
-            />
+        <Button
+          className="flex-auto px-0"
+          size="sm"
+          theme={periodType === PeriodType.WEEK ? 'green' : 'white'}
+          role="radio"
+          aria-checked={periodType === PeriodType.WEEK ? 'true' : 'false'}
+          onClick={handleWeekClick}
+        >
+          Week
+        </Button>
 
-            <Button
-              className="order-3 flex-none"
-              size="md"
-              theme="white"
-              iconStart={<ChevronRightIcon />}
-              aria-label="Next period"
-              onClick={onGoNext}
-            />
-          </Card.Block>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </div>
-)
+        <Button
+          className="flex-auto px-0"
+          size="sm"
+          theme={periodType === PeriodType.MONTH ? 'green' : 'white'}
+          role="radio"
+          aria-checked={periodType === PeriodType.MONTH ? 'true' : 'false'}
+          onClick={handleMonthClick}
+        >
+          Month
+        </Button>
+
+        <Button
+          className="flex-auto px-0"
+          size="sm"
+          theme={periodType === PeriodType.YEAR ? 'green' : 'white'}
+          role="radio"
+          aria-checked={periodType === PeriodType.YEAR ? 'true' : 'false'}
+          onClick={handleYearClick}
+        >
+          Year
+        </Button>
+      </Card.Block>
+
+      <AnimatePresence>
+        {periodType !== PeriodType.ALL && (
+          <motion.div
+            className="overflow-hidden"
+            initial="closed"
+            animate="opened"
+            exit="closed"
+            variants={variants}
+          >
+            <Card.Block role="presentation">
+              <div
+                className="order-2 flex-auto truncate text-center font-medium"
+                tabIndex={0}
+                aria-label={formatPeriodForAriaLabel(periodType, fromDate)}
+                role="presentation"
+              >
+                {formatPeriod(periodType, fromDate)}
+              </div>
+
+              <Button
+                className="order-1 flex-none"
+                size="md"
+                theme="white"
+                iconStart={<ChevronLeftIcon />}
+                aria-label="Previous period"
+                onClick={onGoPrev}
+              />
+
+              <Button
+                className="order-3 flex-none"
+                size="md"
+                theme="white"
+                iconStart={<ChevronRightIcon />}
+                aria-label="Next period"
+                onClick={onGoNext}
+              />
+            </Card.Block>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}

@@ -2,7 +2,7 @@ import { Container } from '@/components/common/Container'
 import { PageAuth } from './Auth'
 import { PageStore } from './Store'
 
-interface PageProps {
+type PageProps = {
   withStoreValidation?: boolean
   children: React.ReactNode
 }

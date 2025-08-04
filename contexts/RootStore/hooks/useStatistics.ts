@@ -1,5 +1,5 @@
 import assert from 'assert'
-import React from 'react'
+import { useMemo } from 'react'
 import {
   ClientStatisticsItem,
   ClientStatisticsType,
@@ -25,7 +25,7 @@ const AMOUNT_FIELD = {
   [ClientStatisticsType.EXPENSES]: 'expenseAmount',
 } as const
 
-interface UseStatisticsProps {
+type UseStatisticsProps = {
   groupId?: string
   walletId?: string
   startDate?: Date
@@ -42,7 +42,7 @@ export const useStatistics = ({
 }: UseStatisticsProps) => {
   const { state } = useRootStore()
 
-  const statisticsCurrency = React.useMemo(
+  const statisticsCurrency = useMemo(
     () =>
       getPopulatedCurrency(
         state,
@@ -51,7 +51,7 @@ export const useStatistics = ({
     [groupId, state, walletId],
   )
 
-  const currenciesMap = React.useMemo(
+  const currenciesMap = useMemo(
     () =>
       state.populatedCurrencies.reduce<
         Record<string, PopulatedClientCurrency | undefined>
@@ -62,7 +62,7 @@ export const useStatistics = ({
     [state.populatedCurrencies],
   )
 
-  const walletsMap = React.useMemo(
+  const walletsMap = useMemo(
     () =>
       state.wallets.reduce<Record<string, ClientWallet | undefined>>(
         (acc, wallet) => {
@@ -81,7 +81,7 @@ export const useStatistics = ({
     [groupId, state.wallets, walletId],
   )
 
-  const statisticsItems = React.useMemo<ClientStatisticsItem[]>(() => {
+  const statisticsItems = useMemo<ClientStatisticsItem[]>(() => {
     const categories = uniq(
       state.operations.map((operation) => operation.category),
     ).sort((a, b) => a.localeCompare(b))

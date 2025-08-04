@@ -1,6 +1,6 @@
 import { PopulatedClientCurrency } from '@/types/client'
 
-export interface CurrencyBadgeProps {
+export type CurrencyBadgeProps = {
   currency: PopulatedClientCurrency
 }
 

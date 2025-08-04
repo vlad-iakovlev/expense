@@ -22,7 +22,7 @@ const OperationTypeOptionsMap: Record<
 
 const options = Object.values(OperationTypeOptionsMap)
 
-interface TypeProps {
+type TypeProps = {
   operationId: string
 }
 

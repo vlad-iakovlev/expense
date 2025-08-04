@@ -1,10 +1,10 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
 import Head from 'next/head'
-import React from 'react'
+import { useCallback } from 'react'
 import { Card } from '@/components/common/Card/index'
 
 export const Fallback = () => {
-  const handleRestart = React.useCallback(() => {
+  const handleRestart = useCallback(() => {
     window.location.href = '/'
   }, [])
 

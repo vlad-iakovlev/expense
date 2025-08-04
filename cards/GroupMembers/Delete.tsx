@@ -2,13 +2,13 @@ import { XMarkIcon } from '@heroicons/react/20/solid'
 import assert from 'assert'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import React from 'react'
+import { useCallback, useState } from 'react'
 import { Button } from '@/components/common/Button'
 import { ConfirmDialog } from '@/components/common/ConfirmDialog'
 import { ROUTES } from '@/constants/routes'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 
-interface DeleteProps {
+type DeleteProps = {
   groupId: string
   userId: string
   tabIndex?: number
@@ -19,13 +19,13 @@ export const Delete = ({ groupId, userId, tabIndex }: DeleteProps) => {
   const router = useRouter()
   const { group, removeMemberFromGroup, leaveGroup } = useGroup({ groupId })
 
-  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = React.useState(false)
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
 
-  const handleDelete = React.useCallback(() => {
+  const handleDelete = useCallback(() => {
     setIsDeleteConfirmOpen(true)
   }, [])
 
-  const handleDeleteConfirm = React.useCallback(() => {
+  const handleDeleteConfirm = useCallback(() => {
     void (async () => {
       assert(session.status === 'authenticated', 'User is not authenticated')
       assert(session.data.user?.id, 'User id is required')
@@ -40,7 +40,7 @@ export const Delete = ({ groupId, userId, tabIndex }: DeleteProps) => {
     })()
   }, [leaveGroup, removeMemberFromGroup, router, session, userId])
 
-  const handleDeleteCancel = React.useCallback(() => {
+  const handleDeleteCancel = useCallback(() => {
     setIsDeleteConfirmOpen(false)
   }, [])
 

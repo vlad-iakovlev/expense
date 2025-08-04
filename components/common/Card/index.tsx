@@ -1,4 +1,4 @@
-import React from 'react'
+import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility'
 import { CardBlock } from './Block'
@@ -13,7 +13,7 @@ import { CardSubtitle } from './Subtitle'
 import { CardTitle } from './Title'
 
 export type CardProps = Modify<
-  React.HTMLAttributes<HTMLDivElement>,
+  React.ComponentProps<'div'>,
   {
     clickable?: boolean
   }
@@ -27,7 +27,7 @@ export const Card = ({
   onKeyDown,
   ...rest
 }: CardProps) => {
-  const handleKeyDown = React.useCallback(
+  const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (onClick && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault()

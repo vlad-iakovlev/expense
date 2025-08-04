@@ -1,9 +1,9 @@
-import React from 'react'
+import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { PopulatedClientCurrency } from '@/types/client'
 import { Decimal } from '@/utils/Decimal'
 
-export interface AmountProps {
+export type AmountProps = {
   className?: string
   amount: Decimal
   currency: PopulatedClientCurrency
@@ -20,7 +20,7 @@ export const Amount = ({
   showSign = 'never',
   hideCurrency,
 }: AmountProps) => {
-  const sign = React.useMemo(() => {
+  const sign = useMemo(() => {
     switch (showSign) {
       case 'non-zero':
         if (amount.eq(Decimal.ZERO)) return ''

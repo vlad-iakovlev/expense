@@ -1,4 +1,4 @@
-import React from 'react'
+import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility'
 import { CardBlock, CardBlockProps } from './Block'
@@ -22,79 +22,73 @@ export type CardItemProps = Modify<
   }
 >
 
-export const CardItem = React.forwardRef<HTMLDivElement, CardItemProps>(
-  function CardItem(
-    {
-      className,
-      prefixClassName,
-      suffixClassName,
-      labelClassName,
-      valueClassName,
-      menuClassName,
-      disabled,
-      clickable,
-      prefix,
-      suffix,
-      label,
-      value,
-      menu,
-      onClick,
-      onKeyDown,
-      ...rest
+export const CardItem = ({
+  className,
+  prefixClassName,
+  suffixClassName,
+  labelClassName,
+  valueClassName,
+  menuClassName,
+  disabled,
+  clickable,
+  prefix,
+  suffix,
+  label,
+  value,
+  menu,
+  onClick,
+  onKeyDown,
+  ...rest
+}: CardItemProps) => {
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (
+        (clickable || onClick) &&
+        (event.key === 'Enter' || event.key === ' ')
+      ) {
+        event.preventDefault()
+        event.currentTarget.click()
+      }
+
+      onKeyDown?.(event)
     },
-    ref,
-  ) {
-    const handleKeyDown = React.useCallback(
-      (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (
-          (clickable || onClick) &&
-          (event.key === 'Enter' || event.key === ' ')
-        ) {
-          event.preventDefault()
-          event.currentTarget.click()
-        }
+    [clickable, onClick, onKeyDown],
+  )
 
-        onKeyDown?.(event)
-      },
-      [clickable, onClick, onKeyDown],
-    )
-
-    return (
-      <CardBlock
-        ref={ref}
-        className={twMerge(
-          (clickable || onClick) &&
-            'cursor-pointer hover:bg-tertiary-background active:bg-tertiary-background',
-          disabled && 'pointer-events-none',
-          className,
-        )}
-        aria-disabled={!onClick || disabled ? 'true' : 'false'}
-        tabIndex={0}
-        onClick={onClick}
-        onKeyDown={handleKeyDown}
-        {...rest}
-      >
-        {!!prefix && (
-          <div className={twMerge('flex-none', prefixClassName)}>{prefix}</div>
-        )}
-        <div className={twMerge('flex-auto truncate', labelClassName)}>
-          {label}
-          {!!value && (
-            <span className="hidden" aria-label=":" aria-hidden="false" />
-          )}
-        </div>
+  return (
+    <CardBlock
+      className={twMerge(
+        (clickable || onClick) &&
+          'cursor-pointer hover:bg-tertiary-background active:bg-tertiary-background',
+        disabled && 'pointer-events-none',
+        className,
+      )}
+      aria-disabled={!onClick || disabled ? 'true' : 'false'}
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      {...rest}
+    >
+      {!!prefix && (
+        <div className={twMerge('flex-none', prefixClassName)}>{prefix}</div>
+      )}
+      <div className={twMerge('flex-auto truncate', labelClassName)}>
+        {label}
         {!!value && (
-          <div className={twMerge('flex-none', valueClassName)}>{value}</div>
+          <span className="hidden" aria-label=":" aria-hidden="false" />
         )}
-        {!!suffix && (
-          <div className={twMerge('flex-none', suffixClassName)}>{suffix}</div>
-        )}
-        {!!menu && (
-          <div className={twMerge('absolute inset-0 top-auto', menuClassName)}>
-            {menu}
-          </div>
-        )}
-      </CardBlock>
-    )
-  },
-)
+      </div>
+      {!!value && (
+        <div className={twMerge('flex-none', valueClassName)}>{value}</div>
+      )}
+      {!!suffix && (
+        <div className={twMerge('flex-none', suffixClassName)}>{suffix}</div>
+      )}
+      {!!menu && (
+        <div className={twMerge('absolute inset-0 top-auto', menuClassName)}>
+          {menu}
+        </div>
+      )}
+    </CardBlock>
+  )
+}

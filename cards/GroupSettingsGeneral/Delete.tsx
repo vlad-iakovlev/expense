@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import { useCallback, useState } from 'react'
 import { Button } from '@/components/common/Button'
 import { ConfirmDialog } from '@/components/common/ConfirmDialog'
 import { ROUTES } from '@/constants/routes'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 import { useWallets } from '@/contexts/RootStore/hooks/useWallets'
 
-interface DeleteProps {
+type DeleteProps = {
   groupId: string
 }
 
@@ -15,20 +15,20 @@ export const Delete = ({ groupId }: DeleteProps) => {
   const { removeGroup } = useGroup({ groupId })
   const { walletIds } = useWallets({ groupId })
 
-  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = React.useState(false)
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false)
 
-  const handleDelete = React.useCallback(() => {
+  const handleDelete = useCallback(() => {
     setIsDeleteConfirmOpen(true)
   }, [])
 
-  const handleDeleteConfirm = React.useCallback(() => {
+  const handleDeleteConfirm = useCallback(() => {
     void (async () => {
       await router.push(ROUTES.DASHBOARD)
       removeGroup()
     })()
   }, [removeGroup, router])
 
-  const handleDeleteCancel = React.useCallback(() => {
+  const handleDeleteCancel = useCallback(() => {
     setIsDeleteConfirmOpen(false)
   }, [])
 

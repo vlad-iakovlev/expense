@@ -1,13 +1,13 @@
 import { ArrowUturnLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
-import React from 'react'
+import { Fragment } from 'react'
 
-export interface BreadCrumbsParent {
+export type BreadCrumbsParent = {
   href: string
   title: string
 }
 
-export interface BreadcrumbsProps {
+export type BreadcrumbsProps = {
   parents?: BreadCrumbsParent[]
   mobileBack?: BreadCrumbsParent
 }
@@ -23,7 +23,7 @@ export const Breadcrumbs = ({
         aria-label="Breadcrumbs"
       >
         {parents.map((parent) => (
-          <React.Fragment key={parent.href}>
+          <Fragment key={parent.href}>
             <Link
               className="min-w-0 truncate text-lg leading-6 font-medium text-sky-700 dark:text-sky-500"
               href={parent.href}
@@ -35,7 +35,7 @@ export const Breadcrumbs = ({
               className="h-5 w-5 flex-none"
               aria-hidden="true"
             />
-          </React.Fragment>
+          </Fragment>
         ))}
       </nav>
     )}

@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge'
 
-export interface ContainerProps {
+export type ContainerProps = {
   children?: React.ReactNode
   className?: string
 }

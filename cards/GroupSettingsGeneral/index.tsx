@@ -3,7 +3,7 @@ import { DefaultCurrency } from './DefaultCurrency'
 import { Delete } from './Delete'
 import { Name } from './Name'
 
-interface GroupSettingsGeneralCardProps {
+type GroupSettingsGeneralCardProps = {
   className?: string
   groupId: string
 }

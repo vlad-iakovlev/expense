@@ -1,4 +1,4 @@
-import React from 'react'
+import { useCallback, useMemo } from 'react'
 import { Amount } from '@/components/common/Amount'
 import { Card } from '@/components/common/Card/index'
 import { PieChart, PieChartItem } from '@/components/common/PieChart/index'
@@ -20,14 +20,14 @@ const AMOUNT_TYPE = {
   [ClientStatisticsType.EXPENSES]: 'expense',
 } as const
 
-interface ChartProps {
+type ChartProps = {
   currency: PopulatedClientCurrency
   items: ClientStatisticsItem[]
   type: ClientStatisticsType
 }
 
 export const Chart = ({ currency, items, type }: ChartProps) => {
-  const chartItems = React.useMemo<PieChartItem[]>(
+  const chartItems = useMemo<PieChartItem[]>(
     () =>
       items.map((item) => ({
         id: item.category,
@@ -37,7 +37,7 @@ export const Chart = ({ currency, items, type }: ChartProps) => {
     [items],
   )
 
-  const renderTooltip = React.useCallback(
+  const renderTooltip = useCallback(
     (itemId: string | null, total: Decimal) => {
       const item = items.find((item) => item.category === itemId)
 

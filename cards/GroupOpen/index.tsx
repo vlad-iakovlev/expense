@@ -7,7 +7,7 @@ import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 import { useGroupBalance } from '@/contexts/RootStore/hooks/useGroupBalance'
 import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers'
 
-interface GroupOpenCardProps {
+type GroupOpenCardProps = {
   groupId: string
 }
 

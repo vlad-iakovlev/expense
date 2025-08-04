@@ -1,7 +1,7 @@
 import { useRootStore } from '@/contexts/RootStore/index'
 import { Loading } from '../Loading'
 
-interface PageStoreProps {
+type PageStoreProps = {
   children: React.ReactNode
 }
 

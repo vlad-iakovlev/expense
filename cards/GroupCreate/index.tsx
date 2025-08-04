@@ -1,6 +1,6 @@
 import { PlusIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router'
-import React from 'react'
+import { useCallback } from 'react'
 import { Card } from '@/components/common/Card/index'
 import { ROUTES } from '@/constants/routes'
 import { useGroups } from '@/contexts/RootStore/hooks/useGroups'
@@ -9,7 +9,7 @@ export const GroupCreateCard = () => {
   const router = useRouter()
   const { createGroup } = useGroups()
 
-  const handleCreate = React.useCallback(() => {
+  const handleCreate = useCallback(() => {
     const groupId = createGroup()
     void router.push(ROUTES.GROUP(groupId))
   }, [createGroup, router])

@@ -2,7 +2,7 @@ import { Card } from '@/components/common/Card/index'
 import { formatDate, formatDateForAriaLabel } from '@/utils/formatDate'
 import { Operation } from './Operation'
 
-interface GroupProps {
+type GroupProps = {
   date: Date
   operationIds: string[]
   walletId: string | undefined

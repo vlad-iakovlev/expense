@@ -1,7 +1,7 @@
 import { Card } from '@/components/common/Card/index'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation'
 
-interface DateProps {
+type DateProps = {
   operationId: string
 }
 

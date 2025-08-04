@@ -1,4 +1,4 @@
-export interface GetSectorProps {
+export type GetSectorProps = {
   x: number
   y: number
   radius: number
@@ -12,7 +12,7 @@ export const getSector = ({ x, y, radius, start, end }: GetSectorProps) => {
   return getPartSector({ x, y, radius, start, end })
 }
 
-interface GetPartSectorProps {
+type GetPartSectorProps = {
   x: number
   y: number
   radius: number
@@ -46,7 +46,7 @@ const getPartSector = ({ x, y, radius, start, end }: GetPartSectorProps) => {
   ].join(' ')
 }
 
-interface GetFullSectorProps {
+type GetFullSectorProps = {
   x: number
   y: number
   radius: number

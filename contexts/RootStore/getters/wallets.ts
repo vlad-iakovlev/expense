@@ -6,7 +6,7 @@ import { RootStoreState } from '../types'
 import { getPopulatedCurrency } from './currencies'
 import { getPopulatedGroup } from './groups'
 
-interface GetWalletsParams {
+type GetWalletsParams = {
   groupId?: string
 }
 

@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react'
 import { Home } from '@/components/pages/Home'
 import { Loading } from '../Loading'
 
-interface PageAuthProps {
+type PageAuthProps = {
   children: React.ReactNode
 }
 

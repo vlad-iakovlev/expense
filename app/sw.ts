@@ -3,6 +3,7 @@ import type { PrecacheEntry, SerwistGlobalConfig } from 'serwist'
 import { Serwist } from 'serwist'
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface WorkerGlobalScope extends SerwistGlobalConfig {
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined
   }

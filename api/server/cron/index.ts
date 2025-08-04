@@ -5,7 +5,7 @@ import fetch from 'node-fetch'
 
 const prisma = new PrismaClient()
 
-interface RatesResponse {
+type RatesResponse = {
   base: string
   date: string
   rates: Record<string, number>

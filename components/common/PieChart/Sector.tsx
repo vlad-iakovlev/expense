@@ -1,9 +1,9 @@
-import React from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { GetSectorProps, getSector } from '@/utils/client/getSector'
 
 const DURATION = 200
 
-interface SectorProps {
+type SectorProps = {
   sectorProps: GetSectorProps
   color: string
   onPointerEnter: () => void
@@ -16,10 +16,10 @@ export const Sector = ({
   onPointerEnter,
   onPointerLeave,
 }: SectorProps) => {
-  const lastProps = React.useRef(sectorProps)
-  const [animatedProps, setAnimatedProps] = React.useState(sectorProps)
+  const lastProps = useRef(sectorProps)
+  const [animatedProps, setAnimatedProps] = useState(sectorProps)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const startedAt = Date.now()
     let frameTimerId: number
 

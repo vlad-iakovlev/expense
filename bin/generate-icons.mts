@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import sharp from 'sharp'
 
-interface Icon {
+type Icon = {
   srcPath: string
   dstPath: string
   srcSize: number

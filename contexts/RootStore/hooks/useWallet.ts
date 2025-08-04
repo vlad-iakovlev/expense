@@ -1,22 +1,22 @@
-import React from 'react'
+import { useCallback, useMemo } from 'react'
 import { PopulatedClientWallet } from '@/types/client'
 import { getPopulatedWallet } from '../getters/wallets'
 import { useRootStore } from '../index'
 import { WalletsActionTypes } from '../types'
 
-interface UseWalletProps {
+type UseWalletProps = {
   walletId: string
 }
 
 export const useWallet = ({ walletId }: UseWalletProps) => {
   const { state, dispatch } = useRootStore()
 
-  const wallet = React.useMemo<PopulatedClientWallet>(
+  const wallet = useMemo<PopulatedClientWallet>(
     () => getPopulatedWallet(state, walletId),
     [state, walletId],
   )
 
-  const setWalletName = React.useCallback(
+  const setWalletName = useCallback(
     (name: string) => {
       dispatch({
         type: WalletsActionTypes.SET_WALLET_NAME,
@@ -26,7 +26,7 @@ export const useWallet = ({ walletId }: UseWalletProps) => {
     [dispatch, walletId],
   )
 
-  const setWalletCurrency = React.useCallback(
+  const setWalletCurrency = useCallback(
     (currencyId: string) => {
       dispatch({
         type: WalletsActionTypes.SET_WALLET_CURRENCY,
@@ -36,7 +36,7 @@ export const useWallet = ({ walletId }: UseWalletProps) => {
     [dispatch, walletId],
   )
 
-  const removeWallet = React.useCallback(() => {
+  const removeWallet = useCallback(() => {
     dispatch({
       type: WalletsActionTypes.REMOVE_WALLET,
       payload: { walletId },

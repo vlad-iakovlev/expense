@@ -6,7 +6,7 @@ import {
 import { Decimal } from '@/utils/Decimal'
 import { Category } from './Category'
 
-interface CategoriesProps {
+type CategoriesProps = {
   currency: PopulatedClientCurrency
   items: ClientStatisticsItem[]
   type: ClientStatisticsType

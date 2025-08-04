@@ -1,4 +1,4 @@
-import React from 'react'
+import { useCallback, useMemo } from 'react'
 import { v4 as uuid } from 'uuid'
 import { getOrderedGroups } from '../getters/groups'
 import { useRootStore } from '../index'
@@ -7,12 +7,12 @@ import { GroupsActionTypes } from '../types'
 export const useGroups = () => {
   const { state, dispatch } = useRootStore()
 
-  const groupIds = React.useMemo<string[]>(
+  const groupIds = useMemo<string[]>(
     () => getOrderedGroups(state).map((group) => group.id),
     [state],
   )
 
-  const createGroup = React.useCallback(() => {
+  const createGroup = useCallback(() => {
     const groupId = uuid()
 
     dispatch({

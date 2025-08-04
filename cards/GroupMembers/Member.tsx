@@ -1,10 +1,10 @@
-import React from 'react'
+import { useCallback, useState } from 'react'
 import { Avatar } from '@/components/common/Avatar'
 import { Card } from '@/components/common/Card/index'
 import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers'
 import { Delete } from './Delete'
 
-interface MemberProps {
+type MemberProps = {
   groupId: string
   userId: string
   name?: string
@@ -14,9 +14,9 @@ interface MemberProps {
 export const Member = ({ groupId, userId, name, image }: MemberProps) => {
   const { groupMembers } = useGroupMembers({ groupId })
 
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
-  const handleKeyDown = React.useCallback(
+  const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault()
@@ -26,7 +26,7 @@ export const Member = ({ groupId, userId, name, image }: MemberProps) => {
     [setIsOpen],
   )
 
-  const handleBlur = React.useCallback((event: React.FocusEvent) => {
+  const handleBlur = useCallback((event: React.FocusEvent) => {
     void (async () => {
       const currentTarget = event.currentTarget
       await new Promise(requestAnimationFrame)

@@ -4,14 +4,14 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import React from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card/index'
 import { useGroupedWallets } from '@/contexts/RootStore/hooks/useGroupedWallets'
 import { Add } from './Add'
 import { Group } from './Group'
 
-interface WalletsListCardProps {
+type WalletsListCardProps = {
   className?: string
   groupId: string
 }
@@ -22,18 +22,18 @@ export const WalletsListCard = ({
 }: WalletsListCardProps) => {
   const { groupedWallets, reorderWallets } = useGroupedWallets({ groupId })
 
-  const currencyIds = React.useMemo(
+  const currencyIds = useMemo(
     () => groupedWallets.map(({ currency }) => currency.id),
     [groupedWallets],
   )
 
   const canReorderGroups = groupedWallets.length > 1
-  const canReorderWallets = React.useMemo(
+  const canReorderWallets = useMemo(
     () => groupedWallets.some(({ walletIds }) => walletIds.length > 1),
     [groupedWallets],
   )
 
-  const handleDragEnd = React.useCallback(
+  const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
       const oldIndex = currencyIds.indexOf(String(event.active.id))
       const newIndex = currencyIds.indexOf(String(event.over?.id))
@@ -45,7 +45,7 @@ export const WalletsListCard = ({
     [currencyIds, groupedWallets, reorderWallets],
   )
 
-  const handleReorder = React.useCallback(
+  const handleReorder = useCallback(
     (currencyId: string, walletIds: string[]) => {
       const newGroupedWallets = groupedWallets.map((groupedWalletIds) => {
         if (groupedWalletIds.currency.id === currencyId) {
@@ -59,9 +59,13 @@ export const WalletsListCard = ({
     [groupedWallets, reorderWallets],
   )
 
-  const [isReordering, setIsReordering] = React.useState(false)
-  const startReordering = React.useCallback(() => setIsReordering(true), [])
-  const stopReordering = React.useCallback(() => setIsReordering(false), [])
+  const [isReordering, setIsReordering] = useState(false)
+  const startReordering = useCallback(() => {
+    setIsReordering(true)
+  }, [])
+  const stopReordering = useCallback(() => {
+    setIsReordering(false)
+  }, [])
 
   return (
     <Card className={className} aria-label="Wallets">

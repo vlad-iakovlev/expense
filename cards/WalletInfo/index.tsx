@@ -3,7 +3,7 @@ import { Balance } from './Balance'
 import { BalanceInDefaultCurrency } from './BalanceInDefaultCurrency'
 import { Settings } from './Settings'
 
-interface WalletInfoCardProps {
+type WalletInfoCardProps = {
   className?: string
   walletId: string
 }

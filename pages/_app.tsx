@@ -3,7 +3,7 @@ import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-import React from 'react'
+import { useEffect } from 'react'
 import { ErrorBoundary } from '@/components/common/ErrorBoundary'
 import { Header } from '@/components/layout/Header/index'
 import { Fallback } from '@/components/pages/Fallback'
@@ -14,11 +14,11 @@ const App = ({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session | null }>) => {
-  React.useEffect(() => {
+  useEffect(() => {
     fns.setDefaultOptions({ weekStartsOn: 1 })
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const visualViewport = window.visualViewport
     if (!visualViewport) return
 
@@ -27,7 +27,9 @@ const App = ({
     }
 
     visualViewport.addEventListener('resize', handleResize)
-    return () => visualViewport.removeEventListener('resize', handleResize)
+    return () => {
+      visualViewport.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   return (

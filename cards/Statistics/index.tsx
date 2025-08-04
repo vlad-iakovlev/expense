@@ -1,4 +1,4 @@
-import React from 'react'
+import { useMemo, useState } from 'react'
 import { Card } from '@/components/common/Card/index'
 import { useDisabledCategories } from '@/contexts/RootStore/hooks/useDisabledCategories'
 import { useOperations } from '@/contexts/RootStore/hooks/useOperations'
@@ -11,7 +11,7 @@ import { Chart } from './Chart'
 import { PeriodSelector } from './PeriodSelector'
 import { TypeSelector } from './TypeSelector'
 
-interface StatisticsCardProps {
+type StatisticsCardProps = {
   className?: string
   groupId?: string
   walletId?: string
@@ -22,7 +22,7 @@ export const StatisticsCard = ({
   groupId,
   walletId,
 }: StatisticsCardProps) => {
-  const [type, setType] = React.useState(ClientStatisticsType.EXPENSES)
+  const [type, setType] = useState(ClientStatisticsType.EXPENSES)
   const {
     startDate,
     endDate,
@@ -43,7 +43,7 @@ export const StatisticsCard = ({
 
   const { disabledCategories } = useDisabledCategories()
 
-  const chartItems = React.useMemo<ClientStatisticsItem[]>(
+  const chartItems = useMemo<ClientStatisticsItem[]>(
     () =>
       statisticsItems.map((item) => ({
         ...item,

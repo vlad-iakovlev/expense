@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import { useSyncStatus } from '@/contexts/RootStore/hooks/useSyncStatus'
 import { formatDateTimeForAriaLabel } from '@/utils/formatDate'
 
-interface HeaderSyncProps {
+type HeaderSyncProps = {
   className?: string
 }
 

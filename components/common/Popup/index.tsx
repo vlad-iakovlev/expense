@@ -1,5 +1,5 @@
 import { AnimatePresence, Variants, easeInOut, motion } from 'framer-motion'
-import React from 'react'
+import { useRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useMenuNavigation } from './useMenuNavigation'
 
@@ -23,7 +23,7 @@ export type PopupPosition =
   | 'below-left'
   | 'below-right'
 
-export interface PopupProps {
+export type PopupProps = {
   className?: string
   popupClassName?: string
   popupRole?: string
@@ -44,7 +44,7 @@ export const Popup = ({
   children,
   onClose,
 }: PopupProps) => {
-  const popupRef = React.useRef<HTMLDivElement>(null)
+  const popupRef = useRef<HTMLDivElement>(null)
 
   useMenuNavigation({
     popupRef,

@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { StorageAction } from '../../reducers/storage'
 import { RootStoreState, StorageActionType } from '../../types'
 import { getLocalStorageKey } from './constants'
@@ -9,13 +9,13 @@ export const useLoadStateFromLocalStorage = (
   dispatch: React.Dispatch<StorageAction>,
 ) => {
   const canLoadState = useCanLoadState()
-  const [isStateLoaded, setIsStateLoaded] = React.useState(false)
+  const [isStateLoaded, setIsStateLoaded] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!canLoadState) setIsStateLoaded(false)
   }, [canLoadState])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (canLoadState && !isStateLoaded) {
       try {
         const storedState = window.localStorage.getItem(getLocalStorageKey())

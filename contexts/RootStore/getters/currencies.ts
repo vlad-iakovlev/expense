@@ -14,7 +14,7 @@ export const getPopulatedCurrency = (
   return currency
 }
 
-interface GetDefaultCurrencyIdParams {
+type GetDefaultCurrencyIdParams = {
   groupId?: string
   walletId?: string
 }

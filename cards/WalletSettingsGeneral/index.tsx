@@ -3,7 +3,7 @@ import { Currency } from './Currency'
 import { Delete } from './Delete'
 import { Name } from './Name'
 
-interface WalletSettingsGeneralCardProps {
+type WalletSettingsGeneralCardProps = {
   className?: string
   walletId: string
 }

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React from 'react'
+import { useMemo } from 'react'
 import { OperationInfoCard } from '@/cards/OperationInfo/index'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs'
 import { Columns } from '@/components/common/Columns'
@@ -7,14 +7,14 @@ import { Title } from '@/components/common/Title'
 import { ROUTES } from '@/constants/routes'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation'
 
-interface OperationProps {
+type OperationProps = {
   operationId: string
 }
 
 export const Operation = ({ operationId }: OperationProps) => {
   const { operation } = useOperation({ operationId })
 
-  const parents = React.useMemo(() => {
+  const parents = useMemo(() => {
     const wallet = operation.expenseWallet ?? operation.incomeWallet
 
     if (!wallet) return undefined

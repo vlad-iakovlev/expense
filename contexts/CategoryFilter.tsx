@@ -1,34 +1,34 @@
 import assert from 'assert'
-import React from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 
-interface ContextValue {
+type ContextValue = {
   categoryFilter: string
   setCategoryFilter: React.Dispatch<React.SetStateAction<string>>
   toggleCategoryFilter: (category: string) => void
   resetCategoryFilter: () => void
 }
 
-export const CategoryFilterContext = React.createContext<
-  ContextValue | undefined
->(undefined)
+export const CategoryFilterContext = createContext<ContextValue | undefined>(
+  undefined,
+)
 CategoryFilterContext.displayName = 'CategoryFilterContext'
 
-interface ProviderProps {
+type ProviderProps = {
   children: React.ReactNode
 }
 
 export const CategoryFilterProvider = ({ children }: ProviderProps) => {
-  const [categoryFilter, setCategoryFilter] = React.useState('')
+  const [categoryFilter, setCategoryFilter] = useState('')
 
-  const toggleCategoryFilter = React.useCallback(
-    (category: string) =>
-      setCategoryFilter((currentCategory) =>
-        currentCategory === category ? '' : category,
-      ),
-    [],
-  )
+  const toggleCategoryFilter = useCallback((category: string) => {
+    setCategoryFilter((currentCategory) =>
+      currentCategory === category ? '' : category,
+    )
+  }, [])
 
-  const resetCategoryFilter = React.useCallback(() => setCategoryFilter(''), [])
+  const resetCategoryFilter = useCallback(() => {
+    setCategoryFilter('')
+  }, [])
 
   return (
     <CategoryFilterContext.Provider
@@ -45,7 +45,7 @@ export const CategoryFilterProvider = ({ children }: ProviderProps) => {
 }
 
 export const useCategoryFilter = () => {
-  const context = React.useContext(CategoryFilterContext)
+  const context = useContext(CategoryFilterContext)
   assert(
     context,
     'useCategoryFilter must be used within a CategoryFilterProvider',

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React from 'react'
+import { useMemo } from 'react'
 import { GroupInfoCard } from '@/cards/GroupInfo/index'
 import { OperationsListCard } from '@/cards/OperationsList/index'
 import { StatisticsCard } from '@/cards/Statistics/index'
@@ -10,14 +10,14 @@ import { Title } from '@/components/common/Title'
 import { ROUTES } from '@/constants/routes'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 
-interface GroupProps {
+type GroupProps = {
   groupId: string
 }
 
 export const Group = ({ groupId }: GroupProps) => {
   const { group } = useGroup({ groupId })
 
-  const parents = React.useMemo(
+  const parents = useMemo(
     () => [
       {
         href: ROUTES.DASHBOARD,

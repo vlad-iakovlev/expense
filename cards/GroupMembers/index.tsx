@@ -3,7 +3,7 @@ import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers'
 import { Invite } from './Invite'
 import { Member } from './Member'
 
-interface GroupMembersCardProps {
+type GroupMembersCardProps = {
   className?: string
   groupId: string
 }

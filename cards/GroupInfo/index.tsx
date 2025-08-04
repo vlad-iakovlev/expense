@@ -3,7 +3,7 @@ import { Balance } from './Balance'
 import { Members } from './Members'
 import { Settings } from './Settings'
 
-interface GroupInfoCardProps {
+type GroupInfoCardProps = {
   className?: string
   groupId: string
 }

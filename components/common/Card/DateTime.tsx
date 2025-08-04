@@ -1,4 +1,4 @@
-import React from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility'
 import {
@@ -24,17 +24,17 @@ export const CardDateTime = ({
   onChange,
   ...rest
 }: CardDateTimeProps) => {
-  const [inputValue, setInputValue] = React.useState('')
-  const [isEditing, setIsEditing] = React.useState(false)
+  const [inputValue, setInputValue] = useState('')
+  const [isEditing, setIsEditing] = useState(false)
 
-  const dateForInput = React.useMemo(() => formatDateForInput(value), [value])
+  const dateForInput = useMemo(() => formatDateForInput(value), [value])
 
-  const handleClick = React.useCallback(() => {
+  const handleClick = useCallback(() => {
     setIsEditing(true)
     setInputValue(dateForInput)
   }, [dateForInput])
 
-  const handleInputKeyDown = React.useCallback(
+  const handleInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       switch (event.key) {
         case 'Enter':
@@ -49,14 +49,14 @@ export const CardDateTime = ({
     [],
   )
 
-  const handleInputChange = React.useCallback(
+  const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value)
     },
     [],
   )
 
-  const handleInputBlur = React.useCallback(() => {
+  const handleInputBlur = useCallback(() => {
     if (inputValue && inputValue !== dateForInput) {
       onChange(new Date(inputValue))
     }

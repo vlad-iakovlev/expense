@@ -6,7 +6,7 @@ import { ExpenseOperation } from './ExpenseOperation'
 import { IncomeOperation } from './IncomeOperation'
 import { TransferOperation } from './TransferOperation'
 
-interface OperationProps {
+type OperationProps = {
   operationId: string
   walletId: string | undefined
 }

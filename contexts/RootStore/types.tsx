@@ -10,7 +10,7 @@ import {
 } from '@/types/client'
 import { Modify } from '@/types/utility'
 
-export interface RootStoreState {
+export type RootStoreState = {
   currencies: ClientCurrency[]
   populatedCurrencies: PopulatedClientCurrency[]
   users: ClientUser[]
@@ -26,7 +26,7 @@ export interface RootStoreState {
   syncedAt: Date | null
 }
 
-export interface BrowserStorageState {
+export type BrowserStorageState = {
   currencies: ClientCurrency[]
   users: ClientUser[]
   userGroups: ClientUserGroup[]

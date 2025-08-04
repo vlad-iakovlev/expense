@@ -3,7 +3,7 @@ import { Amount } from '@/components/common/Amount'
 import { PopulatedClientOperation } from '@/types/client'
 import { formatTime } from '@/utils/formatDate'
 
-interface IncomeOperationProps {
+type IncomeOperationProps = {
   operation: PopulatedClientOperation
   walletId: string | undefined
 }

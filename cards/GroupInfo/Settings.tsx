@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Button } from '@/components/common/Button'
 import { ROUTES } from '@/constants/routes'
 
-interface SettingsProps {
+type SettingsProps = {
   groupId: string
 }
 

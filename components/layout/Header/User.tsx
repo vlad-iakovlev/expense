@@ -1,29 +1,29 @@
 import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import React from 'react'
+import { useCallback, useState } from 'react'
 import { Avatar } from '@/components/common/Avatar'
 import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card/index'
 
-interface HeaderUserProps {
+type HeaderUserProps = {
   className?: string
 }
 
 export const HeaderUser = ({ className }: HeaderUserProps) => {
   const session = useSession()
 
-  const [isOpen, setIsOpen] = React.useState(false)
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleProfileClick = React.useCallback(() => {
+  const handleProfileClick = useCallback(() => {
     setIsOpen(true)
   }, [])
 
-  const handlePopupClose = React.useCallback(() => {
+  const handlePopupClose = useCallback(() => {
     setIsOpen(false)
   }, [])
 
-  const handleSignIn = React.useCallback(() => {
+  const handleSignIn = useCallback(() => {
     void (async () => {
       try {
         setIsLoading(true)
@@ -34,7 +34,7 @@ export const HeaderUser = ({ className }: HeaderUserProps) => {
     })()
   }, [])
 
-  const handleSignOut = React.useCallback(() => {
+  const handleSignOut = useCallback(() => {
     void (async () => {
       try {
         setIsOpen(false)

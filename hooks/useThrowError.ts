@@ -1,9 +1,9 @@
-import React from 'react'
+import { useCallback, useState } from 'react'
 
 export const useThrowError = () => {
-  const [, setState] = React.useState()
+  const [, setState] = useState()
 
-  const throwError = React.useCallback((error: unknown) => {
+  const throwError = useCallback((error: unknown) => {
     setState(() => {
       throw error
     })

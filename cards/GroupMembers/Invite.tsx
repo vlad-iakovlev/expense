@@ -1,5 +1,5 @@
 import { CheckIcon } from '@heroicons/react/24/solid'
-import React from 'react'
+import { useCallback, useState } from 'react'
 import { createInvite } from '@/api/client/invites'
 import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card/index'
@@ -10,19 +10,19 @@ import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 import { useIsOnline } from '@/hooks/useIsOnline'
 import { formatDateTime, formatDateTimeForAriaLabel } from '@/utils/formatDate'
 
-interface InviteProps {
+type InviteProps = {
   groupId: string
 }
 
 export const Invite = ({ groupId }: InviteProps) => {
   const isOnline = useIsOnline()
   const { group } = useGroup({ groupId })
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [isOpen, setIsOpen] = React.useState(false)
-  const [inviteLink, setInviteLink] = React.useState('')
-  const [expirationDate, setExpirationDate] = React.useState(new Date(0))
+  const [isLoading, setIsLoading] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [inviteLink, setInviteLink] = useState('')
+  const [expirationDate, setExpirationDate] = useState(new Date(0))
 
-  const handleInvite = React.useCallback(() => {
+  const handleInvite = useCallback(() => {
     void (async () => {
       try {
         const { token, expiresAt } = await createInvite({ groupId })
@@ -35,7 +35,7 @@ export const Invite = ({ groupId }: InviteProps) => {
     })()
   }, [groupId])
 
-  const handleClose = React.useCallback(() => {
+  const handleClose = useCallback(() => {
     setIsOpen(false)
   }, [])
 

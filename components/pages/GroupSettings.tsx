@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React from 'react'
+import { useMemo } from 'react'
 import { GroupMembersCard } from '@/cards/GroupMembers/index'
 import { GroupSettingsGeneralCard } from '@/cards/GroupSettingsGeneral/index'
 import { RenameCategoryCard } from '@/cards/RenameCategory/index'
@@ -9,14 +9,14 @@ import { Title } from '@/components/common/Title'
 import { ROUTES } from '@/constants/routes'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 
-interface GroupSettingsProps {
+type GroupSettingsProps = {
   groupId: string
 }
 
 export const GroupSettings = ({ groupId }: GroupSettingsProps) => {
   const { group } = useGroup({ groupId })
 
-  const parents = React.useMemo(
+  const parents = useMemo(
     () => [
       {
         href: ROUTES.DASHBOARD,

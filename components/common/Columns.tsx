@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge'
 
-export interface ColumnsProps {
+export type ColumnsProps = {
   className?: string
   children: React.ReactNode
 }

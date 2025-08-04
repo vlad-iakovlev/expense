@@ -1,23 +1,23 @@
-import React from 'react'
+import { useCallback, useMemo } from 'react'
 import { ClientOperationType, PopulatedClientOperation } from '@/types/client'
 import { Decimal } from '@/utils/Decimal'
 import { getPopulatedOperation } from '../getters/operations'
 import { useRootStore } from '../index'
 import { OperationsActionTypes } from '../types'
 
-interface UseOperationProps {
+type UseOperationProps = {
   operationId: string
 }
 
 export const useOperation = ({ operationId }: UseOperationProps) => {
   const { state, dispatch } = useRootStore()
 
-  const operation = React.useMemo<PopulatedClientOperation>(
+  const operation = useMemo<PopulatedClientOperation>(
     () => getPopulatedOperation(state, operationId),
     [state, operationId],
   )
 
-  const setOperationName = React.useCallback(
+  const setOperationName = useCallback(
     (name: string) => {
       dispatch({
         type: OperationsActionTypes.SET_OPERATION_NAME,
@@ -27,7 +27,7 @@ export const useOperation = ({ operationId }: UseOperationProps) => {
     [dispatch, operationId],
   )
 
-  const setOperationCategory = React.useCallback(
+  const setOperationCategory = useCallback(
     (category: string) => {
       dispatch({
         type: OperationsActionTypes.SET_OPERATION_CATEGORY,
@@ -37,7 +37,7 @@ export const useOperation = ({ operationId }: UseOperationProps) => {
     [dispatch, operationId],
   )
 
-  const setOperationDate = React.useCallback(
+  const setOperationDate = useCallback(
     (date: Date) => {
       dispatch({
         type: OperationsActionTypes.SET_OPERATION_DATE,
@@ -47,7 +47,7 @@ export const useOperation = ({ operationId }: UseOperationProps) => {
     [dispatch, operationId],
   )
 
-  const setOperationType = React.useCallback(
+  const setOperationType = useCallback(
     (type: ClientOperationType) => {
       dispatch({
         type: OperationsActionTypes.SET_OPERATION_TYPE,
@@ -57,7 +57,7 @@ export const useOperation = ({ operationId }: UseOperationProps) => {
     [dispatch, operationId],
   )
 
-  const setOperationIncomeAmount = React.useCallback(
+  const setOperationIncomeAmount = useCallback(
     (incomeAmount: Decimal) => {
       dispatch({
         type: OperationsActionTypes.SET_OPERATION_INCOME_AMOUNT,
@@ -67,7 +67,7 @@ export const useOperation = ({ operationId }: UseOperationProps) => {
     [dispatch, operationId],
   )
 
-  const setOperationExpenseAmount = React.useCallback(
+  const setOperationExpenseAmount = useCallback(
     (expenseAmount: Decimal) => {
       dispatch({
         type: OperationsActionTypes.SET_OPERATION_EXPENSE_AMOUNT,
@@ -77,7 +77,7 @@ export const useOperation = ({ operationId }: UseOperationProps) => {
     [dispatch, operationId],
   )
 
-  const setOperationIncomeWallet = React.useCallback(
+  const setOperationIncomeWallet = useCallback(
     (incomeWalletId: string) => {
       dispatch({
         type: OperationsActionTypes.SET_OPERATION_INCOME_WALLET,
@@ -87,7 +87,7 @@ export const useOperation = ({ operationId }: UseOperationProps) => {
     [dispatch, operationId],
   )
 
-  const setOperationExpenseWallet = React.useCallback(
+  const setOperationExpenseWallet = useCallback(
     (expenseWalletId: string) => {
       dispatch({
         type: OperationsActionTypes.SET_OPERATION_EXPENSE_WALLET,
@@ -97,7 +97,7 @@ export const useOperation = ({ operationId }: UseOperationProps) => {
     [dispatch, operationId],
   )
 
-  const removeOperation = React.useCallback(() => {
+  const removeOperation = useCallback(() => {
     dispatch({
       type: OperationsActionTypes.REMOVE_OPERATION,
       payload: { operationId },

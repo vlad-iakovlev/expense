@@ -1,4 +1,4 @@
-import React from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { performSync } from '@/api/client/sync'
 import { ERROR_TYPES } from '@/constants/errors'
 import { useIsOnline } from '@/hooks/useIsOnline'
@@ -16,9 +16,9 @@ export const useSyncStateWithServer = (
 ) => {
   const throwError = useThrowError()
   const isOnline = useIsOnline()
-  const [shouldSyncAsap, setShouldSyncAsap] = React.useState(true)
+  const [shouldSyncAsap, setShouldSyncAsap] = useState(true)
 
-  const sync = React.useCallback(async () => {
+  const sync = useCallback(async () => {
     try {
       setShouldSyncAsap(false)
 
@@ -43,7 +43,8 @@ export const useSyncStateWithServer = (
         ).includes(error.message)
       ) {
         window.localStorage.removeItem(getLocalStorageKey())
-        return throwError(error)
+        throwError(error)
+        return
       }
 
       console.error(error)
@@ -51,16 +52,21 @@ export const useSyncStateWithServer = (
     }
   }, [dispatch, state, throwError])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (state.isSyncing) return
-    if (!isStateLoaded || !isOnline) return setShouldSyncAsap(true)
+    if (!isStateLoaded || !isOnline) {
+      setShouldSyncAsap(true)
+      return
+    }
     if (shouldSyncAsap) return void sync()
 
     const timerId = setTimeout(
       () => void sync(),
       isTransactionEmpty(state.nextSyncTransaction) ? 60000 : 2000,
     )
-    return () => clearTimeout(timerId)
+    return () => {
+      clearTimeout(timerId)
+    }
   }, [
     isOnline,
     isStateLoaded,

@@ -1,5 +1,5 @@
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
-import React from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Card } from '@/components/common/Card/index'
 import { useCategoryFilter } from '@/contexts/CategoryFilter'
 import { useGroupedOperations } from '@/contexts/RootStore/hooks/useGroupedOperations'
@@ -7,7 +7,7 @@ import { Add } from './Add'
 import { CategoryFilter } from './CategoryFilter'
 import { Group } from './Group'
 
-interface OperationsListCardProps {
+type OperationsListCardProps = {
   className?: string
   groupId?: string
   walletId?: string
@@ -27,10 +27,12 @@ export const OperationsListCard = ({
     category: categoryFilter,
   })
 
-  const [take, setTake] = React.useState(PAGE_SIZE)
-  React.useEffect(() => setTake(PAGE_SIZE), [categoryFilter])
+  const [take, setTake] = useState(PAGE_SIZE)
+  useEffect(() => {
+    setTake(PAGE_SIZE)
+  }, [categoryFilter])
 
-  const renderedOperations = React.useMemo(() => {
+  const renderedOperations = useMemo(() => {
     if (!groupedOperations.length) return []
 
     let left = take
@@ -55,7 +57,7 @@ export const OperationsListCard = ({
     )
   }, [groupedOperations, take, walletId])
 
-  const canShowMore = React.useMemo(() => {
+  const canShowMore = useMemo(() => {
     const operationsCount = groupedOperations.reduce(
       (acc, { operationIds }) => acc + operationIds.length,
       0,
@@ -64,7 +66,7 @@ export const OperationsListCard = ({
     return take < operationsCount
   }, [groupedOperations, take])
 
-  const handleShowMore = React.useCallback(() => {
+  const handleShowMore = useCallback(() => {
     setTake((prevTake) => prevTake + PAGE_SIZE)
   }, [])
 

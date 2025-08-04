@@ -1,5 +1,5 @@
 import * as fns from 'date-fns'
-import React from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 export enum PeriodType {
   ALL = 'ALL',
@@ -9,14 +9,10 @@ export enum PeriodType {
 }
 
 export const usePeriod = () => {
-  const [fromDate, setFromDate] = React.useState<Date>(
-    fns.startOfWeek(new Date()),
-  )
-  const [periodType, setPeriodType] = React.useState<PeriodType>(
-    PeriodType.WEEK,
-  )
+  const [fromDate, setFromDate] = useState<Date>(fns.startOfWeek(new Date()))
+  const [periodType, setPeriodType] = useState<PeriodType>(PeriodType.WEEK)
 
-  React.useEffect(() => {
+  useEffect(() => {
     switch (periodType) {
       case PeriodType.WEEK:
         setFromDate(fns.startOfWeek(new Date()))
@@ -34,7 +30,7 @@ export const usePeriod = () => {
 
   const startDate = periodType === PeriodType.ALL ? undefined : fromDate
 
-  const endDate = React.useMemo(() => {
+  const endDate = useMemo(() => {
     switch (periodType) {
       case PeriodType.WEEK:
         return fns.addWeeks(fromDate, 1)
@@ -47,7 +43,7 @@ export const usePeriod = () => {
     }
   }, [fromDate, periodType])
 
-  const goPrev = React.useCallback(() => {
+  const goPrev = useCallback(() => {
     switch (periodType) {
       case PeriodType.WEEK:
         setFromDate((fromDate) => fns.subWeeks(fromDate, 1))
@@ -63,7 +59,7 @@ export const usePeriod = () => {
     }
   }, [periodType])
 
-  const goNext = React.useCallback(() => {
+  const goNext = useCallback(() => {
     switch (periodType) {
       case PeriodType.WEEK:
         setFromDate((fromDate) => fns.addWeeks(fromDate, 1))

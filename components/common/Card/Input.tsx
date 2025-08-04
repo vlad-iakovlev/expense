@@ -1,4 +1,4 @@
-import React from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility'
 import { CardItem, CardItemProps } from './Item'
@@ -23,11 +23,11 @@ export const CardInput = ({
   onChange,
   ...rest
 }: CardInputProps) => {
-  const [isEditing, setIsEditing] = React.useState(false)
-  const [inputValue, setInputValue] = React.useState('')
-  const [suggestionsFilter, setSuggestionsFilter] = React.useState<string>('')
+  const [isEditing, setIsEditing] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+  const [suggestionsFilter, setSuggestionsFilter] = useState<string>('')
 
-  const filteredSuggestions = React.useMemo(
+  const filteredSuggestions = useMemo(
     () =>
       suggestions.filter((suggestion) =>
         suggestion.toLowerCase().includes(suggestionsFilter.toLowerCase()),
@@ -35,13 +35,13 @@ export const CardInput = ({
     [suggestions, suggestionsFilter],
   )
 
-  const handleClick = React.useCallback(() => {
+  const handleClick = useCallback(() => {
     setIsEditing(true)
     setInputValue(value)
     setSuggestionsFilter('')
   }, [value])
 
-  const handleKeyDown = React.useCallback(
+  const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
       switch (event.key) {
         case 'Enter':
@@ -60,7 +60,7 @@ export const CardInput = ({
     [isEditing],
   )
 
-  const handleBlur = React.useCallback(
+  const handleBlur = useCallback(
     (event: React.FocusEvent) => {
       void (async () => {
         const currentTarget = event.currentTarget
@@ -75,7 +75,7 @@ export const CardInput = ({
     [inputValue, value, onChange],
   )
 
-  const handleInputChange = React.useCallback(
+  const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value)
       setSuggestionsFilter(event.target.value)
@@ -83,14 +83,14 @@ export const CardInput = ({
     [],
   )
 
-  const handleInputFocus = React.useCallback(
+  const handleInputFocus = useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
       event.currentTarget.select()
     },
     [],
   )
 
-  const handleSelect = React.useCallback(
+  const handleSelect = useCallback(
     (suggestion: string) => {
       if (suggestion !== value) onChange(suggestion)
       setIsEditing(false)
@@ -130,7 +130,9 @@ export const CardInput = ({
               key={suggestion}
               label={suggestion}
               role="menuitem"
-              onClick={() => handleSelect(suggestion)}
+              onClick={() => {
+                handleSelect(suggestion)
+              }}
             />
           ))}
         </CardMenu>

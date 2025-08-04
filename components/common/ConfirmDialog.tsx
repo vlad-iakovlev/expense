@@ -3,7 +3,7 @@ import { Button } from './Button'
 import { Card } from './Card/index'
 import { Dialog } from './Dialog'
 
-export interface ConfirmDialogProps {
+export type ConfirmDialogProps = {
   isOpen: boolean
   title: string
   description: string

@@ -1,5 +1,5 @@
 import { Variants, easeInOut, motion } from 'framer-motion'
-import React from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Thumb, Track, getThumb, getTrack } from './utils'
 
@@ -25,7 +25,7 @@ const variants: Variants = {
   },
 }
 
-export interface ScrollableProps {
+export type ScrollableProps = {
   className?: string
   contentClassName?: string
   children: React.ReactNode
@@ -36,15 +36,15 @@ export const Scrollable = ({
   contentClassName,
   children,
 }: ScrollableProps) => {
-  const contentRef = React.useRef<HTMLDivElement>(null)
-  const [isVTrackVisible, setIsVTrackVisible] = React.useState(false)
-  const [isHTrackVisible, setIsHTrackVisible] = React.useState(false)
-  const [vTrack, setVTrack] = React.useState(DEFAULT_TRACK)
-  const [hTrack, setHTrack] = React.useState(DEFAULT_TRACK)
-  const [vThumb, setVThumb] = React.useState(DEFAULT_THUMB)
-  const [hThumb, setHThumb] = React.useState(DEFAULT_THUMB)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [isVTrackVisible, setIsVTrackVisible] = useState(false)
+  const [isHTrackVisible, setIsHTrackVisible] = useState(false)
+  const [vTrack, setVTrack] = useState(DEFAULT_TRACK)
+  const [hTrack, setHTrack] = useState(DEFAULT_TRACK)
+  const [vThumb, setVThumb] = useState(DEFAULT_THUMB)
+  const [hThumb, setHThumb] = useState(DEFAULT_THUMB)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const contentEl = contentRef.current
     if (!contentEl) return
 
@@ -86,16 +86,21 @@ export const Scrollable = ({
     }
 
     contentEl.addEventListener('scroll', handleScroll, { passive: true })
-    return () => contentEl.removeEventListener('scroll', handleScroll)
+    return () => {
+      contentEl.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isVTrackVisible || isHTrackVisible) {
       const timerId = setTimeout(() => {
         setIsVTrackVisible(false)
         setIsHTrackVisible(false)
       }, 1000)
-      return () => clearTimeout(timerId)
+
+      return () => {
+        clearTimeout(timerId)
+      }
     }
   }, [isVTrackVisible, isHTrackVisible, vTrack, hTrack, vThumb, hThumb])
 

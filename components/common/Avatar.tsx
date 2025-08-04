@@ -23,7 +23,7 @@ export const avatarColorClassNames = [
 ] as const
 
 export type AvatarProps = Modify<
-  React.HTMLAttributes<HTMLDivElement>,
+  React.ComponentProps<'div'>,
   {
     colorClassName?: string
     name?: string

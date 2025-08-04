@@ -1,7 +1,7 @@
 import { Card } from '@/components/common/Card/index'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
 
-interface NameProps {
+type NameProps = {
   walletId: string
 }
 

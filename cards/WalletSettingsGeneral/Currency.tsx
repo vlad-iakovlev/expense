@@ -1,7 +1,7 @@
 import { CurrencySelect } from '@/components/common/CurrencySelect'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
 
-interface CurrencyProps {
+type CurrencyProps = {
   walletId: string
 }
 

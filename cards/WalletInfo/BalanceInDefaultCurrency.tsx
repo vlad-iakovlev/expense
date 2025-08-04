@@ -4,7 +4,7 @@ import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
 import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance'
 import { Decimal } from '@/utils/Decimal'
 
-interface BalanceInDefaultCurrencyProps {
+type BalanceInDefaultCurrencyProps = {
   walletId: string
 }
 

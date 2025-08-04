@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React from 'react'
+import { useMemo } from 'react'
 import { OperationsListCard } from '@/cards/OperationsList/index'
 import { StatisticsCard } from '@/cards/Statistics/index'
 import { WalletInfoCard } from '@/cards/WalletInfo/index'
@@ -9,7 +9,7 @@ import { Title } from '@/components/common/Title'
 import { ROUTES } from '@/constants/routes'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
 
-interface WalletProps {
+type WalletProps = {
   walletId: string
 }
 
@@ -18,7 +18,7 @@ export const Wallet = ({ walletId }: WalletProps) => {
 
   const walletName = `${wallet.name} ${wallet.currency.symbol}`
 
-  const parents = React.useMemo(
+  const parents = useMemo(
     () => [
       {
         href: ROUTES.DASHBOARD,

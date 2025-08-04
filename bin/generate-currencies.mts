@@ -11,7 +11,7 @@ const currenciesUrl =
 
 const dstPath = path.join(process.cwd(), 'constants/currencies.json')
 
-interface Response {
+type Response = {
   ISO_4217: {
     CcyTbl: {
       CcyNtry: [
@@ -27,7 +27,7 @@ interface Response {
   }
 }
 
-interface CurrencyInfo {
+type CurrencyInfo = {
   symbol?: string
   name?: string
   fractionalDigits?: number

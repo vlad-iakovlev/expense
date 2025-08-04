@@ -1,23 +1,23 @@
 import assert from 'assert'
-import React from 'react'
+import { useCallback, useMemo } from 'react'
 import { v4 as uuid } from 'uuid'
 import { getOrderedWallets } from '../getters/wallets'
 import { useRootStore } from '../index'
 import { WalletsActionTypes } from '../types'
 
-interface UseWalletsProps {
+type UseWalletsProps = {
   groupId?: string
 }
 
 export const useWallets = ({ groupId }: UseWalletsProps) => {
   const { state, dispatch } = useRootStore()
 
-  const walletIds = React.useMemo<string[]>(
+  const walletIds = useMemo<string[]>(
     () => getOrderedWallets(state, { groupId }).map((wallet) => wallet.id),
     [groupId, state],
   )
 
-  const createWallet = React.useCallback(() => {
+  const createWallet = useCallback(() => {
     assert(groupId, 'groupId is not defined')
     const walletId = uuid()
 

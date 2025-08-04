@@ -2,7 +2,7 @@ import { Amount } from '@/components/common/Amount'
 import { Card } from '@/components/common/Card/index'
 import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance'
 
-interface BalanceProps {
+type BalanceProps = {
   walletId: string
 }
 

@@ -1,11 +1,11 @@
 import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
-import React from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Button } from '@/components/common/Button'
 import { Card, CardSelectOption } from '@/components/common/Card/index'
 import { useCategoryFilter } from '@/contexts/CategoryFilter'
 import { useCategories } from '@/contexts/RootStore/hooks/useCategories'
 
-interface RenameCategoryCardProps {
+type RenameCategoryCardProps = {
   className?: string
   groupId: string
 }
@@ -16,10 +16,10 @@ export const RenameCategoryCard = ({
 }: RenameCategoryCardProps) => {
   const { resetCategoryFilter } = useCategoryFilter()
   const { categories, renameCategory } = useCategories({ groupId })
-  const [oldName, setOldName] = React.useState('')
-  const [newName, setNewName] = React.useState('')
+  const [oldName, setOldName] = useState('')
+  const [newName, setNewName] = useState('')
 
-  const categoriesOptions = React.useMemo<CardSelectOption[]>(
+  const categoriesOptions = useMemo<CardSelectOption[]>(
     () =>
       categories.map((category) => ({
         id: category,
@@ -28,7 +28,7 @@ export const RenameCategoryCard = ({
     [categories],
   )
 
-  const categoryValue = React.useMemo(
+  const categoryValue = useMemo(
     () => ({
       id: oldName,
       label: oldName || 'Select',
@@ -36,12 +36,12 @@ export const RenameCategoryCard = ({
     [oldName],
   )
 
-  const handleSelectCategory = React.useCallback((category: string) => {
+  const handleSelectCategory = useCallback((category: string) => {
     setOldName(category)
     setNewName(category)
   }, [])
 
-  const handleApplyClick = React.useCallback(() => {
+  const handleApplyClick = useCallback(() => {
     if (oldName !== newName) {
       resetCategoryFilter()
       renameCategory(oldName, newName)
@@ -51,7 +51,7 @@ export const RenameCategoryCard = ({
     setNewName('')
   }, [oldName, newName, renameCategory, resetCategoryFilter])
 
-  const handleCancelClick = React.useCallback(() => {
+  const handleCancelClick = useCallback(() => {
     setOldName('')
     setNewName('')
   }, [])

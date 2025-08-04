@@ -1,13 +1,15 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 
 const getIsTabVisible = () =>
   typeof document === 'undefined' || document.visibilityState === 'visible'
 
 export const useIsTabVisible = () => {
-  const [isTabVisible, setIsTabVisibleFocused] = React.useState(getIsTabVisible)
+  const [isTabVisible, setIsTabVisibleFocused] = useState(getIsTabVisible)
 
-  React.useEffect(() => {
-    const update = () => setIsTabVisibleFocused(getIsTabVisible())
+  useEffect(() => {
+    const update = () => {
+      setIsTabVisibleFocused(getIsTabVisible())
+    }
 
     document.addEventListener('visibilitychange', update)
 

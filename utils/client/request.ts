@@ -1,4 +1,5 @@
 export const request = {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
   post: async <Body, Response>(url: string, body: Body): Promise<Response> => {
     const response = await fetch(url, {
       method: 'post',

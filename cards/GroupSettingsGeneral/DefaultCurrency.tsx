@@ -1,7 +1,7 @@
 import { CurrencySelect } from '@/components/common/CurrencySelect'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 
-interface DefaultCurrencyProps {
+type DefaultCurrencyProps = {
   groupId: string
 }
 

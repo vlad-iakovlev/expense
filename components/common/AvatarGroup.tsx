@@ -1,10 +1,10 @@
-import React from 'react'
+import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility'
 import { Avatar, AvatarProps } from './Avatar'
 
 export type AvatarGroupProps = Modify<
-  React.HTMLAttributes<HTMLDivElement>,
+  React.ComponentProps<'div'>,
   {
     avatars: AvatarProps[]
     max?: number
@@ -23,7 +23,7 @@ export const AvatarGroup = ({
   const visibleCount = max && avatars.length > max ? max - 1 : avatars.length
   const extraCount = avatars.length - visibleCount
 
-  const visibleAvatars = React.useMemo(
+  const visibleAvatars = useMemo(
     () => avatars.slice(0, visibleCount),
     [avatars, visibleCount],
   )

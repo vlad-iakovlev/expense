@@ -6,12 +6,12 @@ const OVERLAP_OFFSET = 7
 const MIN_BASE_LENGTH = 36
 const MIN_COMPRESSED_LENGTH = 7
 
-interface GetTrackParams {
+type GetTrackParams = {
   container: number
   isBothVisible: boolean
 }
 
-export interface Track {
+export type Track = {
   startOffset: number
   endOffset: number
   edgeOffset: number
@@ -35,14 +35,14 @@ export const getTrack = ({
   }
 }
 
-interface GetThumbParams {
+type GetThumbParams = {
   container: number
   content: number
   scrolled: number
   trackLength: number
 }
 
-export interface Thumb {
+export type Thumb = {
   offset: number
   length: number
 }

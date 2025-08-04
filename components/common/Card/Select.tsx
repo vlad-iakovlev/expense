@@ -1,18 +1,18 @@
-import React from 'react'
+import { Fragment, useCallback, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Modify } from '@/types/utility'
 import { CardDivider } from './Divider'
 import { CardItem, CardItemProps } from './Item'
 import { CardMenu } from './Menu'
 
-export interface CardSelectOption<Id extends string = string> {
+export type CardSelectOption<Id extends string = string> = {
   type?: 'option'
   id: Id
   label: React.ReactNode
   suffix?: React.ReactNode
 }
 
-export interface CardSelectDivider<Id extends string = string> {
+export type CardSelectDivider<Id extends string = string> = {
   type: 'divider'
   id: Id
 }
@@ -39,11 +39,15 @@ export function CardSelect<Id extends string = string>({
   onChange,
   ...rest
 }: CardSelectProps<Id>) {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const handleOpen = React.useCallback(() => setIsOpen(true), [])
-  const handleClose = React.useCallback(() => setIsOpen(false), [])
+  const [isOpen, setIsOpen] = useState(false)
+  const handleOpen = useCallback(() => {
+    setIsOpen(true)
+  }, [])
+  const handleClose = useCallback(() => {
+    setIsOpen(false)
+  }, [])
 
-  const handleOptionClick = React.useCallback(
+  const handleOptionClick = useCallback(
     (id: Id) => {
       if (id === value.id) {
         setIsOpen(false)
@@ -72,7 +76,7 @@ export function CardSelect<Id extends string = string>({
           onClose={handleClose}
         >
           {options.map((option) => (
-            <React.Fragment key={option.id}>
+            <Fragment key={option.id}>
               {option.type === 'divider' && <CardDivider />}
               {(!option.type || option.type === 'option') && (
                 <CardItem
@@ -80,10 +84,12 @@ export function CardSelect<Id extends string = string>({
                   label={option.label}
                   suffix={option.suffix}
                   role="menuitem"
-                  onClick={() => handleOptionClick(option.id)}
+                  onClick={() => {
+                    handleOptionClick(option.id)
+                  }}
                 />
               )}
-            </React.Fragment>
+            </Fragment>
           ))}
         </CardMenu>
       }

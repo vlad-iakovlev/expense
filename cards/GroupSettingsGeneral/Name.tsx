@@ -1,7 +1,7 @@
 import { Card } from '@/components/common/Card/index'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 
-interface NameProps {
+type NameProps = {
   groupId: string
 }
 
