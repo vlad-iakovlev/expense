@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 const getIsOnline = () =>
   typeof window === 'undefined' ||
   typeof navigator === 'undefined' ||
-  !!window.navigator.onLine
+  window.navigator.onLine
 
 export const useIsOnline = () => {
   const [isOnline, setIsOnline] = useState(getIsOnline())

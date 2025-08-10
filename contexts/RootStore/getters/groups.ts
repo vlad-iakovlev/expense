@@ -27,7 +27,7 @@ export const getPopulatedGroup = (
 
   return {
     id: group.id,
-    clientOnly: !!group.clientOnly,
+    clientOnly: group.clientOnly,
     name: group.name,
     defaultCurrency: getPopulatedCurrency(state, group.defaultCurrencyId),
   }
