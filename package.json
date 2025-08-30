@@ -21,17 +21,17 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@heroicons/react": "^2.2.0",
-    "@prisma/client": "^6.14.0",
+    "@prisma/client": "^6.15.0",
     "@serwist/next": "9.1.0",
     "@tailwindcss/postcss": "^4.1.12",
-    "@types/node": "^22.17.2",
-    "@types/react": "^19.1.11",
-    "@types/react-dom": "^19.1.7",
+    "@types/node": "^22.18.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
     "date-fns": "^4.1.0",
     "focus-trap-react": "^11.0.4",
     "framer-motion": "^12.23.12",
     "immer": "^10.1.1",
-    "next": "^15.5.0",
+    "next": "^15.5.2",
     "next-auth": "^5.0.0-beta.25",
     "node-fetch": "^3.3.2",
     "react": "^19.1.1",
@@ -40,21 +40,21 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11",
     "uuid": "^11.1.0",
-    "zod": "^4.1.1"
+    "zod": "^4.1.5"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "chalk": "^5.6.0",
     "eslint": "^9.34.0",
-    "eslint-config-next": "^15.5.0",
+    "eslint-config-next": "^15.5.2",
     "eslint-config-prettier": "^10.1.8",
     "fast-xml-parser": "^5.2.5",
     "lefthook": "^1.12.3",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
-    "prisma": "^6.14.0",
+    "prisma": "^6.15.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.40.0"
+    "typescript-eslint": "^8.41.0"
   }
 }
