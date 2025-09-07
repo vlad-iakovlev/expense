@@ -11,7 +11,7 @@
     "generate-splashes": "node --loader ts-node/esm bin/generate-splashes.ts",
     "compile": "tsc",
     "lint": "eslint .",
-    "lint:ci": "DEBUG=eslint:cli-engine eslint .",
+    "lint:ci": "DEBUG=eslint:eslint eslint .",
     "prettier": "prettier --write '**/*.(js|ts|tsx|md|json)'",
     "prettier:ci": "prettier --check '**/*.(js|ts|tsx|md|json)'"
   },
