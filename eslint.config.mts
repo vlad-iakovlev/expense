@@ -1,12 +1,13 @@
 import { FlatCompat } from '@eslint/eslintrc'
 import prettierConfig from 'eslint-config-prettier'
+import { defineConfig } from 'eslint/config'
 import tseslint from 'typescript-eslint'
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
 })
 
-const eslintConfig = tseslint.config(
+const eslintConfig = defineConfig(
   {
     ignores: [
       '.next/',
