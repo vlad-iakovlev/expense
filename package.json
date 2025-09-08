@@ -22,7 +22,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@heroicons/react": "^2.2.0",
     "@prisma/client": "^6.15.0",
-    "@serwist/next": "9.2.0",
+    "@serwist/next": "9.2.1",
     "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^22.18.1",
     "@types/react": "^19.1.12",
