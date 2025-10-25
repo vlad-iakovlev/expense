@@ -21,10 +21,10 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@heroicons/react": "^2.2.0",
-    "@prisma/client": "^6.17.1",
+    "@prisma/client": "^6.18.0",
     "@serwist/next": "9.2.1",
-    "@tailwindcss/postcss": "^4.1.14",
-    "@types/node": "^22.18.11",
+    "@tailwindcss/postcss": "^4.1.16",
+    "@types/node": "^22.18.12",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "date-fns": "^4.1.0",
@@ -52,9 +52,9 @@
     "lefthook": "^1.13.6",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
-    "prisma": "^6.17.1",
+    "prisma": "^6.18.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.1"
+    "typescript-eslint": "^8.46.2"
   }
 }
