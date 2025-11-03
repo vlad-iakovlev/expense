@@ -17,7 +17,9 @@ jobs:
         with:
           node-version: 22
       - name: Update packages
-        run: npm up -S
+        run: |
+          npm update --save --include=dev
+          npm dedupe
       - name: Run prettier
         run: npm run prettier
       - name: Commit and create PR
@@ -27,6 +29,5 @@ jobs:
           branch: update/update-npm-packages
           commit-message: 'chore: npm update'
           title: 'chore: npm update'
-          body: |
-            Update NPM Packages
+          body: Update NPM Packages
           assignees: vlad-iakovlev
