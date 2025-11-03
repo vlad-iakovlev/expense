@@ -17,9 +17,7 @@ jobs:
         with:
           node-version: 22
       - name: Update packages
-        run: |
-          npm update --save --include=dev
-          npm dedupe
+        run: npm up -S
       - name: Run prettier
         run: npm run prettier
       - name: Commit and create PR
