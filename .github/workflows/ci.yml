@@ -20,9 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
       - name: Install dependencies
@@ -61,23 +61,3 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-  # deploy:
-  #   needs: build
-  #   if: startsWith(github.repository, 'vlad-iakovlev/') && github.ref == 'refs/heads/main'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Deploy to Digital Ocean droplet
-  #       uses: appleboy/ssh-action@master
-  #       env:
-  #         SHA: ${{ github.sha }}
-  #       with:
-  #         host: ${{ secrets.HOST }}
-  #         username: ${{ secrets.USERNAME }}
-  #         key: ${{ secrets.KEY }}
-  #         envs: SHA
-  #         script: |
-  #           set -e
-  #           cd Projects/expense
-  #           curl -OL https://raw.githubusercontent.com/vlad-iakovlev/expense/$SHA/docker-compose.yml
-  #           docker compose up -d
