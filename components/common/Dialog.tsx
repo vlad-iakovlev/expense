@@ -63,6 +63,7 @@ export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
             role="dialog"
             variants={rootVariants}
           >
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
             <div
               className="absolute inset-0 bg-zinc-500/75 dark:bg-zinc-900/75"
               onClick={onClose}

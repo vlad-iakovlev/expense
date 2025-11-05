@@ -3,6 +3,7 @@ const prettierConfig = {
   plugins: [
     '@trivago/prettier-plugin-sort-imports',
     'prettier-plugin-tailwindcss',
+    'prettier-plugin-packagejson',
   ],
   semi: false,
   singleQuote: true,

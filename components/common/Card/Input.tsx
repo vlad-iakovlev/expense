@@ -110,6 +110,7 @@ export const CardInput = ({
         isEditing ? (
           <input
             className="w-full bg-transparent text-right focus:outline-hidden"
+            // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
             value={inputValue}
             onChange={handleInputChange}
