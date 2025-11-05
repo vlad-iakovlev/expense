@@ -31,7 +31,6 @@ const typescriptConfig = defineConfig(
           allowAsThisParameter: true,
         },
       ],
-      '@typescript-eslint/no-unnecessary-condition': 'error',
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
       'arrow-body-style': ['error', 'as-needed'],
