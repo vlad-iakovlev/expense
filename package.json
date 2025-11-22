@@ -25,7 +25,7 @@
     "@serwist/next": "9.2.1",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/node": "^22.19.1",
-    "@types/react": "^19.2.5",
+    "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
     "date-fns": "^4.1.0",
     "focus-trap-react": "^11.0.4",
