@@ -21,7 +21,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@heroicons/react": "^2.2.0",
-    "@prisma/client": "^6.19.0",
+    "@prisma/client": "^7.0.1",
     "@serwist/next": "9.2.3",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/node": "^22.19.1",
