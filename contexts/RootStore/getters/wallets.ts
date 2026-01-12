@@ -58,11 +58,11 @@ export const getWalletBalance = (
 
   const balance = state.operations.reduce((acc, operation) => {
     if (!operation.removed && operation.incomeWalletId === walletId) {
-      return acc.add(operation.incomeAmount)
+      acc = acc.add(operation.incomeAmount)
     }
 
     if (!operation.removed && operation.expenseWalletId === walletId) {
-      return acc.sub(operation.expenseAmount)
+      acc = acc.sub(operation.expenseAmount)
     }
 
     return acc
