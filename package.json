@@ -24,7 +24,7 @@
     "@prisma/client": "^6.19.2",
     "@serwist/next": "9.2.3",
     "@tailwindcss/postcss": "^4.1.18",
-    "@types/node": "^22.19.9",
+    "@types/node": "^22.19.10",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "date-fns": "^4.1.0",
