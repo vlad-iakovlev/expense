@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Call /api/cron/update-currency-rates endpoint
-        uses: tyrrrz/action-http-request@master
+        uses: tyrrrz/action-http-request@v1
         with:
           url: https://expense.vlad-iakovlev.dev/api/cron/update-currency-rates
           method: POST
