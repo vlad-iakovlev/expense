@@ -32,6 +32,7 @@ const serwist = new Serwist({
               cacheName: 'next-static-assets',
               plugins: [
                 new ExpirationPlugin({
+                  maxEntries: 100,
                   maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
@@ -44,11 +45,11 @@ const serwist = new Serwist({
               cacheName: 'next-data',
               plugins: [
                 new ExpirationPlugin({
+                  maxEntries: 100,
                   maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
               ],
-              networkTimeoutSeconds: 10,
             }),
           },
           {
@@ -57,6 +58,7 @@ const serwist = new Serwist({
               cacheName: 'next-image',
               plugins: [
                 new ExpirationPlugin({
+                  maxEntries: 100,
                   maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
@@ -69,6 +71,7 @@ const serwist = new Serwist({
               cacheName: 'static-data-assets',
               plugins: [
                 new ExpirationPlugin({
+                  maxEntries: 100,
                   maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
@@ -81,6 +84,7 @@ const serwist = new Serwist({
               cacheName: 'static-image-assets',
               plugins: [
                 new ExpirationPlugin({
+                  maxEntries: 100,
                   maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
@@ -99,6 +103,7 @@ const serwist = new Serwist({
               cacheName: 'apis',
               plugins: [
                 new ExpirationPlugin({
+                  maxEntries: 100,
                   maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
@@ -115,6 +120,7 @@ const serwist = new Serwist({
               cacheName: 'pages-rsc-prefetch',
               plugins: [
                 new ExpirationPlugin({
+                  maxEntries: 100,
                   maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
@@ -130,6 +136,7 @@ const serwist = new Serwist({
               cacheName: 'pages-rsc',
               plugins: [
                 new ExpirationPlugin({
+                  maxEntries: 100,
                   maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
@@ -145,6 +152,7 @@ const serwist = new Serwist({
               cacheName: 'pages',
               plugins: [
                 new ExpirationPlugin({
+                  maxEntries: 100,
                   maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
@@ -158,6 +166,7 @@ const serwist = new Serwist({
               cacheName: 'others',
               plugins: [
                 new ExpirationPlugin({
+                  maxEntries: 100,
                   maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
