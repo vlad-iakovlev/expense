@@ -1,11 +1,9 @@
-import { PAGES_CACHE_NAME } from '@serwist/next/worker'
 import {
   CacheFirst,
   ExpirationPlugin,
   NetworkFirst,
   NetworkOnly,
   PrecacheEntry,
-  RangeRequestsPlugin,
   Serwist,
   SerwistGlobalConfig,
   StaleWhileRevalidate,
@@ -29,51 +27,11 @@ const serwist = new Serwist({
     process.env.NODE_ENV === 'production'
       ? [
           {
-            matcher: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
+            matcher: /\/_next\/static.+$/i,
             handler: new CacheFirst({
-              cacheName: 'google-fonts-webfonts',
+              cacheName: 'next-static-assets',
               plugins: [
                 new ExpirationPlugin({
-                  maxEntries: 4,
-                  maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
-                  maxAgeFrom: 'last-used',
-                }),
-              ],
-            }),
-          },
-          {
-            matcher: /^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,
-            handler: new StaleWhileRevalidate({
-              cacheName: 'google-fonts-stylesheets',
-              plugins: [
-                new ExpirationPlugin({
-                  maxEntries: 4,
-                  maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
-                  maxAgeFrom: 'last-used',
-                }),
-              ],
-            }),
-          },
-          {
-            matcher: /\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
-            handler: new StaleWhileRevalidate({
-              cacheName: 'static-font-assets',
-              plugins: [
-                new ExpirationPlugin({
-                  maxEntries: 4,
-                  maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
-                  maxAgeFrom: 'last-used',
-                }),
-              ],
-            }),
-          },
-          {
-            matcher: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
-            handler: new StaleWhileRevalidate({
-              cacheName: 'static-image-assets',
-              plugins: [
-                new ExpirationPlugin({
-                  maxEntries: 64,
                   maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
@@ -81,16 +39,16 @@ const serwist = new Serwist({
             }),
           },
           {
-            matcher: /\/_next\/static.+\.js$/i,
-            handler: new CacheFirst({
-              cacheName: 'next-static-js-assets',
+            matcher: /\/_next\/data\/.+$/i,
+            handler: new NetworkFirst({
+              cacheName: 'next-data',
               plugins: [
                 new ExpirationPlugin({
-                  maxEntries: 64,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
+                  maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
               ],
+              networkTimeoutSeconds: 10,
             }),
           },
           {
@@ -99,75 +57,7 @@ const serwist = new Serwist({
               cacheName: 'next-image',
               plugins: [
                 new ExpirationPlugin({
-                  maxEntries: 64,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
-                  maxAgeFrom: 'last-used',
-                }),
-              ],
-            }),
-          },
-          {
-            matcher: /\.(?:mp3|wav|ogg)$/i,
-            handler: new CacheFirst({
-              cacheName: 'static-audio-assets',
-              plugins: [
-                new ExpirationPlugin({
-                  maxEntries: 32,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
-                  maxAgeFrom: 'last-used',
-                }),
-                new RangeRequestsPlugin(),
-              ],
-            }),
-          },
-          {
-            matcher: /\.(?:mp4|webm)$/i,
-            handler: new CacheFirst({
-              cacheName: 'static-video-assets',
-              plugins: [
-                new ExpirationPlugin({
-                  maxEntries: 32,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
-                  maxAgeFrom: 'last-used',
-                }),
-                new RangeRequestsPlugin(),
-              ],
-            }),
-          },
-          {
-            matcher: /\.(?:js)$/i,
-            handler: new StaleWhileRevalidate({
-              cacheName: 'static-js-assets',
-              plugins: [
-                new ExpirationPlugin({
-                  maxEntries: 48,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
-                  maxAgeFrom: 'last-used',
-                }),
-              ],
-            }),
-          },
-          {
-            matcher: /\.(?:css|less)$/i,
-            handler: new StaleWhileRevalidate({
-              cacheName: 'static-style-assets',
-              plugins: [
-                new ExpirationPlugin({
-                  maxEntries: 32,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
-                  maxAgeFrom: 'last-used',
-                }),
-              ],
-            }),
-          },
-          {
-            matcher: /\/_next\/data\/.+\/.+\.json$/i,
-            handler: new NetworkFirst({
-              cacheName: 'next-data',
-              plugins: [
-                new ExpirationPlugin({
-                  maxEntries: 32,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
+                  maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
               ],
@@ -179,8 +69,19 @@ const serwist = new Serwist({
               cacheName: 'static-data-assets',
               plugins: [
                 new ExpirationPlugin({
-                  maxEntries: 32,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
+                  maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+                  maxAgeFrom: 'last-used',
+                }),
+              ],
+            }),
+          },
+          {
+            matcher: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+            handler: new StaleWhileRevalidate({
+              cacheName: 'static-image-assets',
+              plugins: [
+                new ExpirationPlugin({
+                  maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
               ],
@@ -193,19 +94,15 @@ const serwist = new Serwist({
             handler: new NetworkOnly(),
           },
           {
-            matcher: ({ sameOrigin, url: { pathname } }) =>
-              sameOrigin && pathname.startsWith('/api/'),
-            method: 'GET',
+            matcher: /\/api\/auth\/.*/,
             handler: new NetworkFirst({
               cacheName: 'apis',
               plugins: [
                 new ExpirationPlugin({
-                  maxEntries: 16,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
+                  maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
                   maxAgeFrom: 'last-used',
                 }),
               ],
-              networkTimeoutSeconds: 10, // fallback to cache if API does not response within 10 seconds
             }),
           },
           {
@@ -215,11 +112,11 @@ const serwist = new Serwist({
               sameOrigin &&
               !pathname.startsWith('/api/'),
             handler: new NetworkFirst({
-              cacheName: PAGES_CACHE_NAME.rscPrefetch,
+              cacheName: 'pages-rsc-prefetch',
               plugins: [
                 new ExpirationPlugin({
-                  maxEntries: 32,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
+                  maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+                  maxAgeFrom: 'last-used',
                 }),
               ],
             }),
@@ -230,11 +127,11 @@ const serwist = new Serwist({
               sameOrigin &&
               !pathname.startsWith('/api/'),
             handler: new NetworkFirst({
-              cacheName: PAGES_CACHE_NAME.rsc,
+              cacheName: 'pages-rsc',
               plugins: [
                 new ExpirationPlugin({
-                  maxEntries: 32,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
+                  maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+                  maxAgeFrom: 'last-used',
                 }),
               ],
             }),
@@ -245,11 +142,11 @@ const serwist = new Serwist({
               sameOrigin &&
               !pathname.startsWith('/api/'),
             handler: new NetworkFirst({
-              cacheName: PAGES_CACHE_NAME.html,
+              cacheName: 'pages',
               plugins: [
                 new ExpirationPlugin({
-                  maxEntries: 32,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
+                  maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+                  maxAgeFrom: 'last-used',
                 }),
               ],
             }),
@@ -261,28 +158,14 @@ const serwist = new Serwist({
               cacheName: 'others',
               plugins: [
                 new ExpirationPlugin({
-                  maxEntries: 32,
-                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
+                  maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+                  maxAgeFrom: 'last-used',
                 }),
               ],
-            }),
-          },
-          {
-            matcher: ({ sameOrigin }) => !sameOrigin,
-            handler: new NetworkFirst({
-              cacheName: 'cross-origin',
-              plugins: [
-                new ExpirationPlugin({
-                  maxEntries: 32,
-                  maxAgeSeconds: 60 * 60, // 1 hour
-                }),
-              ],
-              networkTimeoutSeconds: 10,
             }),
           },
           {
             matcher: /.*/i,
-            method: 'GET',
             handler: new NetworkOnly(),
           },
         ]
