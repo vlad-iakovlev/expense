@@ -38,6 +38,11 @@
     "name": "No universal currency"
   },
   {
+    "symbol": "XAD",
+    "name": "Arab Accounting Dinar",
+    "fractionalDigits": 2
+  },
+  {
     "symbol": "ARS",
     "name": "Argentine Peso",
     "fractionalDigits": 2
@@ -148,11 +153,6 @@
     "fractionalDigits": 2
   },
   {
-    "symbol": "BGN",
-    "name": "Bulgarian Lev",
-    "fractionalDigits": 2
-  },
-  {
     "symbol": "BIF",
     "name": "Burundi Franc",
     "fractionalDigits": 0
@@ -233,13 +233,8 @@
     "fractionalDigits": 2
   },
   {
-    "symbol": "CUC",
-    "name": "Peso Convertible",
-    "fractionalDigits": 2
-  },
-  {
-    "symbol": "ANG",
-    "name": "Netherlands Antillean Guilder",
+    "symbol": "XCG",
+    "name": "Caribbean Guilder",
     "fractionalDigits": 2
   },
   {
@@ -840,8 +835,8 @@
     "fractionalDigits": 2
   },
   {
-    "symbol": "ZWL",
-    "name": "Zimbabwe Dollar",
+    "symbol": "ZWG",
+    "name": "Zimbabwe Gold",
     "fractionalDigits": 2
   },
   {

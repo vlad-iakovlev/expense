@@ -3,7 +3,10 @@ import { XMLParser } from 'fast-xml-parser'
 import fetch from 'node-fetch'
 import fs from 'node:fs'
 import path from 'node:path'
-import { uniqBy } from '../utils/uniqBy.js'
+
+const uniqBy = <T,>(array: T[], cb: (item: T) => unknown): T[] => [
+  ...new Map(array.map((item) => [cb(item), item])).values(),
+]
 
 // ISO 4217
 const currenciesUrl =
