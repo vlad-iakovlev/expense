@@ -117,3 +117,17 @@ export const useOperation = ({ operationId }: UseOperationProps) => {
     removeOperation,
   }
 }
+
+export const useOptionalOperation = ({ operationId }: UseOperationProps) => {
+  const { state } = useRootStore()
+
+  const operation = useMemo(() => {
+    try {
+      return getPopulatedOperation(state, operationId)
+    } catch {
+      return
+    }
+  }, [state, operationId])
+
+  return { operation }
+}

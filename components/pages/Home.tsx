@@ -9,7 +9,6 @@ import {
   UsersIcon,
 } from '@heroicons/react/24/outline'
 import { signIn } from 'next-auth/react'
-import Head from 'next/head'
 import { useCallback, useState } from 'react'
 import { Card } from '@/components/common/Card/index'
 import { Columns } from '@/components/common/Columns'
@@ -32,10 +31,6 @@ export const Home = () => {
 
   return (
     <>
-      <Head>
-        <title>Expense</title>
-      </Head>
-
       <Title title="Home" />
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] lg:grid-rows-none">

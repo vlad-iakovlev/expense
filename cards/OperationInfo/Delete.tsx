@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import { Button } from '@/components/common/Button'
 import { ConfirmDialog } from '@/components/common/ConfirmDialog'
@@ -19,11 +19,10 @@ export const Delete = ({ operationId }: DeleteProps) => {
   }, [])
 
   const handleDeleteConfirm = useCallback(() => {
-    void (async () => {
-      const wallet = operation.expenseWallet ?? operation.incomeWallet
-      await router.push(wallet ? ROUTES.WALLET(wallet.id) : ROUTES.DASHBOARD)
-      removeOperation()
-    })()
+    const wallet = operation.expenseWallet ?? operation.incomeWallet
+    const targetPath = wallet ? ROUTES.WALLET(wallet.id) : ROUTES.DASHBOARD
+    removeOperation()
+    router.push(targetPath)
   }, [operation.expenseWallet, operation.incomeWallet, removeOperation, router])
 
   const handleDeleteCancel = useCallback(() => {

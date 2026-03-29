@@ -1,5 +1,8 @@
-import Head from 'next/head'
-import { useMemo } from 'react'
+'use client'
+
+import { useRouter } from 'next/navigation'
+import { use } from 'react'
+import { useEffect } from 'react'
 import { GroupInfoCard } from '@/cards/GroupInfo/index'
 import { OperationsListCard } from '@/cards/OperationsList/index'
 import { StatisticsCard } from '@/cards/Statistics/index'
@@ -7,33 +10,40 @@ import { WalletsListCard } from '@/cards/WalletsList/index'
 import { Breadcrumbs } from '@/components/common/Breadcrumbs'
 import { Columns } from '@/components/common/Columns'
 import { Title } from '@/components/common/Title'
+import { Page } from '@/components/layout/Page'
 import { ROUTES } from '@/constants/routes'
-import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
+import { CategoryFilterProvider } from '@/contexts/CategoryFilter'
+import { useOptionalGroup } from '@/contexts/RootStore/hooks/useGroup'
 
-type GroupProps = {
-  groupId: string
+type GroupPageProps = {
+  params: Promise<{
+    groupId: string
+  }>
 }
 
-export const Group = ({ groupId }: GroupProps) => {
-  const { group } = useGroup({ groupId })
+const GroupPage = ({ params }: GroupPageProps) => {
+  const { groupId } = use(params)
+  const router = useRouter()
+  const { group } = useOptionalGroup({ groupId })
 
-  const parents = useMemo(
-    () => [
-      {
-        href: ROUTES.DASHBOARD,
-        title: 'Dashboard',
-      },
-    ],
-    [],
-  )
+  useEffect(() => {
+    if (!group) {
+      router.push(ROUTES.DASHBOARD)
+    }
+  }, [group, router])
+
+  if (!group) return null
 
   return (
     <>
-      <Head>
-        <title>{`Expense > ${group.name}`}</title>
-      </Head>
-
-      <Breadcrumbs parents={parents} />
+      <Breadcrumbs
+        parents={[
+          {
+            href: ROUTES.DASHBOARD,
+            title: 'Dashboard',
+          },
+        ]}
+      />
       <Title title={group.name} />
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] xl:grid-rows-none">
@@ -48,5 +58,15 @@ export const Group = ({ groupId }: GroupProps) => {
         />
       </Columns>
     </>
+  )
+}
+
+export default function WrappedGroupPage(props: GroupPageProps) {
+  return (
+    <Page>
+      <CategoryFilterProvider>
+        <GroupPage {...props} />
+      </CategoryFilterProvider>
+    </Page>
   )
 }

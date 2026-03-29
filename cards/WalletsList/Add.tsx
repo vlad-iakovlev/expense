@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { Button } from '@/components/common/Button'
 import { ROUTES } from '@/constants/routes'
@@ -14,7 +14,7 @@ export const Add = ({ groupId }: AddProps) => {
 
   const handleCreate = useCallback(() => {
     const walletId = createWallet()
-    void router.push(ROUTES.WALLET(walletId))
+    router.push(ROUTES.WALLET(walletId))
   }, [createWallet, router])
 
   return (
