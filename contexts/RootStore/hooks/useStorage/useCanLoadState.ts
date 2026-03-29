@@ -7,7 +7,7 @@ export const useCanLoadState = () => {
   const session = useSession()
   const isTabVisible = useIsTabVisible()
   const pathname = usePathname()
-  const isInvitePage = !!pathname?.startsWith(ROUTES.INVITE(''))
+  const isInvitePage = pathname.startsWith(ROUTES.INVITE(''))
 
   return session.status === 'authenticated' && isTabVisible && !isInvitePage
 }
