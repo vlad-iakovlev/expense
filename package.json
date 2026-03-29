@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build --webpack",
     "compile": "tsc",
-    "dev": "next dev",
+    "dev": "next dev --webpack",
     "generate-currencies": "node --loader ts-node/esm bin/generate-currencies.mts",
     "generate-icons": "node --loader ts-node/esm bin/generate-icons.mts",
     "generate-splashes": "node --loader ts-node/esm bin/generate-splashes.mts",

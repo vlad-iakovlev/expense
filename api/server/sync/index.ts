@@ -1,10 +1,6 @@
 import { PrismaClient, Transaction } from '@prisma/client'
-import assert from 'assert'
-import { NextApiHandler } from 'next'
-import { ERROR_TYPES } from '@/constants/errors'
 import { Modify } from '@/types/utility'
-import { getHandledError } from '@/utils/server/getHandledError'
-import { performSyncBodySchema } from './schemas'
+import { HandledError } from '@/utils/server/HandledError'
 import { PerformSyncBody, PerformSyncResponse } from './types'
 import {
   getGroupWhere,
@@ -15,23 +11,18 @@ import {
 
 const prisma = new PrismaClient()
 
-export const performSync: NextApiHandler<PerformSyncResponse> = async (
-  req,
-  res,
-) => {
-  assert(req.session.user?.id, 'User id is required')
+export const performSync = async (
+  userId: string,
+  clientUpdates: PerformSyncBody['updates'],
+  lastTransactionId?: string,
+): Promise<PerformSyncResponse> => {
+  await applyUpdates(userId, clientUpdates)
 
-  const body = performSyncBodySchema.parse(req.body)
-
-  await applyUpdates(req.session.user.id, body.updates)
-
-  const lastTransaction = body.lastTransactionId
-    ? await findTransaction(body.lastTransactionId)
+  const lastTransaction = lastTransactionId
+    ? await findTransaction(lastTransactionId)
     : undefined
 
-  const updates = await collect(req.session.user.id, lastTransaction)
-
-  res.status(200).json(updates)
+  return await collect(userId, lastTransaction)
 }
 
 const applyUpdates = async (
@@ -181,7 +172,7 @@ const applyUpdates = async (
       select: { id: true },
     })
   } catch (error) {
-    throw getHandledError(ERROR_TYPES.INVALID_UPDATES, error)
+    throw HandledError.INVALID_UPDATES(error)
   }
 }
 
@@ -191,7 +182,7 @@ const findTransaction = async (transactionId: string) => {
       where: { id: transactionId, NOT: { completedAt: null } },
     })) as Modify<Transaction, { completedAt: Date }>
   } catch (error) {
-    throw getHandledError(ERROR_TYPES.INVALID_TRANSACTION, error)
+    throw HandledError.INVALID_TRANSACTION(error)
   }
 }
 

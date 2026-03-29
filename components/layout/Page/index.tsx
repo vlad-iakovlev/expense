@@ -4,7 +4,7 @@ import { PageStore } from './Store'
 
 type PageProps = {
   withStoreValidation?: boolean
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 export const Page = ({ withStoreValidation = true, children }: PageProps) => (

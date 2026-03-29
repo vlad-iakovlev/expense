@@ -81,3 +81,17 @@ export const useGroup = ({ groupId }: UseGroupProps) => {
     leaveGroup,
   }
 }
+
+export const useOptionalGroup = ({ groupId }: UseGroupProps) => {
+  const { state } = useRootStore()
+
+  const group = useMemo(() => {
+    try {
+      return getPopulatedGroup(state, groupId)
+    } catch {
+      return
+    }
+  }, [groupId, state])
+
+  return { group }
+}

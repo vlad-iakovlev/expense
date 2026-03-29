@@ -50,3 +50,17 @@ export const useWallet = ({ walletId }: UseWalletProps) => {
     removeWallet,
   }
 }
+
+export const useOptionalWallet = ({ walletId }: UseWalletProps) => {
+  const { state } = useRootStore()
+
+  const wallet = useMemo(() => {
+    try {
+      return getPopulatedWallet(state, walletId)
+    } catch {
+      return
+    }
+  }, [state, walletId])
+
+  return { wallet }
+}

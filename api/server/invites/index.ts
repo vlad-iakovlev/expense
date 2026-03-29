@@ -1,33 +1,27 @@
 import { PrismaClient } from '@prisma/client'
-import assert from 'assert'
 import * as fns from 'date-fns'
-import { NextApiHandler } from 'next'
 import { v4 as uuid } from 'uuid'
-import { ERROR_TYPES } from '@/constants/errors'
-import { getHandledError } from '@/utils/server/getHandledError'
-import { acceptInviteBodySchema, createInviteBodySchema } from './schemas'
+import { HandledError } from '@/utils/server/HandledError'
 import { AcceptInviteResponse, CreateInviteResponse } from './types'
 
 const prisma = new PrismaClient()
 
-export const createInvite: NextApiHandler<CreateInviteResponse> = async (
-  req,
-  res,
-) => {
-  const body = createInviteBodySchema.parse(req.body)
-
+export const createInvite = async (
+  userId: string,
+  groupId: string,
+): Promise<CreateInviteResponse> => {
   const invite = await prisma.invite.create({
     data: {
       token: uuid(),
       expiresAt: fns.addDays(new Date(), 1),
       group: {
         connect: {
-          id: body.groupId,
+          id: groupId,
           removed: false,
           userGroups: {
             some: {
               removed: false,
-              userId: req.session.user?.id,
+              userId,
             },
           },
         },
@@ -35,25 +29,20 @@ export const createInvite: NextApiHandler<CreateInviteResponse> = async (
     },
   })
 
-  res.status(200).json({
+  return {
     token: invite.token,
     expiresAt: invite.expiresAt.toISOString(),
-  })
+  }
 }
 
-export const acceptInvite: NextApiHandler<AcceptInviteResponse> = async (
-  req,
-  res,
-) => {
-  assert(req.session.user?.id, 'User id is required')
+export const acceptInvite = async (
+  userId: string,
+  token: string,
+): Promise<AcceptInviteResponse> => {
+  const { groupId } = await getInviteByToken(token)
+  await joinGroup(userId, groupId)
 
-  const body = acceptInviteBodySchema.parse(req.body)
-
-  const invite = await getInviteByToken(body.token)
-
-  await joinGroup(req.session.user.id, invite.groupId)
-
-  res.status(200).json({ ok: true })
+  return { ok: true }
 }
 
 const getInviteByToken = async (token: string) => {
@@ -69,7 +58,7 @@ const getInviteByToken = async (token: string) => {
       },
     })
   } catch (error) {
-    throw getHandledError(ERROR_TYPES.INVALID_INVITE, error)
+    throw HandledError.INVALID_INVITE(error)
   }
 }
 
@@ -94,6 +83,6 @@ const joinGroup = async (userId: string, groupId: string) => {
       select: { id: true },
     })
   } catch (error) {
-    throw getHandledError(ERROR_TYPES.CANNOT_JOIN_GROUP, error)
+    throw HandledError.CANNOT_JOIN_GROUP(error)
   }
 }

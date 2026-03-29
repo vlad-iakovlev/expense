@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { Button } from '@/components/common/Button'
 import { ROUTES } from '@/constants/routes'
@@ -14,7 +14,7 @@ export const Add = ({ walletId }: AddProps) => {
 
   const handleCreate = useCallback(() => {
     const operationId = createOperation()
-    void router.push(ROUTES.OPERATION(operationId))
+    router.push(ROUTES.OPERATION(operationId))
   }, [createOperation, router])
 
   if (!walletId) {
