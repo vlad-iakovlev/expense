@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client'
 import assert from 'assert'
-import { NextApiHandler } from 'next'
 import fetch from 'node-fetch'
 
 const prisma = new PrismaClient()
@@ -13,10 +12,7 @@ type RatesResponse = {
   timestamp: number
 }
 
-export const updateCurrencyRates: NextApiHandler<{ ok: boolean }> = async (
-  req,
-  res,
-) => {
+export const updateCurrencyRates = async (): Promise<{ ok: boolean }> => {
   assert(
     process.env.EXCHANGE_RATES_API_KEY,
     'EXCHANGE_RATES_API_KEY is not defined',
@@ -38,5 +34,5 @@ export const updateCurrencyRates: NextApiHandler<{ ok: boolean }> = async (
     ),
   )
 
-  res.status(200).json({ ok: true })
+  return { ok: true }
 }
