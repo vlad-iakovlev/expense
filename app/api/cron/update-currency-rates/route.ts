@@ -1,6 +1,5 @@
 import { updateCurrencyRates } from '@/api/server/cron/index'
-import { ERROR_TYPES } from '@/constants/errors'
-import { toErrorResponse } from '@/utils/server/toErrorResponse'
+import { HandledError } from '@/utils/server/HandledError'
 
 export const POST = async (request: Request) => {
   try {
@@ -9,13 +8,15 @@ export const POST = async (request: Request) => {
       request.headers.get('authorization') !==
         `Bearer ${process.env.CRON_SECRET}`
     ) {
-      throw new Error(ERROR_TYPES.UNAUTHORIZED)
+      throw HandledError.UNAUTHORIZED()
     }
 
     const response = await updateCurrencyRates()
 
     return Response.json(response)
   } catch (error) {
-    return toErrorResponse(error)
+    if (error instanceof HandledError) return error.response
+    console.error(error)
+    return new Response('Internal Server Error', { status: 500 })
   }
 }

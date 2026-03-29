@@ -1,13 +1,12 @@
 import { performSync } from '@/api/server/sync/index'
 import { performSyncBodySchema } from '@/api/server/sync/schemas'
 import { auth } from '@/auth'
-import { ERROR_TYPES } from '@/constants/errors'
-import { toErrorResponse } from '@/utils/server/toErrorResponse'
+import { HandledError } from '@/utils/server/HandledError'
 
 export const POST = async (request: Request) => {
   try {
     const session = await auth()
-    if (!session?.user?.id) throw new Error(ERROR_TYPES.UNAUTHORIZED)
+    if (!session?.user?.id) throw HandledError.UNAUTHORIZED()
 
     const { updates, lastTransactionId } = performSyncBodySchema.parse(
       await request.json(),
@@ -21,6 +20,8 @@ export const POST = async (request: Request) => {
 
     return Response.json(response)
   } catch (error) {
-    return toErrorResponse(error)
+    if (error instanceof HandledError) return error.response
+    console.error(error)
+    return new Response('Internal Server Error', { status: 500 })
   }
 }

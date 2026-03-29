@@ -1,8 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import * as fns from 'date-fns'
 import { v4 as uuid } from 'uuid'
-import { ERROR_TYPES } from '@/constants/errors'
-import { getHandledError } from '@/utils/server/getHandledError'
+import { HandledError } from '@/utils/server/HandledError'
 import { AcceptInviteResponse, CreateInviteResponse } from './types'
 
 const prisma = new PrismaClient()
@@ -59,7 +58,7 @@ const getInviteByToken = async (token: string) => {
       },
     })
   } catch (error) {
-    throw getHandledError(ERROR_TYPES.INVALID_INVITE, error)
+    throw HandledError.INVALID_INVITE(error)
   }
 }
 
@@ -84,6 +83,6 @@ const joinGroup = async (userId: string, groupId: string) => {
       select: { id: true },
     })
   } catch (error) {
-    throw getHandledError(ERROR_TYPES.CANNOT_JOIN_GROUP, error)
+    throw HandledError.CANNOT_JOIN_GROUP(error)
   }
 }

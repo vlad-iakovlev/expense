@@ -1,7 +1,6 @@
 import { PrismaClient, Transaction } from '@prisma/client'
-import { ERROR_TYPES } from '@/constants/errors'
 import { Modify } from '@/types/utility'
-import { getHandledError } from '@/utils/server/getHandledError'
+import { HandledError } from '@/utils/server/HandledError'
 import { PerformSyncBody, PerformSyncResponse } from './types'
 import {
   getGroupWhere,
@@ -173,7 +172,7 @@ const applyUpdates = async (
       select: { id: true },
     })
   } catch (error) {
-    throw getHandledError(ERROR_TYPES.INVALID_UPDATES, error)
+    throw HandledError.INVALID_UPDATES(error)
   }
 }
 
@@ -183,7 +182,7 @@ const findTransaction = async (transactionId: string) => {
       where: { id: transactionId, NOT: { completedAt: null } },
     })) as Modify<Transaction, { completedAt: Date }>
   } catch (error) {
-    throw getHandledError(ERROR_TYPES.INVALID_TRANSACTION, error)
+    throw HandledError.INVALID_TRANSACTION(error)
   }
 }
 
