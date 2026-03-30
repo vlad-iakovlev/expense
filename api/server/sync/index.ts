@@ -1,6 +1,7 @@
-import { PrismaClient, Transaction } from '@prisma/client'
+import { Transaction } from '@/generated/prisma/client'
 import { Modify } from '@/types/utility'
 import { HandledError } from '@/utils/server/HandledError'
+import { prisma } from '@/utils/server/prisma'
 import { PerformSyncBody, PerformSyncResponse } from './types'
 import {
   getGroupWhere,
@@ -8,8 +9,6 @@ import {
   getUserGroupWhere,
   getWalletWhere,
 } from './where'
-
-const prisma = new PrismaClient()
 
 export const performSync = async (
   userId: string,
