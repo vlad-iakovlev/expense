@@ -42,10 +42,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=nextjs:nodejs /app/prisma.config.ts ./prisma.config.ts
 
 # Preinstall Prisma for faster deployment
-RUN npm install --global prisma@7 dotenv@17
+RUN npm install --global prisma@7
 
 USER nextjs
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD ["sh", "-c", "NODE_PATH=$(npm root --quiet -g) prisma migrate deploy && node server.js"]
+CMD ["sh", "-c", "prisma migrate deploy && node server.js"]
