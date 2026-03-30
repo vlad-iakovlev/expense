@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client'
 import assert from 'assert'
 import fetch from 'node-fetch'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/utils/server/prisma'
 
 type RatesResponse = {
   base: string

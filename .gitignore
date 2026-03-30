@@ -1,22 +1,25 @@
-# dependencies
+# Dependencies
 /node_modules
 npm-debug.log*
 
-# misc
+# Misc
 .DS_Store
 *.pem
 
-# next.js
+# Next.js
 /.next/
 /out/
 
-# local env files
+# Local env files
 .env
 
-# typescript
+# TypeScript
 *.tsbuildinfo
 next-env.d.ts
 
-# pwa
+# PWA
 /public/sw.js
 /public/sw.js.map
+
+# Prisma
+/generated/prisma/

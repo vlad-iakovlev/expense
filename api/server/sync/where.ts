@@ -1,4 +1,4 @@
-import { Transaction } from '@prisma/client'
+import { Transaction } from '@/generated/prisma/client'
 import { Modify } from '@/types/utility'
 
 const getGroupAddedSinceLastSyncWhere = (params: {

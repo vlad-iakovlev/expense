@@ -1,10 +1,8 @@
-import { PrismaClient } from '@prisma/client'
 import * as fns from 'date-fns'
 import { v4 as uuid } from 'uuid'
 import { HandledError } from '@/utils/server/HandledError'
+import { prisma } from '@/utils/server/prisma'
 import { AcceptInviteResponse, CreateInviteResponse } from './types'
-
-const prisma = new PrismaClient()
 
 export const createInvite = async (
   userId: string,
