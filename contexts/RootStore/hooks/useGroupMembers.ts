@@ -1,6 +1,6 @@
 import assert from 'assert'
-import { useSession } from 'next-auth/react'
 import { useMemo } from 'react'
+import { useSession } from '@/auth-client'
 import { ClientUser } from '@/types/client'
 import { getGroupMembers } from '../getters/groups'
 import { useRootStore } from '../index'
@@ -14,13 +14,9 @@ export const useGroupMembers = ({ groupId }: UseGroupMembersProps) => {
   const { state } = useRootStore()
 
   const groupMembers = useMemo<ClientUser[]>(() => {
-    assert(session.status === 'authenticated', 'User not authenticated')
-    assert(session.data.user?.id, 'User id is required')
+    assert(session.data, 'Unauthenticated')
 
-    return getGroupMembers(state, groupId, {
-      ...session.data.user,
-      id: session.data.user.id,
-    })
+    return getGroupMembers(state, groupId, session.data.user)
   }, [groupId, session, state])
 
   return {

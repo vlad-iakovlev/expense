@@ -8,8 +8,8 @@ import {
   TagIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline'
-import { signIn } from 'next-auth/react'
 import { useCallback, useState } from 'react'
+import { signIn } from '@/auth-client'
 import { Card } from '@/components/common/Card/index'
 import { Columns } from '@/components/common/Columns'
 import { Title } from '@/components/common/Title'
@@ -22,7 +22,7 @@ export const Home = () => {
     void (async () => {
       try {
         setIsLoading(true)
-        await signIn('google')
+        await signIn.social({ provider: 'google' })
       } finally {
         setIsLoading(false)
       }

@@ -1,12 +1,14 @@
+import assert from 'assert'
 import { updateCurrencyRates } from '@/api/server/cron/index'
 import { HandledError } from '@/utils/server/HandledError'
 
 export const POST = async (request: Request) => {
   try {
+    assert(process.env.CRON_SECRET, 'CRON_SECRET is not set')
+
     if (
-      !process.env.CRON_SECRET ||
       request.headers.get('authorization') !==
-        `Bearer ${process.env.CRON_SECRET}`
+      `Bearer ${process.env.CRON_SECRET}`
     ) {
       throw HandledError.UNAUTHORIZED()
     }

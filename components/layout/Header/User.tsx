@@ -1,6 +1,6 @@
 import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'
-import { signIn, signOut, useSession } from 'next-auth/react'
 import { useCallback, useState } from 'react'
+import { signIn, signOut, useSession } from '@/auth-client'
 import { Avatar } from '@/components/common/Avatar'
 import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card/index'
@@ -27,7 +27,7 @@ export const HeaderUser = ({ className }: HeaderUserProps) => {
     void (async () => {
       try {
         setIsLoading(true)
-        await signIn('google')
+        await signIn.social({ provider: 'google' })
       } finally {
         setIsLoading(false)
       }
@@ -46,20 +46,11 @@ export const HeaderUser = ({ className }: HeaderUserProps) => {
     })()
   }, [])
 
+  if (session.isPending) return null
+
   return (
     <div className={className}>
-      {session.status === 'unauthenticated' && (
-        <Button
-          className="bg-green-800 text-white shadow-inner"
-          disabled={isLoading}
-          size="md"
-          onClick={handleSignIn}
-        >
-          Sign In
-        </Button>
-      )}
-
-      {session.status === 'authenticated' && (
+      {session.data ? (
         <div>
           <button
             className="block rounded-full"
@@ -70,8 +61,8 @@ export const HeaderUser = ({ className }: HeaderUserProps) => {
             onClick={handleProfileClick}
           >
             <Avatar
-              src={session.data.user?.image ?? undefined}
-              name={session.data.user?.name ?? undefined}
+              src={session.data.user.image ?? undefined}
+              name={session.data.user.name}
             />
           </button>
 
@@ -86,15 +77,15 @@ export const HeaderUser = ({ className }: HeaderUserProps) => {
               label={
                 <>
                   <div className="truncate text-xl">
-                    {session.data.user?.name}
+                    {session.data.user.name}
                   </div>
                   <div className="truncate text-tertiary-foreground">
-                    {session.data.user?.email}
+                    {session.data.user.email}
                   </div>
                 </>
               }
               role="menuitem"
-              aria-label={`You are logged in as ${session.data.user?.name} with email ${session.data.user?.email}`}
+              aria-label={`You are logged in as ${session.data.user.name} with email ${session.data.user.email}`}
             />
 
             <Card.Divider />
@@ -108,6 +99,15 @@ export const HeaderUser = ({ className }: HeaderUserProps) => {
             />
           </Card.Menu>
         </div>
+      ) : (
+        <Button
+          className="bg-green-800 text-white shadow-inner"
+          disabled={isLoading}
+          size="md"
+          onClick={handleSignIn}
+        >
+          Sign In
+        </Button>
       )}
     </div>
   )

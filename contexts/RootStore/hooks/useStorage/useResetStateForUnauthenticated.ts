@@ -1,5 +1,5 @@
-import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
+import { useSession } from '@/auth-client'
 import { StorageAction } from '../../reducers/storage'
 import { RootStoreState, StorageActionType } from '../../types'
 import { getLocalStorageKey } from './constants'
@@ -11,9 +11,9 @@ export const useResetStateForUnauthenticated = (
   const session = useSession()
 
   useEffect(() => {
-    if (session.status === 'unauthenticated') {
+    if (!session.isPending && !session.data) {
       dispatch({ type: StorageActionType.RESET_STATE })
       window.localStorage.removeItem(getLocalStorageKey())
     }
-  }, [session.status, dispatch])
+  }, [dispatch, session.data, session.isPending])
 }

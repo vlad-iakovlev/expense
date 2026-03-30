@@ -1,7 +1,6 @@
 'use client'
 
 import * as fns from 'date-fns'
-import { SessionProvider } from 'next-auth/react'
 import { useEffect } from 'react'
 import { Header } from '@/components/layout/Header'
 import { RootStoreProvider } from '@/contexts/RootStore'
@@ -30,11 +29,9 @@ export const Providers = ({ children }: ProvidersProps) => {
   }, [])
 
   return (
-    <SessionProvider refetchOnWindowFocus={false} refetchWhenOffline={false}>
-      <RootStoreProvider>
-        <Header />
-        {children}
-      </RootStoreProvider>
-    </SessionProvider>
+    <RootStoreProvider>
+      <Header />
+      {children}
+    </RootStoreProvider>
   )
 }

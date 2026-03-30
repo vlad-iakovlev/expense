@@ -1,6 +1,6 @@
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -21,32 +21,35 @@ model Transaction {
 }
 
 model Account {
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  idToken               String?
+  password              String?
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
-  @@id([provider, providerAccountId])
+  @@unique([providerId, accountId])
 }
 
 model Session {
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  sessionToken String   @unique
-  expires      DateTime
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
@@ -57,9 +60,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
+  name          String
+  email         String  @unique
+  emailVerified Boolean @default(false)
   image         String?
 
   accounts   Account[]
@@ -67,12 +70,14 @@ model User {
   userGroups UserGroup[]
 }
 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
+model Verification {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@id([identifier, token])
+  identifier String
+  value      String
+  expiresAt  DateTime
 }
 
 model Currency {

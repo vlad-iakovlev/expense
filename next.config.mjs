@@ -19,7 +19,6 @@ const nextConfig = {
   },
   output: 'standalone',
   reactStrictMode: true,
-  transpilePackages: ['next-auth'],
 }
 
 export default withSerwist(nextConfig)

@@ -1,3 +1,4 @@
+import { headers } from 'next/headers'
 import { performSync } from '@/api/server/sync/index'
 import { performSyncBodySchema } from '@/api/server/sync/schemas'
 import { auth } from '@/auth'
@@ -5,8 +6,8 @@ import { HandledError } from '@/utils/server/HandledError'
 
 export const POST = async (request: Request) => {
   try {
-    const session = await auth()
-    if (!session?.user?.id) throw HandledError.UNAUTHORIZED()
+    const session = await auth.api.getSession({ headers: await headers() })
+    if (!session?.user.id) throw HandledError.UNAUTHORIZED()
 
     const { updates, lastTransactionId } = performSyncBodySchema.parse(
       await request.json(),
