@@ -23,7 +23,7 @@ export type PopulatedClientCurrency = {
 
 export type ClientUser = {
   id: string
-  name?: string | null
+  name: string
   image?: string | null
 }
 

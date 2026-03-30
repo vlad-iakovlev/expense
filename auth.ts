@@ -1,36 +1,28 @@
-import { PrismaAdapter } from '@auth/prisma-adapter'
+import { prismaAdapter } from '@better-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
-import { produce } from 'immer'
-import NextAuth from 'next-auth'
-import Google, { GoogleProfile } from 'next-auth/providers/google'
+import assert from 'assert'
+import { betterAuth } from 'better-auth'
+
+assert(process.env.AUTH_URL, 'AUTH_URL is not set')
+assert(process.env.AUTH_SECRET, 'AUTH_SECRET is not set')
+assert(process.env.AUTH_GOOGLE_ID, 'AUTH_GOOGLE_ID is not set')
+assert(process.env.AUTH_GOOGLE_SECRET, 'AUTH_GOOGLE_SECRET is not set')
 
 const prisma = new PrismaClient()
 
-export const { auth, handlers, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
-  callbacks: {
-    session({ session, user }) {
-      return produce(session, (draft) => {
-        draft.user.id = user.id
-      })
+export const auth = betterAuth({
+  appName: 'Expense',
+  baseURL: process.env.AUTH_URL,
+  secret: process.env.AUTH_SECRET,
+  database: prismaAdapter(prisma, {
+    provider: 'postgresql',
+    transaction: true,
+  }),
+  socialProviders: {
+    google: {
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      overrideUserInfoOnSignIn: true,
     },
   },
-  events: {
-    async signIn({ user, profile, isNewUser }) {
-      if (!isNewUser && user.id && profile) {
-        const googleProfile = profile as GoogleProfile
-
-        await prisma.user.update({
-          where: {
-            id: user.id,
-          },
-          data: {
-            name: googleProfile.name,
-            image: googleProfile.picture,
-          },
-        })
-      }
-    },
-  },
-  providers: [Google],
 })

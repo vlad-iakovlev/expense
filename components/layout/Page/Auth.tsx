@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react'
+import { useSession } from '@/auth-client'
 import { Home } from '@/components/pages/Home'
 
 type PageAuthProps = {
@@ -7,11 +7,5 @@ type PageAuthProps = {
 
 export const PageAuth = ({ children }: PageAuthProps) => {
   const session = useSession()
-
-  return (
-    <>
-      {session.status === 'authenticated' && children}
-      {session.status === 'unauthenticated' && <Home />}
-    </>
-  )
+  return session.isPending ? null : session.data ? children : <Home />
 }

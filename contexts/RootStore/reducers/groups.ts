@@ -1,5 +1,4 @@
 import { produce } from 'immer'
-import { ClientUser } from '@/types/client'
 import { getDefaultCurrencyId } from '../getters/currencies'
 import { GroupsActionTypes, RootStoreState } from '../types'
 
@@ -67,13 +66,13 @@ const leaveGroupReducer: React.Reducer<
     type: GroupsActionTypes.LEAVE_GROUP
     payload: {
       groupId: string
-      me: ClientUser
+      userId: string
     }
   }
-> = (state, { payload: { groupId, me } }) =>
+> = (state, { payload: { groupId, userId } }) =>
   produce(state, (draft) => {
     draft.userGroups.forEach((userGroup) => {
-      if (userGroup.groupId === groupId && userGroup.userId === me.id) {
+      if (userGroup.groupId === groupId && userGroup.userId === userId) {
         userGroup.removed = true
         draft.nextSyncTransaction.userGroups.push(userGroup.id)
       }

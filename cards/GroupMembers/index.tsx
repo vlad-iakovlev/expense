@@ -26,7 +26,7 @@ export const GroupMembersCard = ({
               key={user.id}
               groupId={groupId}
               userId={user.id}
-              name={user.name ?? undefined}
+              name={user.name}
               image={user.image ?? undefined}
             />
           ))}

@@ -1,6 +1,6 @@
 import assert from 'assert'
-import { useSession } from 'next-auth/react'
 import { useCallback, useMemo } from 'react'
+import { useSession } from '@/auth-client'
 import { PopulatedClientGroup } from '@/types/client'
 import { getPopulatedGroup } from '../getters/groups'
 import { useRootStore } from '../index'
@@ -57,17 +57,13 @@ export const useGroup = ({ groupId }: UseGroupProps) => {
   )
 
   const leaveGroup = useCallback(() => {
-    assert(session.status === 'authenticated', 'User not authenticated')
-    assert(session.data.user?.id, 'User id is required')
+    assert(session.data, 'Unauthenticated')
 
     dispatch({
       type: GroupsActionTypes.LEAVE_GROUP,
       payload: {
         groupId,
-        me: {
-          ...session.data.user,
-          id: session.data.user.id,
-        },
+        userId: session.data.user.id,
       },
     })
   }, [dispatch, groupId, session])

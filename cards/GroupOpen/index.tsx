@@ -25,7 +25,7 @@ export const GroupOpenCard = ({ groupId }: GroupOpenCardProps) => {
             <AvatarGroup
               className="flex-none"
               avatars={groupMembers.map((user) => ({
-                name: user.name ?? undefined,
+                name: user.name,
                 src: user.image ?? undefined,
               }))}
               max={3}
