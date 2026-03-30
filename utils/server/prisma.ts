@@ -1,8 +1,5 @@
-import { PrismaPostgresAdapter } from '@prisma/adapter-ppg'
+import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@/generated/prisma/client'
 
-const adapter = new PrismaPostgresAdapter({
-  connectionString: process.env.DATABASE_URL ?? '',
-})
-
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
 export const prisma = new PrismaClient({ adapter })
