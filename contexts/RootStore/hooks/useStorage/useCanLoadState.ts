@@ -9,5 +9,5 @@ export const useCanLoadState = () => {
   const pathname = usePathname()
   const isInvitePage = pathname.startsWith(ROUTES.INVITE(''))
 
-  return !!session.data?.user && isTabVisible && !isInvitePage
+  return !!session.data && isTabVisible && !isInvitePage
 }
