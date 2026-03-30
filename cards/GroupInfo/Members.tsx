@@ -16,7 +16,7 @@ export const Members = ({ groupId }: MembersProps) => {
         <AvatarGroup
           className="flex-none"
           avatars={groupMembers.map((user) => ({
-            name: user.name ?? undefined,
+            name: user.name,
             src: user.image ?? undefined,
           }))}
           max={10}
