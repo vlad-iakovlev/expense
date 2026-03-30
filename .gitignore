@@ -18,8 +18,8 @@ npm-debug.log*
 next-env.d.ts
 
 # PWA
-/public/sw.js
-/public/sw.js.map
+/public/sw*
+/public/swe-worker*
 
 # Prisma
 /generated/prisma/
