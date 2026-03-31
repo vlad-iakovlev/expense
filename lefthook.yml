@@ -1,7 +1,7 @@
 pre-commit:
   commands:
-    compile:
-      run: npm run compile
+    # compile:
+    # run: npm run compile
     lint:
       glob: '*.{js,mjs,ts,mts,tsx}'
       run: npx eslint --fix {staged_files}

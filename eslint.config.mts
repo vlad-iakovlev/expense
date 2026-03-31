@@ -7,6 +7,8 @@ export default defineConfig(
     'out/**',
     'build/**',
     'generated/**',
+    'packages/*/dist/**',
+    'packages/server/src/generated/**',
     'next-env.d.ts',
     'public/sw.js',
     'public/sw.js.map',

@@ -3,9 +3,8 @@ datasource db {
 }
 
 generator client {
-  provider            = "prisma-client"
-  output              = "../generated/prisma"
-  importFileExtension = ""
+  provider = "prisma-client"
+  output   = "../packages/server/src/generated/prisma"
 }
 
 model Transaction {

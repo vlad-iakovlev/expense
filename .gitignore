@@ -24,3 +24,4 @@ next-env.d.ts
 
 # Prisma
 /generated/prisma/
+/packages/server/src/generated/prisma/

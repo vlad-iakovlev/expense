@@ -1,10 +1,11 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
+import { updateCurrencyRatesHandler } from './routes/updateCurrencyRates.js'
 
 const app = new Hono()
 
 app.get('/health', (c) => c.json({ ok: true }))
-app.get('/', (c) => c.text('Expense server is running'))
+app.post('/cron/update-currency-rates', updateCurrencyRatesHandler)
 
 const port = Number(process.env.PORT ?? '3001')
 
