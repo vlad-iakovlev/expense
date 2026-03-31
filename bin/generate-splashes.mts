@@ -35,6 +35,13 @@ const SCREEN_SIZES: ScreenSize[] = [
     ratio: 2,
   },
   {
+    dpWidth: 820,
+    dpHeight: 1180,
+    pxWidth: 1640,
+    pxHeight: 2360,
+    ratio: 2,
+  },
+  {
     dpWidth: 834,
     dpHeight: 1112,
     pxWidth: 1668,
@@ -47,6 +54,34 @@ const SCREEN_SIZES: ScreenSize[] = [
     pxWidth: 1620,
     pxHeight: 2160,
     ratio: 2,
+  },
+  {
+    dpWidth: 744,
+    dpHeight: 1133,
+    pxWidth: 1488,
+    pxHeight: 2266,
+    ratio: 2,
+  },
+  {
+    dpWidth: 440,
+    dpHeight: 956,
+    pxWidth: 1320,
+    pxHeight: 2868,
+    ratio: 3,
+  },
+  {
+    dpWidth: 402,
+    dpHeight: 874,
+    pxWidth: 1206,
+    pxHeight: 2622,
+    ratio: 3,
+  },
+  {
+    dpWidth: 420,
+    dpHeight: 912,
+    pxWidth: 1260,
+    pxHeight: 2736,
+    ratio: 3,
   },
   {
     dpWidth: 430,
@@ -63,17 +98,17 @@ const SCREEN_SIZES: ScreenSize[] = [
     ratio: 3,
   },
   {
-    dpWidth: 428,
-    dpHeight: 926,
-    pxWidth: 1284,
-    pxHeight: 2778,
-    ratio: 3,
-  },
-  {
     dpWidth: 390,
     dpHeight: 844,
     pxWidth: 1170,
     pxHeight: 2532,
+    ratio: 3,
+  },
+  {
+    dpWidth: 428,
+    dpHeight: 926,
+    pxWidth: 1284,
+    pxHeight: 2778,
     ratio: 3,
   },
   {
