@@ -2,10 +2,17 @@
   "name": "expense",
   "version": "0.0.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "next build --webpack",
+    "build:client": "npm run build --workspace @expense/client",
+    "build:server": "npm run build --workspace @expense/server",
     "compile": "tsc",
     "dev": "next dev --webpack",
+    "dev:client": "npm run dev --workspace @expense/client",
+    "dev:server": "npm run dev --workspace @expense/server",
     "generate-currencies": "node --loader ts-node/esm bin/generate-currencies.mts",
     "generate-icons": "node --loader ts-node/esm bin/generate-icons.mts",
     "generate-splashes": "node --loader ts-node/esm bin/generate-splashes.mts",
@@ -14,7 +21,9 @@
     "prettier": "prettier --write '**/*.(js|ts|tsx|md|json)'",
     "prettier:ci": "prettier --check '**/*.(js|ts|tsx|md|json)'",
     "prisma": "dotenv -e .env -- npx prisma",
-    "start": "next start"
+    "start": "next start",
+    "start:client": "npm run preview --workspace @expense/client",
+    "start:server": "npm run start --workspace @expense/server"
   },
   "dependencies": {
     "@better-auth/prisma-adapter": "^1.5.6",
@@ -46,7 +55,7 @@
   "devDependencies": {
     "@serwist/next": "^9.5.7",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
-    "@vlad-iakovlev/eslint-config": "^1.1.0",
+    "@vlad-iakovlev/eslint-config": "^1.2.0",
     "chalk": "^5.6.2",
     "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.4",
