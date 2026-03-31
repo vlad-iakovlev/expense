@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch index.ts",
-    "start": "tsx index.js"
+    "dev": "tsx watch bin/index.ts",
+    "start": "tsx bin/index.js"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.11",
