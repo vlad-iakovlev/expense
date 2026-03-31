@@ -11,7 +11,7 @@ type RatesResponse = {
   timestamp: number
 }
 
-export const updateCurrencyRatesHandler = async (c: Context) => {
+export const updateCurrencyRates = async (c: Context) => {
   try {
     assert(process.env.CRON_SECRET, 'CRON_SECRET is not set')
     assert(

@@ -4,7 +4,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client"
-  output   = "../packages/server/src/generated/prisma"
+  output   = "../packages/server/generated/prisma"
 }
 
 model Transaction {

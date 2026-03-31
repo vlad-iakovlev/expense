@@ -7,9 +7,8 @@
     "moduleResolution": "nodenext",
     "noEmit": true,
     "noUncheckedIndexedAccess": true,
-    "outDir": "dist",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"]
     },
     "skipLibCheck": true,
     "sourceMap": true,
@@ -17,5 +16,6 @@
     "target": "esnext",
     "types": ["node"]
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "include": ["**/*.ts", "**/*.tsx"]
 }
