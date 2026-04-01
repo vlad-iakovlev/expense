@@ -25,7 +25,6 @@ export default defineConfig({
     tailwindcss(),
     tanstackRouter({
       target: 'react',
-      routesDirectory: './routes',
       generatedRouteTree: './generated/routeTree.ts',
       autoCodeSplitting: true,
     }),
@@ -37,7 +36,6 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },

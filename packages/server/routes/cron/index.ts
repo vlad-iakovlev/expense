@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { Hono } from 'hono'
 import { bearerAuth } from 'hono/bearer-auth'
-import { prisma } from '@expense/db/client'
+import { prisma } from '@expense/prisma'
 import { errorMiddleware } from '@/middlewares/error.js'
 
 const fetchCurrencyRates = async () => {

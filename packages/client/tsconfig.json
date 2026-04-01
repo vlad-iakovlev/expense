@@ -8,7 +8,7 @@
     "noEmit": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
     "skipLibCheck": true,
     "sourceMap": true,
@@ -17,5 +17,5 @@
     "types": ["node"]
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.mts", "**/*.tsx"]
+  "include": ["src", "generated", "vite.config.mts"]
 }

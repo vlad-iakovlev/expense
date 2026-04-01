@@ -8,14 +8,14 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './../routes/__root'
-import { Route as IndexRouteImport } from './../routes/index'
-import { Route as WalletWalletIdRouteImport } from './../routes/wallet.$walletId'
-import { Route as OperationOperationIdRouteImport } from './../routes/operation.$operationId'
-import { Route as InvitesTokenRouteImport } from './../routes/invites.$token'
-import { Route as GroupGroupIdRouteImport } from './../routes/group.$groupId'
-import { Route as WalletWalletIdSettingsRouteImport } from './../routes/wallet.$walletId.settings'
-import { Route as GroupGroupIdSettingsRouteImport } from './../routes/group.$groupId.settings'
+import { Route as rootRouteImport } from './../src/routes/__root'
+import { Route as IndexRouteImport } from './../src/routes/index'
+import { Route as WalletWalletIdRouteImport } from './../src/routes/wallet.$walletId'
+import { Route as OperationOperationIdRouteImport } from './../src/routes/operation.$operationId'
+import { Route as InvitesTokenRouteImport } from './../src/routes/invites.$token'
+import { Route as GroupGroupIdRouteImport } from './../src/routes/group.$groupId'
+import { Route as WalletWalletIdSettingsRouteImport } from './../src/routes/wallet.$walletId.settings'
+import { Route as GroupGroupIdSettingsRouteImport } from './../src/routes/group.$groupId.settings'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',

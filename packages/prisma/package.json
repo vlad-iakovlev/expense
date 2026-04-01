@@ -1,11 +1,9 @@
 {
-  "name": "@expense/db",
+  "name": "@expense/prisma",
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "exports": {
-    "./client": "./client.js"
-  },
+  "main": "./index.js",
   "scripts": {
     "prisma": "prisma --config prisma.config.ts"
   },

@@ -1,9 +1,9 @@
-import currenciesInfo from '@/generated/currencies.json'
 import {
   ClientCurrency,
   ClientTransaction,
   PopulatedClientCurrency,
 } from '@/types/client'
+import currenciesInfo from '../../../generated/currencies.json'
 import { RootStoreState } from './types'
 
 export const getEmptyState = (): RootStoreState => ({

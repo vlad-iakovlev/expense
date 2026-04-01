@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import { HTTPException } from 'hono/http-exception'
-import { Transaction, prisma } from '@expense/db/client'
+import { Transaction, prisma } from '@expense/prisma'
 import { performSyncBodySchema } from '@expense/schemas/sync/schemas'
 import type {
   PerformSyncBody,

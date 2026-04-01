@@ -7,9 +7,9 @@ import syncRouter from '@/routes/sync/index.js'
 
 const app = new Hono({ strict: false })
 
-app.route('/auth', authRouter)
-app.route('/invites', invitesRouter)
-app.route('/sync', syncRouter)
-app.route('/cron', cronRouter)
+app.route('/api/auth', authRouter)
+app.route('/api/invites', invitesRouter)
+app.route('/api/sync', syncRouter)
+app.route('/api/cron', cronRouter)
 
 serve(app)

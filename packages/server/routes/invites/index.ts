@@ -2,7 +2,7 @@ import * as fns from 'date-fns'
 import { Hono } from 'hono'
 import { HTTPException } from 'hono/http-exception'
 import { v4 as uuid } from 'uuid'
-import { prisma } from '@expense/db/client'
+import { prisma } from '@expense/prisma'
 import {
   acceptInviteBodySchema,
   createInviteBodySchema,

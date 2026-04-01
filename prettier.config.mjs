@@ -9,7 +9,7 @@ const prettierConfig = {
   singleQuote: true,
   importOrder: ['^@expense/', '^@/', '^\\.\\./', '^\\./'],
   importOrderSortSpecifiers: true,
-  tailwindStylesheet: './packages/client/styles/globals.css',
+  tailwindStylesheet: './packages/client/src/styles/globals.css',
 }
 
 export default prettierConfig

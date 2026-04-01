@@ -18,7 +18,7 @@
     "lint:ci": "DEBUG=eslint:eslint eslint .",
     "prettier": "prettier --write '**/*.(js|ts|tsx|md|json)'",
     "prettier:ci": "prettier --check '**/*.(js|ts|tsx|md|json)'",
-    "prisma": "npm run prisma --workspace @expense/db --",
+    "prisma": "npm run prisma --workspace @expense/prisma --",
     "prisma:env": "dotenv -e .env -- npm run prisma --",
     "start:client": "npm run preview --workspace @expense/client",
     "start:server": "npm run start --workspace @expense/server"
