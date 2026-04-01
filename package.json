@@ -6,29 +6,24 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "next build --webpack",
     "build:client": "npm run build --workspace @expense/client",
-    "compile": "tsc",
     "compile:client": "npm run compile --workspace @expense/client",
     "compile:server": "npm run compile --workspace @expense/server",
-    "dev": "next dev --webpack",
     "dev:client": "npm run dev --workspace @expense/client",
     "dev:server": "npm run dev --workspace @expense/server",
-    "generate-currencies": "npm run generate-currencies --workspace @expense/generators",
-    "generate-icons": "npm run generate-icons --workspace @expense/generators",
-    "generate-splashes": "npm run generate-splashes --workspace @expense/generators",
+    "generate:currencies": "npm run generate-currencies --workspace @expense/generators",
+    "generate:icons": "npm run generate-icons --workspace @expense/generators",
+    "generate:splashes": "npm run generate-splashes --workspace @expense/generators",
     "lint": "eslint .",
     "lint:ci": "DEBUG=eslint:eslint eslint .",
     "prettier": "prettier --write '**/*.(js|ts|tsx|md|json)'",
     "prettier:ci": "prettier --check '**/*.(js|ts|tsx|md|json)'",
-    "prisma": "dotenv -e .env -- npx prisma",
-    "start": "next start",
+    "prisma": "npm run prisma --workspace @expense/db --",
+    "prisma:env": "dotenv -e .env -- npm run prisma --",
     "start:client": "npm run preview --workspace @expense/client",
     "start:server": "npm run start --workspace @expense/server"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.6.0",
-    "@prisma/client": "^7.6.0",
     "@types/node": "^22.19.15",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3"
@@ -43,7 +38,6 @@
     "prettier": "^3.8.1",
     "prettier-plugin-packagejson": "^3.0.2",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "prisma": "^7.6.0",
     "serwist": "^9.5.6",
     "typescript": "^5.9.3"
   }

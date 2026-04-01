@@ -1,3 +1,1 @@
-/packages/client/dist/**
-/packages/client/generated/**
-/packages/server/generated/**
+/packages/*/generated/**

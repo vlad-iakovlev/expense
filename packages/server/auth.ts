@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
-import { prisma } from '@/utils/prisma.js'
+import { prisma } from '@expense/db/client'
 
 export const auth = betterAuth({
   appName: 'Expense',

@@ -7,9 +7,7 @@ npm-debug.log*
 *.pem
 
 # Build
-/.next/
-/out/
-/packages/client/dist/
+/packages/*/dist/
 
 # Local env files
 .env
@@ -24,4 +22,4 @@ next-env.d.ts
 
 # Prisma
 /generated/prisma/
-/packages/server/generated/prisma/
+/packages/db/generated/prisma/

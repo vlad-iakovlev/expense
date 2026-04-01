@@ -1,3 +1,8 @@
+import * as fns from 'date-fns'
+import { Hono } from 'hono'
+import { HTTPException } from 'hono/http-exception'
+import { v4 as uuid } from 'uuid'
+import { prisma } from '@expense/db/client'
 import {
   acceptInviteBodySchema,
   createInviteBodySchema,
@@ -6,14 +11,9 @@ import type {
   AcceptInviteResponse,
   CreateInviteResponse,
 } from '@expense/schemas/invites/types'
-import * as fns from 'date-fns'
-import { Hono } from 'hono'
-import { HTTPException } from 'hono/http-exception'
-import { v4 as uuid } from 'uuid'
 import { AuthType } from '@/auth.js'
 import { authMiddleware } from '@/middlewares/auth.js'
 import { errorMiddleware } from '@/middlewares/error.js'
-import { prisma } from '@/utils/prisma.js'
 
 const createInvite = async (groupId: string, userId: string) =>
   await prisma.invite.create({

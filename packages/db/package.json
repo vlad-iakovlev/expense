@@ -1,0 +1,19 @@
+{
+  "name": "@expense/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./client": "./client.js"
+  },
+  "scripts": {
+    "prisma": "prisma --config prisma.config.ts"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.6.0",
+    "@prisma/client": "^7.6.0"
+  },
+  "devDependencies": {
+    "prisma": "^7.6.0"
+  }
+}
