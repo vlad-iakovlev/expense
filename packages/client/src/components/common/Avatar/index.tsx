@@ -56,7 +56,7 @@ export const Avatar = ({
     className={twMerge(
       'overflow-hidden rounded-full',
       size === 'sm' && 'size-8',
-      size === 'md' && 'sizr-10',
+      size === 'md' && 'size-10',
       className,
     )}
     {...rest}
