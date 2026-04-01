@@ -1,6 +1,9 @@
-import { Context } from 'hono'
+import { Hono } from 'hono'
 import { HTTPException } from 'hono/http-exception'
+import { AuthType } from '@/auth.js'
 import { Transaction } from '@/generated/prisma/client.js'
+import { authMiddleware } from '@/middlewares/auth.js'
+import { errorMiddleware } from '@/middlewares/error.js'
 import { Modify } from '@/types/utility.js'
 import { prisma } from '@/utils/prisma.js'
 import { performSyncBodySchema } from './schemas.js'
@@ -11,30 +14,6 @@ import {
   getUserGroupWhere,
   getWalletWhere,
 } from './where.js'
-
-export const handleSync = async (c: Context) => {
-  try {
-    const { updates: clientUpdates, lastTransactionId } =
-      performSyncBodySchema.parse(await c.req.json())
-
-    // TODO: Add auth
-    const userId = '123'
-
-    await applyUpdates(userId, clientUpdates)
-
-    const lastTransaction = lastTransactionId
-      ? await findTransaction(lastTransactionId)
-      : undefined
-
-    const response = await collect(userId, lastTransaction)
-    return c.json<PerformSyncResponse>(response)
-  } catch (error) {
-    if (error instanceof HTTPException) throw error
-
-    console.error(error)
-    throw new HTTPException()
-  }
-}
 
 const applyUpdates = async (
   userId: string,
@@ -320,3 +299,25 @@ const collect = async (
     },
   }
 }
+
+const router = new Hono<{ Variables: AuthType }>({ strict: false })
+
+router.use(errorMiddleware, authMiddleware)
+
+router.post('/', async (c) => {
+  const { updates: clientUpdates, lastTransactionId } =
+    performSyncBodySchema.parse(await c.req.json())
+
+  const userId = c.get('session').user.id
+  await applyUpdates(userId, clientUpdates)
+
+  const lastTransaction = lastTransactionId
+    ? await findTransaction(lastTransactionId)
+    : undefined
+
+  const response = await collect(userId, lastTransaction)
+
+  return c.json<PerformSyncResponse>(response)
+})
+
+export default router

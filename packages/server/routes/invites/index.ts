@@ -1,50 +1,13 @@
 import * as fns from 'date-fns'
-import { Context } from 'hono'
+import { Hono } from 'hono'
 import { HTTPException } from 'hono/http-exception'
 import { v4 as uuid } from 'uuid'
+import { AuthType } from '@/auth.js'
+import { authMiddleware } from '@/middlewares/auth.js'
+import { errorMiddleware } from '@/middlewares/error.js'
 import { prisma } from '@/utils/prisma.js'
 import { acceptInviteBodySchema, createInviteBodySchema } from './schemas.js'
 import { AcceptInviteResponse, CreateInviteResponse } from './types.js'
-
-export const handleAcceptInvite = async (c: Context) => {
-  try {
-    const { token } = acceptInviteBodySchema.parse(await c.req.json())
-
-    // TODO: Add auth
-    const userId = '123'
-
-    const { groupId } = await getInviteByToken(token)
-    await joinGroup(userId, groupId)
-
-    return c.json<AcceptInviteResponse>({ ok: true })
-  } catch (error) {
-    if (error instanceof HTTPException) throw error
-
-    console.error(error)
-    throw new HTTPException()
-  }
-}
-
-export const handleCreateInvite = async (c: Context) => {
-  try {
-    const { groupId } = createInviteBodySchema.parse(await c.req.json())
-
-    // TODO: Add auth
-    const userId = '123'
-
-    const invite = await createInvite(groupId, userId)
-
-    return c.json<CreateInviteResponse>({
-      token: invite.token,
-      expiresAt: invite.expiresAt.toISOString(),
-    })
-  } catch (error) {
-    if (error instanceof HTTPException) throw error
-
-    console.error(error)
-    throw new HTTPException()
-  }
-}
 
 const createInvite = async (groupId: string, userId: string) =>
   await prisma.invite.create({
@@ -109,3 +72,31 @@ const joinGroup = async (userId: string, groupId: string) => {
     throw new HTTPException(400, { message: 'Cannot join group' })
   }
 }
+
+const router = new Hono<{ Variables: AuthType }>({ strict: false })
+
+router.use(errorMiddleware, authMiddleware)
+
+router.post('/accept', async (c) => {
+  const { token } = acceptInviteBodySchema.parse(await c.req.json())
+
+  const userId = c.get('session').user.id
+  const { groupId } = await getInviteByToken(token)
+  await joinGroup(userId, groupId)
+
+  return c.json<AcceptInviteResponse>({ ok: true })
+})
+
+router.post('/create', async (c) => {
+  const { groupId } = createInviteBodySchema.parse(await c.req.json())
+
+  const userId = c.get('session').user.id
+  const invite = await createInvite(groupId, userId)
+
+  return c.json<CreateInviteResponse>({
+    token: invite.token,
+    expiresAt: invite.expiresAt.toISOString(),
+  })
+})
+
+export default router
