@@ -9,6 +9,7 @@
     "start": "tsx bin/index.js"
   },
   "dependencies": {
+    "@better-auth/prisma-adapter": "^1.5.6",
     "@expense/schemas": "*",
     "@hono/node-server": "^1.19.11",
     "@prisma/adapter-pg": "^7.6.0",
