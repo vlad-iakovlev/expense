@@ -8,7 +8,7 @@ pre-commit:
     #   glob: '*.{js,mjs,ts,mts,tsx}'
     #   run: npx eslint --fix {staged_files}
     #   stage_fixed: true
-    # prettier:
-    #   glob: '*.{js,mjs,ts,mts,tsx,md,json}'
-    #   run: npx prettier --write {staged_files}
-    #   stage_fixed: true
+    prettier:
+      glob: '*.{js,mjs,ts,mts,tsx,md,json}'
+      run: npx prettier --write {staged_files}
+      stage_fixed: true

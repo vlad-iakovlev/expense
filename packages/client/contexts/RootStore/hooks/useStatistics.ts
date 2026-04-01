@@ -1,0 +1,134 @@
+import { useRootStore } from '..'
+import assert from 'assert'
+import { useMemo } from 'react'
+import {
+  ClientStatisticsItem,
+  ClientStatisticsType,
+  ClientWallet,
+  PopulatedClientCurrency,
+} from '@/types/client'
+import { Decimal } from '@/utils/Decimal'
+import { stringToColor } from '@/utils/stringToColor'
+import { uniq } from '@/utils/uniq'
+import {
+  getDefaultCurrencyId,
+  getPopulatedCurrency,
+} from '../getters/currencies'
+
+const WALLET_ID_FIELD = {
+  [ClientStatisticsType.INCOMES]: 'incomeWalletId',
+  [ClientStatisticsType.EXPENSES]: 'expenseWalletId',
+} as const
+
+const AMOUNT_FIELD = {
+  [ClientStatisticsType.INCOMES]: 'incomeAmount',
+  [ClientStatisticsType.EXPENSES]: 'expenseAmount',
+} as const
+
+type UseStatisticsProps = {
+  groupId?: string
+  walletId?: string
+  startDate?: Date
+  endDate?: Date
+  type: ClientStatisticsType
+}
+
+export const useStatistics = ({
+  groupId,
+  walletId,
+  startDate,
+  endDate,
+  type,
+}: UseStatisticsProps) => {
+  const { state } = useRootStore()
+
+  const statisticsCurrency = useMemo(
+    () =>
+      getPopulatedCurrency(
+        state,
+        getDefaultCurrencyId(state, { groupId, walletId }),
+      ),
+    [groupId, state, walletId],
+  )
+
+  const currenciesMap = useMemo(
+    () =>
+      state.populatedCurrencies.reduce<
+        Record<string, PopulatedClientCurrency | undefined>
+      >((acc, currency) => {
+        acc[currency.id] = currency
+        return acc
+      }, {}),
+    [state.populatedCurrencies],
+  )
+
+  const walletsMap = useMemo(
+    () =>
+      state.wallets.reduce<Record<string, ClientWallet | undefined>>(
+        (acc, wallet) => {
+          if (
+            !wallet.removed &&
+            (!groupId || wallet.groupId === groupId) &&
+            (!walletId || wallet.id === walletId)
+          ) {
+            acc[wallet.id] = wallet
+          }
+
+          return acc
+        },
+        {},
+      ),
+    [groupId, state.wallets, walletId],
+  )
+
+  const statisticsItems = useMemo<ClientStatisticsItem[]>(() => {
+    const categories = uniq(
+      state.operations.map((operation) => operation.category),
+    ).sort((a, b) => a.localeCompare(b))
+
+    return categories.reduce<ClientStatisticsItem[]>((acc, category) => {
+      const operations = state.operations.filter(
+        (operation) =>
+          !operation.removed &&
+          operation.category === category &&
+          walletsMap[operation[WALLET_ID_FIELD[type]] ?? ''] &&
+          (!startDate || operation.date >= startDate) &&
+          (!endDate || operation.date < endDate),
+      )
+
+      const amount = operations.reduce((acc, operation) => {
+        const wallet = walletsMap[operation[WALLET_ID_FIELD[type]] ?? '']
+        assert(wallet, 'Wallet not found')
+        const currency = currenciesMap[wallet.currencyId]
+        assert(currency, 'Currency not found')
+
+        const amount = operation[AMOUNT_FIELD[type]].mul(
+          Decimal.fromNumber(statisticsCurrency.rate / currency.rate),
+        )
+
+        return acc.add(amount)
+      }, Decimal.ZERO)
+
+      acc.push({
+        category,
+        color: stringToColor(category),
+        amount,
+      })
+
+      return acc
+    }, [])
+  }, [
+    currenciesMap,
+    endDate,
+    startDate,
+    state.operations,
+    statisticsCurrency.rate,
+    type,
+    walletsMap,
+  ])
+
+  return {
+    statisticsItems,
+    statisticsCurrency,
+  }
+}

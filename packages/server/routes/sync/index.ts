@@ -1,3 +1,8 @@
+import { performSyncBodySchema } from '@expense/schemas/sync/schemas'
+import type {
+  PerformSyncBody,
+  PerformSyncResponse,
+} from '@expense/schemas/sync/types'
 import { Hono } from 'hono'
 import { HTTPException } from 'hono/http-exception'
 import { AuthType } from '@/auth.js'
@@ -6,8 +11,6 @@ import { authMiddleware } from '@/middlewares/auth.js'
 import { errorMiddleware } from '@/middlewares/error.js'
 import { Modify } from '@/types/utility.js'
 import { prisma } from '@/utils/prisma.js'
-import { performSyncBodySchema } from './schemas.js'
-import { PerformSyncBody, PerformSyncResponse } from './types.js'
 import {
   getGroupWhere,
   getOperationWhere,

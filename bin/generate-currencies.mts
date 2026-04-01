@@ -12,7 +12,10 @@ const uniqBy = <T,>(array: T[], cb: (item: T) => unknown): T[] => [
 const currenciesUrl =
   'https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml'
 
-const dstPath = path.join(process.cwd(), 'constants/currencies.json')
+const dstPath = path.join(
+  process.cwd(),
+  'packages/client/generated/currencies.json',
+)
 
 type Response = {
   ISO_4217: {

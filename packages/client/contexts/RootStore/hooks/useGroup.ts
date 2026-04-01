@@ -1,0 +1,93 @@
+import { useRootStore } from '..'
+import assert from 'assert'
+import { useCallback, useMemo } from 'react'
+import { useSession } from '@/auth-client'
+import { PopulatedClientGroup } from '@/types/client'
+import { getPopulatedGroup } from '../getters/groups'
+import { GroupsActionTypes } from '../types'
+
+type UseGroupProps = {
+  groupId: string
+}
+
+export const useGroup = ({ groupId }: UseGroupProps) => {
+  const session = useSession()
+  const { state, dispatch } = useRootStore()
+
+  const group = useMemo<PopulatedClientGroup>(
+    () => getPopulatedGroup(state, groupId),
+    [groupId, state],
+  )
+
+  const setGroupName = useCallback(
+    (name: string) => {
+      dispatch({
+        type: GroupsActionTypes.SET_GROUP_NAME,
+        payload: { groupId, name },
+      })
+    },
+    [dispatch, groupId],
+  )
+
+  const setGroupDefaultCurrency = useCallback(
+    (defaultCurrencyId: string) => {
+      dispatch({
+        type: GroupsActionTypes.SET_GROUP_DEFAULT_CURRENCY,
+        payload: { groupId, defaultCurrencyId },
+      })
+    },
+    [dispatch, groupId],
+  )
+
+  const removeGroup = useCallback(() => {
+    dispatch({
+      type: GroupsActionTypes.REMOVE_GROUP,
+      payload: { groupId },
+    })
+  }, [dispatch, groupId])
+
+  const removeMemberFromGroup = useCallback(
+    (userId: string) => {
+      dispatch({
+        type: GroupsActionTypes.REMOVE_MEMBER_FROM_GROUP,
+        payload: { groupId, userId },
+      })
+    },
+    [dispatch, groupId],
+  )
+
+  const leaveGroup = useCallback(() => {
+    assert(session.data, 'Unauthenticated')
+
+    dispatch({
+      type: GroupsActionTypes.LEAVE_GROUP,
+      payload: {
+        groupId,
+        userId: session.data.user.id,
+      },
+    })
+  }, [dispatch, groupId, session])
+
+  return {
+    group,
+    setGroupName,
+    setGroupDefaultCurrency,
+    removeGroup,
+    removeMemberFromGroup,
+    leaveGroup,
+  }
+}
+
+export const useOptionalGroup = ({ groupId }: UseGroupProps) => {
+  const { state } = useRootStore()
+
+  const group = useMemo(() => {
+    try {
+      return getPopulatedGroup(state, groupId)
+    } catch {
+      return
+    }
+  }, [groupId, state])
+
+  return { group }
+}

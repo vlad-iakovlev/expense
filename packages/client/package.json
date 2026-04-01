@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@expense/schemas": "*",
+    "@tanstack/react-router": "^1.168.10",
+    "@tanstack/router-plugin": "^1.167.12",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

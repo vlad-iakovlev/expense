@@ -1,27 +1,36 @@
 import tailwindcss from '@tailwindcss/vite'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { Plugin, defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import splashes from './generated/splashes.json' with { type: 'json' }
+
+const injectAppleStartupImages: Plugin = {
+  name: 'inject-apple-startup-images',
+  transformIndexHtml: () =>
+    splashes.map((splash) => ({
+      tag: 'link',
+      injectTo: 'head',
+      attrs: {
+        rel: 'apple-touch-startup-image',
+        media: splash.media,
+        href: splash.url,
+      },
+    })),
+}
 
 export default defineConfig({
   plugins: [
     tsconfigPaths(),
-    react(),
     tailwindcss(),
-    {
-      name: 'inject-apple-startup-images',
-      transformIndexHtml: () =>
-        splashes.map((splash) => ({
-          tag: 'link',
-          injectTo: 'head',
-          attrs: {
-            rel: 'apple-touch-startup-image',
-            media: splash.media,
-            href: splash.url,
-          },
-        })),
-    },
+    tanstackRouter({
+      target: 'react',
+      routesDirectory: './routes',
+      generatedRouteTree: './generated/routeTree.ts',
+      autoCodeSplitting: true,
+    }),
+    react(),
+    injectAppleStartupImages,
   ],
   server: {
     proxy: {

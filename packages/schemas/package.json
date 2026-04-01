@@ -1,0 +1,15 @@
+{
+  "name": "@expense/schemas",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./invites/types": "./invites/types.ts",
+    "./invites/schemas": "./invites/schemas.ts",
+    "./sync/types": "./sync/types.ts",
+    "./sync/schemas": "./sync/schemas.ts"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  }
+}

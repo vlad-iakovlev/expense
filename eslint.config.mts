@@ -8,6 +8,7 @@ export default defineConfig(
     'build/**',
     'generated/**',
     'packages/client/dist/**',
+    'packages/client/generated/**',
     'packages/server/generated/**',
     'next-env.d.ts',
     'public/sw.js',
@@ -16,7 +17,7 @@ export default defineConfig(
     'next.config.mjs',
     'postcss.config.js',
   ]),
-  eslintConfig.next,
+  eslintConfig.react,
   {
     languageOptions: {
       parserOptions: {
