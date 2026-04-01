@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Decimal } from '@/utils/Decimal'
-import { GetSectorProps } from '@/utils/client/getSector'
+import { GetSectorProps } from '@/utils/getSector'
 import { Sector } from './Sector'
 
 export type PieChartItem = {

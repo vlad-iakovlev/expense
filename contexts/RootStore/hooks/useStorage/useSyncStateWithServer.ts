@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import { performSync } from '@/api/client/sync'
-import { ERROR_TYPES } from '@/constants/errors'
 import { useIsOnline } from '@/hooks/useIsOnline'
 import { useThrowError } from '@/hooks/useThrowError'
 import { getRemoteStorageBody } from '../../getters/storage'
@@ -35,12 +34,7 @@ export const useSyncStateWithServer = (
     } catch (error) {
       if (
         error instanceof Error &&
-        (
-          [
-            ERROR_TYPES.INVALID_UPDATES,
-            ERROR_TYPES.INVALID_TRANSACTION,
-          ] as string[]
-        ).includes(error.message)
+        ['Invalid updates', 'Invalid transaction'].includes(error.message)
       ) {
         window.localStorage.removeItem(getLocalStorageKey())
         throwError(error)

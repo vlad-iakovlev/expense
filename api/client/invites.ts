@@ -4,7 +4,7 @@ import {
   CreateInviteBody,
   CreateInviteResponse,
 } from '@/api/server/invites/types'
-import { request } from '@/utils/client/request'
+import { request } from '@/utils/request'
 
 export const createInvite = async (body: CreateInviteBody) =>
   await request.post<CreateInviteBody, CreateInviteResponse>(
