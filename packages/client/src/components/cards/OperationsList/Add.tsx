@@ -14,7 +14,7 @@ export const Add = ({ walletId }: AddProps) => {
 
   const handleCreate = useCallback(() => {
     const operationId = createOperation()
-    void navigate({ to: OperationRoute.id, params: { operationId } })
+    void navigate({ to: OperationRoute.to, params: { operationId } })
   }, [createOperation, navigate])
 
   if (!walletId) {

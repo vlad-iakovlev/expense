@@ -3,7 +3,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { useCallback } from 'react'
 import { Card } from '@/components/common/Card'
 import { useGroups } from '@/contexts/RootStore/hooks/useGroups'
-import { Route as GroupRoute } from '@/routes/group.$groupId'
+import { Route as GroupRoute } from '@/routes/group.$groupId.index'
 
 export const GroupCreateCard = () => {
   const navigate = useNavigate()
@@ -11,7 +11,7 @@ export const GroupCreateCard = () => {
 
   const handleCreate = useCallback(() => {
     const groupId = createGroup()
-    void navigate({ to: GroupRoute.id, params: { groupId } })
+    void navigate({ to: GroupRoute.to, params: { groupId } })
   }, [createGroup, navigate])
 
   return (

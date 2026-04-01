@@ -29,7 +29,7 @@ export const Delete = ({ groupId, userId, tabIndex }: DeleteProps) => {
 
     if (userId === session.data.user.id) {
       leaveGroup()
-      void navigate({ to: IndexRoute.id })
+      void navigate({ to: IndexRoute.to })
     } else {
       removeMemberFromGroup(userId)
       setIsDeleteConfirmOpen(false)

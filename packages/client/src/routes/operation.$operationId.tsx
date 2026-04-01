@@ -6,9 +6,9 @@ import { Columns } from '@/components/common/Columns'
 import { Title } from '@/components/common/Title'
 import { Page } from '@/components/layout/Page'
 import { useOptionalOperation } from '@/contexts/RootStore/hooks/useOperation'
-import { Route as GroupRoute } from '@/routes/group.$groupId'
+import { Route as GroupRoute } from '@/routes/group.$groupId.index'
 import { Route as IndexRoute } from '@/routes/index'
-import { Route as WalletRoute } from '@/routes/wallet.$walletId'
+import { Route as WalletRoute } from '@/routes/wallet.$walletId.index'
 
 export const Route = createFileRoute('/operation/$operationId')({
   component: () => (
@@ -28,7 +28,7 @@ const RouteComponent = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!operation) void navigate({ to: IndexRoute.id })
+    if (!operation) void navigate({ to: IndexRoute.to })
   }, [navigate, operation])
 
   if (!operation) return null
@@ -42,16 +42,16 @@ const RouteComponent = () => {
           wallet
             ? [
                 {
-                  to: IndexRoute.id,
+                  to: IndexRoute.to,
                   title: 'Dashboard',
                 },
                 {
-                  to: GroupRoute.id,
+                  to: GroupRoute.to,
                   params: { groupId: wallet.group.id },
                   title: wallet.group.name,
                 },
                 {
-                  to: WalletRoute.id,
+                  to: WalletRoute.to,
                   params: { walletId: wallet.id },
                   title: `${wallet.name} ${wallet.currency.symbol}`,
                 },

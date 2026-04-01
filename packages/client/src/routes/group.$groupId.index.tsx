@@ -12,7 +12,7 @@ import { CategoryFilterProvider } from '@/contexts/CategoryFilter'
 import { useOptionalGroup } from '@/contexts/RootStore/hooks/useGroup'
 import { Route as IndexRoute } from '@/routes/index'
 
-export const Route = createFileRoute('/group/$groupId')({
+export const Route = createFileRoute('/group/$groupId/')({
   component: () => (
     <Page>
       <Page.AuthGuard>
@@ -30,7 +30,7 @@ const RouteComponent = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!group) void navigate({ to: IndexRoute.id })
+    if (!group) void navigate({ to: IndexRoute.to })
   }, [group, navigate])
 
   if (!group) return null
@@ -40,7 +40,7 @@ const RouteComponent = () => {
       <Breadcrumbs
         parents={[
           {
-            to: IndexRoute.id,
+            to: IndexRoute.to,
             title: 'Dashboard',
           },
         ]}

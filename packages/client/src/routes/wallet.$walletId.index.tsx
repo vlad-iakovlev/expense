@@ -9,17 +9,15 @@ import { Title } from '@/components/common/Title'
 import { Page } from '@/components/layout/Page'
 import { CategoryFilterProvider } from '@/contexts/CategoryFilter'
 import { useOptionalWallet } from '@/contexts/RootStore/hooks/useWallet'
-import { Route as GroupRoute } from '@/routes/group.$groupId'
+import { Route as GroupRoute } from '@/routes/group.$groupId.index'
 import { Route as IndexRoute } from '@/routes/index'
 
-export const Route = createFileRoute('/wallet/$walletId')({
+export const Route = createFileRoute('/wallet/$walletId/')({
   component: () => (
     <Page>
       <Page.AuthGuard>
         <Page.StoreGuard>
-          <CategoryFilterProvider>
-            <RouteComponent />
-          </CategoryFilterProvider>
+          <RouteComponent />
         </Page.StoreGuard>
       </Page.AuthGuard>
     </Page>
@@ -32,21 +30,21 @@ const RouteComponent = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!wallet) void navigate({ to: IndexRoute.id })
+    if (!wallet) void navigate({ to: IndexRoute.to })
   }, [navigate, wallet])
 
   if (!wallet) return null
 
   return (
-    <>
+    <CategoryFilterProvider>
       <Breadcrumbs
         parents={[
           {
-            to: IndexRoute.id,
+            to: IndexRoute.to,
             title: 'Dashboard',
           },
           {
-            to: GroupRoute.id,
+            to: GroupRoute.to,
             params: { groupId: wallet.group.id },
             title: wallet.group.name,
           },
@@ -65,6 +63,6 @@ const RouteComponent = () => {
           walletId={walletId}
         />
       </Columns>
-    </>
+    </CategoryFilterProvider>
   )
 }

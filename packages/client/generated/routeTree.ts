@@ -10,21 +10,16 @@
 
 import { Route as rootRouteImport } from './../src/routes/__root'
 import { Route as IndexRouteImport } from './../src/routes/index'
-import { Route as WalletWalletIdRouteImport } from './../src/routes/wallet.$walletId'
 import { Route as OperationOperationIdRouteImport } from './../src/routes/operation.$operationId'
 import { Route as InvitesTokenRouteImport } from './../src/routes/invites.$token'
-import { Route as GroupGroupIdRouteImport } from './../src/routes/group.$groupId'
+import { Route as WalletWalletIdIndexRouteImport } from './../src/routes/wallet.$walletId.index'
+import { Route as GroupGroupIdIndexRouteImport } from './../src/routes/group.$groupId.index'
 import { Route as WalletWalletIdSettingsRouteImport } from './../src/routes/wallet.$walletId.settings'
 import { Route as GroupGroupIdSettingsRouteImport } from './../src/routes/group.$groupId.settings'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WalletWalletIdRoute = WalletWalletIdRouteImport.update({
-  id: '/wallet/$walletId',
-  path: '/wallet/$walletId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OperationOperationIdRoute = OperationOperationIdRouteImport.update({
@@ -37,86 +32,93 @@ const InvitesTokenRoute = InvitesTokenRouteImport.update({
   path: '/invites/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GroupGroupIdRoute = GroupGroupIdRouteImport.update({
-  id: '/group/$groupId',
-  path: '/group/$groupId',
+const WalletWalletIdIndexRoute = WalletWalletIdIndexRouteImport.update({
+  id: '/wallet/$walletId/',
+  path: '/wallet/$walletId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GroupGroupIdIndexRoute = GroupGroupIdIndexRouteImport.update({
+  id: '/group/$groupId/',
+  path: '/group/$groupId/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WalletWalletIdSettingsRoute = WalletWalletIdSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => WalletWalletIdRoute,
+  id: '/wallet/$walletId/settings',
+  path: '/wallet/$walletId/settings',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const GroupGroupIdSettingsRoute = GroupGroupIdSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => GroupGroupIdRoute,
+  id: '/group/$groupId/settings',
+  path: '/group/$groupId/settings',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/group/$groupId': typeof GroupGroupIdRouteWithChildren
   '/invites/$token': typeof InvitesTokenRoute
   '/operation/$operationId': typeof OperationOperationIdRoute
-  '/wallet/$walletId': typeof WalletWalletIdRouteWithChildren
   '/group/$groupId/settings': typeof GroupGroupIdSettingsRoute
   '/wallet/$walletId/settings': typeof WalletWalletIdSettingsRoute
+  '/group/$groupId/': typeof GroupGroupIdIndexRoute
+  '/wallet/$walletId/': typeof WalletWalletIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/group/$groupId': typeof GroupGroupIdRouteWithChildren
   '/invites/$token': typeof InvitesTokenRoute
   '/operation/$operationId': typeof OperationOperationIdRoute
-  '/wallet/$walletId': typeof WalletWalletIdRouteWithChildren
   '/group/$groupId/settings': typeof GroupGroupIdSettingsRoute
   '/wallet/$walletId/settings': typeof WalletWalletIdSettingsRoute
+  '/group/$groupId': typeof GroupGroupIdIndexRoute
+  '/wallet/$walletId': typeof WalletWalletIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/group/$groupId': typeof GroupGroupIdRouteWithChildren
   '/invites/$token': typeof InvitesTokenRoute
   '/operation/$operationId': typeof OperationOperationIdRoute
-  '/wallet/$walletId': typeof WalletWalletIdRouteWithChildren
   '/group/$groupId/settings': typeof GroupGroupIdSettingsRoute
   '/wallet/$walletId/settings': typeof WalletWalletIdSettingsRoute
+  '/group/$groupId/': typeof GroupGroupIdIndexRoute
+  '/wallet/$walletId/': typeof WalletWalletIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/group/$groupId'
     | '/invites/$token'
     | '/operation/$operationId'
-    | '/wallet/$walletId'
     | '/group/$groupId/settings'
     | '/wallet/$walletId/settings'
+    | '/group/$groupId/'
+    | '/wallet/$walletId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/group/$groupId'
     | '/invites/$token'
     | '/operation/$operationId'
-    | '/wallet/$walletId'
     | '/group/$groupId/settings'
     | '/wallet/$walletId/settings'
+    | '/group/$groupId'
+    | '/wallet/$walletId'
   id:
     | '__root__'
     | '/'
-    | '/group/$groupId'
     | '/invites/$token'
     | '/operation/$operationId'
-    | '/wallet/$walletId'
     | '/group/$groupId/settings'
     | '/wallet/$walletId/settings'
+    | '/group/$groupId/'
+    | '/wallet/$walletId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  GroupGroupIdRoute: typeof GroupGroupIdRouteWithChildren
   InvitesTokenRoute: typeof InvitesTokenRoute
   OperationOperationIdRoute: typeof OperationOperationIdRoute
-  WalletWalletIdRoute: typeof WalletWalletIdRouteWithChildren
+  GroupGroupIdSettingsRoute: typeof GroupGroupIdSettingsRoute
+  WalletWalletIdSettingsRoute: typeof WalletWalletIdSettingsRoute
+  GroupGroupIdIndexRoute: typeof GroupGroupIdIndexRoute
+  WalletWalletIdIndexRoute: typeof WalletWalletIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -126,13 +128,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/wallet/$walletId': {
-      id: '/wallet/$walletId'
-      path: '/wallet/$walletId'
-      fullPath: '/wallet/$walletId'
-      preLoaderRoute: typeof WalletWalletIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/operation/$operationId': {
@@ -149,60 +144,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InvitesTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/group/$groupId': {
-      id: '/group/$groupId'
+    '/wallet/$walletId/': {
+      id: '/wallet/$walletId/'
+      path: '/wallet/$walletId'
+      fullPath: '/wallet/$walletId/'
+      preLoaderRoute: typeof WalletWalletIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/group/$groupId/': {
+      id: '/group/$groupId/'
       path: '/group/$groupId'
-      fullPath: '/group/$groupId'
-      preLoaderRoute: typeof GroupGroupIdRouteImport
+      fullPath: '/group/$groupId/'
+      preLoaderRoute: typeof GroupGroupIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/wallet/$walletId/settings': {
       id: '/wallet/$walletId/settings'
-      path: '/settings'
+      path: '/wallet/$walletId/settings'
       fullPath: '/wallet/$walletId/settings'
       preLoaderRoute: typeof WalletWalletIdSettingsRouteImport
-      parentRoute: typeof WalletWalletIdRoute
+      parentRoute: typeof rootRouteImport
     }
     '/group/$groupId/settings': {
       id: '/group/$groupId/settings'
-      path: '/settings'
+      path: '/group/$groupId/settings'
       fullPath: '/group/$groupId/settings'
       preLoaderRoute: typeof GroupGroupIdSettingsRouteImport
-      parentRoute: typeof GroupGroupIdRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface GroupGroupIdRouteChildren {
-  GroupGroupIdSettingsRoute: typeof GroupGroupIdSettingsRoute
-}
-
-const GroupGroupIdRouteChildren: GroupGroupIdRouteChildren = {
-  GroupGroupIdSettingsRoute: GroupGroupIdSettingsRoute,
-}
-
-const GroupGroupIdRouteWithChildren = GroupGroupIdRoute._addFileChildren(
-  GroupGroupIdRouteChildren,
-)
-
-interface WalletWalletIdRouteChildren {
-  WalletWalletIdSettingsRoute: typeof WalletWalletIdSettingsRoute
-}
-
-const WalletWalletIdRouteChildren: WalletWalletIdRouteChildren = {
-  WalletWalletIdSettingsRoute: WalletWalletIdSettingsRoute,
-}
-
-const WalletWalletIdRouteWithChildren = WalletWalletIdRoute._addFileChildren(
-  WalletWalletIdRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  GroupGroupIdRoute: GroupGroupIdRouteWithChildren,
   InvitesTokenRoute: InvitesTokenRoute,
   OperationOperationIdRoute: OperationOperationIdRoute,
-  WalletWalletIdRoute: WalletWalletIdRouteWithChildren,
+  GroupGroupIdSettingsRoute: GroupGroupIdSettingsRoute,
+  WalletWalletIdSettingsRoute: WalletWalletIdSettingsRoute,
+  GroupGroupIdIndexRoute: GroupGroupIdIndexRoute,
+  WalletWalletIdIndexRoute: WalletWalletIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

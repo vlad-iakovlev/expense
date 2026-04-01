@@ -23,7 +23,7 @@ export const Delete = ({ groupId }: DeleteProps) => {
 
   const handleDeleteConfirm = useCallback(() => {
     removeGroup()
-    void navigate({ to: IndexRoute.id })
+    void navigate({ to: IndexRoute.to })
   }, [navigate, removeGroup])
 
   const handleDeleteCancel = useCallback(() => {

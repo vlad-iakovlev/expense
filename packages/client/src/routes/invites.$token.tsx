@@ -23,7 +23,7 @@ const RouteComponent = () => {
       try {
         await acceptInvite({ token })
       } finally {
-        void navigate({ to: IndexRoute.id })
+        void navigate({ to: IndexRoute.to })
       }
     })()
   }, [navigate, token])

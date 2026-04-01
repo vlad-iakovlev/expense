@@ -4,7 +4,7 @@ import { Button } from '@/components/common/Button'
 import { ConfirmDialog } from '@/components/common/ConfirmDialog'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation'
 import { Route as IndexRoute } from '@/routes/index'
-import { Route as WalletRoute } from '@/routes/wallet.$walletId'
+import { Route as WalletRoute } from '@/routes/wallet.$walletId.index'
 
 type DeleteProps = {
   operationId: string
@@ -24,8 +24,8 @@ export const Delete = ({ operationId }: DeleteProps) => {
     const wallet = operation.expenseWallet ?? operation.incomeWallet
     void navigate(
       wallet
-        ? { to: WalletRoute.id, params: { walletId: wallet.id } }
-        : { to: IndexRoute.id },
+        ? { to: WalletRoute.to, params: { walletId: wallet.id } }
+        : { to: IndexRoute.to },
     )
   }, [
     navigate,
