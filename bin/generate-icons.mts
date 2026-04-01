@@ -13,7 +13,11 @@ type Icon = {
 
 const generateIcon = async (icon: Icon) => {
   const srcPath = path.join(process.cwd(), icon.srcPath)
-  const dstPath = path.join(process.cwd(), 'public', icon.dstPath)
+  const dstPath = path.join(
+    process.cwd(),
+    'packages/client/public',
+    icon.dstPath,
+  )
 
   await fs.promises.mkdir(path.dirname(dstPath), { recursive: true })
 
