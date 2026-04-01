@@ -14,9 +14,9 @@
     "dev": "next dev --webpack",
     "dev:client": "npm run dev --workspace @expense/client",
     "dev:server": "npm run dev --workspace @expense/server",
-    "generate-currencies": "node --loader ts-node/esm bin/generate-currencies.mts",
-    "generate-icons": "node --loader ts-node/esm bin/generate-icons.mts",
-    "generate-splashes": "node --loader ts-node/esm bin/generate-splashes.mts",
+    "generate-currencies": "npm run generate-currencies --workspace @expense/generators",
+    "generate-icons": "npm run generate-icons --workspace @expense/generators",
+    "generate-splashes": "npm run generate-splashes --workspace @expense/generators",
     "lint": "eslint .",
     "lint:ci": "DEBUG=eslint:eslint eslint .",
     "prettier": "prettier --write '**/*.(js|ts|tsx|md|json)'",
@@ -31,25 +31,20 @@
     "@prisma/client": "^7.6.0",
     "@types/node": "^22.19.15",
     "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "node-fetch": "^3.3.2"
+    "@types/react-dom": "^19.2.3"
   },
   "devDependencies": {
     "@serwist/next": "^9.5.7",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@vlad-iakovlev/eslint-config": "^1.2.0",
-    "chalk": "^5.6.2",
     "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.4",
-    "fast-xml-parser": "^5.5.9",
     "lefthook": "^2.1.4",
     "prettier": "^3.8.1",
     "prettier-plugin-packagejson": "^3.0.2",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "prisma": "^7.6.0",
     "serwist": "^9.5.6",
-    "sharp": "^0.34.5",
-    "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
 }

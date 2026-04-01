@@ -166,7 +166,7 @@ const generateSplash = async (width: number, height: number) => {
   const srcPath = path.join(process.cwd(), ICON_PATH)
   const dstPath = path.join(
     process.cwd(),
-    'packages/client/public',
+    '../client/public',
     getSplashPath(width, height),
   )
 
@@ -207,10 +207,7 @@ const getSplashMedia = (
   ].join(' and ')
 
 const generateSplashesJson = async (screenSizes: ScreenSize[]) => {
-  const dstPath = path.join(
-    process.cwd(),
-    'packages/client/generated/splashes.json',
-  )
+  const dstPath = path.join(process.cwd(), '../client/generated/splashes.json')
 
   const splashesJson = screenSizes
     .map((screenSize) => [

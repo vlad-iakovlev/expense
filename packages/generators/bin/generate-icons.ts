@@ -13,11 +13,7 @@ type Icon = {
 
 const generateIcon = async (icon: Icon) => {
   const srcPath = path.join(process.cwd(), icon.srcPath)
-  const dstPath = path.join(
-    process.cwd(),
-    'packages/client/public',
-    icon.dstPath,
-  )
+  const dstPath = path.join(process.cwd(), '../client/public', icon.dstPath)
 
   await fs.promises.mkdir(path.dirname(dstPath), { recursive: true })
 
@@ -41,10 +37,7 @@ const generateIcon = async (icon: Icon) => {
     .png()
     .toFile(dstPath)
 
-  console.log(
-    chalk.green.bold(`[${icon.srcPath} => ${icon.dstPath}]`),
-    'Generated',
-  )
+  console.log(chalk.green.bold(`[${dstPath}]`), 'Generated')
 }
 
 await generateIcon({

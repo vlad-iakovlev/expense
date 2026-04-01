@@ -4,7 +4,7 @@ import fetch from 'node-fetch'
 import fs from 'node:fs'
 import path from 'node:path'
 
-const uniqBy = <T,>(array: T[], cb: (item: T) => unknown): T[] => [
+const uniqBy = <T>(array: T[], cb: (item: T) => unknown): T[] => [
   ...new Map(array.map((item) => [cb(item), item])).values(),
 ]
 
@@ -12,10 +12,7 @@ const uniqBy = <T,>(array: T[], cb: (item: T) => unknown): T[] => [
 const currenciesUrl =
   'https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml'
 
-const dstPath = path.join(
-  process.cwd(),
-  'packages/client/generated/currencies.json',
-)
+const dstPath = path.join(process.cwd(), '../client/generated/currencies.json')
 
 type Response = {
   ISO_4217: {
