@@ -12,4 +12,14 @@ app.route('/api/invites', invitesRouter)
 app.route('/api/sync', syncRouter)
 app.route('/api/cron', cronRouter)
 
-serve(app)
+const server = serve(app)
+
+process.on('SIGINT', () => {
+  server.close()
+  process.exit(0)
+})
+
+process.on('SIGTERM', () => {
+  server.close()
+  process.exit(0)
+})
