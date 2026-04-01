@@ -1,5 +1,4 @@
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
-import assert from 'assert'
 import { twMerge } from 'tailwind-merge'
 import { Amount } from '@/components/common/Amount'
 import { PopulatedClientOperation } from '@/types/client'
@@ -14,8 +13,8 @@ export const TransferOperation = ({
   operation,
   walletId,
 }: TransferOperationProps) => {
-  assert(operation.incomeWallet, 'Income wallet is not defined')
-  assert(operation.expenseWallet, 'Expense wallet is not defined')
+  if (!operation.incomeWallet) throw new Error('Income wallet is not defined')
+  if (!operation.expenseWallet) throw new Error('Expense wallet is not defined')
 
   return (
     <div

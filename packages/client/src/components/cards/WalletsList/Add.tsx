@@ -2,6 +2,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { useCallback } from 'react'
 import { Button } from '@/components/common/Button'
 import { useWallets } from '@/contexts/RootStore/hooks/useWallets'
+import { Route as WalletRoute } from '@/routes/wallet.$walletId'
 
 type AddProps = {
   groupId: string
@@ -13,7 +14,7 @@ export const Add = ({ groupId }: AddProps) => {
 
   const handleCreate = useCallback(() => {
     const walletId = createWallet()
-    void navigate({ to: '/wallet/$walletId', params: { walletId } })
+    void navigate({ to: WalletRoute.id, params: { walletId } })
   }, [createWallet, navigate])
 
   return (

@@ -1,14 +1,12 @@
-import assert from 'assert'
 import { Hono } from 'hono'
 import { bearerAuth } from 'hono/bearer-auth'
 import { prisma } from '@expense/prisma'
 import { errorMiddleware } from '@/middlewares/error.js'
 
 const fetchCurrencyRates = async () => {
-  assert(
-    process.env.EXCHANGE_RATES_API_KEY,
-    'EXCHANGE_RATES_API_KEY is not set',
-  )
+  if (!process.env.EXCHANGE_RATES_API_KEY) {
+    throw new Error('EXCHANGE_RATES_API_KEY is not set')
+  }
 
   const fetchResult = await fetch(
     'https://api.apilayer.com/exchangerates_data/latest?base=USD',

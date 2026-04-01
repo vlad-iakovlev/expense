@@ -1,5 +1,4 @@
 import { useRootStore } from '..'
-import assert from 'assert'
 import { useMemo } from 'react'
 import {
   ClientStatisticsItem,
@@ -98,9 +97,10 @@ export const useStatistics = ({
 
       const amount = operations.reduce((acc, operation) => {
         const wallet = walletsMap[operation[WALLET_ID_FIELD[type]] ?? '']
-        assert(wallet, 'Wallet not found')
+        if (!wallet) throw new Error('Wallet not found')
+
         const currency = currenciesMap[wallet.currencyId]
-        assert(currency, 'Currency not found')
+        if (!currency) throw new Error('Currency not found')
 
         const amount = operation[AMOUNT_FIELD[type]].mul(
           Decimal.fromNumber(statisticsCurrency.rate / currency.rate),

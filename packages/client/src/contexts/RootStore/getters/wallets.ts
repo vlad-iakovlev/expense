@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { ClientWallet, PopulatedClientWallet } from '@/types/client'
 import { ClientBalance } from '@/types/client'
 import { Decimal } from '@/utils/Decimal'
@@ -37,7 +36,7 @@ export const getPopulatedWallet = (
   walletId: string,
 ): PopulatedClientWallet => {
   const wallet = state.wallets.find((wallet) => wallet.id === walletId)
-  assert(wallet, 'Wallet not found')
+  if (!wallet) throw new Error('Wallet not found')
 
   return {
     id: wallet.id,
@@ -52,7 +51,7 @@ export const getWalletBalance = (
   walletId: string,
 ): ClientBalance => {
   const wallet = state.wallets.find((wallet) => wallet.id === walletId)
-  assert(wallet, 'Wallet not found')
+  if (!wallet) throw new Error('Wallet not found')
 
   const currency = getPopulatedCurrency(state, wallet.currencyId)
 

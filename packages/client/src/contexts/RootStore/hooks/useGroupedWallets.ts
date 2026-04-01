@@ -1,5 +1,4 @@
 import { useRootStore } from '..'
-import assert from 'assert'
 import { useCallback, useMemo } from 'react'
 import {
   ClientWallet,
@@ -34,7 +33,7 @@ export const useGroupedWallets = ({ groupId }: UseGroupedWalletsProps) => {
 
   const reorderWallets = useCallback(
     (groupedWallets: GroupedWallets[]) => {
-      assert(groupId, 'groupId is not defined')
+      if (!groupId) throw new Error('groupId is not defined')
 
       const walletIds = groupedWallets.reduce<string[]>(
         (acc, group) => [...acc, ...group.walletIds],
@@ -61,7 +60,7 @@ const groupWallets = (
 ) =>
   wallets.reduce<GroupedWallets[]>((acc, wallet) => {
     const currency = currenciesMap[wallet.currencyId]
-    assert(currency, 'Currency not found')
+    if (!currency) throw new Error('Currency not found')
 
     let group = acc.find((group) => group.currency.id === currency.id)
     if (!group) {

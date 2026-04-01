@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { useMemo } from 'react'
 import { Card } from '@/components/common/Card'
 import { useCategories } from '@/contexts/RootStore/hooks/useCategories'
@@ -13,7 +12,7 @@ export const Category = ({ operationId }: CategoryProps) => {
 
   const groupId = useMemo(() => {
     const wallet = operation.incomeWallet ?? operation.expenseWallet
-    assert(wallet, 'Wallet not found')
+    if (!wallet) throw new Error('Wallet not found')
     return wallet.group.id
   }, [operation.expenseWallet, operation.incomeWallet])
 

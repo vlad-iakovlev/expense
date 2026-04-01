@@ -1,5 +1,4 @@
 import { useRootStore } from '..'
-import assert from 'assert'
 import { useMemo } from 'react'
 import { useSession } from '@/auth-client'
 import { ClientUser } from '@/types/client'
@@ -14,7 +13,7 @@ export const useGroupMembers = ({ groupId }: UseGroupMembersProps) => {
   const { state } = useRootStore()
 
   const groupMembers = useMemo<ClientUser[]>(() => {
-    assert(session.data, 'Unauthenticated')
+    if (!session.data) throw new Error('Unauthenticated')
 
     return getGroupMembers(state, groupId, session.data.user)
   }, [groupId, session, state])

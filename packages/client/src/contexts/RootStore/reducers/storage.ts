@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { PerformSyncResponse } from '@expense/schemas/sync/types'
 import { Decimal } from '@/utils/Decimal'
 import { uniqBy } from '@/utils/uniqBy'
@@ -18,7 +17,7 @@ const startSyncReducer: React.Reducer<
   RootStoreState,
   { type: StorageActionType.START_SYNC }
 > = (state) => {
-  assert(!state.isSyncing, 'Already syncing')
+  if (state.isSyncing) throw new Error('Already syncing')
 
   return {
     ...state,

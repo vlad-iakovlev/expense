@@ -1,5 +1,4 @@
 import { useRootStore } from '..'
-import assert from 'assert'
 import { useCallback, useMemo } from 'react'
 import { v4 as uuid } from 'uuid'
 import { getOrderedWallets } from '../getters/wallets'
@@ -18,7 +17,7 @@ export const useWallets = ({ groupId }: UseWalletsProps) => {
   )
 
   const createWallet = useCallback(() => {
-    assert(groupId, 'groupId is not defined')
+    if (!groupId) throw new Error('groupId is not defined')
     const walletId = uuid()
 
     dispatch({

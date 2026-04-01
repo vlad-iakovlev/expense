@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { createContext, useCallback, useContext, useState } from 'react'
 
 type ContextValue = {
@@ -46,9 +45,10 @@ export const CategoryFilterProvider = ({ children }: ProviderProps) => {
 
 export const useCategoryFilter = () => {
   const context = useContext(CategoryFilterContext)
-  assert(
-    context,
-    'useCategoryFilter must be used within a CategoryFilterProvider',
-  )
+  if (!context) {
+    throw new Error(
+      'useCategoryFilter must be used within a CategoryFilterProvider',
+    )
+  }
   return context
 }

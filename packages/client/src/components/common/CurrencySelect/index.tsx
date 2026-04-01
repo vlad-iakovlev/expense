@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { useMemo } from 'react'
 import { useCurrencies } from '@/contexts/RootStore/hooks/useCurrencies'
 import { PopulatedClientCurrency } from '@/types/client'
@@ -24,7 +23,7 @@ export const CurrencySelect = ({
     () => [
       ...PRIORITIZED_CURRENCIES.map((symbol) => {
         const currency = currencies.find((item) => item.symbol === symbol)
-        assert(currency, `Currency ${symbol} not found`)
+        if (!currency) throw new Error(`Currency ${symbol} not found`)
 
         return {
           id: currency.id,

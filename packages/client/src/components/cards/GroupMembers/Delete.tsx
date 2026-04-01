@@ -1,11 +1,11 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { useNavigate } from '@tanstack/react-router'
-import assert from 'assert'
 import { useCallback, useState } from 'react'
 import { useSession } from '@/auth-client'
 import { Button } from '@/components/common/Button'
 import { ConfirmDialog } from '@/components/common/ConfirmDialog'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
+import { Route as IndexRoute } from '@/routes/index'
 
 type DeleteProps = {
   groupId: string
@@ -25,11 +25,11 @@ export const Delete = ({ groupId, userId, tabIndex }: DeleteProps) => {
   }, [])
 
   const handleDeleteConfirm = useCallback(() => {
-    assert(session.data, 'Unauthenticated')
+    if (!session.data) throw new Error('Unauthenticated')
 
     if (userId === session.data.user.id) {
       leaveGroup()
-      void navigate({ to: '/' })
+      void navigate({ to: IndexRoute.id })
     } else {
       removeMemberFromGroup(userId)
       setIsDeleteConfirmOpen(false)

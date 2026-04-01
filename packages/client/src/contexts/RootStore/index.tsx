@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { createContext, useContext, useReducer } from 'react'
 import { useStorage } from './hooks/useStorage'
 import {
@@ -69,6 +68,8 @@ export const RootStoreProvider = ({ children }: ProviderProps) => {
 
 export const useRootStore = () => {
   const context = useContext(RootStoreContext)
-  assert(context, 'useRootStore must be used within a RootStoreProvider')
+  if (!context) {
+    throw new Error('useRootStore must be used within a RootStoreProvider')
+  }
   return context
 }

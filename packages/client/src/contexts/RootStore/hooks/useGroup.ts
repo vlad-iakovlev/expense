@@ -1,5 +1,4 @@
 import { useRootStore } from '..'
-import assert from 'assert'
 import { useCallback, useMemo } from 'react'
 import { useSession } from '@/auth-client'
 import { PopulatedClientGroup } from '@/types/client'
@@ -57,7 +56,7 @@ export const useGroup = ({ groupId }: UseGroupProps) => {
   )
 
   const leaveGroup = useCallback(() => {
-    assert(session.data, 'Unauthenticated')
+    if (!session.data) throw new Error('Unauthenticated')
 
     dispatch({
       type: GroupsActionTypes.LEAVE_GROUP,

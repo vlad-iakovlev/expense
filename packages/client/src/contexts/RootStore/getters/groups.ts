@@ -1,4 +1,3 @@
-import assert from 'assert'
 import {
   ClientBalance,
   ClientGroup,
@@ -23,7 +22,7 @@ export const getPopulatedGroup = (
   groupId: string,
 ): PopulatedClientGroup => {
   const group = state.groups.find((group) => group.id === groupId)
-  assert(group, 'Group not found')
+  if (!group) throw new Error('Group not found')
 
   return {
     id: group.id,
@@ -38,7 +37,7 @@ export const getGroupBalance = (
   groupId: string,
 ): ClientBalance => {
   const group = state.groups.find((group) => group.id === groupId)
-  assert(group, 'Group not found')
+  if (!group) throw new Error('Group not found')
 
   const currency = getPopulatedCurrency(state, group.defaultCurrencyId)
 
@@ -66,13 +65,13 @@ export const getGroupMembers = (
   me: ClientUser,
 ): ClientUser[] => {
   const group = state.groups.find((group) => group.id === groupId)
-  assert(group, 'Group not found')
+  if (!group) throw new Error('Group not found')
   if (group.clientOnly) return [me]
 
   return state.userGroups.reduce<ClientUser[]>((acc, userGroup) => {
     if (!userGroup.removed && userGroup.groupId === groupId) {
       const user = state.users.find((user) => user.id === userGroup.userId)
-      assert(user, 'User not found')
+      if (!user) throw new Error('User not found')
       acc.push(user)
     }
 

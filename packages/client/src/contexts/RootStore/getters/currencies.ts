@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { PopulatedClientCurrency } from '@/types/client'
 import { RootStoreState } from '../types'
 
@@ -9,7 +8,7 @@ export const getPopulatedCurrency = (
   const currency = state.populatedCurrencies.find(
     (currency) => currency.id === currencyId,
   )
-  assert(currency, 'Currency not found')
+  if (!currency) throw new Error('Currency not found')
 
   return currency
 }
@@ -25,19 +24,20 @@ export const getDefaultCurrencyId = (
 ): string => {
   if (walletId) {
     const wallet = state.wallets.find((wallet) => wallet.id === walletId)
-    assert(wallet, 'Wallet not found')
+    if (!wallet) throw new Error('Wallet not found')
     return wallet.currencyId
   }
 
   if (groupId) {
     const group = state.groups.find((group) => group.id === groupId)
-    assert(group, 'Group not found')
+    if (!group) throw new Error('Group not found')
     return group.defaultCurrencyId
   }
 
   const currency = state.currencies.find(
     (currency) => currency.symbol === 'USD',
   )
-  assert(currency, 'Currency not found')
+  if (!currency) throw new Error('Currency not found')
+
   return currency.id
 }

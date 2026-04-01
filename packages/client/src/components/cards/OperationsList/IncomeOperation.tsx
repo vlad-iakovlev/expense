@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { Amount } from '@/components/common/Amount'
 import { PopulatedClientOperation } from '@/types/client'
 import { formatTime } from '@/utils/formatDate'
@@ -12,7 +11,7 @@ export const IncomeOperation = ({
   operation,
   walletId,
 }: IncomeOperationProps) => {
-  assert(operation.incomeWallet, 'Income wallet is not defined')
+  if (!operation.incomeWallet) throw new Error('Income wallet is not defined')
 
   return (
     <div

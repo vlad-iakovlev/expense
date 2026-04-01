@@ -1,4 +1,3 @@
-import assert from 'assert'
 import {
   ClientOperation,
   ClientOperationType,
@@ -64,7 +63,7 @@ export const getOperationType = (
   const operation = state.operations.find(
     (operation) => operation.id === operationId,
   )
-  assert(operation, 'Operation not found')
+  if (!operation) throw new Error('Operation not found')
 
   if (operation.incomeWalletId && operation.expenseWalletId) {
     return ClientOperationType.TRANSFER
@@ -84,7 +83,7 @@ export const getPopulatedOperation = (
   const operation = state.operations.find(
     (operation) => operation.id === operationId,
   )
-  assert(operation, 'Operation not found')
+  if (!operation) throw new Error('Operation not found')
 
   return {
     id: operation.id,

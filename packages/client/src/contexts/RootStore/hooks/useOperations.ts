@@ -1,5 +1,4 @@
 import { useRootStore } from '..'
-import assert from 'assert'
 import { useCallback, useMemo } from 'react'
 import { v4 as uuid } from 'uuid'
 import { getOrderedOperations } from '../getters/operations'
@@ -28,7 +27,7 @@ export const useOperations = ({
   }, [category, groupId, state, walletId])
 
   const createOperation = useCallback(() => {
-    assert(walletId, 'walletId is not defined')
+    if (!walletId) throw new Error('walletId is not defined')
     const operationId = uuid()
 
     dispatch({
