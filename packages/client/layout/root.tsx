@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { App } from '@/components/App.js'
+import { App } from '@/components/App'
 import '@/styles/globals.css'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

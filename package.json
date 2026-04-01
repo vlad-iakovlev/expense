@@ -9,6 +9,8 @@
     "build": "next build --webpack",
     "build:client": "npm run build --workspace @expense/client",
     "compile": "tsc",
+    "compile:client": "npm run compile --workspace @expense/client",
+    "compile:server": "npm run compile --workspace @expense/server",
     "dev": "next dev --webpack",
     "dev:client": "npm run dev --workspace @expense/client",
     "dev:server": "npm run dev --workspace @expense/server",

@@ -2,9 +2,9 @@
   "name": "@expense/client",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
+    "compile": "tsc",
     "dev": "vite",
     "preview": "vite preview"
   },

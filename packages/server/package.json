@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "compile": "tsc",
     "dev": "tsx watch bin/index.ts",
     "start": "tsx bin/index.js"
   },
