@@ -34,13 +34,21 @@ jobs:
   build:
     needs: checks
     if: startsWith(github.repository, 'vlad-iakovlev/') && github.ref == 'refs/heads/main'
+    strategy:
+      matrix:
+        include:
+          - image: expense-client
+            dockerfile: Dockerfile.client
+          - image: expense-server
+            dockerfile: Dockerfile.server
+    name: build-${{ matrix.image }}
     runs-on: ubuntu-latest
     steps:
       - name: Extract metadata for Docker
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: ghcr.io/${{ github.repository_owner }}/${{ matrix.image }}
           tags: |
             type=sha
       - name: Login to GitHub Container Registry
@@ -56,6 +64,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v7
         with:
+          file: ${{ matrix.dockerfile }}
+          context: .
           platforms: linux/amd64,linux/arm64
           provenance: false
           push: true
