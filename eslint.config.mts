@@ -1,23 +1,24 @@
 import eslintConfig from '@vlad-iakovlev/eslint-config'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import { Config, defineConfig, globalIgnores } from 'eslint/config'
+
+const scope = (configs: Config[], files: string[]) =>
+  configs.map((config) => ({ ...config, files }))
 
 export default defineConfig(
   globalIgnores([
-    '.next/**',
-    'out/**',
-    'build/**',
-    'generated/**',
-    'packages/client/dist/**',
-    'packages/client/generated/**',
-    'packages/server/generated/**',
-    'next-env.d.ts',
-    'public/sw.js',
-    'public/sw.js.map',
+    'packages/*/dist/**',
+    'packages/*/generated/**',
+    'packages/client/public/sw*',
+    'packages/client/public/swe-worker*',
     'prettier.config.mjs',
-    'next.config.mjs',
-    'postcss.config.js',
   ]),
-  eslintConfig.react,
+  ...scope(eslintConfig.react, ['packages/client/**/*.{js,ts,mts,tsx}']),
+  ...scope(eslintConfig.node, [
+    'packages/server/**/*.{js,ts}',
+    'packages/generators/**/*.{js,ts}',
+    'packages/prisma/**/*.{js,ts}',
+    'packages/schemas/**/*.{js,ts}',
+  ]),
   {
     languageOptions: {
       parserOptions: {
