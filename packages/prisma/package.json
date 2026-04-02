@@ -1,0 +1,19 @@
+{
+  "name": "@expense/prisma",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./index.js",
+  "scripts": {
+    "compile": "tsc",
+    "prisma": "prisma --config prisma.config.ts"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.6.0",
+    "@prisma/client": "^7.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.15",
+    "prisma": "^7.6.0"
+  }
+}

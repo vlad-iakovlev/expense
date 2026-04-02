@@ -1,33 +1,14 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "esModuleInterop": true,
-    "incremental": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "noEmit": true,
     "noUncheckedIndexedAccess": true,
-    "paths": {
-      "@/*": ["./*"]
-    },
-    "plugins": [{ "name": "next" }],
-    "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "esnext",
-    "types": ["node", "next", "@serwist/next/typings"]
+    "target": "esnext"
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.mts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
-  ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "include": ["eslint.config.mts", "prettier.config.mjs"]
 }

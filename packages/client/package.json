@@ -1,0 +1,43 @@
+{
+  "name": "@expense/client",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "compile": "tsc",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@expense/schemas": "*",
+    "@heroicons/react": "^2.2.0",
+    "@tanstack/react-router": "^1.168.10",
+    "@tanstack/router-plugin": "^1.167.12",
+    "better-auth": "^1.5.6",
+    "date-fns": "^4.1.0",
+    "focus-trap-react": "^12.0.0",
+    "framer-motion": "^12.38.0",
+    "immer": "^11.1.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwind-merge": "^3.5.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@serwist/vite": "^9.5.7",
+    "@serwist/window": "^9.5.7",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/node": "^22.19.15",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.0",
+    "serwist": "^9.5.7",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.8",
+    "vite-tsconfig-paths": "^6.1.1"
+  }
+}

@@ -1,0 +1,183 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client"
+  output   = "generated"
+}
+
+model Transaction {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  completedAt DateTime?
+
+  userGroups UserGroup[]
+  groups     Group[]
+  wallets    Wallet[]
+  operations Operation[]
+}
+
+model Account {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  idToken               String?
+  password              String?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  @@unique([providerId, accountId])
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name          String
+  email         String  @unique
+  emailVerified Boolean @default(false)
+  image         String?
+
+  accounts   Account[]
+  sessions   Session[]
+  userGroups UserGroup[]
+}
+
+model Verification {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  identifier String
+  value      String
+  expiresAt  DateTime
+}
+
+model Currency {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  symbol String @unique
+  rate   Float
+
+  wallets Wallet[]
+  groups  Group[]
+}
+
+model UserGroup {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  removed   Boolean  @default(false)
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Restrict)
+  userId String
+
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Restrict)
+  groupId String
+
+  transactions Transaction[]
+
+  @@unique([userId, groupId])
+}
+
+model Invite {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  token     String   @unique
+  expiresAt DateTime
+  accepted  Boolean  @default(false)
+
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId String
+}
+
+model Group {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  removed   Boolean  @default(false)
+
+  name String
+
+  defaultCurrency   Currency @relation(fields: [defaultCurrencyId], references: [id], onDelete: Restrict)
+  defaultCurrencyId String
+
+  userGroups UserGroup[]
+  invites    Invite[]
+  wallets    Wallet[]
+
+  transactions Transaction[]
+}
+
+model Wallet {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  removed   Boolean  @default(false)
+
+  name  String
+  order Int?
+
+  currency   Currency @relation(fields: [currencyId], references: [id], onDelete: Restrict)
+  currencyId String
+
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Restrict)
+  groupId String
+
+  incomeOperations  Operation[] @relation("WalletOperationIncome")
+  expenseOperations Operation[] @relation("WalletOperationExpense")
+
+  transactions Transaction[]
+}
+
+model Operation {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  removed   Boolean  @default(false)
+
+  name          String
+  category      String
+  date          DateTime
+  incomeAmount  String
+  expenseAmount String
+
+  incomeWallet   Wallet? @relation(name: "WalletOperationIncome", fields: [incomeWalletId], references: [id], onDelete: Restrict)
+  incomeWalletId String?
+
+  expenseWallet   Wallet? @relation(name: "WalletOperationExpense", fields: [expenseWalletId], references: [id], onDelete: Restrict)
+  expenseWalletId String?
+
+  transactions Transaction[]
+}
