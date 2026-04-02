@@ -49,9 +49,9 @@ export const Button = ({
         theme === 'red' &&
           'bg-red-700 text-white shadow-inner hover:bg-red-800 active:bg-red-800 dark:bg-red-800 dark:hover:bg-red-700 dark:active:bg-red-700',
         theme === 'zinc' &&
-          'bg-quaternary-background text-primary-foreground shadow-inner hover:text-quinary-background active:text-quinary-background',
+          'bg-quaternary-background text-primary-foreground shadow-inner hover:text-tertiary-foreground active:text-tertiary-foreground',
         theme === 'white' &&
-          'bg-secondary-background text-primary-foreground ring-1 ring-primary-border ring-inset hover:text-tertiary-background active:text-tertiary-background',
+          'bg-secondary-background text-primary-foreground ring-1 ring-primary-border ring-inset hover:text-tertiary-foreground active:text-tertiary-foreground',
         disabled && 'pointer-events-none',
         className,
       )}
