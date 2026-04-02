@@ -13,7 +13,7 @@
     "@expense/prisma": "*",
     "@expense/schemas": "*",
     "@hono/node-server": "^1.19.11",
-    "@types/node": "^24.6.0",
+    "@types/node": "^22.19.15",
     "better-auth": "^1.5.6",
     "hono": "^4.12.9",
     "tsx": "^4.20.6",

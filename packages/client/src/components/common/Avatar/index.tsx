@@ -66,6 +66,7 @@ export const Avatar = ({
         className="size-full object-cover"
         src={src}
         alt={`Avatar of ${name}`}
+        crossOrigin="anonymous"
         referrerPolicy="no-referrer"
       />
     ) : (

@@ -28,10 +28,14 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@serwist/vite": "^9.5.7",
+    "@serwist/window": "^9.5.7",
     "@tailwindcss/vite": "^4.2.2",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
+    "@types/node": "^22.19.15",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.0",
+    "serwist": "^9.5.7",
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.3",
     "vite": "^7.1.8",

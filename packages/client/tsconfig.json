@@ -3,6 +3,7 @@
     "allowJs": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
+    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "noEmit": true,
@@ -14,7 +15,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
-    "types": ["node"]
+    "types": ["node", "@serwist/vite/typings"]
   },
   "exclude": ["node_modules"],
   "include": ["src", "generated", "vite.config.mts"]
