@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
 import { acceptInvite } from '@/api/invites'
-import { Page } from '@/components/layout/Page'
+import { Page } from '@/layout/Page'
 import { Route as DashboardRoute } from '@/routes/index'
 
 export const Route = createFileRoute('/invites/$token')({

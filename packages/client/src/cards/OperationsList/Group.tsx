@@ -1,0 +1,25 @@
+import { Card } from '@/components/Card'
+import { formatDate, formatDateForAriaLabel } from '@/utils/formatDate'
+import { Operation } from './Operation'
+
+type GroupProps = {
+  date: Date
+  operationIds: string[]
+  walletId: string | undefined
+}
+
+export const Group = ({ date, operationIds, walletId }: GroupProps) => (
+  <div className="bg-secondary-background" role="listitem">
+    <div role="list" aria-label={formatDateForAriaLabel(date)}>
+      <Card.Subtitle subtitle={formatDate(date)} />
+
+      {operationIds.map((operationId) => (
+        <Operation
+          key={operationId}
+          operationId={operationId}
+          walletId={walletId}
+        />
+      ))}
+    </div>
+  </div>
+)

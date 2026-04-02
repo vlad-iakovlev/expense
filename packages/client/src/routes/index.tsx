@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { GroupCreateCard } from '@/components/cards/GroupCreate'
-import { GroupOpenCard } from '@/components/cards/GroupOpen'
-import { Columns } from '@/components/common/Columns'
-import { Title } from '@/components/common/Title'
-import { Page } from '@/components/layout/Page'
+import { GroupCreateCard } from '@/cards/GroupCreate'
+import { GroupOpenCard } from '@/cards/GroupOpen'
+import { Columns } from '@/components/Columns'
+import { Title } from '@/components/Title'
 import { useGroups } from '@/contexts/RootStore/hooks/useGroups'
+import { Page } from '@/layout/Page'
 
 export const Route = createFileRoute('/')({
   component: () => (

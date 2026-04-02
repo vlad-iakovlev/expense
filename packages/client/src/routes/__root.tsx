@@ -1,7 +1,7 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router'
 import { useEffect } from 'react'
-import { Header } from '@/components/layout/Header'
 import { RootStoreProvider } from '@/contexts/RootStore'
+import { Header } from '@/layout/Header'
 
 export const Route = createRootRoute({ component: RootComponent })
 
