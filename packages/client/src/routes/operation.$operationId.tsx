@@ -7,7 +7,7 @@ import { Title } from '@/components/common/Title'
 import { Page } from '@/components/layout/Page'
 import { useOptionalOperation } from '@/contexts/RootStore/hooks/useOperation'
 import { Route as GroupRoute } from '@/routes/group.$groupId.index'
-import { Route as IndexRoute } from '@/routes/index'
+import { Route as DashboardRoute } from '@/routes/index'
 import { Route as WalletRoute } from '@/routes/wallet.$walletId.index'
 
 export const Route = createFileRoute('/operation/$operationId')({
@@ -28,7 +28,7 @@ const RouteComponent = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!operation) void navigate({ to: IndexRoute.to })
+    if (!operation) void navigate({ to: DashboardRoute.to })
   }, [navigate, operation])
 
   if (!operation) return null
@@ -42,7 +42,7 @@ const RouteComponent = () => {
           wallet
             ? [
                 {
-                  to: IndexRoute.to,
+                  to: DashboardRoute.to,
                   title: 'Dashboard',
                 },
                 {

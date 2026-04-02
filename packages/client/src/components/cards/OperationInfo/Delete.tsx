@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react'
 import { Button } from '@/components/common/Button'
 import { ConfirmDialog } from '@/components/common/ConfirmDialog'
 import { useOperation } from '@/contexts/RootStore/hooks/useOperation'
-import { Route as IndexRoute } from '@/routes/index'
+import { Route as DashboardRoute } from '@/routes/index'
 import { Route as WalletRoute } from '@/routes/wallet.$walletId.index'
 
 type DeleteProps = {
@@ -25,7 +25,7 @@ export const Delete = ({ operationId }: DeleteProps) => {
     void navigate(
       wallet
         ? { to: WalletRoute.to, params: { walletId: wallet.id } }
-        : { to: IndexRoute.to },
+        : { to: DashboardRoute.to },
     )
   }, [
     navigate,

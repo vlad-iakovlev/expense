@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
 import { acceptInvite } from '@/api/invites'
 import { Page } from '@/components/layout/Page'
-import { Route as IndexRoute } from '@/routes/index'
+import { Route as DashboardRoute } from '@/routes/index'
 
 export const Route = createFileRoute('/invites/$token')({
   component: () => (
@@ -23,7 +23,7 @@ const RouteComponent = () => {
       try {
         await acceptInvite({ token })
       } finally {
-        void navigate({ to: IndexRoute.to })
+        void navigate({ to: DashboardRoute.to })
       }
     })()
   }, [navigate, token])

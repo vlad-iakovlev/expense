@@ -4,7 +4,7 @@ import { Button } from '@/components/common/Button'
 import { ConfirmDialog } from '@/components/common/ConfirmDialog'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 import { useWallets } from '@/contexts/RootStore/hooks/useWallets'
-import { Route as IndexRoute } from '@/routes/index'
+import { Route as DashboardRoute } from '@/routes/index'
 
 type DeleteProps = {
   groupId: string
@@ -23,7 +23,7 @@ export const Delete = ({ groupId }: DeleteProps) => {
 
   const handleDeleteConfirm = useCallback(() => {
     removeGroup()
-    void navigate({ to: IndexRoute.to })
+    void navigate({ to: DashboardRoute.to })
   }, [navigate, removeGroup])
 
   const handleDeleteCancel = useCallback(() => {

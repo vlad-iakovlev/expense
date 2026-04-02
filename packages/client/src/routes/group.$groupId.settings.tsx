@@ -12,7 +12,7 @@ import { Page } from '@/components/layout/Page'
 import { CategoryFilterProvider } from '@/contexts/CategoryFilter'
 import { useOptionalGroup } from '@/contexts/RootStore/hooks/useGroup'
 import { Route as GroupRoute } from '@/routes/group.$groupId.index'
-import { Route as IndexRoute } from '@/routes/index'
+import { Route as DashboardRoute } from '@/routes/index'
 
 export const Route = createFileRoute('/group/$groupId/settings')({
   component: () => (
@@ -32,7 +32,7 @@ const RouteComponent = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!group) void navigate({ to: IndexRoute.to })
+    if (!group) void navigate({ to: DashboardRoute.to })
   }, [group, navigate])
 
   if (!group) return null
@@ -42,7 +42,7 @@ const RouteComponent = () => {
       <Breadcrumbs
         parents={[
           {
-            to: IndexRoute.to,
+            to: DashboardRoute.to,
             title: 'Dashboard',
           },
           {

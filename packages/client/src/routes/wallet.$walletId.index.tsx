@@ -10,7 +10,7 @@ import { Page } from '@/components/layout/Page'
 import { CategoryFilterProvider } from '@/contexts/CategoryFilter'
 import { useOptionalWallet } from '@/contexts/RootStore/hooks/useWallet'
 import { Route as GroupRoute } from '@/routes/group.$groupId.index'
-import { Route as IndexRoute } from '@/routes/index'
+import { Route as DashboardRoute } from '@/routes/index'
 
 export const Route = createFileRoute('/wallet/$walletId/')({
   component: () => (
@@ -30,7 +30,7 @@ const RouteComponent = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!wallet) void navigate({ to: IndexRoute.to })
+    if (!wallet) void navigate({ to: DashboardRoute.to })
   }, [navigate, wallet])
 
   if (!wallet) return null
@@ -40,7 +40,7 @@ const RouteComponent = () => {
       <Breadcrumbs
         parents={[
           {
-            to: IndexRoute.to,
+            to: DashboardRoute.to,
             title: 'Dashboard',
           },
           {
