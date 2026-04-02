@@ -1,6 +1,7 @@
 import { Cog6ToothIcon } from '@heroicons/react/20/solid'
 import { Link } from '@tanstack/react-router'
 import { Button } from '@/components/common/Button'
+import { Route as GroupsSettingsRoute } from '@/routes/group.$groupId.settings'
 
 type SettingsProps = {
   groupId: string
@@ -9,7 +10,7 @@ type SettingsProps = {
 export const Settings = ({ groupId }: SettingsProps) => (
   <Link
     className="rounded-full"
-    to="/group/$groupId/settings"
+    to={GroupsSettingsRoute.to}
     params={{ groupId }}
     aria-label="Settings"
   >

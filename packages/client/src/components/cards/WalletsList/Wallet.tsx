@@ -7,6 +7,7 @@ import { Card } from '@/components/common/Card'
 import { DndIcon } from '@/components/icons/DndIcon'
 import { useWallet } from '@/contexts/RootStore/hooks/useWallet'
 import { useWalletBalance } from '@/contexts/RootStore/hooks/useWalletBalance'
+import { Route as WalletRoute } from '@/routes/wallet.$walletId.index'
 
 type WalletProps = {
   canReorderWallets: boolean
@@ -64,7 +65,7 @@ export const Wallet = ({
   }
 
   return (
-    <Link to="/wallet/$walletId" params={{ walletId }}>
+    <Link to={WalletRoute.to} params={{ walletId }}>
       <Card.Item
         label={wallet.name}
         value={

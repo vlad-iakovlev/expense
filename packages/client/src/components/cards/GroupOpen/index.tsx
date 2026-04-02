@@ -5,6 +5,7 @@ import { Card } from '@/components/common/Card'
 import { useGroup } from '@/contexts/RootStore/hooks/useGroup'
 import { useGroupBalance } from '@/contexts/RootStore/hooks/useGroupBalance'
 import { useGroupMembers } from '@/contexts/RootStore/hooks/useGroupMembers'
+import { Route as GroupRoute } from '@/routes/group.$groupId.index'
 
 type GroupOpenCardProps = {
   groupId: string
@@ -16,7 +17,7 @@ export const GroupOpenCard = ({ groupId }: GroupOpenCardProps) => {
   const { groupMembers } = useGroupMembers({ groupId })
 
   return (
-    <Link className="rounded-md" to="/group/$groupId" params={{ groupId }}>
+    <Link className="rounded-md" to={GroupRoute.to} params={{ groupId }}>
       <Card aria-label={`Group ${group.name}`} clickable>
         <Card.Title
           title={group.name}

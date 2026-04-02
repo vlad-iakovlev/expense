@@ -1,6 +1,7 @@
 import { Cog6ToothIcon } from '@heroicons/react/20/solid'
 import { Link } from '@tanstack/react-router'
 import { Button } from '@/components/common/Button'
+import { Route as WalletSettingsRoute } from '@/routes/wallet.$walletId.settings'
 
 type SettingsProps = {
   walletId: string
@@ -9,7 +10,7 @@ type SettingsProps = {
 export const Settings = ({ walletId }: SettingsProps) => (
   <Link
     className="rounded-full"
-    to="/wallet/$walletId/settings"
+    to={WalletSettingsRoute.to}
     params={{ walletId }}
     aria-label="Settings"
   >
