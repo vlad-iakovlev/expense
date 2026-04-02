@@ -31,17 +31,13 @@ export const useGroupedOperations = ({
   }
 }
 
-const groupOperations = (operations: ClientOperation[]) =>
-  Object.entries(
-    operations.reduce<Record<string, string[]>>((acc, operation) => {
-      const date = fns.startOfDay(operation.date).toISOString()
+const groupOperations = (operations: ClientOperation[]) => {
+  const operationsMap = Map.groupBy(operations, (operation) =>
+    fns.startOfDay(operation.date).getTime(),
+  )
 
-      return {
-        ...acc,
-        [date]: [...(acc[date] ?? []), operation.id],
-      }
-    }, {}),
-  ).map<GroupedOperations>(([date, operationIds]) => ({
-    date: new Date(date),
-    operationIds,
+  return Array.from(operationsMap).map(([key, operations]) => ({
+    date: new Date(key),
+    operationIds: operations.map((operation) => operation.id),
   }))
+}
