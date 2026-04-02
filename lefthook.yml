@@ -5,7 +5,7 @@ pre-commit:
     compile-server:
       run: npm run compile:server
     lint:
-      glob: '*.{js,ts,mts,tsx}'
+      glob: '*.{js,mjs,ts,mts,tsx}'
       run: npx eslint --fix {staged_files}
       stage_fixed: true
     prettier:
