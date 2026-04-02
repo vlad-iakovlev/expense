@@ -13,7 +13,8 @@ jobs:
     strategy:
       matrix:
         check:
-          - compile
+          - compile:client
+          - compile:server
           - lint:ci
           - prettier:ci
     name: ${{ matrix.check }}
@@ -27,8 +28,6 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm ci
-      - name: Generate Prisma
-        run: npm run prisma generate
       - name: Run ${{ matrix.check }}
         run: npm run ${{ matrix.check }}
 

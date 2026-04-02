@@ -3,15 +3,29 @@ networks:
     name: vlad-iakovlev-dev
 
 services:
-  expense:
-    image: ghcr.io/vlad-iakovlev/expense:latest
+  expense-server:
+    image: ghcr.io/vlad-iakovlev/expense-server:latest
     pull_policy: always
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.server
     networks:
       - vlad-iakovlev-dev
     env_file: .env
+    restart: unless-stopped
+
+  expense-client:
+    image: ghcr.io/vlad-iakovlev/expense-client:latest
+    pull_policy: always
+    depends_on:
+      - expense-server
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    networks:
+      - vlad-iakovlev-dev
     environment:
       VIRTUAL_HOST: expense.vlad-iakovlev.dev
       VIRTUAL_PORT: 3000
       LETSENCRYPT_HOST: expense.vlad-iakovlev.dev
-    restart: always
+    restart: unless-stopped
