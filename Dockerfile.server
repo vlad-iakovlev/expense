@@ -8,7 +8,7 @@ COPY packages/prisma ./packages/prisma
 COPY packages/schemas ./packages/schemas
 COPY tsconfig.json ./
 
-RUN npm ci --production
+RUN npm ci --omit=dev
 
 COPY docker/backend-entrypoint.sh /usr/local/bin/backend-entrypoint.sh
 RUN chmod +x /usr/local/bin/backend-entrypoint.sh
