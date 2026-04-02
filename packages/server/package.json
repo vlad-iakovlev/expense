@@ -9,14 +9,14 @@
     "start": "tsx bin/index.js"
   },
   "dependencies": {
-    "@expense/prisma": "*",
-    "@expense/schemas": "*",
-    "@hono/node-server": "^1.19.11",
+    "@expense/prisma": "^0.0.0",
+    "@expense/schemas": "^0.0.0",
+    "@hono/node-server": "^1.19.12",
     "@types/node": "^22.19.15",
     "better-auth": "^1.5.6",
     "date-fns": "^4.1.0",
-    "hono": "^4.12.9",
-    "tsx": "^4.20.6",
+    "hono": "^4.12.10",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "uuid": "^13.0.0"
   }
