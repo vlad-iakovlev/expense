@@ -33,7 +33,7 @@ const serwist = new Serwist({
       matcher: ({ sameOrigin, url }) =>
         sameOrigin && url.pathname === '/api/auth/get-session',
       handler: new NetworkFirst({
-        cacheName: 'auth-api',
+        cacheName: 'auth-session',
         plugins: [
           new ExpirationPlugin({
             maxEntries: 100,

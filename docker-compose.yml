@@ -26,6 +26,6 @@ services:
       - vlad-iakovlev-dev
     environment:
       VIRTUAL_HOST: expense.vlad-iakovlev.dev
-      VIRTUAL_PORT: 3000
+      VIRTUAL_PORT: 80
       LETSENCRYPT_HOST: expense.vlad-iakovlev.dev
     restart: unless-stopped
