@@ -7,8 +7,7 @@
   ],
   "scripts": {
     "build:client": "npm run build --workspace @expense/client",
-    "compile:client": "npm run compile --workspace @expense/client",
-    "compile:server": "npm run compile --workspace @expense/server",
+    "compile": "tsc && npm run compile --workspaces --if-present",
     "dev:client": "npm run dev --workspace @expense/client",
     "dev:server": "npm run dev --workspace @expense/server",
     "generate-currencies": "npm run generate-currencies --workspace @expense/generators",

@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "compile": "tsc",
     "generate-currencies": "tsx bin/generate-currencies.ts",
     "generate-icons": "tsx bin/generate-icons.ts",
     "generate-splashes": "tsx bin/generate-splashes.ts"

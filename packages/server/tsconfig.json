@@ -6,5 +6,5 @@
     },
     "types": ["node"]
   },
-  "include": ["**/*.ts", "**/*.mts"]
+  "include": ["**/*.ts"]
 }

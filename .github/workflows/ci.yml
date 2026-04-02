@@ -13,8 +13,7 @@ jobs:
     strategy:
       matrix:
         check:
-          - compile:client
-          - compile:server
+          - compile
           - lint:ci
           - prettier:ci
     name: ${{ matrix.check }}

@@ -9,6 +9,9 @@
     "./sync/types": "./sync/types.ts",
     "./sync/schemas": "./sync/schemas.ts"
   },
+  "scripts": {
+    "compile": "tsc"
+  },
   "dependencies": {
     "zod": "^4.3.6"
   }
