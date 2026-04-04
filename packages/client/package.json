@@ -30,7 +30,7 @@
     "@serwist/vite": "^9.5.7",
     "@serwist/window": "^9.5.7",
     "@tailwindcss/vite": "^4.2.2",
-    "@types/node": "^22.19.15",
+    "@types/node": "^22.19.17",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.2.0",
