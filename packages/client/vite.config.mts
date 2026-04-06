@@ -3,12 +3,10 @@ import tailwindcss from '@tailwindcss/vite'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
-import tsconfigPaths from 'vite-tsconfig-paths'
 import splashes from './generated/splashes.json' with { type: 'json' }
 
 export default defineConfig({
   plugins: [
-    tsconfigPaths(),
     tailwindcss(),
     tanstackRouter({
       target: 'react',
@@ -39,6 +37,9 @@ export default defineConfig({
   ],
   build: {
     chunkSizeWarningLimit: 1000,
+  },
+  resolve: {
+    tsconfigPaths: true,
   },
   server: {
     proxy: {
