@@ -11,11 +11,11 @@
   "dependencies": {
     "@expense/prisma": "^0.0.0",
     "@expense/schemas": "^0.0.0",
-    "@hono/node-server": "^1.19.12",
+    "@hono/node-server": "^1.19.13",
     "@types/node": "^22.19.17",
-    "better-auth": "^1.5.6",
+    "better-auth": "^1.6.2",
     "date-fns": "^4.1.0",
-    "hono": "^4.12.11",
+    "hono": "^4.12.12",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
     "uuid": "^13.0.0"
