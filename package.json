@@ -26,10 +26,10 @@
     "@types/node": "^22.19.17",
     "@vlad-iakovlev/eslint-config": "^1.2.0",
     "eslint": "^9.39.4",
-    "lefthook": "^2.1.5",
-    "prettier": "^3.8.2",
+    "lefthook": "^2.1.6",
+    "prettier": "^3.8.3",
     "prettier-plugin-packagejson": "^3.0.2",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   }
 }

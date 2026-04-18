@@ -11,13 +11,13 @@
   },
   "dependencies": {
     "chalk": "^5.6.2",
-    "fast-xml-parser": "^5.5.11",
+    "fast-xml-parser": "^5.7.1",
     "node-fetch": "^3.3.2",
     "sharp": "^0.34.5",
     "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@types/node": "^22.19.17",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   }
 }
