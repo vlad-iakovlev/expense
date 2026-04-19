@@ -14,7 +14,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@expense/schemas": "^0.0.0",
     "@heroicons/react": "^2.2.0",
-    "@tanstack/react-router": "^1.168.22",
+    "@tanstack/react-router": "^1.168.23",
     "@tanstack/router-plugin": "^1.167.22",
     "better-auth": "^1.6.5",
     "date-fns": "^4.1.0",
