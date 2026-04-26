@@ -15,7 +15,7 @@
     "@expense/schemas": "^0.0.0",
     "@heroicons/react": "^2.2.0",
     "@tanstack/react-router": "^1.168.24",
-    "@tanstack/router-plugin": "^1.167.25",
+    "@tanstack/router-plugin": "^1.167.27",
     "better-auth": "^1.6.9",
     "date-fns": "^4.1.0",
     "focus-trap-react": "^12.0.0",
