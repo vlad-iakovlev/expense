@@ -7,7 +7,10 @@ import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Columns } from '@/components/Columns'
 import { Title } from '@/components/Title'
 import { CategoryFilterProvider } from '@/contexts/CategoryFilter'
-import { useOptionalWallet } from '@/contexts/RootStore/hooks/useWallet'
+import {
+  useOptionalWallet,
+  useWallet,
+} from '@/contexts/RootStore/hooks/useWallet'
 import { Page } from '@/layout/Page'
 import { Route as GroupRoute } from '@/routes/group.$groupId.index'
 import { Route as DashboardRoute } from '@/routes/index'
@@ -28,6 +31,8 @@ const RouteComponent = () => {
   const { walletId } = Route.useParams()
   const { wallet } = useOptionalWallet({ walletId })
   const navigate = useNavigate()
+
+  const { setWalletName } = useWallet({ walletId })
 
   useEffect(() => {
     if (!wallet) void navigate({ to: DashboardRoute.to })
@@ -50,7 +55,11 @@ const RouteComponent = () => {
           },
         ]}
       />
-      <Title title={`${wallet.name} ${wallet.currency.symbol}`} />
+      <Title
+        title={wallet.name}
+        suffix={wallet.currency.symbol}
+        onChange={setWalletName}
+      />
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] lg:grid-rows-none">
         <WalletInfoCard walletId={walletId} />
