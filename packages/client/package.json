@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@serwist/vite": "^9.5.10",
-    "@serwist/window": "^9.5.10",
+    "@serwist/window": "^9.5.11",
     "@tailwindcss/vite": "^4.2.4",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
