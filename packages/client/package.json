@@ -27,7 +27,7 @@
     "uuid": "^14.0.0"
   },
   "devDependencies": {
-    "@serwist/vite": "^9.5.10",
+    "@serwist/vite": "^9.5.11",
     "@serwist/window": "^9.5.10",
     "@tailwindcss/vite": "^4.2.4",
     "@types/node": "^24.12.2",
