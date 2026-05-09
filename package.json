@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
-    "@types/node": "^24.12.2",
+    "@types/node": "^24.12.3",
     "@vlad-iakovlev/eslint-config": "^1.2.0",
     "eslint": "^9.39.4",
     "lefthook": "^2.1.6",
