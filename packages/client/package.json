@@ -14,29 +14,29 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@expense/schemas": "^0.0.0",
     "@heroicons/react": "^2.2.0",
-    "@tanstack/react-router": "^1.169.2",
-    "@tanstack/router-plugin": "^1.167.35",
-    "better-auth": "^1.6.9",
+    "@tanstack/react-router": "^1.170.1",
+    "@tanstack/router-plugin": "^1.168.1",
+    "better-auth": "^1.6.11",
     "date-fns": "^4.1.0",
     "focus-trap-react": "^12.0.1",
     "framer-motion": "^12.38.0",
     "immer": "^11.1.8",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "tailwind-merge": "^3.5.0",
+    "tailwind-merge": "^3.6.0",
     "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@serwist/vite": "^9.5.11",
     "@serwist/window": "^9.5.11",
     "@tailwindcss/vite": "^4.3.0",
-    "@types/node": "^24.12.3",
+    "@types/node": "^24.12.4",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
+    "@vitejs/plugin-react": "^6.0.2",
     "serwist": "^9.5.7",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.3",
-    "vite": "^8.0.11"
+    "vite": "^8.0.13"
   }
 }
