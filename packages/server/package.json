@@ -13,7 +13,7 @@
     "@expense/schemas": "^0.0.0",
     "@hono/node-server": "^1.19.14",
     "@types/node": "^24.12.4",
-    "better-auth": "^1.6.12",
+    "better-auth": "^1.6.13",
     "date-fns": "^4.4.0",
     "hono": "^4.12.23",
     "tsx": "^4.22.3",

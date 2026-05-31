@@ -16,7 +16,7 @@
     "@heroicons/react": "^2.2.0",
     "@tanstack/react-router": "^1.170.10",
     "@tanstack/router-plugin": "^1.168.13",
-    "better-auth": "^1.6.12",
+    "better-auth": "^1.6.13",
     "date-fns": "^4.4.0",
     "focus-trap-react": "^12.0.2",
     "framer-motion": "^12.40.0",
