@@ -1,5 +1,5 @@
-#!/bin/sh
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
 # Source: https://github.com/tiredofit/docker-alpine/blob/06ce99a4f2ddde26a0185c5782d78a057f16bd35/install/assets/functions/00-container#L1446-L1465
 transform_file_var() {
