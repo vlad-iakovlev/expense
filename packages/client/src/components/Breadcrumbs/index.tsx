@@ -21,7 +21,7 @@ export const Breadcrumbs = ({
   <>
     {!!parents?.length && (
       <nav
-        className="-mt-2 -mb-4 flex items-center gap-2 max-md:hidden"
+        className="-mt-2 -mb-4 hidden items-center gap-2 md:flex"
         aria-label="Breadcrumbs"
       >
         {parents.map((parent) => (
