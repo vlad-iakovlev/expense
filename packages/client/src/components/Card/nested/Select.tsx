@@ -18,8 +18,7 @@ export type CardSelectDivider<Id extends string = string> = {
 }
 
 export type CardSelectItem<Id extends string = string> =
-  | CardSelectOption<Id>
-  | CardSelectDivider<Id>
+  CardSelectOption<Id> | CardSelectDivider<Id>
 
 export type CardSelectProps<Id extends string = string> = Modify<
   CardItemProps,
