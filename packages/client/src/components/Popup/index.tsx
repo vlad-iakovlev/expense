@@ -18,10 +18,7 @@ const variants: Variants = {
 }
 
 export type PopupPosition =
-  | 'above-left'
-  | 'above-right'
-  | 'below-left'
-  | 'below-right'
+  'above-left' | 'above-right' | 'below-left' | 'below-right'
 
 export type PopupProps = {
   className?: string
