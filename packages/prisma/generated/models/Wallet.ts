@@ -39,6 +39,7 @@ export type WalletMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   removed: boolean | null
+  hidden: boolean | null
   name: string | null
   order: number | null
   currencyId: string | null
@@ -50,6 +51,7 @@ export type WalletMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   removed: boolean | null
+  hidden: boolean | null
   name: string | null
   order: number | null
   currencyId: string | null
@@ -61,6 +63,7 @@ export type WalletCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   removed: number
+  hidden: number
   name: number
   order: number
   currencyId: number
@@ -82,6 +85,7 @@ export type WalletMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   removed?: true
+  hidden?: true
   name?: true
   order?: true
   currencyId?: true
@@ -93,6 +97,7 @@ export type WalletMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   removed?: true
+  hidden?: true
   name?: true
   order?: true
   currencyId?: true
@@ -104,6 +109,7 @@ export type WalletCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   removed?: true
+  hidden?: true
   name?: true
   order?: true
   currencyId?: true
@@ -202,6 +208,7 @@ export type WalletGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   removed: boolean
+  hidden: boolean
   name: string
   order: number | null
   currencyId: string
@@ -236,6 +243,7 @@ export type WalletWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Wallet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Wallet"> | Date | string
   removed?: Prisma.BoolFilter<"Wallet"> | boolean
+  hidden?: Prisma.BoolFilter<"Wallet"> | boolean
   name?: Prisma.StringFilter<"Wallet"> | string
   order?: Prisma.IntNullableFilter<"Wallet"> | number | null
   currencyId?: Prisma.StringFilter<"Wallet"> | string
@@ -252,6 +260,7 @@ export type WalletOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   removed?: Prisma.SortOrder
+  hidden?: Prisma.SortOrder
   name?: Prisma.SortOrder
   order?: Prisma.SortOrderInput | Prisma.SortOrder
   currencyId?: Prisma.SortOrder
@@ -271,6 +280,7 @@ export type WalletWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Wallet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Wallet"> | Date | string
   removed?: Prisma.BoolFilter<"Wallet"> | boolean
+  hidden?: Prisma.BoolFilter<"Wallet"> | boolean
   name?: Prisma.StringFilter<"Wallet"> | string
   order?: Prisma.IntNullableFilter<"Wallet"> | number | null
   currencyId?: Prisma.StringFilter<"Wallet"> | string
@@ -287,6 +297,7 @@ export type WalletOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   removed?: Prisma.SortOrder
+  hidden?: Prisma.SortOrder
   name?: Prisma.SortOrder
   order?: Prisma.SortOrderInput | Prisma.SortOrder
   currencyId?: Prisma.SortOrder
@@ -306,6 +317,7 @@ export type WalletScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Wallet"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Wallet"> | Date | string
   removed?: Prisma.BoolWithAggregatesFilter<"Wallet"> | boolean
+  hidden?: Prisma.BoolWithAggregatesFilter<"Wallet"> | boolean
   name?: Prisma.StringWithAggregatesFilter<"Wallet"> | string
   order?: Prisma.IntNullableWithAggregatesFilter<"Wallet"> | number | null
   currencyId?: Prisma.StringWithAggregatesFilter<"Wallet"> | string
@@ -317,6 +329,7 @@ export type WalletCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currency: Prisma.CurrencyCreateNestedOneWithoutWalletsInput
@@ -331,6 +344,7 @@ export type WalletUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currencyId: string
@@ -345,6 +359,7 @@ export type WalletUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currency?: Prisma.CurrencyUpdateOneRequiredWithoutWalletsNestedInput
@@ -359,6 +374,7 @@ export type WalletUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currencyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -373,6 +389,7 @@ export type WalletCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currencyId: string
@@ -384,6 +401,7 @@ export type WalletUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -393,6 +411,7 @@ export type WalletUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currencyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -414,6 +433,7 @@ export type WalletCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   removed?: Prisma.SortOrder
+  hidden?: Prisma.SortOrder
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
   currencyId?: Prisma.SortOrder
@@ -429,6 +449,7 @@ export type WalletMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   removed?: Prisma.SortOrder
+  hidden?: Prisma.SortOrder
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
   currencyId?: Prisma.SortOrder
@@ -440,6 +461,7 @@ export type WalletMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   removed?: Prisma.SortOrder
+  hidden?: Prisma.SortOrder
   name?: Prisma.SortOrder
   order?: Prisma.SortOrder
   currencyId?: Prisma.SortOrder
@@ -622,6 +644,7 @@ export type WalletCreateWithoutTransactionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currency: Prisma.CurrencyCreateNestedOneWithoutWalletsInput
@@ -635,6 +658,7 @@ export type WalletUncheckedCreateWithoutTransactionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currencyId: string
@@ -672,6 +696,7 @@ export type WalletScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Wallet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Wallet"> | Date | string
   removed?: Prisma.BoolFilter<"Wallet"> | boolean
+  hidden?: Prisma.BoolFilter<"Wallet"> | boolean
   name?: Prisma.StringFilter<"Wallet"> | string
   order?: Prisma.IntNullableFilter<"Wallet"> | number | null
   currencyId?: Prisma.StringFilter<"Wallet"> | string
@@ -683,6 +708,7 @@ export type WalletCreateWithoutCurrencyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   group: Prisma.GroupCreateNestedOneWithoutWalletsInput
@@ -696,6 +722,7 @@ export type WalletUncheckedCreateWithoutCurrencyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   groupId: string
@@ -735,6 +762,7 @@ export type WalletCreateWithoutGroupInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currency: Prisma.CurrencyCreateNestedOneWithoutWalletsInput
@@ -748,6 +776,7 @@ export type WalletUncheckedCreateWithoutGroupInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currencyId: string
@@ -787,6 +816,7 @@ export type WalletCreateWithoutIncomeOperationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currency: Prisma.CurrencyCreateNestedOneWithoutWalletsInput
@@ -800,6 +830,7 @@ export type WalletUncheckedCreateWithoutIncomeOperationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currencyId: string
@@ -818,6 +849,7 @@ export type WalletCreateWithoutExpenseOperationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currency: Prisma.CurrencyCreateNestedOneWithoutWalletsInput
@@ -831,6 +863,7 @@ export type WalletUncheckedCreateWithoutExpenseOperationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currencyId: string
@@ -860,6 +893,7 @@ export type WalletUpdateWithoutIncomeOperationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currency?: Prisma.CurrencyUpdateOneRequiredWithoutWalletsNestedInput
@@ -873,6 +907,7 @@ export type WalletUncheckedUpdateWithoutIncomeOperationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currencyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -897,6 +932,7 @@ export type WalletUpdateWithoutExpenseOperationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currency?: Prisma.CurrencyUpdateOneRequiredWithoutWalletsNestedInput
@@ -910,6 +946,7 @@ export type WalletUncheckedUpdateWithoutExpenseOperationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currencyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -923,6 +960,7 @@ export type WalletUpdateWithoutTransactionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currency?: Prisma.CurrencyUpdateOneRequiredWithoutWalletsNestedInput
@@ -936,6 +974,7 @@ export type WalletUncheckedUpdateWithoutTransactionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currencyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -949,6 +988,7 @@ export type WalletUncheckedUpdateManyWithoutTransactionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currencyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -960,6 +1000,7 @@ export type WalletCreateManyCurrencyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   groupId: string
@@ -970,6 +1011,7 @@ export type WalletUpdateWithoutCurrencyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group?: Prisma.GroupUpdateOneRequiredWithoutWalletsNestedInput
@@ -983,6 +1025,7 @@ export type WalletUncheckedUpdateWithoutCurrencyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groupId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -996,6 +1039,7 @@ export type WalletUncheckedUpdateManyWithoutCurrencyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   groupId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1006,6 +1050,7 @@ export type WalletCreateManyGroupInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   removed?: boolean
+  hidden?: boolean
   name: string
   order?: number | null
   currencyId: string
@@ -1016,6 +1061,7 @@ export type WalletUpdateWithoutGroupInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currency?: Prisma.CurrencyUpdateOneRequiredWithoutWalletsNestedInput
@@ -1029,6 +1075,7 @@ export type WalletUncheckedUpdateWithoutGroupInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currencyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1042,6 +1089,7 @@ export type WalletUncheckedUpdateManyWithoutGroupInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   removed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   name?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currencyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1101,6 +1149,7 @@ export type WalletSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   createdAt?: boolean
   updatedAt?: boolean
   removed?: boolean
+  hidden?: boolean
   name?: boolean
   order?: boolean
   currencyId?: boolean
@@ -1118,6 +1167,7 @@ export type WalletSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   createdAt?: boolean
   updatedAt?: boolean
   removed?: boolean
+  hidden?: boolean
   name?: boolean
   order?: boolean
   currencyId?: boolean
@@ -1131,6 +1181,7 @@ export type WalletSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   createdAt?: boolean
   updatedAt?: boolean
   removed?: boolean
+  hidden?: boolean
   name?: boolean
   order?: boolean
   currencyId?: boolean
@@ -1144,13 +1195,14 @@ export type WalletSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   removed?: boolean
+  hidden?: boolean
   name?: boolean
   order?: boolean
   currencyId?: boolean
   groupId?: boolean
 }
 
-export type WalletOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "removed" | "name" | "order" | "currencyId" | "groupId", ExtArgs["result"]["wallet"]>
+export type WalletOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "removed" | "hidden" | "name" | "order" | "currencyId" | "groupId", ExtArgs["result"]["wallet"]>
 export type WalletInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   currency?: boolean | Prisma.CurrencyDefaultArgs<ExtArgs>
   group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
@@ -1182,6 +1234,7 @@ export type $WalletPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     createdAt: Date
     updatedAt: Date
     removed: boolean
+    hidden: boolean
     name: string
     order: number | null
     currencyId: string
@@ -1618,6 +1671,7 @@ export interface WalletFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Wallet", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Wallet", 'DateTime'>
   readonly removed: Prisma.FieldRef<"Wallet", 'Boolean'>
+  readonly hidden: Prisma.FieldRef<"Wallet", 'Boolean'>
   readonly name: Prisma.FieldRef<"Wallet", 'String'>
   readonly order: Prisma.FieldRef<"Wallet", 'Int'>
   readonly currencyId: Prisma.FieldRef<"Wallet", 'String'>

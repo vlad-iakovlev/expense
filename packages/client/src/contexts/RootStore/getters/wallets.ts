@@ -40,6 +40,7 @@ export const getPopulatedWallet = (
 
   return {
     id: wallet.id,
+    hidden: wallet.hidden,
     name: wallet.name,
     currency: getPopulatedCurrency(state, wallet.currencyId),
     group: getPopulatedGroup(state, wallet.groupId),

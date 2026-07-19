@@ -17,6 +17,7 @@ const createWalletReducer: React.Reducer<
       id: walletId,
       createdAt: new Date(),
       removed: false,
+      hidden: false,
       name: 'Untitled',
       order: null,
       currencyId: getDefaultCurrencyId(state, { groupId }),
@@ -81,6 +82,25 @@ const setWalletCurrencyReducer: React.Reducer<
     })
   })
 
+const setWalletHiddenReducer: React.Reducer<
+  RootStoreState,
+  {
+    type: WalletsActionTypes.SET_WALLET_HIDDEN
+    payload: {
+      walletId: string
+      hidden: boolean
+    }
+  }
+> = (state, { payload: { walletId, hidden } }) =>
+  produce(state, (draft) => {
+    draft.wallets.forEach((wallet) => {
+      if (wallet.id === walletId) {
+        wallet.hidden = hidden
+        draft.nextSyncTransaction.wallets.push(walletId)
+      }
+    })
+  })
+
 const reorderWalletsReducer: React.Reducer<
   RootStoreState,
   {
@@ -106,6 +126,7 @@ export type WalletsAction =
   | Parameters<typeof removeWalletReducer>[1]
   | Parameters<typeof setWalletNameReducer>[1]
   | Parameters<typeof setWalletCurrencyReducer>[1]
+  | Parameters<typeof setWalletHiddenReducer>[1]
   | Parameters<typeof reorderWalletsReducer>[1]
 
 export const isWalletsAction = (action: {
@@ -130,6 +151,9 @@ export const walletsReducer: React.Reducer<RootStoreState, WalletsAction> = (
 
     case WalletsActionTypes.SET_WALLET_CURRENCY:
       return setWalletCurrencyReducer(state, action)
+
+    case WalletsActionTypes.SET_WALLET_HIDDEN:
+      return setWalletHiddenReducer(state, action)
 
     case WalletsActionTypes.REORDER_WALLETS:
       return reorderWalletsReducer(state, action)

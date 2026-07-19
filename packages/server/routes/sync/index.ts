@@ -62,6 +62,7 @@ const applyUpdates = async (
     const updateWallets = updates.wallets.map((wallet) => {
       const walletData = {
         removed: wallet.removed,
+        hidden: wallet.hidden,
         name: wallet.name,
         order: wallet.order,
         currency: { connect: { id: wallet.currencyId } },
@@ -243,6 +244,7 @@ const collect = async (
       id: true,
       createdAt: true,
       removed: true,
+      hidden: true,
       name: true,
       order: true,
       currencyId: true,

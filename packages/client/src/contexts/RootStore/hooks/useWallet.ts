@@ -36,6 +36,16 @@ export const useWallet = ({ walletId }: UseWalletProps) => {
     [dispatch, walletId],
   )
 
+  const setWalletHidden = useCallback(
+    (hidden: boolean) => {
+      dispatch({
+        type: WalletsActionTypes.SET_WALLET_HIDDEN,
+        payload: { walletId, hidden },
+      })
+    },
+    [dispatch, walletId],
+  )
+
   const removeWallet = useCallback(() => {
     dispatch({
       type: WalletsActionTypes.REMOVE_WALLET,
@@ -47,6 +57,7 @@ export const useWallet = ({ walletId }: UseWalletProps) => {
     wallet,
     setWalletName,
     setWalletCurrency,
+    setWalletHidden,
     removeWallet,
   }
 }

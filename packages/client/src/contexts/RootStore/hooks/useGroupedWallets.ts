@@ -64,8 +64,12 @@ const groupWallets = (
 
     let group = acc.find((group) => group.currency.id === currency.id)
     if (!group) {
-      group = { currency, walletIds: [] }
+      group = { currency, hasVisibleWallets: false, walletIds: [] }
       acc.push(group)
+    }
+
+    if (!wallet.hidden) {
+      group.hasVisibleWallets = true
     }
 
     group.walletIds.push(wallet.id)

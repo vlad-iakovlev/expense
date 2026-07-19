@@ -35,6 +35,7 @@ export type BrowserStorageState = {
     ClientWallet,
     {
       createdAt: string
+      hidden?: boolean
     }
   >[]
   operations: Modify<
@@ -74,6 +75,7 @@ export enum WalletsActionTypes {
   REMOVE_WALLET = 'REMOVE_WALLET',
   SET_WALLET_NAME = 'SET_WALLET_NAME',
   SET_WALLET_CURRENCY = 'SET_WALLET_CURRENCY',
+  SET_WALLET_HIDDEN = 'SET_WALLET_HIDDEN',
   REORDER_WALLETS = 'REORDER_WALLETS',
 }
 

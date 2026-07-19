@@ -171,6 +171,7 @@ const setStateFromBrowserStorageReducer: React.Reducer<
     groups: storedState.groups,
     wallets: storedState.wallets.map((wallet) => ({
       ...wallet,
+      hidden: wallet.hidden ?? false,
       createdAt: new Date(wallet.createdAt),
     })),
     operations: storedState.operations.map((operation) => ({

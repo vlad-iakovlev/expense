@@ -15,16 +15,18 @@ import { Wallet } from './Wallet'
 
 type GroupProps = {
   canReorderGroups: boolean
-  isReordering: boolean
   currency: PopulatedClientCurrency
+  isReordering: boolean
+  hasVisibleWallets: boolean
   walletIds: string[]
   onReorder: (currencyId: string, walletIds: string[]) => void
 }
 
 export const Group = ({
   canReorderGroups,
-  isReordering,
   currency,
+  isReordering,
+  hasVisibleWallets,
   walletIds,
   onReorder,
 }: GroupProps) => {
@@ -50,6 +52,10 @@ export const Group = ({
     },
     [currency.id, onReorder, walletIds],
   )
+
+  if (!isReordering && !hasVisibleWallets) {
+    return null
+  }
 
   return (
     <div

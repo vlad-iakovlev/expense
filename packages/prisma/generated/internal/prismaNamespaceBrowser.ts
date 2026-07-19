@@ -201,6 +201,7 @@ export const WalletScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   removed: 'removed',
+  hidden: 'hidden',
   name: 'name',
   order: 'order',
   currencyId: 'currencyId',

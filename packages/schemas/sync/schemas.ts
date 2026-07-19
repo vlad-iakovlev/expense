@@ -25,6 +25,7 @@ export const performSyncBodySchema = z.object({
         z.object({
           id: z.uuid(),
           removed: z.boolean(),
+          hidden: z.boolean(),
           name: z.string().min(1),
           order: z.number().nullable(),
           currencyId: z.uuid(),
@@ -93,6 +94,7 @@ export const performSyncResponseSchema = z.object({
         id: z.string(),
         createdAt: z.string(),
         removed: z.boolean(),
+        hidden: z.boolean(),
         name: z.string(),
         order: z.number().nullable(),
         currencyId: z.string(),

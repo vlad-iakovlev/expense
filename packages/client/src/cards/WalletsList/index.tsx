@@ -106,16 +106,19 @@ export const WalletsListCard = ({
               items={currencyIds}
               strategy={verticalListSortingStrategy}
             >
-              {groupedWallets.map(({ currency, walletIds }) => (
-                <Group
-                  key={currency.id}
-                  canReorderGroups={canReorderGroups}
-                  isReordering={isReordering}
-                  currency={currency}
-                  walletIds={walletIds}
-                  onReorder={handleReorder}
-                />
-              ))}
+              {groupedWallets.map(
+                ({ currency, hasVisibleWallets, walletIds }) => (
+                  <Group
+                    key={currency.id}
+                    canReorderGroups={canReorderGroups}
+                    currency={currency}
+                    isReordering={isReordering}
+                    hasVisibleWallets={hasVisibleWallets}
+                    walletIds={walletIds}
+                    onReorder={handleReorder}
+                  />
+                ),
+              )}
             </SortableContext>
           </DndContext>
         </>

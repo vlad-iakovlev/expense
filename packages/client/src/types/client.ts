@@ -54,6 +54,7 @@ export type ClientWallet = {
   id: string
   createdAt: Date
   removed: boolean
+  hidden: boolean
   name: string
   order: number | null
   currencyId: string
@@ -62,6 +63,7 @@ export type ClientWallet = {
 
 export type PopulatedClientWallet = {
   id: string
+  hidden: boolean
   name: string
   currency: PopulatedClientCurrency
   group: PopulatedClientGroup
@@ -69,6 +71,7 @@ export type PopulatedClientWallet = {
 
 export type GroupedWallets = {
   currency: PopulatedClientCurrency
+  hasVisibleWallets: boolean
   walletIds: string[]
 }
 
