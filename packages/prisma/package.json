@@ -9,9 +9,9 @@
     "prisma": "prisma --config prisma.config.ts"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.9.0",
-    "@prisma/client": "^7.9.0",
-    "prisma": "^7.9.0"
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "prisma": "^7.9.1"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
