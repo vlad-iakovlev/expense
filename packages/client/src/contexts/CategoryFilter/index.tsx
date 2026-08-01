@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState } from 'react'
+import { createContext, use, useCallback, useState } from 'react'
 
 type ContextValue = {
   categoryFilter: string
@@ -30,7 +30,7 @@ export const CategoryFilterProvider = ({ children }: ProviderProps) => {
   }, [])
 
   return (
-    <CategoryFilterContext.Provider
+    <CategoryFilterContext
       value={{
         categoryFilter,
         setCategoryFilter,
@@ -39,12 +39,12 @@ export const CategoryFilterProvider = ({ children }: ProviderProps) => {
       }}
     >
       {children}
-    </CategoryFilterContext.Provider>
+    </CategoryFilterContext>
   )
 }
 
 export const useCategoryFilter = () => {
-  const context = useContext(CategoryFilterContext)
+  const context = use(CategoryFilterContext)
   if (!context) {
     throw new Error(
       'useCategoryFilter must be used within a CategoryFilterProvider',

@@ -42,7 +42,6 @@ export const PieChart = ({
           : lastAngle,
       }
 
-      // eslint-disable-next-line react-hooks/immutability
       lastAngle = sectorProps.end
 
       return (

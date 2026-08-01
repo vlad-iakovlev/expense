@@ -6,7 +6,7 @@ const getIsOnline = () =>
   window.navigator.onLine
 
 export const useIsOnline = () => {
-  const [isOnline, setIsOnline] = useState(getIsOnline())
+  const [isOnline, setIsOnline] = useState(() => getIsOnline())
 
   useEffect(() => {
     const update = () => {

@@ -32,8 +32,9 @@ export const AvatarGroup = ({
     <div className={twMerge('flex items-center', className)} {...rest}>
       {visibleAvatars.map((props, index) => (
         <Avatar
-          {...props}
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           key={props.src ?? index}
+          {...props}
           size={size}
           className={twMerge(
             index > 0 && size === 'sm' && '-ml-5',

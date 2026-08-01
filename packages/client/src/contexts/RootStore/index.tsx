@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react'
+import { createContext, use, useReducer } from 'react'
 import { useStorage } from './hooks/useStorage'
 import {
   CategoriesAction,
@@ -60,14 +60,12 @@ export const RootStoreProvider = ({ children }: ProviderProps) => {
   useStorage(state, dispatch)
 
   return (
-    <RootStoreContext.Provider value={{ state, dispatch }}>
-      {children}
-    </RootStoreContext.Provider>
+    <RootStoreContext value={{ state, dispatch }}>{children}</RootStoreContext>
   )
 }
 
 export const useRootStore = () => {
-  const context = useContext(RootStoreContext)
+  const context = use(RootStoreContext)
   if (!context) {
     throw new Error('useRootStore must be used within a RootStoreProvider')
   }

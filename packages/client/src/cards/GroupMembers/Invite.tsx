@@ -19,7 +19,7 @@ export const Invite = ({ groupId }: InviteProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [inviteLink, setInviteLink] = useState('')
-  const [expirationDate, setExpirationDate] = useState(new Date(0))
+  const [expirationDate, setExpirationDate] = useState(() => new Date(0))
 
   const handleInvite = useCallback(() => {
     void (async () => {

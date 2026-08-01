@@ -9,7 +9,9 @@ export enum PeriodType {
 }
 
 export const usePeriod = () => {
-  const [fromDate, setFromDate] = useState<Date>(fns.startOfWeek(new Date()))
+  const [fromDate, setFromDate] = useState<Date>(() =>
+    fns.startOfWeek(new Date()),
+  )
   const [periodType, setPeriodType] = useState<PeriodType>(PeriodType.WEEK)
 
   useEffect(() => {

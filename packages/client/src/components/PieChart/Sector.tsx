@@ -16,7 +16,7 @@ export const Sector = ({
   onPointerEnter,
   onPointerLeave,
 }: SectorProps) => {
-  const lastProps = useRef(sectorProps)
+  const lastPropsRef = useRef(sectorProps)
   const [animatedProps, setAnimatedProps] = useState(sectorProps)
 
   useEffect(() => {
@@ -27,11 +27,36 @@ export const Sector = ({
       frameTimerId = requestAnimationFrame(() => {
         const progress = (Date.now() - startedAt) / DURATION
         setAnimatedProps({
-          x: animate('x', lastProps.current, sectorProps, progress),
-          y: animate('y', lastProps.current, sectorProps, progress),
-          radius: animate('radius', lastProps.current, sectorProps, progress),
-          start: animate('start', lastProps.current, sectorProps, progress),
-          end: animate('end', lastProps.current, sectorProps, progress),
+          x: animate({
+            key: 'x',
+            from: lastPropsRef.current,
+            to: sectorProps,
+            progress,
+          }),
+          y: animate({
+            key: 'y',
+            from: lastPropsRef.current,
+            to: sectorProps,
+            progress,
+          }),
+          radius: animate({
+            key: 'radius',
+            from: lastPropsRef.current,
+            to: sectorProps,
+            progress,
+          }),
+          start: animate({
+            key: 'start',
+            from: lastPropsRef.current,
+            to: sectorProps,
+            progress,
+          }),
+          end: animate({
+            key: 'end',
+            from: lastPropsRef.current,
+            to: sectorProps,
+            progress,
+          }),
         })
 
         loop()
@@ -41,7 +66,7 @@ export const Sector = ({
     loop()
 
     const endTimerId = setTimeout(() => {
-      lastProps.current = sectorProps
+      lastPropsRef.current = sectorProps
       setAnimatedProps(sectorProps)
       cancelAnimationFrame(frameTimerId)
     }, DURATION)
@@ -49,7 +74,7 @@ export const Sector = ({
     return () => {
       // Set lastProps to current animatedProps props on sectorProps change
       setAnimatedProps((animatedProps) => {
-        lastProps.current = animatedProps
+        lastPropsRef.current = animatedProps
         return animatedProps
       })
       clearTimeout(endTimerId)
@@ -67,9 +92,16 @@ export const Sector = ({
   )
 }
 
-const animate = <K extends string, T extends Record<K, number>>(
-  key: K,
-  from: T,
-  to: T,
-  progress: number,
-) => from[key] - (from[key] - to[key]) * progress
+type AnimateProps<K extends string, T extends Record<K, number>> = {
+  key: K
+  from: T
+  to: T
+  progress: number
+}
+
+const animate = <K extends string, T extends Record<K, number>>({
+  key,
+  from,
+  to,
+  progress,
+}: AnimateProps<K, T>) => from[key] - (from[key] - to[key]) * progress

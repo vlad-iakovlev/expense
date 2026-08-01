@@ -4,11 +4,11 @@ const getIsTabVisible = () =>
   typeof document === 'undefined' || document.visibilityState === 'visible'
 
 export const useIsTabVisible = () => {
-  const [isTabVisible, setIsTabVisibleFocused] = useState(getIsTabVisible)
+  const [isTabVisible, setIsTabVisible] = useState(() => getIsTabVisible())
 
   useEffect(() => {
     const update = () => {
-      setIsTabVisibleFocused(getIsTabVisible())
+      setIsTabVisible(getIsTabVisible())
     }
 
     document.addEventListener('visibilitychange', update)
