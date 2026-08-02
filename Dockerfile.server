@@ -12,9 +12,9 @@ COPY tsconfig.json ./
 
 RUN npm ci --omit=dev
 
-COPY docker/backend-entrypoint.sh /usr/local/bin/backend-entrypoint.sh
-RUN chmod +x /usr/local/bin/backend-entrypoint.sh
+COPY docker/server-entrypoint.sh /usr/local/bin/server-entrypoint.sh
+RUN chmod +x /usr/local/bin/server-entrypoint.sh
 
 EXPOSE 3000
 
-ENTRYPOINT ["backend-entrypoint.sh"]
+ENTRYPOINT ["server-entrypoint.sh"]
