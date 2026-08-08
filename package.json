@@ -25,7 +25,7 @@
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "^24.13.3",
     "@vlad-iakovlev/eslint-config": "^2.0.1",
-    "eslint": "^10.8.0",
+    "eslint": "^10.8.1",
     "lefthook": "^2.1.10",
     "prettier": "^3.9.6",
     "prettier-plugin-packagejson": "^3.0.2",
