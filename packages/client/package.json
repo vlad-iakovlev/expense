@@ -19,7 +19,7 @@
     "better-auth": "^1.6.26",
     "date-fns": "^4.4.0",
     "focus-trap-react": "^12.0.3",
-    "framer-motion": "^12.43.0",
+    "framer-motion": "^13.0.0",
     "immer": "^11.1.16",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
