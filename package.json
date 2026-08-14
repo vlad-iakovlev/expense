@@ -26,7 +26,6 @@
     "@types/node": "^24.13.3",
     "@vlad-iakovlev/eslint-config": "^2.0.1",
     "eslint": "^10.8.1",
-    "lefthook": "^2.1.10",
     "prettier": "^3.9.6",
     "prettier-plugin-packagejson": "^3.0.2",
     "prettier-plugin-tailwindcss": "^0.8.1",
