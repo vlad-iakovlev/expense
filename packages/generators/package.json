@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "chalk": "^6.0.0",
-    "fast-xml-parser": "^5.10.1",
+    "fast-xml-parser": "^5.11.0",
     "node-fetch": "^3.3.2",
     "sharp": "^0.35.3",
     "tsx": "^4.23.12"
