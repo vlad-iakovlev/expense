@@ -13,10 +13,10 @@
     "@expense/schemas": "^0.0.0",
     "@hono/node-server": "^2.1.1",
     "@types/node": "^24.13.3",
-    "better-auth": "^1.7.1",
+    "better-auth": "^1.7.2",
     "date-fns": "^4.4.0",
-    "hono": "^4.13.3",
-    "tsx": "^4.23.12",
+    "hono": "^4.13.5",
+    "tsx": "^4.23.13",
     "typescript": "^6.0.3",
     "uuid": "^14.0.2"
   }
