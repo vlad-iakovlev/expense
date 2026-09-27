@@ -12,11 +12,11 @@
     "@expense/prisma": "^0.0.0",
     "@expense/schemas": "^0.0.0",
     "@hono/node-server": "^2.1.1",
-    "@types/node": "^24.13.6",
-    "better-auth": "^1.7.5",
+    "@types/node": "^24.19.0",
+    "better-auth": "^1.7.6",
     "date-fns": "^4.4.0",
-    "hono": "^4.13.8",
-    "tsx": "^4.23.13",
+    "hono": "^4.13.9",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "uuid": "^14.0.2"
   }
