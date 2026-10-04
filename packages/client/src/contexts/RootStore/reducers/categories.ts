@@ -49,6 +49,7 @@ export const isCategoriesAction = (action: {
   payload?: unknown
 }): action is CategoriesAction =>
   Object.values(CategoriesActionTypes).includes(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment
     action.type as CategoriesActionTypes,
   )
 

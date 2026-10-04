@@ -133,6 +133,7 @@ export const isWalletsAction = (action: {
   type: string
   payload?: unknown
 }): action is WalletsAction =>
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment
   Object.values(WalletsActionTypes).includes(action.type as WalletsActionTypes)
 
 export const walletsReducer: React.Reducer<RootStoreState, WalletsAction> = (

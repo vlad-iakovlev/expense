@@ -208,6 +208,7 @@ export const isStorageAction = (action: {
   type: string
   payload?: unknown
 }): action is StorageAction =>
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment
   Object.values(StorageActionType).includes(action.type as StorageActionType)
 
 export const storageReducer: React.Reducer<RootStoreState, StorageAction> = (
