@@ -135,6 +135,7 @@ export const isGroupsAction = (action: {
   type: string
   payload?: unknown
 }): action is GroupsAction =>
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment
   Object.values(GroupsActionTypes).includes(action.type as GroupsActionTypes)
 
 export const groupsReducer: React.Reducer<RootStoreState, GroupsAction> = (

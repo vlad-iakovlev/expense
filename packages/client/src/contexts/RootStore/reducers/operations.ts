@@ -243,6 +243,7 @@ export const isOperationsAction = (action: {
   payload?: unknown
 }): action is OperationsAction =>
   Object.values(OperationsActionTypes).includes(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment
     action.type as OperationsActionTypes,
   )
 
