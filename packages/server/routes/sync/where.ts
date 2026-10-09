@@ -1,7 +1,32 @@
 import { Transaction } from '@expense/prisma'
 import { Modify } from '@/types/utility.js'
 
-const getGroupAddedSinceLastSyncWhere = (params: {
+const getUnifiedSyncWhere = <
+  AuthorizationOr extends unknown[],
+  TransactionOr extends unknown[],
+>(params: {
+  id?: string
+  removed?: boolean
+  authorizationOr?: AuthorizationOr
+  transactionOr?: TransactionOr
+}) => ({
+  id: params.id,
+  removed: params.removed,
+  AND: [
+    ...(params.authorizationOr ? [{ OR: params.authorizationOr }] : []),
+    ...(params.transactionOr ? [{ OR: params.transactionOr }] : []),
+  ],
+})
+
+const getChangedSinceLastSyncWhere = (params: {
+  clientTransaction: Modify<Transaction, { completedAt: Date }>
+}) => ({
+  transactions: {
+    some: { completedAt: { gt: params.clientTransaction.completedAt } },
+  },
+})
+
+const getGroupNewMembershipSinceLastSyncWhere = (params: {
   userId: string
   clientTransaction: Modify<Transaction, { completedAt: Date }>
 }) => ({
@@ -9,11 +34,9 @@ const getGroupAddedSinceLastSyncWhere = (params: {
     some: {
       removed: false,
       userId: params.userId,
-      transactions: {
-        some: {
-          completedAt: { gt: params.clientTransaction.completedAt },
-        },
-      },
+      ...getChangedSinceLastSyncWhere({
+        clientTransaction: params.clientTransaction,
+      }),
     },
   },
 })
@@ -23,62 +46,56 @@ export const getGroupWhere = (params: {
   groupId?: string
   removed?: boolean
   clientTransaction?: Modify<Transaction, { completedAt: Date }>
-}) => ({
-  id: params.groupId,
-  removed: params.removed,
-  userGroups: {
-    some: {
-      removed: false,
-      userId: params.userId,
-    },
-  },
-  ...(params.clientTransaction && {
-    OR: [
+}) =>
+  getUnifiedSyncWhere({
+    id: params.groupId,
+    removed: params.removed,
+    authorizationOr: [
       {
-        transactions: {
+        userGroups: {
           some: {
-            completedAt: { gt: params.clientTransaction.completedAt },
+            removed: false,
+            userId: params.userId,
           },
         },
       },
-      getGroupAddedSinceLastSyncWhere({
+    ],
+    transactionOr: params.clientTransaction && [
+      getChangedSinceLastSyncWhere({
+        clientTransaction: params.clientTransaction,
+      }),
+      getGroupNewMembershipSinceLastSyncWhere({
         userId: params.userId,
         clientTransaction: params.clientTransaction,
       }),
     ],
-  }),
-})
+  })
 
 export const getUserGroupWhere = (params: {
   userId: string
   userGroupId?: string
   removed?: boolean
   clientTransaction?: Modify<Transaction, { completedAt: Date }>
-}) => ({
-  id: params.userGroupId,
-  removed: params.removed,
-  OR: [
-    { userId: params.userId },
-    { group: getGroupWhere({ userId: params.userId }) },
-  ],
-  ...(params.clientTransaction && {
-    OR: [
+}) =>
+  getUnifiedSyncWhere({
+    id: params.userGroupId,
+    removed: params.removed,
+    authorizationOr: [
+      { userId: params.userId },
+      { group: getGroupWhere({ userId: params.userId }) },
+    ],
+    transactionOr: params.clientTransaction && [
+      getChangedSinceLastSyncWhere({
+        clientTransaction: params.clientTransaction,
+      }),
       {
-        transactions: {
-          some: {
-            completedAt: { gt: params.clientTransaction.completedAt },
-          },
-        },
-      },
-      {
-        group: getGroupAddedSinceLastSyncWhere({
+        group: getGroupNewMembershipSinceLastSyncWhere({
           userId: params.userId,
           clientTransaction: params.clientTransaction,
         }),
       },
     ],
-  }),
-})
+  })
 
 export const getWalletWhere = (params: {
   userId: string
@@ -86,31 +103,30 @@ export const getWalletWhere = (params: {
   walletId?: string
   removed?: boolean
   clientTransaction?: Modify<Transaction, { completedAt: Date }>
-}) => ({
-  id: params.walletId,
-  removed: params.removed,
-  group: getGroupWhere({
-    userId: params.userId,
-    groupId: params.groupId,
-  }),
-  ...(params.clientTransaction && {
-    OR: [
+}) =>
+  getUnifiedSyncWhere({
+    id: params.walletId,
+    removed: params.removed,
+    authorizationOr: [
       {
-        transactions: {
-          some: {
-            completedAt: { gt: params.clientTransaction.completedAt },
-          },
-        },
+        group: getGroupWhere({
+          userId: params.userId,
+          groupId: params.groupId,
+        }),
       },
+    ],
+    transactionOr: params.clientTransaction && [
+      getChangedSinceLastSyncWhere({
+        clientTransaction: params.clientTransaction,
+      }),
       {
-        group: getGroupAddedSinceLastSyncWhere({
+        group: getGroupNewMembershipSinceLastSyncWhere({
           userId: params.userId,
           clientTransaction: params.clientTransaction,
         }),
       },
     ],
-  }),
-})
+  })
 
 export const getOperationWhere = (params: {
   userId: string
@@ -119,37 +135,33 @@ export const getOperationWhere = (params: {
   operationId?: string
   removed?: boolean
   clientTransaction?: Modify<Transaction, { completedAt: Date }>
-}) => ({
-  id: params.operationId,
-  removed: params.removed,
-  OR: [
-    {
-      incomeWallet: getWalletWhere({
-        userId: params.userId,
-        groupId: params.groupId,
-        walletId: params.walletId,
-      }),
-    },
-    {
-      expenseWallet: getWalletWhere({
-        userId: params.userId,
-        groupId: params.groupId,
-        walletId: params.walletId,
-      }),
-    },
-  ],
-  ...(params.clientTransaction && {
-    OR: [
+}) =>
+  getUnifiedSyncWhere({
+    id: params.operationId,
+    removed: params.removed,
+    authorizationOr: [
       {
-        transactions: {
-          some: {
-            completedAt: { gt: params.clientTransaction.completedAt },
-          },
-        },
+        incomeWallet: getWalletWhere({
+          userId: params.userId,
+          groupId: params.groupId,
+          walletId: params.walletId,
+        }),
       },
       {
+        expenseWallet: getWalletWhere({
+          userId: params.userId,
+          groupId: params.groupId,
+          walletId: params.walletId,
+        }),
+      },
+    ],
+    transactionOr: params.clientTransaction && [
+      getChangedSinceLastSyncWhere({
+        clientTransaction: params.clientTransaction,
+      }),
+      {
         incomeWallet: {
-          group: getGroupAddedSinceLastSyncWhere({
+          group: getGroupNewMembershipSinceLastSyncWhere({
             userId: params.userId,
             clientTransaction: params.clientTransaction,
           }),
@@ -157,12 +169,11 @@ export const getOperationWhere = (params: {
       },
       {
         expenseWallet: {
-          group: getGroupAddedSinceLastSyncWhere({
+          group: getGroupNewMembershipSinceLastSyncWhere({
             userId: params.userId,
             clientTransaction: params.clientTransaction,
           }),
         },
       },
     ],
-  }),
-})
+  })
