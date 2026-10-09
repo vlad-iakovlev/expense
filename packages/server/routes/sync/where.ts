@@ -1,5 +1,4 @@
-import { Transaction } from '@expense/prisma'
-import { Modify } from '@/types/utility.js'
+import { CompletedTransaction } from './types.js'
 
 const getUnifiedSyncWhere = <
   AuthorizationOr extends unknown[],
@@ -19,7 +18,7 @@ const getUnifiedSyncWhere = <
 })
 
 const getChangedSinceLastSyncWhere = (params: {
-  clientTransaction: Modify<Transaction, { completedAt: Date }>
+  clientTransaction: CompletedTransaction
 }) => ({
   transactions: {
     some: { completedAt: { gt: params.clientTransaction.completedAt } },
@@ -28,7 +27,7 @@ const getChangedSinceLastSyncWhere = (params: {
 
 const getGroupNewMembershipSinceLastSyncWhere = (params: {
   userId: string
-  clientTransaction: Modify<Transaction, { completedAt: Date }>
+  clientTransaction: CompletedTransaction
 }) => ({
   userGroups: {
     some: {
@@ -45,7 +44,7 @@ export const getGroupWhere = (params: {
   userId: string
   groupId?: string
   removed?: boolean
-  clientTransaction?: Modify<Transaction, { completedAt: Date }>
+  clientTransaction?: CompletedTransaction
 }) =>
   getUnifiedSyncWhere({
     id: params.groupId,
@@ -75,7 +74,7 @@ export const getUserGroupWhere = (params: {
   userId: string
   userGroupId?: string
   removed?: boolean
-  clientTransaction?: Modify<Transaction, { completedAt: Date }>
+  clientTransaction?: CompletedTransaction
 }) =>
   getUnifiedSyncWhere({
     id: params.userGroupId,
@@ -102,7 +101,7 @@ export const getWalletWhere = (params: {
   groupId?: string
   walletId?: string
   removed?: boolean
-  clientTransaction?: Modify<Transaction, { completedAt: Date }>
+  clientTransaction?: CompletedTransaction
 }) =>
   getUnifiedSyncWhere({
     id: params.walletId,
@@ -134,7 +133,7 @@ export const getOperationWhere = (params: {
   walletId?: string
   operationId?: string
   removed?: boolean
-  clientTransaction?: Modify<Transaction, { completedAt: Date }>
+  clientTransaction?: CompletedTransaction
 }) =>
   getUnifiedSyncWhere({
     id: params.operationId,

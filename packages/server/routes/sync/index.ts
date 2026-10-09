@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import { HTTPException } from 'hono/http-exception'
-import { Transaction, prisma } from '@expense/prisma'
+import { prisma } from '@expense/prisma'
 import { performSyncBodySchema } from '@expense/schemas/sync/schemas'
 import type {
   PerformSyncBody,
@@ -9,7 +9,7 @@ import type {
 import { AuthType } from '@/auth.js'
 import { authMiddleware } from '@/middlewares/auth.js'
 import { errorMiddleware } from '@/middlewares/error.js'
-import { Modify } from '@/types/utility.js'
+import { CompletedTransaction } from './types.js'
 import {
   getGroupWhere,
   getOperationWhere,
@@ -169,7 +169,7 @@ const findTransaction = async (transactionId: string) => {
   try {
     return (await prisma.transaction.findFirstOrThrow({
       where: { id: transactionId, NOT: { completedAt: null } },
-    })) as Modify<Transaction, { completedAt: Date }>
+    })) as CompletedTransaction
   } catch (error) {
     console.error('Error finding transaction', error)
     throw new HTTPException(400, { message: 'Invalid transaction' })
@@ -178,7 +178,7 @@ const findTransaction = async (transactionId: string) => {
 
 const collect = async (
   userId: string,
-  clientTransaction?: Modify<Transaction, { completedAt: Date }>,
+  clientTransaction?: CompletedTransaction,
 ): Promise<PerformSyncResponse> => {
   const findLastTransaction = prisma.transaction.findFirstOrThrow({
     where: { NOT: { completedAt: null } },
