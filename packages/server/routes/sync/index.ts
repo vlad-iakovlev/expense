@@ -180,7 +180,7 @@ const collect = async (
   userId: string,
   clientTransaction?: CompletedTransaction,
 ): Promise<PerformSyncResponse> => {
-  const findLastTransaction = prisma.transaction.findFirstOrThrow({
+  const findLastTransaction = prisma.transaction.findFirst({
     where: { NOT: { completedAt: null } },
     orderBy: { completedAt: 'desc' },
     select: { id: true },
@@ -281,7 +281,7 @@ const collect = async (
   ])
 
   return {
-    lastTransactionId: lastTransaction.id,
+    lastTransactionId: lastTransaction?.id ?? null,
     updates: {
       currencies,
       users,
