@@ -24,145 +24,140 @@ const applyUpdates = async (
   if (!updates) return
 
   try {
-    const transaction = await prisma.transaction.create({
-      data: {},
-      select: { id: true },
-    })
-
-    const updateGroups = updates.groups.map((group) => {
-      const userGroupData = {
-        userId,
-        transactions: { connect: { id: transaction.id } },
-      }
-
-      const groupData = {
-        removed: group.removed,
-        name: group.name,
-        defaultCurrencyId: group.defaultCurrencyId,
-        transactions: { connect: { id: transaction.id } },
-      }
-
-      return prisma.group.upsert({
-        where: getGroupWhere({
-          userId,
-          groupId: group.id,
-        }),
-        create: {
-          ...groupData,
-          id: group.id,
-          userGroups: {
-            create: userGroupData,
-          },
-        },
-        update: groupData,
+    await prisma.$transaction(async (tx) => {
+      const transaction = await tx.transaction.create({
+        data: {},
         select: { id: true },
       })
-    })
 
-    const updateWallets = updates.wallets.map((wallet) => {
-      const walletData = {
-        removed: wallet.removed,
-        hidden: wallet.hidden,
-        name: wallet.name,
-        order: wallet.order,
-        currency: { connect: { id: wallet.currencyId } },
-        transactions: { connect: { id: transaction.id } },
-      }
-
-      return prisma.wallet.upsert({
-        where: getWalletWhere({
+      for (const group of updates.groups) {
+        const userGroupData = {
           userId,
-          walletId: wallet.id,
-        }),
-        create: {
-          ...walletData,
-          id: wallet.id,
-          group: {
-            connect: getGroupWhere({
-              userId,
-              groupId: wallet.groupId,
-            }),
-          },
-        },
-        update: walletData,
-        select: { id: true },
-      })
-    })
-
-    const updateOperations = updates.operations.map((operation) => {
-      const operationData = {
-        removed: operation.removed,
-        name: operation.name,
-        category: operation.category,
-        date: operation.date,
-        incomeAmount: operation.incomeAmount,
-        expenseAmount: operation.expenseAmount,
-        ...(operation.incomeWalletId && {
-          incomeWallet: {
-            connect: getWalletWhere({
-              userId,
-              walletId: operation.incomeWalletId,
-            }),
-          },
-        }),
-        ...(operation.expenseWalletId && {
-          expenseWallet: {
-            connect: getWalletWhere({
-              userId,
-              walletId: operation.expenseWalletId,
-            }),
-          },
-        }),
-        transactions: { connect: { id: transaction.id } },
-      }
-
-      return prisma.operation.upsert({
-        where: getOperationWhere({
-          userId,
-          operationId: operation.id,
-        }),
-        create: {
-          ...operationData,
-          id: operation.id,
-        },
-        update: {
-          ...operationData,
-          ...(!operation.incomeWalletId && {
-            incomeWallet: { disconnect: true },
-          }),
-          ...(!operation.expenseWalletId && {
-            expenseWallet: { disconnect: true },
-          }),
-        },
-        select: { id: true },
-      })
-    })
-
-    const updateUserGroups = updates.userGroups.map((userGroup) =>
-      prisma.userGroup.update({
-        where: getUserGroupWhere({
-          userId,
-          userGroupId: userGroup.id,
-        }),
-        data: {
-          removed: userGroup.removed,
           transactions: { connect: { id: transaction.id } },
-        },
+        }
+
+        const groupData = {
+          removed: group.removed,
+          name: group.name,
+          defaultCurrencyId: group.defaultCurrencyId,
+          transactions: { connect: { id: transaction.id } },
+        }
+
+        await tx.group.upsert({
+          where: getGroupWhere({
+            userId,
+            groupId: group.id,
+          }),
+          create: {
+            ...groupData,
+            id: group.id,
+            userGroups: {
+              create: userGroupData,
+            },
+          },
+          update: groupData,
+          select: { id: true },
+        })
+      }
+
+      for (const wallet of updates.wallets) {
+        const walletData = {
+          removed: wallet.removed,
+          hidden: wallet.hidden,
+          name: wallet.name,
+          order: wallet.order,
+          currency: { connect: { id: wallet.currencyId } },
+          transactions: { connect: { id: transaction.id } },
+        }
+
+        await tx.wallet.upsert({
+          where: getWalletWhere({
+            userId,
+            walletId: wallet.id,
+          }),
+          create: {
+            ...walletData,
+            id: wallet.id,
+            group: {
+              connect: getGroupWhere({
+                userId,
+                groupId: wallet.groupId,
+              }),
+            },
+          },
+          update: walletData,
+          select: { id: true },
+        })
+      }
+
+      for (const operation of updates.operations) {
+        const operationData = {
+          removed: operation.removed,
+          name: operation.name,
+          category: operation.category,
+          date: operation.date,
+          incomeAmount: operation.incomeAmount,
+          expenseAmount: operation.expenseAmount,
+          ...(operation.incomeWalletId && {
+            incomeWallet: {
+              connect: getWalletWhere({
+                userId,
+                walletId: operation.incomeWalletId,
+              }),
+            },
+          }),
+          ...(operation.expenseWalletId && {
+            expenseWallet: {
+              connect: getWalletWhere({
+                userId,
+                walletId: operation.expenseWalletId,
+              }),
+            },
+          }),
+          transactions: { connect: { id: transaction.id } },
+        }
+
+        await tx.operation.upsert({
+          where: getOperationWhere({
+            userId,
+            operationId: operation.id,
+          }),
+          create: {
+            ...operationData,
+            id: operation.id,
+          },
+          update: {
+            ...operationData,
+            ...(!operation.incomeWalletId && {
+              incomeWallet: { disconnect: true },
+            }),
+            ...(!operation.expenseWalletId && {
+              expenseWallet: { disconnect: true },
+            }),
+          },
+          select: { id: true },
+        })
+      }
+
+      for (const userGroup of updates.userGroups) {
+        await tx.userGroup.update({
+          where: getUserGroupWhere({
+            userId,
+            userGroupId: userGroup.id,
+          }),
+          data: {
+            removed: userGroup.removed,
+            transactions: { connect: { id: transaction.id } },
+          },
+          select: { id: true },
+        })
+      }
+
+      await tx.transaction.update({
+        where: { id: transaction.id },
+        data: { completedAt: new Date() },
         select: { id: true },
-      }),
-    )
-
-    await prisma.$transaction([
-      ...updateGroups,
-      ...updateWallets,
-      ...updateOperations,
-      ...updateUserGroups,
-    ])
-
-    await prisma.transaction.update({
-      where: { id: transaction.id },
-      data: { completedAt: new Date() },
-      select: { id: true },
+      })
     })
   } catch (error) {
     console.error('Error applying updates', error)
