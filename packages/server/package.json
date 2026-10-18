@@ -11,9 +11,9 @@
   "dependencies": {
     "@expense/prisma": "^0.0.0",
     "@expense/schemas": "^0.0.0",
-    "@hono/node-server": "^2.1.4",
+    "@hono/node-server": "^2.1.5",
     "@types/node": "^24.19.2",
-    "better-auth": "^1.7.7",
+    "better-auth": "^1.7.10",
     "date-fns": "^4.4.0",
     "hono": "^4.13.13",
     "tsx": "^4.23.15",
