@@ -14,13 +14,13 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@expense/schemas": "^0.0.0",
     "@heroicons/react": "^2.2.0",
-    "@tanstack/react-router": "^1.170.45",
-    "@tanstack/router-plugin": "^1.168.47",
-    "better-auth": "^1.7.10",
+    "@tanstack/react-router": "^1.170.46",
+    "@tanstack/router-plugin": "^1.168.48",
+    "better-auth": "^1.7.12",
     "date-fns": "^4.4.0",
     "focus-trap-react": "^12.0.3",
     "framer-motion": "^13.5.1",
-    "immer": "^11.1.21",
+    "immer": "^11.2.9",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "tailwind-merge": "^3.7.0",
@@ -37,6 +37,6 @@
     "serwist": "^9.5.7",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.3",
-    "vite": "^8.3.4"
+    "vite": "^8.3.5"
   }
 }
