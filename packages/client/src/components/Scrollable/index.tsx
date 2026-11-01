@@ -1,4 +1,3 @@
-import { Variants, easeInOut, motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Thumb, Track, getThumb, getTrack } from './utils'
@@ -12,18 +11,6 @@ const DEFAULT_TRACK: Track = {
 }
 
 const DEFAULT_THUMB: Thumb = { offset: 0, length: 0 }
-
-const variants: Variants = {
-  opened: {
-    opacity: 1,
-    transition: { duration: 0.075, ease: easeInOut },
-  },
-
-  closed: {
-    opacity: 0,
-    transition: { duration: 0.2, ease: easeInOut },
-  },
-}
 
 export type ScrollableProps = {
   className?: string
@@ -113,11 +100,14 @@ export const Scrollable = ({
         {children}
       </div>
 
-      <motion.div
+      <div
         key="v-track"
-        className="pointer-events-none absolute"
-        animate={isVTrackVisible ? 'opened' : 'closed'}
-        variants={variants}
+        className={twMerge(
+          'pointer-events-none absolute transition-opacity',
+          isVTrackVisible
+            ? 'opacity-100 duration-75'
+            : 'opacity-0 duration-200',
+        )}
         style={{
           top: vTrack.startOffset,
           bottom: vTrack.endOffset,
@@ -130,13 +120,16 @@ export const Scrollable = ({
           className="absolute w-full rounded-full bg-black/35 dark:bg-white/50"
           style={{ top: vThumb.offset, height: vThumb.length }}
         />
-      </motion.div>
+      </div>
 
-      <motion.div
+      <div
         key="h-track"
-        className="pointer-events-none absolute"
-        animate={isHTrackVisible ? 'opened' : 'closed'}
-        variants={variants}
+        className={twMerge(
+          'pointer-events-none absolute transition-opacity',
+          isHTrackVisible
+            ? 'opacity-100 duration-75'
+            : 'opacity-0 duration-200',
+        )}
         style={{
           left: hTrack.startOffset,
           right: hTrack.endOffset,
@@ -149,7 +142,7 @@ export const Scrollable = ({
           className="absolute h-full rounded-full bg-black/35 dark:bg-white/50"
           style={{ left: hThumb.offset, width: hThumb.length }}
         />
-      </motion.div>
+      </div>
     </div>
   )
 }

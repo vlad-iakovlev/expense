@@ -1,33 +1,10 @@
 import { FocusTrap } from 'focus-trap-react'
-import { AnimatePresence, Variants, easeInOut, motion } from 'framer-motion'
 import { useEffect } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { Portal } from '../Portal'
+import { Presence, usePresence } from '../Presence'
 
-const rootVariants: Variants = {
-  opened: {
-    opacity: 1,
-    transition: { duration: 0.3, ease: easeInOut },
-  },
-
-  closed: {
-    opacity: 0,
-    transition: { duration: 0.2, ease: easeInOut },
-  },
-}
-
-const dialogVariants: Variants = {
-  opened: {
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.3, ease: easeInOut },
-  },
-
-  closed: {
-    y: 16,
-    scale: 0.95,
-    transition: { duration: 0.2, ease: easeInOut },
-  },
-}
+const DIALOG_DURATION = { enter: 300, exit: 200 }
 
 export type DialogProps = {
   isOpen: boolean
@@ -53,38 +30,48 @@ export const Dialog = ({ isOpen, children, onClose }: DialogProps) => {
 
   return (
     <Portal>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="fixed inset-0 z-40"
-            initial="closed"
-            animate="opened"
-            exit="closed"
-            role="dialog"
-            variants={rootVariants}
-          >
-            {/* eslint-disable-next-line jsx-a11y-x/click-events-have-key-events, jsx-a11y-x/no-static-element-interactions */}
-            <div
-              className="absolute inset-0 bg-zinc-500/75 dark:bg-zinc-900/75"
-              onClick={onClose}
-            />
-
-            <div className="flex min-h-full items-end justify-center overflow-y-auto pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] sm:items-center">
-              <FocusTrap>
-                <motion.div
-                  className="relative m-4 w-full max-w-lg overflow-hidden rounded-lg bg-secondary-background shadow-xl sm:my-8"
-                  initial="closed"
-                  animate="opened"
-                  exit="closed"
-                  variants={dialogVariants}
-                >
-                  {children}
-                </motion.div>
-              </FocusTrap>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Presence duration={DIALOG_DURATION} present={isOpen}>
+        <DialogContent onClose={onClose}>{children}</DialogContent>
+      </Presence>
     </Portal>
+  )
+}
+
+type DialogContentProps = {
+  children: React.ReactNode
+  onClose: () => void
+}
+
+const DialogContent = ({ children, onClose }: DialogContentProps) => {
+  const presence = usePresence()
+
+  return (
+    <div
+      className="fixed inset-0 z-40 opacity-0 transition-opacity data-[state=open]:opacity-100"
+      style={presence.transitionStyle}
+      data-state={presence.state}
+      role="dialog"
+    >
+      {/* eslint-disable-next-line jsx-a11y-x/click-events-have-key-events, jsx-a11y-x/no-static-element-interactions */}
+      <div
+        className="absolute inset-0 bg-zinc-500/75 dark:bg-zinc-900/75"
+        onClick={onClose}
+      />
+
+      <div className="flex min-h-full items-end justify-center overflow-y-auto pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] sm:items-center">
+        <FocusTrap>
+          <div
+            className={twMerge(
+              'relative m-4 w-full max-w-lg overflow-hidden rounded-lg bg-secondary-background shadow-xl sm:my-8',
+              'translate-y-4 scale-95 opacity-0 transition-[translate,scale,opacity] data-[state=open]:translate-y-0 data-[state=open]:scale-100 data-[state=open]:opacity-100',
+            )}
+            style={presence.transitionStyle}
+            data-state={presence.state}
+          >
+            {children}
+          </div>
+        </FocusTrap>
+      </div>
+    </div>
   )
 }

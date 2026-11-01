@@ -1,24 +1,9 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-import { AnimatePresence, Variants, easeInOut, motion } from 'framer-motion'
 import { useCallback } from 'react'
 import { Button } from '@/components/Button'
 import { Card } from '@/components/Card'
 import { PeriodType } from '@/hooks/usePeriod'
 import { formatPeriod, formatPeriodForAriaLabel } from '@/utils/formatDate'
-
-const variants: Variants = {
-  opened: {
-    height: 'auto',
-    opacity: 1,
-    transition: { duration: 0.15, ease: easeInOut },
-  },
-
-  closed: {
-    height: 0,
-    opacity: 0,
-    transition: { duration: 0.15, ease: easeInOut },
-  },
-}
 
 type PeriodSelectorProps = {
   fromDate: Date
@@ -100,46 +85,36 @@ export const PeriodSelector = ({
         </Button>
       </Card.Block>
 
-      <AnimatePresence>
-        {periodType !== PeriodType.ALL && (
-          <motion.div
-            className="overflow-hidden"
-            initial="closed"
-            animate="opened"
-            exit="closed"
-            variants={variants}
+      {periodType !== PeriodType.ALL && (
+        <Card.Block role="presentation">
+          <div
+            className="order-2 flex-auto truncate text-center font-medium"
+            tabIndex={0}
+            aria-label={formatPeriodForAriaLabel(periodType, fromDate)}
+            role="presentation"
           >
-            <Card.Block role="presentation">
-              <div
-                className="order-2 flex-auto truncate text-center font-medium"
-                tabIndex={0}
-                aria-label={formatPeriodForAriaLabel(periodType, fromDate)}
-                role="presentation"
-              >
-                {formatPeriod(periodType, fromDate)}
-              </div>
+            {formatPeriod(periodType, fromDate)}
+          </div>
 
-              <Button
-                className="order-1 flex-none"
-                size="md"
-                theme="white"
-                iconStart={<ChevronLeftIcon />}
-                aria-label="Previous period"
-                onClick={onGoPrev}
-              />
+          <Button
+            className="order-1 flex-none"
+            size="md"
+            theme="white"
+            iconStart={<ChevronLeftIcon />}
+            aria-label="Previous period"
+            onClick={onGoPrev}
+          />
 
-              <Button
-                className="order-3 flex-none"
-                size="md"
-                theme="white"
-                iconStart={<ChevronRightIcon />}
-                aria-label="Next period"
-                onClick={onGoNext}
-              />
-            </Card.Block>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          <Button
+            className="order-3 flex-none"
+            size="md"
+            theme="white"
+            iconStart={<ChevronRightIcon />}
+            aria-label="Next period"
+            onClick={onGoNext}
+          />
+        </Card.Block>
+      )}
     </div>
   )
 }

@@ -1,21 +1,9 @@
-import { AnimatePresence, Variants, easeInOut, motion } from 'framer-motion'
 import { useRef } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Presence, usePresence } from '../Presence'
 import { useMenuNavigation } from './useMenuNavigation'
 
-const variants: Variants = {
-  opened: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.15, ease: easeInOut },
-  },
-
-  closed: {
-    opacity: 0,
-    scale: 0.95,
-    transition: { duration: 0.1, ease: easeInOut },
-  },
-}
+const POPUP_DURATION = { enter: 150, exit: 150 }
 
 export type PopupPosition =
   'above-left' | 'above-right' | 'below-left' | 'below-right'
@@ -51,29 +39,58 @@ export const Popup = ({
 
   return (
     <div className={twMerge('relative z-10', className)}>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            ref={popupRef}
-            className={twMerge(
-              'pointer-events-auto absolute',
-              position === 'above-left' && 'bottom-0 left-0',
-              position === 'above-right' && 'right-0 bottom-0',
-              position === 'below-left' && 'top-0 left-0',
-              position === 'below-right' && 'top-0 right-0',
-              popupClassName,
-            )}
-            initial="closed"
-            animate="opened"
-            exit="closed"
-            variants={variants}
-            aria-label={popupAriaLabel}
-            role={popupRole}
-          >
-            {children}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Presence duration={POPUP_DURATION} present={isOpen}>
+        <PopupPanel
+          popupRef={popupRef}
+          popupClassName={popupClassName}
+          position={position}
+          popupRole={popupRole}
+          popupAriaLabel={popupAriaLabel}
+        >
+          {children}
+        </PopupPanel>
+      </Presence>
+    </div>
+  )
+}
+
+type PopupPanelProps = {
+  popupRef: React.RefObject<HTMLDivElement | null>
+  popupClassName?: string
+  position: PopupPosition
+  popupRole?: string
+  popupAriaLabel?: string
+  children: React.ReactNode
+}
+
+const PopupPanel = ({
+  popupRef,
+  popupClassName,
+  position,
+  popupRole,
+  popupAriaLabel,
+  children,
+}: PopupPanelProps) => {
+  const presence = usePresence()
+
+  return (
+    <div
+      ref={popupRef}
+      className={twMerge(
+        'pointer-events-auto absolute',
+        position === 'above-left' && 'bottom-0 left-0',
+        position === 'above-right' && 'right-0 bottom-0',
+        position === 'below-left' && 'top-0 left-0',
+        position === 'below-right' && 'top-0 right-0',
+        'scale-95 opacity-0 transition-[scale,opacity] data-[state=open]:scale-100 data-[state=open]:opacity-100',
+        popupClassName,
+      )}
+      style={presence.transitionStyle}
+      data-state={presence.state}
+      aria-label={popupAriaLabel}
+      role={popupRole}
+    >
+      {children}
     </div>
   )
 }
