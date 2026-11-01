@@ -7,7 +7,7 @@ export const request = {
       body: JSON.stringify(body),
     })
 
-    if (response.status >= 400) {
+    if (!response.ok) {
       throw new Error(await response.text())
     }
 

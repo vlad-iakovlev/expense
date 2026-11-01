@@ -1,19 +1,20 @@
-import { Hono } from 'hono'
-import { bearerAuth } from 'hono/bearer-auth'
 import { prisma } from '@expense/prisma'
-import { errorMiddleware } from '@/middlewares/error.js'
 
 const fetchCurrencyRates = async () => {
   if (!process.env.EXCHANGE_RATES_API_KEY) {
     throw new Error('EXCHANGE_RATES_API_KEY is not set')
   }
 
-  const fetchResult = await fetch(
+  const response = await fetch(
     'https://api.apilayer.com/exchangerates_data/latest?base=USD',
     { headers: { apikey: process.env.EXCHANGE_RATES_API_KEY } },
   )
 
-  return (await fetchResult.json()) as {
+  if (!response.ok) {
+    throw new Error(await response.text())
+  }
+
+  return (await response.json()) as {
     base: string
     date: string
     rates: Record<string, number>
@@ -22,14 +23,7 @@ const fetchCurrencyRates = async () => {
   }
 }
 
-const router = new Hono({ strict: false })
-
-router.use(
-  errorMiddleware,
-  bearerAuth({ token: process.env.CRON_SECRET ?? '' }),
-)
-
-router.post('/update-currency-rates', async (c) => {
+export const updateCurrencyRates = async (): Promise<void> => {
   const { rates } = await fetchCurrencyRates()
 
   await prisma.$transaction(
@@ -42,8 +36,4 @@ router.post('/update-currency-rates', async (c) => {
       }),
     ),
   )
-
-  return c.json({ ok: true })
-})
-
-export default router
+}

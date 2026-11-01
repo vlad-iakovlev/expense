@@ -21,7 +21,6 @@ transform_file_var() {
 
 transform_file_var \
   DATABASE_URL \
-  CRON_SECRET \
   BETTER_AUTH_URL \
   BETTER_AUTH_SECRET \
   GOOGLE_CLIENT_ID \
