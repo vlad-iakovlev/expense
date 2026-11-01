@@ -13,7 +13,8 @@ COPY tsconfig.json ./
 RUN npm ci --omit=dev
 
 COPY docker/server-entrypoint.sh /usr/local/bin/server-entrypoint.sh
-RUN chmod +x /usr/local/bin/server-entrypoint.sh
+COPY docker/migrate-entrypoint.sh /usr/local/bin/migrate-entrypoint.sh
+RUN chmod +x /usr/local/bin/server-entrypoint.sh /usr/local/bin/migrate-entrypoint.sh
 
 EXPOSE 3000
 

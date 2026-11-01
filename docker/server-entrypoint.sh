@@ -28,8 +28,5 @@ transform_file_var \
   GOOGLE_CLIENT_SECRET \
   EXCHANGE_RATES_API_KEY
 
-echo "Applying database migrations..."
-npm run prisma -- migrate deploy
-
 echo "Starting backend..."
 exec npm run start:server
