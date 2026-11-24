@@ -8,7 +8,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Columns } from '@/components/Columns'
 import { Title } from '@/components/Title'
 import { CategoryFilterProvider } from '@/contexts/CategoryFilter'
-import { useOptionalGroup } from '@/contexts/RootStore/hooks/useGroup'
+import { useGroup, useOptionalGroup } from '@/contexts/RootStore/hooks/useGroup'
 import { Page } from '@/layout/Page'
 import { Route as DashboardRoute } from '@/routes/index'
 
@@ -29,6 +29,8 @@ const RouteComponent = () => {
   const { group } = useOptionalGroup({ groupId })
   const navigate = useNavigate()
 
+  const { setGroupName } = useGroup({ groupId })
+
   useEffect(() => {
     if (!group) void navigate({ to: DashboardRoute.to })
   }, [group, navigate])
@@ -45,7 +47,7 @@ const RouteComponent = () => {
           },
         ]}
       />
-      <Title title={group.name} />
+      <Title title={group.name} onChange={setGroupName} />
 
       <Columns className="md:grid-flow-col md:grid-rows-[auto_1fr] xl:grid-rows-none">
         <GroupInfoCard groupId={groupId} />

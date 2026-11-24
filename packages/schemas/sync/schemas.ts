@@ -52,7 +52,7 @@ export const performSyncBodySchema = z.object({
 })
 
 export const performSyncResponseSchema = z.object({
-  lastTransactionId: z.string(),
+  lastTransactionId: z.string().nullable(),
 
   updates: z.object({
     currencies: z.array(
